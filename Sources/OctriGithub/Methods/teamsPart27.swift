@@ -6,10 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
+public extension TeamsMethods {
     /// List teams for the authenticated user
     ///
-    /// List all of the teams across all of the organizations to which the authenticated user belongs. OAuth app tokens and personal access tokens (classic) need the `user`, `repo`, or `read:org` scope to use this endpoint. When using a fine-grained personal access token, the resource owner of the token must be a single organization, and the response will only include the teams from that organization.
+    /// List all of the teams across all of the organizations to which the authenticated user belongs. OAuth app tokens
+    /// and personal access tokens (classic) need the `user`, `repo`, or `read:org` scope to use this endpoint. When
+    /// using a fine-grained personal access token, the resource owner of the token must be a single organization, and
+    /// the response will only include the teams from that organization.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -20,8 +23,12 @@ extension TeamsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func teamsListForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [TeamFull] {
-        return try (await sdkRequest("GET", "/user/teams", config: config, query: [
+    static func teamsListForAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [TeamFull] {
+        try await (sdkRequest("GET", "/user/teams", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "teamsListForAuthenticatedUser")).data

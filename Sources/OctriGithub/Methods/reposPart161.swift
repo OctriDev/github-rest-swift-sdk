@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// List repositories for a user
     ///
     /// Lists public repositories for the specified user.
@@ -25,13 +25,28 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListForUser(config: ClientConfig, username: String, type: ReposListForUserParameter?, sort: ReposListForUserParameterX089fad86?, direction: ReposListForUserParameterX6f083e9f?, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/repos"].joined(), config: config, query: [
-            SdkQueryParameter("type", value: type),
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListForUser")).data
+    static func reposListForUser(
+        config: ClientConfig,
+        username: String,
+        type: ReposListForUserParameter?,
+        sort: ReposListForUserParameterX089fad86?,
+        direction: ReposListForUserParameterX6f083e9f?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [MinimalRepository] {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/repos"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("type", value: type),
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListForUser"
+        )).data
     }
 }

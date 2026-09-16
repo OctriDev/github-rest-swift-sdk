@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Updates the delivery configuration for an organization webhook. Supply only the configuration fields you want to change, including `url`, `content_type`, `secret`, or `insecure_ssl`. You must be an organization owner and use a token with the required webhook-management scope.
+public extension OrgsMethods {
+    /// Updates the delivery configuration for an organization webhook. Supply only the configuration fields you want to
+    /// change, including `url`, `content_type`, `secret`, or `insecure_ssl`. You must be an organization owner and use
+    /// a token with the required webhook-management scope.
     ///
-    /// Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "Update an organization webhook ." You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    /// Updates the webhook configuration for an organization. To update more information about the webhook, including
+    /// the `active` state and `events`, use "Update an organization webhook ." You must be an organization owner to use
+    /// this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps
+    /// cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that
+    /// were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,13 +27,39 @@ extension OrgsMethods {
     /// - secret: If provided, the `secret` will be used as the `key` to generate
     ///   the HMAC hex digest value for [delivery signature
     ///   headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    public static func orgsUpdateWebhookConfigForOrg(config: ClientConfig, org: String, hookId: Int, url: WebhookConfigUrl?, contentType: WebhookConfigContentType?, secret: WebhookConfigSecret?, insecureSsl: WebhookConfigInsecureSsl?) async throws -> WebhookConfig {
-        if let url = url {
+    static func orgsUpdateWebhookConfigForOrg(
+        config: ClientConfig,
+        org: String,
+        hookId: Int,
+        url: WebhookConfigUrl?,
+        contentType: WebhookConfigContentType?,
+        secret: WebhookConfigSecret?,
+        insecureSsl: WebhookConfigInsecureSsl?
+    ) async throws -> WebhookConfig {
+        if let url {
             try sdkValidateUri("url", url)
         }
 
-        let requestBody = OrgsUpdateWebhookConfigForOrgRequestBody(url: url, contentType: contentType, secret: secret, insecureSsl: insecureSsl)
+        let requestBody = OrgsUpdateWebhookConfigForOrgRequestBody(
+            url: url,
+            contentType: contentType,
+            secret: secret,
+            insecureSsl: insecureSsl
+        )
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/config"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdateWebhookConfigForOrg")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(hookId)),
+                "/config",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsUpdateWebhookConfigForOrg"
+        )).data
     }
 }

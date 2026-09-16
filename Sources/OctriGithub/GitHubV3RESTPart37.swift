@@ -9,197 +9,757 @@ public class PullsNamespace {
         self.config = config
     }
 
-/// Lists pull requests in a specified repository. Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Lists pull requests in a specified repository. Draft pull requests are available in public repositories with
+    /// GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in
+    /// public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see
+    /// [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub
+    /// Help documentation. This endpoint supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
     public func list(options: PullsMethods.PullsListOptions) async throws -> [PullRequestSimple] {
-        return try await PullsMethods.pullsList(config: config, options: options)
+        try await PullsMethods.pullsList(config: config, options: options)
     }
 
-/// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations,
+    /// GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and
+    /// GitHub Enterprise Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. To open or update a pull request in a public repository, you must have write access to the head
+    /// or the source branch. For organization-owned repositories, you must be a member of the organization that owns
+    /// the repository to open or update a pull request. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
+    /// following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
     public func create(options: PullsMethods.PullsCreateOptions) async throws -> PullRequest {
-        return try await PullsMethods.pullsCreate(config: config, options: options)
+        try await PullsMethods.pullsCreate(config: config, options: options)
     }
 
-/// Lists review comments from all pull requests in a repository. Use `sort`, `direction`, and `since` to control ordering and filter comments updated after a specified time. Use `page` and `per_page` to paginate the results; the response format can include raw, text, or HTML comment representations based on the requested media type.
+    /// Lists review comments from all pull requests in a repository. Use `sort`, `direction`, and `since` to control
+    /// ordering and filter comments updated after a specified time. Use `page` and `per_page` to paginate the results;
+    /// the response format can include raw, text, or HTML comment representations based on the requested media type.
     ///
-    /// Lists review comments for all pull requests in a repository. By default, review comments are in ascending order by ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listReviewCommentsForRepo(owner: String, repo: String, sort: PullsListReviewCommentsForRepoParameter?, direction: PullsListReviewCommentsForRepoParameterXb8109f3c?, since: Date?, perPage: Int?, page: Int?) async throws -> [PullRequestReviewComment] {
-        return try await PullsMethods.pullsListReviewCommentsForRepo(config: config, owner: owner, repo: repo, sort: sort, direction: direction, since: since, perPage: perPage, page: page)
+    /// Lists review comments for all pull requests in a repository. By default, review comments are in ascending order
+    /// by ID. This endpoint supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    public func listReviewCommentsForRepo(
+        owner: String,
+        repo: String,
+        sort: PullsListReviewCommentsForRepoParameter?,
+        direction: PullsListReviewCommentsForRepoParameterXb8109f3c?,
+        since: Date?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [PullRequestReviewComment] {
+        try await PullsMethods.pullsListReviewCommentsForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            sort: sort,
+            direction: direction,
+            since: since,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Provides details for a specified review comment. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Provides details for a specified review comment. This endpoint supports the following custom media types. For
+    /// more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     public func getReviewComment(owner: String, repo: String, commentId: Int) async throws -> PullRequestReviewComment {
-        return try await PullsMethods.pullsGetReviewComment(config: config, owner: owner, repo: repo, commentId: commentId)
+        try await PullsMethods.pullsGetReviewComment(config: config, owner: owner, repo: repo, commentId: commentId)
     }
 
-/// Edits the content of a specified review comment. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func updateReviewComment(owner: String, repo: String, commentId: Int, body: String) async throws -> PullRequestReviewComment {
-        return try await PullsMethods.pullsUpdateReviewComment(config: config, owner: owner, repo: repo, commentId: commentId, body: body)
+    /// Edits the content of a specified review comment. This endpoint supports the following custom media types. For
+    /// more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    public func updateReviewComment(
+        owner: String,
+        repo: String,
+        commentId: Int,
+        body: String
+    ) async throws -> PullRequestReviewComment {
+        try await PullsMethods.pullsUpdateReviewComment(
+            config: config,
+            owner: owner,
+            repo: repo,
+            commentId: commentId,
+            body: body
+        )
     }
 
-/// Deletes a review comment from a pull request in a repository. Provide the repository identifiers and the unique `comment_id` of the comment to remove. A successful deletion returns no response body.
+    /// Deletes a review comment from a pull request in a repository. Provide the repository identifiers and the unique
+    /// `comment_id` of the comment to remove. A successful deletion returns no response body.
     ///
     /// Deletes a review comment.
     public func deleteReviewComment(owner: String, repo: String, commentId: Int) async throws -> SdkEmptyResponse {
-        return try await PullsMethods.pullsDeleteReviewComment(config: config, owner: owner, repo: repo, commentId: commentId)
+        try await PullsMethods.pullsDeleteReviewComment(config: config, owner: owner, repo: repo, commentId: commentId)
     }
 
-/// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Lists details of a pull request by providing its number. When you get, [create](https://docs.github.com/rest/pulls/pulls/#create-a-pull-request), or [edit](https://docs.github.com/rest/pulls/pulls#update-a-pull-request) a pull request, GitHub creates a merge commit to test whether the pull request can be automatically merged into the base branch. This test commit is not added to the base branch or the head branch. You can review the status of the test commit using the `mergeable` key. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)". The value of the `mergeable` attribute can be `true`, `false`, or `null`. If the value is `null`, then GitHub has started a background job to compute the mergeability. After giving the job time to complete, resubmit the request. When the job finishes, you will see a non-`null` value for the `mergeable` attribute in the response. If `mergeable` is `true`, then `merge_commit_sha` will be the SHA of the _test_ merge commit. The value of the `merge_commit_sha` attribute changes depending on the state of the pull request. Before merging a pull request, the `merge_commit_sha` attribute holds the SHA of the _test_ merge commit. After merging a pull request, the `merge_commit_sha` attribute changes depending on how you merged the pull request: * If merged as a [merge commit](https://docs.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit. * If merged…
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations,
+    /// GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and
+    /// GitHub Enterprise Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. Lists details of a pull request by providing its number. When you get,
+    /// [create](https://docs.github.com/rest/pulls/pulls/#create-a-pull-request), or
+    /// [edit](https://docs.github.com/rest/pulls/pulls#update-a-pull-request) a pull request, GitHub creates a merge
+    /// commit to test whether the pull request can be automatically merged into the base branch. This test commit is
+    /// not added to the base branch or the head branch. You can review the status of the test commit using the
+    /// `mergeable` key. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+    /// The value of the `mergeable` attribute can be `true`, `false`, or `null`. If the value is `null`, then GitHub
+    /// has started a background job to compute the mergeability. After giving the job time to complete, resubmit the
+    /// request. When the job finishes, you will see a non-`null` value for the `mergeable` attribute in the response.
+    /// If `mergeable` is `true`, then `merge_commit_sha` will be the SHA of the _test_ merge commit. The value of the
+    /// `merge_commit_sha` attribute changes depending on the state of the pull request. Before merging a pull request,
+    /// the `merge_commit_sha` attribute holds the SHA of the _test_ merge commit. After merging a pull request, the
+    /// `merge_commit_sha` attribute changes depending on how you merged the pull request: * If merged as a [merge
+    /// commit](https://docs.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA
+    /// of the merge commit. * If merged…
     public func get(owner: String, repo: String, pullNumber: Int) async throws -> PullRequest {
-        return try await PullsMethods.pullsGet(config: config, owner: owner, repo: repo, pullNumber: pullNumber)
+        try await PullsMethods.pullsGet(config: config, owner: owner, repo: repo, pullNumber: pullNumber)
     }
 
-/// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations,
+    /// GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and
+    /// GitHub Enterprise Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. To open or update a pull request in a public repository, you must have write access to the head
+    /// or the source branch. For organization-owned repositories, you must be a member of the organization that owns
+    /// the repository to open or update a pull request. This endpoint supports the following custom media types. For
+    /// more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
     public func update(options: PullsMethods.PullsUpdateOptions) async throws -> PullRequest {
-        return try await PullsMethods.pullsUpdate(config: config, options: options)
+        try await PullsMethods.pullsUpdate(config: config, options: options)
     }
 }
 
 public extension PullsNamespace {
-/// Lists all review comments for a specified pull request. By default, review comments are in ascending order by ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listReviewComments(options: PullsMethods.PullsListReviewCommentsOptions) async throws -> [PullRequestReviewComment] {
-        return try await PullsMethods.pullsListReviewComments(config: config, options: options)
+    /// Lists all review comments for a specified pull request. By default, review comments are in ascending order by
+    /// ID. This endpoint supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func listReviewComments(options: PullsMethods
+        .PullsListReviewCommentsOptions) async throws -> [PullRequestReviewComment] {
+        try await PullsMethods.pullsListReviewComments(config: config, options: options)
     }
 
-/// Creates a review comment on the diff of a specified pull request. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment)." If your comment applies to more than one line in the pull request diff, you should use the parameters `line`, `side`, and optionally `start_line` and `start_side` in your request. The `position` parameter is closing down. If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func createReviewComment(options: PullsMethods.PullsCreateReviewCommentOptions) async throws -> PullRequestReviewComment {
-        return try await PullsMethods.pullsCreateReviewComment(config: config, options: options)
+    /// Creates a review comment on the diff of a specified pull request. To add a regular comment to a pull request
+    /// timeline, see "[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment)."
+    /// If your comment applies to more than one line in the pull request diff, you should use the parameters `line`,
+    /// `side`, and optionally `start_line` and `start_side` in your request. The `position` parameter is closing down.
+    /// If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required. This
+    /// endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
+    /// following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func createReviewComment(options: PullsMethods
+        .PullsCreateReviewCommentOptions) async throws -> PullRequestReviewComment {
+        try await PullsMethods.pullsCreateReviewComment(config: config, options: options)
     }
 
-/// Creates a reply to a review comment for a pull request. For the `comment_id`, provide the ID of the review comment you are replying to. This must be the ID of a _top-level review comment_, not a reply to that comment. Replies to replies are not supported. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func createReplyForReviewComment(owner: String, repo: String, pullNumber: Int, commentId: Int, body: String) async throws -> PullRequestReviewComment {
-        return try await PullsMethods.pullsCreateReplyForReviewComment(config: config, owner: owner, repo: repo, pullNumber: pullNumber, commentId: commentId, body: body)
+    /// Creates a reply to a review comment for a pull request. For the `comment_id`, provide the ID of the review
+    /// comment you are replying to. This must be the ID of a _top-level review comment_, not a reply to that comment.
+    /// Replies to replies are not supported. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
+    /// following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func createReplyForReviewComment(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        commentId: Int,
+        body: String
+    ) async throws -> PullRequestReviewComment {
+        try await PullsMethods.pullsCreateReplyForReviewComment(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            commentId: commentId,
+            body: body
+        )
     }
 
-/// Lists a maximum of 250 commits for a pull request. To receive a complete commit list for pull requests with more than 250 commits, use the [List commits](https://docs.github.com/rest/commits/commits#list-commits) endpoint. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listCommits(owner: String, repo: String, pullNumber: Int, perPage: Int?, page: Int?) async throws -> [Commit] {
-        return try await PullsMethods.pullsListCommits(config: config, owner: owner, repo: repo, pullNumber: pullNumber, perPage: perPage, page: page)
+    /// Lists a maximum of 250 commits for a pull request. To receive a complete commit list for pull requests with more
+    /// than 250 commits, use the [List commits](https://docs.github.com/rest/commits/commits#list-commits) endpoint.
+    /// This endpoint supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
+    func listCommits(owner: String, repo: String, pullNumber: Int, perPage: Int?, page: Int?) async throws -> [Commit] {
+        try await PullsMethods.pullsListCommits(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Lists the files in a specified pull request. > [!NOTE] > Responses include a maximum of 3000 files. The paginated response returns 30 files per page by default. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listFiles(owner: String, repo: String, pullNumber: Int, perPage: Int?, page: Int?) async throws -> [DiffEntry] {
-        return try await PullsMethods.pullsListFiles(config: config, owner: owner, repo: repo, pullNumber: pullNumber, perPage: perPage, page: page)
+    /// Lists the files in a specified pull request. > [!NOTE] > Responses include a maximum of 3000 files. The
+    /// paginated response returns 30 files per page by default. This endpoint supports the following custom media
+    /// types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
+    func listFiles(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [DiffEntry] {
+        try await PullsMethods.pullsListFiles(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty.
-    public func checkIfMerged(owner: String, repo: String, pullNumber: Int) async throws -> SdkEmptyResponse {
-        return try await PullsMethods.pullsCheckIfMerged(config: config, owner: owner, repo: repo, pullNumber: pullNumber)
+    /// Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether
+    /// or not the pull request has been merged; the response body is empty.
+    func checkIfMerged(owner: String, repo: String, pullNumber: Int) async throws -> SdkEmptyResponse {
+        try await PullsMethods.pullsCheckIfMerged(config: config, owner: owner, repo: repo, pullNumber: pullNumber)
     }
 
-/// Merges a pull request into the base branch. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    public func merge(owner: String, repo: String, pullNumber: Int, commitTitle: String?, commitMessage: String?, sha: String?, mergeMethod: PullsMergeRequestBodyMergeMethod?) async throws -> PullRequestMergeResult {
-        return try await PullsMethods.pullsMerge(config: config, owner: owner, repo: repo, pullNumber: pullNumber, commitTitle: commitTitle, commitMessage: commitMessage, sha: sha, mergeMethod: mergeMethod)
+    /// Merges a pull request into the base branch. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    func merge(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        commitTitle: String?,
+        commitMessage: String?,
+        sha: String?,
+        mergeMethod: PullsMergeRequestBodyMergeMethod?
+    ) async throws -> PullRequestMergeResult {
+        try await PullsMethods.pullsMerge(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            commitTitle: commitTitle,
+            commitMessage: commitMessage,
+            sha: sha,
+            mergeMethod: mergeMethod
+        )
     }
 
-/// Merges a pull request into the base branch in the background. Merging in this way allows certain types of errors to be retried, and avoids the risk of timeouts for particularly complex merges. This is the required method for merging stacked PRs, but also supports unstacked PRs. When using this endpoint to merge a stacked pull request, all pull requests in the stack up to and including the requested PR will be merged into the base branch. The response includes a UUID that can be used to fetch the result of the merge. If another asynchronous merge request has already been made for this pull request, the UUID of that request will be returned instead with a 409 response status to indicate that the merge options may be different from those that were requested. If there isn't an existing asynchronous merge request, a 202 response status is used. If the pull request is already merged, the merge commit OID will be returned immediately with a 200 status. If the pull request cannot be merged (e.g. because it is closed, or still a draft) this result will be returned immediately with a 400 response status. Branch protection rules and repository rules are not run at this stage, only basic pull request state checks are performed.
-    public func mergeAsync(options: PullsMethods.PullsMergeAsyncOptions) async throws -> PullRequestMergeAsyncResult {
-        return try await PullsMethods.pullsMergeAsync(config: config, options: options)
+    /// Merges a pull request into the base branch in the background. Merging in this way allows certain types of errors
+    /// to be retried, and avoids the risk of timeouts for particularly complex merges. This is the required method for
+    /// merging stacked PRs, but also supports unstacked PRs. When using this endpoint to merge a stacked pull request,
+    /// all pull requests in the stack up to and including the requested PR will be merged into the base branch. The
+    /// response includes a UUID that can be used to fetch the result of the merge. If another asynchronous merge
+    /// request has already been made for this pull request, the UUID of that request will be returned instead with a
+    /// 409 response status to indicate that the merge options may be different from those that were requested. If there
+    /// isn't an existing asynchronous merge request, a 202 response status is used. If the pull request is already
+    /// merged, the merge commit OID will be returned immediately with a 200 status. If the pull request cannot be
+    /// merged (e.g. because it is closed, or still a draft) this result will be returned immediately with a 400
+    /// response status. Branch protection rules and repository rules are not run at this stage, only basic pull request
+    /// state checks are performed.
+    func mergeAsync(options: PullsMethods.PullsMergeAsyncOptions) async throws -> PullRequestMergeAsyncResult {
+        try await PullsMethods.pullsMergeAsync(config: config, options: options)
     }
 }
 
 public extension PullsNamespace {
-/// Fetches the current result of an asynchronous merge request, identified by the UUID that was returned when the merge was requested. While the merge is still queued, the response includes the UUID, merge method, and expected head SHA of the request. Once the merge has completed, the response reports whether it was merged, including the merge commit OID on success or a message describing why it could not be merged on failure. The result of an asynchronous merge request is retained for 24 hours after its most recent update. After this window the request expires and this endpoint returns a `404` response for its UUID.
-    public func getMergeAsyncResult(owner: String, repo: String, pullNumber: Int, uuid: String) async throws -> PullRequestMergeAsyncResult {
-        return try await PullsMethods.pullsGetMergeAsyncResult(config: config, owner: owner, repo: repo, pullNumber: pullNumber, uuid: uuid)
+    /// Fetches the current result of an asynchronous merge request, identified by the UUID that was returned when the
+    /// merge was requested. While the merge is still queued, the response includes the UUID, merge method, and expected
+    /// head SHA of the request. Once the merge has completed, the response reports whether it was merged, including the
+    /// merge commit OID on success or a message describing why it could not be merged on failure. The result of an
+    /// asynchronous merge request is retained for 24 hours after its most recent update. After this window the request
+    /// expires and this endpoint returns a `404` response for its UUID.
+    func getMergeAsyncResult(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        uuid: String
+    ) async throws -> PullRequestMergeAsyncResult {
+        try await PullsMethods.pullsGetMergeAsyncResult(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            uuid: uuid
+        )
     }
 
-/// Gets the users or teams whose review is requested for a pull request. Once a requested reviewer submits a review, they are no longer considered a requested reviewer. Their review will instead be returned by the [List reviews for a pull request](https://docs.github.com/rest/pulls/reviews#list-reviews-for-a-pull-request) operation.
-    public func listRequestedReviewers(owner: String, repo: String, pullNumber: Int) async throws -> PullRequestReviewRequest {
-        return try await PullsMethods.pullsListRequestedReviewers(config: config, owner: owner, repo: repo, pullNumber: pullNumber)
+    /// Gets the users or teams whose review is requested for a pull request. Once a requested reviewer submits a
+    /// review, they are no longer considered a requested reviewer. Their review will instead be returned by the [List
+    /// reviews for a pull request](https://docs.github.com/rest/pulls/reviews#list-reviews-for-a-pull-request)
+    /// operation.
+    func listRequestedReviewers(owner: String, repo: String, pullNumber: Int) async throws -> PullRequestReviewRequest {
+        try await PullsMethods.pullsListRequestedReviewers(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber
+        )
     }
 
-/// Requests reviews for a pull request from a given set of users and/or teams. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    public func requestReviewers(owner: String, repo: String, pullNumber: Int, reviewers: [String]?, teamReviewers: [String]?) async throws -> PullRequestSimple {
-        return try await PullsMethods.pullsRequestReviewers(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewers: reviewers, teamReviewers: teamReviewers)
+    /// Requests reviews for a pull request from a given set of users and/or teams. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    func requestReviewers(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewers: [String]?,
+        teamReviewers: [String]?
+    ) async throws -> PullRequestSimple {
+        try await PullsMethods.pullsRequestReviewers(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewers: reviewers,
+            teamReviewers: teamReviewers
+        )
     }
 
-/// Removes review requests from a pull request for a given set of users and/or teams.
-    public func removeRequestedReviewers(owner: String, repo: String, pullNumber: Int, reviewers: [String], teamReviewers: [String]?) async throws -> PullRequestSimple {
-        return try await PullsMethods.pullsRemoveRequestedReviewers(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewers: reviewers, teamReviewers: teamReviewers)
+    /// Removes review requests from a pull request for a given set of users and/or teams.
+    func removeRequestedReviewers(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewers: [String],
+        teamReviewers: [String]?
+    ) async throws -> PullRequestSimple {
+        try await PullsMethods.pullsRemoveRequestedReviewers(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewers: reviewers,
+            teamReviewers: teamReviewers
+        )
     }
 
-/// Lists all reviews for a specified pull request. The list of reviews returns in chronological order. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listReviews(owner: String, repo: String, pullNumber: Int, perPage: Int?, page: Int?) async throws -> [PullRequestReview] {
-        return try await PullsMethods.pullsListReviews(config: config, owner: owner, repo: repo, pullNumber: pullNumber, perPage: perPage, page: page)
+    /// Lists all reviews for a specified pull request. The list of reviews returns in chronological order. This
+    /// endpoint supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func listReviews(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [PullRequestReview] {
+        try await PullsMethods.pullsListReviews(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Creates a review on a specified pull request. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." Pull request reviews created in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review for a pull request, leave the `event` parameter blank. For more information about submitting a `PENDING` review, see "[Submit a review for a pull request](https://docs.github.com/rest/pulls/reviews#submit-a-review-for-a-pull-request)." > [!NOTE] > To comment on a specific line in a file, you need to first determine the position of that line in the diff. To see a pull request diff, add the `application/vnd.github.v3.diff` media type to the `Accept` header of a call to the [Get a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint. The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any…
-    public func createReview(owner: String, repo: String, pullNumber: Int, commitId: String?, body: String?, event: PullsCreateReviewRequestBodyEvent?, comments: [PullsCreateReviewRequestBodyCommentsItem]?) async throws -> PullRequestReview {
-        return try await PullsMethods.pullsCreateReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, commitId: commitId, body: body, event: event, comments: comments)
+    /// Creates a review on a specified pull request. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." Pull request reviews created
+    /// in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the
+    /// response. To create a pending review for a pull request, leave the `event` parameter blank. For more information
+    /// about submitting a `PENDING` review, see "[Submit a review for a pull
+    /// request](https://docs.github.com/rest/pulls/reviews#submit-a-review-for-a-pull-request)." > [!NOTE] > To comment
+    /// on a specific line in a file, you need to first determine the position of that line in the diff. To see a pull
+    /// request diff, add the `application/vnd.github.v3.diff` media type to the `Accept` header of a call to the [Get a
+    /// pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint. The `position` value equals
+    /// the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just
+    /// below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to
+    /// increase through lines of whitespace and additional hunks until the beginning of a new file. This endpoint
+    /// supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any…
+    func createReview(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        commitId: String?,
+        body: String?,
+        event: PullsCreateReviewRequestBodyEvent?,
+        comments: [PullsCreateReviewRequestBodyCommentsItem]?
+    ) async throws -> PullRequestReview {
+        try await PullsMethods.pullsCreateReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            commitId: commitId,
+            body: body,
+            event: event,
+            comments: comments
+        )
     }
 
-/// Retrieves a pull request review by its ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func getReview(owner: String, repo: String, pullNumber: Int, reviewId: Int) async throws -> PullRequestReview {
-        return try await PullsMethods.pullsGetReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewId: reviewId)
+    /// Retrieves a pull request review by its ID. This endpoint supports the following custom media types. For more
+    /// information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func getReview(owner: String, repo: String, pullNumber: Int, reviewId: Int) async throws -> PullRequestReview {
+        try await PullsMethods.pullsGetReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewId: reviewId
+        )
     }
 
-/// Updates the contents of a specified review summary comment. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func updateReview(owner: String, repo: String, pullNumber: Int, reviewId: Int, body: String) async throws -> PullRequestReview {
-        return try await PullsMethods.pullsUpdateReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewId: reviewId, body: body)
+    /// Updates the contents of a specified review summary comment. This endpoint supports the following custom media
+    /// types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func updateReview(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        body: String
+    ) async throws -> PullRequestReview {
+        try await PullsMethods.pullsUpdateReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewId: reviewId,
+            body: body
+        )
     }
 }
 
 public extension PullsNamespace {
-/// Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func deletePendingReview(owner: String, repo: String, pullNumber: Int, reviewId: Int) async throws -> PullRequestReview {
-        return try await PullsMethods.pullsDeletePendingReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewId: reviewId)
+    /// Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted. This endpoint
+    /// supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func deletePendingReview(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int
+    ) async throws -> PullRequestReview {
+        try await PullsMethods.pullsDeletePendingReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewId: reviewId
+        )
     }
 
-/// Lists comments for a specific pull request review. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listCommentsForReview(owner: String, repo: String, pullNumber: Int, reviewId: Int, perPage: Int?, page: Int?) async throws -> [ReviewComment] {
-        return try await PullsMethods.pullsListCommentsForReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewId: reviewId, perPage: perPage, page: page)
+    /// Lists comments for a specific pull request review. This endpoint supports the following custom media types. For
+    /// more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func listCommentsForReview(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [ReviewComment] {
+        try await PullsMethods.pullsListCommentsForReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewId: reviewId,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Dismisses a specified review on a pull request. Provide `owner`, `repo`, `pull_number`, `review_id`, and a dismissal `message`; if you send `event`, its value must be `DISMISS`. To dismiss a review on a protected branch, you must be a repository administrator or be included among the people or teams permitted to dismiss reviews.
+    /// Dismisses a specified review on a pull request. Provide `owner`, `repo`, `pull_number`, `review_id`, and a
+    /// dismissal `message`; if you send `event`, its value must be `DISMISS`. To dismiss a review on a protected
+    /// branch, you must be a repository administrator or be included among the people or teams permitted to dismiss
+    /// reviews.
     ///
-    /// Dismisses a specified review on a pull request. > [!NOTE] > To dismiss a pull request review on a [protected branch](https://docs.github.com/rest/branches/branch-protection), you must be a repository administrator or be included in the list of people or teams who can dismiss pull request reviews. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func dismissReview(owner: String, repo: String, pullNumber: Int, reviewId: Int, message: String, event: PullsDismissReviewRequestBodyEvent?) async throws -> PullRequestReview {
-        return try await PullsMethods.pullsDismissReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewId: reviewId, message: message, event: event)
+    /// Dismisses a specified review on a pull request. > [!NOTE] > To dismiss a pull request review on a [protected
+    /// branch](https://docs.github.com/rest/branches/branch-protection), you must be a repository administrator or be
+    /// included in the list of people or teams who can dismiss pull request reviews. This endpoint supports the
+    /// following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func dismissReview(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        message: String,
+        event: PullsDismissReviewRequestBodyEvent?
+    ) async throws -> PullRequestReview {
+        try await PullsMethods.pullsDismissReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewId: reviewId,
+            message: message,
+            event: event
+        )
     }
 
-/// Submits a pending review for a pull request. For more information about creating a pending review for a pull request, see "[Create a review for a pull request](https://docs.github.com/rest/pulls/reviews#create-a-review-for-a-pull-request)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func submitReview(owner: String, repo: String, pullNumber: Int, reviewId: Int, event: PullsSubmitReviewRequestBodyEvent, body: String?) async throws -> PullRequestReview {
-        return try await PullsMethods.pullsSubmitReview(config: config, owner: owner, repo: repo, pullNumber: pullNumber, reviewId: reviewId, event: event, body: body)
+    /// Submits a pending review for a pull request. For more information about creating a pending review for a pull
+    /// request, see "[Create a review for a pull
+    /// request](https://docs.github.com/rest/pulls/reviews#create-a-review-for-a-pull-request)." This endpoint supports
+    /// the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
+    func submitReview(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        event: PullsSubmitReviewRequestBodyEvent,
+        body: String?
+    ) async throws -> PullRequestReview {
+        try await PullsMethods.pullsSubmitReview(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            reviewId: reviewId,
+            event: event,
+            body: body
+        )
     }
 
-/// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the pull request branch. Note: If making a request on behalf of a GitHub App you must also have permissions to write the contents of the head repository.
-    public func updateBranch(owner: String, repo: String, pullNumber: Int, expectedHeadSha: String?) async throws -> PullsUpdateBranchResponse {
-        return try await PullsMethods.pullsUpdateBranch(config: config, owner: owner, repo: repo, pullNumber: pullNumber, expectedHeadSha: expectedHeadSha)
+    /// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the
+    /// pull request branch. Note: If making a request on behalf of a GitHub App you must also have permissions to write
+    /// the contents of the head repository.
+    func updateBranch(
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        expectedHeadSha: String?
+    ) async throws -> PullsUpdateBranchResponse {
+        try await PullsMethods.pullsUpdateBranch(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullNumber: pullNumber,
+            expectedHeadSha: expectedHeadSha
+        )
     }
 
-/// List pull request stacks
+    /// List pull request stacks
     ///
     /// Lists pull request stacks in a repository.
-    public func requestStacksList(owner: String, repo: String, pullRequest: Int?, perPage: Int?, page: Int?) async throws -> [PullRequestStackMinimal] {
-        return try await PullsMethods.pullRequestStacksList(config: config, owner: owner, repo: repo, pullRequest: pullRequest, perPage: perPage, page: page)
+    func requestStacksList(
+        owner: String,
+        repo: String,
+        pullRequest: Int?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [PullRequestStackMinimal] {
+        try await PullsMethods.pullRequestStacksList(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullRequest: pullRequest,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Create a pull request stack
+    /// Create a pull request stack
     ///
-    /// Creates a stack from an ordered list of pull request numbers. Provide the pull request numbers from the bottom of the stack to the top. Each pull request's base ref must match the previous pull request's head ref.
-    public func requestStacksCreate(owner: String, repo: String, pullRequests: [Int]) async throws -> PullRequestStacksCreateResponse {
-        return try await PullsMethods.pullRequestStacksCreate(config: config, owner: owner, repo: repo, pullRequests: pullRequests)
+    /// Creates a stack from an ordered list of pull request numbers. Provide the pull request numbers from the bottom
+    /// of the stack to the top. Each pull request's base ref must match the previous pull request's head ref.
+    func requestStacksCreate(
+        owner: String,
+        repo: String,
+        pullRequests: [Int]
+    ) async throws -> PullRequestStacksCreateResponse {
+        try await PullsMethods.pullRequestStacksCreate(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pullRequests: pullRequests
+        )
     }
 
-/// Get a pull request stack
+    /// Get a pull request stack
     ///
     /// Gets a pull request stack by providing its stack number.
-    public func requestStacksGet(owner: String, repo: String, stackNumber: Int) async throws -> PullRequestStacksGetResponse {
-        return try await PullsMethods.pullRequestStacksGet(config: config, owner: owner, repo: repo, stackNumber: stackNumber)
+    func requestStacksGet(owner: String, repo: String, stackNumber: Int) async throws -> PullRequestStacksGetResponse {
+        try await PullsMethods.pullRequestStacksGet(config: config, owner: owner, repo: repo, stackNumber: stackNumber)
     }
 }
 
 public extension PullsNamespace {
-/// Add pull requests to a pull request stack
+    /// Add pull requests to a pull request stack
     ///
-    /// Appends an ordered list of pull request numbers onto the top of an existing stack. Provide only the pull requests you want to add, from the current top of the stack upward. The first new pull request's base ref must match the current top pull request's head ref.
-    public func requestStacksAdd(owner: String, repo: String, stackNumber: Int, pullRequests: [Int]) async throws -> PullRequestStacksAddResponse {
-        return try await PullsMethods.pullRequestStacksAdd(config: config, owner: owner, repo: repo, stackNumber: stackNumber, pullRequests: pullRequests)
+    /// Appends an ordered list of pull request numbers onto the top of an existing stack. Provide only the pull
+    /// requests you want to add, from the current top of the stack upward. The first new pull request's base ref must
+    /// match the current top pull request's head ref.
+    func requestStacksAdd(
+        owner: String,
+        repo: String,
+        stackNumber: Int,
+        pullRequests: [Int]
+    ) async throws -> PullRequestStacksAddResponse {
+        try await PullsMethods.pullRequestStacksAdd(
+            config: config,
+            owner: owner,
+            repo: repo,
+            stackNumber: stackNumber,
+            pullRequests: pullRequests
+        )
     }
 
-/// Remove pull requests from a pull request stack
+    /// Remove pull requests from a pull request stack
     ///
-    /// Removes the unmerged pull requests from a stack. Pull requests that cannot be unstacked (for example, those that are queued for merge) are left in place. When pull requests remain in the stack, the updated stack is returned with a `200`. When no pull requests remain, the stack is dissolved and a `204` is returned.
-    public func requestStacksUnstack(owner: String, repo: String, stackNumber: Int) async throws -> PullRequestStacksUnstackResponse {
-        return try await PullsMethods.pullRequestStacksUnstack(config: config, owner: owner, repo: repo, stackNumber: stackNumber)
+    /// Removes the unmerged pull requests from a stack. Pull requests that cannot be unstacked (for example, those that
+    /// are queued for merge) are left in place. When pull requests remain in the stack, the updated stack is returned
+    /// with a `200`. When no pull requests remain, the stack is dissolved and a `204` is returned.
+    func requestStacksUnstack(
+        owner: String,
+        repo: String,
+        stackNumber: Int
+    ) async throws -> PullRequestStacksUnstackResponse {
+        try await PullsMethods.pullRequestStacksUnstack(
+            config: config,
+            owner: owner,
+            repo: repo,
+            stackNumber: stackNumber
+        )
     }
 }

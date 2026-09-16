@@ -13,9 +13,9 @@ struct MarkdownRenderRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.text, forKey: SdkCodingKey("text"))
-        try keyedContainer.encodeIfPresent(self.mode, forKey: SdkCodingKey("mode"))
-        try keyedContainer.encodeIfPresent(self.context, forKey: SdkCodingKey("context"))
+        try keyedContainer.encode(text, forKey: SdkCodingKey("text"))
+        try keyedContainer.encodeIfPresent(mode, forKey: SdkCodingKey("mode"))
+        try keyedContainer.encodeIfPresent(context, forKey: SdkCodingKey("context"))
     }
 }
 
@@ -53,69 +53,127 @@ struct OrgsUpdateRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.billingEmail, forKey: SdkCodingKey("billing_email"))
-        try keyedContainer.encodeIfPresent(self.company, forKey: SdkCodingKey("company"))
-        try keyedContainer.encodeIfPresent(self.email, forKey: SdkCodingKey("email"))
-        try keyedContainer.encodeIfPresent(self.twitterUsername, forKey: SdkCodingKey("twitter_username"))
-        try keyedContainer.encodeIfPresent(self.location, forKey: SdkCodingKey("location"))
-        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(self.hasOrganizationProjects, forKey: SdkCodingKey("has_organization_projects"))
-        try keyedContainer.encodeIfPresent(self.hasRepositoryProjects, forKey: SdkCodingKey("has_repository_projects"))
-        try keyedContainer.encodeIfPresent(self.defaultRepositoryPermission, forKey: SdkCodingKey("default_repository_permission"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreateRepositories, forKey: SdkCodingKey("members_can_create_repositories"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreateInternalRepositories, forKey: SdkCodingKey("members_can_create_internal_repositories"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreatePrivateRepositories, forKey: SdkCodingKey("members_can_create_private_repositories"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreatePublicRepositories, forKey: SdkCodingKey("members_can_create_public_repositories"))
-        try keyedContainer.encodeIfPresent(self.membersAllowedRepositoryCreationType, forKey: SdkCodingKey("members_allowed_repository_creation_type"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreatePages, forKey: SdkCodingKey("members_can_create_pages"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreatePublicPages, forKey: SdkCodingKey("members_can_create_public_pages"))
-        try keyedContainer.encodeIfPresent(self.membersCanCreatePrivatePages, forKey: SdkCodingKey("members_can_create_private_pages"))
-        try keyedContainer.encodeIfPresent(self.membersCanForkPrivateRepositories, forKey: SdkCodingKey("members_can_fork_private_repositories"))
-        try keyedContainer.encodeIfPresent(self.webCommitSignoffRequired, forKey: SdkCodingKey("web_commit_signoff_required"))
-        try keyedContainer.encodeIfPresent(self.blog, forKey: SdkCodingKey("blog"))
-        try keyedContainer.encodeIfPresent(self.advancedSecurityEnabledForNewRepositories, forKey: SdkCodingKey("advanced_security_enabled_for_new_repositories"))
-        try keyedContainer.encodeIfPresent(self.dependabotAlertsEnabledForNewRepositories, forKey: SdkCodingKey("dependabot_alerts_enabled_for_new_repositories"))
-        try keyedContainer.encodeIfPresent(self.dependabotSecurityUpdatesEnabledForNewRepositories, forKey: SdkCodingKey("dependabot_security_updates_enabled_for_new_repositories"))
-        try keyedContainer.encodeIfPresent(self.dependencyGraphEnabledForNewRepositories, forKey: SdkCodingKey("dependency_graph_enabled_for_new_repositories"))
-        try keyedContainer.encodeIfPresent(self.secretScanningEnabledForNewRepositories, forKey: SdkCodingKey("secret_scanning_enabled_for_new_repositories"))
-        try keyedContainer.encodeIfPresent(self.secretScanningPushProtectionEnabledForNewRepositories, forKey: SdkCodingKey("secret_scanning_push_protection_enabled_for_new_repositories"))
-        try keyedContainer.encodeIfPresent(self.secretScanningPushProtectionCustomLinkEnabled, forKey: SdkCodingKey("secret_scanning_push_protection_custom_link_enabled"))
-        try keyedContainer.encodeIfPresent(self.secretScanningPushProtectionCustomLink, forKey: SdkCodingKey("secret_scanning_push_protection_custom_link"))
-        try keyedContainer.encodeIfPresent(self.deployKeysEnabledForRepositories, forKey: SdkCodingKey("deploy_keys_enabled_for_repositories"))
+        try keyedContainer.encodeIfPresent(billingEmail, forKey: SdkCodingKey("billing_email"))
+        try keyedContainer.encodeIfPresent(company, forKey: SdkCodingKey("company"))
+        try keyedContainer.encodeIfPresent(email, forKey: SdkCodingKey("email"))
+        try keyedContainer.encodeIfPresent(twitterUsername, forKey: SdkCodingKey("twitter_username"))
+        try keyedContainer.encodeIfPresent(location, forKey: SdkCodingKey("location"))
+        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(hasOrganizationProjects, forKey: SdkCodingKey("has_organization_projects"))
+        try keyedContainer.encodeIfPresent(hasRepositoryProjects, forKey: SdkCodingKey("has_repository_projects"))
+        try keyedContainer.encodeIfPresent(
+            defaultRepositoryPermission,
+            forKey: SdkCodingKey("default_repository_permission")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersCanCreateRepositories,
+            forKey: SdkCodingKey("members_can_create_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersCanCreateInternalRepositories,
+            forKey: SdkCodingKey("members_can_create_internal_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersCanCreatePrivateRepositories,
+            forKey: SdkCodingKey("members_can_create_private_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersCanCreatePublicRepositories,
+            forKey: SdkCodingKey("members_can_create_public_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersAllowedRepositoryCreationType,
+            forKey: SdkCodingKey("members_allowed_repository_creation_type")
+        )
+        try keyedContainer.encodeIfPresent(membersCanCreatePages, forKey: SdkCodingKey("members_can_create_pages"))
+        try keyedContainer.encodeIfPresent(
+            membersCanCreatePublicPages,
+            forKey: SdkCodingKey("members_can_create_public_pages")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersCanCreatePrivatePages,
+            forKey: SdkCodingKey("members_can_create_private_pages")
+        )
+        try keyedContainer.encodeIfPresent(
+            membersCanForkPrivateRepositories,
+            forKey: SdkCodingKey("members_can_fork_private_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            webCommitSignoffRequired,
+            forKey: SdkCodingKey("web_commit_signoff_required")
+        )
+        try keyedContainer.encodeIfPresent(blog, forKey: SdkCodingKey("blog"))
+        try keyedContainer.encodeIfPresent(
+            advancedSecurityEnabledForNewRepositories,
+            forKey: SdkCodingKey("advanced_security_enabled_for_new_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            dependabotAlertsEnabledForNewRepositories,
+            forKey: SdkCodingKey("dependabot_alerts_enabled_for_new_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            dependabotSecurityUpdatesEnabledForNewRepositories,
+            forKey: SdkCodingKey("dependabot_security_updates_enabled_for_new_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            dependencyGraphEnabledForNewRepositories,
+            forKey: SdkCodingKey("dependency_graph_enabled_for_new_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            secretScanningEnabledForNewRepositories,
+            forKey: SdkCodingKey("secret_scanning_enabled_for_new_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            secretScanningPushProtectionEnabledForNewRepositories,
+            forKey: SdkCodingKey("secret_scanning_push_protection_enabled_for_new_repositories")
+        )
+        try keyedContainer.encodeIfPresent(
+            secretScanningPushProtectionCustomLinkEnabled,
+            forKey: SdkCodingKey("secret_scanning_push_protection_custom_link_enabled")
+        )
+        try keyedContainer.encodeIfPresent(
+            secretScanningPushProtectionCustomLink,
+            forKey: SdkCodingKey("secret_scanning_push_protection_custom_link")
+        )
+        try keyedContainer.encodeIfPresent(
+            deployKeysEnabledForRepositories,
+            forKey: SdkCodingKey("deploy_keys_enabled_for_repositories")
+        )
     }
 
     init(options: OrgsMethods.OrgsUpdateOptions) {
-        self.billingEmail = options.billingEmail
-        self.company = options.company
-        self.email = options.email
-        self.twitterUsername = options.twitterUsername
-        self.location = options.location
-        self.name = options.name
-        self.description = options.description
-        self.hasOrganizationProjects = options.hasOrganizationProjects
-        self.hasRepositoryProjects = options.hasRepositoryProjects
-        self.defaultRepositoryPermission = options.defaultRepositoryPermission
-        self.membersCanCreateRepositories = options.membersCanCreateRepositories
-        self.membersCanCreateInternalRepositories = options.membersCanCreateInternalRepositories
-        self.membersCanCreatePrivateRepositories = options.membersCanCreatePrivateRepositories
-        self.membersCanCreatePublicRepositories = options.membersCanCreatePublicRepositories
-        self.membersAllowedRepositoryCreationType = options.membersAllowedRepositoryCreationType
-        self.membersCanCreatePages = options.membersCanCreatePages
-        self.membersCanCreatePublicPages = options.membersCanCreatePublicPages
-        self.membersCanCreatePrivatePages = options.membersCanCreatePrivatePages
-        self.membersCanForkPrivateRepositories = options.membersCanForkPrivateRepositories
-        self.webCommitSignoffRequired = options.webCommitSignoffRequired
-        self.blog = options.blog
-        self.advancedSecurityEnabledForNewRepositories = options.advancedSecurityEnabledForNewRepositories
-        self.dependabotAlertsEnabledForNewRepositories = options.dependabotAlertsEnabledForNewRepositories
-        self.dependabotSecurityUpdatesEnabledForNewRepositories = options.dependabotSecurityUpdatesEnabledForNewRepositories
-        self.dependencyGraphEnabledForNewRepositories = options.dependencyGraphEnabledForNewRepositories
-        self.secretScanningEnabledForNewRepositories = options.secretScanningEnabledForNewRepositories
-        self.secretScanningPushProtectionEnabledForNewRepositories = options.secretScanningPushProtectionEnabledForNewRepositories
-        self.secretScanningPushProtectionCustomLinkEnabled = options.secretScanningPushProtectionCustomLinkEnabled
-        self.secretScanningPushProtectionCustomLink = options.secretScanningPushProtectionCustomLink
-        self.deployKeysEnabledForRepositories = options.deployKeysEnabledForRepositories
+        billingEmail = options.billingEmail
+        company = options.company
+        email = options.email
+        twitterUsername = options.twitterUsername
+        location = options.location
+        name = options.name
+        description = options.description
+        hasOrganizationProjects = options.hasOrganizationProjects
+        hasRepositoryProjects = options.hasRepositoryProjects
+        defaultRepositoryPermission = options.defaultRepositoryPermission
+        membersCanCreateRepositories = options.membersCanCreateRepositories
+        membersCanCreateInternalRepositories = options.membersCanCreateInternalRepositories
+        membersCanCreatePrivateRepositories = options.membersCanCreatePrivateRepositories
+        membersCanCreatePublicRepositories = options.membersCanCreatePublicRepositories
+        membersAllowedRepositoryCreationType = options.membersAllowedRepositoryCreationType
+        membersCanCreatePages = options.membersCanCreatePages
+        membersCanCreatePublicPages = options.membersCanCreatePublicPages
+        membersCanCreatePrivatePages = options.membersCanCreatePrivatePages
+        membersCanForkPrivateRepositories = options.membersCanForkPrivateRepositories
+        webCommitSignoffRequired = options.webCommitSignoffRequired
+        blog = options.blog
+        advancedSecurityEnabledForNewRepositories = options.advancedSecurityEnabledForNewRepositories
+        dependabotAlertsEnabledForNewRepositories = options.dependabotAlertsEnabledForNewRepositories
+        dependabotSecurityUpdatesEnabledForNewRepositories = options.dependabotSecurityUpdatesEnabledForNewRepositories
+        dependencyGraphEnabledForNewRepositories = options.dependencyGraphEnabledForNewRepositories
+        secretScanningEnabledForNewRepositories = options.secretScanningEnabledForNewRepositories
+        secretScanningPushProtectionEnabledForNewRepositories = options
+            .secretScanningPushProtectionEnabledForNewRepositories
+        secretScanningPushProtectionCustomLinkEnabled = options.secretScanningPushProtectionCustomLinkEnabled
+        secretScanningPushProtectionCustomLink = options.secretScanningPushProtectionCustomLink
+        deployKeysEnabledForRepositories = options.deployKeysEnabledForRepositories
     }
 }
 
@@ -135,33 +193,33 @@ struct OrgsCreateArtifactDeploymentRecordRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(self.digest, forKey: SdkCodingKey("digest"))
-        try keyedContainer.encode(self.status, forKey: SdkCodingKey("status"))
-        try keyedContainer.encode(self.logicalEnvironment, forKey: SdkCodingKey("logical_environment"))
-        try keyedContainer.encode(self.deploymentName, forKey: SdkCodingKey("deployment_name"))
-        try keyedContainer.encodeIfPresent(self.version, forKey: SdkCodingKey("version"))
-        try keyedContainer.encodeIfPresent(self.physicalEnvironment, forKey: SdkCodingKey("physical_environment"))
-        try keyedContainer.encodeIfPresent(self.cluster, forKey: SdkCodingKey("cluster"))
-        try keyedContainer.encodeIfPresent(self.tags, forKey: SdkCodingKey("tags"))
-        try keyedContainer.encodeIfPresent(self.runtimeRisks, forKey: SdkCodingKey("runtime_risks"))
-        try keyedContainer.encodeIfPresent(self.githubRepository, forKey: SdkCodingKey("github_repository"))
-        try keyedContainer.encodeIfPresent(self.returnRecords, forKey: SdkCodingKey("return_records"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(digest, forKey: SdkCodingKey("digest"))
+        try keyedContainer.encode(status, forKey: SdkCodingKey("status"))
+        try keyedContainer.encode(logicalEnvironment, forKey: SdkCodingKey("logical_environment"))
+        try keyedContainer.encode(deploymentName, forKey: SdkCodingKey("deployment_name"))
+        try keyedContainer.encodeIfPresent(version, forKey: SdkCodingKey("version"))
+        try keyedContainer.encodeIfPresent(physicalEnvironment, forKey: SdkCodingKey("physical_environment"))
+        try keyedContainer.encodeIfPresent(cluster, forKey: SdkCodingKey("cluster"))
+        try keyedContainer.encodeIfPresent(tags, forKey: SdkCodingKey("tags"))
+        try keyedContainer.encodeIfPresent(runtimeRisks, forKey: SdkCodingKey("runtime_risks"))
+        try keyedContainer.encodeIfPresent(githubRepository, forKey: SdkCodingKey("github_repository"))
+        try keyedContainer.encodeIfPresent(returnRecords, forKey: SdkCodingKey("return_records"))
     }
 
     init(options: OrgsMethods.OrgsCreateArtifactDeploymentRecordOptions) {
-        self.name = options.name
-        self.digest = options.digest
-        self.status = options.status
-        self.logicalEnvironment = options.logicalEnvironment
-        self.deploymentName = options.deploymentName
-        self.version = options.version
-        self.physicalEnvironment = options.physicalEnvironment
-        self.cluster = options.cluster
-        self.tags = options.tags
-        self.runtimeRisks = options.runtimeRisks
-        self.githubRepository = options.githubRepository
-        self.returnRecords = options.returnRecords
+        name = options.name
+        digest = options.digest
+        status = options.status
+        logicalEnvironment = options.logicalEnvironment
+        deploymentName = options.deploymentName
+        version = options.version
+        physicalEnvironment = options.physicalEnvironment
+        cluster = options.cluster
+        tags = options.tags
+        runtimeRisks = options.runtimeRisks
+        githubRepository = options.githubRepository
+        returnRecords = options.returnRecords
     }
 }
 
@@ -174,11 +232,11 @@ struct OrgsSetClusterDeploymentRecordsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.logicalEnvironment, forKey: SdkCodingKey("logical_environment"))
-        try keyedContainer.encode(self.deployments, forKey: SdkCodingKey("deployments"))
-        try keyedContainer.encodeIfPresent(self.physicalEnvironment, forKey: SdkCodingKey("physical_environment"))
-        try keyedContainer.encodeIfPresent(self.partialSuccess, forKey: SdkCodingKey("partial_success"))
-        try keyedContainer.encodeIfPresent(self.returnRecords, forKey: SdkCodingKey("return_records"))
+        try keyedContainer.encode(logicalEnvironment, forKey: SdkCodingKey("logical_environment"))
+        try keyedContainer.encode(deployments, forKey: SdkCodingKey("deployments"))
+        try keyedContainer.encodeIfPresent(physicalEnvironment, forKey: SdkCodingKey("physical_environment"))
+        try keyedContainer.encodeIfPresent(partialSuccess, forKey: SdkCodingKey("partial_success"))
+        try keyedContainer.encodeIfPresent(returnRecords, forKey: SdkCodingKey("return_records"))
     }
 }
 
@@ -189,8 +247,8 @@ struct OrgsCreateClusterDeploymentRecordsJobRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.logicalEnvironment, forKey: SdkCodingKey("logical_environment"))
-        try keyedContainer.encode(self.deployments, forKey: SdkCodingKey("deployments"))
-        try keyedContainer.encodeIfPresent(self.physicalEnvironment, forKey: SdkCodingKey("physical_environment"))
+        try keyedContainer.encode(logicalEnvironment, forKey: SdkCodingKey("logical_environment"))
+        try keyedContainer.encode(deployments, forKey: SdkCodingKey("deployments"))
+        try keyedContainer.encodeIfPresent(physicalEnvironment, forKey: SdkCodingKey("physical_environment"))
     }
 }

@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists the assets attached to a specific release in a repository. Use `per_page` and `page` to control the paginated result set, with up to 100 assets per page. Each result includes the asset's filename, state, download information, size, digest, timestamps, and uploader.
+public extension ReposMethods {
+    /// Lists the assets attached to a specific release in a repository. Use `per_page` and `page` to control the
+    /// paginated result set, with up to 100 assets per page. Each result includes the asset's filename, state, download
+    /// information, size, digest, timestamps, and uploader.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,10 +25,32 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListReleaseAssets(config: ClientConfig, owner: String, repo: String, releaseId: Int, perPage: Int?, page: Int?) async throws -> [ReleaseAsset] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/", sdkEncodePathSegment(sdkWireString(releaseId)), "/assets"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListReleaseAssets")).data
+    static func reposListReleaseAssets(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        releaseId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [ReleaseAsset] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/releases/",
+                sdkEncodePathSegment(sdkWireString(releaseId)),
+                "/assets",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListReleaseAssets"
+        )).data
     }
 }

@@ -6,12 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecurityAdvisoriesMethods {
+public extension SecurityAdvisoriesMethods {
     /// Gets a global security advisory using its GitHub Security Advisory (GHSA) identifier.
     ///
     /// - Parameters:
     /// - ghsaId: The GHSA (GitHub Security Advisory) identifier of the advisory.
-    public static func securityAdvisoriesGetGlobalAdvisory(config: ClientConfig, ghsaId: String) async throws -> GlobalAdvisory {
-        return try (await sdkRequest("GET", ["/advisories/", sdkEncodePathSegment(sdkWireString(ghsaId))].joined(), config: config, decoder: .json, operationId: "securityAdvisoriesGetGlobalAdvisory")).data
+    static func securityAdvisoriesGetGlobalAdvisory(
+        config: ClientConfig,
+        ghsaId: String
+    ) async throws -> GlobalAdvisory {
+        try await (sdkRequest(
+            "GET",
+            ["/advisories/", sdkEncodePathSegment(sdkWireString(ghsaId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "securityAdvisoriesGetGlobalAdvisory"
+        )).data
     }
 }

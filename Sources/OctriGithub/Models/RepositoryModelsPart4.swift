@@ -3,9 +3,28 @@
 
 import Foundation
 
-// Repository domain models
+/// Repository domain models
 public extension RepositoryWebhooksTemplateRepositoryOwner {
-    public init(login: String? = nil, id: Int? = nil, nodeId: String? = nil, avatarUrl: String? = nil, gravatarId: String? = nil, url: String? = nil, htmlUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, organizationsUrl: String? = nil, reposUrl: String? = nil, eventsUrl: String? = nil, receivedEventsUrl: String? = nil, type: String? = nil, siteAdmin: Bool? = nil) {
+    init(
+        login: String? = nil,
+        id: Int? = nil,
+        nodeId: String? = nil,
+        avatarUrl: String? = nil,
+        gravatarId: String? = nil,
+        url: String? = nil,
+        htmlUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        organizationsUrl: String? = nil,
+        reposUrl: String? = nil,
+        eventsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        type: String? = nil,
+        siteAdmin: Bool? = nil
+    ) {
         self.init()
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
@@ -41,23 +60,23 @@ public struct RepositoryWebhooksTemplateRepositoryPermissions: Codable {
     }
 
     init() {
-        (self.admin, self.maintain, self.push, self.triage, self.pull) = (nil, nil, nil, nil, nil)
+        (admin, maintain, push, triage, pull) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension RepositoryWebhooksTemplateRepositoryPermissions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.admin = try container.sdkDecodeIfPresent(.admin)
-        self.maintain = try container.sdkDecodeIfPresent(.maintain)
-        self.push = try container.sdkDecodeIfPresent(.push)
-        self.triage = try container.sdkDecodeIfPresent(.triage)
-        self.pull = try container.sdkDecodeIfPresent(.pull)
+        admin = try container.sdkDecodeIfPresent(.admin)
+        maintain = try container.sdkDecodeIfPresent(.maintain)
+        push = try container.sdkDecodeIfPresent(.push)
+        triage = try container.sdkDecodeIfPresent(.triage)
+        pull = try container.sdkDecodeIfPresent(.pull)
     }
 }
 
 public extension RepositoryWebhooksTemplateRepositoryPermissions {
-    public init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
+    init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
         self.init()
         (self.admin, self.maintain) = (admin, maintain)
         (self.push, self.triage) = (push, triage)
@@ -67,17 +86,21 @@ public extension RepositoryWebhooksTemplateRepositoryPermissions {
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct RepositoryWebhooksSquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksSquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = RepositoryWebhooksSquashMergeCommitMessage(rawValue: "PR_BODY")
     public static let commitMessages = RepositoryWebhooksSquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = RepositoryWebhooksSquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -91,14 +114,17 @@ public struct RepositoryWebhooksSquashMergeCommitMessage: RawRepresentable, Hash
 public struct RepositoryWebhooksMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = RepositoryWebhooksMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = RepositoryWebhooksMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = RepositoryWebhooksMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -109,17 +135,22 @@ public struct RepositoryWebhooksMergeCommitMessage: RawRepresentable, Hashable, 
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "PR_BODY")
-    public static let commitMessages = RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
+    public static let commitMessages =
+        RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -131,16 +162,21 @@ public struct RepositoryWebhooksTemplateRepositorySquashMergeCommitMessage: RawR
 /// The default value for a squash merge commit title: - `PR_TITLE` - default to the pull request's title. -
 /// `COMMIT_OR_PR_TITLE` - default to the commit's title (if only one commit) or the pull request's title (when
 /// more than one commit).
-public struct RepositoryWebhooksTemplateRepositorySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksTemplateRepositorySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = RepositoryWebhooksTemplateRepositorySquashMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let commitOrPrTitle = RepositoryWebhooksTemplateRepositorySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
+    public static let commitOrPrTitle =
+        RepositoryWebhooksTemplateRepositorySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -150,16 +186,20 @@ public struct RepositoryWebhooksTemplateRepositorySquashMergeCommitTitle: RawRep
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct RepositoryWebhooksPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = RepositoryWebhooksPullRequestCreationPolicy(rawValue: "all")
     public static let collaboratorsOnly = RepositoryWebhooksPullRequestCreationPolicy(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -171,16 +211,20 @@ public struct RepositoryWebhooksPullRequestCreationPolicy: RawRepresentable, Has
 /// The default value for a merge commit title. - `PR_TITLE` - default to the pull request's title. -
 /// `MERGE_MESSAGE` - default to the classic title for a merge message (e.g., Merge pull request #123 from
 /// branch-name).
-public struct RepositoryWebhooksTemplateRepositoryMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksTemplateRepositoryMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = RepositoryWebhooksTemplateRepositoryMergeCommitTitle(rawValue: "PR_TITLE")
     public static let mergeMessage = RepositoryWebhooksTemplateRepositoryMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -195,13 +239,16 @@ public struct RepositoryWebhooksTemplateRepositoryMergeCommitTitle: RawRepresent
 public struct RepositoryWebhooksMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = RepositoryWebhooksMergeCommitTitle(rawValue: "PR_TITLE")
     public static let mergeMessage = RepositoryWebhooksMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -213,16 +260,20 @@ public struct RepositoryWebhooksMergeCommitTitle: RawRepresentable, Hashable, Co
 /// The default value for a squash merge commit title: - `PR_TITLE` - default to the pull request's title. -
 /// `COMMIT_OR_PR_TITLE` - default to the commit's title (if only one commit) or the pull request's title (when
 /// more than one commit).
-public struct RepositoryWebhooksSquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksSquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = RepositoryWebhooksSquashMergeCommitTitle(rawValue: "PR_TITLE")
     public static let commitOrPrTitle = RepositoryWebhooksSquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -233,17 +284,21 @@ public struct RepositoryWebhooksSquashMergeCommitTitle: RawRepresentable, Hashab
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct RepositoryWebhooksTemplateRepositoryMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryWebhooksTemplateRepositoryMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = RepositoryWebhooksTemplateRepositoryMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = RepositoryWebhooksTemplateRepositoryMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = RepositoryWebhooksTemplateRepositoryMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

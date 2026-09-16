@@ -6,12 +6,17 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testSecurityAdvisoriesUpdateRepositoryAdvisorySecurityAdvisoriesUX2d139857b0ReachesMockAndDecodesResponse() async throws {
+    func testSecurityAdvisoriesUpdateRepositoryAdvisorySecurityAdvisoriesUX2d139857b0ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesUpdateRepositoryAdvisoryOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), ghsaId: decoded("\"ghsa_-1\""))
+        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesUpdateRepositoryAdvisoryOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\""),
+            ghsaId: decoded("\"ghsa_-1\"")
+        )
         options.summary = try decoded("null")
         options.description = try decoded("null")
         options.cveId = try decoded("null")
@@ -49,7 +54,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testTeamsAddOrUpdateMembershipForUserInOrgTeamsAddOrUpdateMembersX46328b790eReachesMockAndDecodesResponse() async throws {
+    func testTeamsAddOrUpdateMembershipForUserInOrgTeamsAddOrUpdateMembersX46328b790eReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -71,7 +77,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testTeamsAddOrUpdateMembershipForUserLegacyTeamsAddOrUpdateMemberX354259d7a6ReachesMockAndDecodesResponse() async throws {
+    func testTeamsAddOrUpdateMembershipForUserLegacyTeamsAddOrUpdateMemberX354259d7a6ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -92,7 +99,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testTeamsAddOrUpdateRepoPermissionsInOrgTeamsAddOrUpdateRepoPermissionsInOrgReachesMockAndDecodesResponse() async throws {
+    func testTeamsAddOrUpdateRepoPermissionsInOrgTeamsAddOrUpdateRepoPermissionsInOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -107,7 +115,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testTeamsAddOrUpdateRepoPermissionsLegacyTeamsAddOrUpdateRepoPermX663837dd50ReachesMockAndDecodesResponse() async throws {
+    func testTeamsAddOrUpdateRepoPermissionsLegacyTeamsAddOrUpdateRepoPermX663837dd50ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -121,7 +130,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testTeamsCheckPermissionsForRepoInOrgTeamsCheckPermissionsForRepoInOrgReachesMockAndDecodesResponse() async throws {
+    func testTeamsCheckPermissionsForRepoInOrgTeamsCheckPermissionsForRepoInOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -143,7 +153,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testTeamsCheckPermissionsForRepoLegacyTeamsCheckPermissionsForRepoLegacyReachesMockAndDecodesResponse() async throws {
+    func testTeamsCheckPermissionsForRepoLegacyTeamsCheckPermissionsForRepoLegacyReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -437,7 +448,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testTeamsListPendingInvitationsInOrgTeamsListPendingInvitationsInOrgReachesMockAndDecodesResponse() async throws {
+    func testTeamsListPendingInvitationsInOrgTeamsListPendingInvitationsInOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -459,7 +471,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testTeamsListPendingInvitationsLegacyTeamsListPendingInvitationsLegacyReachesMockAndDecodesResponse() async throws {
+    func testTeamsListPendingInvitationsLegacyTeamsListPendingInvitationsLegacyReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

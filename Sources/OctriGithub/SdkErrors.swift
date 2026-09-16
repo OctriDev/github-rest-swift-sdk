@@ -20,7 +20,9 @@ public struct SdkValidationError: SdkError, LocalizedError {
         self.message = message
     }
 
-    public var errorDescription: String? { message }
+    public var errorDescription: String? {
+        message
+    }
 }
 
 /// Returned for any non-2xx HTTP response.
@@ -37,7 +39,9 @@ public struct SdkHttpError: SdkError, LocalizedError {
         self.requestId = requestId
     }
 
-    public var errorDescription: String? { "HTTP error \(statusCode)" }
+    public var errorDescription: String? {
+        "HTTP error \(statusCode)"
+    }
 }
 
 /// Wraps connection / DNS / socket failures.
@@ -52,7 +56,9 @@ public struct SdkNetworkError: SdkError, LocalizedError {
         self.requestId = requestId
     }
 
-    public var errorDescription: String? { cause.localizedDescription }
+    public var errorDescription: String? {
+        cause.localizedDescription
+    }
 }
 
 /// Returned when a request exceeds its configured timeout.

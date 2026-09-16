@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Simple domain models
+/// Simple domain models
 /// A suite of checks performed on the code of a given code change
 public struct SimpleCheckSuite: Codable {
     /// Optional `string` value serialized in the `after` wire field.
@@ -64,40 +64,55 @@ public struct SimpleCheckSuite: Codable {
     }
 
     init() {
-        (self.after, self.app, self.before, self.conclusion, self.createdAt) = (nil, nil, nil, nil, nil)
-        (self.headBranch, self.headSha, self.id, self.nodeId, self.pullRequests) = (nil, nil, nil, nil, nil)
-        (self.repository, self.status, self.updatedAt, self.url) = (nil, nil, nil, nil)
+        (after, app, before, conclusion, createdAt) = (nil, nil, nil, nil, nil)
+        (headBranch, headSha, id, nodeId, pullRequests) = (nil, nil, nil, nil, nil)
+        (repository, status, updatedAt, url) = (nil, nil, nil, nil)
     }
 }
 
 public extension SimpleCheckSuite {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.after = try container.sdkDecodeIfPresent(.after)
-        self.app = try container.sdkDecodeIfPresent(.app)
-        self.before = try container.sdkDecodeIfPresent(.before)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.headBranch = try container.sdkDecodeIfPresent(.headBranch)
-        self.headSha = try container.sdkDecodeIfPresent(.headSha)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        if let value = self.createdAt {
+        after = try container.sdkDecodeIfPresent(.after)
+        app = try container.sdkDecodeIfPresent(.app)
+        before = try container.sdkDecodeIfPresent(.before)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        headBranch = try container.sdkDecodeIfPresent(.headBranch)
+        headSha = try container.sdkDecodeIfPresent(.headSha)
+        id = try container.sdkDecodeIfPresent(.id)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        status = try container.sdkDecodeIfPresent(.status)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        url = try container.sdkDecodeIfPresent(.url)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
 public extension SimpleCheckSuite {
-    public init(after: String? = nil, app: Integration? = nil, before: String? = nil, conclusion: SimpleCheckSuiteConclusion? = nil, createdAt: Date? = nil, headBranch: String? = nil, headSha: String? = nil, id: Int? = nil, nodeId: String? = nil, pullRequests: [PullRequestMinimal]? = nil, repository: MinimalRepository? = nil, status: SimpleCheckSuiteStatus? = nil, updatedAt: Date? = nil, url: String? = nil) throws {
+    init(
+        after: String? = nil,
+        app: Integration? = nil,
+        before: String? = nil,
+        conclusion: SimpleCheckSuiteConclusion? = nil,
+        createdAt: Date? = nil,
+        headBranch: String? = nil,
+        headSha: String? = nil,
+        id: Int? = nil,
+        nodeId: String? = nil,
+        pullRequests: [PullRequestMinimal]? = nil,
+        repository: MinimalRepository? = nil,
+        status: SimpleCheckSuiteStatus? = nil,
+        updatedAt: Date? = nil,
+        url: String? = nil
+    ) throws {
         self.init()
         (self.after, self.app) = (after, app)
         (self.before, self.conclusion) = (before, conclusion)
@@ -130,25 +145,35 @@ public struct SimpleInstallation: Codable {
         case nodeId = "node_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SimpleInstallation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SimpleInstallation {
-    public init(id: Int, nodeId: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+    }
+}
+
+public extension SimpleInstallation {
+    init(id: Int, nodeId: String) {
         (self.id, self.nodeId) = (id, nodeId)
     }
 }
@@ -157,7 +182,10 @@ public extension SimpleInstallation {
 public struct SimpleCheckSuiteConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let success = SimpleCheckSuiteConclusion(rawValue: "success")
     public static let failure = SimpleCheckSuiteConclusion(rawValue: "failure")
     public static let neutral = SimpleCheckSuiteConclusion(rawValue: "neutral")
@@ -170,7 +198,7 @@ public struct SimpleCheckSuiteConclusion: RawRepresentable, Hashable, Codable, S
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -183,7 +211,10 @@ public struct SimpleCheckSuiteConclusion: RawRepresentable, Hashable, Codable, S
 public struct SimpleCheckSuiteStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let queued = SimpleCheckSuiteStatus(rawValue: "queued")
     public static let inProgress = SimpleCheckSuiteStatus(rawValue: "in_progress")
     public static let completed = SimpleCheckSuiteStatus(rawValue: "completed")
@@ -192,7 +223,7 @@ public struct SimpleCheckSuiteStatus: RawRepresentable, Hashable, Codable, Senda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

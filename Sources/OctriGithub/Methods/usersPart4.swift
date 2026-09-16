@@ -6,15 +6,22 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Block a user
     ///
-    /// Blocks the given user and returns a 204. If the authenticated user cannot block the given user a 422 is returned.
+    /// Blocks the given user and returns a 204. If the authenticated user cannot block the given user a 422 is
+    /// returned.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    public static func usersBlock(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/user/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "usersBlock")).data
+    static func usersBlock(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            ["/user/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersBlock"
+        )).data
     }
 
     /// Unblock a user
@@ -23,8 +30,14 @@ extension UsersMethods {
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    public static func usersUnblock(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/user/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "usersUnblock")).data
+    static func usersUnblock(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            ["/user/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersUnblock"
+        )).data
     }
 
     /// Set primary email visibility for the authenticated user
@@ -33,9 +46,19 @@ extension UsersMethods {
     ///
     /// - Parameters:
     /// - visibility: Denotes whether an email is publicly visible.
-    public static func usersSetPrimaryEmailVisibilityForAuthenticatedUser(config: ClientConfig, visibility: UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility) async throws -> [Email] {
+    static func usersSetPrimaryEmailVisibilityForAuthenticatedUser(
+        config: ClientConfig,
+        visibility: UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility
+    ) async throws -> [Email] {
         let requestBody = UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBody(visibility: visibility)
 
-        return try (await sdkRequest("PATCH", "/user/email/visibility", config: config, body: requestBody, decoder: .json, operationId: "usersSetPrimaryEmailVisibilityForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "PATCH",
+            "/user/email/visibility",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "usersSetPrimaryEmailVisibilityForAuthenticatedUser"
+        )).data
     }
 }

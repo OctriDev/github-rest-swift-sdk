@@ -6,10 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Verifies whether a user can be assigned to a specific issue or pull request. Supply `owner`, `repo`, `issue_number`, and `assignee` to test the assignment permission for that resource. A successful check has no response body.
+public extension IssuesMethods {
+    /// Verifies whether a user can be assigned to a specific issue or pull request. Supply `owner`, `repo`,
+    /// `issue_number`, and `assignee` to test the assignment permission for that resource. A successful check has no
+    /// response body.
     ///
-    /// Checks if a user has permission to be assigned to a specific issue. If the `assignee` can be assigned to this issue, a `204` status code with no content is returned. Otherwise a `404` status code is returned.
+    /// Checks if a user has permission to be assigned to a specific issue. If the `assignee` can be assigned to this
+    /// issue, a `204` status code with no content is returned. Otherwise a `404` status code is returned.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,7 +20,28 @@ extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    public static func issuesCheckUserCanBeAssignedToIssue(config: ClientConfig, owner: String, repo: String, issueNumber: Int, assignee: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/assignees/", sdkEncodePathSegment(sdkWireString(assignee))].joined(), config: config, decoder: .empty, operationId: "issuesCheckUserCanBeAssignedToIssue")).data
+    static func issuesCheckUserCanBeAssignedToIssue(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        issueNumber: Int,
+        assignee: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/",
+                sdkEncodePathSegment(sdkWireString(issueNumber)),
+                "/assignees/",
+                sdkEncodePathSegment(sdkWireString(assignee)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "issuesCheckUserCanBeAssignedToIssue"
+        )).data
     }
 }

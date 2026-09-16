@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical search operation model declarations
+/// Canonical search operation model declarations
 public struct SearchLabelsResponse: Codable {
     public var totalCount: Int
     public var incompleteResults: Bool
@@ -19,29 +19,43 @@ public struct SearchLabelsResponse: Codable {
         case items
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchLabelsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchLabelsResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [LabelSearchResultItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+    }
+}
+
+public extension SearchLabelsResponse {
+    init(totalCount: Int, incompleteResults: Bool, items: [LabelSearchResultItem]) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         self.items = items
     }
@@ -58,29 +72,43 @@ public struct SearchTopicsResponse: Codable {
         case items
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchTopicsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchTopicsResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [TopicSearchResultItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+    }
+}
+
+public extension SearchTopicsResponse {
+    init(totalCount: Int, incompleteResults: Bool, items: [TopicSearchResultItem]) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         self.items = items
     }
@@ -97,37 +125,47 @@ public struct SearchCommitsResponse: Codable {
         case items
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchCommitsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchCommitsResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [CommitSearchResultItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+    }
+}
+
+public extension SearchCommitsResponse {
+    init(totalCount: Int, incompleteResults: Bool, items: [CommitSearchResultItem]) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         self.items = items
     }
 }
-
-
-
-
 
 public struct SearchIssuesAndPullRequestsResponse: Codable {
     public var totalCount: Int
@@ -147,34 +185,58 @@ public struct SearchIssuesAndPullRequestsResponse: Codable {
         case lexicalFallbackReason = "lexical_fallback_reason"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchIssuesAndPullRequestsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        guard container.contains(.searchType) else {
-            throw SdkValidationError(field: "search_type", code: "required", message: "Validation failed for 'search_type': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
-        self.searchType = try container.sdkDecodeRequired(.searchType)
-        self.lexicalFallbackReason = try container.sdkDecodeIfPresent(.lexicalFallbackReason)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchIssuesAndPullRequestsResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [IssueSearchResultItem], searchType: SearchIssuesAndPullRequestsResponseSearchType, lexicalFallbackReason: [SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        guard container.contains(.searchType) else {
+            throw SdkValidationError(
+                field: "search_type",
+                code: "required",
+                message: "Validation failed for 'search_type': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+        searchType = try container.sdkDecodeRequired(.searchType)
+        lexicalFallbackReason = try container.sdkDecodeIfPresent(.lexicalFallbackReason)
+    }
+}
+
+public extension SearchIssuesAndPullRequestsResponse {
+    init(
+        totalCount: Int,
+        incompleteResults: Bool,
+        items: [IssueSearchResultItem],
+        searchType: SearchIssuesAndPullRequestsResponseSearchType,
+        lexicalFallbackReason: [SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem]? = nil
+    ) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         (self.items, self.searchType) = (items, searchType)
         self.lexicalFallbackReason = lexicalFallbackReason
@@ -192,29 +254,43 @@ public struct SearchReposResponse: Codable {
         case items
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchReposResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchReposResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [RepoSearchResultItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+    }
+}
+
+public extension SearchReposResponse {
+    init(totalCount: Int, incompleteResults: Bool, items: [RepoSearchResultItem]) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         self.items = items
     }
@@ -231,29 +307,43 @@ public struct SearchCodeResponse: Codable {
         case items
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchCodeResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchCodeResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [CodeSearchResultItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+    }
+}
+
+public extension SearchCodeResponse {
+    init(totalCount: Int, incompleteResults: Bool, items: [CodeSearchResultItem]) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         self.items = items
     }
@@ -270,29 +360,43 @@ public struct SearchUsersResponse: Codable {
         case items
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SearchUsersResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.incompleteResults) else {
-            throw SdkValidationError(field: "incomplete_results", code: "required", message: "Validation failed for 'incomplete_results': value is required")
-        }
-        guard container.contains(.items) else {
-            throw SdkValidationError(field: "items", code: "required", message: "Validation failed for 'items': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
-        self.items = try container.sdkDecodeRequired(.items)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SearchUsersResponse {
-    public init(totalCount: Int, incompleteResults: Bool, items: [UserSearchResultItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.incompleteResults) else {
+            throw SdkValidationError(
+                field: "incomplete_results",
+                code: "required",
+                message: "Validation failed for 'incomplete_results': value is required"
+            )
+        }
+        guard container.contains(.items) else {
+            throw SdkValidationError(
+                field: "items",
+                code: "required",
+                message: "Validation failed for 'items': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        incompleteResults = try container.sdkDecodeRequired(.incompleteResults)
+        items = try container.sdkDecodeRequired(.items)
+    }
+}
+
+public extension SearchUsersResponse {
+    init(totalCount: Int, incompleteResults: Bool, items: [UserSearchResultItem]) {
         (self.totalCount, self.incompleteResults) = (totalCount, incompleteResults)
         self.items = items
     }

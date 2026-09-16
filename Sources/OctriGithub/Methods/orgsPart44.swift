@@ -6,31 +6,76 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
+public extension OrgsMethods {
     /// Check if a user is, publicly or privately, a member of the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsCheckMembershipForUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsCheckMembershipForUser")).data
+    static func orgsCheckMembershipForUser(
+        config: ClientConfig,
+        org: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsCheckMembershipForUser"
+        )).data
     }
 
-    /// Removing a user from this list will remove them from all teams and they will no longer have any access to the organization's repositories. > [!NOTE] > If a user has both direct membership in the organization as well as indirect membership via an enterprise team, only their direct membership will be removed. Their indirect membership via an enterprise team remains until the user is removed from the enterprise team.
+    /// Removing a user from this list will remove them from all teams and they will no longer have any access to the
+    /// organization's repositories. > [!NOTE] > If a user has both direct membership in the organization as well as
+    /// indirect membership via an enterprise team, only their direct membership will be removed. Their indirect
+    /// membership via an enterprise team remains until the user is removed from the enterprise team.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsRemoveMember(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsRemoveMember")).data
+    static func orgsRemoveMember(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsRemoveMember"
+        )).data
     }
 
-    /// In order to get a user's membership with an organization, the authenticated user must be an organization member. The `state` parameter in the response can be used to identify the user's membership status.
+    /// In order to get a user's membership with an organization, the authenticated user must be an organization member.
+    /// The `state` parameter in the response can be used to identify the user's membership status.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsGetMembershipForUser(config: ClientConfig, org: String, username: String) async throws -> OrgMembership {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .json, operationId: "orgsGetMembershipForUser")).data
+    static func orgsGetMembershipForUser(
+        config: ClientConfig,
+        org: String,
+        username: String
+    ) async throws -> OrgMembership {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsGetMembershipForUser"
+        )).data
     }
 }

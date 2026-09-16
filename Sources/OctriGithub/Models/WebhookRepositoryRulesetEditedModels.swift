@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookRepositoryRulesetEdited domain models
+/// WebhookRepositoryRulesetEdited domain models
 /// Typed representation of the `WebhookRepositoryRulesetEdited` API schema.
 public struct WebhookRepositoryRulesetEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,34 +39,57 @@ public struct WebhookRepositoryRulesetEdited: Codable {
         case changes
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookRepositoryRulesetEdited {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.repositoryRuleset) else {
-            throw SdkValidationError(field: "repository_ruleset", code: "required", message: "Validation failed for 'repository_ruleset': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.repositoryRuleset = try container.sdkDecodeRequired(.repositoryRuleset)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.changes = try container.sdkDecodeIfPresent(.changes)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookRepositoryRulesetEdited {
-    public init(action: WebhookRepositoryRulesetEditedAction, repositoryRuleset: RepositoryRuleset, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, changes: WebhookRepositoryRulesetEditedChanges? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.repositoryRuleset) else {
+            throw SdkValidationError(
+                field: "repository_ruleset",
+                code: "required",
+                message: "Validation failed for 'repository_ruleset': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        repositoryRuleset = try container.sdkDecodeRequired(.repositoryRuleset)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        changes = try container.sdkDecodeIfPresent(.changes)
+    }
+}
+
+public extension WebhookRepositoryRulesetEdited {
+    init(
+        action: WebhookRepositoryRulesetEditedAction,
+        repositoryRuleset: RepositoryRuleset,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil,
+        changes: WebhookRepositoryRulesetEditedChanges? = nil
+    ) {
         (self.action, self.repositoryRuleset) = (action, repositoryRuleset)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -93,22 +116,27 @@ public struct WebhookRepositoryRulesetEditedChanges: Codable {
     }
 
     init() {
-        (self.name, self.enforcement, self.conditions, self.rules) = (nil, nil, nil, nil)
+        (name, enforcement, conditions, rules) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.enforcement = try container.sdkDecodeIfPresent(.enforcement)
-        self.conditions = try container.sdkDecodeIfPresent(.conditions)
-        self.rules = try container.sdkDecodeIfPresent(.rules)
+        name = try container.sdkDecodeIfPresent(.name)
+        enforcement = try container.sdkDecodeIfPresent(.enforcement)
+        conditions = try container.sdkDecodeIfPresent(.conditions)
+        rules = try container.sdkDecodeIfPresent(.rules)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChanges {
-    public init(name: WebhookRepositoryRulesetEditedChangesName? = nil, enforcement: WebhookRepositoryRulesetEditedChangesEnforcement? = nil, conditions: WebhookRepositoryRulesetEditedChangesConditions? = nil, rules: WebhookRepositoryRulesetEditedChangesRules? = nil) {
+    init(
+        name: WebhookRepositoryRulesetEditedChangesName? = nil,
+        enforcement: WebhookRepositoryRulesetEditedChangesEnforcement? = nil,
+        conditions: WebhookRepositoryRulesetEditedChangesConditions? = nil,
+        rules: WebhookRepositoryRulesetEditedChangesRules? = nil
+    ) {
         self.init()
         (self.name, self.enforcement) = (name, enforcement)
         (self.conditions, self.rules) = (conditions, rules)
@@ -131,21 +159,25 @@ public struct WebhookRepositoryRulesetEditedChangesConditions: Codable {
     }
 
     init() {
-        (self.added, self.deleted, self.updated) = (nil, nil, nil)
+        (added, deleted, updated) = (nil, nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.added = try container.sdkDecodeIfPresent(.added)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.updated = try container.sdkDecodeIfPresent(.updated)
+        added = try container.sdkDecodeIfPresent(.added)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        updated = try container.sdkDecodeIfPresent(.updated)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditions {
-    public init(added: [RepositoryRulesetConditions]? = nil, deleted: [RepositoryRulesetConditions]? = nil, updated: [WebhookRepositoryRulesetEditedChangesConditionsUpdatedItem]? = nil) {
+    init(
+        added: [RepositoryRulesetConditions]? = nil,
+        deleted: [RepositoryRulesetConditions]? = nil,
+        updated: [WebhookRepositoryRulesetEditedChangesConditionsUpdatedItem]? = nil
+    ) {
         self.init()
         (self.added, self.deleted) = (added, deleted)
         self.updated = updated
@@ -165,20 +197,23 @@ public struct WebhookRepositoryRulesetEditedChangesConditionsUpdatedItem: Codabl
     }
 
     init() {
-        (self.condition, self.changes) = (nil, nil)
+        (condition, changes) = (nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.condition = try container.sdkDecodeIfPresent(.condition)
-        self.changes = try container.sdkDecodeIfPresent(.changes)
+        condition = try container.sdkDecodeIfPresent(.condition)
+        changes = try container.sdkDecodeIfPresent(.changes)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItem {
-    public init(condition: RepositoryRulesetConditions? = nil, changes: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChanges? = nil) {
+    init(
+        condition: RepositoryRulesetConditions? = nil,
+        changes: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChanges? = nil
+    ) {
         self.init()
         (self.condition, self.changes) = (condition, changes)
     }
@@ -203,22 +238,27 @@ public struct WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChanges:
     }
 
     init() {
-        (self.conditionType, self.target, self.include, self.exclude) = (nil, nil, nil, nil)
+        (conditionType, target, include, exclude) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.conditionType = try container.sdkDecodeIfPresent(.conditionType)
-        self.target = try container.sdkDecodeIfPresent(.target)
-        self.include = try container.sdkDecodeIfPresent(.include)
-        self.exclude = try container.sdkDecodeIfPresent(.exclude)
+        conditionType = try container.sdkDecodeIfPresent(.conditionType)
+        target = try container.sdkDecodeIfPresent(.target)
+        include = try container.sdkDecodeIfPresent(.include)
+        exclude = try container.sdkDecodeIfPresent(.exclude)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChanges {
-    public init(conditionType: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChaX690cc143d8? = nil, target: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesTarget? = nil, include: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesInclude? = nil, exclude: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesExclude? = nil) {
+    init(
+        conditionType: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChaX690cc143d8? = nil,
+        target: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesTarget? = nil,
+        include: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesInclude? = nil,
+        exclude: WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesExclude? = nil
+    ) {
         self.init()
         (self.conditionType, self.target) = (conditionType, target)
         (self.include, self.exclude) = (include, exclude)
@@ -235,19 +275,19 @@ public struct WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChaX690c
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChaX690cc143d8 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChaX690cc143d8 {
-    public init(from: String? = nil) {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -263,19 +303,19 @@ public struct WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesE
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesExclude {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesExclude {
-    public init(from: [String]? = nil) {
+    init(from: [String]? = nil) {
         self.init()
         self.from = from
     }
@@ -291,19 +331,19 @@ public struct WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesI
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesInclude {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesInclude {
-    public init(from: [String]? = nil) {
+    init(from: [String]? = nil) {
         self.init()
         self.from = from
     }
@@ -319,19 +359,19 @@ public struct WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesT
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesTarget {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesConditionsUpdatedItemChangesTarget {
-    public init(from: String? = nil) {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -347,19 +387,19 @@ public struct WebhookRepositoryRulesetEditedChangesEnforcement: Codable {
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesEnforcement {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesEnforcement {
-    public init(from: String? = nil) {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -375,19 +415,19 @@ public struct WebhookRepositoryRulesetEditedChangesName: Codable {
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesName {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesName {
-    public init(from: String? = nil) {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -409,21 +449,25 @@ public struct WebhookRepositoryRulesetEditedChangesRules: Codable {
     }
 
     init() {
-        (self.added, self.deleted, self.updated) = (nil, nil, nil)
+        (added, deleted, updated) = (nil, nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRules {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.added = try container.sdkDecodeIfPresent(.added)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.updated = try container.sdkDecodeIfPresent(.updated)
+        added = try container.sdkDecodeIfPresent(.added)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        updated = try container.sdkDecodeIfPresent(.updated)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRules {
-    public init(added: [RepositoryRule]? = nil, deleted: [RepositoryRule]? = nil, updated: [WebhookRepositoryRulesetEditedChangesRulesUpdatedItem]? = nil) {
+    init(
+        added: [RepositoryRule]? = nil,
+        deleted: [RepositoryRule]? = nil,
+        updated: [WebhookRepositoryRulesetEditedChangesRulesUpdatedItem]? = nil
+    ) {
         self.init()
         (self.added, self.deleted) = (added, deleted)
         self.updated = updated
@@ -443,20 +487,20 @@ public struct WebhookRepositoryRulesetEditedChangesRulesUpdatedItem: Codable {
     }
 
     init() {
-        (self.rule, self.changes) = (nil, nil)
+        (rule, changes) = (nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.rule = try container.sdkDecodeIfPresent(.rule)
-        self.changes = try container.sdkDecodeIfPresent(.changes)
+        rule = try container.sdkDecodeIfPresent(.rule)
+        changes = try container.sdkDecodeIfPresent(.changes)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItem {
-    public init(rule: RepositoryRule? = nil, changes: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChanges? = nil) {
+    init(rule: RepositoryRule? = nil, changes: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChanges? = nil) {
         self.init()
         (self.rule, self.changes) = (rule, changes)
     }
@@ -478,21 +522,25 @@ public struct WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChanges: Coda
     }
 
     init() {
-        (self.configuration, self.ruleType, self.pattern) = (nil, nil, nil)
+        (configuration, ruleType, pattern) = (nil, nil, nil)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.configuration = try container.sdkDecodeIfPresent(.configuration)
-        self.ruleType = try container.sdkDecodeIfPresent(.ruleType)
-        self.pattern = try container.sdkDecodeIfPresent(.pattern)
+        configuration = try container.sdkDecodeIfPresent(.configuration)
+        ruleType = try container.sdkDecodeIfPresent(.ruleType)
+        pattern = try container.sdkDecodeIfPresent(.pattern)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChanges {
-    public init(configuration: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesCX78a12d5efb? = nil, ruleType: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleType? = nil, pattern: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesPattern? = nil) {
+    init(
+        configuration: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesCX78a12d5efb? = nil,
+        ruleType: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleType? = nil,
+        pattern: WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesPattern? = nil
+    ) {
         self.init()
         (self.configuration, self.ruleType) = (configuration, ruleType)
         self.pattern = pattern
@@ -509,19 +557,19 @@ public struct WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesCX78a1
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesCX78a12d5efb {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesCX78a12d5efb {
-    public init(from: String? = nil) {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -537,19 +585,19 @@ public struct WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesPatter
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesPattern {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesPattern {
-    public init(from: String? = nil) {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -565,13 +613,13 @@ public struct WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleTy
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleType {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }

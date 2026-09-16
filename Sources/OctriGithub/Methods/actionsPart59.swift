@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Sets the customization template and `opt-in` or `opt-out` flag for an OpenID Connect (OIDC) subject claim for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Sets the customization template and `opt-in` or `opt-out` flag for an OpenID Connect (OIDC) subject claim for a
+    /// repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -21,9 +22,33 @@ extension ActionsMethods {
     /// - useImmutableSubject: Whether to opt in to the immutable OIDC subject claim
     ///   format for this repository. When `true`, OIDC tokens will use a stable,
     ///   repository-ID-based `sub` claim.
-    public static func actionsSetCustomOidcSubClaimForRepo(config: ClientConfig, owner: String, repo: String, useDefault: Bool, includeClaimKeys: [String]?, useImmutableSubject: Bool?) async throws -> EmptyObject {
-        let requestBody = ActionsSetCustomOidcSubClaimForRepoRequestBody(useDefault: useDefault, includeClaimKeys: includeClaimKeys, useImmutableSubject: useImmutableSubject)
+    static func actionsSetCustomOidcSubClaimForRepo(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        useDefault: Bool,
+        includeClaimKeys: [String]?,
+        useImmutableSubject: Bool?
+    ) async throws -> EmptyObject {
+        let requestBody = ActionsSetCustomOidcSubClaimForRepoRequestBody(
+            useDefault: useDefault,
+            includeClaimKeys: includeClaimKeys,
+            useImmutableSubject: useImmutableSubject
+        )
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/oidc/customization/sub"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsSetCustomOidcSubClaimForRepo")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/oidc/customization/sub",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsSetCustomOidcSubClaimForRepo"
+        )).data
     }
 }

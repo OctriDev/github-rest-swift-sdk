@@ -3,19 +3,22 @@
 
 import Foundation
 
-// Copilot domain models
+/// Copilot domain models
 /// The organization policy for allowing or disallowing Copilot CLI.
 public struct CopilotOrganizationDetailsCli: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = CopilotOrganizationDetailsCli(rawValue: "enabled")
     public static let disabled = CopilotOrganizationDetailsCli(rawValue: "disabled")
     public static let unconfigured = CopilotOrganizationDetailsCli(rawValue: "unconfigured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -25,17 +28,21 @@ public struct CopilotOrganizationDetailsCli: RawRepresentable, Hashable, Codable
 }
 
 /// The organization policy for allowing or disallowing Copilot features on GitHub.com.
-public struct CopilotOrganizationDetailsPlatformChat: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotOrganizationDetailsPlatformChat: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = CopilotOrganizationDetailsPlatformChat(rawValue: "enabled")
     public static let disabled = CopilotOrganizationDetailsPlatformChat(rawValue: "disabled")
     public static let unconfigured = CopilotOrganizationDetailsPlatformChat(rawValue: "unconfigured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -48,14 +55,17 @@ public struct CopilotOrganizationDetailsPlatformChat: RawRepresentable, Hashable
 public struct CopilotOrganizationDetailsIdeChat: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = CopilotOrganizationDetailsIdeChat(rawValue: "enabled")
     public static let disabled = CopilotOrganizationDetailsIdeChat(rawValue: "disabled")
     public static let unconfigured = CopilotOrganizationDetailsIdeChat(rawValue: "unconfigured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

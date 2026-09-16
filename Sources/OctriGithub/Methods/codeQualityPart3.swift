@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeQualityMethods {
-    /// Gets a single code quality finding. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+public extension CodeQualityMethods {
+    /// Gets a single code quality finding. OAuth app tokens and personal access tokens (classic) need the `repo` scope
+    /// to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with
+    /// only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,18 +17,54 @@ extension CodeQualityMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - findingNumber: The number that identifies a finding.
-    public static func codeQualityGetFinding(config: ClientConfig, owner: String, repo: String, findingNumber: Int) async throws -> CodeQualityFinding {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-quality/findings/", sdkEncodePathSegment(sdkWireString(findingNumber))].joined(), config: config, decoder: .json, operationId: "codeQualityGetFinding")).data
+    static func codeQualityGetFinding(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        findingNumber: Int
+    ) async throws -> CodeQualityFinding {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-quality/findings/",
+                sdkEncodePathSegment(sdkWireString(findingNumber)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeQualityGetFinding"
+        )).data
     }
 
-    /// Gets a code quality setup configuration. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+    /// Gets a code quality setup configuration. OAuth app tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint
+    /// with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func codeQualityGetSetup(config: ClientConfig, owner: String, repo: String) async throws -> CodeQualitySetup {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-quality/setup"].joined(), config: config, decoder: .json, operationId: "codeQualityGetSetup")).data
+    static func codeQualityGetSetup(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> CodeQualitySetup {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-quality/setup",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeQualityGetSetup"
+        )).data
     }
 }

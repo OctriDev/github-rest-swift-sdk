@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical secretScanning operation model declarations
+/// Canonical secretScanning operation model declarations
 public struct SecretScanningBulkCreateRepoCustomPatternsResponse: Codable {
     /// The list of successfully created custom patterns.
     public var createdPatterns: [SecretScanningCustomPattern]?
@@ -17,19 +17,19 @@ public struct SecretScanningBulkCreateRepoCustomPatternsResponse: Codable {
     }
 
     init() {
-        self.createdPatterns = nil
+        createdPatterns = nil
     }
 }
 
 public extension SecretScanningBulkCreateRepoCustomPatternsResponse {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.createdPatterns = try container.sdkDecodeIfPresent(.createdPatterns)
+        createdPatterns = try container.sdkDecodeIfPresent(.createdPatterns)
     }
 }
 
 public extension SecretScanningBulkCreateRepoCustomPatternsResponse {
-    public init(createdPatterns: [SecretScanningCustomPattern]? = nil) {
+    init(createdPatterns: [SecretScanningCustomPattern]? = nil) {
         self.init()
         self.createdPatterns = createdPatterns
     }
@@ -47,20 +47,23 @@ public struct SecretScanningBulkCreateOrgCustomPatternsResponseX7011f6f0: Codabl
     }
 
     init() {
-        (self.message, self.validationErrors) = (nil, nil)
+        (message, validationErrors) = (nil, nil)
     }
 }
 
 public extension SecretScanningBulkCreateOrgCustomPatternsResponseX7011f6f0 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.validationErrors = try container.sdkDecodeIfPresent(.validationErrors)
+        message = try container.sdkDecodeIfPresent(.message)
+        validationErrors = try container.sdkDecodeIfPresent(.validationErrors)
     }
 }
 
 public extension SecretScanningBulkCreateOrgCustomPatternsResponseX7011f6f0 {
-    public init(message: String? = nil, validationErrors: [String: SecretScanningBulkCreateOrgCustomPatternsResponseValidationErrorsValue]? = nil) {
+    init(
+        message: String? = nil,
+        validationErrors: [String: SecretScanningBulkCreateOrgCustomPatternsResponseValidationErrorsValue]? = nil
+    ) {
         self.init()
         (self.message, self.validationErrors) = (message, validationErrors)
     }
@@ -75,19 +78,19 @@ public struct SecretScanningBulkCreateOrgCustomPatternsResponseValidationErrorsV
     }
 
     init() {
-        self.errors = nil
+        errors = nil
     }
 }
 
 public extension SecretScanningBulkCreateOrgCustomPatternsResponseValidationErrorsValue {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.errors = try container.sdkDecodeIfPresent(.errors)
+        errors = try container.sdkDecodeIfPresent(.errors)
     }
 }
 
 public extension SecretScanningBulkCreateOrgCustomPatternsResponseValidationErrorsValue {
-    public init(errors: [SecretScanningCustomPatternValidationError]? = nil) {
+    init(errors: [SecretScanningCustomPatternValidationError]? = nil) {
         self.init()
         self.errors = errors
     }
@@ -109,21 +112,25 @@ public struct SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX60fe
     }
 
     init() {
-        (self.tokenType, self.customPatternVersion, self.pushProtectionSetting) = (nil, nil, nil)
+        (tokenType, customPatternVersion, pushProtectionSetting) = (nil, nil, nil)
     }
 }
 
 public extension SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX60fe54664b {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.tokenType = try container.sdkDecodeIfPresent(.tokenType)
-        self.customPatternVersion = try container.sdkDecodeIfPresent(.customPatternVersion)
-        self.pushProtectionSetting = try container.sdkDecodeIfPresent(.pushProtectionSetting)
+        tokenType = try container.sdkDecodeIfPresent(.tokenType)
+        customPatternVersion = try container.sdkDecodeIfPresent(.customPatternVersion)
+        pushProtectionSetting = try container.sdkDecodeIfPresent(.pushProtectionSetting)
     }
 }
 
 public extension SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX60fe54664b {
-    public init(tokenType: String? = nil, customPatternVersion: SecretScanningRowVersion? = nil, pushProtectionSetting: SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde? = nil) {
+    init(
+        tokenType: String? = nil,
+        customPatternVersion: SecretScanningRowVersion? = nil,
+        pushProtectionSetting: SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde? = nil
+    ) {
         self.init()
         (self.tokenType, self.customPatternVersion) = (tokenType, customPatternVersion)
         self.pushProtectionSetting = pushProtectionSetting
@@ -139,19 +146,19 @@ public struct SecretScanningBulkCreateRepoCustomPatternsResponseValidationErrors
     }
 
     init() {
-        self.errors = nil
+        errors = nil
     }
 }
 
 public extension SecretScanningBulkCreateRepoCustomPatternsResponseValidationErrorsValue {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.errors = try container.sdkDecodeIfPresent(.errors)
+        errors = try container.sdkDecodeIfPresent(.errors)
     }
 }
 
 public extension SecretScanningBulkCreateRepoCustomPatternsResponseValidationErrorsValue {
-    public init(errors: [SecretScanningCustomPatternValidationError]? = nil) {
+    init(errors: [SecretScanningCustomPatternValidationError]? = nil) {
         self.init()
         self.errors = errors
     }
@@ -169,20 +176,23 @@ public struct SecretScanningBulkCreateRepoCustomPatternsResponseX07634e40: Codab
     }
 
     init() {
-        (self.message, self.validationErrors) = (nil, nil)
+        (message, validationErrors) = (nil, nil)
     }
 }
 
 public extension SecretScanningBulkCreateRepoCustomPatternsResponseX07634e40 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.validationErrors = try container.sdkDecodeIfPresent(.validationErrors)
+        message = try container.sdkDecodeIfPresent(.message)
+        validationErrors = try container.sdkDecodeIfPresent(.validationErrors)
     }
 }
 
 public extension SecretScanningBulkCreateRepoCustomPatternsResponseX07634e40 {
-    public init(message: String? = nil, validationErrors: [String: SecretScanningBulkCreateRepoCustomPatternsResponseValidationErrorsValue]? = nil) {
+    init(
+        message: String? = nil,
+        validationErrors: [String: SecretScanningBulkCreateRepoCustomPatternsResponseValidationErrorsValue]? = nil
+    ) {
         self.init()
         (self.message, self.validationErrors) = (message, validationErrors)
     }
@@ -197,19 +207,19 @@ public struct SecretScanningBulkCreateOrgCustomPatternsResponse: Codable {
     }
 
     init() {
-        self.createdPatterns = nil
+        createdPatterns = nil
     }
 }
 
 public extension SecretScanningBulkCreateOrgCustomPatternsResponse {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.createdPatterns = try container.sdkDecodeIfPresent(.createdPatterns)
+        createdPatterns = try container.sdkDecodeIfPresent(.createdPatterns)
     }
 }
 
 public extension SecretScanningBulkCreateOrgCustomPatternsResponse {
-    public init(createdPatterns: [SecretScanningCustomPattern]? = nil) {
+    init(createdPatterns: [SecretScanningCustomPattern]? = nil) {
         self.init()
         self.createdPatterns = createdPatterns
     }
@@ -227,20 +237,23 @@ public struct SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteX496d
     }
 
     init() {
-        (self.tokenType, self.pushProtectionSetting) = (nil, nil)
+        (tokenType, pushProtectionSetting) = (nil, nil)
     }
 }
 
 public extension SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteX496d235208 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.tokenType = try container.sdkDecodeIfPresent(.tokenType)
-        self.pushProtectionSetting = try container.sdkDecodeIfPresent(.pushProtectionSetting)
+        tokenType = try container.sdkDecodeIfPresent(.tokenType)
+        pushProtectionSetting = try container.sdkDecodeIfPresent(.pushProtectionSetting)
     }
 }
 
 public extension SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteX496d235208 {
-    public init(tokenType: String? = nil, pushProtectionSetting: SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93? = nil) {
+    init(
+        tokenType: String? = nil,
+        pushProtectionSetting: SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93? = nil
+    ) {
         self.init()
         (self.tokenType, self.pushProtectionSetting) = (tokenType, pushProtectionSetting)
     }
@@ -255,19 +268,19 @@ public struct SecretScanningUpdateOrgPatternConfigsResponse: Codable {
     }
 
     init() {
-        self.patternConfigVersion = nil
+        patternConfigVersion = nil
     }
 }
 
 public extension SecretScanningUpdateOrgPatternConfigsResponse {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.patternConfigVersion = try container.sdkDecodeIfPresent(.patternConfigVersion)
+        patternConfigVersion = try container.sdkDecodeIfPresent(.patternConfigVersion)
     }
 }
 
 public extension SecretScanningUpdateOrgPatternConfigsResponse {
-    public init(patternConfigVersion: String? = nil) {
+    init(patternConfigVersion: String? = nil) {
         self.init()
         self.patternConfigVersion = patternConfigVersion
     }

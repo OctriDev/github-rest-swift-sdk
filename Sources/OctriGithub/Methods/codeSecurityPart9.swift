@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeSecurityMethods {
-    /// Lists all code security configurations available in an organization. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint.
+public extension CodeSecurityMethods {
+    /// Lists all code security configurations available in an organization. The authenticated user must be an
+    /// administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -28,12 +30,26 @@ extension CodeSecurityMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func codeSecurityGetConfigurationsForOrg(config: ClientConfig, org: String, targetType: CodeSecurityGetConfigurationsForOrgParameter?, perPage: Int?, before: String?, after: String?) async throws -> [CodeSecurityConfiguration] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations"].joined(), config: config, query: [
-            SdkQueryParameter("target_type", value: targetType),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-        ], decoder: .json, operationId: "codeSecurityGetConfigurationsForOrg")).data
+    static func codeSecurityGetConfigurationsForOrg(
+        config: ClientConfig,
+        org: String,
+        targetType: CodeSecurityGetConfigurationsForOrgParameter?,
+        perPage: Int?,
+        before: String?,
+        after: String?
+    ) async throws -> [CodeSecurityConfiguration] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("target_type", value: targetType),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+            ],
+            decoder: .json,
+            operationId: "codeSecurityGetConfigurationsForOrg"
+        )).data
     }
 }

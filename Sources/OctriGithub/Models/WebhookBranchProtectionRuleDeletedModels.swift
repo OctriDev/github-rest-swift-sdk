@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookBranchProtectionRuleDeleted domain models
+/// WebhookBranchProtectionRuleDeleted domain models
 /// Typed representation of the `WebhookBranchProtectionRuleDeleted` API schema.
 public struct WebhookBranchProtectionRuleDeleted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -38,36 +38,62 @@ public struct WebhookBranchProtectionRuleDeleted: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookBranchProtectionRuleDeleted {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.rule) else {
-            throw SdkValidationError(field: "rule", code: "required", message: "Validation failed for 'rule': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookBranchProtectionRuleDeleted {
-    public init(action: WebhookBranchProtectionRuleDeletedAction, repository: RepositoryWebhooks, rule: WebhooksRule, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.rule) else {
+            throw SdkValidationError(
+                field: "rule",
+                code: "required",
+                message: "Validation failed for 'rule': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        repository = try container.sdkDecodeRequired(.repository)
+        rule = try container.sdkDecodeRequired(.rule)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookBranchProtectionRuleDeleted {
+    init(
+        action: WebhookBranchProtectionRuleDeletedAction,
+        repository: RepositoryWebhooks,
+        rule: WebhooksRule,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.repository) = (action, repository)
         (self.rule, self.sender) = (rule, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -76,15 +102,19 @@ public extension WebhookBranchProtectionRuleDeleted {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookBranchProtectionRuleDeletedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookBranchProtectionRuleDeletedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let deleted = WebhookBranchProtectionRuleDeletedAction(rawValue: "deleted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    public struct ApiInsightsGetSubjectStatsOptions: Codable {
+public extension OrgsMethods {
+    struct ApiInsightsGetSubjectStatsOptions: Codable {
         public var org: String
         public var minTimestamp: String
         public var maxTimestamp: String?
@@ -23,7 +23,9 @@ extension OrgsMethods {
         }
     }
 
-    /// Get API request statistics for all subjects within an organization within a specified time frame. Subjects can be users or GitHub Apps. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    /// Get API request statistics for all subjects within an organization within a specified time frame. Subjects can
+    /// be users or GitHub Apps. Under normal conditions, you can expect API data to appear within 4–6 hours after
+    /// making a request. During incidents or periods of unusually high volume, it may take longer to show up.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -46,15 +48,25 @@ extension OrgsMethods {
     /// - sort: The property to sort the results by.
     /// - subjectNameSubstring: Providing a substring will filter results where the
     ///   subject name contains the substring. This is a case-insensitive search.
-    public static func apiInsightsGetSubjectStats(config: ClientConfig, options: ApiInsightsGetSubjectStatsOptions) async throws -> ApiInsightsSubjectStats {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/insights/api/subject-stats"].joined(), config: config, query: [
-            SdkQueryParameter("min_timestamp", value: options.minTimestamp),
-            SdkQueryParameter("max_timestamp", value: options.maxTimestamp),
-            SdkQueryParameter("page", value: options.page),
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("direction", value: options.direction),
-            SdkQueryParameter("sort", values: options.sort, style: "form", explode: true),
-            SdkQueryParameter("subject_name_substring", value: options.subjectNameSubstring),
-        ], decoder: .json, operationId: "apiInsightsGetSubjectStats")).data
+    static func apiInsightsGetSubjectStats(
+        config: ClientConfig,
+        options: ApiInsightsGetSubjectStatsOptions
+    ) async throws -> ApiInsightsSubjectStats {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/insights/api/subject-stats"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("min_timestamp", value: options.minTimestamp),
+                SdkQueryParameter("max_timestamp", value: options.maxTimestamp),
+                SdkQueryParameter("page", value: options.page),
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("direction", value: options.direction),
+                SdkQueryParameter("sort", values: options.sort, style: "form", explode: true),
+                SdkQueryParameter("subject_name_substring", value: options.subjectNameSubstring),
+            ],
+            decoder: .json,
+            operationId: "apiInsightsGetSubjectStats"
+        )).data
     }
 }

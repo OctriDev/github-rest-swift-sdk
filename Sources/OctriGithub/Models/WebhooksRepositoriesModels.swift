@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhooksRepositories domain models
+/// WebhooksRepositories domain models
 public typealias WebhooksRepositories = [WebhooksRepositoriesItem]
 
 public typealias WebhooksRepositoriesAdded = [WebhooksRepositoriesAddedItem]
@@ -29,40 +29,62 @@ public struct WebhooksRepositoriesItem: Codable {
         case `private`
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhooksRepositoriesItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.fullName) else {
-            throw SdkValidationError(field: "full_name", code: "required", message: "Validation failed for 'full_name': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.`private`) else {
-            throw SdkValidationError(field: "private", code: "required", message: "Validation failed for 'private': value is required")
-        }
-        self.fullName = try container.sdkDecodeRequired(.fullName)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.`private` = try container.sdkDecodeRequired(.`private`)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhooksRepositoriesItem {
-    public init(fullName: String, id: Int, name: String, nodeId: String, `private`: Bool) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.fullName) else {
+            throw SdkValidationError(
+                field: "full_name",
+                code: "required",
+                message: "Validation failed for 'full_name': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.private) else {
+            throw SdkValidationError(
+                field: "private",
+                code: "required",
+                message: "Validation failed for 'private': value is required"
+            )
+        }
+        fullName = try container.sdkDecodeRequired(.fullName)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.private = try container.sdkDecodeRequired(.private)
+    }
+}
+
+public extension WebhooksRepositoriesItem {
+    init(fullName: String, id: Int, name: String, nodeId: String, private: Bool) {
         (self.fullName, self.id) = (fullName, id)
         (self.name, self.nodeId) = (name, nodeId)
-        self.`private` = `private`
+        self.private = `private`
     }
 }
 
@@ -87,39 +109,61 @@ public struct WebhooksRepositoriesAddedItem: Codable {
         case `private`
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhooksRepositoriesAddedItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.fullName) else {
-            throw SdkValidationError(field: "full_name", code: "required", message: "Validation failed for 'full_name': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.`private`) else {
-            throw SdkValidationError(field: "private", code: "required", message: "Validation failed for 'private': value is required")
-        }
-        self.fullName = try container.sdkDecodeRequired(.fullName)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.`private` = try container.sdkDecodeRequired(.`private`)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhooksRepositoriesAddedItem {
-    public init(fullName: String, id: Int, name: String, nodeId: String, `private`: Bool) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.fullName) else {
+            throw SdkValidationError(
+                field: "full_name",
+                code: "required",
+                message: "Validation failed for 'full_name': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.private) else {
+            throw SdkValidationError(
+                field: "private",
+                code: "required",
+                message: "Validation failed for 'private': value is required"
+            )
+        }
+        fullName = try container.sdkDecodeRequired(.fullName)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.private = try container.sdkDecodeRequired(.private)
+    }
+}
+
+public extension WebhooksRepositoriesAddedItem {
+    init(fullName: String, id: Int, name: String, nodeId: String, private: Bool) {
         (self.fullName, self.id) = (fullName, id)
         (self.name, self.nodeId) = (name, nodeId)
-        self.`private` = `private`
+        self.private = `private`
     }
 }

@@ -9,13 +9,16 @@ import Foundation
 public struct ChecksListForSuiteParameterX2c07543f: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let latest = ChecksListForSuiteParameterX2c07543f(rawValue: "latest")
     public static let all = ChecksListForSuiteParameterX2c07543f(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -24,16 +27,20 @@ public struct ChecksListForSuiteParameterX2c07543f: RawRepresentable, Hashable, 
     }
 }
 
-public struct CodeQualityListFindingsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeQualityListFindingsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = CodeQualityListFindingsForRepoParameter(rawValue: "open")
     public static let dismissed = CodeQualityListFindingsForRepoParameter(rawValue: "dismissed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -42,16 +49,20 @@ public struct CodeQualityListFindingsForRepoParameter: RawRepresentable, Hashabl
     }
 }
 
-public struct CodeScanningListAlertsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeScanningListAlertsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = CodeScanningListAlertsForRepoParameter(rawValue: "created")
     public static let updated = CodeScanningListAlertsForRepoParameter(rawValue: "updated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,15 +71,19 @@ public struct CodeScanningListAlertsForRepoParameter: RawRepresentable, Hashable
     }
 }
 
-public struct CodeScanningListRecentAnalysesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeScanningListRecentAnalysesParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = CodeScanningListRecentAnalysesParameter(rawValue: "created")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -79,18 +94,23 @@ public struct CodeScanningListRecentAnalysesParameter: RawRepresentable, Hashabl
 
 /// The geographic area for this codespace. If not specified, the value is assigned by IP. This property
 /// replaces `location`, which is closing down.
-public struct CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let europeWest = CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo(rawValue: "EuropeWest")
-    public static let southeastAsia = CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo(rawValue: "SoutheastAsia")
+    public static let southeastAsia =
+        CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo(rawValue: "SoutheastAsia")
     public static let usEast = CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo(rawValue: "UsEast")
     public static let usWest = CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo(rawValue: "UsWest")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -102,14 +122,17 @@ public struct CodespacesCreateWithRepoForAuthenticatedUserRequestBodyGeo: RawRep
 public struct ReposListCollaboratorsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let outside = ReposListCollaboratorsParameter(rawValue: "outside")
     public static let direct = ReposListCollaboratorsParameter(rawValue: "direct")
     public static let all = ReposListCollaboratorsParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -118,10 +141,14 @@ public struct ReposListCollaboratorsParameter: RawRepresentable, Hashable, Codab
     }
 }
 
-public struct ReposListCollaboratorsParameterX4bd4595c: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposListCollaboratorsParameterX4bd4595c: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pull = ReposListCollaboratorsParameterX4bd4595c(rawValue: "pull")
     public static let triage = ReposListCollaboratorsParameterX4bd4595c(rawValue: "triage")
     public static let push = ReposListCollaboratorsParameterX4bd4595c(rawValue: "push")
@@ -130,7 +157,7 @@ public struct ReposListCollaboratorsParameterX4bd4595c: RawRepresentable, Hashab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -139,10 +166,14 @@ public struct ReposListCollaboratorsParameterX4bd4595c: RawRepresentable, Hashab
     }
 }
 
-public struct ReactionsListForCommitCommentParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReactionsListForCommitCommentParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let plus1 = ReactionsListForCommitCommentParameter(rawValue: "+1")
     public static let minus1 = ReactionsListForCommitCommentParameter(rawValue: "-1")
     public static let laugh = ReactionsListForCommitCommentParameter(rawValue: "laugh")
@@ -154,7 +185,7 @@ public struct ReactionsListForCommitCommentParameter: RawRepresentable, Hashable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -164,10 +195,14 @@ public struct ReactionsListForCommitCommentParameter: RawRepresentable, Hashable
 }
 
 /// The reaction type to add to the commit comment.
-public struct ReactionsCreateForCommitCommentRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReactionsCreateForCommitCommentRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let plus1 = ReactionsCreateForCommitCommentRequestBodyContent(rawValue: "+1")
     public static let minus1 = ReactionsCreateForCommitCommentRequestBodyContent(rawValue: "-1")
     public static let laugh = ReactionsCreateForCommitCommentRequestBodyContent(rawValue: "laugh")
@@ -179,7 +214,7 @@ public struct ReactionsCreateForCommitCommentRequestBodyContent: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -191,13 +226,16 @@ public struct ReactionsCreateForCommitCommentRequestBodyContent: RawRepresentabl
 public struct ChecksListForRefParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let latest = ChecksListForRefParameter(rawValue: "latest")
     public static let all = ChecksListForRefParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

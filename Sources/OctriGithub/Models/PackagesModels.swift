@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Packages domain models
+/// Packages domain models
 /// Minimal Repository
 public struct NullableMinimalRepository: Codable {
     /// Required `int64`-formatted value serialized in the `id` wire field.
@@ -329,112 +329,205 @@ public struct NullableMinimalRepository: Codable {
         case customProperties = "custom_properties"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension NullableMinimalRepository {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.fullName = try container.sdkDecodeRequired(.fullName)
-        self.owner = try container.sdkDecodeRequired(.owner)
-        self.`private` = try container.sdkDecodeRequired(.`private`)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.fork = try container.sdkDecodeRequired(.fork)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.archiveUrl = try container.sdkDecodeRequired(.archiveUrl)
-        self.assigneesUrl = try container.sdkDecodeRequired(.assigneesUrl)
-        self.blobsUrl = try container.sdkDecodeRequired(.blobsUrl)
-        self.branchesUrl = try container.sdkDecodeRequired(.branchesUrl)
-        self.collaboratorsUrl = try container.sdkDecodeRequired(.collaboratorsUrl)
-        self.commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
-        self.commitsUrl = try container.sdkDecodeRequired(.commitsUrl)
-        self.compareUrl = try container.sdkDecodeRequired(.compareUrl)
-        self.contentsUrl = try container.sdkDecodeRequired(.contentsUrl)
-        self.contributorsUrl = try container.sdkDecodeRequired(.contributorsUrl)
-        self.deploymentsUrl = try container.sdkDecodeRequired(.deploymentsUrl)
-        self.downloadsUrl = try container.sdkDecodeRequired(.downloadsUrl)
-        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        self.forksUrl = try container.sdkDecodeRequired(.forksUrl)
-        self.gitCommitsUrl = try container.sdkDecodeRequired(.gitCommitsUrl)
-        self.gitRefsUrl = try container.sdkDecodeRequired(.gitRefsUrl)
-        self.gitTagsUrl = try container.sdkDecodeRequired(.gitTagsUrl)
-        self.issueCommentUrl = try container.sdkDecodeRequired(.issueCommentUrl)
-        self.issueEventsUrl = try container.sdkDecodeRequired(.issueEventsUrl)
-        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        self.keysUrl = try container.sdkDecodeRequired(.keysUrl)
-        self.labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
-        self.languagesUrl = try container.sdkDecodeRequired(.languagesUrl)
-        self.mergesUrl = try container.sdkDecodeRequired(.mergesUrl)
-        self.milestonesUrl = try container.sdkDecodeRequired(.milestonesUrl)
-        self.notificationsUrl = try container.sdkDecodeRequired(.notificationsUrl)
-        self.pullsUrl = try container.sdkDecodeRequired(.pullsUrl)
-        self.releasesUrl = try container.sdkDecodeRequired(.releasesUrl)
-        self.stargazersUrl = try container.sdkDecodeRequired(.stargazersUrl)
-        self.statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
-        self.subscribersUrl = try container.sdkDecodeRequired(.subscribersUrl)
-        self.subscriptionUrl = try container.sdkDecodeRequired(.subscriptionUrl)
-        self.tagsUrl = try container.sdkDecodeRequired(.tagsUrl)
-        self.teamsUrl = try container.sdkDecodeRequired(.teamsUrl)
-        self.treesUrl = try container.sdkDecodeRequired(.treesUrl)
-        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
-        self.gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
-        self.sshUrl = try container.sdkDecodeIfPresent(.sshUrl)
-        self.cloneUrl = try container.sdkDecodeIfPresent(.cloneUrl)
-        self.mirrorUrl = try container.sdkDecodeIfPresent(.mirrorUrl)
-        self.svnUrl = try container.sdkDecodeIfPresent(.svnUrl)
-        self.homepage = try container.sdkDecodeIfPresent(.homepage)
-        self.language = try container.sdkDecodeIfPresent(.language)
-        self.forksCount = try container.sdkDecodeIfPresent(.forksCount)
-        self.stargazersCount = try container.sdkDecodeIfPresent(.stargazersCount)
-        self.watchersCount = try container.sdkDecodeIfPresent(.watchersCount)
-        self.size = try container.sdkDecodeIfPresent(.size)
-        self.defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
-        self.openIssuesCount = try container.sdkDecodeIfPresent(.openIssuesCount)
-        self.isTemplate = try container.sdkDecodeIfPresent(.isTemplate)
-        self.topics = try container.sdkDecodeIfPresent(.topics)
-        self.hasIssues = try container.sdkDecodeIfPresent(.hasIssues)
-        self.hasProjects = try container.sdkDecodeIfPresent(.hasProjects)
-        self.hasWiki = try container.sdkDecodeIfPresent(.hasWiki)
-        self.hasPages = try container.sdkDecodeIfPresent(.hasPages)
-        self.hasDownloads = try container.sdkDecodeIfPresent(.hasDownloads)
-        self.hasDiscussions = try container.sdkDecodeIfPresent(.hasDiscussions)
-        self.hasPullRequests = try container.sdkDecodeIfPresent(.hasPullRequests)
-        self.pullRequestCreationPolicy = try container.sdkDecodeIfPresent(.pullRequestCreationPolicy)
-        self.archived = try container.sdkDecodeIfPresent(.archived)
-        self.disabled = try container.sdkDecodeIfPresent(.disabled)
-        self.visibility = try container.sdkDecodeIfPresent(.visibility)
-        self.pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.permissions = try container.sdkDecodeIfPresent(.permissions)
-        self.roleName = try container.sdkDecodeIfPresent(.roleName)
-        self.tempCloneToken = try container.sdkDecodeIfPresent(.tempCloneToken)
-        self.deleteBranchOnMerge = try container.sdkDecodeIfPresent(.deleteBranchOnMerge)
-        self.subscribersCount = try container.sdkDecodeIfPresent(.subscribersCount)
-        self.networkCount = try container.sdkDecodeIfPresent(.networkCount)
-        self.codeOfConduct = try container.sdkDecodeIfPresent(.codeOfConduct)
-        self.license = try container.sdkDecodeIfPresent(.license)
-        self.forks = try container.sdkDecodeIfPresent(.forks)
-        self.openIssues = try container.sdkDecodeIfPresent(.openIssues)
-        self.watchers = try container.sdkDecodeIfPresent(.watchers)
-        self.allowForking = try container.sdkDecodeIfPresent(.allowForking)
-        self.webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
-        self.securityAndAnalysis = try container.sdkDecodeIfPresent(.securityAndAnalysis)
-        self.customProperties = try container.sdkDecodeIfPresent(.customProperties)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        name = try container.sdkDecodeRequired(.name)
+        fullName = try container.sdkDecodeRequired(.fullName)
+        owner = try container.sdkDecodeRequired(.owner)
+        self.private = try container.sdkDecodeRequired(.private)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        description = try container.sdkDecodeIfPresent(.description)
+        fork = try container.sdkDecodeRequired(.fork)
+        url = try container.sdkDecodeRequired(.url)
+        archiveUrl = try container.sdkDecodeRequired(.archiveUrl)
+        assigneesUrl = try container.sdkDecodeRequired(.assigneesUrl)
+        blobsUrl = try container.sdkDecodeRequired(.blobsUrl)
+        branchesUrl = try container.sdkDecodeRequired(.branchesUrl)
+        collaboratorsUrl = try container.sdkDecodeRequired(.collaboratorsUrl)
+        commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
+        commitsUrl = try container.sdkDecodeRequired(.commitsUrl)
+        compareUrl = try container.sdkDecodeRequired(.compareUrl)
+        contentsUrl = try container.sdkDecodeRequired(.contentsUrl)
+        contributorsUrl = try container.sdkDecodeRequired(.contributorsUrl)
+        deploymentsUrl = try container.sdkDecodeRequired(.deploymentsUrl)
+        downloadsUrl = try container.sdkDecodeRequired(.downloadsUrl)
+        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        forksUrl = try container.sdkDecodeRequired(.forksUrl)
+        gitCommitsUrl = try container.sdkDecodeRequired(.gitCommitsUrl)
+        gitRefsUrl = try container.sdkDecodeRequired(.gitRefsUrl)
+        gitTagsUrl = try container.sdkDecodeRequired(.gitTagsUrl)
+        issueCommentUrl = try container.sdkDecodeRequired(.issueCommentUrl)
+        issueEventsUrl = try container.sdkDecodeRequired(.issueEventsUrl)
+        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        keysUrl = try container.sdkDecodeRequired(.keysUrl)
+        labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
+        languagesUrl = try container.sdkDecodeRequired(.languagesUrl)
+        mergesUrl = try container.sdkDecodeRequired(.mergesUrl)
+        milestonesUrl = try container.sdkDecodeRequired(.milestonesUrl)
+        notificationsUrl = try container.sdkDecodeRequired(.notificationsUrl)
+        pullsUrl = try container.sdkDecodeRequired(.pullsUrl)
+        releasesUrl = try container.sdkDecodeRequired(.releasesUrl)
+        stargazersUrl = try container.sdkDecodeRequired(.stargazersUrl)
+        statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
+        subscribersUrl = try container.sdkDecodeRequired(.subscribersUrl)
+        subscriptionUrl = try container.sdkDecodeRequired(.subscriptionUrl)
+        tagsUrl = try container.sdkDecodeRequired(.tagsUrl)
+        teamsUrl = try container.sdkDecodeRequired(.teamsUrl)
+        treesUrl = try container.sdkDecodeRequired(.treesUrl)
+        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
+        sshUrl = try container.sdkDecodeIfPresent(.sshUrl)
+        cloneUrl = try container.sdkDecodeIfPresent(.cloneUrl)
+        mirrorUrl = try container.sdkDecodeIfPresent(.mirrorUrl)
+        svnUrl = try container.sdkDecodeIfPresent(.svnUrl)
+        homepage = try container.sdkDecodeIfPresent(.homepage)
+        language = try container.sdkDecodeIfPresent(.language)
+        forksCount = try container.sdkDecodeIfPresent(.forksCount)
+        stargazersCount = try container.sdkDecodeIfPresent(.stargazersCount)
+        watchersCount = try container.sdkDecodeIfPresent(.watchersCount)
+        size = try container.sdkDecodeIfPresent(.size)
+        defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
+        openIssuesCount = try container.sdkDecodeIfPresent(.openIssuesCount)
+        isTemplate = try container.sdkDecodeIfPresent(.isTemplate)
+        topics = try container.sdkDecodeIfPresent(.topics)
+        hasIssues = try container.sdkDecodeIfPresent(.hasIssues)
+        hasProjects = try container.sdkDecodeIfPresent(.hasProjects)
+        hasWiki = try container.sdkDecodeIfPresent(.hasWiki)
+        hasPages = try container.sdkDecodeIfPresent(.hasPages)
+        hasDownloads = try container.sdkDecodeIfPresent(.hasDownloads)
+        hasDiscussions = try container.sdkDecodeIfPresent(.hasDiscussions)
+        hasPullRequests = try container.sdkDecodeIfPresent(.hasPullRequests)
+        pullRequestCreationPolicy = try container.sdkDecodeIfPresent(.pullRequestCreationPolicy)
+        archived = try container.sdkDecodeIfPresent(.archived)
+        disabled = try container.sdkDecodeIfPresent(.disabled)
+        visibility = try container.sdkDecodeIfPresent(.visibility)
+        pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        permissions = try container.sdkDecodeIfPresent(.permissions)
+        roleName = try container.sdkDecodeIfPresent(.roleName)
+        tempCloneToken = try container.sdkDecodeIfPresent(.tempCloneToken)
+        deleteBranchOnMerge = try container.sdkDecodeIfPresent(.deleteBranchOnMerge)
+        subscribersCount = try container.sdkDecodeIfPresent(.subscribersCount)
+        networkCount = try container.sdkDecodeIfPresent(.networkCount)
+        codeOfConduct = try container.sdkDecodeIfPresent(.codeOfConduct)
+        license = try container.sdkDecodeIfPresent(.license)
+        forks = try container.sdkDecodeIfPresent(.forks)
+        openIssues = try container.sdkDecodeIfPresent(.openIssues)
+        watchers = try container.sdkDecodeIfPresent(.watchers)
+        allowForking = try container.sdkDecodeIfPresent(.allowForking)
+        webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
+        securityAndAnalysis = try container.sdkDecodeIfPresent(.securityAndAnalysis)
+        customProperties = try container.sdkDecodeIfPresent(.customProperties)
         try sdkValidateConstraintsPart1()
         try sdkValidateConstraintsPart2()
     }
 }
 
 public extension NullableMinimalRepository {
-    public init(id: Int, nodeId: String, name: String, fullName: String, owner: SimpleUser, `private`: Bool, htmlUrl: String, description: String?, fork: Bool, url: String, archiveUrl: String, assigneesUrl: String, blobsUrl: String, branchesUrl: String, collaboratorsUrl: String, commentsUrl: String, commitsUrl: String, compareUrl: String, contentsUrl: String, contributorsUrl: String, deploymentsUrl: String, downloadsUrl: String, eventsUrl: String, forksUrl: String, gitCommitsUrl: String, gitRefsUrl: String, gitTagsUrl: String, issueCommentUrl: String, issueEventsUrl: String, issuesUrl: String, keysUrl: String, labelsUrl: String, languagesUrl: String, mergesUrl: String, milestonesUrl: String, notificationsUrl: String, pullsUrl: String, releasesUrl: String, stargazersUrl: String, statusesUrl: String, subscribersUrl: String, subscriptionUrl: String, tagsUrl: String, teamsUrl: String, treesUrl: String, hooksUrl: String, gitUrl: String? = nil, sshUrl: String? = nil, cloneUrl: String? = nil, mirrorUrl: String? = nil, svnUrl: String? = nil, homepage: String? = nil, language: String? = nil, forksCount: Int? = nil, stargazersCount: Int? = nil, watchersCount: Int? = nil, size: Int? = nil, defaultBranch: String? = nil, openIssuesCount: Int? = nil, isTemplate: Bool? = nil, topics: [String]? = nil, hasIssues: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, hasPages: Bool? = nil, hasDownloads: Bool? = nil, hasDiscussions: Bool? = nil, hasPullRequests: Bool? = nil, pullRequestCreationPolicy: NullableMinimalRepositoryPullRequestCreationPolicy? = nil, archived: Bool? = nil, disabled: Bool? = nil, visibility: String? = nil, pushedAt: Date? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, permissions: NullableMinimalRepositoryPermissions? = nil, roleName: String? = nil, tempCloneToken: String? = nil, deleteBranchOnMerge: Bool? = nil, subscribersCount: Int? = nil, networkCount: Int? = nil, codeOfConduct: CodeOfConduct? = nil, license: NullableMinimalRepositoryLicense? = nil, forks: Int? = nil, openIssues: Int? = nil, watchers: Int? = nil, allowForking: Bool? = nil, webCommitSignoffRequired: Bool? = nil, securityAndAnalysis: SecurityAndAnalysis? = nil, customProperties: [String: JSONValue]? = nil) throws {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        fullName: String,
+        owner: SimpleUser,
+        private: Bool,
+        htmlUrl: String,
+        description: String?,
+        fork: Bool,
+        url: String,
+        archiveUrl: String,
+        assigneesUrl: String,
+        blobsUrl: String,
+        branchesUrl: String,
+        collaboratorsUrl: String,
+        commentsUrl: String,
+        commitsUrl: String,
+        compareUrl: String,
+        contentsUrl: String,
+        contributorsUrl: String,
+        deploymentsUrl: String,
+        downloadsUrl: String,
+        eventsUrl: String,
+        forksUrl: String,
+        gitCommitsUrl: String,
+        gitRefsUrl: String,
+        gitTagsUrl: String,
+        issueCommentUrl: String,
+        issueEventsUrl: String,
+        issuesUrl: String,
+        keysUrl: String,
+        labelsUrl: String,
+        languagesUrl: String,
+        mergesUrl: String,
+        milestonesUrl: String,
+        notificationsUrl: String,
+        pullsUrl: String,
+        releasesUrl: String,
+        stargazersUrl: String,
+        statusesUrl: String,
+        subscribersUrl: String,
+        subscriptionUrl: String,
+        tagsUrl: String,
+        teamsUrl: String,
+        treesUrl: String,
+        hooksUrl: String,
+        gitUrl: String? = nil,
+        sshUrl: String? = nil,
+        cloneUrl: String? = nil,
+        mirrorUrl: String? = nil,
+        svnUrl: String? = nil,
+        homepage: String? = nil,
+        language: String? = nil,
+        forksCount: Int? = nil,
+        stargazersCount: Int? = nil,
+        watchersCount: Int? = nil,
+        size: Int? = nil,
+        defaultBranch: String? = nil,
+        openIssuesCount: Int? = nil,
+        isTemplate: Bool? = nil,
+        topics: [String]? = nil,
+        hasIssues: Bool? = nil,
+        hasProjects: Bool? = nil,
+        hasWiki: Bool? = nil,
+        hasPages: Bool? = nil,
+        hasDownloads: Bool? = nil,
+        hasDiscussions: Bool? = nil,
+        hasPullRequests: Bool? = nil,
+        pullRequestCreationPolicy: NullableMinimalRepositoryPullRequestCreationPolicy? = nil,
+        archived: Bool? = nil,
+        disabled: Bool? = nil,
+        visibility: String? = nil,
+        pushedAt: Date? = nil,
+        createdAt: Date? = nil,
+        updatedAt: Date? = nil,
+        permissions: NullableMinimalRepositoryPermissions? = nil,
+        roleName: String? = nil,
+        tempCloneToken: String? = nil,
+        deleteBranchOnMerge: Bool? = nil,
+        subscribersCount: Int? = nil,
+        networkCount: Int? = nil,
+        codeOfConduct: CodeOfConduct? = nil,
+        license: NullableMinimalRepositoryLicense? = nil,
+        forks: Int? = nil,
+        openIssues: Int? = nil,
+        watchers: Int? = nil,
+        allowForking: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil,
+        securityAndAnalysis: SecurityAndAnalysis? = nil,
+        customProperties: [String: JSONValue]? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.fullName) = (name, fullName)
-        (self.owner, self.`private`) = (owner, `private`)
+        (self.owner, self.private) = (owner, `private`)
         (self.htmlUrl, self.description) = (htmlUrl, description)
         (self.fork, self.url) = (fork, url)
         (self.archiveUrl, self.assigneesUrl) = (archiveUrl, assigneesUrl)
@@ -484,33 +577,33 @@ public extension NullableMinimalRepository {
 
 extension NullableMinimalRepository {
     func sdkValidateConstraintsPart1() throws {
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("contributors_url", self.contributorsUrl)
-            try sdkValidateUri("deployments_url", self.deploymentsUrl)
-            try sdkValidateUri("downloads_url", self.downloadsUrl)
-            try sdkValidateUri("events_url", self.eventsUrl)
-            try sdkValidateUri("forks_url", self.forksUrl)
-            try sdkValidateUri("languages_url", self.languagesUrl)
-            try sdkValidateUri("merges_url", self.mergesUrl)
-            try sdkValidateUri("stargazers_url", self.stargazersUrl)
-            try sdkValidateUri("subscribers_url", self.subscribersUrl)
-            try sdkValidateUri("subscription_url", self.subscriptionUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("contributors_url", contributorsUrl)
+        try sdkValidateUri("deployments_url", deploymentsUrl)
+        try sdkValidateUri("downloads_url", downloadsUrl)
+        try sdkValidateUri("events_url", eventsUrl)
+        try sdkValidateUri("forks_url", forksUrl)
+        try sdkValidateUri("languages_url", languagesUrl)
+        try sdkValidateUri("merges_url", mergesUrl)
+        try sdkValidateUri("stargazers_url", stargazersUrl)
+        try sdkValidateUri("subscribers_url", subscribersUrl)
+        try sdkValidateUri("subscription_url", subscriptionUrl)
     }
 }
 
 extension NullableMinimalRepository {
     func sdkValidateConstraintsPart2() throws {
-            try sdkValidateUri("tags_url", self.tagsUrl)
-            try sdkValidateUri("teams_url", self.teamsUrl)
-            try sdkValidateUri("hooks_url", self.hooksUrl)
-        if let value = self.pushedAt {
+        try sdkValidateUri("tags_url", tagsUrl)
+        try sdkValidateUri("teams_url", teamsUrl)
+        try sdkValidateUri("hooks_url", hooksUrl)
+        if let value = pushedAt {
             try sdkValidateDateTime("pushed_at", sdkWireString(value))
         }
-        if let value = self.createdAt {
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }

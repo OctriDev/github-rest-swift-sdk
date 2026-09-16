@@ -6,17 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public struct OrgsListPendingInvitationsParameterXd649578f: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsListPendingInvitationsParameterXd649578f: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = OrgsListPendingInvitationsParameterXd649578f(rawValue: "all")
     public static let member = OrgsListPendingInvitationsParameterXd649578f(rawValue: "member")
     public static let scim = OrgsListPendingInvitationsParameterXd649578f(rawValue: "scim")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,7 +37,10 @@ public struct OrgsListPendingInvitationsParameterXd649578f: RawRepresentable, Ha
 public struct OrgsCreateInvitationRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let admin = OrgsCreateInvitationRequestBodyRole(rawValue: "admin")
     public static let directMember = OrgsCreateInvitationRequestBodyRole(rawValue: "direct_member")
     public static let billingManager = OrgsCreateInvitationRequestBodyRole(rawValue: "billing_manager")
@@ -41,7 +48,7 @@ public struct OrgsCreateInvitationRequestBodyRole: RawRepresentable, Hashable, C
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -53,7 +60,10 @@ public struct OrgsCreateInvitationRequestBodyRole: RawRepresentable, Hashable, C
 public struct IssuesListForOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let assigned = IssuesListForOrgParameter(rawValue: "assigned")
     public static let created = IssuesListForOrgParameter(rawValue: "created")
     public static let mentioned = IssuesListForOrgParameter(rawValue: "mentioned")
@@ -63,7 +73,7 @@ public struct IssuesListForOrgParameter: RawRepresentable, Hashable, Codable, Se
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -75,14 +85,17 @@ public struct IssuesListForOrgParameter: RawRepresentable, Hashable, Codable, Se
 public struct IssuesListForOrgParameterX5317c381: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = IssuesListForOrgParameterX5317c381(rawValue: "open")
     public static let closed = IssuesListForOrgParameterX5317c381(rawValue: "closed")
     public static let all = IssuesListForOrgParameterX5317c381(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -94,14 +107,17 @@ public struct IssuesListForOrgParameterX5317c381: RawRepresentable, Hashable, Co
 public struct IssuesListForOrgParameterX75c05bfe: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = IssuesListForOrgParameterX75c05bfe(rawValue: "created")
     public static let updated = IssuesListForOrgParameterX75c05bfe(rawValue: "updated")
     public static let comments = IssuesListForOrgParameterX75c05bfe(rawValue: "comments")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -113,14 +129,17 @@ public struct IssuesListForOrgParameterX75c05bfe: RawRepresentable, Hashable, Co
 public struct OrgsListMembersParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let value2faDisabled = OrgsListMembersParameter(rawValue: "2fa_disabled")
     public static let value2faInsecure = OrgsListMembersParameter(rawValue: "2fa_insecure")
     public static let all = OrgsListMembersParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,14 +151,17 @@ public struct OrgsListMembersParameter: RawRepresentable, Hashable, Codable, Sen
 public struct OrgsListMembersParameterX38b3e4da: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = OrgsListMembersParameterX38b3e4da(rawValue: "all")
     public static let admin = OrgsListMembersParameterX38b3e4da(rawValue: "admin")
     public static let member = OrgsListMembersParameterX38b3e4da(rawValue: "member")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -150,16 +172,20 @@ public struct OrgsListMembersParameterX38b3e4da: RawRepresentable, Hashable, Cod
 
 /// The role to give the user in the organization. Can be one of: * `admin` - The user will become an owner of
 /// the organization. * `member` - The user will become a non-owner member of the organization.
-public struct OrgsSetMembershipForUserRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsSetMembershipForUserRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let admin = OrgsSetMembershipForUserRequestBodyRole(rawValue: "admin")
     public static let member = OrgsSetMembershipForUserRequestBodyRole(rawValue: "member")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -172,12 +198,15 @@ public struct OrgsSetMembershipForUserRequestBodyRole: RawRepresentable, Hashabl
 public struct MigrationsListForOrgParameterItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let repositories = MigrationsListForOrgParameterItem(rawValue: "repositories")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -186,15 +215,19 @@ public struct MigrationsListForOrgParameterItem: RawRepresentable, Hashable, Cod
     }
 }
 
-public struct MigrationsStartForOrgRequestBodyExcludeItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct MigrationsStartForOrgRequestBodyExcludeItem: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let repositories = MigrationsStartForOrgRequestBodyExcludeItem(rawValue: "repositories")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

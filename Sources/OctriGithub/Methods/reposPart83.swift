@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Creates a deployment branch or tag policy for an environment. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ReposMethods {
+    /// Creates a deployment branch or tag policy for an environment. OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,9 +24,31 @@ extension ReposMethods {
     ///   syntax, see the [Ruby File.fnmatch
     ///   documentation](https://ruby-doc.org/core-2.5.1/File.html#method-c-fnmatch).
     /// - type: Whether this rule targets a branch or tag
-    public static func reposCreateDeploymentBranchPolicy(config: ClientConfig, owner: String, repo: String, environmentName: String, name: String, type: DeploymentBranchPolicyNamePatternWithTypeType?) async throws -> DeploymentBranchPolicy {
+    static func reposCreateDeploymentBranchPolicy(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        environmentName: String,
+        name: String,
+        type: DeploymentBranchPolicyNamePatternWithTypeType?
+    ) async throws -> DeploymentBranchPolicy {
         let requestBody = ReposCreateDeploymentBranchPolicyRequestBody(name: name, type: type)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment-branch-policies"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateDeploymentBranchPolicy")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/deployment-branch-policies",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateDeploymentBranchPolicy"
+        )).data
     }
 }

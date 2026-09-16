@@ -3,31 +3,47 @@
 
 import Foundation
 
-// Shared domain models
+/// Shared domain models
 public extension AutoMerge {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.enabledBy) else {
-            throw SdkValidationError(field: "enabled_by", code: "required", message: "Validation failed for 'enabled_by': value is required")
+            throw SdkValidationError(
+                field: "enabled_by",
+                code: "required",
+                message: "Validation failed for 'enabled_by': value is required"
+            )
         }
         guard container.contains(.mergeMethod) else {
-            throw SdkValidationError(field: "merge_method", code: "required", message: "Validation failed for 'merge_method': value is required")
+            throw SdkValidationError(
+                field: "merge_method",
+                code: "required",
+                message: "Validation failed for 'merge_method': value is required"
+            )
         }
         guard container.contains(.commitTitle) else {
-            throw SdkValidationError(field: "commit_title", code: "required", message: "Validation failed for 'commit_title': value is required")
+            throw SdkValidationError(
+                field: "commit_title",
+                code: "required",
+                message: "Validation failed for 'commit_title': value is required"
+            )
         }
         guard container.contains(.commitMessage) else {
-            throw SdkValidationError(field: "commit_message", code: "required", message: "Validation failed for 'commit_message': value is required")
+            throw SdkValidationError(
+                field: "commit_message",
+                code: "required",
+                message: "Validation failed for 'commit_message': value is required"
+            )
         }
-        self.enabledBy = try container.sdkDecodeRequired(.enabledBy)
-        self.mergeMethod = try container.sdkDecodeRequired(.mergeMethod)
-        self.commitTitle = try container.sdkDecodeRequired(.commitTitle)
-        self.commitMessage = try container.sdkDecodeRequired(.commitMessage)
+        enabledBy = try container.sdkDecodeRequired(.enabledBy)
+        mergeMethod = try container.sdkDecodeRequired(.mergeMethod)
+        commitTitle = try container.sdkDecodeRequired(.commitTitle)
+        commitMessage = try container.sdkDecodeRequired(.commitMessage)
     }
 }
 
 public extension AutoMerge {
-    public init(enabledBy: SimpleUser, mergeMethod: AutoMergeMergeMethod, commitTitle: String, commitMessage: String) {
+    init(enabledBy: SimpleUser, mergeMethod: AutoMergeMergeMethod, commitTitle: String, commitMessage: String) {
         (self.enabledBy, self.mergeMethod) = (enabledBy, mergeMethod)
         (self.commitTitle, self.commitMessage) = (commitTitle, commitMessage)
     }
@@ -52,22 +68,22 @@ public struct BasicError: Codable {
     }
 
     init() {
-        (self.message, self.documentationUrl, self.url, self.status) = (nil, nil, nil, nil)
+        (message, documentationUrl, url, status) = (nil, nil, nil, nil)
     }
 }
 
 public extension BasicError {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        message = try container.sdkDecodeIfPresent(.message)
+        documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
+        url = try container.sdkDecodeIfPresent(.url)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
 public extension BasicError {
-    public init(message: String? = nil, documentationUrl: String? = nil, url: String? = nil, status: String? = nil) {
+    init(message: String? = nil, documentationUrl: String? = nil, url: String? = nil, status: String? = nil) {
         self.init()
         (self.message, self.documentationUrl) = (message, documentationUrl)
         (self.url, self.status) = (url, status)
@@ -86,25 +102,35 @@ public struct CustomPropertyValue: Codable {
         case value
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CustomPropertyValue {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.propertyName) else {
-            throw SdkValidationError(field: "property_name", code: "required", message: "Validation failed for 'property_name': value is required")
-        }
-        guard container.contains(.value) else {
-            throw SdkValidationError(field: "value", code: "required", message: "Validation failed for 'value': value is required")
-        }
-        self.propertyName = try container.sdkDecodeRequired(.propertyName)
-        self.value = try container.sdkDecodeIfPresent(.value)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CustomPropertyValue {
-    public init(propertyName: String, value: CustomPropertyValueValue?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.propertyName) else {
+            throw SdkValidationError(
+                field: "property_name",
+                code: "required",
+                message: "Validation failed for 'property_name': value is required"
+            )
+        }
+        guard container.contains(.value) else {
+            throw SdkValidationError(
+                field: "value",
+                code: "required",
+                message: "Validation failed for 'value': value is required"
+            )
+        }
+        propertyName = try container.sdkDecodeRequired(.propertyName)
+        value = try container.sdkDecodeIfPresent(.value)
+    }
+}
+
+public extension CustomPropertyValue {
+    init(propertyName: String, value: CustomPropertyValueValue?) {
         (self.propertyName, self.value) = (propertyName, value)
     }
 }
@@ -115,21 +141,31 @@ public enum CustomPropertyValueValue {
 }
 
 extension CustomPropertyValueValue: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for CustomPropertyValueValue")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for CustomPropertyValueValue"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String].self) { return .stringList(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String].self) {
+            return .stringList(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -139,7 +175,6 @@ extension CustomPropertyValueValue: Codable {
         case let .stringList(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Typed representation of the `CvssSeverities` API schema.
@@ -155,20 +190,20 @@ public struct CvssSeverities: Codable {
     }
 
     init() {
-        (self.cvssV3, self.cvssV4) = (nil, nil)
+        (cvssV3, cvssV4) = (nil, nil)
     }
 }
 
 public extension CvssSeverities {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.cvssV3 = try container.sdkDecodeIfPresent(.cvssV3)
-        self.cvssV4 = try container.sdkDecodeIfPresent(.cvssV4)
+        cvssV3 = try container.sdkDecodeIfPresent(.cvssV3)
+        cvssV4 = try container.sdkDecodeIfPresent(.cvssV4)
     }
 }
 
 public extension CvssSeverities {
-    public init(cvssV3: CvssSeveritiesCvssV3? = nil, cvssV4: CvssSeveritiesCvssV4? = nil) {
+    init(cvssV3: CvssSeveritiesCvssV3? = nil, cvssV4: CvssSeveritiesCvssV4? = nil) {
         self.init()
         (self.cvssV3, self.cvssV4) = (cvssV3, cvssV4)
     }
@@ -186,31 +221,57 @@ public struct CvssSeveritiesCvssV3: Codable {
         case score
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension CvssSeveritiesCvssV3 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.vectorString) else {
-            throw SdkValidationError(field: "vector_string", code: "required", message: "Validation failed for 'vector_string': value is required")
+            throw SdkValidationError(
+                field: "vector_string",
+                code: "required",
+                message: "Validation failed for 'vector_string': value is required"
+            )
         }
         guard container.contains(.score) else {
-            throw SdkValidationError(field: "score", code: "required", message: "Validation failed for 'score': value is required")
+            throw SdkValidationError(
+                field: "score",
+                code: "required",
+                message: "Validation failed for 'score': value is required"
+            )
         }
-        self.vectorString = try container.sdkDecodeIfPresent(.vectorString)
-        self.score = try container.sdkDecodeIfPresent(.score)
-        if let value = self.score {
-            try validateRange("score", Double(value), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+        vectorString = try container.sdkDecodeIfPresent(.vectorString)
+        score = try container.sdkDecodeIfPresent(.score)
+        if let value = score {
+            try validateRange(
+                "score",
+                Double(value),
+                min: 0,
+                max: 10,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
 
 public extension CvssSeveritiesCvssV3 {
-    public init(vectorString: String?, score: Double?) throws {
+    init(vectorString: String?, score: Double?) throws {
         (self.vectorString, self.score) = (vectorString, score)
         if let value = self.score {
-            try validateRange("score", Double(value), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+            try validateRange(
+                "score",
+                Double(value),
+                min: 0,
+                max: 10,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
@@ -227,31 +288,57 @@ public struct CvssSeveritiesCvssV4: Codable {
         case score
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension CvssSeveritiesCvssV4 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.vectorString) else {
-            throw SdkValidationError(field: "vector_string", code: "required", message: "Validation failed for 'vector_string': value is required")
+            throw SdkValidationError(
+                field: "vector_string",
+                code: "required",
+                message: "Validation failed for 'vector_string': value is required"
+            )
         }
         guard container.contains(.score) else {
-            throw SdkValidationError(field: "score", code: "required", message: "Validation failed for 'score': value is required")
+            throw SdkValidationError(
+                field: "score",
+                code: "required",
+                message: "Validation failed for 'score': value is required"
+            )
         }
-        self.vectorString = try container.sdkDecodeIfPresent(.vectorString)
-        self.score = try container.sdkDecodeIfPresent(.score)
-        if let value = self.score {
-            try validateRange("score", Double(value), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+        vectorString = try container.sdkDecodeIfPresent(.vectorString)
+        score = try container.sdkDecodeIfPresent(.score)
+        if let value = score {
+            try validateRange(
+                "score",
+                Double(value),
+                min: 0,
+                max: 10,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
 
 public extension CvssSeveritiesCvssV4 {
-    public init(vectorString: String?, score: Double?) throws {
+    init(vectorString: String?, score: Double?) throws {
         (self.vectorString, self.score) = (vectorString, score)
         if let value = self.score {
-            try validateRange("score", Double(value), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+            try validateRange(
+                "score",
+                Double(value),
+                min: 0,
+                max: 10,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
@@ -308,50 +395,64 @@ public struct DiffEntry: Codable {
         case previousFilename = "previous_filename"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension DiffEntry {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sha = try container.sdkDecodeIfPresent(.sha)
-        self.filename = try container.sdkDecodeRequired(.filename)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.additions = try container.sdkDecodeRequired(.additions)
-        self.deletions = try container.sdkDecodeRequired(.deletions)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.blobUrl = try container.sdkDecodeRequired(.blobUrl)
-        self.rawUrl = try container.sdkDecodeRequired(.rawUrl)
-        self.contentsUrl = try container.sdkDecodeRequired(.contentsUrl)
-        self.patch = try container.sdkDecodeIfPresent(.patch)
-        self.previousFilename = try container.sdkDecodeIfPresent(.previousFilename)
-            try sdkValidateUri("blob_url", self.blobUrl)
-            try sdkValidateUri("raw_url", self.rawUrl)
-            try sdkValidateUri("contents_url", self.contentsUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension DiffEntry {
-    public init(sha: String?, filename: String, status: DiffEntryStatus, additions: Int, deletions: Int, changes: Int, blobUrl: String, rawUrl: String, contentsUrl: String, patch: String? = nil, previousFilename: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        sha = try container.sdkDecodeIfPresent(.sha)
+        filename = try container.sdkDecodeRequired(.filename)
+        status = try container.sdkDecodeRequired(.status)
+        additions = try container.sdkDecodeRequired(.additions)
+        deletions = try container.sdkDecodeRequired(.deletions)
+        changes = try container.sdkDecodeRequired(.changes)
+        blobUrl = try container.sdkDecodeRequired(.blobUrl)
+        rawUrl = try container.sdkDecodeRequired(.rawUrl)
+        contentsUrl = try container.sdkDecodeRequired(.contentsUrl)
+        patch = try container.sdkDecodeIfPresent(.patch)
+        previousFilename = try container.sdkDecodeIfPresent(.previousFilename)
+        try sdkValidateUri("blob_url", blobUrl)
+        try sdkValidateUri("raw_url", rawUrl)
+        try sdkValidateUri("contents_url", contentsUrl)
+    }
+}
+
+public extension DiffEntry {
+    init(
+        sha: String?,
+        filename: String,
+        status: DiffEntryStatus,
+        additions: Int,
+        deletions: Int,
+        changes: Int,
+        blobUrl: String,
+        rawUrl: String,
+        contentsUrl: String,
+        patch: String? = nil,
+        previousFilename: String? = nil
+    ) throws {
         (self.sha, self.filename) = (sha, filename)
         (self.status, self.additions) = (status, additions)
         (self.deletions, self.changes) = (deletions, changes)
         (self.blobUrl, self.rawUrl) = (blobUrl, rawUrl)
         (self.contentsUrl, self.patch) = (contentsUrl, patch)
         self.previousFilename = previousFilename
-            try sdkValidateUri("blob_url", self.blobUrl)
-            try sdkValidateUri("raw_url", self.rawUrl)
-            try sdkValidateUri("contents_url", self.contentsUrl)
+        try sdkValidateUri("blob_url", self.blobUrl)
+        try sdkValidateUri("raw_url", self.rawUrl)
+        try sdkValidateUri("contents_url", self.contentsUrl)
     }
 }
 
 /// An object without any properties.
 public struct EmptyObject: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension EmptyObject {
-    public init() {
-    }
+    init() {}
 }

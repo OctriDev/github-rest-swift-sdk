@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
-    public struct TeamsCreateOptions: Codable {
+public extension TeamsMethods {
+    struct TeamsCreateOptions: Codable {
         public var org: String
         public var name: String
         public var description: String?
@@ -25,7 +25,13 @@ extension TeamsMethods {
         }
     }
 
-    /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://docs.github.com/articles/setting-team-creation-permissions-in-your-organization)." When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/about-teams)".
+    /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members
+    /// can create teams. Organization owners can limit team creation to organization owners. For more information, see
+    /// "[Setting team creation
+    /// permissions](https://docs.github.com/articles/setting-team-creation-permissions-in-your-organization)." When you
+    /// create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional
+    /// array of `maintainers`. For more information, see "[About
+    /// teams](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/about-teams)".
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -50,9 +56,16 @@ extension TeamsMethods {
     /// - parentTeamId: The ID of a team to set as the parent team.
     /// - parentTeamSlug: The slug of a team to set as the parent team. Ignored when
     ///   `parent_team_id` is also provided.
-    public static func teamsCreate(config: ClientConfig, options: TeamsCreateOptions) async throws -> TeamFull {
+    static func teamsCreate(config: ClientConfig, options: TeamsCreateOptions) async throws -> TeamFull {
         let requestBody = TeamsCreateRequestBody(options: options)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/teams"].joined(), config: config, body: requestBody, decoder: .json, operationId: "teamsCreate")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/teams"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "teamsCreate"
+        )).data
     }
 }

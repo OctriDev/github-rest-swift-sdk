@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Get all deployment environments for a workflow run that are waiting for protection rules to pass. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Get all deployment environments for a workflow run that are waiting for protection rules to pass. Anyone with
+    /// read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +17,32 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    public static func actionsGetPendingDeploymentsForRun(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> [PendingDeployment] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/pending_deployments"].joined(), config: config, decoder: .json, operationId: "actionsGetPendingDeploymentsForRun")).data
+    static func actionsGetPendingDeploymentsForRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int
+    ) async throws -> [PendingDeployment] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/pending_deployments",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetPendingDeploymentsForRun"
+        )).data
     }
 
-    /// Approve or reject pending deployments that are waiting on approval by a required reviewer. Required reviewers with read access to the repository contents and deployments can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Approve or reject pending deployments that are waiting on approval by a required reviewer. Required reviewers
+    /// with read access to the repository contents and deployments can use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,9 +54,36 @@ extension ActionsMethods {
     /// - state: Whether to approve or reject deployment to the specified
     ///   environments.
     /// - comment: A comment to accompany the deployment review
-    public static func actionsReviewPendingDeploymentsForRun(config: ClientConfig, owner: String, repo: String, runId: Int, environmentIds: [Int], state: ActionsReviewPendingDeploymentsForRunRequestBodyState, comment: String) async throws -> [Deployment] {
-        let requestBody = ActionsReviewPendingDeploymentsForRunRequestBody(environmentIds: environmentIds, state: state, comment: comment)
+    static func actionsReviewPendingDeploymentsForRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int,
+        environmentIds: [Int],
+        state: ActionsReviewPendingDeploymentsForRunRequestBodyState,
+        comment: String
+    ) async throws -> [Deployment] {
+        let requestBody = ActionsReviewPendingDeploymentsForRunRequestBody(
+            environmentIds: environmentIds,
+            state: state,
+            comment: comment
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/pending_deployments"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsReviewPendingDeploymentsForRun")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/pending_deployments",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsReviewPendingDeploymentsForRun"
+        )).data
     }
 }

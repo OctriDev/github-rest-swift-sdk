@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Store an artifact attestation and associate it with a repository. The authenticated user must have write permission to the repository and, if using a fine-grained access token, the `attestations:write` permission is required. Artifact attestations are meant to be created using the [attest action](https://github.com/actions/attest). For more information, see our guide on [using artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+public extension ReposMethods {
+    /// Store an artifact attestation and associate it with a repository. The authenticated user must have write
+    /// permission to the repository and, if using a fine-grained access token, the `attestations:write` permission is
+    /// required. Artifact attestations are meant to be created using the [attest
+    /// action](https://github.com/actions/attest). For more information, see our guide on [using artifact attestations
+    /// to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,9 +21,27 @@ extension ReposMethods {
     /// - bundle: The attestation's Sigstore Bundle. Refer to the [Sigstore Bundle
     ///   Specification](https://github.com/sigstore/protobuf-specs/blob/main/protos/s
     ///   igstore_bundle.proto) for more information.
-    public static func reposCreateAttestation(config: ClientConfig, owner: String, repo: String, bundle: ReposCreateAttestationRequestBodyBundle) async throws -> ReposCreateAttestationResponse {
+    static func reposCreateAttestation(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        bundle: ReposCreateAttestationRequestBodyBundle
+    ) async throws -> ReposCreateAttestationResponse {
         let requestBody = ReposCreateAttestationRequestBody(bundle: bundle)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/attestations"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateAttestation")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/attestations",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateAttestation"
+        )).data
     }
 }

@@ -3,65 +3,115 @@
 
 import Foundation
 
-// Teams domain models
+/// Teams domain models
 public extension TeamOrganization {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
-        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        self.publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
-        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.hasOrganizationProjects = try container.sdkDecodeRequired(.hasOrganizationProjects)
-        self.hasRepositoryProjects = try container.sdkDecodeRequired(.hasRepositoryProjects)
-        self.publicRepos = try container.sdkDecodeRequired(.publicRepos)
-        self.publicGists = try container.sdkDecodeRequired(.publicGists)
-        self.followers = try container.sdkDecodeRequired(.followers)
-        self.following = try container.sdkDecodeRequired(.following)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.company = try container.sdkDecodeIfPresent(.company)
-        self.blog = try container.sdkDecodeIfPresent(.blog)
-        self.location = try container.sdkDecodeIfPresent(.location)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.twitterUsername = try container.sdkDecodeIfPresent(.twitterUsername)
-        self.isVerified = try container.sdkDecodeIfPresent(.isVerified)
-        self.totalPrivateRepos = try container.sdkDecodeIfPresent(.totalPrivateRepos)
-        self.ownedPrivateRepos = try container.sdkDecodeIfPresent(.ownedPrivateRepos)
-        self.privateGists = try container.sdkDecodeIfPresent(.privateGists)
-        self.diskUsage = try container.sdkDecodeIfPresent(.diskUsage)
-        self.collaborators = try container.sdkDecodeIfPresent(.collaborators)
-        self.billingEmail = try container.sdkDecodeIfPresent(.billingEmail)
-        self.plan = try container.sdkDecodeIfPresent(.plan)
-        self.defaultRepositoryPermission = try container.sdkDecodeIfPresent(.defaultRepositoryPermission)
-        self.membersCanCreateRepositories = try container.sdkDecodeIfPresent(.membersCanCreateRepositories)
-        self.twoFactorRequirementEnabled = try container.sdkDecodeIfPresent(.twoFactorRequirementEnabled)
-        self.membersAllowedRepositoryCreationType = try container.sdkDecodeIfPresent(.membersAllowedRepositoryCreationType)
-        self.membersCanCreatePublicRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePublicRepositories)
-        self.membersCanCreatePrivateRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePrivateRepositories)
-        self.membersCanCreateInternalRepositories = try container.sdkDecodeIfPresent(.membersCanCreateInternalRepositories)
-        self.membersCanCreatePages = try container.sdkDecodeIfPresent(.membersCanCreatePages)
-        self.membersCanCreatePublicPages = try container.sdkDecodeIfPresent(.membersCanCreatePublicPages)
-        self.membersCanCreatePrivatePages = try container.sdkDecodeIfPresent(.membersCanCreatePrivatePages)
-        self.membersCanForkPrivateRepositories = try container.sdkDecodeIfPresent(.membersCanForkPrivateRepositories)
-        self.webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
+        login = try container.sdkDecodeRequired(.login)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
+        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        description = try container.sdkDecodeIfPresent(.description)
+        hasOrganizationProjects = try container.sdkDecodeRequired(.hasOrganizationProjects)
+        hasRepositoryProjects = try container.sdkDecodeRequired(.hasRepositoryProjects)
+        publicRepos = try container.sdkDecodeRequired(.publicRepos)
+        publicGists = try container.sdkDecodeRequired(.publicGists)
+        followers = try container.sdkDecodeRequired(.followers)
+        following = try container.sdkDecodeRequired(.following)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        type = try container.sdkDecodeRequired(.type)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        name = try container.sdkDecodeIfPresent(.name)
+        company = try container.sdkDecodeIfPresent(.company)
+        blog = try container.sdkDecodeIfPresent(.blog)
+        location = try container.sdkDecodeIfPresent(.location)
+        email = try container.sdkDecodeIfPresent(.email)
+        twitterUsername = try container.sdkDecodeIfPresent(.twitterUsername)
+        isVerified = try container.sdkDecodeIfPresent(.isVerified)
+        totalPrivateRepos = try container.sdkDecodeIfPresent(.totalPrivateRepos)
+        ownedPrivateRepos = try container.sdkDecodeIfPresent(.ownedPrivateRepos)
+        privateGists = try container.sdkDecodeIfPresent(.privateGists)
+        diskUsage = try container.sdkDecodeIfPresent(.diskUsage)
+        collaborators = try container.sdkDecodeIfPresent(.collaborators)
+        billingEmail = try container.sdkDecodeIfPresent(.billingEmail)
+        plan = try container.sdkDecodeIfPresent(.plan)
+        defaultRepositoryPermission = try container.sdkDecodeIfPresent(.defaultRepositoryPermission)
+        membersCanCreateRepositories = try container.sdkDecodeIfPresent(.membersCanCreateRepositories)
+        twoFactorRequirementEnabled = try container.sdkDecodeIfPresent(.twoFactorRequirementEnabled)
+        membersAllowedRepositoryCreationType = try container.sdkDecodeIfPresent(.membersAllowedRepositoryCreationType)
+        membersCanCreatePublicRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePublicRepositories)
+        membersCanCreatePrivateRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePrivateRepositories)
+        membersCanCreateInternalRepositories = try container.sdkDecodeIfPresent(.membersCanCreateInternalRepositories)
+        membersCanCreatePages = try container.sdkDecodeIfPresent(.membersCanCreatePages)
+        membersCanCreatePublicPages = try container.sdkDecodeIfPresent(.membersCanCreatePublicPages)
+        membersCanCreatePrivatePages = try container.sdkDecodeIfPresent(.membersCanCreatePrivatePages)
+        membersCanForkPrivateRepositories = try container.sdkDecodeIfPresent(.membersCanForkPrivateRepositories)
+        webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
         try sdkValidateConstraints()
     }
 }
 
 public extension TeamOrganization {
-    public init(login: String, id: Int, nodeId: String, url: String, reposUrl: String, eventsUrl: String, hooksUrl: String, issuesUrl: String, membersUrl: String, publicMembersUrl: String, avatarUrl: String, description: String?, hasOrganizationProjects: Bool, hasRepositoryProjects: Bool, publicRepos: Int, publicGists: Int, followers: Int, following: Int, htmlUrl: String, createdAt: Date, type: String, updatedAt: Date, archivedAt: Date?, name: String? = nil, company: String? = nil, blog: String? = nil, location: String? = nil, email: String? = nil, twitterUsername: String? = nil, isVerified: Bool? = nil, totalPrivateRepos: Int? = nil, ownedPrivateRepos: Int? = nil, privateGists: Int? = nil, diskUsage: Int? = nil, collaborators: Int? = nil, billingEmail: String? = nil, plan: TeamOrganizationPlan? = nil, defaultRepositoryPermission: String? = nil, membersCanCreateRepositories: Bool? = nil, twoFactorRequirementEnabled: Bool? = nil, membersAllowedRepositoryCreationType: String? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, membersCanForkPrivateRepositories: Bool? = nil, webCommitSignoffRequired: Bool? = nil) throws {
+    init(
+        login: String,
+        id: Int,
+        nodeId: String,
+        url: String,
+        reposUrl: String,
+        eventsUrl: String,
+        hooksUrl: String,
+        issuesUrl: String,
+        membersUrl: String,
+        publicMembersUrl: String,
+        avatarUrl: String,
+        description: String?,
+        hasOrganizationProjects: Bool,
+        hasRepositoryProjects: Bool,
+        publicRepos: Int,
+        publicGists: Int,
+        followers: Int,
+        following: Int,
+        htmlUrl: String,
+        createdAt: Date,
+        type: String,
+        updatedAt: Date,
+        archivedAt: Date?,
+        name: String? = nil,
+        company: String? = nil,
+        blog: String? = nil,
+        location: String? = nil,
+        email: String? = nil,
+        twitterUsername: String? = nil,
+        isVerified: Bool? = nil,
+        totalPrivateRepos: Int? = nil,
+        ownedPrivateRepos: Int? = nil,
+        privateGists: Int? = nil,
+        diskUsage: Int? = nil,
+        collaborators: Int? = nil,
+        billingEmail: String? = nil,
+        plan: TeamOrganizationPlan? = nil,
+        defaultRepositoryPermission: String? = nil,
+        membersCanCreateRepositories: Bool? = nil,
+        twoFactorRequirementEnabled: Bool? = nil,
+        membersAllowedRepositoryCreationType: String? = nil,
+        membersCanCreatePublicRepositories: Bool? = nil,
+        membersCanCreatePrivateRepositories: Bool? = nil,
+        membersCanCreateInternalRepositories: Bool? = nil,
+        membersCanCreatePages: Bool? = nil,
+        membersCanCreatePublicPages: Bool? = nil,
+        membersCanCreatePrivatePages: Bool? = nil,
+        membersCanForkPrivateRepositories: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil
+    ) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.url) = (nodeId, url)
         (self.reposUrl, self.eventsUrl) = (reposUrl, eventsUrl)
@@ -99,22 +149,22 @@ public extension TeamOrganization {
 
 extension TeamOrganization {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("repos_url", self.reposUrl)
-            try sdkValidateUri("events_url", self.eventsUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.archivedAt {
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("repos_url", reposUrl)
+        try sdkValidateUri("events_url", eventsUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
-        if let value = self.blog {
+        if let value = blog {
             try sdkValidateUri("blog", value)
         }
-        if let value = self.email {
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.billingEmail {
+        if let value = billingEmail {
             try sdkValidateEmail("billing_email", value)
         }
     }
@@ -141,31 +191,45 @@ public struct TeamOrganizationPlan: Codable {
         case seats
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension TeamOrganizationPlan {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.space) else {
-            throw SdkValidationError(field: "space", code: "required", message: "Validation failed for 'space': value is required")
-        }
-        guard container.contains(.privateRepos) else {
-            throw SdkValidationError(field: "private_repos", code: "required", message: "Validation failed for 'private_repos': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.space = try container.sdkDecodeRequired(.space)
-        self.privateRepos = try container.sdkDecodeRequired(.privateRepos)
-        self.filledSeats = try container.sdkDecodeIfPresent(.filledSeats)
-        self.seats = try container.sdkDecodeIfPresent(.seats)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension TeamOrganizationPlan {
-    public init(name: String, space: Int, privateRepos: Int, filledSeats: Int? = nil, seats: Int? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.space) else {
+            throw SdkValidationError(
+                field: "space",
+                code: "required",
+                message: "Validation failed for 'space': value is required"
+            )
+        }
+        guard container.contains(.privateRepos) else {
+            throw SdkValidationError(
+                field: "private_repos",
+                code: "required",
+                message: "Validation failed for 'private_repos': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        space = try container.sdkDecodeRequired(.space)
+        privateRepos = try container.sdkDecodeRequired(.privateRepos)
+        filledSeats = try container.sdkDecodeIfPresent(.filledSeats)
+        seats = try container.sdkDecodeIfPresent(.seats)
+    }
+}
+
+public extension TeamOrganizationPlan {
+    init(name: String, space: Int, privateRepos: Int, filledSeats: Int? = nil, seats: Int? = nil) {
         (self.name, self.space) = (name, space)
         (self.privateRepos, self.filledSeats) = (privateRepos, filledSeats)
         self.seats = seats
@@ -511,5 +575,7 @@ public struct TeamRepository: Codable {
         case primaryBranch = "master_branch"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

@@ -3,11 +3,11 @@
 
 import Foundation
 
-// ReposProtected domain models
+/// ReposProtected domain models
 public extension ProtectedBranchRequiredSignatures {
-    public init(url: String, enabled: Bool) throws {
+    init(url: String, enabled: Bool) throws {
         (self.url, self.enabled) = (url, enabled)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -25,28 +25,38 @@ public struct ProtectedBranchAdminEnforced: Codable {
         case enabled
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProtectedBranchAdminEnforced {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.enabled) else {
-            throw SdkValidationError(field: "enabled", code: "required", message: "Validation failed for 'enabled': value is required")
-        }
-        self.url = try container.sdkDecodeRequired(.url)
-        self.enabled = try container.sdkDecodeRequired(.enabled)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProtectedBranchAdminEnforced {
-    public init(url: String, enabled: Bool) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.enabled) else {
+            throw SdkValidationError(
+                field: "enabled",
+                code: "required",
+                message: "Validation failed for 'enabled': value is required"
+            )
+        }
+        url = try container.sdkDecodeRequired(.url)
+        enabled = try container.sdkDecodeRequired(.enabled)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension ProtectedBranchAdminEnforced {
+    init(url: String, enabled: Bool) throws {
         (self.url, self.enabled) = (url, enabled)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -83,36 +93,62 @@ public struct ProtectedBranchPullRequestReview: Codable {
         case requireLastPushApproval = "require_last_push_approval"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension ProtectedBranchPullRequestReview {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.dismissStaleReviews) else {
-            throw SdkValidationError(field: "dismiss_stale_reviews", code: "required", message: "Validation failed for 'dismiss_stale_reviews': value is required")
+            throw SdkValidationError(
+                field: "dismiss_stale_reviews",
+                code: "required",
+                message: "Validation failed for 'dismiss_stale_reviews': value is required"
+            )
         }
         guard container.contains(.requireCodeOwnerReviews) else {
-            throw SdkValidationError(field: "require_code_owner_reviews", code: "required", message: "Validation failed for 'require_code_owner_reviews': value is required")
+            throw SdkValidationError(
+                field: "require_code_owner_reviews",
+                code: "required",
+                message: "Validation failed for 'require_code_owner_reviews': value is required"
+            )
         }
-        self.dismissStaleReviews = try container.sdkDecodeRequired(.dismissStaleReviews)
-        self.requireCodeOwnerReviews = try container.sdkDecodeRequired(.requireCodeOwnerReviews)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.dismissalRestrictions = try container.sdkDecodeIfPresent(.dismissalRestrictions)
-        self.bypassPullRequestAllowances = try container.sdkDecodeIfPresent(.bypassPullRequestAllowances)
-        self.requiredApprovingReviewCount = try container.sdkDecodeIfPresent(.requiredApprovingReviewCount)
-        self.requireLastPushApproval = try container.sdkDecodeIfPresent(.requireLastPushApproval)
-        if let value = self.url {
+        dismissStaleReviews = try container.sdkDecodeRequired(.dismissStaleReviews)
+        requireCodeOwnerReviews = try container.sdkDecodeRequired(.requireCodeOwnerReviews)
+        url = try container.sdkDecodeIfPresent(.url)
+        dismissalRestrictions = try container.sdkDecodeIfPresent(.dismissalRestrictions)
+        bypassPullRequestAllowances = try container.sdkDecodeIfPresent(.bypassPullRequestAllowances)
+        requiredApprovingReviewCount = try container.sdkDecodeIfPresent(.requiredApprovingReviewCount)
+        requireLastPushApproval = try container.sdkDecodeIfPresent(.requireLastPushApproval)
+        if let value = url {
             try sdkValidateUri("url", value)
         }
-        if let value = self.requiredApprovingReviewCount {
-            try validateRange("required_approving_review_count", Double(value), min: 0, max: 6, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+        if let value = requiredApprovingReviewCount {
+            try validateRange(
+                "required_approving_review_count",
+                Double(value),
+                min: 0,
+                max: 6,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
 
 public extension ProtectedBranchPullRequestReview {
-    public init(dismissStaleReviews: Bool, requireCodeOwnerReviews: Bool, url: String? = nil, dismissalRestrictions: ProtectedBranchPullRequestReviewDismissalRestrictions? = nil, bypassPullRequestAllowances: ProtectedBranchPullRequestReviewBypassPullRequestAllowances? = nil, requiredApprovingReviewCount: Int? = nil, requireLastPushApproval: Bool? = nil) throws {
+    init(
+        dismissStaleReviews: Bool,
+        requireCodeOwnerReviews: Bool,
+        url: String? = nil,
+        dismissalRestrictions: ProtectedBranchPullRequestReviewDismissalRestrictions? = nil,
+        bypassPullRequestAllowances: ProtectedBranchPullRequestReviewBypassPullRequestAllowances? = nil,
+        requiredApprovingReviewCount: Int? = nil,
+        requireLastPushApproval: Bool? = nil
+    ) throws {
         self.dismissStaleReviews = dismissStaleReviews
         (self.requireCodeOwnerReviews, self.url) = (requireCodeOwnerReviews, url)
         self.dismissalRestrictions = dismissalRestrictions
@@ -123,7 +159,15 @@ public extension ProtectedBranchPullRequestReview {
             try sdkValidateUri("url", value)
         }
         if let value = self.requiredApprovingReviewCount {
-            try validateRange("required_approving_review_count", Double(value), min: 0, max: 6, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+            try validateRange(
+                "required_approving_review_count",
+                Double(value),
+                min: 0,
+                max: 6,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
@@ -144,21 +188,21 @@ public struct ProtectedBranchPullRequestReviewBypassPullRequestAllowances: Codab
     }
 
     init() {
-        (self.users, self.teams, self.apps) = (nil, nil, nil)
+        (users, teams, apps) = (nil, nil, nil)
     }
 }
 
 public extension ProtectedBranchPullRequestReviewBypassPullRequestAllowances {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.users = try container.sdkDecodeIfPresent(.users)
-        self.teams = try container.sdkDecodeIfPresent(.teams)
-        self.apps = try container.sdkDecodeIfPresent(.apps)
+        users = try container.sdkDecodeIfPresent(.users)
+        teams = try container.sdkDecodeIfPresent(.teams)
+        apps = try container.sdkDecodeIfPresent(.apps)
     }
 }
 
 public extension ProtectedBranchPullRequestReviewBypassPullRequestAllowances {
-    public init(users: [SimpleUser]? = nil, teams: [Team]? = nil, apps: [Integration?]? = nil) {
+    init(users: [SimpleUser]? = nil, teams: [Team]? = nil, apps: [Integration?]? = nil) {
         self.init()
         (self.users, self.teams) = (users, teams)
         self.apps = apps
@@ -198,25 +242,32 @@ public struct ProtectedBranchPullRequestReviewDismissalRestrictions: Codable {
     }
 
     init() {
-        (self.users, self.teams, self.apps, self.url, self.usersUrl) = (nil, nil, nil, nil, nil)
-        self.teamsUrl = nil
+        (users, teams, apps, url, usersUrl) = (nil, nil, nil, nil, nil)
+        teamsUrl = nil
     }
 }
 
 public extension ProtectedBranchPullRequestReviewDismissalRestrictions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.users = try container.sdkDecodeIfPresent(.users)
-        self.teams = try container.sdkDecodeIfPresent(.teams)
-        self.apps = try container.sdkDecodeIfPresent(.apps)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.usersUrl = try container.sdkDecodeIfPresent(.usersUrl)
-        self.teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
+        users = try container.sdkDecodeIfPresent(.users)
+        teams = try container.sdkDecodeIfPresent(.teams)
+        apps = try container.sdkDecodeIfPresent(.apps)
+        url = try container.sdkDecodeIfPresent(.url)
+        usersUrl = try container.sdkDecodeIfPresent(.usersUrl)
+        teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
     }
 }
 
 public extension ProtectedBranchPullRequestReviewDismissalRestrictions {
-    public init(users: [SimpleUser]? = nil, teams: [Team]? = nil, apps: [Integration?]? = nil, url: String? = nil, usersUrl: String? = nil, teamsUrl: String? = nil) {
+    init(
+        users: [SimpleUser]? = nil,
+        teams: [Team]? = nil,
+        apps: [Integration?]? = nil,
+        url: String? = nil,
+        usersUrl: String? = nil,
+        teamsUrl: String? = nil
+    ) {
         self.init()
         (self.users, self.teams) = (users, teams)
         (self.apps, self.url) = (apps, url)
@@ -248,29 +299,46 @@ public struct ProtectedBranchRequiredStatusCheck: Codable {
         case strict
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProtectedBranchRequiredStatusCheck {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.contexts) else {
-            throw SdkValidationError(field: "contexts", code: "required", message: "Validation failed for 'contexts': value is required")
-        }
-        guard container.contains(.checks) else {
-            throw SdkValidationError(field: "checks", code: "required", message: "Validation failed for 'checks': value is required")
-        }
-        self.contexts = try container.sdkDecodeRequired(.contexts)
-        self.checks = try container.sdkDecodeRequired(.checks)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.enforcementLevel = try container.sdkDecodeIfPresent(.enforcementLevel)
-        self.contextsUrl = try container.sdkDecodeIfPresent(.contextsUrl)
-        self.strict = try container.sdkDecodeIfPresent(.strict)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProtectedBranchRequiredStatusCheck {
-    public init(contexts: [String], checks: [ProtectedBranchRequiredStatusCheckChecksItem], url: String? = nil, enforcementLevel: String? = nil, contextsUrl: String? = nil, strict: Bool? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.contexts) else {
+            throw SdkValidationError(
+                field: "contexts",
+                code: "required",
+                message: "Validation failed for 'contexts': value is required"
+            )
+        }
+        guard container.contains(.checks) else {
+            throw SdkValidationError(
+                field: "checks",
+                code: "required",
+                message: "Validation failed for 'checks': value is required"
+            )
+        }
+        contexts = try container.sdkDecodeRequired(.contexts)
+        checks = try container.sdkDecodeRequired(.checks)
+        url = try container.sdkDecodeIfPresent(.url)
+        enforcementLevel = try container.sdkDecodeIfPresent(.enforcementLevel)
+        contextsUrl = try container.sdkDecodeIfPresent(.contextsUrl)
+        strict = try container.sdkDecodeIfPresent(.strict)
+    }
+}
+
+public extension ProtectedBranchRequiredStatusCheck {
+    init(
+        contexts: [String],
+        checks: [ProtectedBranchRequiredStatusCheckChecksItem],
+        url: String? = nil,
+        enforcementLevel: String? = nil,
+        contextsUrl: String? = nil,
+        strict: Bool? = nil
+    ) {
         (self.contexts, self.checks) = (contexts, checks)
         (self.url, self.enforcementLevel) = (url, enforcementLevel)
         (self.contextsUrl, self.strict) = (contextsUrl, strict)
@@ -289,25 +357,35 @@ public struct ProtectedBranchRequiredStatusCheckChecksItem: Codable {
         case appId = "app_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProtectedBranchRequiredStatusCheckChecksItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.context) else {
-            throw SdkValidationError(field: "context", code: "required", message: "Validation failed for 'context': value is required")
-        }
-        guard container.contains(.appId) else {
-            throw SdkValidationError(field: "app_id", code: "required", message: "Validation failed for 'app_id': value is required")
-        }
-        self.context = try container.sdkDecodeRequired(.context)
-        self.appId = try container.sdkDecodeIfPresent(.appId)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProtectedBranchRequiredStatusCheckChecksItem {
-    public init(context: String, appId: Int?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.context) else {
+            throw SdkValidationError(
+                field: "context",
+                code: "required",
+                message: "Validation failed for 'context': value is required"
+            )
+        }
+        guard container.contains(.appId) else {
+            throw SdkValidationError(
+                field: "app_id",
+                code: "required",
+                message: "Validation failed for 'app_id': value is required"
+            )
+        }
+        context = try container.sdkDecodeRequired(.context)
+        appId = try container.sdkDecodeIfPresent(.appId)
+    }
+}
+
+public extension ProtectedBranchRequiredStatusCheckChecksItem {
+    init(context: String, appId: Int?) {
         (self.context, self.appId) = (context, appId)
     }
 }

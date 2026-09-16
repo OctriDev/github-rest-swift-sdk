@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookMergeGroupDestroyed domain models
+/// WebhookMergeGroupDestroyed domain models
 /// Typed representation of the `WebhookMergeGroupDestroyed` API schema.
 public struct WebhookMergeGroupDestroyed: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -35,30 +35,48 @@ public struct WebhookMergeGroupDestroyed: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookMergeGroupDestroyed {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.mergeGroup) else {
-            throw SdkValidationError(field: "merge_group", code: "required", message: "Validation failed for 'merge_group': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.mergeGroup = try container.sdkDecodeRequired(.mergeGroup)
-        self.reason = try container.sdkDecodeIfPresent(.reason)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookMergeGroupDestroyed {
-    public init(action: WebhookMergeGroupDestroyedAction, mergeGroup: MergeGroup, reason: WebhookMergeGroupDestroyedReason? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.mergeGroup) else {
+            throw SdkValidationError(
+                field: "merge_group",
+                code: "required",
+                message: "Validation failed for 'merge_group': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        mergeGroup = try container.sdkDecodeRequired(.mergeGroup)
+        reason = try container.sdkDecodeIfPresent(.reason)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookMergeGroupDestroyed {
+    init(
+        action: WebhookMergeGroupDestroyedAction,
+        mergeGroup: MergeGroup,
+        reason: WebhookMergeGroupDestroyedReason? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.action, self.mergeGroup) = (action, mergeGroup)
         (self.reason, self.installation) = (reason, installation)
         (self.organization, self.repository) = (organization, repository)
@@ -71,14 +89,17 @@ public extension WebhookMergeGroupDestroyed {
 public struct WebhookMergeGroupDestroyedReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let merged = WebhookMergeGroupDestroyedReason(rawValue: "merged")
     public static let invalidated = WebhookMergeGroupDestroyedReason(rawValue: "invalidated")
     public static let dequeued = WebhookMergeGroupDestroyedReason(rawValue: "dequeued")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -91,12 +112,15 @@ public struct WebhookMergeGroupDestroyedReason: RawRepresentable, Hashable, Coda
 public struct WebhookMergeGroupDestroyedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let destroyed = WebhookMergeGroupDestroyedAction(rawValue: "destroyed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

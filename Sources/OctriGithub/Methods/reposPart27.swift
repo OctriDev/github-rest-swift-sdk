@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+public extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,11 +21,38 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposDeletePullRequestReviewProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/required_pull_request_reviews"].joined(), config: config, decoder: .empty, operationId: "reposDeletePullRequestReviewProtection")).data
+    static func reposDeletePullRequestReviewProtection(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/required_pull_request_reviews",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDeletePullRequestReviewProtection"
+        )).data
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. When authenticated with admin or owner permissions to the repository, you can use this endpoint to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits on this branch. For more information, see [Signing commits with GPG](https://docs.github.com/articles/signing-commits-with-gpg) in GitHub Help. > [!NOTE] > You must enable branch protection to require signed commits.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. When authenticated with admin or owner permissions to the repository, you can use this endpoint
+    /// to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits
+    /// on this branch. For more information, see [Signing commits with
+    /// GPG](https://docs.github.com/articles/signing-commits-with-gpg) in GitHub Help. > [!NOTE] > You must enable
+    /// branch protection to require signed commits.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,7 +62,26 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposGetCommitSignatureProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> ProtectedBranchAdminEnforced {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/required_signatures"].joined(), config: config, decoder: .json, operationId: "reposGetCommitSignatureProtection")).data
+    static func reposGetCommitSignatureProtection(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> ProtectedBranchAdminEnforced {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/required_signatures",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetCommitSignatureProtection"
+        )).data
     }
 }

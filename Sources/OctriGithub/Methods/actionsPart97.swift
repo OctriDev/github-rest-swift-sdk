@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Creates a repository variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Creates a repository variable that you can reference in a GitHub Actions workflow. Authenticated users must have
+    /// collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,13 +18,34 @@ extension ActionsMethods {
     ///   not case sensitive.
     /// - name: The name of the variable.
     /// - value: The value of the variable.
-    public static func actionsCreateRepoVariable(config: ClientConfig, owner: String, repo: String, name: String, value: String) async throws -> EmptyObject {
+    static func actionsCreateRepoVariable(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        name: String,
+        value: String
+    ) async throws -> EmptyObject {
         let requestBody = ActionsCreateRepoVariableRequestBody(name: name, value: value)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/variables"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateRepoVariable")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/variables",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsCreateRepoVariable"
+        )).data
     }
 
-    /// Gets a specific variable in a repository. The authenticated user must have collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets a specific variable in a repository. The authenticated user must have collaborator access to the repository
+    /// to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,7 +53,25 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - name: The name of the variable.
-    public static func actionsGetRepoVariable(config: ClientConfig, owner: String, repo: String, name: String) async throws -> ActionsVariable {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "actionsGetRepoVariable")).data
+    static func actionsGetRepoVariable(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        name: String
+    ) async throws -> ActionsVariable {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/variables/",
+                sdkEncodePathSegment(sdkWireString(name)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetRepoVariable"
+        )).data
     }
 }

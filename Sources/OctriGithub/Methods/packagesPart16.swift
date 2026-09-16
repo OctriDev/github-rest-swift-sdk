@@ -6,10 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
+public extension PackagesMethods {
     /// Get a package version for the authenticated user
     ///
-    /// Gets a specific package version for a package owned by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Gets a specific package version for a package owned by the authenticated user. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -20,7 +22,25 @@ extension PackagesMethods {
     ///   Container registry.
     /// - packageName: The name of the package.
     /// - packageVersionId: Unique identifier of the package version.
-    public static func packagesGetPackageVersionForAuthenticatedUser(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, packageVersionId: Int) async throws -> PackageVersion {
-        return try (await sdkRequest("GET", ["/user/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName)), "/versions/", sdkEncodePathSegment(sdkWireString(packageVersionId))].joined(), config: config, decoder: .json, operationId: "packagesGetPackageVersionForAuthenticatedUser")).data
+    static func packagesGetPackageVersionForAuthenticatedUser(
+        config: ClientConfig,
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        packageVersionId: Int
+    ) async throws -> PackageVersion {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/user/packages/",
+                sdkEncodePathSegment(sdkWireString(packageType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(packageName)),
+                "/versions/",
+                sdkEncodePathSegment(sdkWireString(packageVersionId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "packagesGetPackageVersionForAuthenticatedUser"
+        )).data
     }
 }

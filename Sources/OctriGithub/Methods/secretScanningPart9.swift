@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecretScanningMethods {
-    public struct SecretScanningUpdateAlertOptions: Codable {
+public extension SecretScanningMethods {
+    struct SecretScanningUpdateAlertOptions: Codable {
         public var owner: String
         public var repo: String
         public var alertNumber: AlertNumber
@@ -24,7 +24,11 @@ extension SecretScanningMethods {
         }
     }
 
-    /// Updates the status of a secret scanning alert in an eligible repository. You can also use this endpoint to assign or unassign an alert to a user who has write access to the repository. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// Updates the status of a secret scanning alert in an eligible repository. You can also use this endpoint to
+    /// assign or unassign an alert to a user who has write access to the repository. The authenticated user must be an
+    /// administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
+    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
+    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -45,9 +49,26 @@ extension SecretScanningMethods {
     ///   to unassign the alert.
     /// - validity: Sets the validity of the secret scanning alert. Can be `active`,
     ///   `inactive`, or `null` to clear the override.
-    public static func secretScanningUpdateAlert(config: ClientConfig, options: SecretScanningUpdateAlertOptions) async throws -> SecretScanningAlertWithMetadata {
+    static func secretScanningUpdateAlert(
+        config: ClientConfig,
+        options: SecretScanningUpdateAlertOptions
+    ) async throws -> SecretScanningAlertWithMetadata {
         let requestBody = SecretScanningUpdateAlertRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/secret-scanning/alerts/", sdkEncodePathSegment(sdkWireString(options.alertNumber))].joined(), config: config, body: requestBody, decoder: .json, operationId: "secretScanningUpdateAlert")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/secret-scanning/alerts/",
+                sdkEncodePathSegment(sdkWireString(options.alertNumber)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "secretScanningUpdateAlert"
+        )).data
     }
 }

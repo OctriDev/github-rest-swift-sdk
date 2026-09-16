@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeScanningMethods {
-    /// Gets the summary of a CodeQL variant analysis. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+public extension CodeScanningMethods {
+    /// Gets the summary of a CodeQL variant analysis. OAuth app tokens and personal access tokens (classic) need the
+    /// `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to
+    /// use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +17,31 @@ extension CodeScanningMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - codeqlVariantAnalysisId: The unique identifier of the variant analysis.
-    public static func codeScanningGetVariantAnalysis(config: ClientConfig, owner: String, repo: String, codeqlVariantAnalysisId: Int) async throws -> CodeScanningVariantAnalysis {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/codeql/variant-analyses/", sdkEncodePathSegment(sdkWireString(codeqlVariantAnalysisId))].joined(), config: config, decoder: .json, operationId: "codeScanningGetVariantAnalysis")).data
+    static func codeScanningGetVariantAnalysis(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        codeqlVariantAnalysisId: Int
+    ) async throws -> CodeScanningVariantAnalysis {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-scanning/codeql/variant-analyses/",
+                sdkEncodePathSegment(sdkWireString(codeqlVariantAnalysisId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeScanningGetVariantAnalysis"
+        )).data
     }
 
-    /// Gets the analysis status of a repository in a CodeQL variant analysis. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+    /// Gets the analysis status of a repository in a CodeQL variant analysis. OAuth app tokens and personal access
+    /// tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or
+    /// the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,7 +51,31 @@ extension CodeScanningMethods {
     /// - repoOwner: The account owner of the variant analysis repository. The name
     ///   is not case sensitive.
     /// - repoName: The name of the variant analysis repository.
-    public static func codeScanningGetVariantAnalysisRepoTask(config: ClientConfig, owner: String, repo: String, codeqlVariantAnalysisId: Int, repoOwner: String, repoName: String) async throws -> CodeScanningVariantAnalysisRepoTask {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/codeql/variant-analyses/", sdkEncodePathSegment(sdkWireString(codeqlVariantAnalysisId)), "/repos/", sdkEncodePathSegment(sdkWireString(repoOwner)), "/", sdkEncodePathSegment(sdkWireString(repoName))].joined(), config: config, decoder: .json, operationId: "codeScanningGetVariantAnalysisRepoTask")).data
+    static func codeScanningGetVariantAnalysisRepoTask(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        codeqlVariantAnalysisId: Int,
+        repoOwner: String,
+        repoName: String
+    ) async throws -> CodeScanningVariantAnalysisRepoTask {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-scanning/codeql/variant-analyses/",
+                sdkEncodePathSegment(sdkWireString(codeqlVariantAnalysisId)),
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(repoOwner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repoName)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeScanningGetVariantAnalysisRepoTask"
+        )).data
     }
 }

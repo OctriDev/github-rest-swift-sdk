@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedWebhook domain models
+/// SharedWebhook domain models
 public typealias WebhookConfigContentType = String
 
 public enum WebhookConfigInsecureSsl {
@@ -12,21 +12,31 @@ public enum WebhookConfigInsecureSsl {
 }
 
 extension WebhookConfigInsecureSsl: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookConfigInsecureSsl")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookConfigInsecureSsl"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode(Double.self) { return .doubleValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode(Double.self) {
+            return .doubleValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -36,7 +46,6 @@ extension WebhookConfigInsecureSsl: Codable {
         case let .doubleValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 public typealias WebhookConfigSecret = String
@@ -67,25 +76,30 @@ public struct WebhookConfig: Codable {
     }
 
     init() {
-        (self.url, self.contentType, self.secret, self.insecureSsl) = (nil, nil, nil, nil)
+        (url, contentType, secret, insecureSsl) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookConfig {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.contentType = try container.sdkDecodeIfPresent(.contentType)
-        self.secret = try container.sdkDecodeIfPresent(.secret)
-        self.insecureSsl = try container.sdkDecodeIfPresent(.insecureSsl)
-        if let value = self.url {
+        url = try container.sdkDecodeIfPresent(.url)
+        contentType = try container.sdkDecodeIfPresent(.contentType)
+        secret = try container.sdkDecodeIfPresent(.secret)
+        insecureSsl = try container.sdkDecodeIfPresent(.insecureSsl)
+        if let value = url {
             try sdkValidateUri("url", sdkWireString(value))
         }
     }
 }
 
 public extension WebhookConfig {
-    public init(url: WebhookConfigUrl? = nil, contentType: WebhookConfigContentType? = nil, secret: WebhookConfigSecret? = nil, insecureSsl: WebhookConfigInsecureSsl? = nil) throws {
+    init(
+        url: WebhookConfigUrl? = nil,
+        contentType: WebhookConfigContentType? = nil,
+        secret: WebhookConfigSecret? = nil,
+        insecureSsl: WebhookConfigInsecureSsl? = nil
+    ) throws {
         self.init()
         (self.url, self.contentType) = (url, contentType)
         (self.secret, self.insecureSsl) = (secret, insecureSsl)

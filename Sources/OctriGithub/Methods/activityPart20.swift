@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
+public extension ActivityMethods {
     /// Unstar a repository for the authenticated user
     ///
     /// Unstar a repository that the authenticated user has previously starred.
@@ -16,8 +16,23 @@ extension ActivityMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func activityUnstarRepoForAuthenticatedUser(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/user/starred/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, decoder: .empty, operationId: "activityUnstarRepoForAuthenticatedUser")).data
+    static func activityUnstarRepoForAuthenticatedUser(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/user/starred/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "activityUnstarRepoForAuthenticatedUser"
+        )).data
     }
 
     /// List repositories watched by the authenticated user
@@ -33,8 +48,12 @@ extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func activityListWatchedReposForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try (await sdkRequest("GET", "/user/subscriptions", config: config, query: [
+    static func activityListWatchedReposForAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [MinimalRepository] {
+        try await (sdkRequest("GET", "/user/subscriptions", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "activityListWatchedReposForAuthenticatedUser")).data

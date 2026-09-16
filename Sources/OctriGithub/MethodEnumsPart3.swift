@@ -6,16 +6,20 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public struct ActivityListReposStarredByAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActivityListReposStarredByAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = ActivityListReposStarredByAuthenticatedUserParameter(rawValue: "created")
     public static let updated = ActivityListReposStarredByAuthenticatedUserParameter(rawValue: "updated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -27,14 +31,17 @@ public struct ActivityListReposStarredByAuthenticatedUserParameter: RawRepresent
 public struct TeamsListParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = TeamsListParameter(rawValue: "all")
     public static let enterprise = TeamsListParameter(rawValue: "enterprise")
     public static let organization = TeamsListParameter(rawValue: "organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -43,10 +50,14 @@ public struct TeamsListParameter: RawRepresentable, Hashable, Codable, Sendable,
     }
 }
 
-public struct ReposGetOrgRuleSuitesParameterX7b29ef42: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposGetOrgRuleSuitesParameterX7b29ef42: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let hour = ReposGetOrgRuleSuitesParameterX7b29ef42(rawValue: "hour")
     public static let day = ReposGetOrgRuleSuitesParameterX7b29ef42(rawValue: "day")
     public static let week = ReposGetOrgRuleSuitesParameterX7b29ef42(rawValue: "week")
@@ -54,7 +65,7 @@ public struct ReposGetOrgRuleSuitesParameterX7b29ef42: RawRepresentable, Hashabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -66,13 +77,16 @@ public struct ReposGetOrgRuleSuitesParameterX7b29ef42: RawRepresentable, Hashabl
 public struct AppsListWebhookDeliveriesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let success = AppsListWebhookDeliveriesParameter(rawValue: "success")
     public static let failure = AppsListWebhookDeliveriesParameter(rawValue: "failure")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -81,10 +95,14 @@ public struct AppsListWebhookDeliveriesParameter: RawRepresentable, Hashable, Co
     }
 }
 
-public struct ActionsListWorkflowRunsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsListWorkflowRunsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let completed = ActionsListWorkflowRunsForRepoParameter(rawValue: "completed")
     public static let actionRequired = ActionsListWorkflowRunsForRepoParameter(rawValue: "action_required")
     public static let cancelled = ActionsListWorkflowRunsForRepoParameter(rawValue: "cancelled")
@@ -102,7 +120,7 @@ public struct ActionsListWorkflowRunsForRepoParameter: RawRepresentable, Hashabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -111,16 +129,20 @@ public struct ActionsListWorkflowRunsForRepoParameter: RawRepresentable, Hashabl
     }
 }
 
-public struct SecurityAdvisoriesListGlobalAdvisoriesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListGlobalAdvisoriesParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = SecurityAdvisoriesListGlobalAdvisoriesParameter(rawValue: "asc")
     public static let desc = SecurityAdvisoriesListGlobalAdvisoriesParameter(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,13 +154,16 @@ public struct SecurityAdvisoriesListGlobalAdvisoriesParameter: RawRepresentable,
 public struct SearchCommitsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let desc = SearchCommitsParameter(rawValue: "desc")
     public static let asc = SearchCommitsParameter(rawValue: "asc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -150,13 +175,16 @@ public struct SearchCommitsParameter: RawRepresentable, Hashable, Codable, Senda
 public struct ReposGetClonesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let day = ReposGetClonesParameter(rawValue: "day")
     public static let week = ReposGetClonesParameter(rawValue: "week")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -168,13 +196,16 @@ public struct ReposGetClonesParameter: RawRepresentable, Hashable, Codable, Send
 public struct AppsListAccountsForPlanParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = AppsListAccountsForPlanParameter(rawValue: "created")
     public static let updated = AppsListAccountsForPlanParameter(rawValue: "updated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -186,14 +217,17 @@ public struct AppsListAccountsForPlanParameter: RawRepresentable, Hashable, Coda
 public struct ChecksListForSuiteParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let queued = ChecksListForSuiteParameter(rawValue: "queued")
     public static let inProgress = ChecksListForSuiteParameter(rawValue: "in_progress")
     public static let completed = ChecksListForSuiteParameter(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

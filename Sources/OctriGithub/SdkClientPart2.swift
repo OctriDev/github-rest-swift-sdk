@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-internal func buildRequest(
+func buildRequest(
     config: ClientConfig,
     method: String,
     path: String,
@@ -45,7 +45,9 @@ internal func buildRequest(
     request.httpMethod = method
     request.setValue(contentType, forHTTPHeaderField: "Content-Type")
     if let auth = config.auth, let headers = auth.headers {
-        for (key, value) in headers { request.setValue(value, forHTTPHeaderField: key) }
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
     }
     for (key, value) in resolvedAuthHeaders {
         request.setValue(value, forHTTPHeaderField: key)
@@ -59,19 +61,17 @@ struct AuthResolved {
 }
 
 func resolveAuth(_ config: ClientConfig) async throws -> AuthResolved {
-
-
     var headers: [String: String] = [:]
     let query: [(String, String?)] = []
     guard let auth = config.auth else { return AuthResolved(headers: headers, query: query) }
-    if let bearer = auth.bearer { headers["Authorization"] = "Bearer " + bearer }
-
+    if let bearer = auth.bearer {
+        headers["Authorization"] = "Bearer " + bearer
+    }
 
     return AuthResolved(headers: headers, query: query)
-
 }
 
-internal func flattenHeaders(_ response: HTTPURLResponse) -> [String: String] {
+func flattenHeaders(_ response: HTTPURLResponse) -> [String: String] {
     var result: [String: String] = [:]
     for (key, value) in response.allHeaderFields {
         if let k = key as? String {
@@ -81,18 +81,19 @@ internal func flattenHeaders(_ response: HTTPURLResponse) -> [String: String] {
     return result
 }
 
-internal func shouldRetry(method: String, statusCode: Int, retryOn: [Int]) -> Bool {
+func shouldRetry(method: String, statusCode: Int, retryOn: [Int]) -> Bool {
     guard retryOn.contains(statusCode) else { return false }
-    if idempotentMethods.contains(method) { return true }
+    if idempotentMethods.contains(method) {
+        return true
+    }
     return alwaysRetryableStatuses.contains(statusCode)
 }
 
-internal func sleepBackoff(retry: RetryConfig, attempt: Int, retryAfter: String?) async throws {
+func sleepBackoff(retry: RetryConfig, attempt: Int, retryAfter: String?) async throws {
     var delay: TimeInterval
 
     if let retryAfter, let seconds = Double(retryAfter.trimmingCharacters(in: .whitespaces)),
-        seconds > 0
-    {
+       seconds > 0 {
         delay = min(seconds, retry.maxBackoff)
     } else {
         let exp = retry.backoff * pow(2.0, Double(attempt - 1))
@@ -126,12 +127,12 @@ public struct SdkStreamEvent: Sendable {
 /// Opens an SSE connection and returns an AsyncThrowingStream of parsed
 /// events. Bypasses the retry loop and idempotency layer — streaming
 /// connections are long-lived; reconnect is the caller's responsibility.
-public func sdkStream<B: Encodable>(
+public func sdkStream(
     _ method: String,
     _ path: String,
     config: ClientConfig? = nil,
     query: [SdkQueryParameter] = [],
-    body: B? = Optional<EmptyBody>.none,
+    body: (some Encodable)? = EmptyBody?.none,
     rawBody: Data? = nil,
     contentType: String = "application/json",
     operationId: String = "",
@@ -222,11 +223,17 @@ public func sdkStream<B: Encodable>(
                     for byte in chunk {
                         if byte == 0x0A { // \n
                             // Strip optional trailing \r (from \r\n).
-                            if lineBuf.last == 0x0D { lineBuf.removeLast() }
+                            if lineBuf.last == 0x0D {
+                                lineBuf.removeLast()
+                            }
                             let line = try decodeStreamLine(lineBuf)
                             lineBuf.removeAll(keepingCapacity: true)
-                            if line.isEmpty { flush(); continue }
-                            if line.hasPrefix(":") { continue }
+                            if line.isEmpty {
+                                flush(); continue
+                            }
+                            if line.hasPrefix(":") {
+                                continue
+                            }
                             let (field, value) = splitSseLine(line)
                             switch field {
                             case "event": eventName = value
@@ -243,9 +250,11 @@ public func sdkStream<B: Encodable>(
                 // Flush any trailing partial line + the pending event.
                 if !lineBuf.isEmpty {
                     let line = try decodeStreamLine(lineBuf)
-                    if !line.isEmpty && !line.hasPrefix(":") {
+                    if !line.isEmpty, !line.hasPrefix(":") {
                         let (field, value) = splitSseLine(line)
-                        if field == "data" { dataLines.append(value) }
+                        if field == "data" {
+                            dataLines.append(value)
+                        }
                     }
                 }
                 flush()
@@ -258,7 +267,7 @@ public func sdkStream<B: Encodable>(
     }
 }
 
-internal func sdkChunkStream(
+func sdkChunkStream(
     _ byteStream: AsyncThrowingStream<Data, Swift.Error>,
     chunkDomain: String
 ) -> AsyncThrowingStream<SdkStreamEvent, Swift.Error> {
@@ -278,7 +287,7 @@ internal func sdkChunkStream(
     }
 }
 
-internal func sdkNdjsonStream(
+func sdkNdjsonStream(
     _ byteStream: AsyncThrowingStream<Data, Swift.Error>
 ) -> AsyncThrowingStream<SdkStreamEvent, Swift.Error> {
     AsyncThrowingStream { continuation in
@@ -311,17 +320,19 @@ internal func sdkNdjsonStream(
     }
 }
 
-internal func splitSseLine(_ line: String) -> (String, String) {
+func splitSseLine(_ line: String) -> (String, String) {
     if let colon = line.firstIndex(of: ":") {
         let field = String(line[line.startIndex ..< colon])
         var value = String(line[line.index(after: colon)...])
-        if value.hasPrefix(" ") { value.removeFirst() }
+        if value.hasPrefix(" ") {
+            value.removeFirst()
+        }
         return (field, value)
     }
     return (line, "")
 }
 
-internal func decodeStreamLine(_ bytes: [UInt8]) throws -> String {
+func decodeStreamLine(_ bytes: [UInt8]) throws -> String {
     guard let line = String(bytes: bytes, encoding: .utf8) else {
         throw SdkNetworkError(cause: NSError(
             domain: "SdkStream",

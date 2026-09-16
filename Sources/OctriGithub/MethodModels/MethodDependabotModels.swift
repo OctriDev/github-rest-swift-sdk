@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical dependabot operation model declarations
+/// Canonical dependabot operation model declarations
 public struct DependabotListSelectedReposForOrgSecretResponse: Codable {
     public var totalCount: Int
     public var repositories: [MinimalRepository]
@@ -17,25 +17,35 @@ public struct DependabotListSelectedReposForOrgSecretResponse: Codable {
         case repositories
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension DependabotListSelectedReposForOrgSecretResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.repositories) else {
-            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.repositories = try container.sdkDecodeRequired(.repositories)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension DependabotListSelectedReposForOrgSecretResponse {
-    public init(totalCount: Int, repositories: [MinimalRepository]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.repositories) else {
+            throw SdkValidationError(
+                field: "repositories",
+                code: "required",
+                message: "Validation failed for 'repositories': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        repositories = try container.sdkDecodeRequired(.repositories)
+    }
+}
+
+public extension DependabotListSelectedReposForOrgSecretResponse {
+    init(totalCount: Int, repositories: [MinimalRepository]) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
     }
 }
@@ -49,25 +59,35 @@ public struct DependabotListOrgSecretsResponse: Codable {
         case secrets
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension DependabotListOrgSecretsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.secrets) else {
-            throw SdkValidationError(field: "secrets", code: "required", message: "Validation failed for 'secrets': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.secrets = try container.sdkDecodeRequired(.secrets)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension DependabotListOrgSecretsResponse {
-    public init(totalCount: Int, secrets: [OrganizationDependabotSecret]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.secrets) else {
+            throw SdkValidationError(
+                field: "secrets",
+                code: "required",
+                message: "Validation failed for 'secrets': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        secrets = try container.sdkDecodeRequired(.secrets)
+    }
+}
+
+public extension DependabotListOrgSecretsResponse {
+    init(totalCount: Int, secrets: [OrganizationDependabotSecret]) {
         (self.totalCount, self.secrets) = (totalCount, secrets)
     }
 }
@@ -78,21 +98,31 @@ public enum DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsIte
 }
 
 extension DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) { return .intValue(value) }
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Int.self) {
+            return .intValue(value)
+        }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -102,7 +132,6 @@ extension DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem:
         case let .stringValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 public enum DependabotListAlertsForOrgParameter {
@@ -111,21 +140,31 @@ public enum DependabotListAlertsForOrgParameter {
 }
 
 extension DependabotListAlertsForOrgParameter: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for DependabotListAlertsForOrgParameter")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for DependabotListAlertsForOrgParameter"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String].self) { return .stringList(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String].self) {
+            return .stringList(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -135,7 +174,6 @@ extension DependabotListAlertsForOrgParameter: Codable {
         case let .stringList(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Parameters for AI agent assignment. Only used when an agent bot login is included in `assignees`. Ignored when
@@ -155,21 +193,21 @@ public struct DependabotUpdateAlertRequestBodyAgentAssignment: Codable {
     }
 
     init() {
-        (self.customInstructions, self.customAgent, self.model) = (nil, nil, nil)
+        (customInstructions, customAgent, model) = (nil, nil, nil)
     }
 }
 
 public extension DependabotUpdateAlertRequestBodyAgentAssignment {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.customInstructions = try container.sdkDecodeIfPresent(.customInstructions)
-        self.customAgent = try container.sdkDecodeIfPresent(.customAgent)
-        self.model = try container.sdkDecodeIfPresent(.model)
+        customInstructions = try container.sdkDecodeIfPresent(.customInstructions)
+        customAgent = try container.sdkDecodeIfPresent(.customAgent)
+        model = try container.sdkDecodeIfPresent(.model)
     }
 }
 
 public extension DependabotUpdateAlertRequestBodyAgentAssignment {
-    public init(customInstructions: String? = nil, customAgent: String? = nil, model: String? = nil) {
+    init(customInstructions: String? = nil, customAgent: String? = nil, model: String? = nil) {
         self.init()
         (self.customInstructions, self.customAgent) = (customInstructions, customAgent)
         self.model = model
@@ -182,21 +220,31 @@ public enum DependabotListAlertsForEnterpriseParameter {
 }
 
 extension DependabotListAlertsForEnterpriseParameter: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for DependabotListAlertsForEnterpriseParameter")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for DependabotListAlertsForEnterpriseParameter"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String].self) { return .stringList(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String].self) {
+            return .stringList(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -206,7 +254,6 @@ extension DependabotListAlertsForEnterpriseParameter: Codable {
         case let .stringList(value): try container.encode(value); return true
         }
     }
-
 }
 
 public struct DependabotListRepoSecretsResponse: Codable {
@@ -218,25 +265,35 @@ public struct DependabotListRepoSecretsResponse: Codable {
         case secrets
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension DependabotListRepoSecretsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.secrets) else {
-            throw SdkValidationError(field: "secrets", code: "required", message: "Validation failed for 'secrets': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.secrets = try container.sdkDecodeRequired(.secrets)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension DependabotListRepoSecretsResponse {
-    public init(totalCount: Int, secrets: [DependabotSecret]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.secrets) else {
+            throw SdkValidationError(
+                field: "secrets",
+                code: "required",
+                message: "Validation failed for 'secrets': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        secrets = try container.sdkDecodeRequired(.secrets)
+    }
+}
+
+public extension DependabotListRepoSecretsResponse {
+    init(totalCount: Int, secrets: [DependabotSecret]) {
         (self.totalCount, self.secrets) = (totalCount, secrets)
     }
 }

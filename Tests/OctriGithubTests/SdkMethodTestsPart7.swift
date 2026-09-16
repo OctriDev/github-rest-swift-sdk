@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testActionsSetActionsCacheStorageLimitForRepositoryActionsSetActiX4ed0cb4a79ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetActionsCacheStorageLimitForRepositoryActionsSetActiX4ed0cb4a79ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -19,7 +20,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetAllowedActionsOrganizationActionsSetAllowedActionsOrganizationReachesMockAndDecodesResponse() async throws {
+    func testActionsSetAllowedActionsOrganizationActionsSetAllowedActionsOrganizationReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -33,7 +35,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetAllowedActionsRepositoryActionsSetAllowedActionsRepositoryReachesMockAndDecodesResponse() async throws {
+    func testActionsSetAllowedActionsRepositoryActionsSetAllowedActionsRepositoryReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -48,7 +51,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetArtifactAndLogRetentionSettingsOrganizationActionsSX069129a222ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetArtifactAndLogRetentionSettingsOrganizationActionsSX069129a222ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -60,7 +64,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetArtifactAndLogRetentionSettingsRepositoryActionsSetXe58e7134f4ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetArtifactAndLogRetentionSettingsRepositoryActionsSetXe58e7134f4ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -73,7 +78,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetCustomLabelsForSelfHostedRunnerForOrgActionsSetCustX567c9027eeReachesMockAndDecodesResponse() async throws {
+    func testActionsSetCustomLabelsForSelfHostedRunnerForOrgActionsSetCustX567c9027eeReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -94,7 +100,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsSetCustomLabelsForSelfHostedRunnerForRepoActionsSetCusXa0d902149dReachesMockAndDecodesResponse() async throws {
+    func testActionsSetCustomLabelsForSelfHostedRunnerForRepoActionsSetCusXa0d902149dReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -116,7 +123,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsSetCustomOidcSubClaimForRepoActionsSetCustomOidcSubClaimForRepoReachesMockAndDecodesResponse() async throws {
+    func testActionsSetCustomOidcSubClaimForRepoActionsSetCustomOidcSubClaimForRepoReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -139,7 +147,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsSetForkPrContributorApprovalPermissionsOrganizationActXc71ff2183cReachesMockAndDecodesResponse() async throws {
+    func testActionsSetForkPrContributorApprovalPermissionsOrganizationActXc71ff2183cReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -151,7 +160,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetForkPrContributorApprovalPermissionsRepositoryActioX2b5c88aaebReachesMockAndDecodesResponse() async throws {
+    func testActionsSetForkPrContributorApprovalPermissionsRepositoryActioX2b5c88aaebReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -164,7 +174,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationXf5065b03aaReachesMockAndDecodesResponse() async throws {
+    func testActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationXf5065b03aaReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -177,7 +188,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryAcX39c8d9f5dfReachesMockAndDecodesResponse() async throws {
+    func testActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryAcX39c8d9f5dfReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -191,7 +203,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetGithubActionsPermissionsOrganizationActionsSetGithuX80fde669f1ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetGithubActionsPermissionsOrganizationActionsSetGithuX80fde669f1ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -205,7 +218,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetGithubActionsPermissionsRepositoryActionsSetGithubAX4358510e9aReachesMockAndDecodesResponse() async throws {
+    func testActionsSetGithubActionsPermissionsRepositoryActionsSetGithubAX4358510e9aReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -220,7 +234,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationActioXaa863b2ecfReachesMockAndDecodesResponse() async throws {
+    func testActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationActioXaa863b2ecfReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -235,7 +250,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryActionsX9400d5d241ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryActionsX9400d5d241ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -251,7 +267,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetRepoAccessToSelfHostedRunnerGroupInOrgActionsSetRepX82c83874b2ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetRepoAccessToSelfHostedRunnerGroupInOrgActionsSetRepX82c83874b2ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -264,7 +281,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetSelectedReposForOrgSecretActionsSetSelectedReposForOrgSecretReachesMockAndDecodesResponse() async throws {
+    func testActionsSetSelectedReposForOrgSecretActionsSetSelectedReposForOrgSecretReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -277,7 +295,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetSelectedReposForOrgVariableActionsSetSelectedReposFX38854f88b9ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetSelectedReposForOrgVariableActionsSetSelectedReposFX38854f88b9ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -290,7 +309,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetSelectedRepositoriesEnabledGithubActionsOrganizatioXe15d89b886ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetSelectedRepositoriesEnabledGithubActionsOrganizatioXe15d89b886ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -302,7 +322,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationAcX5b8af8e1c3ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationAcX5b8af8e1c3ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -314,7 +335,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetSelfHostedRunnersInGroupForOrgActionsSetSelfHostedRX335f3eb0e3ReachesMockAndDecodesResponse() async throws {
+    func testActionsSetSelfHostedRunnersInGroupForOrgActionsSetSelfHostedRX335f3eb0e3ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -327,7 +349,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetSelfHostedRunnersPermissionsOrganizationActionsSetSXefb4c96a2dReachesMockAndDecodesResponse() async throws {
+    func testActionsSetSelfHostedRunnersPermissionsOrganizationActionsSetSXefb4c96a2dReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -339,7 +362,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsSetWorkflowAccessToRepositoryActionsSetWorkflowAccessToRepositoryReachesMockAndDecodesResponse() async throws {
+    func testActionsSetWorkflowAccessToRepositoryActionsSetWorkflowAccessToRepositoryReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -352,7 +376,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsUpdateEnvironmentVariableActionsUpdateEnvironmentVariableReachesMockAndDecodesResponse() async throws {
+    func testActionsUpdateEnvironmentVariableActionsUpdateEnvironmentVariableReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -373,7 +398,10 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ActionsMethods.ActionsUpdateHostedRunnerForOrgOptions(org: decoded("\"org\""), hostedRunnerId: decoded("1"))
+        var options = try ActionsMethods.ActionsUpdateHostedRunnerForOrgOptions(
+            org: decoded("\"org\""),
+            hostedRunnerId: decoded("1")
+        )
         options.name = try decoded("\"My larger runner\"")
         options.runnerGroupId = try decoded("1")
         options.maximumRunners = try decoded("50")
@@ -428,12 +456,17 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsUpdateSelfHostedRunnerGroupForOrgActionsUpdateSelfHostX8ba63fa00aReachesMockAndDecodesResponse() async throws {
+    func testActionsUpdateSelfHostedRunnerGroupForOrgActionsUpdateSelfHostX8ba63fa00aReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try ActionsMethods.ActionsUpdateSelfHostedRunnerGroupForOrgOptions(org: decoded("\"org\""), runnerGroupId: decoded("1"), name: decoded("\"Expensive hardware runners\""))
+        var options = try ActionsMethods.ActionsUpdateSelfHostedRunnerGroupForOrgOptions(
+            org: decoded("\"org\""),
+            runnerGroupId: decoded("1"),
+            name: decoded("\"Expensive hardware runners\"")
+        )
         options.visibility = try decoded("\"selected\"")
         options.allowsPublicRepositories = try decoded("null")
         options.restrictedToWorkflows = try decoded("null")
@@ -453,7 +486,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityCheckRepoIsStarredByAuthenticatedUserActivityCheckRepX57b7b5c846ReachesMockAndDecodesResponse() async throws {
+    func testActivityCheckRepoIsStarredByAuthenticatedUserActivityCheckRepX57b7b5c846ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

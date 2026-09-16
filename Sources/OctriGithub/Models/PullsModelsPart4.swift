@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Pulls domain models
+/// Pulls domain models
 /// Legacy Review Comment
 public struct ReviewComment: Codable {
     /// Required `uri`-formatted value serialized in the `url` wire field.
@@ -119,51 +119,83 @@ public struct ReviewComment: Codable {
         case subjectType = "subject_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewComment {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.pullRequestReviewId = try container.sdkDecodeIfPresent(.pullRequestReviewId)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.diffHunk = try container.sdkDecodeRequired(.diffHunk)
-        self.path = try container.sdkDecodeRequired(.path)
-        self.position = try container.sdkDecodeIfPresent(.position)
-        self.originalPosition = try container.sdkDecodeRequired(.originalPosition)
-        self.commitId = try container.sdkDecodeRequired(.commitId)
-        self.originalCommitId = try container.sdkDecodeRequired(.originalCommitId)
-        self.user = try container.sdkDecodeIfPresent(.user)
-        self.body = try container.sdkDecodeRequired(.body)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.pullRequestUrl = try container.sdkDecodeRequired(.pullRequestUrl)
-        self.authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
-        self.links = try container.sdkDecodeRequired(.links)
-        self.inReplyToId = try container.sdkDecodeIfPresent(.inReplyToId)
-        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        self.reactions = try container.sdkDecodeIfPresent(.reactions)
-        self.side = try container.sdkDecodeIfPresent(.side)
-        self.startSide = try container.sdkDecodeIfPresent(.startSide)
-        self.line = try container.sdkDecodeIfPresent(.line)
-        self.originalLine = try container.sdkDecodeIfPresent(.originalLine)
-        self.startLine = try container.sdkDecodeIfPresent(.startLine)
-        self.originalStartLine = try container.sdkDecodeIfPresent(.originalStartLine)
-        self.subjectType = try container.sdkDecodeIfPresent(.subjectType)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewComment {
-    public init(url: String, pullRequestReviewId: Int?, id: Int, nodeId: String, diffHunk: String, path: String, position: Int?, originalPosition: Int, commitId: String, originalCommitId: String, user: NullableSimpleUser?, body: String, createdAt: Date, updatedAt: Date, htmlUrl: String, pullRequestUrl: String, authorAssociation: AuthorAssociation, links: ReviewCommentLinks, inReplyToId: Int? = nil, bodyText: String? = nil, bodyHtml: String? = nil, reactions: ReactionRollup? = nil, side: ReviewCommentSide? = nil, startSide: ReviewCommentStartSide? = nil, line: Int? = nil, originalLine: Int? = nil, startLine: Int? = nil, originalStartLine: Int? = nil, subjectType: ReviewCommentSubjectType? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.sdkDecodeRequired(.url)
+        pullRequestReviewId = try container.sdkDecodeIfPresent(.pullRequestReviewId)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        diffHunk = try container.sdkDecodeRequired(.diffHunk)
+        path = try container.sdkDecodeRequired(.path)
+        position = try container.sdkDecodeIfPresent(.position)
+        originalPosition = try container.sdkDecodeRequired(.originalPosition)
+        commitId = try container.sdkDecodeRequired(.commitId)
+        originalCommitId = try container.sdkDecodeRequired(.originalCommitId)
+        user = try container.sdkDecodeIfPresent(.user)
+        body = try container.sdkDecodeRequired(.body)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        pullRequestUrl = try container.sdkDecodeRequired(.pullRequestUrl)
+        authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
+        links = try container.sdkDecodeRequired(.links)
+        inReplyToId = try container.sdkDecodeIfPresent(.inReplyToId)
+        bodyText = try container.sdkDecodeIfPresent(.bodyText)
+        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        reactions = try container.sdkDecodeIfPresent(.reactions)
+        side = try container.sdkDecodeIfPresent(.side)
+        startSide = try container.sdkDecodeIfPresent(.startSide)
+        line = try container.sdkDecodeIfPresent(.line)
+        originalLine = try container.sdkDecodeIfPresent(.originalLine)
+        startLine = try container.sdkDecodeIfPresent(.startLine)
+        originalStartLine = try container.sdkDecodeIfPresent(.originalStartLine)
+        subjectType = try container.sdkDecodeIfPresent(.subjectType)
+        try sdkValidateUri("url", url)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("pull_request_url", pullRequestUrl)
+    }
+}
+
+public extension ReviewComment {
+    init(
+        url: String,
+        pullRequestReviewId: Int?,
+        id: Int,
+        nodeId: String,
+        diffHunk: String,
+        path: String,
+        position: Int?,
+        originalPosition: Int,
+        commitId: String,
+        originalCommitId: String,
+        user: NullableSimpleUser?,
+        body: String,
+        createdAt: Date,
+        updatedAt: Date,
+        htmlUrl: String,
+        pullRequestUrl: String,
+        authorAssociation: AuthorAssociation,
+        links: ReviewCommentLinks,
+        inReplyToId: Int? = nil,
+        bodyText: String? = nil,
+        bodyHtml: String? = nil,
+        reactions: ReactionRollup? = nil,
+        side: ReviewCommentSide? = nil,
+        startSide: ReviewCommentStartSide? = nil,
+        line: Int? = nil,
+        originalLine: Int? = nil,
+        startLine: Int? = nil,
+        originalStartLine: Int? = nil,
+        subjectType: ReviewCommentSubjectType? = nil
+    ) throws {
         (self.url, self.pullRequestReviewId) = (url, pullRequestReviewId)
         (self.id, self.nodeId) = (id, nodeId)
         (self.diffHunk, self.path) = (diffHunk, path)
@@ -179,11 +211,11 @@ public extension ReviewComment {
         (self.line, self.originalLine) = (line, originalLine)
         (self.startLine, self.originalStartLine) = (startLine, originalStartLine)
         self.subjectType = subjectType
-            try sdkValidateUri("url", self.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("pull_request_url", self.pullRequestUrl)
     }
 }
 
@@ -202,39 +234,57 @@ public struct ReviewCommentLinks: Codable {
         case pullRequest = "pull_request"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewCommentLinks {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.`self`) else {
-            throw SdkValidationError(field: "self", code: "required", message: "Validation failed for 'self': value is required")
-        }
-        guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
-        }
-        guard container.contains(.pullRequest) else {
-            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
-        }
-        self.`self` = try container.sdkDecodeRequired(.`self`)
-        self.html = try container.sdkDecodeRequired(.html)
-        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewCommentLinks {
-    public init(`self` selfValue: Link, html: Link, pullRequest: Link) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.`self`) else {
+            throw SdkValidationError(
+                field: "self",
+                code: "required",
+                message: "Validation failed for 'self': value is required"
+            )
+        }
+        guard container.contains(.html) else {
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
+        }
+        guard container.contains(.pullRequest) else {
+            throw SdkValidationError(
+                field: "pull_request",
+                code: "required",
+                message: "Validation failed for 'pull_request': value is required"
+            )
+        }
+        self.`self` = try container.sdkDecodeRequired(.`self`)
+        html = try container.sdkDecodeRequired(.html)
+        pullRequest = try container.sdkDecodeRequired(.pullRequest)
+    }
+}
+
+public extension ReviewCommentLinks {
+    init(self selfValue: Link, html: Link, pullRequest: Link) {
         (self.`self`, self.html) = (selfValue, html)
         self.pullRequest = pullRequest
     }
 }
 
 /// Required enumerated value serialized in the `merge_method` wire field.
-public struct PullRequestMergeAsyncResultDetailsVariant0MergeMethod: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestMergeAsyncResultDetailsVariant0MergeMethod: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `default` = PullRequestMergeAsyncResultDetailsVariant0MergeMethod(rawValue: "default")
     public static let merge = PullRequestMergeAsyncResultDetailsVariant0MergeMethod(rawValue: "merge")
     public static let squash = PullRequestMergeAsyncResultDetailsVariant0MergeMethod(rawValue: "squash")
@@ -242,7 +292,7 @@ public struct PullRequestMergeAsyncResultDetailsVariant0MergeMethod: RawRepresen
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -252,17 +302,21 @@ public struct PullRequestMergeAsyncResultDetailsVariant0MergeMethod: RawRepresen
 }
 
 /// Required enumerated value serialized in the `merge_action` wire field.
-public struct PullRequestMergeAsyncResultDetailsVariant0MergeAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestMergeAsyncResultDetailsVariant0MergeAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `default` = PullRequestMergeAsyncResultDetailsVariant0MergeAction(rawValue: "default")
     public static let mergeQueue = PullRequestMergeAsyncResultDetailsVariant0MergeAction(rawValue: "merge_queue")
     public static let directMerge = PullRequestMergeAsyncResultDetailsVariant0MergeAction(rawValue: "direct_merge")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -275,13 +329,16 @@ public struct PullRequestMergeAsyncResultDetailsVariant0MergeAction: RawRepresen
 public struct ReviewCommentStartSide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let left = ReviewCommentStartSide(rawValue: "LEFT")
     public static let right = ReviewCommentStartSide(rawValue: "RIGHT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -294,7 +351,10 @@ public struct ReviewCommentStartSide: RawRepresentable, Hashable, Codable, Senda
 public struct PullRequestMergeAsyncResultStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pending = PullRequestMergeAsyncResultStatus(rawValue: "pending")
     public static let merged = PullRequestMergeAsyncResultStatus(rawValue: "merged")
     public static let enqueued = PullRequestMergeAsyncResultStatus(rawValue: "enqueued")
@@ -302,7 +362,7 @@ public struct PullRequestMergeAsyncResultStatus: RawRepresentable, Hashable, Cod
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -315,13 +375,16 @@ public struct PullRequestMergeAsyncResultStatus: RawRepresentable, Hashable, Cod
 public struct ReviewCommentSubjectType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let line = ReviewCommentSubjectType(rawValue: "line")
     public static let file = ReviewCommentSubjectType(rawValue: "file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -330,16 +393,20 @@ public struct ReviewCommentSubjectType: RawRepresentable, Hashable, Codable, Sen
     }
 }
 
-public struct PullRequestStackPullRequestVariant1State: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestStackPullRequestVariant1State: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = PullRequestStackPullRequestVariant1State(rawValue: "open")
     public static let closed = PullRequestStackPullRequestVariant1State(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -352,13 +419,16 @@ public struct PullRequestStackPullRequestVariant1State: RawRepresentable, Hashab
 public struct ReviewCommentSide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let left = ReviewCommentSide(rawValue: "LEFT")
     public static let right = ReviewCommentSide(rawValue: "RIGHT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -368,16 +438,20 @@ public struct ReviewCommentSide: RawRepresentable, Hashable, Codable, Sendable, 
 }
 
 /// Required enumerated value serialized in the `state` wire field.
-public struct PullRequestStackMinimalPullRequestsItemState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestStackMinimalPullRequestsItemState: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = PullRequestStackMinimalPullRequestsItemState(rawValue: "open")
     public static let closed = PullRequestStackMinimalPullRequestsItemState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -390,13 +464,16 @@ public struct PullRequestStackMinimalPullRequestsItemState: RawRepresentable, Ha
 public struct PullRequestState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = PullRequestState(rawValue: "open")
     public static let closed = PullRequestState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,35 +6,77 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeSecurityMethods {
-    /// Lists the default code security configurations for an organization. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint.
+public extension CodeSecurityMethods {
+    /// Lists the default code security configurations for an organization. The authenticated user must be an
+    /// administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func codeSecurityGetDefaultConfigurations(config: ClientConfig, org: String) async throws -> CodeSecurityDefaultConfigurations {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/defaults"].joined(), config: config, decoder: .json, operationId: "codeSecurityGetDefaultConfigurations")).data
+    static func codeSecurityGetDefaultConfigurations(
+        config: ClientConfig,
+        org: String
+    ) async throws -> CodeSecurityDefaultConfigurations {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/defaults"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeSecurityGetDefaultConfigurations"
+        )).data
     }
 
-    /// Detach code security configuration(s) from a set of repositories. Repositories will retain their settings but will no longer be associated with the configuration. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    /// Detach code security configuration(s) from a set of repositories. Repositories will retain their settings but
+    /// will no longer be associated with the configuration. The authenticated user must be an administrator or security
+    /// manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need
+    /// the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - selectedRepositoryIds: An array of repository IDs to detach from
     ///   configurations. Up to 250 IDs can be provided.
-    public static func codeSecurityDetachConfiguration(config: ClientConfig, org: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+    static func codeSecurityDetachConfiguration(
+        config: ClientConfig,
+        org: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
         try validateItems("selected_repository_ids", selectedRepositoryIds, min: 1, max: 250)
 
         let requestBody = CodeSecurityDetachConfigurationRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/detach"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "codeSecurityDetachConfiguration")).data
+        return try await (sdkRequest(
+            "DELETE",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/detach"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "codeSecurityDetachConfiguration"
+        )).data
     }
 
-    /// Gets a code security configuration available in an organization. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    /// Gets a code security configuration available in an organization. The authenticated user must be an administrator
+    /// or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - configurationId: The unique identifier of the code security configuration.
-    public static func codeSecurityGetConfiguration(config: ClientConfig, org: String, configurationId: Int) async throws -> CodeSecurityConfiguration {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId))].joined(), config: config, decoder: .json, operationId: "codeSecurityGetConfiguration")).data
+    static func codeSecurityGetConfiguration(
+        config: ClientConfig,
+        org: String,
+        configurationId: Int
+    ) async throws -> CodeSecurityConfiguration {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/code-security/configurations/",
+                sdkEncodePathSegment(sdkWireString(configurationId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeSecurityGetConfiguration"
+        )).data
     }
 }

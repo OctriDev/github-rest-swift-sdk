@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Migrations domain models
+/// Migrations domain models
 /// A repository import from an external source.
 public struct Import: Codable {
     /// Required `string` value serialized in the `vcs` wire field.
@@ -79,65 +79,119 @@ public struct Import: Codable {
         case svnRoot = "svn_root"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension Import {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.vcs) else {
-            throw SdkValidationError(field: "vcs", code: "required", message: "Validation failed for 'vcs': value is required")
-        }
-        guard container.contains(.vcsUrl) else {
-            throw SdkValidationError(field: "vcs_url", code: "required", message: "Validation failed for 'vcs_url': value is required")
-        }
-        guard container.contains(.status) else {
-            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
-        }
-        guard container.contains(.authorsUrl) else {
-            throw SdkValidationError(field: "authors_url", code: "required", message: "Validation failed for 'authors_url': value is required")
-        }
-        guard container.contains(.repositoryUrl) else {
-            throw SdkValidationError(field: "repository_url", code: "required", message: "Validation failed for 'repository_url': value is required")
-        }
-        self.vcs = try container.sdkDecodeIfPresent(.vcs)
-        self.vcsUrl = try container.sdkDecodeRequired(.vcsUrl)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.authorsUrl = try container.sdkDecodeRequired(.authorsUrl)
-        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-        self.useLfs = try container.sdkDecodeIfPresent(.useLfs)
-        self.svcRoot = try container.sdkDecodeIfPresent(.svcRoot)
-        self.tfvcProject = try container.sdkDecodeIfPresent(.tfvcProject)
-        self.statusText = try container.sdkDecodeIfPresent(.statusText)
-        self.failedStep = try container.sdkDecodeIfPresent(.failedStep)
-        self.errorMessage = try container.sdkDecodeIfPresent(.errorMessage)
-        self.importPercent = try container.sdkDecodeIfPresent(.importPercent)
-        self.commitCount = try container.sdkDecodeIfPresent(.commitCount)
-        self.pushPercent = try container.sdkDecodeIfPresent(.pushPercent)
-        self.hasLargeFiles = try container.sdkDecodeIfPresent(.hasLargeFiles)
-        self.largeFilesSize = try container.sdkDecodeIfPresent(.largeFilesSize)
-        self.largeFilesCount = try container.sdkDecodeIfPresent(.largeFilesCount)
-        self.projectChoices = try container.sdkDecodeIfPresent(.projectChoices)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.authorsCount = try container.sdkDecodeIfPresent(.authorsCount)
-        self.svnRoot = try container.sdkDecodeIfPresent(.svnRoot)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("authors_url", self.authorsUrl)
-            try sdkValidateUri("repository_url", self.repositoryUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension Import {
-    public init(vcs: String?, vcsUrl: String, status: ImportStatus, url: String, htmlUrl: String, authorsUrl: String, repositoryUrl: String, useLfs: Bool? = nil, svcRoot: String? = nil, tfvcProject: String? = nil, statusText: String? = nil, failedStep: String? = nil, errorMessage: String? = nil, importPercent: Int? = nil, commitCount: Int? = nil, pushPercent: Int? = nil, hasLargeFiles: Bool? = nil, largeFilesSize: Int? = nil, largeFilesCount: Int? = nil, projectChoices: [ImportProjectChoicesItem]? = nil, message: String? = nil, authorsCount: Int? = nil, svnRoot: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.vcs) else {
+            throw SdkValidationError(
+                field: "vcs",
+                code: "required",
+                message: "Validation failed for 'vcs': value is required"
+            )
+        }
+        guard container.contains(.vcsUrl) else {
+            throw SdkValidationError(
+                field: "vcs_url",
+                code: "required",
+                message: "Validation failed for 'vcs_url': value is required"
+            )
+        }
+        guard container.contains(.status) else {
+            throw SdkValidationError(
+                field: "status",
+                code: "required",
+                message: "Validation failed for 'status': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.htmlUrl) else {
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
+        }
+        guard container.contains(.authorsUrl) else {
+            throw SdkValidationError(
+                field: "authors_url",
+                code: "required",
+                message: "Validation failed for 'authors_url': value is required"
+            )
+        }
+        guard container.contains(.repositoryUrl) else {
+            throw SdkValidationError(
+                field: "repository_url",
+                code: "required",
+                message: "Validation failed for 'repository_url': value is required"
+            )
+        }
+        vcs = try container.sdkDecodeIfPresent(.vcs)
+        vcsUrl = try container.sdkDecodeRequired(.vcsUrl)
+        status = try container.sdkDecodeRequired(.status)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        authorsUrl = try container.sdkDecodeRequired(.authorsUrl)
+        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        useLfs = try container.sdkDecodeIfPresent(.useLfs)
+        svcRoot = try container.sdkDecodeIfPresent(.svcRoot)
+        tfvcProject = try container.sdkDecodeIfPresent(.tfvcProject)
+        statusText = try container.sdkDecodeIfPresent(.statusText)
+        failedStep = try container.sdkDecodeIfPresent(.failedStep)
+        errorMessage = try container.sdkDecodeIfPresent(.errorMessage)
+        importPercent = try container.sdkDecodeIfPresent(.importPercent)
+        commitCount = try container.sdkDecodeIfPresent(.commitCount)
+        pushPercent = try container.sdkDecodeIfPresent(.pushPercent)
+        hasLargeFiles = try container.sdkDecodeIfPresent(.hasLargeFiles)
+        largeFilesSize = try container.sdkDecodeIfPresent(.largeFilesSize)
+        largeFilesCount = try container.sdkDecodeIfPresent(.largeFilesCount)
+        projectChoices = try container.sdkDecodeIfPresent(.projectChoices)
+        message = try container.sdkDecodeIfPresent(.message)
+        authorsCount = try container.sdkDecodeIfPresent(.authorsCount)
+        svnRoot = try container.sdkDecodeIfPresent(.svnRoot)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("authors_url", authorsUrl)
+        try sdkValidateUri("repository_url", repositoryUrl)
+    }
+}
+
+public extension Import {
+    init(
+        vcs: String?,
+        vcsUrl: String,
+        status: ImportStatus,
+        url: String,
+        htmlUrl: String,
+        authorsUrl: String,
+        repositoryUrl: String,
+        useLfs: Bool? = nil,
+        svcRoot: String? = nil,
+        tfvcProject: String? = nil,
+        statusText: String? = nil,
+        failedStep: String? = nil,
+        errorMessage: String? = nil,
+        importPercent: Int? = nil,
+        commitCount: Int? = nil,
+        pushPercent: Int? = nil,
+        hasLargeFiles: Bool? = nil,
+        largeFilesSize: Int? = nil,
+        largeFilesCount: Int? = nil,
+        projectChoices: [ImportProjectChoicesItem]? = nil,
+        message: String? = nil,
+        authorsCount: Int? = nil,
+        svnRoot: String? = nil
+    ) throws {
         (self.vcs, self.vcsUrl) = (vcs, vcsUrl)
         (self.status, self.url) = (status, url)
         (self.htmlUrl, self.authorsUrl) = (htmlUrl, authorsUrl)
@@ -150,10 +204,10 @@ public extension Import {
         (self.largeFilesCount, self.projectChoices) = (largeFilesCount, projectChoices)
         (self.message, self.authorsCount) = (message, authorsCount)
         self.svnRoot = svnRoot
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("authors_url", self.authorsUrl)
-            try sdkValidateUri("repository_url", self.repositoryUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("authors_url", self.authorsUrl)
+        try sdkValidateUri("repository_url", self.repositoryUrl)
     }
 }
 
@@ -173,21 +227,21 @@ public struct ImportProjectChoicesItem: Codable {
     }
 
     init() {
-        (self.vcs, self.tfvcProject, self.humanName) = (nil, nil, nil)
+        (vcs, tfvcProject, humanName) = (nil, nil, nil)
     }
 }
 
 public extension ImportProjectChoicesItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.vcs = try container.sdkDecodeIfPresent(.vcs)
-        self.tfvcProject = try container.sdkDecodeIfPresent(.tfvcProject)
-        self.humanName = try container.sdkDecodeIfPresent(.humanName)
+        vcs = try container.sdkDecodeIfPresent(.vcs)
+        tfvcProject = try container.sdkDecodeIfPresent(.tfvcProject)
+        humanName = try container.sdkDecodeIfPresent(.humanName)
     }
 }
 
 public extension ImportProjectChoicesItem {
-    public init(vcs: String? = nil, tfvcProject: String? = nil, humanName: String? = nil) {
+    init(vcs: String? = nil, tfvcProject: String? = nil, humanName: String? = nil) {
         self.init()
         (self.vcs, self.tfvcProject) = (vcs, tfvcProject)
         self.humanName = humanName
@@ -262,41 +316,62 @@ public struct Migration: Codable {
         case exclude
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension Migration {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.owner = try container.sdkDecodeIfPresent(.owner)
-        self.guid = try container.sdkDecodeRequired(.guid)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.lockRepositories = try container.sdkDecodeRequired(.lockRepositories)
-        self.excludeMetadata = try container.sdkDecodeRequired(.excludeMetadata)
-        self.excludeGitData = try container.sdkDecodeRequired(.excludeGitData)
-        self.excludeAttachments = try container.sdkDecodeRequired(.excludeAttachments)
-        self.excludeReleases = try container.sdkDecodeRequired(.excludeReleases)
-        self.excludeOwnerProjects = try container.sdkDecodeRequired(.excludeOwnerProjects)
-        self.orgMetadataOnly = try container.sdkDecodeRequired(.orgMetadataOnly)
-        self.repositories = try container.sdkDecodeRequired(.repositories)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
-        self.exclude = try container.sdkDecodeIfPresent(.exclude)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.archiveUrl {
+        id = try container.sdkDecodeRequired(.id)
+        owner = try container.sdkDecodeIfPresent(.owner)
+        guid = try container.sdkDecodeRequired(.guid)
+        state = try container.sdkDecodeRequired(.state)
+        lockRepositories = try container.sdkDecodeRequired(.lockRepositories)
+        excludeMetadata = try container.sdkDecodeRequired(.excludeMetadata)
+        excludeGitData = try container.sdkDecodeRequired(.excludeGitData)
+        excludeAttachments = try container.sdkDecodeRequired(.excludeAttachments)
+        excludeReleases = try container.sdkDecodeRequired(.excludeReleases)
+        excludeOwnerProjects = try container.sdkDecodeRequired(.excludeOwnerProjects)
+        orgMetadataOnly = try container.sdkDecodeRequired(.orgMetadataOnly)
+        repositories = try container.sdkDecodeRequired(.repositories)
+        url = try container.sdkDecodeRequired(.url)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
+        exclude = try container.sdkDecodeIfPresent(.exclude)
+        try sdkValidateUri("url", url)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = archiveUrl {
             try sdkValidateUri("archive_url", value)
         }
     }
 }
 
 public extension Migration {
-    public init(id: Int, owner: NullableSimpleUser?, guid: String, state: String, lockRepositories: Bool, excludeMetadata: Bool, excludeGitData: Bool, excludeAttachments: Bool, excludeReleases: Bool, excludeOwnerProjects: Bool, orgMetadataOnly: Bool, repositories: [Repository], url: String, createdAt: Date, updatedAt: Date, nodeId: String, archiveUrl: String? = nil, exclude: [String]? = nil) throws {
+    init(
+        id: Int,
+        owner: NullableSimpleUser?,
+        guid: String,
+        state: String,
+        lockRepositories: Bool,
+        excludeMetadata: Bool,
+        excludeGitData: Bool,
+        excludeAttachments: Bool,
+        excludeReleases: Bool,
+        excludeOwnerProjects: Bool,
+        orgMetadataOnly: Bool,
+        repositories: [Repository],
+        url: String,
+        createdAt: Date,
+        updatedAt: Date,
+        nodeId: String,
+        archiveUrl: String? = nil,
+        exclude: [String]? = nil
+    ) throws {
         (self.id, self.owner) = (id, owner)
         (self.guid, self.state) = (guid, state)
         (self.lockRepositories, self.excludeMetadata) = (lockRepositories, excludeMetadata)
@@ -306,9 +381,9 @@ public extension Migration {
         (self.url, self.createdAt) = (url, createdAt)
         (self.updatedAt, self.nodeId) = (updatedAt, nodeId)
         (self.archiveUrl, self.exclude) = (archiveUrl, exclude)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.archiveUrl {
             try sdkValidateUri("archive_url", value)
         }
@@ -342,53 +417,91 @@ public struct PorterAuthor: Codable {
         case importUrl = "import_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PorterAuthor {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.remoteId) else {
-            throw SdkValidationError(field: "remote_id", code: "required", message: "Validation failed for 'remote_id': value is required")
-        }
-        guard container.contains(.remoteName) else {
-            throw SdkValidationError(field: "remote_name", code: "required", message: "Validation failed for 'remote_name': value is required")
-        }
-        guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.importUrl) else {
-            throw SdkValidationError(field: "import_url", code: "required", message: "Validation failed for 'import_url': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.remoteId = try container.sdkDecodeRequired(.remoteId)
-        self.remoteName = try container.sdkDecodeRequired(.remoteName)
-        self.email = try container.sdkDecodeRequired(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.importUrl = try container.sdkDecodeRequired(.importUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("import_url", self.importUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PorterAuthor {
-    public init(id: Int, remoteId: String, remoteName: String, email: String, name: String, url: String, importUrl: String) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.remoteId) else {
+            throw SdkValidationError(
+                field: "remote_id",
+                code: "required",
+                message: "Validation failed for 'remote_id': value is required"
+            )
+        }
+        guard container.contains(.remoteName) else {
+            throw SdkValidationError(
+                field: "remote_name",
+                code: "required",
+                message: "Validation failed for 'remote_name': value is required"
+            )
+        }
+        guard container.contains(.email) else {
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.importUrl) else {
+            throw SdkValidationError(
+                field: "import_url",
+                code: "required",
+                message: "Validation failed for 'import_url': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        remoteId = try container.sdkDecodeRequired(.remoteId)
+        remoteName = try container.sdkDecodeRequired(.remoteName)
+        email = try container.sdkDecodeRequired(.email)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeRequired(.url)
+        importUrl = try container.sdkDecodeRequired(.importUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("import_url", importUrl)
+    }
+}
+
+public extension PorterAuthor {
+    init(
+        id: Int,
+        remoteId: String,
+        remoteName: String,
+        email: String,
+        name: String,
+        url: String,
+        importUrl: String
+    ) throws {
         (self.id, self.remoteId) = (id, remoteId)
         (self.remoteName, self.email) = (remoteName, email)
         (self.name, self.url) = (name, url)
         self.importUrl = importUrl
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("import_url", self.importUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("import_url", self.importUrl)
     }
 }
 
@@ -410,33 +523,51 @@ public struct PorterLargeFile: Codable {
         case size
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PorterLargeFile {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.refName) else {
-            throw SdkValidationError(field: "ref_name", code: "required", message: "Validation failed for 'ref_name': value is required")
-        }
-        guard container.contains(.path) else {
-            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
-        }
-        guard container.contains(.oid) else {
-            throw SdkValidationError(field: "oid", code: "required", message: "Validation failed for 'oid': value is required")
-        }
-        guard container.contains(.size) else {
-            throw SdkValidationError(field: "size", code: "required", message: "Validation failed for 'size': value is required")
-        }
-        self.refName = try container.sdkDecodeRequired(.refName)
-        self.path = try container.sdkDecodeRequired(.path)
-        self.oid = try container.sdkDecodeRequired(.oid)
-        self.size = try container.sdkDecodeRequired(.size)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PorterLargeFile {
-    public init(refName: String, path: String, oid: String, size: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.refName) else {
+            throw SdkValidationError(
+                field: "ref_name",
+                code: "required",
+                message: "Validation failed for 'ref_name': value is required"
+            )
+        }
+        guard container.contains(.path) else {
+            throw SdkValidationError(
+                field: "path",
+                code: "required",
+                message: "Validation failed for 'path': value is required"
+            )
+        }
+        guard container.contains(.oid) else {
+            throw SdkValidationError(
+                field: "oid",
+                code: "required",
+                message: "Validation failed for 'oid': value is required"
+            )
+        }
+        guard container.contains(.size) else {
+            throw SdkValidationError(
+                field: "size",
+                code: "required",
+                message: "Validation failed for 'size': value is required"
+            )
+        }
+        refName = try container.sdkDecodeRequired(.refName)
+        path = try container.sdkDecodeRequired(.path)
+        oid = try container.sdkDecodeRequired(.oid)
+        size = try container.sdkDecodeRequired(.size)
+    }
+}
+
+public extension PorterLargeFile {
+    init(refName: String, path: String, oid: String, size: Int) {
         (self.refName, self.path) = (refName, path)
         (self.oid, self.size) = (oid, size)
     }
@@ -446,7 +577,10 @@ public extension PorterLargeFile {
 public struct ImportStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let auth = ImportStatus(rawValue: "auth")
     public static let error = ImportStatus(rawValue: "error")
     public static let none = ImportStatus(rawValue: "none")
@@ -466,7 +600,7 @@ public struct ImportStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWi
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

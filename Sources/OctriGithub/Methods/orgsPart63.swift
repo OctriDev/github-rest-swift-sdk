@@ -6,31 +6,79 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
+public extension OrgsMethods {
     /// Check if the provided user is a public member of the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsCheckPublicMembershipForUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/public_members/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsCheckPublicMembershipForUser")).data
+    static func orgsCheckPublicMembershipForUser(
+        config: ClientConfig,
+        org: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/public_members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsCheckPublicMembershipForUser"
+        )).data
     }
 
-    /// The user can publicize their own membership. (A user cannot publicize the membership for another user.) Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    /// The user can publicize their own membership. (A user cannot publicize the membership for another user.) Note
+    /// that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see
+    /// "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsSetPublicMembershipForAuthenticatedUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/public_members/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsSetPublicMembershipForAuthenticatedUser")).data
+    static func orgsSetPublicMembershipForAuthenticatedUser(
+        config: ClientConfig,
+        org: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/public_members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsSetPublicMembershipForAuthenticatedUser"
+        )).data
     }
 
-    /// Removes the public membership for the authenticated user from the specified organization, unless public visibility is enforced by default.
+    /// Removes the public membership for the authenticated user from the specified organization, unless public
+    /// visibility is enforced by default.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsRemovePublicMembershipForAuthenticatedUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/public_members/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsRemovePublicMembershipForAuthenticatedUser")).data
+    static func orgsRemovePublicMembershipForAuthenticatedUser(
+        config: ClientConfig,
+        org: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/public_members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsRemovePublicMembershipForAuthenticatedUser"
+        )).data
     }
 }

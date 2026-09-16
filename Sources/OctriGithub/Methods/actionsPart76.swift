@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Adds custom labels to a self-hosted runner configured in a repository. Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Adds custom labels to a self-hosted runner configured in a repository. Authenticated users must have admin
+    /// access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,15 +18,38 @@ extension ActionsMethods {
     ///   not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
     /// - labels: The names of the custom labels to add to the runner.
-    public static func actionsAddCustomLabelsToSelfHostedRunnerForRepo(config: ClientConfig, owner: String, repo: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+    static func actionsAddCustomLabelsToSelfHostedRunnerForRepo(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runnerId: Int,
+        labels: [String]
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
         try validateItems("labels", labels, min: 1, max: 100)
 
         let requestBody = ActionsAddCustomLabelsToSelfHostedRunnerForRepoRequestBody(labels: labels)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId)), "/labels"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsAddCustomLabelsToSelfHostedRunnerForRepo")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runners/",
+                sdkEncodePathSegment(sdkWireString(runnerId)),
+                "/labels",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsAddCustomLabelsToSelfHostedRunnerForRepo"
+        )).data
     }
 
-    /// Remove all previous custom labels and set the new custom labels for a specific self-hosted runner configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Remove all previous custom labels and set the new custom labels for a specific self-hosted runner configured in
+    /// a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -34,11 +59,32 @@ extension ActionsMethods {
     /// - runnerId: Unique identifier of the self-hosted runner.
     /// - labels: The names of the custom labels to set for the runner. You can pass
     ///   an empty array to remove all custom labels.
-    public static func actionsSetCustomLabelsForSelfHostedRunnerForRepo(config: ClientConfig, owner: String, repo: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+    static func actionsSetCustomLabelsForSelfHostedRunnerForRepo(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runnerId: Int,
+        labels: [String]
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
         try validateItems("labels", labels, min: 0, max: 100)
 
         let requestBody = ActionsSetCustomLabelsForSelfHostedRunnerForRepoRequestBody(labels: labels)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId)), "/labels"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsSetCustomLabelsForSelfHostedRunnerForRepo")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runners/",
+                sdkEncodePathSegment(sdkWireString(runnerId)),
+                "/labels",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsSetCustomLabelsForSelfHostedRunnerForRepo"
+        )).data
     }
 }

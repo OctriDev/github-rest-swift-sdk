@@ -6,10 +6,15 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Get contextual information for a user
     ///
-    /// Provides hovercard information. You can find out more about someone in relation to their pull requests, issues, repositories, and organizations. The `subject_type` and `subject_id` parameters provide context for the person's hovercard, which returns more information than without the parameters. For example, if you wanted to find out more about `octocat` who owns the `Spoon-Knife` repository, you would use a `subject_type` value of `repository` and a `subject_id` value of `1300192` (the ID of the `Spoon-Knife` repository). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Provides hovercard information. You can find out more about someone in relation to their pull requests, issues,
+    /// repositories, and organizations. The `subject_type` and `subject_id` parameters provide context for the person's
+    /// hovercard, which returns more information than without the parameters. For example, if you wanted to find out
+    /// more about `octocat` who owns the `Spoon-Knife` repository, you would use a `subject_type` value of `repository`
+    /// and a `subject_id` value of `1300192` (the ID of the `Spoon-Knife` repository). OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -18,10 +23,22 @@ extension UsersMethods {
     ///   `pull_request`. **Required** when using `subject_id`.
     /// - subjectId: Uses the ID for the `subject_type` you specified. **Required**
     ///   when using `subject_type`.
-    public static func usersGetContextForUser(config: ClientConfig, username: String, subjectType: UsersGetContextForUserParameter?, subjectId: String?) async throws -> Hovercard {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/hovercard"].joined(), config: config, query: [
-            SdkQueryParameter("subject_type", value: subjectType),
-            SdkQueryParameter("subject_id", value: subjectId),
-        ], decoder: .json, operationId: "usersGetContextForUser")).data
+    static func usersGetContextForUser(
+        config: ClientConfig,
+        username: String,
+        subjectType: UsersGetContextForUserParameter?,
+        subjectId: String?
+    ) async throws -> Hovercard {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/hovercard"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("subject_type", value: subjectType),
+                SdkQueryParameter("subject_id", value: subjectId),
+            ],
+            decoder: .json,
+            operationId: "usersGetContextForUser"
+        )).data
     }
 }

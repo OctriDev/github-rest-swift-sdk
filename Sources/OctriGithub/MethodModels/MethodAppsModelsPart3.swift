@@ -7,13 +7,113 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical apps operation model declarations
+/// Canonical apps operation model declarations
 public extension AppsListInstallationReposForAuthenticatedUserResponseRepositoriesItem {
-    public init(id: Int, nodeId: String, name: String, fullName: String, license: NullableLicenseSimple?, forks: Int, owner: SimpleUser, `private`: Bool, htmlUrl: String, description: String?, fork: Bool, url: String, archiveUrl: String, assigneesUrl: String, blobsUrl: String, branchesUrl: String, collaboratorsUrl: String, commentsUrl: String, commitsUrl: String, compareUrl: String, contentsUrl: String, contributorsUrl: String, deploymentsUrl: String, downloadsUrl: String, eventsUrl: String, forksUrl: String, gitCommitsUrl: String, gitRefsUrl: String, gitTagsUrl: String, gitUrl: String, issueCommentUrl: String, issueEventsUrl: String, issuesUrl: String, keysUrl: String, labelsUrl: String, languagesUrl: String, mergesUrl: String, milestonesUrl: String, notificationsUrl: String, pullsUrl: String, releasesUrl: String, sshUrl: String, stargazersUrl: String, statusesUrl: String, subscribersUrl: String, subscriptionUrl: String, tagsUrl: String, teamsUrl: String, treesUrl: String, cloneUrl: String, mirrorUrl: String?, hooksUrl: String, svnUrl: String, homepage: String?, language: String?, forksCount: Int, stargazersCount: Int, watchersCount: Int, size: Int, defaultBranch: String, openIssuesCount: Int, hasIssues: Bool, hasProjects: Bool, hasWiki: Bool, hasPages: Bool, hasDownloads: Bool, archived: Bool, disabled: Bool, pushedAt: Date?, createdAt: Date?, updatedAt: Date?, openIssues: Int, watchers: Int, permissions: RepositoryPermissions? = nil, isTemplate: Bool? = nil, topics: [String]? = nil, hasDiscussions: Bool? = nil, hasPullRequests: Bool? = nil, pullRequestCreationPolicy: RepositoryPullRequestCreationPolicy? = nil, visibility: String? = nil, allowRebaseMerge: Bool? = nil, tempCloneToken: String? = nil, allowSquashMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowUpdateBranch: Bool? = nil, useSquashPrTitleAsDefault: Bool? = nil, squashMergeCommitTitle: RepositorySquashMergeCommitTitle? = nil, squashMergeCommitMessage: RepositorySquashMergeCommitMessage? = nil, mergeCommitTitle: RepositoryMergeCommitTitle? = nil, mergeCommitMessage: RepositoryMergeCommitMessage? = nil, allowMergeCommit: Bool? = nil, allowForking: Bool? = nil, webCommitSignoffRequired: Bool? = nil, primaryBranch: String? = nil, starredAt: String? = nil, anonymousAccessEnabled: Bool? = nil, codeSearchIndexStatus: RepositoryCodeSearchIndexStatus? = nil, customProperties: [String: JSONValue]? = nil) throws {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        fullName: String,
+        license: NullableLicenseSimple?,
+        forks: Int,
+        owner: SimpleUser,
+        private: Bool,
+        htmlUrl: String,
+        description: String?,
+        fork: Bool,
+        url: String,
+        archiveUrl: String,
+        assigneesUrl: String,
+        blobsUrl: String,
+        branchesUrl: String,
+        collaboratorsUrl: String,
+        commentsUrl: String,
+        commitsUrl: String,
+        compareUrl: String,
+        contentsUrl: String,
+        contributorsUrl: String,
+        deploymentsUrl: String,
+        downloadsUrl: String,
+        eventsUrl: String,
+        forksUrl: String,
+        gitCommitsUrl: String,
+        gitRefsUrl: String,
+        gitTagsUrl: String,
+        gitUrl: String,
+        issueCommentUrl: String,
+        issueEventsUrl: String,
+        issuesUrl: String,
+        keysUrl: String,
+        labelsUrl: String,
+        languagesUrl: String,
+        mergesUrl: String,
+        milestonesUrl: String,
+        notificationsUrl: String,
+        pullsUrl: String,
+        releasesUrl: String,
+        sshUrl: String,
+        stargazersUrl: String,
+        statusesUrl: String,
+        subscribersUrl: String,
+        subscriptionUrl: String,
+        tagsUrl: String,
+        teamsUrl: String,
+        treesUrl: String,
+        cloneUrl: String,
+        mirrorUrl: String?,
+        hooksUrl: String,
+        svnUrl: String,
+        homepage: String?,
+        language: String?,
+        forksCount: Int,
+        stargazersCount: Int,
+        watchersCount: Int,
+        size: Int,
+        defaultBranch: String,
+        openIssuesCount: Int,
+        hasIssues: Bool,
+        hasProjects: Bool,
+        hasWiki: Bool,
+        hasPages: Bool,
+        hasDownloads: Bool,
+        archived: Bool,
+        disabled: Bool,
+        pushedAt: Date?,
+        createdAt: Date?,
+        updatedAt: Date?,
+        openIssues: Int,
+        watchers: Int,
+        permissions: RepositoryPermissions? = nil,
+        isTemplate: Bool? = nil,
+        topics: [String]? = nil,
+        hasDiscussions: Bool? = nil,
+        hasPullRequests: Bool? = nil,
+        pullRequestCreationPolicy: RepositoryPullRequestCreationPolicy? = nil,
+        visibility: String? = nil,
+        allowRebaseMerge: Bool? = nil,
+        tempCloneToken: String? = nil,
+        allowSquashMerge: Bool? = nil,
+        allowAutoMerge: Bool? = nil,
+        deleteBranchOnMerge: Bool? = nil,
+        allowUpdateBranch: Bool? = nil,
+        useSquashPrTitleAsDefault: Bool? = nil,
+        squashMergeCommitTitle: RepositorySquashMergeCommitTitle? = nil,
+        squashMergeCommitMessage: RepositorySquashMergeCommitMessage? = nil,
+        mergeCommitTitle: RepositoryMergeCommitTitle? = nil,
+        mergeCommitMessage: RepositoryMergeCommitMessage? = nil,
+        allowMergeCommit: Bool? = nil,
+        allowForking: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil,
+        primaryBranch: String? = nil,
+        starredAt: String? = nil,
+        anonymousAccessEnabled: Bool? = nil,
+        codeSearchIndexStatus: RepositoryCodeSearchIndexStatus? = nil,
+        customProperties: [String: JSONValue]? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.fullName) = (name, fullName)
         (self.license, self.forks) = (license, forks)
-        (self.owner, self.`private`) = (owner, `private`)
+        (self.owner, self.private) = (owner, `private`)
         (self.htmlUrl, self.description) = (htmlUrl, description)
         (self.fork, self.url) = (fork, url)
         (self.archiveUrl, self.assigneesUrl) = (archiveUrl, assigneesUrl)
@@ -68,40 +168,40 @@ public extension AppsListInstallationReposForAuthenticatedUserResponseRepositori
 
 extension AppsListInstallationReposForAuthenticatedUserResponseRepositoriesItem {
     func sdkValidateConstraintsPart1() throws {
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("contributors_url", self.contributorsUrl)
-            try sdkValidateUri("deployments_url", self.deploymentsUrl)
-            try sdkValidateUri("downloads_url", self.downloadsUrl)
-            try sdkValidateUri("events_url", self.eventsUrl)
-            try sdkValidateUri("forks_url", self.forksUrl)
-            try sdkValidateUri("languages_url", self.languagesUrl)
-            try sdkValidateUri("merges_url", self.mergesUrl)
-            try sdkValidateUri("stargazers_url", self.stargazersUrl)
-            try sdkValidateUri("subscribers_url", self.subscribersUrl)
-            try sdkValidateUri("subscription_url", self.subscriptionUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("contributors_url", contributorsUrl)
+        try sdkValidateUri("deployments_url", deploymentsUrl)
+        try sdkValidateUri("downloads_url", downloadsUrl)
+        try sdkValidateUri("events_url", eventsUrl)
+        try sdkValidateUri("forks_url", forksUrl)
+        try sdkValidateUri("languages_url", languagesUrl)
+        try sdkValidateUri("merges_url", mergesUrl)
+        try sdkValidateUri("stargazers_url", stargazersUrl)
+        try sdkValidateUri("subscribers_url", subscribersUrl)
+        try sdkValidateUri("subscription_url", subscriptionUrl)
     }
 }
 
 extension AppsListInstallationReposForAuthenticatedUserResponseRepositoriesItem {
     func sdkValidateConstraintsPart2() throws {
-            try sdkValidateUri("tags_url", self.tagsUrl)
-            try sdkValidateUri("teams_url", self.teamsUrl)
-        if let value = self.mirrorUrl {
+        try sdkValidateUri("tags_url", tagsUrl)
+        try sdkValidateUri("teams_url", teamsUrl)
+        if let value = mirrorUrl {
             try sdkValidateUri("mirror_url", value)
         }
-            try sdkValidateUri("hooks_url", self.hooksUrl)
-            try sdkValidateUri("svn_url", self.svnUrl)
-        if let value = self.homepage {
+        try sdkValidateUri("hooks_url", hooksUrl)
+        try sdkValidateUri("svn_url", svnUrl)
+        if let value = homepage {
             try sdkValidateUri("homepage", value)
         }
-        if let value = self.pushedAt {
+        if let value = pushedAt {
             try sdkValidateDateTime("pushed_at", sdkWireString(value))
         }
-        if let value = self.createdAt {
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
@@ -488,5 +588,7 @@ public struct AppsListReposAccessibleToInstallationResponseRepositoriesItem: Cod
         case customProperties = "custom_properties"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

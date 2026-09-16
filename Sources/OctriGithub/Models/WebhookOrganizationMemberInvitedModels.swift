@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookOrganizationMemberInvited domain models
+/// WebhookOrganizationMemberInvited domain models
 /// Typed representation of the `WebhookOrganizationMemberInvited` API schema.
 public struct WebhookOrganizationMemberInvited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,37 +39,64 @@ public struct WebhookOrganizationMemberInvited: Codable {
         case user
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookOrganizationMemberInvited {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.invitation) else {
-            throw SdkValidationError(field: "invitation", code: "required", message: "Validation failed for 'invitation': value is required")
-        }
-        guard container.contains(.organization) else {
-            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.invitation = try container.sdkDecodeRequired(.invitation)
-        self.organization = try container.sdkDecodeRequired(.organization)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.user = try container.sdkDecodeIfPresent(.user)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookOrganizationMemberInvited {
-    public init(action: WebhookOrganizationMemberInvitedAction, invitation: WebhookOrganizationMemberInvitedInvitation, organization: OrganizationSimpleWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, repository: RepositoryWebhooks? = nil, user: WebhooksUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.invitation) else {
+            throw SdkValidationError(
+                field: "invitation",
+                code: "required",
+                message: "Validation failed for 'invitation': value is required"
+            )
+        }
+        guard container.contains(.organization) else {
+            throw SdkValidationError(
+                field: "organization",
+                code: "required",
+                message: "Validation failed for 'organization': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        invitation = try container.sdkDecodeRequired(.invitation)
+        organization = try container.sdkDecodeRequired(.organization)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        user = try container.sdkDecodeIfPresent(.user)
+    }
+}
+
+public extension WebhookOrganizationMemberInvited {
+    init(
+        action: WebhookOrganizationMemberInvitedAction,
+        invitation: WebhookOrganizationMemberInvitedInvitation,
+        organization: OrganizationSimpleWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        repository: RepositoryWebhooks? = nil,
+        user: WebhooksUser? = nil
+    ) {
         (self.action, self.invitation) = (action, invitation)
         (self.organization, self.sender) = (organization, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -119,45 +146,60 @@ public struct WebhookOrganizationMemberInvitedInvitation: Codable {
         case invitationSource = "invitation_source"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookOrganizationMemberInvitedInvitation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.failedAt = try container.sdkDecodeIfPresent(.failedAt)
-        self.failedReason = try container.sdkDecodeIfPresent(.failedReason)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.invitationTeamsUrl = try container.sdkDecodeRequired(.invitationTeamsUrl)
-        self.inviter = try container.sdkDecodeIfPresent(.inviter)
-        self.login = try container.sdkDecodeIfPresent(.login)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.role = try container.sdkDecodeRequired(.role)
-        self.teamCount = try container.sdkDecodeRequired(.teamCount)
-        self.invitationSource = try container.sdkDecodeIfPresent(.invitationSource)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        if let value = self.failedAt {
-            try sdkValidateDateTime("failed_at", sdkWireString(value))
-        }
-            try sdkValidateUri("invitation_teams_url", self.invitationTeamsUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookOrganizationMemberInvitedInvitation {
-    public init(createdAt: Date, email: String?, failedAt: Date?, failedReason: String?, id: Double, invitationTeamsUrl: String, inviter: WebhookOrganizationMemberInvitedInvitationInviter?, login: String?, nodeId: String, role: String, teamCount: Double, invitationSource: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        email = try container.sdkDecodeIfPresent(.email)
+        failedAt = try container.sdkDecodeIfPresent(.failedAt)
+        failedReason = try container.sdkDecodeIfPresent(.failedReason)
+        id = try container.sdkDecodeRequired(.id)
+        invitationTeamsUrl = try container.sdkDecodeRequired(.invitationTeamsUrl)
+        inviter = try container.sdkDecodeIfPresent(.inviter)
+        login = try container.sdkDecodeIfPresent(.login)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        role = try container.sdkDecodeRequired(.role)
+        teamCount = try container.sdkDecodeRequired(.teamCount)
+        invitationSource = try container.sdkDecodeIfPresent(.invitationSource)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        if let value = failedAt {
+            try sdkValidateDateTime("failed_at", sdkWireString(value))
+        }
+        try sdkValidateUri("invitation_teams_url", invitationTeamsUrl)
+    }
+}
+
+public extension WebhookOrganizationMemberInvitedInvitation {
+    init(
+        createdAt: Date,
+        email: String?,
+        failedAt: Date?,
+        failedReason: String?,
+        id: Double,
+        invitationTeamsUrl: String,
+        inviter: WebhookOrganizationMemberInvitedInvitationInviter?,
+        login: String?,
+        nodeId: String,
+        role: String,
+        teamCount: Double,
+        invitationSource: String? = nil
+    ) throws {
         (self.createdAt, self.email) = (createdAt, email)
         (self.failedAt, self.failedReason) = (failedAt, failedReason)
         (self.id, self.invitationTeamsUrl) = (id, invitationTeamsUrl)
         (self.inviter, self.login) = (inviter, login)
         (self.nodeId, self.role) = (nodeId, role)
         (self.teamCount, self.invitationSource) = (teamCount, invitationSource)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
         if let value = self.failedAt {
             try sdkValidateDateTime("failed_at", sdkWireString(value))
         }
-            try sdkValidateUri("invitation_teams_url", self.invitationTeamsUrl)
+        try sdkValidateUri("invitation_teams_url", self.invitationTeamsUrl)
     }
 }
 
@@ -233,46 +275,79 @@ public struct WebhookOrganizationMemberInvitedInvitationInviter: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookOrganizationMemberInvitedInvitationInviter {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        email = try container.sdkDecodeIfPresent(.email)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
 public extension WebhookOrganizationMemberInvitedInvitationInviter {
-    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookOrganizationMemberInvitedInvitationInviterType? = nil, url: String? = nil, userViewType: String? = nil) throws {
+    init(
+        id: Int,
+        login: String,
+        avatarUrl: String? = nil,
+        deleted: Bool? = nil,
+        email: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        name: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: WebhookOrganizationMemberInvitedInvitationInviterType? = nil,
+        url: String? = nil,
+        userViewType: String? = nil
+    ) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -290,43 +365,47 @@ public extension WebhookOrganizationMemberInvitedInvitationInviter {
 
 extension WebhookOrganizationMemberInvitedInvitationInviter {
     func sdkValidateConstraints() throws {
-        if let value = self.avatarUrl {
+        if let value = avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = self.followersUrl {
+        if let value = followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.organizationsUrl {
+        if let value = organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = self.receivedEventsUrl {
+        if let value = receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = self.reposUrl {
+        if let value = reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = self.subscriptionsUrl {
+        if let value = subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookOrganizationMemberInvitedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookOrganizationMemberInvitedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let memberInvited = WebhookOrganizationMemberInvitedAction(rawValue: "member_invited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -336,17 +415,21 @@ public struct WebhookOrganizationMemberInvitedAction: RawRepresentable, Hashable
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookOrganizationMemberInvitedInvitationInviterType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookOrganizationMemberInvitedInvitationInviterType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookOrganizationMemberInvitedInvitationInviterType(rawValue: "Bot")
     public static let user = WebhookOrganizationMemberInvitedInvitationInviterType(rawValue: "User")
     public static let organization = WebhookOrganizationMemberInvitedInvitationInviterType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

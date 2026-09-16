@@ -7,18 +7,23 @@ import Foundation
     import FoundationNetworking
 #endif
 /// Specify which types of repository this security configuration should be applied to by default.
-public struct CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos(rawValue: "all")
     public static let none = CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos(rawValue: "none")
-    public static let privateAndInternal = CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos(rawValue: "private_and_internal")
+    public static let privateAndInternal =
+        CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos(rawValue: "private_and_internal")
     public static let `public` = CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos(rawValue: "public")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,18 +33,23 @@ public struct CodeSecuritySetConfigurationAsDefaultRequestBodyDefaultForNewRepos
 }
 
 /// Specifies which types of repository this security configuration is applied to by default.
-public struct CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos(rawValue: "all")
     public static let none = CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos(rawValue: "none")
-    public static let privateAndInternal = CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos(rawValue: "private_and_internal")
+    public static let privateAndInternal =
+        CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos(rawValue: "private_and_internal")
     public static let `public` = CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos(rawValue: "public")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,18 +60,23 @@ public struct CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos: R
 
 /// Which users can access codespaces in the organization. `disabled` means that no users can access codespaces
 /// in the organization.
-public struct CodespacesSetCodespacesAccessRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodespacesSetCodespacesAccessRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let disabled = CodespacesSetCodespacesAccessRequestBodyVisibility(rawValue: "disabled")
     public static let selectedMembers = CodespacesSetCodespacesAccessRequestBodyVisibility(rawValue: "selected_members")
     public static let allMembers = CodespacesSetCodespacesAccessRequestBodyVisibility(rawValue: "all_members")
-    public static let allMembersAndOutsideCollaborators = CodespacesSetCodespacesAccessRequestBodyVisibility(rawValue: "all_members_and_outside_collaborators")
+    public static let allMembersAndOutsideCollaborators =
+        CodespacesSetCodespacesAccessRequestBodyVisibility(rawValue: "all_members_and_outside_collaborators")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -72,17 +87,21 @@ public struct CodespacesSetCodespacesAccessRequestBodyVisibility: RawRepresentab
 
 /// Which type of organization repositories have access to the organization secret. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the secret.
-public struct CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "all")
     public static let `private` = CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "private")
     public static let selected = CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -94,10 +113,14 @@ public struct CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility: RawReprese
 /// The base role that determines default permissions for organization members. - `no_access`: No default access
 /// (default) - `reader`: Organization members can read the space - `writer`: Organization members can read and
 /// edit the space - `admin`: Organization members have full admin access to the space
-public struct CopilotSpacesCreateForOrgRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesCreateForOrgRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reader = CopilotSpacesCreateForOrgRequestBodyBaseRole(rawValue: "reader")
     public static let writer = CopilotSpacesCreateForOrgRequestBodyBaseRole(rawValue: "writer")
     public static let admin = CopilotSpacesCreateForOrgRequestBodyBaseRole(rawValue: "admin")
@@ -105,7 +128,7 @@ public struct CopilotSpacesCreateForOrgRequestBodyBaseRole: RawRepresentable, Ha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -115,21 +138,32 @@ public struct CopilotSpacesCreateForOrgRequestBodyBaseRole: RawRepresentable, Ha
 }
 
 /// The type of resource.
-public struct CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let repository = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
-    public static let githubFile = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
-    public static let freeText = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
-    public static let githubIssue = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
-    public static let githubPullRequest = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
-    public static let mediaContent = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
-    public static let uploadedTextFile = CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let repository =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
+    public static let githubFile =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
+    public static let freeText =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
+    public static let githubIssue =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
+    public static let githubPullRequest =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
+    public static let mediaContent =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
+    public static let uploadedTextFile =
+        CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -142,10 +176,14 @@ public struct CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourc
 /// admin permissions. - `no_access`: No default access (default) - `reader`: Organization members can read the
 /// space - `writer`: Organization members can read and edit the space - `admin`: Organization members have full
 /// admin access to the space
-public struct CopilotSpacesUpdateForOrgRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesUpdateForOrgRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reader = CopilotSpacesUpdateForOrgRequestBodyBaseRole(rawValue: "reader")
     public static let writer = CopilotSpacesUpdateForOrgRequestBodyBaseRole(rawValue: "writer")
     public static let admin = CopilotSpacesUpdateForOrgRequestBodyBaseRole(rawValue: "admin")
@@ -153,7 +191,7 @@ public struct CopilotSpacesUpdateForOrgRequestBodyBaseRole: RawRepresentable, Ha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -163,21 +201,32 @@ public struct CopilotSpacesUpdateForOrgRequestBodyBaseRole: RawRepresentable, Ha
 }
 
 /// The type of resource.
-public struct CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let repository = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
-    public static let githubFile = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
-    public static let freeText = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
-    public static let githubIssue = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
-    public static let githubPullRequest = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
-    public static let mediaContent = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
-    public static let uploadedTextFile = CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let repository =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
+    public static let githubFile =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
+    public static let freeText =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
+    public static let githubIssue =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
+    public static let githubPullRequest =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
+    public static let mediaContent =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
+    public static let uploadedTextFile =
+        CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -187,16 +236,20 @@ public struct CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourc
 }
 
 /// The type of actor (user or team).
-public struct CopilotSpacesAddCollaboratorForOrgRequestBodyActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesAddCollaboratorForOrgRequestBodyActorType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let user = CopilotSpacesAddCollaboratorForOrgRequestBodyActorType(rawValue: "User")
     public static let team = CopilotSpacesAddCollaboratorForOrgRequestBodyActorType(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDeploymentReviewRejected domain models
+/// WebhookDeploymentReviewRejected domain models
 /// Typed representation of the `WebhookDeploymentReviewRejected` API schema.
 public struct WebhookDeploymentReviewRejected: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -54,48 +54,88 @@ public struct WebhookDeploymentReviewRejected: Codable {
         case workflowJobRuns = "workflow_job_runs"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookDeploymentReviewRejected {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.organization) else {
-            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        guard container.contains(.since) else {
-            throw SdkValidationError(field: "since", code: "required", message: "Validation failed for 'since': value is required")
-        }
-        guard container.contains(.workflowRun) else {
-            throw SdkValidationError(field: "workflow_run", code: "required", message: "Validation failed for 'workflow_run': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.organization = try container.sdkDecodeRequired(.organization)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.since = try container.sdkDecodeRequired(.since)
-        self.workflowRun = try container.sdkDecodeIfPresent(.workflowRun)
-        self.approver = try container.sdkDecodeIfPresent(.approver)
-        self.comment = try container.sdkDecodeIfPresent(.comment)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
-        self.workflowJobRun = try container.sdkDecodeIfPresent(.workflowJobRun)
-        self.workflowJobRuns = try container.sdkDecodeIfPresent(.workflowJobRuns)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookDeploymentReviewRejected {
-    public init(action: WebhookDeploymentReviewRejectedAction, organization: OrganizationSimpleWebhooks, repository: RepositoryWebhooks, sender: SimpleUser, since: String, workflowRun: WebhookDeploymentReviewRejectedWorkflowRun?, approver: WebhooksApprover? = nil, comment: String? = nil, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, reviewers: WebhooksReviewers? = nil, workflowJobRun: WebhooksWorkflowJobRun? = nil, workflowJobRuns: [WebhookDeploymentReviewRejectedWorkflowJobRunsItem]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.organization) else {
+            throw SdkValidationError(
+                field: "organization",
+                code: "required",
+                message: "Validation failed for 'organization': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        guard container.contains(.since) else {
+            throw SdkValidationError(
+                field: "since",
+                code: "required",
+                message: "Validation failed for 'since': value is required"
+            )
+        }
+        guard container.contains(.workflowRun) else {
+            throw SdkValidationError(
+                field: "workflow_run",
+                code: "required",
+                message: "Validation failed for 'workflow_run': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        organization = try container.sdkDecodeRequired(.organization)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        since = try container.sdkDecodeRequired(.since)
+        workflowRun = try container.sdkDecodeIfPresent(.workflowRun)
+        approver = try container.sdkDecodeIfPresent(.approver)
+        comment = try container.sdkDecodeIfPresent(.comment)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        reviewers = try container.sdkDecodeIfPresent(.reviewers)
+        workflowJobRun = try container.sdkDecodeIfPresent(.workflowJobRun)
+        workflowJobRuns = try container.sdkDecodeIfPresent(.workflowJobRuns)
+    }
+}
+
+public extension WebhookDeploymentReviewRejected {
+    init(
+        action: WebhookDeploymentReviewRejectedAction,
+        organization: OrganizationSimpleWebhooks,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        since: String,
+        workflowRun: WebhookDeploymentReviewRejectedWorkflowRun?,
+        approver: WebhooksApprover? = nil,
+        comment: String? = nil,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        reviewers: WebhooksReviewers? = nil,
+        workflowJobRun: WebhooksWorkflowJobRun? = nil,
+        workflowJobRuns: [WebhookDeploymentReviewRejectedWorkflowJobRunsItem]? = nil
+    ) {
         (self.action, self.organization) = (action, organization)
         (self.repository, self.sender) = (repository, sender)
         (self.since, self.workflowRun) = (since, workflowRun)
@@ -137,27 +177,36 @@ public struct WebhookDeploymentReviewRejectedWorkflowJobRunsItem: Codable {
     }
 
     init() {
-        (self.conclusion, self.createdAt, self.environment, self.htmlUrl, self.id) = (nil, nil, nil, nil, nil)
-        (self.name, self.status, self.updatedAt) = (nil, nil, nil)
+        (conclusion, createdAt, environment, htmlUrl, id) = (nil, nil, nil, nil, nil)
+        (name, status, updatedAt) = (nil, nil, nil)
     }
 }
 
 public extension WebhookDeploymentReviewRejectedWorkflowJobRunsItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.environment = try container.sdkDecodeIfPresent(.environment)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        environment = try container.sdkDecodeIfPresent(.environment)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        status = try container.sdkDecodeIfPresent(.status)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
     }
 }
 
 public extension WebhookDeploymentReviewRejectedWorkflowJobRunsItem {
-    public init(conclusion: String? = nil, createdAt: String? = nil, environment: String? = nil, htmlUrl: String? = nil, id: Int? = nil, name: String? = nil, status: String? = nil, updatedAt: String? = nil) {
+    init(
+        conclusion: String? = nil,
+        createdAt: String? = nil,
+        environment: String? = nil,
+        htmlUrl: String? = nil,
+        id: Int? = nil,
+        name: String? = nil,
+        status: String? = nil,
+        updatedAt: String? = nil
+    ) {
         self.init()
         (self.conclusion, self.createdAt) = (conclusion, createdAt)
         (self.environment, self.htmlUrl) = (environment, htmlUrl)
@@ -166,7 +215,8 @@ public extension WebhookDeploymentReviewRejectedWorkflowJobRunsItem {
     }
 }
 
-public typealias WebhookDeploymentReviewRejectedWorkflowRunReferencedWorkflowsList = [WebhookDeploymentReviewRejectedWorkflowRunReferencedWorkflowsItem]
+public typealias WebhookDeploymentReviewRejectedWorkflowRunReferencedWorkflowsList =
+    [WebhookDeploymentReviewRejectedWorkflowRunReferencedWorkflowsItem]
 
 /// Required object value serialized in the `workflow_run` wire field.
 public struct WebhookDeploymentReviewRejectedWorkflowRun: Codable {
@@ -279,57 +329,95 @@ public struct WebhookDeploymentReviewRejectedWorkflowRun: Codable {
         case workflowUrl = "workflow_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookDeploymentReviewRejectedWorkflowRun {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.actor = try container.sdkDecodeIfPresent(.actor)
-        self.checkSuiteId = try container.sdkDecodeRequired(.checkSuiteId)
-        self.checkSuiteNodeId = try container.sdkDecodeRequired(.checkSuiteNodeId)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.headBranch = try container.sdkDecodeRequired(.headBranch)
-        self.headSha = try container.sdkDecodeRequired(.headSha)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.path = try container.sdkDecodeRequired(.path)
-        self.pullRequests = try container.sdkDecodeRequired(.pullRequests)
-        self.runAttempt = try container.sdkDecodeRequired(.runAttempt)
-        self.runNumber = try container.sdkDecodeRequired(.runNumber)
-        self.runStartedAt = try container.sdkDecodeRequired(.runStartedAt)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.triggeringActor = try container.sdkDecodeIfPresent(.triggeringActor)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.workflowId = try container.sdkDecodeRequired(.workflowId)
-        self.displayTitle = try container.sdkDecodeRequired(.displayTitle)
-        self.artifactsUrl = try container.sdkDecodeIfPresent(.artifactsUrl)
-        self.cancelUrl = try container.sdkDecodeIfPresent(.cancelUrl)
-        self.checkSuiteUrl = try container.sdkDecodeIfPresent(.checkSuiteUrl)
-        self.headCommit = try container.sdkDecodeIfPresent(.headCommit)
-        self.headRepository = try container.sdkDecodeIfPresent(.headRepository)
-        self.jobsUrl = try container.sdkDecodeIfPresent(.jobsUrl)
-        self.logsUrl = try container.sdkDecodeIfPresent(.logsUrl)
-        self.previousAttemptUrl = try container.sdkDecodeIfPresent(.previousAttemptUrl)
-        self.referencedWorkflows = try container.sdkDecodeIfPresent(.referencedWorkflows)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.rerunUrl = try container.sdkDecodeIfPresent(.rerunUrl)
-        self.workflowUrl = try container.sdkDecodeIfPresent(.workflowUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("run_started_at", sdkWireString(self.runStartedAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookDeploymentReviewRejectedWorkflowRun {
-    public init(actor: WebhookDeploymentReviewRejectedWorkflowRunActor?, checkSuiteId: Int, checkSuiteNodeId: String, conclusion: WebhookDeploymentReviewRejectedWorkflowRunConclusion?, createdAt: Date, event: String, headBranch: String, headSha: String, htmlUrl: String, id: Int, name: String, nodeId: String, path: String, pullRequests: [WebhookDeploymentReviewRejectedWorkflowRunPullRequestsItem], runAttempt: Int, runNumber: Int, runStartedAt: Date, status: WebhookDeploymentReviewRejectedWorkflowRunStatus, triggeringActor: WebhookDeploymentReviewRejectedWorkflowRunTriggeringActor?, updatedAt: Date, url: String, workflowId: Int, displayTitle: String, artifactsUrl: String? = nil, cancelUrl: String? = nil, checkSuiteUrl: String? = nil, headCommit: [String: JSONValue]? = nil, headRepository: WebhookDeploymentReviewRejectedWorkflowRunHeadRepository? = nil, jobsUrl: String? = nil, logsUrl: String? = nil, previousAttemptUrl: String? = nil, referencedWorkflows: WebhookDeploymentReviewRejectedWorkflowRunReferencedWorkflowsList? = nil, repository: WebhookDeploymentReviewRejectedWorkflowRunRepository? = nil, rerunUrl: String? = nil, workflowUrl: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        actor = try container.sdkDecodeIfPresent(.actor)
+        checkSuiteId = try container.sdkDecodeRequired(.checkSuiteId)
+        checkSuiteNodeId = try container.sdkDecodeRequired(.checkSuiteNodeId)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        event = try container.sdkDecodeRequired(.event)
+        headBranch = try container.sdkDecodeRequired(.headBranch)
+        headSha = try container.sdkDecodeRequired(.headSha)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        path = try container.sdkDecodeRequired(.path)
+        pullRequests = try container.sdkDecodeRequired(.pullRequests)
+        runAttempt = try container.sdkDecodeRequired(.runAttempt)
+        runNumber = try container.sdkDecodeRequired(.runNumber)
+        runStartedAt = try container.sdkDecodeRequired(.runStartedAt)
+        status = try container.sdkDecodeRequired(.status)
+        triggeringActor = try container.sdkDecodeIfPresent(.triggeringActor)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        url = try container.sdkDecodeRequired(.url)
+        workflowId = try container.sdkDecodeRequired(.workflowId)
+        displayTitle = try container.sdkDecodeRequired(.displayTitle)
+        artifactsUrl = try container.sdkDecodeIfPresent(.artifactsUrl)
+        cancelUrl = try container.sdkDecodeIfPresent(.cancelUrl)
+        checkSuiteUrl = try container.sdkDecodeIfPresent(.checkSuiteUrl)
+        headCommit = try container.sdkDecodeIfPresent(.headCommit)
+        headRepository = try container.sdkDecodeIfPresent(.headRepository)
+        jobsUrl = try container.sdkDecodeIfPresent(.jobsUrl)
+        logsUrl = try container.sdkDecodeIfPresent(.logsUrl)
+        previousAttemptUrl = try container.sdkDecodeIfPresent(.previousAttemptUrl)
+        referencedWorkflows = try container.sdkDecodeIfPresent(.referencedWorkflows)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        rerunUrl = try container.sdkDecodeIfPresent(.rerunUrl)
+        workflowUrl = try container.sdkDecodeIfPresent(.workflowUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("run_started_at", sdkWireString(runStartedAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookDeploymentReviewRejectedWorkflowRun {
+    init(
+        actor: WebhookDeploymentReviewRejectedWorkflowRunActor?,
+        checkSuiteId: Int,
+        checkSuiteNodeId: String,
+        conclusion: WebhookDeploymentReviewRejectedWorkflowRunConclusion?,
+        createdAt: Date,
+        event: String,
+        headBranch: String,
+        headSha: String,
+        htmlUrl: String,
+        id: Int,
+        name: String,
+        nodeId: String,
+        path: String,
+        pullRequests: [WebhookDeploymentReviewRejectedWorkflowRunPullRequestsItem],
+        runAttempt: Int,
+        runNumber: Int,
+        runStartedAt: Date,
+        status: WebhookDeploymentReviewRejectedWorkflowRunStatus,
+        triggeringActor: WebhookDeploymentReviewRejectedWorkflowRunTriggeringActor?,
+        updatedAt: Date,
+        url: String,
+        workflowId: Int,
+        displayTitle: String,
+        artifactsUrl: String? = nil,
+        cancelUrl: String? = nil,
+        checkSuiteUrl: String? = nil,
+        headCommit: [String: JSONValue]? = nil,
+        headRepository: WebhookDeploymentReviewRejectedWorkflowRunHeadRepository? = nil,
+        jobsUrl: String? = nil,
+        logsUrl: String? = nil,
+        previousAttemptUrl: String? = nil,
+        referencedWorkflows: WebhookDeploymentReviewRejectedWorkflowRunReferencedWorkflowsList? = nil,
+        repository: WebhookDeploymentReviewRejectedWorkflowRunRepository? = nil,
+        rerunUrl: String? = nil,
+        workflowUrl: String? = nil
+    ) throws {
         (self.actor, self.checkSuiteId) = (actor, checkSuiteId)
         (self.checkSuiteNodeId, self.conclusion) = (checkSuiteNodeId, conclusion)
         (self.createdAt, self.event) = (createdAt, event)
@@ -348,11 +436,11 @@ public extension WebhookDeploymentReviewRejectedWorkflowRun {
         (self.previousAttemptUrl, self.referencedWorkflows) = (previousAttemptUrl, referencedWorkflows)
         (self.repository, self.rerunUrl) = (repository, rerunUrl)
         self.workflowUrl = workflowUrl
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("run_started_at", sdkWireString(self.runStartedAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("run_started_at", sdkWireString(self.runStartedAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -428,46 +516,79 @@ public struct WebhookDeploymentReviewRejectedWorkflowRunActor: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookDeploymentReviewRejectedWorkflowRunActor {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        email = try container.sdkDecodeIfPresent(.email)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
 public extension WebhookDeploymentReviewRejectedWorkflowRunActor {
-    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookDeploymentReviewRejectedWorkflowRunActorType? = nil, url: String? = nil, userViewType: String? = nil) throws {
+    init(
+        id: Int,
+        login: String,
+        avatarUrl: String? = nil,
+        deleted: Bool? = nil,
+        email: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        name: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: WebhookDeploymentReviewRejectedWorkflowRunActorType? = nil,
+        url: String? = nil,
+        userViewType: String? = nil
+    ) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)

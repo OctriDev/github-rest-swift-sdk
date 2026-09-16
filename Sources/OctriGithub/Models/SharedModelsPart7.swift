@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Shared domain models
+/// Shared domain models
 /// Optional object value serialized in the `license` wire field.
 public struct MinimalRepositoryLicense: Codable {
     /// Optional `string` value serialized in the `key` wire field.
@@ -26,23 +26,23 @@ public struct MinimalRepositoryLicense: Codable {
     }
 
     init() {
-        (self.key, self.name, self.spdxId, self.url, self.nodeId) = (nil, nil, nil, nil, nil)
+        (key, name, spdxId, url, nodeId) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension MinimalRepositoryLicense {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.key = try container.sdkDecodeIfPresent(.key)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.spdxId = try container.sdkDecodeIfPresent(.spdxId)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        key = try container.sdkDecodeIfPresent(.key)
+        name = try container.sdkDecodeIfPresent(.name)
+        spdxId = try container.sdkDecodeIfPresent(.spdxId)
+        url = try container.sdkDecodeIfPresent(.url)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
     }
 }
 
 public extension MinimalRepositoryLicense {
-    public init(key: String? = nil, name: String? = nil, spdxId: String? = nil, url: String? = nil, nodeId: String? = nil) {
+    init(key: String? = nil, name: String? = nil, spdxId: String? = nil, url: String? = nil, nodeId: String? = nil) {
         self.init()
         (self.key, self.name) = (key, name)
         (self.spdxId, self.url) = (spdxId, url)
@@ -72,23 +72,23 @@ public struct MinimalRepositoryPermissions: Codable {
     }
 
     init() {
-        (self.admin, self.maintain, self.push, self.triage, self.pull) = (nil, nil, nil, nil, nil)
+        (admin, maintain, push, triage, pull) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension MinimalRepositoryPermissions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.admin = try container.sdkDecodeIfPresent(.admin)
-        self.maintain = try container.sdkDecodeIfPresent(.maintain)
-        self.push = try container.sdkDecodeIfPresent(.push)
-        self.triage = try container.sdkDecodeIfPresent(.triage)
-        self.pull = try container.sdkDecodeIfPresent(.pull)
+        admin = try container.sdkDecodeIfPresent(.admin)
+        maintain = try container.sdkDecodeIfPresent(.maintain)
+        push = try container.sdkDecodeIfPresent(.push)
+        triage = try container.sdkDecodeIfPresent(.triage)
+        pull = try container.sdkDecodeIfPresent(.pull)
     }
 }
 
 public extension MinimalRepositoryPermissions {
-    public init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
+    init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
         self.init()
         (self.admin, self.maintain) = (admin, maintain)
         (self.push, self.triage) = (push, triage)
@@ -227,58 +227,101 @@ public struct PublicUser: Codable {
         case collaborators
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension PublicUser {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.company = try container.sdkDecodeIfPresent(.company)
-        self.blog = try container.sdkDecodeIfPresent(.blog)
-        self.location = try container.sdkDecodeIfPresent(.location)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.hireable = try container.sdkDecodeIfPresent(.hireable)
-        self.bio = try container.sdkDecodeIfPresent(.bio)
-        self.publicRepos = try container.sdkDecodeRequired(.publicRepos)
-        self.publicGists = try container.sdkDecodeRequired(.publicGists)
-        self.followers = try container.sdkDecodeRequired(.followers)
-        self.following = try container.sdkDecodeRequired(.following)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
-        self.notificationEmail = try container.sdkDecodeIfPresent(.notificationEmail)
-        self.twitterUsername = try container.sdkDecodeIfPresent(.twitterUsername)
-        self.plan = try container.sdkDecodeIfPresent(.plan)
-        self.privateGists = try container.sdkDecodeIfPresent(.privateGists)
-        self.totalPrivateRepos = try container.sdkDecodeIfPresent(.totalPrivateRepos)
-        self.ownedPrivateRepos = try container.sdkDecodeIfPresent(.ownedPrivateRepos)
-        self.diskUsage = try container.sdkDecodeIfPresent(.diskUsage)
-        self.collaborators = try container.sdkDecodeIfPresent(.collaborators)
+        login = try container.sdkDecodeRequired(.login)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        type = try container.sdkDecodeRequired(.type)
+        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        name = try container.sdkDecodeIfPresent(.name)
+        company = try container.sdkDecodeIfPresent(.company)
+        blog = try container.sdkDecodeIfPresent(.blog)
+        location = try container.sdkDecodeIfPresent(.location)
+        email = try container.sdkDecodeIfPresent(.email)
+        hireable = try container.sdkDecodeIfPresent(.hireable)
+        bio = try container.sdkDecodeIfPresent(.bio)
+        publicRepos = try container.sdkDecodeRequired(.publicRepos)
+        publicGists = try container.sdkDecodeRequired(.publicGists)
+        followers = try container.sdkDecodeRequired(.followers)
+        following = try container.sdkDecodeRequired(.following)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        notificationEmail = try container.sdkDecodeIfPresent(.notificationEmail)
+        twitterUsername = try container.sdkDecodeIfPresent(.twitterUsername)
+        plan = try container.sdkDecodeIfPresent(.plan)
+        privateGists = try container.sdkDecodeIfPresent(.privateGists)
+        totalPrivateRepos = try container.sdkDecodeIfPresent(.totalPrivateRepos)
+        ownedPrivateRepos = try container.sdkDecodeIfPresent(.ownedPrivateRepos)
+        diskUsage = try container.sdkDecodeIfPresent(.diskUsage)
+        collaborators = try container.sdkDecodeIfPresent(.collaborators)
         try sdkValidateConstraints()
     }
 }
 
 public extension PublicUser {
-    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String?, company: String?, blog: String?, location: String?, email: String?, hireable: Bool?, bio: String?, publicRepos: Int, publicGists: Int, followers: Int, following: Int, createdAt: Date, updatedAt: Date, userViewType: String? = nil, notificationEmail: String? = nil, twitterUsername: String? = nil, plan: PublicUserPlan? = nil, privateGists: Int? = nil, totalPrivateRepos: Int? = nil, ownedPrivateRepos: Int? = nil, diskUsage: Int? = nil, collaborators: Int? = nil) throws {
+    init(
+        login: String,
+        id: Int,
+        nodeId: String,
+        avatarUrl: String,
+        gravatarId: String?,
+        url: String,
+        htmlUrl: String,
+        followersUrl: String,
+        followingUrl: String,
+        gistsUrl: String,
+        starredUrl: String,
+        subscriptionsUrl: String,
+        organizationsUrl: String,
+        reposUrl: String,
+        eventsUrl: String,
+        receivedEventsUrl: String,
+        type: String,
+        siteAdmin: Bool,
+        name: String?,
+        company: String?,
+        blog: String?,
+        location: String?,
+        email: String?,
+        hireable: Bool?,
+        bio: String?,
+        publicRepos: Int,
+        publicGists: Int,
+        followers: Int,
+        following: Int,
+        createdAt: Date,
+        updatedAt: Date,
+        userViewType: String? = nil,
+        notificationEmail: String? = nil,
+        twitterUsername: String? = nil,
+        plan: PublicUserPlan? = nil,
+        privateGists: Int? = nil,
+        totalPrivateRepos: Int? = nil,
+        ownedPrivateRepos: Int? = nil,
+        diskUsage: Int? = nil,
+        collaborators: Int? = nil
+    ) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -305,20 +348,20 @@ public extension PublicUser {
 
 extension PublicUser {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("avatar_url", self.avatarUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("followers_url", self.followersUrl)
-            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
-            try sdkValidateUri("organizations_url", self.organizationsUrl)
-            try sdkValidateUri("repos_url", self.reposUrl)
-            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
-        if let value = self.email {
+        try sdkValidateUri("avatar_url", avatarUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("followers_url", followersUrl)
+        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
+        try sdkValidateUri("organizations_url", organizationsUrl)
+        try sdkValidateUri("repos_url", reposUrl)
+        try sdkValidateUri("received_events_url", receivedEventsUrl)
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.notificationEmail {
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = notificationEmail {
             try sdkValidateEmail("notification_email", value)
         }
     }
@@ -342,33 +385,51 @@ public struct PublicUserPlan: Codable {
         case privateRepos = "private_repos"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PublicUserPlan {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.collaborators) else {
-            throw SdkValidationError(field: "collaborators", code: "required", message: "Validation failed for 'collaborators': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.space) else {
-            throw SdkValidationError(field: "space", code: "required", message: "Validation failed for 'space': value is required")
-        }
-        guard container.contains(.privateRepos) else {
-            throw SdkValidationError(field: "private_repos", code: "required", message: "Validation failed for 'private_repos': value is required")
-        }
-        self.collaborators = try container.sdkDecodeRequired(.collaborators)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.space = try container.sdkDecodeRequired(.space)
-        self.privateRepos = try container.sdkDecodeRequired(.privateRepos)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PublicUserPlan {
-    public init(collaborators: Int, name: String, space: Int, privateRepos: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.collaborators) else {
+            throw SdkValidationError(
+                field: "collaborators",
+                code: "required",
+                message: "Validation failed for 'collaborators': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.space) else {
+            throw SdkValidationError(
+                field: "space",
+                code: "required",
+                message: "Validation failed for 'space': value is required"
+            )
+        }
+        guard container.contains(.privateRepos) else {
+            throw SdkValidationError(
+                field: "private_repos",
+                code: "required",
+                message: "Validation failed for 'private_repos': value is required"
+            )
+        }
+        collaborators = try container.sdkDecodeRequired(.collaborators)
+        name = try container.sdkDecodeRequired(.name)
+        space = try container.sdkDecodeRequired(.space)
+        privateRepos = try container.sdkDecodeRequired(.privateRepos)
+    }
+}
+
+public extension PublicUserPlan {
+    init(collaborators: Int, name: String, space: Int, privateRepos: Int) {
         (self.collaborators, self.name) = (collaborators, name)
         (self.space, self.privateRepos) = (space, privateRepos)
     }
@@ -410,34 +471,47 @@ public struct ReactionRollup: Codable {
         case rocket
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReactionRollup {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.plus1 = try container.sdkDecodeRequired(.plus1)
-        self.minus1 = try container.sdkDecodeRequired(.minus1)
-        self.laugh = try container.sdkDecodeRequired(.laugh)
-        self.confused = try container.sdkDecodeRequired(.confused)
-        self.heart = try container.sdkDecodeRequired(.heart)
-        self.hooray = try container.sdkDecodeRequired(.hooray)
-        self.eyes = try container.sdkDecodeRequired(.eyes)
-        self.rocket = try container.sdkDecodeRequired(.rocket)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReactionRollup {
-    public init(url: String, totalCount: Int, plus1: Int, minus1: Int, laugh: Int, confused: Int, heart: Int, hooray: Int, eyes: Int, rocket: Int) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.sdkDecodeRequired(.url)
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        plus1 = try container.sdkDecodeRequired(.plus1)
+        minus1 = try container.sdkDecodeRequired(.minus1)
+        laugh = try container.sdkDecodeRequired(.laugh)
+        confused = try container.sdkDecodeRequired(.confused)
+        heart = try container.sdkDecodeRequired(.heart)
+        hooray = try container.sdkDecodeRequired(.hooray)
+        eyes = try container.sdkDecodeRequired(.eyes)
+        rocket = try container.sdkDecodeRequired(.rocket)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension ReactionRollup {
+    init(
+        url: String,
+        totalCount: Int,
+        plus1: Int,
+        minus1: Int,
+        laugh: Int,
+        confused: Int,
+        heart: Int,
+        hooray: Int,
+        eyes: Int,
+        rocket: Int
+    ) throws {
         (self.url, self.totalCount) = (url, totalCount)
         (self.plus1, self.minus1) = (plus1, minus1)
         (self.laugh, self.confused) = (laugh, confused)
         (self.heart, self.hooray) = (heart, hooray)
         (self.eyes, self.rocket) = (eyes, rocket)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -466,25 +540,32 @@ public struct ScimError: Codable {
     }
 
     init() {
-        (self.message, self.documentationUrl, self.detail, self.status, self.scimType) = (nil, nil, nil, nil, nil)
-        self.schemas = nil
+        (message, documentationUrl, detail, status, scimType) = (nil, nil, nil, nil, nil)
+        schemas = nil
     }
 }
 
 public extension ScimError {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
-        self.detail = try container.sdkDecodeIfPresent(.detail)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.scimType = try container.sdkDecodeIfPresent(.scimType)
-        self.schemas = try container.sdkDecodeIfPresent(.schemas)
+        message = try container.sdkDecodeIfPresent(.message)
+        documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
+        detail = try container.sdkDecodeIfPresent(.detail)
+        status = try container.sdkDecodeIfPresent(.status)
+        scimType = try container.sdkDecodeIfPresent(.scimType)
+        schemas = try container.sdkDecodeIfPresent(.schemas)
     }
 }
 
 public extension ScimError {
-    public init(message: String? = nil, documentationUrl: String? = nil, detail: String? = nil, status: Int? = nil, scimType: String? = nil, schemas: [String]? = nil) {
+    init(
+        message: String? = nil,
+        documentationUrl: String? = nil,
+        detail: String? = nil,
+        status: Int? = nil,
+        scimType: String? = nil,
+        schemas: [String]? = nil
+    ) {
         self.init()
         (self.message, self.documentationUrl) = (message, documentationUrl)
         (self.detail, self.status) = (detail, status)
@@ -507,23 +588,37 @@ public struct SubIssuesSummary: Codable {
         case percentCompleted = "percent_completed"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension SubIssuesSummary {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.total) else {
-            throw SdkValidationError(field: "total", code: "required", message: "Validation failed for 'total': value is required")
+            throw SdkValidationError(
+                field: "total",
+                code: "required",
+                message: "Validation failed for 'total': value is required"
+            )
         }
         guard container.contains(.completed) else {
-            throw SdkValidationError(field: "completed", code: "required", message: "Validation failed for 'completed': value is required")
+            throw SdkValidationError(
+                field: "completed",
+                code: "required",
+                message: "Validation failed for 'completed': value is required"
+            )
         }
         guard container.contains(.percentCompleted) else {
-            throw SdkValidationError(field: "percent_completed", code: "required", message: "Validation failed for 'percent_completed': value is required")
+            throw SdkValidationError(
+                field: "percent_completed",
+                code: "required",
+                message: "Validation failed for 'percent_completed': value is required"
+            )
         }
-        self.total = try container.sdkDecodeRequired(.total)
-        self.completed = try container.sdkDecodeRequired(.completed)
-        self.percentCompleted = try container.sdkDecodeRequired(.percentCompleted)
+        total = try container.sdkDecodeRequired(.total)
+        completed = try container.sdkDecodeRequired(.completed)
+        percentCompleted = try container.sdkDecodeRequired(.percentCompleted)
     }
 }

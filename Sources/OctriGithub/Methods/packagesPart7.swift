@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
-    /// Lists package versions for a package owned by an organization. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+public extension PackagesMethods {
+    /// Lists package versions for a package owned by an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for
+    /// GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -27,11 +29,34 @@ extension PackagesMethods {
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
     /// - state: The state of the package, either active or deleted.
-    public static func packagesGetAllPackageVersionsForPackageOwnedByOrg(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, page: Int?, perPage: Int?, state: PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter?) async throws -> [PackageVersion] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName)), "/versions"].joined(), config: config, query: [
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("state", value: state),
-        ], decoder: .json, operationId: "packagesGetAllPackageVersionsForPackageOwnedByOrg")).data
+    static func packagesGetAllPackageVersionsForPackageOwnedByOrg(
+        config: ClientConfig,
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        page: Int?,
+        perPage: Int?,
+        state: PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter?
+    ) async throws -> [PackageVersion] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/packages/",
+                sdkEncodePathSegment(sdkWireString(packageType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(packageName)),
+                "/versions",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("state", value: state),
+            ],
+            decoder: .json,
+            operationId: "packagesGetAllPackageVersionsForPackageOwnedByOrg"
+        )).data
     }
 }

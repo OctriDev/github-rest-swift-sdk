@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// Delete project item for user
     ///
     /// Delete a specific item from a user-owned project.
@@ -15,7 +15,25 @@ extension ProjectsMethods {
     /// - projectNumber: The project's number.
     /// - username: The handle for the GitHub user account.
     /// - itemId: The unique identifier of the project item.
-    public static func projectsDeleteItemForUser(config: ClientConfig, projectNumber: Int, username: String, itemId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items/", sdkEncodePathSegment(sdkWireString(itemId))].joined(), config: config, decoder: .empty, operationId: "projectsDeleteItemForUser")).data
+    static func projectsDeleteItemForUser(
+        config: ClientConfig,
+        projectNumber: Int,
+        username: String,
+        itemId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items/",
+                sdkEncodePathSegment(sdkWireString(itemId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "projectsDeleteItemForUser"
+        )).data
     }
 }

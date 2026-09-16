@@ -6,8 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Lists all concurrency groups associated with a workflow run or its jobs. The set of groups is derived from the run's configuration, so a group is included even when the run no longer has any items currently holding or waiting in it. In that case the `group_members` array will be empty. `total_count` reflects the number of groups the run participates in by configuration, not the number with active items. This differs from `GET /repos/{owner}/{repo}/actions/concurrency_groups/{group_name}`, which returns 404 when a group has no active items. That endpoint reports the live state of a group repo-wide, while this endpoint reports the groups associated with a specific run by configuration. Results are sorted by group name and support cursor-based pagination via `before` and `after`. The `after` cursor paginates forward only and does not emit a `rel="prev"` Link; use `before` to page backward from a forward page's `next` cursor. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+public extension ActionsMethods {
+    /// Lists all concurrency groups associated with a workflow run or its jobs. The set of groups is derived from the
+    /// run's configuration, so a group is included even when the run no longer has any items currently holding or
+    /// waiting in it. In that case the `group_members` array will be empty. `total_count` reflects the number of groups
+    /// the run participates in by configuration, not the number with active items. This differs from `GET
+    /// /repos/{owner}/{repo}/actions/concurrency_groups/{group_name}`, which returns 404 when a group has no active
+    /// items. That endpoint reports the live state of a group repo-wide, while this endpoint reports the groups
+    /// associated with a specific run by configuration. Results are sorted by group name and support cursor-based
+    /// pagination via `before` and `after`. The `after` cursor paginates forward only and does not emit a `rel="prev"`
+    /// Link; use `before` to page backward from a forward page's `next` cursor. OAuth app tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,11 +40,34 @@ extension ActionsMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsListConcurrencyGroupsForWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int, perPage: Int?, before: String?, after: String?) async throws -> ConcurrencyGroupRunList {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/concurrency_groups"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-        ], decoder: .json, operationId: "actionsListConcurrencyGroupsForWorkflowRun")).data
+    static func actionsListConcurrencyGroupsForWorkflowRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int,
+        perPage: Int?,
+        before: String?,
+        after: String?
+    ) async throws -> ConcurrencyGroupRunList {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/concurrency_groups",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+            ],
+            decoder: .json,
+            operationId: "actionsListConcurrencyGroupsForWorkflowRun"
+        )).data
     }
 }

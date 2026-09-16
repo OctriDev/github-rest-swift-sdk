@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical dependencyGraph operation model declarations
+/// Canonical dependencyGraph operation model declarations
 public struct DependencyGraphCreateRepositorySnapshotResponse: Codable {
     /// ID of the created snapshot.
     public var id: Int
@@ -28,33 +28,51 @@ public struct DependencyGraphCreateRepositorySnapshotResponse: Codable {
         case message
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension DependencyGraphCreateRepositorySnapshotResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
-        }
-        guard container.contains(.result) else {
-            throw SdkValidationError(field: "result", code: "required", message: "Validation failed for 'result': value is required")
-        }
-        guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.result = try container.sdkDecodeRequired(.result)
-        self.message = try container.sdkDecodeRequired(.message)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension DependencyGraphCreateRepositorySnapshotResponse {
-    public init(id: Int, createdAt: String, result: String, message: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.createdAt) else {
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
+        }
+        guard container.contains(.result) else {
+            throw SdkValidationError(
+                field: "result",
+                code: "required",
+                message: "Validation failed for 'result': value is required"
+            )
+        }
+        guard container.contains(.message) else {
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        result = try container.sdkDecodeRequired(.result)
+        message = try container.sdkDecodeRequired(.message)
+    }
+}
+
+public extension DependencyGraphCreateRepositorySnapshotResponse {
+    init(id: Int, createdAt: String, result: String, message: String) {
         (self.id, self.createdAt) = (id, createdAt)
         (self.result, self.message) = (result, message)
     }
@@ -69,19 +87,19 @@ public struct DependencyGraphGenerateSbomReportResponse: Codable {
     }
 
     init() {
-        self.sbomUrl = nil
+        sbomUrl = nil
     }
 }
 
 public extension DependencyGraphGenerateSbomReportResponse {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sbomUrl = try container.sdkDecodeIfPresent(.sbomUrl)
+        sbomUrl = try container.sdkDecodeIfPresent(.sbomUrl)
     }
 }
 
 public extension DependencyGraphGenerateSbomReportResponse {
-    public init(sbomUrl: String? = nil) {
+    init(sbomUrl: String? = nil) {
         self.init()
         self.sbomUrl = sbomUrl
     }

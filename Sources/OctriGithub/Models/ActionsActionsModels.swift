@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ActionsActions domain models
+/// ActionsActions domain models
 public typealias ActionsCanApprovePullRequestReviews = Bool
 
 public typealias ActionsEnabled = Bool
@@ -17,21 +17,27 @@ public struct ActionsArtifactAndLogRetention: Codable {
         case days
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsArtifactAndLogRetention {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.days) else {
-            throw SdkValidationError(field: "days", code: "required", message: "Validation failed for 'days': value is required")
-        }
-        self.days = try container.sdkDecodeRequired(.days)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsArtifactAndLogRetention {
-    public init(days: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.days) else {
+            throw SdkValidationError(
+                field: "days",
+                code: "required",
+                message: "Validation failed for 'days': value is required"
+            )
+        }
+        days = try container.sdkDecodeRequired(.days)
+    }
+}
+
+public extension ActionsArtifactAndLogRetention {
+    init(days: Int) {
         self.days = days
     }
 }
@@ -48,25 +54,35 @@ public struct ActionsArtifactAndLogRetentionResponse: Codable {
         case maximumAllowedDays = "maximum_allowed_days"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsArtifactAndLogRetentionResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.days) else {
-            throw SdkValidationError(field: "days", code: "required", message: "Validation failed for 'days': value is required")
-        }
-        guard container.contains(.maximumAllowedDays) else {
-            throw SdkValidationError(field: "maximum_allowed_days", code: "required", message: "Validation failed for 'maximum_allowed_days': value is required")
-        }
-        self.days = try container.sdkDecodeRequired(.days)
-        self.maximumAllowedDays = try container.sdkDecodeRequired(.maximumAllowedDays)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsArtifactAndLogRetentionResponse {
-    public init(days: Int, maximumAllowedDays: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.days) else {
+            throw SdkValidationError(
+                field: "days",
+                code: "required",
+                message: "Validation failed for 'days': value is required"
+            )
+        }
+        guard container.contains(.maximumAllowedDays) else {
+            throw SdkValidationError(
+                field: "maximum_allowed_days",
+                code: "required",
+                message: "Validation failed for 'maximum_allowed_days': value is required"
+            )
+        }
+        days = try container.sdkDecodeRequired(.days)
+        maximumAllowedDays = try container.sdkDecodeRequired(.maximumAllowedDays)
+    }
+}
+
+public extension ActionsArtifactAndLogRetentionResponse {
+    init(days: Int, maximumAllowedDays: Int) {
         (self.days, self.maximumAllowedDays) = (days, maximumAllowedDays)
     }
 }
@@ -84,25 +100,35 @@ public struct ActionsCacheList: Codable {
         case actionsCaches = "actions_caches"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsCacheList {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.actionsCaches) else {
-            throw SdkValidationError(field: "actions_caches", code: "required", message: "Validation failed for 'actions_caches': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.actionsCaches = try container.sdkDecodeRequired(.actionsCaches)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsCacheList {
-    public init(totalCount: Int, actionsCaches: [ActionsCacheListActionsCachesItem]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.actionsCaches) else {
+            throw SdkValidationError(
+                field: "actions_caches",
+                code: "required",
+                message: "Validation failed for 'actions_caches': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        actionsCaches = try container.sdkDecodeRequired(.actionsCaches)
+    }
+}
+
+public extension ActionsCacheList {
+    init(totalCount: Int, actionsCaches: [ActionsCacheListActionsCachesItem]) {
         (self.totalCount, self.actionsCaches) = (totalCount, actionsCaches)
     }
 }
@@ -142,32 +168,40 @@ public struct ActionsCacheListActionsCachesItem: Codable {
     }
 
     init() {
-        (self.id, self.ref, self.key, self.version, self.lastAccessedAt) = (nil, nil, nil, nil, nil)
-        (self.createdAt, self.sizeInBytes) = (nil, nil)
+        (id, ref, key, version, lastAccessedAt) = (nil, nil, nil, nil, nil)
+        (createdAt, sizeInBytes) = (nil, nil)
     }
 }
 
 public extension ActionsCacheListActionsCachesItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.ref = try container.sdkDecodeIfPresent(.ref)
-        self.key = try container.sdkDecodeIfPresent(.key)
-        self.version = try container.sdkDecodeIfPresent(.version)
-        self.lastAccessedAt = try container.sdkDecodeIfPresent(.lastAccessedAt)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.sizeInBytes = try container.sdkDecodeIfPresent(.sizeInBytes)
-        if let value = self.lastAccessedAt {
+        id = try container.sdkDecodeIfPresent(.id)
+        ref = try container.sdkDecodeIfPresent(.ref)
+        key = try container.sdkDecodeIfPresent(.key)
+        version = try container.sdkDecodeIfPresent(.version)
+        lastAccessedAt = try container.sdkDecodeIfPresent(.lastAccessedAt)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        sizeInBytes = try container.sdkDecodeIfPresent(.sizeInBytes)
+        if let value = lastAccessedAt {
             try sdkValidateDateTime("last_accessed_at", sdkWireString(value))
         }
-        if let value = self.createdAt {
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
     }
 }
 
 public extension ActionsCacheListActionsCachesItem {
-    public init(id: Int? = nil, ref: String? = nil, key: String? = nil, version: String? = nil, lastAccessedAt: Date? = nil, createdAt: Date? = nil, sizeInBytes: Int? = nil) throws {
+    init(
+        id: Int? = nil,
+        ref: String? = nil,
+        key: String? = nil,
+        version: String? = nil,
+        lastAccessedAt: Date? = nil,
+        createdAt: Date? = nil,
+        sizeInBytes: Int? = nil
+    ) throws {
         self.init()
         (self.id, self.ref) = (id, ref)
         (self.key, self.version) = (key, version)
@@ -194,19 +228,19 @@ public struct ActionsCacheRetentionLimitForEnterprise: Codable {
     }
 
     init() {
-        self.maxCacheRetentionDays = nil
+        maxCacheRetentionDays = nil
     }
 }
 
 public extension ActionsCacheRetentionLimitForEnterprise {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.maxCacheRetentionDays = try container.sdkDecodeIfPresent(.maxCacheRetentionDays)
+        maxCacheRetentionDays = try container.sdkDecodeIfPresent(.maxCacheRetentionDays)
     }
 }
 
 public extension ActionsCacheRetentionLimitForEnterprise {
-    public init(maxCacheRetentionDays: Int? = nil) {
+    init(maxCacheRetentionDays: Int? = nil) {
         self.init()
         self.maxCacheRetentionDays = maxCacheRetentionDays
     }
@@ -224,19 +258,19 @@ public struct ActionsCacheRetentionLimitForOrganization: Codable {
     }
 
     init() {
-        self.maxCacheRetentionDays = nil
+        maxCacheRetentionDays = nil
     }
 }
 
 public extension ActionsCacheRetentionLimitForOrganization {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.maxCacheRetentionDays = try container.sdkDecodeIfPresent(.maxCacheRetentionDays)
+        maxCacheRetentionDays = try container.sdkDecodeIfPresent(.maxCacheRetentionDays)
     }
 }
 
 public extension ActionsCacheRetentionLimitForOrganization {
-    public init(maxCacheRetentionDays: Int? = nil) {
+    init(maxCacheRetentionDays: Int? = nil) {
         self.init()
         self.maxCacheRetentionDays = maxCacheRetentionDays
     }
@@ -253,19 +287,19 @@ public struct ActionsCacheRetentionLimitForRepository: Codable {
     }
 
     init() {
-        self.maxCacheRetentionDays = nil
+        maxCacheRetentionDays = nil
     }
 }
 
 public extension ActionsCacheRetentionLimitForRepository {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.maxCacheRetentionDays = try container.sdkDecodeIfPresent(.maxCacheRetentionDays)
+        maxCacheRetentionDays = try container.sdkDecodeIfPresent(.maxCacheRetentionDays)
     }
 }
 
 public extension ActionsCacheRetentionLimitForRepository {
-    public init(maxCacheRetentionDays: Int? = nil) {
+    init(maxCacheRetentionDays: Int? = nil) {
         self.init()
         self.maxCacheRetentionDays = maxCacheRetentionDays
     }
@@ -283,19 +317,19 @@ public struct ActionsCacheStorageLimitForEnterprise: Codable {
     }
 
     init() {
-        self.maxCacheSizeGb = nil
+        maxCacheSizeGb = nil
     }
 }
 
 public extension ActionsCacheStorageLimitForEnterprise {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.maxCacheSizeGb = try container.sdkDecodeIfPresent(.maxCacheSizeGb)
+        maxCacheSizeGb = try container.sdkDecodeIfPresent(.maxCacheSizeGb)
     }
 }
 
 public extension ActionsCacheStorageLimitForEnterprise {
-    public init(maxCacheSizeGb: Int? = nil) {
+    init(maxCacheSizeGb: Int? = nil) {
         self.init()
         self.maxCacheSizeGb = maxCacheSizeGb
     }
@@ -313,19 +347,19 @@ public struct ActionsCacheStorageLimitForOrganization: Codable {
     }
 
     init() {
-        self.maxCacheSizeGb = nil
+        maxCacheSizeGb = nil
     }
 }
 
 public extension ActionsCacheStorageLimitForOrganization {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.maxCacheSizeGb = try container.sdkDecodeIfPresent(.maxCacheSizeGb)
+        maxCacheSizeGb = try container.sdkDecodeIfPresent(.maxCacheSizeGb)
     }
 }
 
 public extension ActionsCacheStorageLimitForOrganization {
-    public init(maxCacheSizeGb: Int? = nil) {
+    init(maxCacheSizeGb: Int? = nil) {
         self.init()
         self.maxCacheSizeGb = maxCacheSizeGb
     }
@@ -342,19 +376,19 @@ public struct ActionsCacheStorageLimitForRepository: Codable {
     }
 
     init() {
-        self.maxCacheSizeGb = nil
+        maxCacheSizeGb = nil
     }
 }
 
 public extension ActionsCacheStorageLimitForRepository {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.maxCacheSizeGb = try container.sdkDecodeIfPresent(.maxCacheSizeGb)
+        maxCacheSizeGb = try container.sdkDecodeIfPresent(.maxCacheSizeGb)
     }
 }
 
 public extension ActionsCacheStorageLimitForRepository {
-    public init(maxCacheSizeGb: Int? = nil) {
+    init(maxCacheSizeGb: Int? = nil) {
         self.init()
         self.maxCacheSizeGb = maxCacheSizeGb
     }
@@ -378,29 +412,43 @@ public struct ActionsCacheUsageByRepository: Codable {
         case activeCachesCount = "active_caches_count"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsCacheUsageByRepository {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.fullName) else {
-            throw SdkValidationError(field: "full_name", code: "required", message: "Validation failed for 'full_name': value is required")
-        }
-        guard container.contains(.activeCachesSizeInBytes) else {
-            throw SdkValidationError(field: "active_caches_size_in_bytes", code: "required", message: "Validation failed for 'active_caches_size_in_bytes': value is required")
-        }
-        guard container.contains(.activeCachesCount) else {
-            throw SdkValidationError(field: "active_caches_count", code: "required", message: "Validation failed for 'active_caches_count': value is required")
-        }
-        self.fullName = try container.sdkDecodeRequired(.fullName)
-        self.activeCachesSizeInBytes = try container.sdkDecodeRequired(.activeCachesSizeInBytes)
-        self.activeCachesCount = try container.sdkDecodeRequired(.activeCachesCount)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsCacheUsageByRepository {
-    public init(fullName: String, activeCachesSizeInBytes: Int, activeCachesCount: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.fullName) else {
+            throw SdkValidationError(
+                field: "full_name",
+                code: "required",
+                message: "Validation failed for 'full_name': value is required"
+            )
+        }
+        guard container.contains(.activeCachesSizeInBytes) else {
+            throw SdkValidationError(
+                field: "active_caches_size_in_bytes",
+                code: "required",
+                message: "Validation failed for 'active_caches_size_in_bytes': value is required"
+            )
+        }
+        guard container.contains(.activeCachesCount) else {
+            throw SdkValidationError(
+                field: "active_caches_count",
+                code: "required",
+                message: "Validation failed for 'active_caches_count': value is required"
+            )
+        }
+        fullName = try container.sdkDecodeRequired(.fullName)
+        activeCachesSizeInBytes = try container.sdkDecodeRequired(.activeCachesSizeInBytes)
+        activeCachesCount = try container.sdkDecodeRequired(.activeCachesCount)
+    }
+}
+
+public extension ActionsCacheUsageByRepository {
+    init(fullName: String, activeCachesSizeInBytes: Int, activeCachesCount: Int) {
         (self.fullName, self.activeCachesSizeInBytes) = (fullName, activeCachesSizeInBytes)
         self.activeCachesCount = activeCachesCount
     }
@@ -419,25 +467,35 @@ public struct ActionsCacheUsageOrgEnterprise: Codable {
         case totalActiveCachesSizeInBytes = "total_active_caches_size_in_bytes"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsCacheUsageOrgEnterprise {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalActiveCachesCount) else {
-            throw SdkValidationError(field: "total_active_caches_count", code: "required", message: "Validation failed for 'total_active_caches_count': value is required")
-        }
-        guard container.contains(.totalActiveCachesSizeInBytes) else {
-            throw SdkValidationError(field: "total_active_caches_size_in_bytes", code: "required", message: "Validation failed for 'total_active_caches_size_in_bytes': value is required")
-        }
-        self.totalActiveCachesCount = try container.sdkDecodeRequired(.totalActiveCachesCount)
-        self.totalActiveCachesSizeInBytes = try container.sdkDecodeRequired(.totalActiveCachesSizeInBytes)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsCacheUsageOrgEnterprise {
-    public init(totalActiveCachesCount: Int, totalActiveCachesSizeInBytes: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalActiveCachesCount) else {
+            throw SdkValidationError(
+                field: "total_active_caches_count",
+                code: "required",
+                message: "Validation failed for 'total_active_caches_count': value is required"
+            )
+        }
+        guard container.contains(.totalActiveCachesSizeInBytes) else {
+            throw SdkValidationError(
+                field: "total_active_caches_size_in_bytes",
+                code: "required",
+                message: "Validation failed for 'total_active_caches_size_in_bytes': value is required"
+            )
+        }
+        totalActiveCachesCount = try container.sdkDecodeRequired(.totalActiveCachesCount)
+        totalActiveCachesSizeInBytes = try container.sdkDecodeRequired(.totalActiveCachesSizeInBytes)
+    }
+}
+
+public extension ActionsCacheUsageOrgEnterprise {
+    init(totalActiveCachesCount: Int, totalActiveCachesSizeInBytes: Int) {
         self.totalActiveCachesCount = totalActiveCachesCount
         self.totalActiveCachesSizeInBytes = totalActiveCachesSizeInBytes
     }
@@ -452,21 +510,27 @@ public struct ActionsForkPrContributorApproval: Codable {
         case approvalPolicy = "approval_policy"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsForkPrContributorApproval {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.approvalPolicy) else {
-            throw SdkValidationError(field: "approval_policy", code: "required", message: "Validation failed for 'approval_policy': value is required")
-        }
-        self.approvalPolicy = try container.sdkDecodeRequired(.approvalPolicy)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsForkPrContributorApproval {
-    public init(approvalPolicy: ActionsForkPrContributorApprovalApprovalPolicy) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.approvalPolicy) else {
+            throw SdkValidationError(
+                field: "approval_policy",
+                code: "required",
+                message: "Validation failed for 'approval_policy': value is required"
+            )
+        }
+        approvalPolicy = try container.sdkDecodeRequired(.approvalPolicy)
+    }
+}
+
+public extension ActionsForkPrContributorApproval {
+    init(approvalPolicy: ActionsForkPrContributorApprovalApprovalPolicy) {
         self.approvalPolicy = approvalPolicy
     }
 }
@@ -491,33 +555,56 @@ public struct ActionsForkPrWorkflowsPrivateRepos: Codable {
         case requireApprovalForForkPrWorkflows = "require_approval_for_fork_pr_workflows"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ActionsForkPrWorkflowsPrivateRepos {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.runWorkflowsFromForkPullRequests) else {
-            throw SdkValidationError(field: "run_workflows_from_fork_pull_requests", code: "required", message: "Validation failed for 'run_workflows_from_fork_pull_requests': value is required")
-        }
-        guard container.contains(.sendWriteTokensToWorkflows) else {
-            throw SdkValidationError(field: "send_write_tokens_to_workflows", code: "required", message: "Validation failed for 'send_write_tokens_to_workflows': value is required")
-        }
-        guard container.contains(.sendSecretsAndVariables) else {
-            throw SdkValidationError(field: "send_secrets_and_variables", code: "required", message: "Validation failed for 'send_secrets_and_variables': value is required")
-        }
-        guard container.contains(.requireApprovalForForkPrWorkflows) else {
-            throw SdkValidationError(field: "require_approval_for_fork_pr_workflows", code: "required", message: "Validation failed for 'require_approval_for_fork_pr_workflows': value is required")
-        }
-        self.runWorkflowsFromForkPullRequests = try container.sdkDecodeRequired(.runWorkflowsFromForkPullRequests)
-        self.sendWriteTokensToWorkflows = try container.sdkDecodeRequired(.sendWriteTokensToWorkflows)
-        self.sendSecretsAndVariables = try container.sdkDecodeRequired(.sendSecretsAndVariables)
-        self.requireApprovalForForkPrWorkflows = try container.sdkDecodeRequired(.requireApprovalForForkPrWorkflows)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ActionsForkPrWorkflowsPrivateRepos {
-    public init(runWorkflowsFromForkPullRequests: Bool, sendWriteTokensToWorkflows: Bool, sendSecretsAndVariables: Bool, requireApprovalForForkPrWorkflows: Bool) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.runWorkflowsFromForkPullRequests) else {
+            throw SdkValidationError(
+                field: "run_workflows_from_fork_pull_requests",
+                code: "required",
+                message: "Validation failed for 'run_workflows_from_fork_pull_requests': value is required"
+            )
+        }
+        guard container.contains(.sendWriteTokensToWorkflows) else {
+            throw SdkValidationError(
+                field: "send_write_tokens_to_workflows",
+                code: "required",
+                message: "Validation failed for 'send_write_tokens_to_workflows': value is required"
+            )
+        }
+        guard container.contains(.sendSecretsAndVariables) else {
+            throw SdkValidationError(
+                field: "send_secrets_and_variables",
+                code: "required",
+                message: "Validation failed for 'send_secrets_and_variables': value is required"
+            )
+        }
+        guard container.contains(.requireApprovalForForkPrWorkflows) else {
+            throw SdkValidationError(
+                field: "require_approval_for_fork_pr_workflows",
+                code: "required",
+                message: "Validation failed for 'require_approval_for_fork_pr_workflows': value is required"
+            )
+        }
+        runWorkflowsFromForkPullRequests = try container.sdkDecodeRequired(.runWorkflowsFromForkPullRequests)
+        sendWriteTokensToWorkflows = try container.sdkDecodeRequired(.sendWriteTokensToWorkflows)
+        sendSecretsAndVariables = try container.sdkDecodeRequired(.sendSecretsAndVariables)
+        requireApprovalForForkPrWorkflows = try container.sdkDecodeRequired(.requireApprovalForForkPrWorkflows)
+    }
+}
+
+public extension ActionsForkPrWorkflowsPrivateRepos {
+    init(
+        runWorkflowsFromForkPullRequests: Bool,
+        sendWriteTokensToWorkflows: Bool,
+        sendSecretsAndVariables: Bool,
+        requireApprovalForForkPrWorkflows: Bool
+    ) {
         self.runWorkflowsFromForkPullRequests = runWorkflowsFromForkPullRequests
         self.sendWriteTokensToWorkflows = sendWriteTokensToWorkflows
         self.sendSecretsAndVariables = sendSecretsAndVariables
@@ -545,5 +632,7 @@ public struct ActionsForkPrWorkflowsPrivateReposRequest: Codable {
         case requireApprovalForForkPrWorkflows = "require_approval_for_fork_pr_workflows"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

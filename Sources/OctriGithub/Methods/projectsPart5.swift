@@ -6,16 +6,36 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
-    /// Creates a field in an organization-owned Projects v2 project. Supply either an `issue_field_id`, or the field `name` and `data_type`; single-select fields also require `single_select_options`. A 201 response returns the created field with its identifier, project URL, data type, and timestamps.
+public extension ProjectsMethods {
+    /// Creates a field in an organization-owned Projects v2 project. Supply either an `issue_field_id`, or the field
+    /// `name` and `data_type`; single-select fields also require `single_select_options`. A 201 response returns the
+    /// created field with its identifier, project URL, data type, and timestamps.
     ///
     /// Add a field to an organization-owned project.
     ///
     /// - Parameters:
     /// - projectNumber: The project's number.
     /// - org: The organization name. The name is not case sensitive.
-    public static func projectsAddFieldForOrg(config: ClientConfig, projectNumber: Int, org: String, body: ProjectsAddFieldForOrgRequestBody) async throws -> ProjectsV2Field {
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/fields"].joined(), config: config, rawBody: (try sdkJsonEncoder().encode(body)), decoder: .json, operationId: "projectsAddFieldForOrg")).data
+    static func projectsAddFieldForOrg(
+        config: ClientConfig,
+        projectNumber: Int,
+        org: String,
+        body: ProjectsAddFieldForOrgRequestBody
+    ) async throws -> ProjectsV2Field {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/fields",
+            ].joined(),
+            config: config,
+            rawBody: sdkJsonEncoder().encode(body),
+            decoder: .json,
+            operationId: "projectsAddFieldForOrg"
+        )).data
     }
 
     /// Get a specific field for an organization-owned project.
@@ -24,7 +44,25 @@ extension ProjectsMethods {
     /// - projectNumber: The project's number.
     /// - fieldId: The unique identifier of the field.
     /// - org: The organization name. The name is not case sensitive.
-    public static func projectsGetFieldForOrg(config: ClientConfig, projectNumber: Int, fieldId: Int, org: String) async throws -> ProjectsV2Field {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/fields/", sdkEncodePathSegment(sdkWireString(fieldId))].joined(), config: config, decoder: .json, operationId: "projectsGetFieldForOrg")).data
+    static func projectsGetFieldForOrg(
+        config: ClientConfig,
+        projectNumber: Int,
+        fieldId: Int,
+        org: String
+    ) async throws -> ProjectsV2Field {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/fields/",
+                sdkEncodePathSegment(sdkWireString(fieldId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "projectsGetFieldForOrg"
+        )).data
     }
 }

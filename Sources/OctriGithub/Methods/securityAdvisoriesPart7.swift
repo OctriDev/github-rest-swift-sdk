@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecurityAdvisoriesMethods {
-    public struct SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions: Codable {
+public extension SecurityAdvisoriesMethods {
+    struct SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions: Codable {
         public var owner: String
         public var repo: String
         public var summary: String
@@ -28,7 +28,8 @@ extension SecurityAdvisoriesMethods {
 
     /// Privately report a security vulnerability
     ///
-    /// Report a security vulnerability to the maintainers of the repository. See "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)" for more information about private vulnerability reporting.
+    /// Report a security vulnerability to the maintainers of the repository. See "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)"
+    /// for more information about private vulnerability reporting.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -46,13 +47,29 @@ extension SecurityAdvisoriesMethods {
     ///   advisory. You must choose between setting this field or `severity`.
     /// - startPrivateFork: Whether to create a temporary private fork of the
     ///   repository to collaborate on a fix.
-    public static func securityAdvisoriesCreatePrivateVulnerabilityReport(config: ClientConfig, options: SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions) async throws -> RepositoryAdvisory {
+    static func securityAdvisoriesCreatePrivateVulnerabilityReport(
+        config: ClientConfig,
+        options: SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions
+    ) async throws -> RepositoryAdvisory {
         try validateLength("summary", options.summary, max: 1024)
 
         try validateLength("description", options.description, max: 65535)
 
         let requestBody = SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBody(options: options)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/security-advisories/reports"].joined(), config: config, body: requestBody, decoder: .json, operationId: "securityAdvisoriesCreatePrivateVulnerabilityReport")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/security-advisories/reports",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "securityAdvisoriesCreatePrivateVulnerabilityReport"
+        )).data
     }
 }

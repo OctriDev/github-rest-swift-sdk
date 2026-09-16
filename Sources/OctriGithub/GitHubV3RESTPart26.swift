@@ -9,169 +9,433 @@ public class ProjectsNamespace {
         self.config = config
     }
 
-/// List all projects owned by a specific organization accessible by the authenticated user.
-    public func listForOrg(org: String, q: String?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2] {
-        return try await ProjectsMethods.projectsListForOrg(config: config, org: org, q: q, before: before, after: after, perPage: perPage)
+    /// List all projects owned by a specific organization accessible by the authenticated user.
+    public func listForOrg(
+        org: String,
+        q: String?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2] {
+        try await ProjectsMethods.projectsListForOrg(
+            config: config,
+            org: org,
+            q: q,
+            before: before,
+            after: after,
+            perPage: perPage
+        )
     }
 
-/// Retrieves a specific project owned by an organization. Supply the organization name in `org` and the project's numeric identifier in `project_number`; the organization name is not case sensitive. The response includes the project's ownership, metadata, visibility, lifecycle timestamps, and current state.
+    /// Retrieves a specific project owned by an organization. Supply the organization name in `org` and the project's
+    /// numeric identifier in `project_number`; the organization name is not case sensitive. The response includes the
+    /// project's ownership, metadata, visibility, lifecycle timestamps, and current state.
     ///
     /// Get a specific organization-owned project.
     public func getForOrg(projectNumber: Int, org: String) async throws -> ProjectsV2 {
-        return try await ProjectsMethods.projectsGetForOrg(config: config, projectNumber: projectNumber, org: org)
+        try await ProjectsMethods.projectsGetForOrg(config: config, projectNumber: projectNumber, org: org)
     }
 
-/// Create draft issue item for the specified organization owned project.
-    public func createDraftItemForOrg(org: String, projectNumber: Int, title: String, body: String?) async throws -> ProjectsV2ItemSimple {
-        return try await ProjectsMethods.projectsCreateDraftItemForOrg(config: config, org: org, projectNumber: projectNumber, title: title, body: body)
+    /// Create draft issue item for the specified organization owned project.
+    public func createDraftItemForOrg(
+        org: String,
+        projectNumber: Int,
+        title: String,
+        body: String?
+    ) async throws -> ProjectsV2ItemSimple {
+        try await ProjectsMethods.projectsCreateDraftItemForOrg(
+            config: config,
+            org: org,
+            projectNumber: projectNumber,
+            title: title,
+            body: body
+        )
     }
 
-/// List all fields for a specific organization-owned project.
-    public func listFieldsForOrg(projectNumber: Int, org: String, perPage: Int?, before: String?, after: String?) async throws -> [ProjectsV2Field] {
-        return try await ProjectsMethods.projectsListFieldsForOrg(config: config, projectNumber: projectNumber, org: org, perPage: perPage, before: before, after: after)
+    /// List all fields for a specific organization-owned project.
+    public func listFieldsForOrg(
+        projectNumber: Int,
+        org: String,
+        perPage: Int?,
+        before: String?,
+        after: String?
+    ) async throws -> [ProjectsV2Field] {
+        try await ProjectsMethods.projectsListFieldsForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            perPage: perPage,
+            before: before,
+            after: after
+        )
     }
 
-/// Creates a field in an organization-owned Projects v2 project. Supply either an `issue_field_id`, or the field `name` and `data_type`; single-select fields also require `single_select_options`. A 201 response returns the created field with its identifier, project URL, data type, and timestamps.
+    /// Creates a field in an organization-owned Projects v2 project. Supply either an `issue_field_id`, or the field
+    /// `name` and `data_type`; single-select fields also require `single_select_options`. A 201 response returns the
+    /// created field with its identifier, project URL, data type, and timestamps.
     ///
     /// Add a field to an organization-owned project.
-    public func addFieldForOrg(projectNumber: Int, org: String, body: ProjectsAddFieldForOrgRequestBody) async throws -> ProjectsV2Field {
-        return try await ProjectsMethods.projectsAddFieldForOrg(config: config, projectNumber: projectNumber, org: org, body: body)
+    public func addFieldForOrg(
+        projectNumber: Int,
+        org: String,
+        body: ProjectsAddFieldForOrgRequestBody
+    ) async throws -> ProjectsV2Field {
+        try await ProjectsMethods.projectsAddFieldForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            body: body
+        )
     }
 
-/// Get a specific field for an organization-owned project.
+    /// Get a specific field for an organization-owned project.
     public func getFieldForOrg(projectNumber: Int, fieldId: Int, org: String) async throws -> ProjectsV2Field {
-        return try await ProjectsMethods.projectsGetFieldForOrg(config: config, projectNumber: projectNumber, fieldId: fieldId, org: org)
+        try await ProjectsMethods.projectsGetFieldForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            fieldId: fieldId,
+            org: org
+        )
     }
 
-/// List all items for a specific organization-owned project accessible by the authenticated user.
-    public func listItemsForOrg(projectNumber: Int, org: String, q: String?, fields: ProjectsListItemsForOrgParameter?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2ItemWithContent] {
-        return try await ProjectsMethods.projectsListItemsForOrg(config: config, projectNumber: projectNumber, org: org, q: q, fields: fields, before: before, after: after, perPage: perPage)
+    /// List all items for a specific organization-owned project accessible by the authenticated user.
+    public func listItemsForOrg(
+        projectNumber: Int,
+        org: String,
+        q: String?,
+        fields: ProjectsListItemsForOrgParameter?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await ProjectsMethods.projectsListItemsForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            q: q,
+            fields: fields,
+            before: before,
+            after: after,
+            perPage: perPage
+        )
     }
 
-/// Add an issue or pull request item to the specified organization owned project.
-    public func addItemForOrg(org: String, projectNumber: Int, type: ProjectsAddItemForOrgRequestBodyType, id: Int?, owner: String?, repo: String?, number: Int?) async throws -> ProjectsV2ItemSimple {
-        return try await ProjectsMethods.projectsAddItemForOrg(config: config, org: org, projectNumber: projectNumber, type: type, id: id, owner: owner, repo: repo, number: number)
+    /// Add an issue or pull request item to the specified organization owned project.
+    public func addItemForOrg(
+        org: String,
+        projectNumber: Int,
+        type: ProjectsAddItemForOrgRequestBodyType,
+        id: Int?,
+        owner: String?,
+        repo: String?,
+        number: Int?
+    ) async throws -> ProjectsV2ItemSimple {
+        try await ProjectsMethods.projectsAddItemForOrg(
+            config: config,
+            org: org,
+            projectNumber: projectNumber,
+            type: type,
+            id: id,
+            owner: owner,
+            repo: repo,
+            number: number
+        )
     }
 }
 
 public extension ProjectsNamespace {
-/// Get a specific item from an organization-owned project.
-    public func getOrgItem(projectNumber: Int, org: String, itemId: Int, fields: ProjectsGetOrgItemParameter?) async throws -> ProjectsV2ItemWithContent {
-        return try await ProjectsMethods.projectsGetOrgItem(config: config, projectNumber: projectNumber, org: org, itemId: itemId, fields: fields)
+    /// Get a specific item from an organization-owned project.
+    func getOrgItem(
+        projectNumber: Int,
+        org: String,
+        itemId: Int,
+        fields: ProjectsGetOrgItemParameter?
+    ) async throws -> ProjectsV2ItemWithContent {
+        try await ProjectsMethods.projectsGetOrgItem(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            itemId: itemId,
+            fields: fields
+        )
     }
 
-/// Update a specific item in an organization-owned project.
-    public func updateItemForOrg(projectNumber: Int, org: String, itemId: Int, fields: [ProjectsUpdateItemForOrgRequestBodyFieldsItem]) async throws -> ProjectsV2ItemWithContent {
-        return try await ProjectsMethods.projectsUpdateItemForOrg(config: config, projectNumber: projectNumber, org: org, itemId: itemId, fields: fields)
+    /// Update a specific item in an organization-owned project.
+    func updateItemForOrg(
+        projectNumber: Int,
+        org: String,
+        itemId: Int,
+        fields: [ProjectsUpdateItemForOrgRequestBodyFieldsItem]
+    ) async throws -> ProjectsV2ItemWithContent {
+        try await ProjectsMethods.projectsUpdateItemForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            itemId: itemId,
+            fields: fields
+        )
     }
 
-/// Delete a specific item from an organization-owned project.
-    public func deleteItemForOrg(projectNumber: Int, org: String, itemId: Int) async throws -> SdkEmptyResponse {
-        return try await ProjectsMethods.projectsDeleteItemForOrg(config: config, projectNumber: projectNumber, org: org, itemId: itemId)
+    /// Delete a specific item from an organization-owned project.
+    func deleteItemForOrg(projectNumber: Int, org: String, itemId: Int) async throws -> SdkEmptyResponse {
+        try await ProjectsMethods.projectsDeleteItemForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            itemId: itemId
+        )
     }
 
-/// Create a new view in an organization-owned project. Views allow you to customize how items in a project are displayed and filtered.
-    public func createViewForOrg(options: ProjectsMethods.ProjectsCreateViewForOrgOptions) async throws -> ProjectsV2View {
-        return try await ProjectsMethods.projectsCreateViewForOrg(config: config, options: options)
+    /// Create a new view in an organization-owned project. Views allow you to customize how items in a project are
+    /// displayed and filtered.
+    func createViewForOrg(options: ProjectsMethods.ProjectsCreateViewForOrgOptions) async throws -> ProjectsV2View {
+        try await ProjectsMethods.projectsCreateViewForOrg(config: config, options: options)
     }
 
-/// List items in an organization project with the saved view's filter applied.
-    public func listViewItemsForOrg(projectNumber: Int, org: String, viewNumber: Int, fields: ProjectsListViewItemsForOrgParameter?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2ItemWithContent] {
-        return try await ProjectsMethods.projectsListViewItemsForOrg(config: config, projectNumber: projectNumber, org: org, viewNumber: viewNumber, fields: fields, before: before, after: after, perPage: perPage)
+    /// List items in an organization project with the saved view's filter applied.
+    func listViewItemsForOrg(
+        projectNumber: Int,
+        org: String,
+        viewNumber: Int,
+        fields: ProjectsListViewItemsForOrgParameter?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await ProjectsMethods.projectsListViewItemsForOrg(
+            config: config,
+            projectNumber: projectNumber,
+            org: org,
+            viewNumber: viewNumber,
+            fields: fields,
+            before: before,
+            after: after,
+            perPage: perPage
+        )
     }
 
-/// Create draft item for user owned project
+    /// Create draft item for user owned project
     ///
     /// Create draft issue item for the specified user owned project.
-    public func createDraftItemForAuthenticatedUser(userId: String, projectNumber: Int, title: String, body: String?) async throws -> ProjectsV2ItemSimple {
-        return try await ProjectsMethods.projectsCreateDraftItemForAuthenticatedUser(config: config, userId: userId, projectNumber: projectNumber, title: title, body: body)
+    func createDraftItemForAuthenticatedUser(
+        userId: String,
+        projectNumber: Int,
+        title: String,
+        body: String?
+    ) async throws -> ProjectsV2ItemSimple {
+        try await ProjectsMethods.projectsCreateDraftItemForAuthenticatedUser(
+            config: config,
+            userId: userId,
+            projectNumber: projectNumber,
+            title: title,
+            body: body
+        )
     }
 
-/// Create a view for a user-owned project
+    /// Create a view for a user-owned project
     ///
-    /// Create a new view in a user-owned project. Views allow you to customize how items in a project are displayed and filtered.
-    public func createViewForUser(options: ProjectsMethods.ProjectsCreateViewForUserOptions) async throws -> ProjectsV2View {
-        return try await ProjectsMethods.projectsCreateViewForUser(config: config, options: options)
+    /// Create a new view in a user-owned project. Views allow you to customize how items in a project are displayed and
+    /// filtered.
+    func createViewForUser(options: ProjectsMethods.ProjectsCreateViewForUserOptions) async throws -> ProjectsV2View {
+        try await ProjectsMethods.projectsCreateViewForUser(config: config, options: options)
     }
 
-/// List projects for user
+    /// List projects for user
     ///
     /// List all projects owned by a specific user accessible by the authenticated user.
-    public func listForUser(username: String, q: String?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2] {
-        return try await ProjectsMethods.projectsListForUser(config: config, username: username, q: q, before: before, after: after, perPage: perPage)
+    func listForUser(
+        username: String,
+        q: String?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2] {
+        try await ProjectsMethods.projectsListForUser(
+            config: config,
+            username: username,
+            q: q,
+            before: before,
+            after: after,
+            perPage: perPage
+        )
     }
 }
 
 public extension ProjectsNamespace {
-/// Get project for user
+    /// Get project for user
     ///
     /// Get a specific user-owned project.
-    public func getForUser(projectNumber: Int, username: String) async throws -> ProjectsV2 {
-        return try await ProjectsMethods.projectsGetForUser(config: config, projectNumber: projectNumber, username: username)
+    func getForUser(projectNumber: Int, username: String) async throws -> ProjectsV2 {
+        try await ProjectsMethods.projectsGetForUser(config: config, projectNumber: projectNumber, username: username)
     }
 
-/// List project fields for user
+    /// List project fields for user
     ///
     /// List all fields for a specific user-owned project.
-    public func listFieldsForUser(projectNumber: Int, username: String, perPage: Int?, before: String?, after: String?) async throws -> [ProjectsV2Field] {
-        return try await ProjectsMethods.projectsListFieldsForUser(config: config, projectNumber: projectNumber, username: username, perPage: perPage, before: before, after: after)
+    func listFieldsForUser(
+        projectNumber: Int,
+        username: String,
+        perPage: Int?,
+        before: String?,
+        after: String?
+    ) async throws -> [ProjectsV2Field] {
+        try await ProjectsMethods.projectsListFieldsForUser(
+            config: config,
+            projectNumber: projectNumber,
+            username: username,
+            perPage: perPage,
+            before: before,
+            after: after
+        )
     }
 
-/// Add field to user owned project
+    /// Add field to user owned project
     ///
     /// Add a field to a specified user owned project.
-    public func addFieldForUser(username: String, projectNumber: Int, body: ProjectsAddFieldForUserRequestBody) async throws -> ProjectsV2Field {
-        return try await ProjectsMethods.projectsAddFieldForUser(config: config, username: username, projectNumber: projectNumber, body: body)
+    func addFieldForUser(
+        username: String,
+        projectNumber: Int,
+        body: ProjectsAddFieldForUserRequestBody
+    ) async throws -> ProjectsV2Field {
+        try await ProjectsMethods.projectsAddFieldForUser(
+            config: config,
+            username: username,
+            projectNumber: projectNumber,
+            body: body
+        )
     }
 
-/// Get project field for user
+    /// Get project field for user
     ///
     /// Get a specific field for a user-owned project.
-    public func getFieldForUser(projectNumber: Int, fieldId: Int, username: String) async throws -> ProjectsV2Field {
-        return try await ProjectsMethods.projectsGetFieldForUser(config: config, projectNumber: projectNumber, fieldId: fieldId, username: username)
+    func getFieldForUser(projectNumber: Int, fieldId: Int, username: String) async throws -> ProjectsV2Field {
+        try await ProjectsMethods.projectsGetFieldForUser(
+            config: config,
+            projectNumber: projectNumber,
+            fieldId: fieldId,
+            username: username
+        )
     }
 
-/// List items for a user owned project
+    /// List items for a user owned project
     ///
     /// List all items for a specific user-owned project accessible by the authenticated user.
-    public func listItemsForUser(projectNumber: Int, username: String, before: String?, after: String?, perPage: Int?, q: String?, fields: ProjectsListItemsForUserParameter?) async throws -> [ProjectsV2ItemWithContent] {
-        return try await ProjectsMethods.projectsListItemsForUser(config: config, projectNumber: projectNumber, username: username, before: before, after: after, perPage: perPage, q: q, fields: fields)
+    func listItemsForUser(
+        projectNumber: Int,
+        username: String,
+        before: String?,
+        after: String?,
+        perPage: Int?,
+        q: String?,
+        fields: ProjectsListItemsForUserParameter?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await ProjectsMethods.projectsListItemsForUser(
+            config: config,
+            projectNumber: projectNumber,
+            username: username,
+            before: before,
+            after: after,
+            perPage: perPage,
+            q: q,
+            fields: fields
+        )
     }
 
-/// Add item to user owned project
+    /// Add item to user owned project
     ///
     /// Add an issue or pull request item to the specified user owned project.
-    public func addItemForUser(username: String, projectNumber: Int, type: ProjectsAddItemForUserRequestBodyType, id: Int?, owner: String?, repo: String?, number: Int?) async throws -> ProjectsV2ItemSimple {
-        return try await ProjectsMethods.projectsAddItemForUser(config: config, username: username, projectNumber: projectNumber, type: type, id: id, owner: owner, repo: repo, number: number)
+    func addItemForUser(
+        username: String,
+        projectNumber: Int,
+        type: ProjectsAddItemForUserRequestBodyType,
+        id: Int?,
+        owner: String?,
+        repo: String?,
+        number: Int?
+    ) async throws -> ProjectsV2ItemSimple {
+        try await ProjectsMethods.projectsAddItemForUser(
+            config: config,
+            username: username,
+            projectNumber: projectNumber,
+            type: type,
+            id: id,
+            owner: owner,
+            repo: repo,
+            number: number
+        )
     }
 
-/// Get an item for a user owned project
+    /// Get an item for a user owned project
     ///
     /// Get a specific item from a user-owned project.
-    public func getUserItem(projectNumber: Int, username: String, itemId: Int, fields: ProjectsGetUserItemParameter?) async throws -> ProjectsV2ItemWithContent {
-        return try await ProjectsMethods.projectsGetUserItem(config: config, projectNumber: projectNumber, username: username, itemId: itemId, fields: fields)
+    func getUserItem(
+        projectNumber: Int,
+        username: String,
+        itemId: Int,
+        fields: ProjectsGetUserItemParameter?
+    ) async throws -> ProjectsV2ItemWithContent {
+        try await ProjectsMethods.projectsGetUserItem(
+            config: config,
+            projectNumber: projectNumber,
+            username: username,
+            itemId: itemId,
+            fields: fields
+        )
     }
 
-/// Update project item for user
+    /// Update project item for user
     ///
     /// Update a specific item in a user-owned project.
-    public func updateItemForUser(projectNumber: Int, username: String, itemId: Int, fields: [ProjectsUpdateItemForUserRequestBodyFieldsItem]) async throws -> ProjectsV2ItemWithContent {
-        return try await ProjectsMethods.projectsUpdateItemForUser(config: config, projectNumber: projectNumber, username: username, itemId: itemId, fields: fields)
+    func updateItemForUser(
+        projectNumber: Int,
+        username: String,
+        itemId: Int,
+        fields: [ProjectsUpdateItemForUserRequestBodyFieldsItem]
+    ) async throws -> ProjectsV2ItemWithContent {
+        try await ProjectsMethods.projectsUpdateItemForUser(
+            config: config,
+            projectNumber: projectNumber,
+            username: username,
+            itemId: itemId,
+            fields: fields
+        )
     }
 }
 
 public extension ProjectsNamespace {
-/// Delete project item for user
+    /// Delete project item for user
     ///
     /// Delete a specific item from a user-owned project.
-    public func deleteItemForUser(projectNumber: Int, username: String, itemId: Int) async throws -> SdkEmptyResponse {
-        return try await ProjectsMethods.projectsDeleteItemForUser(config: config, projectNumber: projectNumber, username: username, itemId: itemId)
+    func deleteItemForUser(projectNumber: Int, username: String, itemId: Int) async throws -> SdkEmptyResponse {
+        try await ProjectsMethods.projectsDeleteItemForUser(
+            config: config,
+            projectNumber: projectNumber,
+            username: username,
+            itemId: itemId
+        )
     }
 
-/// List items for a user project view
+    /// List items for a user project view
     ///
     /// List items in a user project with the saved view's filter applied.
-    public func listViewItemsForUser(projectNumber: Int, username: String, viewNumber: Int, fields: ProjectsListViewItemsForUserParameter?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2ItemWithContent] {
-        return try await ProjectsMethods.projectsListViewItemsForUser(config: config, projectNumber: projectNumber, username: username, viewNumber: viewNumber, fields: fields, before: before, after: after, perPage: perPage)
+    func listViewItemsForUser(
+        projectNumber: Int,
+        username: String,
+        viewNumber: Int,
+        fields: ProjectsListViewItemsForUserParameter?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await ProjectsMethods.projectsListViewItemsForUser(
+            config: config,
+            projectNumber: projectNumber,
+            username: username,
+            viewNumber: viewNumber,
+            fields: fields,
+            before: before,
+            after: after,
+            perPage: perPage
+        )
     }
 }

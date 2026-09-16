@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists all rulesets that apply to a repository. Use `includes_parents` to include rulesets configured at higher levels and `targets` to filter by rule target. Use `page` and `per_page` to paginate the results.
+public extension ReposMethods {
+    /// Lists all rulesets that apply to a repository. Use `includes_parents` to include rulesets configured at higher
+    /// levels and `targets` to filter by rule target. Use `page` and `per_page` to paginate the results.
     ///
     /// Get all the rulesets for a repository.
     ///
@@ -29,12 +30,33 @@ extension ReposMethods {
     /// - targets: A comma-separated list of rule targets to filter by. If provided,
     ///   only rulesets that apply to the specified targets will be returned. For
     ///   example, `branch,tag,push`.
-    public static func reposGetRepoRulesets(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?, includesParents: Bool?, targets: String?) async throws -> [RepositoryRuleset] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rulesets"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("includes_parents", value: includesParents),
-            SdkQueryParameter("targets", value: targets),
-        ], decoder: .json, operationId: "reposGetRepoRulesets")).data
+    static func reposGetRepoRulesets(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?,
+        includesParents: Bool?,
+        targets: String?
+    ) async throws -> [RepositoryRuleset] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/rulesets",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("includes_parents", value: includesParents),
+                SdkQueryParameter("targets", value: targets),
+            ],
+            decoder: .json,
+            operationId: "reposGetRepoRulesets"
+        )).data
     }
 }

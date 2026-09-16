@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Gets an enabled custom deployment protection rule for an environment. Anyone with read access to the repository can use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)." For more information about the app that is providing this custom deployment rule, see [`GET /apps/{app_slug}`](https://docs.github.com/rest/apps/apps#get-an-app). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+public extension ReposMethods {
+    /// Gets an enabled custom deployment protection rule for an environment. Anyone with read access to the repository
+    /// can use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+    /// For more information about the app that is providing this custom deployment rule, see [`GET
+    /// /apps/{app_slug}`](https://docs.github.com/rest/apps/apps#get-an-app). OAuth app tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,11 +21,34 @@ extension ReposMethods {
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - protectionRuleId: The unique identifier of the protection rule.
-    public static func reposGetCustomDeploymentProtectionRule(config: ClientConfig, owner: String, repo: String, environmentName: String, protectionRuleId: Int) async throws -> DeploymentProtectionRule {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment_protection_rules/", sdkEncodePathSegment(sdkWireString(protectionRuleId))].joined(), config: config, decoder: .json, operationId: "reposGetCustomDeploymentProtectionRule")).data
+    static func reposGetCustomDeploymentProtectionRule(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        environmentName: String,
+        protectionRuleId: Int
+    ) async throws -> DeploymentProtectionRule {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/deployment_protection_rules/",
+                sdkEncodePathSegment(sdkWireString(protectionRuleId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetCustomDeploymentProtectionRule"
+        )).data
     }
 
-    /// Disables a custom deployment protection rule for an environment. The authenticated user must have admin or owner permissions to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Disables a custom deployment protection rule for an environment. The authenticated user must have admin or owner
+    /// permissions to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need
+    /// the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - environmentName: The name of the environment. The name must be URL
@@ -31,7 +58,28 @@ extension ReposMethods {
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - protectionRuleId: The unique identifier of the protection rule.
-    public static func reposDisableDeploymentProtectionRule(config: ClientConfig, environmentName: String, repo: String, owner: String, protectionRuleId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment_protection_rules/", sdkEncodePathSegment(sdkWireString(protectionRuleId))].joined(), config: config, decoder: .empty, operationId: "reposDisableDeploymentProtectionRule")).data
+    static func reposDisableDeploymentProtectionRule(
+        config: ClientConfig,
+        environmentName: String,
+        repo: String,
+        owner: String,
+        protectionRuleId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/deployment_protection_rules/",
+                sdkEncodePathSegment(sdkWireString(protectionRuleId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDisableDeploymentProtectionRule"
+        )).data
     }
 }

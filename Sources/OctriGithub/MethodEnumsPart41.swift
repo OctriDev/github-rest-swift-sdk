@@ -9,17 +9,21 @@ import Foundation
 /// Specifies whether this release should be set as the latest release for the repository. Drafts and
 /// prereleases cannot be set as latest. Defaults to `true` for newly published releases. `legacy` specifies
 /// that the latest release should be determined based on the release creation date and higher semantic version.
-public struct ReposUpdateReleaseRequestBodyMakeLatest: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateReleaseRequestBodyMakeLatest: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `true` = ReposUpdateReleaseRequestBodyMakeLatest(rawValue: "true")
     public static let `false` = ReposUpdateReleaseRequestBodyMakeLatest(rawValue: "false")
     public static let legacy = ReposUpdateReleaseRequestBodyMakeLatest(rawValue: "legacy")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,7 +35,10 @@ public struct ReposUpdateReleaseRequestBodyMakeLatest: RawRepresentable, Hashabl
 public struct ReactionsListForReleaseParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let plus1 = ReactionsListForReleaseParameter(rawValue: "+1")
     public static let laugh = ReactionsListForReleaseParameter(rawValue: "laugh")
     public static let heart = ReactionsListForReleaseParameter(rawValue: "heart")
@@ -41,7 +48,7 @@ public struct ReactionsListForReleaseParameter: RawRepresentable, Hashable, Coda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -51,10 +58,14 @@ public struct ReactionsListForReleaseParameter: RawRepresentable, Hashable, Coda
 }
 
 /// The reaction type to add to the release.
-public struct ReactionsCreateForReleaseRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReactionsCreateForReleaseRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let plus1 = ReactionsCreateForReleaseRequestBodyContent(rawValue: "+1")
     public static let laugh = ReactionsCreateForReleaseRequestBodyContent(rawValue: "laugh")
     public static let heart = ReactionsCreateForReleaseRequestBodyContent(rawValue: "heart")
@@ -64,7 +75,7 @@ public struct ReactionsCreateForReleaseRequestBodyContent: RawRepresentable, Has
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -74,17 +85,21 @@ public struct ReactionsCreateForReleaseRequestBodyContent: RawRepresentable, Has
 }
 
 /// The target of the ruleset
-public struct ReposCreateRepoRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposCreateRepoRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let branch = ReposCreateRepoRulesetRequestBodyTarget(rawValue: "branch")
     public static let tag = ReposCreateRepoRulesetRequestBodyTarget(rawValue: "tag")
     public static let push = ReposCreateRepoRulesetRequestBodyTarget(rawValue: "push")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -94,17 +109,21 @@ public struct ReposCreateRepoRulesetRequestBodyTarget: RawRepresentable, Hashabl
 }
 
 /// The target of the ruleset
-public struct ReposUpdateRepoRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateRepoRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let branch = ReposUpdateRepoRulesetRequestBodyTarget(rawValue: "branch")
     public static let tag = ReposUpdateRepoRulesetRequestBodyTarget(rawValue: "tag")
     public static let push = ReposUpdateRepoRulesetRequestBodyTarget(rawValue: "push")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -115,16 +134,20 @@ public struct ReposUpdateRepoRulesetRequestBodyTarget: RawRepresentable, Hashabl
 
 /// Sets the validity of the secret scanning alert. Can be `active`, `inactive`, or `null` to clear the
 /// override.
-public struct SecretScanningUpdateAlertRequestBodyValidity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecretScanningUpdateAlertRequestBodyValidity: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let active = SecretScanningUpdateAlertRequestBodyValidity(rawValue: "active")
     public static let inactive = SecretScanningUpdateAlertRequestBodyValidity(rawValue: "inactive")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -135,16 +158,23 @@ public struct SecretScanningUpdateAlertRequestBodyValidity: RawRepresentable, Ha
 
 /// What to do with alerts associated with the deleted patterns. `delete_alerts` permanently removes the alerts.
 /// `resolve_alerts` resolves the alerts as "pattern deleted". Defaults to `delete_alerts` when not specified.
-public struct SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction: RawRepresentable, Hashable,
+    Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let deleteAlerts = SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction(rawValue: "delete_alerts")
-    public static let resolveAlerts = SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction(rawValue: "resolve_alerts")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let deleteAlerts =
+        SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction(rawValue: "delete_alerts")
+    public static let resolveAlerts =
+        SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction(rawValue: "resolve_alerts")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -153,17 +183,21 @@ public struct SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAct
     }
 }
 
-public struct SecurityAdvisoriesListRepositoryAdvisoriesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListRepositoryAdvisoriesParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = SecurityAdvisoriesListRepositoryAdvisoriesParameter(rawValue: "created")
     public static let updated = SecurityAdvisoriesListRepositoryAdvisoriesParameter(rawValue: "updated")
     public static let published = SecurityAdvisoriesListRepositoryAdvisoriesParameter(rawValue: "published")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -172,10 +206,14 @@ public struct SecurityAdvisoriesListRepositoryAdvisoriesParameter: RawRepresenta
     }
 }
 
-public struct SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let triage = SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661(rawValue: "triage")
     public static let draft = SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661(rawValue: "draft")
     public static let published = SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661(rawValue: "published")
@@ -183,7 +221,7 @@ public struct SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661: RawR
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -193,10 +231,14 @@ public struct SecurityAdvisoriesListRepositoryAdvisoriesParameterXb40a7661: RawR
 }
 
 /// The state of the status.
-public struct ReposCreateCommitStatusRequestBodyState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposCreateCommitStatusRequestBodyState: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let error = ReposCreateCommitStatusRequestBodyState(rawValue: "error")
     public static let failure = ReposCreateCommitStatusRequestBodyState(rawValue: "failure")
     public static let pending = ReposCreateCommitStatusRequestBodyState(rawValue: "pending")
@@ -204,7 +246,7 @@ public struct ReposCreateCommitStatusRequestBodyState: RawRepresentable, Hashabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

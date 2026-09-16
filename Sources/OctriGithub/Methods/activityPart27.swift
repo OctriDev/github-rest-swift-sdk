@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
+public extension ActivityMethods {
     /// List repositories watched by a user
     ///
     /// Lists repositories a user is watching.
@@ -21,10 +21,22 @@ extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func activityListReposWatchedByUser(config: ClientConfig, username: String, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/subscriptions"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "activityListReposWatchedByUser")).data
+    static func activityListReposWatchedByUser(
+        config: ClientConfig,
+        username: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [MinimalRepository] {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/subscriptions"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "activityListReposWatchedByUser"
+        )).data
     }
 }

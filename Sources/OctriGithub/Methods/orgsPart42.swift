@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Updates an issue type for an organization. You can find out more about issue types in [Managing issue types in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension OrgsMethods {
+    /// Updates an issue type for an organization. You can find out more about issue types in [Managing issue types in
+    /// an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization).
+    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -17,18 +20,61 @@ extension OrgsMethods {
     ///   level.
     /// - description: Description of the issue type.
     /// - color: Color for the issue type.
-    public static func orgsUpdateIssueType(config: ClientConfig, org: String, issueTypeId: Int, name: String, isEnabled: Bool, description: SdkOptional<String>?, color: SdkOptional<OrganizationUpdateIssueTypeColor>?) async throws -> IssueType {
-        let requestBody = OrgsUpdateIssueTypeRequestBody(name: name, isEnabled: isEnabled, description: description, color: color)
+    static func orgsUpdateIssueType(
+        config: ClientConfig,
+        org: String,
+        issueTypeId: Int,
+        name: String,
+        isEnabled: Bool,
+        description: SdkOptional<String>?,
+        color: SdkOptional<OrganizationUpdateIssueTypeColor>?
+    ) async throws -> IssueType {
+        let requestBody = OrgsUpdateIssueTypeRequestBody(
+            name: name,
+            isEnabled: isEnabled,
+            description: description,
+            color: color
+        )
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-types/", sdkEncodePathSegment(sdkWireString(issueTypeId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdateIssueType")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/issue-types/",
+                sdkEncodePathSegment(sdkWireString(issueTypeId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsUpdateIssueType"
+        )).data
     }
 
-    /// Deletes an issue type for an organization. You can find out more about issue types in [Managing issue types in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Deletes an issue type for an organization. You can find out more about issue types in [Managing issue types in
+    /// an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization).
+    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - issueTypeId: The unique identifier of the issue type.
-    public static func orgsDeleteIssueType(config: ClientConfig, org: String, issueTypeId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-types/", sdkEncodePathSegment(sdkWireString(issueTypeId))].joined(), config: config, decoder: .empty, operationId: "orgsDeleteIssueType")).data
+    static func orgsDeleteIssueType(
+        config: ClientConfig,
+        org: String,
+        issueTypeId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/issue-types/",
+                sdkEncodePathSegment(sdkWireString(issueTypeId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsDeleteIssueType"
+        )).data
     }
 }

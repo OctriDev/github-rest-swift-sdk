@@ -3,9 +3,18 @@
 
 import Foundation
 
-// SharedIssue domain models
+/// SharedIssue domain models
 public extension IssueType {
-    public init(id: Int, nodeId: String, name: String, description: String?, color: IssueTypeColor? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, isEnabled: Bool? = nil) throws {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        description: String?,
+        color: IssueTypeColor? = nil,
+        createdAt: Date? = nil,
+        updatedAt: Date? = nil,
+        isEnabled: Bool? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.description) = (name, description)
         (self.color, self.createdAt) = (color, createdAt)
@@ -23,7 +32,10 @@ public extension IssueType {
 public struct IssueTypeColor: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let gray = IssueTypeColor(rawValue: "gray")
     public static let blue = IssueTypeColor(rawValue: "blue")
     public static let green = IssueTypeColor(rawValue: "green")
@@ -35,7 +47,7 @@ public struct IssueTypeColor: RawRepresentable, Hashable, Codable, Sendable, Sdk
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -48,7 +60,10 @@ public struct IssueTypeColor: RawRepresentable, Hashable, Codable, Sendable, Sdk
 public struct IssueStateReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let completed = IssueStateReason(rawValue: "completed")
     public static let reopened = IssueStateReason(rawValue: "reopened")
     public static let notPlanned = IssueStateReason(rawValue: "not_planned")
@@ -56,7 +71,7 @@ public struct IssueStateReason: RawRepresentable, Hashable, Codable, Sendable, S
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -69,7 +84,10 @@ public struct IssueStateReason: RawRepresentable, Hashable, Codable, Sendable, S
 public struct IssueFieldValueDataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let text = IssueFieldValueDataType(rawValue: "text")
     public static let singleSelect = IssueFieldValueDataType(rawValue: "single_select")
     public static let multiSelect = IssueFieldValueDataType(rawValue: "multi_select")
@@ -78,7 +96,7 @@ public struct IssueFieldValueDataType: RawRepresentable, Hashable, Codable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

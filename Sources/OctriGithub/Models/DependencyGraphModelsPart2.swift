@@ -3,7 +3,7 @@
 
 import Foundation
 
-// DependencyGraph domain models
+/// DependencyGraph domain models
 /// Typed representation of the `Manifest` API schema.
 public struct Manifest: Codable {
     /// The name of the manifest.
@@ -23,24 +23,30 @@ public struct Manifest: Codable {
         case resolved
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension Manifest {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.file = try container.sdkDecodeIfPresent(.file)
-        self.metadata = try container.sdkDecodeIfPresent(.metadata)
-        self.resolved = try container.sdkDecodeIfPresent(.resolved)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension Manifest {
-    public init(name: String, file: ManifestFile? = nil, metadata: Metadata? = nil, resolved: [String: Dependency]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        file = try container.sdkDecodeIfPresent(.file)
+        metadata = try container.sdkDecodeIfPresent(.metadata)
+        resolved = try container.sdkDecodeIfPresent(.resolved)
+    }
+}
+
+public extension Manifest {
+    init(name: String, file: ManifestFile? = nil, metadata: Metadata? = nil, resolved: [String: Dependency]? = nil) {
         (self.name, self.file) = (name, file)
         (self.metadata, self.resolved) = (metadata, resolved)
     }
@@ -57,19 +63,19 @@ public struct ManifestFile: Codable {
     }
 
     init() {
-        self.sourceLocation = nil
+        sourceLocation = nil
     }
 }
 
 public extension ManifestFile {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceLocation = try container.sdkDecodeIfPresent(.sourceLocation)
+        sourceLocation = try container.sdkDecodeIfPresent(.sourceLocation)
     }
 }
 
 public extension ManifestFile {
-    public init(sourceLocation: String? = nil) {
+    init(sourceLocation: String? = nil) {
         self.init()
         self.sourceLocation = sourceLocation
     }
@@ -82,22 +88,31 @@ public enum MetadataValue {
 }
 
 extension MetadataValue: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
         throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for MetadataValue")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode(Double.self) { return .doubleValue(value) }
-        if let value = try? container.decode(Bool.self) { return .boolValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode(Double.self) {
+            return .doubleValue(value)
+        }
+        if let value = try? container.decode(Bool.self) {
+            return .boolValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -108,7 +123,6 @@ extension MetadataValue: Codable {
         case let .boolValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Create a new snapshot of a repository's dependencies.
@@ -145,53 +159,88 @@ public struct Snapshot: Codable {
         case manifests
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension Snapshot {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.version) else {
-            throw SdkValidationError(field: "version", code: "required", message: "Validation failed for 'version': value is required")
-        }
-        guard container.contains(.job) else {
-            throw SdkValidationError(field: "job", code: "required", message: "Validation failed for 'job': value is required")
-        }
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.detector) else {
-            throw SdkValidationError(field: "detector", code: "required", message: "Validation failed for 'detector': value is required")
-        }
-        guard container.contains(.scanned) else {
-            throw SdkValidationError(field: "scanned", code: "required", message: "Validation failed for 'scanned': value is required")
-        }
-        self.version = try container.sdkDecodeRequired(.version)
-        self.job = try container.sdkDecodeRequired(.job)
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.detector = try container.sdkDecodeRequired(.detector)
-        self.scanned = try container.sdkDecodeRequired(.scanned)
-        self.metadata = try container.sdkDecodeIfPresent(.metadata)
-        self.manifests = try container.sdkDecodeIfPresent(.manifests)
-            try validateLength("sha", self.sha, min: 40, max: 64)
-            try sdkValidatePattern("ref", self.ref, sdkPattern4ca596ae636f)
-            try sdkValidateDateTime("scanned", sdkWireString(self.scanned))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension Snapshot {
-    public init(version: Int, job: SnapshotJob, sha: String, ref: String, detector: SnapshotDetector, scanned: Date, metadata: Metadata? = nil, manifests: [String: Manifest]? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.version) else {
+            throw SdkValidationError(
+                field: "version",
+                code: "required",
+                message: "Validation failed for 'version': value is required"
+            )
+        }
+        guard container.contains(.job) else {
+            throw SdkValidationError(
+                field: "job",
+                code: "required",
+                message: "Validation failed for 'job': value is required"
+            )
+        }
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.detector) else {
+            throw SdkValidationError(
+                field: "detector",
+                code: "required",
+                message: "Validation failed for 'detector': value is required"
+            )
+        }
+        guard container.contains(.scanned) else {
+            throw SdkValidationError(
+                field: "scanned",
+                code: "required",
+                message: "Validation failed for 'scanned': value is required"
+            )
+        }
+        version = try container.sdkDecodeRequired(.version)
+        job = try container.sdkDecodeRequired(.job)
+        sha = try container.sdkDecodeRequired(.sha)
+        ref = try container.sdkDecodeRequired(.ref)
+        detector = try container.sdkDecodeRequired(.detector)
+        scanned = try container.sdkDecodeRequired(.scanned)
+        metadata = try container.sdkDecodeIfPresent(.metadata)
+        manifests = try container.sdkDecodeIfPresent(.manifests)
+        try validateLength("sha", sha, min: 40, max: 64)
+        try sdkValidatePattern("ref", ref, sdkPattern4ca596ae636f)
+        try sdkValidateDateTime("scanned", sdkWireString(scanned))
+    }
+}
+
+public extension Snapshot {
+    init(
+        version: Int,
+        job: SnapshotJob,
+        sha: String,
+        ref: String,
+        detector: SnapshotDetector,
+        scanned: Date,
+        metadata: Metadata? = nil,
+        manifests: [String: Manifest]? = nil
+    ) throws {
         (self.version, self.job) = (version, job)
         (self.sha, self.ref) = (sha, ref)
         (self.detector, self.scanned) = (detector, scanned)
         (self.metadata, self.manifests) = (metadata, manifests)
-            try validateLength("sha", self.sha, min: 40, max: 64)
-            try sdkValidatePattern("ref", self.ref, sdkPattern4ca596ae636f)
-            try sdkValidateDateTime("scanned", sdkWireString(self.scanned))
+        try validateLength("sha", self.sha, min: 40, max: 64)
+        try sdkValidatePattern("ref", self.ref, sdkPattern4ca596ae636f)
+        try sdkValidateDateTime("scanned", sdkWireString(self.scanned))
     }
 }
 
@@ -213,29 +262,43 @@ public struct SnapshotDetector: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SnapshotDetector {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.version) else {
-            throw SdkValidationError(field: "version", code: "required", message: "Validation failed for 'version': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.version = try container.sdkDecodeRequired(.version)
-        self.url = try container.sdkDecodeRequired(.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SnapshotDetector {
-    public init(name: String, version: String, url: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.version) else {
+            throw SdkValidationError(
+                field: "version",
+                code: "required",
+                message: "Validation failed for 'version': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        version = try container.sdkDecodeRequired(.version)
+        url = try container.sdkDecodeRequired(.url)
+    }
+}
+
+public extension SnapshotDetector {
+    init(name: String, version: String, url: String) {
         (self.name, self.version) = (name, version)
         self.url = url
     }
@@ -263,26 +326,36 @@ public struct SnapshotJob: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SnapshotJob {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.correlator) else {
-            throw SdkValidationError(field: "correlator", code: "required", message: "Validation failed for 'correlator': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.correlator = try container.sdkDecodeRequired(.correlator)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SnapshotJob {
-    public init(id: String, correlator: String, htmlUrl: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.correlator) else {
+            throw SdkValidationError(
+                field: "correlator",
+                code: "required",
+                message: "Validation failed for 'correlator': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        correlator = try container.sdkDecodeRequired(.correlator)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+    }
+}
+
+public extension SnapshotJob {
+    init(id: String, correlator: String, htmlUrl: String? = nil) {
         (self.id, self.correlator) = (id, correlator)
         self.htmlUrl = htmlUrl
     }
@@ -293,13 +366,16 @@ public extension SnapshotJob {
 public struct DependencyScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let runtime = DependencyScope(rawValue: "runtime")
     public static let development = DependencyScope(rawValue: "development")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -311,13 +387,16 @@ public struct DependencyScope: RawRepresentable, Hashable, Codable, Sendable, Sd
 public struct DependencyGraphDiffItemChangeType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let added = DependencyGraphDiffItemChangeType(rawValue: "added")
     public static let removed = DependencyGraphDiffItemChangeType(rawValue: "removed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -332,14 +411,17 @@ public struct DependencyGraphDiffItemChangeType: RawRepresentable, Hashable, Cod
 public struct DependencyGraphDiffItemScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let unknown = DependencyGraphDiffItemScope(rawValue: "unknown")
     public static let runtime = DependencyGraphDiffItemScope(rawValue: "runtime")
     public static let development = DependencyGraphDiffItemScope(rawValue: "development")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -353,13 +435,16 @@ public struct DependencyGraphDiffItemScope: RawRepresentable, Hashable, Codable,
 public struct DependencyRelationship: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let direct = DependencyRelationship(rawValue: "direct")
     public static let indirect = DependencyRelationship(rawValue: "indirect")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

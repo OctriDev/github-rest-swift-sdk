@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// List any syntax errors that are detected in the CODEOWNERS file. For more information about the correct CODEOWNERS syntax, see "[About code owners](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)."
+public extension ReposMethods {
+    /// List any syntax errors that are detected in the CODEOWNERS file. For more information about the correct
+    /// CODEOWNERS syntax, see "[About code owners](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,9 +18,27 @@ extension ReposMethods {
     /// - ref: A branch, tag or commit name used to determine which version of the
     ///   CODEOWNERS file to use. Default: the repository's default branch (e.g.
     ///   `main`)
-    public static func reposCodeownersErrors(config: ClientConfig, owner: String, repo: String, ref: String?) async throws -> CodeownersErrors {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codeowners/errors"].joined(), config: config, query: [
-            SdkQueryParameter("ref", value: ref),
-        ], decoder: .json, operationId: "reposCodeownersErrors")).data
+    static func reposCodeownersErrors(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String?
+    ) async throws -> CodeownersErrors {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/codeowners/errors",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("ref", value: ref),
+            ],
+            decoder: .json,
+            operationId: "reposCodeownersErrors"
+        )).data
     }
 }

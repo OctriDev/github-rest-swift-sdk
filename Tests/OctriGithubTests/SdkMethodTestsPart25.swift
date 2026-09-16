@@ -165,7 +165,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testIssuesListIssueFieldValuesForIssueIssuesListIssueFieldValuesForIssueReachesMockAndDecodesResponse() async throws {
+    func testIssuesListIssueFieldValuesForIssueIssuesListIssueFieldValuesForIssueReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

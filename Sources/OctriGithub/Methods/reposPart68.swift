@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposCreateOrUpdateFileContentsOptions: Codable {
+public extension ReposMethods {
+    struct ReposCreateOrUpdateFileContentsOptions: Codable {
         public var owner: String
         public var repo: String
         public var path: String
@@ -27,7 +27,11 @@ extension ReposMethods {
         }
     }
 
-    /// Creates a new file or replaces an existing file in a repository. > [!NOTE] > If you use this endpoint and the "[Delete a file](https://docs.github.com/rest/repos/contents/#delete-a-file)" endpoint in parallel, the concurrent requests will conflict and you will receive errors. You must use these endpoints serially instead. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. The `workflow` scope is also required in order to modify files in the `.github/workflows` directory.
+    /// Creates a new file or replaces an existing file in a repository. > [!NOTE] > If you use this endpoint and the
+    /// "[Delete a file](https://docs.github.com/rest/repos/contents/#delete-a-file)" endpoint in parallel, the
+    /// concurrent requests will conflict and you will receive errors. You must use these endpoints serially instead.
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. The `workflow`
+    /// scope is also required in order to modify files in the `.github/workflows` directory.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -44,9 +48,26 @@ extension ReposMethods {
     ///   user.
     /// - author: The author of the file. Default: The `committer` or the
     ///   authenticated user if you omit `committer`.
-    public static func reposCreateOrUpdateFileContents(config: ClientConfig, options: ReposCreateOrUpdateFileContentsOptions) async throws -> FileCommit {
+    static func reposCreateOrUpdateFileContents(
+        config: ClientConfig,
+        options: ReposCreateOrUpdateFileContentsOptions
+    ) async throws -> FileCommit {
         let requestBody = ReposCreateOrUpdateFileContentsRequestBody(options: options)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/contents/", sdkEncodePathSegment(sdkWireString(options.path))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateOrUpdateFileContents")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/contents/",
+                sdkEncodePathSegment(sdkWireString(options.path)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateOrUpdateFileContents"
+        )).data
     }
 }

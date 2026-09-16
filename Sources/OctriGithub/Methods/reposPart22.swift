@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposUpdateBranchProtectionOptions: Codable {
+public extension ReposMethods {
+    struct ReposUpdateBranchProtectionOptions: Codable {
         public var owner: String
         public var repo: String
         public var branch: String
@@ -23,7 +23,15 @@ extension ReposMethods {
         public var lockBranch: Bool?
         public var allowForkSyncing: Bool?
 
-        public init(owner: String, repo: String, branch: String, requiredStatusChecks: ReposUpdateBranchProtectionRequestBodyRequiredStatusChecks?, enforceAdmins: Bool?, requiredPullRequestReviews: ReposUpdateBranchProtectionRequestBodyRequiredPullRequestReviews?, restrictions: ReposUpdateBranchProtectionRequestBodyRestrictions?) {
+        public init(
+            owner: String,
+            repo: String,
+            branch: String,
+            requiredStatusChecks: ReposUpdateBranchProtectionRequestBodyRequiredStatusChecks?,
+            enforceAdmins: Bool?,
+            requiredPullRequestReviews: ReposUpdateBranchProtectionRequestBodyRequiredPullRequestReviews?,
+            restrictions: ReposUpdateBranchProtectionRequestBodyRestrictions?
+        ) {
             self.owner = owner
             self.repo = repo
             self.branch = branch
@@ -34,7 +42,13 @@ extension ReposMethods {
         }
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Protecting a branch requires admin or owner permissions to the repository. > [!NOTE] > Passing new arrays of `users` and `teams` replaces their previous values. > [!NOTE] > The list of users, apps, and teams in total is limited to 100 items.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. Protecting a branch requires admin or owner permissions to the repository. > [!NOTE] > Passing
+    /// new arrays of `users` and `teams` replaces their previous values. > [!NOTE] > The list of users, apps, and teams
+    /// in total is limited to 100 items.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -87,9 +101,27 @@ extension ReposMethods {
     /// - allowForkSyncing: Whether users can pull changes from upstream when the
     ///   branch is locked. Set to `true` to allow fork syncing. Set to `false` to
     ///   prevent fork syncing. Default: `false`.
-    public static func reposUpdateBranchProtection(config: ClientConfig, options: ReposUpdateBranchProtectionOptions) async throws -> ProtectedBranch {
+    static func reposUpdateBranchProtection(
+        config: ClientConfig,
+        options: ReposUpdateBranchProtectionOptions
+    ) async throws -> ProtectedBranch {
         let requestBody = ReposUpdateBranchProtectionRequestBody(options: options)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/branches/", sdkEncodePathSegment(sdkWireString(options.branch)), "/protection"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateBranchProtection")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(options.branch)),
+                "/protection",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposUpdateBranchProtection"
+        )).data
     }
 }

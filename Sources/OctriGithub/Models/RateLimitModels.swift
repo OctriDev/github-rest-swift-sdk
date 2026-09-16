@@ -3,7 +3,7 @@
 
 import Foundation
 
-// RateLimit domain models
+/// RateLimit domain models
 /// Typed representation of the `RateLimit` API schema.
 public struct RateLimit: Codable {
     /// Required `integer` value serialized in the `limit` wire field.
@@ -22,33 +22,51 @@ public struct RateLimit: Codable {
         case used
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RateLimit {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.limit) else {
-            throw SdkValidationError(field: "limit", code: "required", message: "Validation failed for 'limit': value is required")
-        }
-        guard container.contains(.remaining) else {
-            throw SdkValidationError(field: "remaining", code: "required", message: "Validation failed for 'remaining': value is required")
-        }
-        guard container.contains(.reset) else {
-            throw SdkValidationError(field: "reset", code: "required", message: "Validation failed for 'reset': value is required")
-        }
-        guard container.contains(.used) else {
-            throw SdkValidationError(field: "used", code: "required", message: "Validation failed for 'used': value is required")
-        }
-        self.limit = try container.sdkDecodeRequired(.limit)
-        self.remaining = try container.sdkDecodeRequired(.remaining)
-        self.reset = try container.sdkDecodeRequired(.reset)
-        self.used = try container.sdkDecodeRequired(.used)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RateLimit {
-    public init(limit: Int, remaining: Int, reset: Int, used: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.limit) else {
+            throw SdkValidationError(
+                field: "limit",
+                code: "required",
+                message: "Validation failed for 'limit': value is required"
+            )
+        }
+        guard container.contains(.remaining) else {
+            throw SdkValidationError(
+                field: "remaining",
+                code: "required",
+                message: "Validation failed for 'remaining': value is required"
+            )
+        }
+        guard container.contains(.reset) else {
+            throw SdkValidationError(
+                field: "reset",
+                code: "required",
+                message: "Validation failed for 'reset': value is required"
+            )
+        }
+        guard container.contains(.used) else {
+            throw SdkValidationError(
+                field: "used",
+                code: "required",
+                message: "Validation failed for 'used': value is required"
+            )
+        }
+        limit = try container.sdkDecodeRequired(.limit)
+        remaining = try container.sdkDecodeRequired(.remaining)
+        reset = try container.sdkDecodeRequired(.reset)
+        used = try container.sdkDecodeRequired(.used)
+    }
+}
+
+public extension RateLimit {
+    init(limit: Int, remaining: Int, reset: Int, used: Int) {
         (self.limit, self.remaining) = (limit, remaining)
         (self.reset, self.used) = (reset, used)
     }
@@ -66,25 +84,35 @@ public struct RateLimitOverview: Codable {
         case rate
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RateLimitOverview {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.resources) else {
-            throw SdkValidationError(field: "resources", code: "required", message: "Validation failed for 'resources': value is required")
-        }
-        guard container.contains(.rate) else {
-            throw SdkValidationError(field: "rate", code: "required", message: "Validation failed for 'rate': value is required")
-        }
-        self.resources = try container.sdkDecodeRequired(.resources)
-        self.rate = try container.sdkDecodeRequired(.rate)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RateLimitOverview {
-    public init(resources: RateLimitOverviewResources, rate: RateLimit) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.resources) else {
+            throw SdkValidationError(
+                field: "resources",
+                code: "required",
+                message: "Validation failed for 'resources': value is required"
+            )
+        }
+        guard container.contains(.rate) else {
+            throw SdkValidationError(
+                field: "rate",
+                code: "required",
+                message: "Validation failed for 'rate': value is required"
+            )
+        }
+        resources = try container.sdkDecodeRequired(.resources)
+        rate = try container.sdkDecodeRequired(.rate)
+    }
+}
+
+public extension RateLimitOverview {
+    init(resources: RateLimitOverviewResources, rate: RateLimit) {
         (self.resources, self.rate) = (resources, rate)
     }
 }
@@ -131,35 +159,58 @@ public struct RateLimitOverviewResources: Codable {
         case copilotUsageRecords = "copilot_usage_records"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RateLimitOverviewResources {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.core) else {
-            throw SdkValidationError(field: "core", code: "required", message: "Validation failed for 'core': value is required")
-        }
-        guard container.contains(.search) else {
-            throw SdkValidationError(field: "search", code: "required", message: "Validation failed for 'search': value is required")
-        }
-        self.core = try container.sdkDecodeRequired(.core)
-        self.search = try container.sdkDecodeRequired(.search)
-        self.graphql = try container.sdkDecodeIfPresent(.graphql)
-        self.codeSearch = try container.sdkDecodeIfPresent(.codeSearch)
-        self.sourceImport = try container.sdkDecodeIfPresent(.sourceImport)
-        self.integrationManifest = try container.sdkDecodeIfPresent(.integrationManifest)
-        self.actionsRunnerRegistration = try container.sdkDecodeIfPresent(.actionsRunnerRegistration)
-        self.scim = try container.sdkDecodeIfPresent(.scim)
-        self.dependencySnapshots = try container.sdkDecodeIfPresent(.dependencySnapshots)
-        self.dependencySbom = try container.sdkDecodeIfPresent(.dependencySbom)
-        self.codeScanningAutofix = try container.sdkDecodeIfPresent(.codeScanningAutofix)
-        self.copilotUsageRecords = try container.sdkDecodeIfPresent(.copilotUsageRecords)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RateLimitOverviewResources {
-    public init(core: RateLimit, search: RateLimit, graphql: RateLimit? = nil, codeSearch: RateLimit? = nil, sourceImport: RateLimit? = nil, integrationManifest: RateLimit? = nil, actionsRunnerRegistration: RateLimit? = nil, scim: RateLimit? = nil, dependencySnapshots: RateLimit? = nil, dependencySbom: RateLimit? = nil, codeScanningAutofix: RateLimit? = nil, copilotUsageRecords: RateLimit? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.core) else {
+            throw SdkValidationError(
+                field: "core",
+                code: "required",
+                message: "Validation failed for 'core': value is required"
+            )
+        }
+        guard container.contains(.search) else {
+            throw SdkValidationError(
+                field: "search",
+                code: "required",
+                message: "Validation failed for 'search': value is required"
+            )
+        }
+        core = try container.sdkDecodeRequired(.core)
+        search = try container.sdkDecodeRequired(.search)
+        graphql = try container.sdkDecodeIfPresent(.graphql)
+        codeSearch = try container.sdkDecodeIfPresent(.codeSearch)
+        sourceImport = try container.sdkDecodeIfPresent(.sourceImport)
+        integrationManifest = try container.sdkDecodeIfPresent(.integrationManifest)
+        actionsRunnerRegistration = try container.sdkDecodeIfPresent(.actionsRunnerRegistration)
+        scim = try container.sdkDecodeIfPresent(.scim)
+        dependencySnapshots = try container.sdkDecodeIfPresent(.dependencySnapshots)
+        dependencySbom = try container.sdkDecodeIfPresent(.dependencySbom)
+        codeScanningAutofix = try container.sdkDecodeIfPresent(.codeScanningAutofix)
+        copilotUsageRecords = try container.sdkDecodeIfPresent(.copilotUsageRecords)
+    }
+}
+
+public extension RateLimitOverviewResources {
+    init(
+        core: RateLimit,
+        search: RateLimit,
+        graphql: RateLimit? = nil,
+        codeSearch: RateLimit? = nil,
+        sourceImport: RateLimit? = nil,
+        integrationManifest: RateLimit? = nil,
+        actionsRunnerRegistration: RateLimit? = nil,
+        scim: RateLimit? = nil,
+        dependencySnapshots: RateLimit? = nil,
+        dependencySbom: RateLimit? = nil,
+        codeScanningAutofix: RateLimit? = nil,
+        copilotUsageRecords: RateLimit? = nil
+    ) {
         (self.core, self.search) = (core, search)
         (self.graphql, self.codeSearch) = (graphql, codeSearch)
         (self.sourceImport, self.integrationManifest) = (sourceImport, integrationManifest)

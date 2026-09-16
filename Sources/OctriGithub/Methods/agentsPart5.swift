@@ -6,17 +6,38 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentsMethods {
-    /// Deletes a secret in an organization using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension AgentsMethods {
+    /// Deletes a secret in an organization using the secret name. Authenticated users must have collaborator access to
+    /// a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    public static func agentsDeleteOrgSecret(config: ClientConfig, org: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "agentsDeleteOrgSecret")).data
+    static func agentsDeleteOrgSecret(
+        config: ClientConfig,
+        org: String,
+        secretName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "agentsDeleteOrgSecret"
+        )).data
     }
 
-    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to
+    /// `selected`. Authenticated users must have collaborator access to a repository to create, update, or read
+    /// secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -29,10 +50,29 @@ extension AgentsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func agentsListSelectedReposForOrgSecret(config: ClientConfig, org: String, secretName: String, page: Int?, perPage: Int?) async throws -> AgentsListSelectedReposForOrgSecretResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("per_page", value: perPage),
-        ], decoder: .json, operationId: "agentsListSelectedReposForOrgSecret")).data
+    static func agentsListSelectedReposForOrgSecret(
+        config: ClientConfig,
+        org: String,
+        secretName: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> AgentsListSelectedReposForOrgSecretResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+                "/repositories",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("per_page", value: perPage),
+            ],
+            decoder: .json,
+            operationId: "agentsListSelectedReposForOrgSecret"
+        )).data
     }
 }

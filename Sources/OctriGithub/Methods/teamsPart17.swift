@@ -6,10 +6,15 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
+public extension TeamsMethods {
     /// List team members (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint. Team members will include the members of child teams. Each member includes their `role` on the team (`member` or `maintainer`) and an `inherited` flag indicating whether the membership is inherited from a child team (`true`) or is a direct membership (`false`).
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [`List team
+    /// members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint. Team members will include the
+    /// members of child teams. Each member includes their `role` on the team (`member` or `maintainer`) and an
+    /// `inherited` flag indicating whether the membership is inherited from a child team (`true`) or is a direct
+    /// membership (`false`).
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
@@ -24,11 +29,24 @@ extension TeamsMethods {
     ///   -rest-api)."
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func teamsListMembersLegacy(config: ClientConfig, teamId: Int, role: TeamsListMembersLegacyParameter?, perPage: Int?, page: Int?) async throws -> [TeamMember] {
-        return try (await sdkRequest("GET", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/members"].joined(), config: config, query: [
-            SdkQueryParameter("role", value: role),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "teamsListMembersLegacy")).data
+    static func teamsListMembersLegacy(
+        config: ClientConfig,
+        teamId: Int,
+        role: TeamsListMembersLegacyParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [TeamMember] {
+        try await (sdkRequest(
+            "GET",
+            ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/members"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("role", value: role),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "teamsListMembersLegacy"
+        )).data
     }
 }

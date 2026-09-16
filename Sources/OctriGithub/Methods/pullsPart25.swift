@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the pull request branch. Note: If making a request on behalf of a GitHub App you must also have permissions to write the contents of the head repository.
+public extension PullsMethods {
+    /// Updates the pull request branch with the latest upstream changes by merging HEAD from the base branch into the
+    /// pull request branch. Note: If making a request on behalf of a GitHub App you must also have permissions to write
+    /// the contents of the head repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,9 +24,30 @@ extension PullsMethods {
     ///   commits](https://docs.github.com/rest/commits/commits#list-commits)"
     ///   endpoint to find the most recent commit SHA. Default: SHA of the pull
     ///   request's current HEAD ref.
-    public static func pullsUpdateBranch(config: ClientConfig, owner: String, repo: String, pullNumber: Int, expectedHeadSha: String?) async throws -> PullsUpdateBranchResponse {
+    static func pullsUpdateBranch(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        expectedHeadSha: String?
+    ) async throws -> PullsUpdateBranchResponse {
         let requestBody = PullsUpdateBranchRequestBody(expectedHeadSha: expectedHeadSha)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/update-branch"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsUpdateBranch")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/update-branch",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsUpdateBranch"
+        )).data
     }
 }

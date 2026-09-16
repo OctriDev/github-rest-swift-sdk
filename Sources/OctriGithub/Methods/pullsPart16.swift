@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Fetches the current result of an asynchronous merge request, identified by the UUID that was returned when the merge was requested. While the merge is still queued, the response includes the UUID, merge method, and expected head SHA of the request. Once the merge has completed, the response reports whether it was merged, including the merge commit OID on success or a message describing why it could not be merged on failure. The result of an asynchronous merge request is retained for 24 hours after its most recent update. After this window the request expires and this endpoint returns a `404` response for its UUID.
+public extension PullsMethods {
+    /// Fetches the current result of an asynchronous merge request, identified by the UUID that was returned when the
+    /// merge was requested. While the merge is still queued, the response includes the UUID, merge method, and expected
+    /// head SHA of the request. Once the merge has completed, the response reports whether it was merged, including the
+    /// merge commit OID on success or a message describing why it could not be merged on failure. The result of an
+    /// asynchronous merge request is retained for 24 hours after its most recent update. After this window the request
+    /// expires and this endpoint returns a `404` response for its UUID.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,11 +22,35 @@ extension PullsMethods {
     /// - pullNumber: The number that identifies the pull request.
     /// - uuid: The UUID of the asynchronous merge request, as returned when the
     ///   merge was requested.
-    public static func pullsGetMergeAsyncResult(config: ClientConfig, owner: String, repo: String, pullNumber: Int, uuid: String) async throws -> PullRequestMergeAsyncResult {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/merge-async/", sdkEncodePathSegment(sdkWireString(uuid))].joined(), config: config, decoder: .json, operationId: "pullsGetMergeAsyncResult")).data
+    static func pullsGetMergeAsyncResult(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        uuid: String
+    ) async throws -> PullRequestMergeAsyncResult {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/merge-async/",
+                sdkEncodePathSegment(sdkWireString(uuid)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "pullsGetMergeAsyncResult"
+        )).data
     }
 
-    /// Gets the users or teams whose review is requested for a pull request. Once a requested reviewer submits a review, they are no longer considered a requested reviewer. Their review will instead be returned by the [List reviews for a pull request](https://docs.github.com/rest/pulls/reviews#list-reviews-for-a-pull-request) operation.
+    /// Gets the users or teams whose review is requested for a pull request. Once a requested reviewer submits a
+    /// review, they are no longer considered a requested reviewer. Their review will instead be returned by the [List
+    /// reviews for a pull request](https://docs.github.com/rest/pulls/reviews#list-reviews-for-a-pull-request)
+    /// operation.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,7 +58,26 @@ extension PullsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - pullNumber: The number that identifies the pull request.
-    public static func pullsListRequestedReviewers(config: ClientConfig, owner: String, repo: String, pullNumber: Int) async throws -> PullRequestReviewRequest {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/requested_reviewers"].joined(), config: config, decoder: .json, operationId: "pullsListRequestedReviewers")).data
+    static func pullsListRequestedReviewers(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int
+    ) async throws -> PullRequestReviewRequest {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/requested_reviewers",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "pullsListRequestedReviewers"
+        )).data
     }
 }

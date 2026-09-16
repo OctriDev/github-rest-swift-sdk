@@ -3,40 +3,66 @@
 
 import Foundation
 
-// Projects domain models
+/// Projects domain models
 public extension ProjectsV2IterationSettings {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.startDate) else {
-            throw SdkValidationError(field: "start_date", code: "required", message: "Validation failed for 'start_date': value is required")
+            throw SdkValidationError(
+                field: "start_date",
+                code: "required",
+                message: "Validation failed for 'start_date': value is required"
+            )
         }
         guard container.contains(.duration) else {
-            throw SdkValidationError(field: "duration", code: "required", message: "Validation failed for 'duration': value is required")
+            throw SdkValidationError(
+                field: "duration",
+                code: "required",
+                message: "Validation failed for 'duration': value is required"
+            )
         }
         guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
         }
         guard container.contains(.completed) else {
-            throw SdkValidationError(field: "completed", code: "required", message: "Validation failed for 'completed': value is required")
+            throw SdkValidationError(
+                field: "completed",
+                code: "required",
+                message: "Validation failed for 'completed': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.startDate = try container.sdkDecodeRequired(.startDate)
-        self.duration = try container.sdkDecodeRequired(.duration)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.completed = try container.sdkDecodeRequired(.completed)
-            try sdkValidateDate("start_date", self.startDate)
+        id = try container.sdkDecodeRequired(.id)
+        startDate = try container.sdkDecodeRequired(.startDate)
+        duration = try container.sdkDecodeRequired(.duration)
+        title = try container.sdkDecodeRequired(.title)
+        completed = try container.sdkDecodeRequired(.completed)
+        try sdkValidateDate("start_date", startDate)
     }
 }
 
 public extension ProjectsV2IterationSettings {
-    public init(id: String, startDate: String, duration: Int, title: ProjectsV2IterationSettingsTitle, completed: Bool) throws {
+    init(
+        id: String,
+        startDate: String,
+        duration: Int,
+        title: ProjectsV2IterationSettingsTitle,
+        completed: Bool
+    ) throws {
         (self.id, self.startDate) = (id, startDate)
         (self.duration, self.title) = (duration, title)
         self.completed = completed
-            try sdkValidateDate("start_date", self.startDate)
+        try sdkValidateDate("start_date", self.startDate)
     }
 }
 
@@ -52,25 +78,35 @@ public struct ProjectsV2IterationSettingsTitle: Codable {
         case html
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProjectsV2IterationSettingsTitle {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.raw) else {
-            throw SdkValidationError(field: "raw", code: "required", message: "Validation failed for 'raw': value is required")
-        }
-        guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
-        }
-        self.raw = try container.sdkDecodeRequired(.raw)
-        self.html = try container.sdkDecodeRequired(.html)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProjectsV2IterationSettingsTitle {
-    public init(raw: String, html: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.raw) else {
+            throw SdkValidationError(
+                field: "raw",
+                code: "required",
+                message: "Validation failed for 'raw': value is required"
+            )
+        }
+        guard container.contains(.html) else {
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
+        }
+        raw = try container.sdkDecodeRequired(.raw)
+        html = try container.sdkDecodeRequired(.html)
+    }
+}
+
+public extension ProjectsV2IterationSettingsTitle {
+    init(raw: String, html: String) {
         (self.raw, self.html) = (raw, html)
     }
 }
@@ -93,27 +129,37 @@ public struct ProjectsV2SingleSelectOption: Codable {
         case description
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProjectsV2SingleSelectOption {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
-        self.description = try container.sdkDecodeIfPresent(.description)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProjectsV2SingleSelectOption {
-    public init(id: String, name: String, color: String? = nil, description: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+        description = try container.sdkDecodeIfPresent(.description)
+    }
+}
+
+public extension ProjectsV2SingleSelectOption {
+    init(id: String, name: String, color: String? = nil, description: String? = nil) {
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
     }
@@ -137,33 +183,56 @@ public struct ProjectsV2SingleSelectOptions: Codable {
         case color
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProjectsV2SingleSelectOptions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.description) else {
-            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
-        }
-        guard container.contains(.color) else {
-            throw SdkValidationError(field: "color", code: "required", message: "Validation failed for 'color': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.description = try container.sdkDecodeRequired(.description)
-        self.color = try container.sdkDecodeRequired(.color)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProjectsV2SingleSelectOptions {
-    public init(id: String, name: ProjectsV2SingleSelectOptionsName, description: ProjectsV2SingleSelectOptionsDescription, color: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.description) else {
+            throw SdkValidationError(
+                field: "description",
+                code: "required",
+                message: "Validation failed for 'description': value is required"
+            )
+        }
+        guard container.contains(.color) else {
+            throw SdkValidationError(
+                field: "color",
+                code: "required",
+                message: "Validation failed for 'color': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        description = try container.sdkDecodeRequired(.description)
+        color = try container.sdkDecodeRequired(.color)
+    }
+}
+
+public extension ProjectsV2SingleSelectOptions {
+    init(
+        id: String,
+        name: ProjectsV2SingleSelectOptionsName,
+        description: ProjectsV2SingleSelectOptionsDescription,
+        color: String
+    ) {
         (self.id, self.name) = (id, name)
         (self.description, self.color) = (description, color)
     }
@@ -181,25 +250,35 @@ public struct ProjectsV2SingleSelectOptionsDescription: Codable {
         case html
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProjectsV2SingleSelectOptionsDescription {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.raw) else {
-            throw SdkValidationError(field: "raw", code: "required", message: "Validation failed for 'raw': value is required")
-        }
-        guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
-        }
-        self.raw = try container.sdkDecodeRequired(.raw)
-        self.html = try container.sdkDecodeRequired(.html)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProjectsV2SingleSelectOptionsDescription {
-    public init(raw: String, html: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.raw) else {
+            throw SdkValidationError(
+                field: "raw",
+                code: "required",
+                message: "Validation failed for 'raw': value is required"
+            )
+        }
+        guard container.contains(.html) else {
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
+        }
+        raw = try container.sdkDecodeRequired(.raw)
+        html = try container.sdkDecodeRequired(.html)
+    }
+}
+
+public extension ProjectsV2SingleSelectOptionsDescription {
+    init(raw: String, html: String) {
         (self.raw, self.html) = (raw, html)
     }
 }
@@ -216,25 +295,35 @@ public struct ProjectsV2SingleSelectOptionsName: Codable {
         case html
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProjectsV2SingleSelectOptionsName {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.raw) else {
-            throw SdkValidationError(field: "raw", code: "required", message: "Validation failed for 'raw': value is required")
-        }
-        guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
-        }
-        self.raw = try container.sdkDecodeRequired(.raw)
-        self.html = try container.sdkDecodeRequired(.html)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProjectsV2SingleSelectOptionsName {
-    public init(raw: String, html: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.raw) else {
+            throw SdkValidationError(
+                field: "raw",
+                code: "required",
+                message: "Validation failed for 'raw': value is required"
+            )
+        }
+        guard container.contains(.html) else {
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
+        }
+        raw = try container.sdkDecodeRequired(.raw)
+        html = try container.sdkDecodeRequired(.html)
+    }
+}
+
+public extension ProjectsV2SingleSelectOptionsName {
+    init(raw: String, html: String) {
         (self.raw, self.html) = (raw, html)
     }
 }
@@ -280,54 +369,83 @@ public struct ProjectsV2StatusUpdate: Codable {
         case body
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension ProjectsV2StatusUpdate {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.projectNodeId = try container.sdkDecodeIfPresent(.projectNodeId)
-        self.creator = try container.sdkDecodeIfPresent(.creator)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.startDate = try container.sdkDecodeIfPresent(.startDate)
-        self.targetDate = try container.sdkDecodeIfPresent(.targetDate)
-        self.body = try container.sdkDecodeIfPresent(.body)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.startDate {
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        projectNodeId = try container.sdkDecodeIfPresent(.projectNodeId)
+        creator = try container.sdkDecodeIfPresent(.creator)
+        status = try container.sdkDecodeIfPresent(.status)
+        startDate = try container.sdkDecodeIfPresent(.startDate)
+        targetDate = try container.sdkDecodeIfPresent(.targetDate)
+        body = try container.sdkDecodeIfPresent(.body)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = startDate {
             try sdkValidateDate("start_date", value)
         }
-        if let value = self.targetDate {
+        if let value = targetDate {
             try sdkValidateDate("target_date", value)
         }
     }
 }
 
 public extension ProjectsV2StatusUpdate {
-    public init(id: Double, nodeId: String, createdAt: Date, updatedAt: Date, projectNodeId: String? = nil, creator: SimpleUser? = nil, status: ProjectsV2StatusUpdateStatus? = nil, startDate: String? = nil, targetDate: String? = nil, body: String? = nil) throws {
+    init(
+        id: Double,
+        nodeId: String,
+        createdAt: Date,
+        updatedAt: Date,
+        projectNodeId: String? = nil,
+        creator: SimpleUser? = nil,
+        status: ProjectsV2StatusUpdateStatus? = nil,
+        startDate: String? = nil,
+        targetDate: String? = nil,
+        body: String? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.projectNodeId, self.creator) = (projectNodeId, creator)
         (self.status, self.startDate) = (status, startDate)
         (self.targetDate, self.body) = (targetDate, body)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.startDate {
             try sdkValidateDate("start_date", value)
         }
@@ -394,35 +512,53 @@ public struct ProjectsV2View: Codable {
         case filter
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ProjectsV2View {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.layout = try container.sdkDecodeRequired(.layout)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.creator = try container.sdkDecodeRequired(.creator)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.visibleFields = try container.sdkDecodeRequired(.visibleFields)
-        self.sortBy = try container.sdkDecodeRequired(.sortBy)
-        self.groupBy = try container.sdkDecodeRequired(.groupBy)
-        self.verticalGroupBy = try container.sdkDecodeRequired(.verticalGroupBy)
-        self.filter = try container.sdkDecodeIfPresent(.filter)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ProjectsV2View {
-    public init(id: Int, number: Int, name: String, layout: ProjectsV2ViewLayout, nodeId: String, projectUrl: String, htmlUrl: String, creator: ProjectsV2ViewCreator, createdAt: Date, updatedAt: Date, visibleFields: [Int], sortBy: [[ProjectsV2ViewSortByItemItem]], groupBy: [Int], verticalGroupBy: [Int], filter: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        number = try container.sdkDecodeRequired(.number)
+        name = try container.sdkDecodeRequired(.name)
+        layout = try container.sdkDecodeRequired(.layout)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        creator = try container.sdkDecodeRequired(.creator)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        visibleFields = try container.sdkDecodeRequired(.visibleFields)
+        sortBy = try container.sdkDecodeRequired(.sortBy)
+        groupBy = try container.sdkDecodeRequired(.groupBy)
+        verticalGroupBy = try container.sdkDecodeRequired(.verticalGroupBy)
+        filter = try container.sdkDecodeIfPresent(.filter)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension ProjectsV2View {
+    init(
+        id: Int,
+        number: Int,
+        name: String,
+        layout: ProjectsV2ViewLayout,
+        nodeId: String,
+        projectUrl: String,
+        htmlUrl: String,
+        creator: ProjectsV2ViewCreator,
+        createdAt: Date,
+        updatedAt: Date,
+        visibleFields: [Int],
+        sortBy: [[ProjectsV2ViewSortByItemItem]],
+        groupBy: [Int],
+        verticalGroupBy: [Int],
+        filter: String? = nil
+    ) throws {
         (self.id, self.number) = (id, number)
         (self.name, self.layout) = (name, layout)
         (self.nodeId, self.projectUrl) = (nodeId, projectUrl)
@@ -431,8 +567,8 @@ public extension ProjectsV2View {
         (self.visibleFields, self.sortBy) = (visibleFields, sortBy)
         (self.groupBy, self.verticalGroupBy) = (groupBy, verticalGroupBy)
         self.filter = filter
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }

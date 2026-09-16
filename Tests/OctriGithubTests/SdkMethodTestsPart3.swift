@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testActionsGetActionsCacheUsageForOrgActionsGetActionsCacheUsageForOrgReachesMockAndDecodesResponse() async throws {
+    func testActionsGetActionsCacheUsageForOrgActionsGetActionsCacheUsageForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -25,7 +26,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetAllowedActionsOrganizationActionsGetAllowedActionsOrganizationReachesMockAndDecodesResponse() async throws {
+    func testActionsGetAllowedActionsOrganizationActionsGetAllowedActionsOrganizationReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -44,7 +46,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetAllowedActionsRepositoryActionsGetAllowedActionsRepositoryReachesMockAndDecodesResponse() async throws {
+    func testActionsGetAllowedActionsRepositoryActionsGetAllowedActionsRepositoryReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -85,7 +88,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetArtifactAndLogRetentionSettingsOrganizationActionsGXcf0b877511ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetArtifactAndLogRetentionSettingsOrganizationActionsGXcf0b877511ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -104,7 +108,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetArtifactAndLogRetentionSettingsRepositoryActionsGetXc557a9c3a2ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetArtifactAndLogRetentionSettingsRepositoryActionsGetXc557a9c3a2ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -124,7 +129,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetConcurrencyGroupForRepositoryActionsGetConcurrencyGX19ba5244c8ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetConcurrencyGroupForRepositoryActionsGetConcurrencyGX19ba5244c8ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -167,7 +173,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetCustomImageVersionForOrgActionsGetCustomImageVersionForOrgReachesMockAndDecodesResponse() async throws {
+    func testActionsGetCustomImageVersionForOrgActionsGetCustomImageVersionForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -188,7 +195,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetCustomOidcSubClaimForRepoActionsGetCustomOidcSubClaimForRepoReachesMockAndDecodesResponse() async throws {
+    func testActionsGetCustomOidcSubClaimForRepoActionsGetCustomOidcSubClaimForRepoReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -273,7 +281,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetForkPrContributorApprovalPermissionsOrganizationActX09a68f7724ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetForkPrContributorApprovalPermissionsOrganizationActX09a68f7724ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -292,7 +301,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetForkPrContributorApprovalPermissionsRepositoryActioX1cdfc810b2ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetForkPrContributorApprovalPermissionsRepositoryActioX1cdfc810b2ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -312,7 +322,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationXf2a0b4e099ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationXf2a0b4e099ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -331,7 +342,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryAcX8fb1d81e4cReachesMockAndDecodesResponse() async throws {
+    func testActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryAcX8fb1d81e4cReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -351,7 +363,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetGithubActionsPermissionsOrganizationActionsGetGithuX8e25b28075ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetGithubActionsPermissionsOrganizationActionsGetGithuX8e25b28075ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -370,7 +383,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetGithubActionsPermissionsRepositoryActionsGetGithubAXe36e636c4cReachesMockAndDecodesResponse() async throws {
+    func testActionsGetGithubActionsPermissionsRepositoryActionsGetGithubAXe36e636c4cReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -410,7 +424,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetHostedRunnersGithubOwnedImagesForOrgActionsGetHosteX589dd64933ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetHostedRunnersGithubOwnedImagesForOrgActionsGetHosteX589dd64933ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -429,7 +444,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetHostedRunnersLimitsForOrgActionsGetHostedRunnersLimitsForOrgReachesMockAndDecodesResponse() async throws {
+    func testActionsGetHostedRunnersLimitsForOrgActionsGetHostedRunnersLimitsForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -448,7 +464,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetHostedRunnersMachineSpecsForOrgActionsGetHostedRunnX073aac705eReachesMockAndDecodesResponse() async throws {
+    func testActionsGetHostedRunnersMachineSpecsForOrgActionsGetHostedRunnX073aac705eReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -467,7 +484,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetHostedRunnersPartnerImagesForOrgActionsGetHostedRunX76542d8ee4ReachesMockAndDecodesResponse() async throws {
+    func testActionsGetHostedRunnersPartnerImagesForOrgActionsGetHostedRunX76542d8ee4ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -486,7 +504,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsGetHostedRunnersPlatformsForOrgActionsGetHostedRunnersXe8d03c73baReachesMockAndDecodesResponse() async throws {
+    func testActionsGetHostedRunnersPlatformsForOrgActionsGetHostedRunnersXe8d03c73baReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

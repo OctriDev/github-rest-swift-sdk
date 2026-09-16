@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists the deployment branch policies for an environment. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+public extension ReposMethods {
+    /// Lists the deployment branch policies for an environment. Anyone with read access to the repository can use this
+    /// endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with
+    /// a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,10 +26,32 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListDeploymentBranchPolicies(config: ClientConfig, owner: String, repo: String, environmentName: String, perPage: Int?, page: Int?) async throws -> ReposListDeploymentBranchPoliciesResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment-branch-policies"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListDeploymentBranchPolicies")).data
+    static func reposListDeploymentBranchPolicies(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        environmentName: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ReposListDeploymentBranchPoliciesResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/deployment-branch-policies",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListDeploymentBranchPolicies"
+        )).data
     }
 }

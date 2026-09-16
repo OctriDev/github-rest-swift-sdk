@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookGithubAppAuthorizationRevoked domain models
+/// WebhookGithubAppAuthorizationRevoked domain models
 /// Typed representation of the `WebhookGithubAppAuthorizationRevoked` API schema.
 public struct WebhookGithubAppAuthorizationRevoked: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -16,39 +16,53 @@ public struct WebhookGithubAppAuthorizationRevoked: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookGithubAppAuthorizationRevoked {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.sender = try container.sdkDecodeRequired(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookGithubAppAuthorizationRevoked {
-    public init(action: WebhookGithubAppAuthorizationRevokedAction, sender: SimpleUser) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        sender = try container.sdkDecodeRequired(.sender)
+    }
+}
+
+public extension WebhookGithubAppAuthorizationRevoked {
+    init(action: WebhookGithubAppAuthorizationRevokedAction, sender: SimpleUser) {
         (self.action, self.sender) = (action, sender)
     }
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookGithubAppAuthorizationRevokedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookGithubAppAuthorizationRevokedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let revoked = WebhookGithubAppAuthorizationRevokedAction(rawValue: "revoked")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

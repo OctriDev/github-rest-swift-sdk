@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SearchMethods {
+public extension SearchMethods {
     /// Search commits
     ///
-    /// Find commits via various criteria on the default branch (usually `main`). This method returns up to 100 results [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for commits, you can get text match metadata for the **message** field when you provide the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to find commits related to CSS in the [octocat/Spoon-Knife](https://github.com/octocat/Spoon-Knife) repository. Your query would look something like this: `q=repo:octocat/Spoon-Knife+css`
+    /// Find commits via various criteria on the default branch (usually `main`). This method returns up to 100 results
+    /// [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for commits,
+    /// you can get text match metadata for the **message** field when you provide the `text-match` media type. For more
+    /// details about how to receive highlighted search results, see [Text match
+    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to find
+    /// commits related to CSS in the [octocat/Spoon-Knife](https://github.com/octocat/Spoon-Knife) repository. Your
+    /// query would look something like this: `q=repo:octocat/Spoon-Knife+css`
     ///
     /// - Parameters:
     /// - q: The query contains one or more search keywords and qualifiers.
@@ -34,8 +40,15 @@ extension SearchMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func searchCommits(config: ClientConfig, q: String, sort: SearchCommitsParameterX4b556b74?, order: SearchCommitsParameter?, perPage: Int?, page: Int?) async throws -> SearchCommitsResponse {
-        return try (await sdkRequest("GET", "/search/commits", config: config, query: [
+    static func searchCommits(
+        config: ClientConfig,
+        q: String,
+        sort: SearchCommitsParameterX4b556b74?,
+        order: SearchCommitsParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> SearchCommitsResponse {
+        try await (sdkRequest("GET", "/search/commits", config: config, query: [
             SdkQueryParameter("q", value: q),
             SdkQueryParameter("sort", value: sort),
             SdkQueryParameter("order", value: order),

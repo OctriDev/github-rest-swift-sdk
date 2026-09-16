@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookPullRequestReviewCommentCreated domain models
+/// WebhookPullRequestReviewCommentCreated domain models
 /// Typed representation of the `WebhookPullRequestReviewCommentCreated` API schema.
 public struct WebhookPullRequestReviewCommentCreated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,40 +39,71 @@ public struct WebhookPullRequestReviewCommentCreated: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookPullRequestReviewCommentCreated {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.comment) else {
-            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
-        }
-        guard container.contains(.pullRequest) else {
-            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.comment = try container.sdkDecodeRequired(.comment)
-        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreated {
-    public init(action: WebhookPullRequestReviewCommentCreatedAction, comment: WebhookPullRequestReviewCommentCreatedComment, pullRequest: WebhookPullRequestReviewCommentCreatedPullRequest, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.comment) else {
+            throw SdkValidationError(
+                field: "comment",
+                code: "required",
+                message: "Validation failed for 'comment': value is required"
+            )
+        }
+        guard container.contains(.pullRequest) else {
+            throw SdkValidationError(
+                field: "pull_request",
+                code: "required",
+                message: "Validation failed for 'pull_request': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        comment = try container.sdkDecodeRequired(.comment)
+        pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookPullRequestReviewCommentCreated {
+    init(
+        action: WebhookPullRequestReviewCommentCreatedAction,
+        comment: WebhookPullRequestReviewCommentCreatedComment,
+        pullRequest: WebhookPullRequestReviewCommentCreatedPullRequest,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.comment) = (action, comment)
         (self.pullRequest, self.repository) = (pullRequest, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -167,49 +198,79 @@ public struct WebhookPullRequestReviewCommentCreatedComment: Codable {
         case subjectType = "subject_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookPullRequestReviewCommentCreatedComment {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.links = try container.sdkDecodeRequired(.links)
-        self.authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
-        self.body = try container.sdkDecodeRequired(.body)
-        self.commitId = try container.sdkDecodeRequired(.commitId)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.diffHunk = try container.sdkDecodeRequired(.diffHunk)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.line = try container.sdkDecodeIfPresent(.line)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.originalCommitId = try container.sdkDecodeRequired(.originalCommitId)
-        self.originalLine = try container.sdkDecodeIfPresent(.originalLine)
-        self.originalPosition = try container.sdkDecodeRequired(.originalPosition)
-        self.originalStartLine = try container.sdkDecodeIfPresent(.originalStartLine)
-        self.path = try container.sdkDecodeRequired(.path)
-        self.position = try container.sdkDecodeIfPresent(.position)
-        self.pullRequestReviewId = try container.sdkDecodeIfPresent(.pullRequestReviewId)
-        self.pullRequestUrl = try container.sdkDecodeRequired(.pullRequestUrl)
-        self.reactions = try container.sdkDecodeRequired(.reactions)
-        self.side = try container.sdkDecodeRequired(.side)
-        self.startLine = try container.sdkDecodeIfPresent(.startLine)
-        self.startSide = try container.sdkDecodeIfPresent(.startSide)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.user = try container.sdkDecodeIfPresent(.user)
-        self.inReplyToId = try container.sdkDecodeIfPresent(.inReplyToId)
-        self.subjectType = try container.sdkDecodeIfPresent(.subjectType)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedComment {
-    public init(links: WebhookPullRequestReviewCommentCreatedCommentLinks, authorAssociation: WebhookPullRequestReviewCommentCreatedCommentAuthorAssociation, body: String, commitId: String, createdAt: Date, diffHunk: String, htmlUrl: String, id: Int, line: Int?, nodeId: String, originalCommitId: String, originalLine: Int?, originalPosition: Int, originalStartLine: Int?, path: String, position: Int?, pullRequestReviewId: Int?, pullRequestUrl: String, reactions: WebhookPullRequestReviewCommentCreatedCommentReactions, side: WebhookPullRequestReviewCommentCreatedCommentSide, startLine: Int?, startSide: WebhookPullRequestReviewCommentCreatedCommentStartSide?, updatedAt: Date, url: String, user: WebhookPullRequestReviewCommentCreatedCommentUser?, inReplyToId: Int? = nil, subjectType: WebhookPullRequestReviewCommentCreatedCommentSubjectType? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        links = try container.sdkDecodeRequired(.links)
+        authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
+        body = try container.sdkDecodeRequired(.body)
+        commitId = try container.sdkDecodeRequired(.commitId)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        diffHunk = try container.sdkDecodeRequired(.diffHunk)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeRequired(.id)
+        line = try container.sdkDecodeIfPresent(.line)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        originalCommitId = try container.sdkDecodeRequired(.originalCommitId)
+        originalLine = try container.sdkDecodeIfPresent(.originalLine)
+        originalPosition = try container.sdkDecodeRequired(.originalPosition)
+        originalStartLine = try container.sdkDecodeIfPresent(.originalStartLine)
+        path = try container.sdkDecodeRequired(.path)
+        position = try container.sdkDecodeIfPresent(.position)
+        pullRequestReviewId = try container.sdkDecodeIfPresent(.pullRequestReviewId)
+        pullRequestUrl = try container.sdkDecodeRequired(.pullRequestUrl)
+        reactions = try container.sdkDecodeRequired(.reactions)
+        side = try container.sdkDecodeRequired(.side)
+        startLine = try container.sdkDecodeIfPresent(.startLine)
+        startSide = try container.sdkDecodeIfPresent(.startSide)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        url = try container.sdkDecodeRequired(.url)
+        user = try container.sdkDecodeIfPresent(.user)
+        inReplyToId = try container.sdkDecodeIfPresent(.inReplyToId)
+        subjectType = try container.sdkDecodeIfPresent(.subjectType)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("pull_request_url", pullRequestUrl)
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookPullRequestReviewCommentCreatedComment {
+    init(
+        links: WebhookPullRequestReviewCommentCreatedCommentLinks,
+        authorAssociation: WebhookPullRequestReviewCommentCreatedCommentAuthorAssociation,
+        body: String,
+        commitId: String,
+        createdAt: Date,
+        diffHunk: String,
+        htmlUrl: String,
+        id: Int,
+        line: Int?,
+        nodeId: String,
+        originalCommitId: String,
+        originalLine: Int?,
+        originalPosition: Int,
+        originalStartLine: Int?,
+        path: String,
+        position: Int?,
+        pullRequestReviewId: Int?,
+        pullRequestUrl: String,
+        reactions: WebhookPullRequestReviewCommentCreatedCommentReactions,
+        side: WebhookPullRequestReviewCommentCreatedCommentSide,
+        startLine: Int?,
+        startSide: WebhookPullRequestReviewCommentCreatedCommentStartSide?,
+        updatedAt: Date,
+        url: String,
+        user: WebhookPullRequestReviewCommentCreatedCommentUser?,
+        inReplyToId: Int? = nil,
+        subjectType: WebhookPullRequestReviewCommentCreatedCommentSubjectType? = nil
+    ) throws {
         (self.links, self.authorAssociation) = (links, authorAssociation)
         (self.body, self.commitId) = (body, commitId)
         (self.createdAt, self.diffHunk) = (createdAt, diffHunk)
@@ -224,11 +285,11 @@ public extension WebhookPullRequestReviewCommentCreatedComment {
         (self.updatedAt, self.url) = (updatedAt, url)
         (self.user, self.inReplyToId) = (user, inReplyToId)
         self.subjectType = subjectType
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("pull_request_url", self.pullRequestUrl)
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -247,29 +308,47 @@ public struct WebhookPullRequestReviewCommentCreatedCommentLinks: Codable {
         case `self`
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedCommentLinks {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
+            throw SdkValidationError(
+                field: "pull_request",
+                code: "required",
+                message: "Validation failed for 'pull_request': value is required"
+            )
         }
         guard container.contains(.`self`) else {
-            throw SdkValidationError(field: "self", code: "required", message: "Validation failed for 'self': value is required")
+            throw SdkValidationError(
+                field: "self",
+                code: "required",
+                message: "Validation failed for 'self': value is required"
+            )
         }
-        self.html = try container.sdkDecodeRequired(.html)
-        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        html = try container.sdkDecodeRequired(.html)
+        pullRequest = try container.sdkDecodeRequired(.pullRequest)
         self.`self` = try container.sdkDecodeRequired(.`self`)
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedCommentLinks {
-    public init(html: WebhookPullRequestReviewCommentCreatedCommentLinksHtml, pullRequest: WebhookPullRequestReviewCommentCreatedCommentLinksPullRequest, `self` selfValue: WebhookPullRequestReviewCommentCreatedCommentLinksSelf) {
+    init(
+        html: WebhookPullRequestReviewCommentCreatedCommentLinksHtml,
+        pullRequest: WebhookPullRequestReviewCommentCreatedCommentLinksPullRequest,
+        self selfValue: WebhookPullRequestReviewCommentCreatedCommentLinksSelf
+    ) {
         (self.html, self.pullRequest) = (html, pullRequest)
         self.`self` = selfValue
     }
@@ -284,21 +363,27 @@ public struct WebhookPullRequestReviewCommentCreatedCommentLinksHtml: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookPullRequestReviewCommentCreatedCommentLinksHtml {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.href) else {
-            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
-        }
-        self.href = try container.sdkDecodeRequired(.href)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedCommentLinksHtml {
-    public init(href: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.href) else {
+            throw SdkValidationError(
+                field: "href",
+                code: "required",
+                message: "Validation failed for 'href': value is required"
+            )
+        }
+        href = try container.sdkDecodeRequired(.href)
+    }
+}
+
+public extension WebhookPullRequestReviewCommentCreatedCommentLinksHtml {
+    init(href: String) {
         self.href = href
     }
 }
@@ -312,21 +397,27 @@ public struct WebhookPullRequestReviewCommentCreatedCommentLinksPullRequest: Cod
         case href
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookPullRequestReviewCommentCreatedCommentLinksPullRequest {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.href) else {
-            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
-        }
-        self.href = try container.sdkDecodeRequired(.href)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedCommentLinksPullRequest {
-    public init(href: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.href) else {
+            throw SdkValidationError(
+                field: "href",
+                code: "required",
+                message: "Validation failed for 'href': value is required"
+            )
+        }
+        href = try container.sdkDecodeRequired(.href)
+    }
+}
+
+public extension WebhookPullRequestReviewCommentCreatedCommentLinksPullRequest {
+    init(href: String) {
         self.href = href
     }
 }
@@ -340,21 +431,27 @@ public struct WebhookPullRequestReviewCommentCreatedCommentLinksSelf: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookPullRequestReviewCommentCreatedCommentLinksSelf {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.href) else {
-            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
-        }
-        self.href = try container.sdkDecodeRequired(.href)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedCommentLinksSelf {
-    public init(href: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.href) else {
+            throw SdkValidationError(
+                field: "href",
+                code: "required",
+                message: "Validation failed for 'href': value is required"
+            )
+        }
+        href = try container.sdkDecodeRequired(.href)
+    }
+}
+
+public extension WebhookPullRequestReviewCommentCreatedCommentLinksSelf {
+    init(href: String) {
         self.href = href
     }
 }
@@ -395,34 +492,47 @@ public struct WebhookPullRequestReviewCommentCreatedCommentReactions: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookPullRequestReviewCommentCreatedCommentReactions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.plus1 = try container.sdkDecodeRequired(.plus1)
-        self.minus1 = try container.sdkDecodeRequired(.minus1)
-        self.confused = try container.sdkDecodeRequired(.confused)
-        self.eyes = try container.sdkDecodeRequired(.eyes)
-        self.heart = try container.sdkDecodeRequired(.heart)
-        self.hooray = try container.sdkDecodeRequired(.hooray)
-        self.laugh = try container.sdkDecodeRequired(.laugh)
-        self.rocket = try container.sdkDecodeRequired(.rocket)
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookPullRequestReviewCommentCreatedCommentReactions {
-    public init(plus1: Int, minus1: Int, confused: Int, eyes: Int, heart: Int, hooray: Int, laugh: Int, rocket: Int, totalCount: Int, url: String) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        plus1 = try container.sdkDecodeRequired(.plus1)
+        minus1 = try container.sdkDecodeRequired(.minus1)
+        confused = try container.sdkDecodeRequired(.confused)
+        eyes = try container.sdkDecodeRequired(.eyes)
+        heart = try container.sdkDecodeRequired(.heart)
+        hooray = try container.sdkDecodeRequired(.hooray)
+        laugh = try container.sdkDecodeRequired(.laugh)
+        rocket = try container.sdkDecodeRequired(.rocket)
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookPullRequestReviewCommentCreatedCommentReactions {
+    init(
+        plus1: Int,
+        minus1: Int,
+        confused: Int,
+        eyes: Int,
+        heart: Int,
+        hooray: Int,
+        laugh: Int,
+        rocket: Int,
+        totalCount: Int,
+        url: String
+    ) throws {
         (self.plus1, self.minus1) = (plus1, minus1)
         (self.confused, self.eyes) = (confused, eyes)
         (self.heart, self.hooray) = (heart, hooray)
         (self.laugh, self.rocket) = (laugh, rocket)
         (self.totalCount, self.url) = (totalCount, url)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -498,5 +608,7 @@ public struct WebhookPullRequestReviewCommentCreatedCommentUser: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Unpins a specific issue comment from a repository. Supply `owner`, `repo`, and `comment_id` to identify the repository and comment whose pin you want to remove. A successful response contains no response body.
+public extension IssuesMethods {
+    /// Unpins a specific issue comment from a repository. Supply `owner`, `repo`, and `comment_id` to identify the
+    /// repository and comment whose pin you want to remove. A successful response contains no response body.
     ///
     /// You can use the REST API to unpin comments on issues.
     ///
@@ -17,7 +18,26 @@ extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
-    public static func issuesUnpinComment(config: ClientConfig, owner: String, repo: String, commentId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/pin"].joined(), config: config, decoder: .empty, operationId: "issuesUnpinComment")).data
+    static func issuesUnpinComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+                "/pin",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "issuesUnpinComment"
+        )).data
     }
 }

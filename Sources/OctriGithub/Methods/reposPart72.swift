@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposCreateDeploymentOptions: Codable {
+public extension ReposMethods {
+    struct ReposCreateDeploymentOptions: Codable {
         public var owner: String
         public var repo: String
         public var ref: String
@@ -27,9 +27,30 @@ extension ReposMethods {
         }
     }
 
-    /// Creates a deployment for a repository reference such as a branch, tag, or SHA. Supply `ref` and use `environment`, `task`, `required_contexts`, and merge settings to control how the deployment is prepared and validated. A deployment can trigger an automatic merge or return a merged-branch response when the requested reference is behind the default branch.
+    /// Creates a deployment for a repository reference such as a branch, tag, or SHA. Supply `ref` and use
+    /// `environment`, `task`, `required_contexts`, and merge settings to control how the deployment is prepared and
+    /// validated. A deployment can trigger an automatic merge or return a merged-branch response when the requested
+    /// reference is behind the default branch.
     ///
-    /// Deployments offer a few configurable parameters with certain defaults. The `ref` parameter can be any named branch, tag, or SHA. At GitHub we often deploy branches and verify them before we merge a pull request. The `environment` parameter allows deployments to be issued to different runtime environments. Teams often have multiple environments for verifying their applications, such as `production`, `staging`, and `qa`. This parameter makes it easier to track which environments have requested deployments. The default environment is `production`. The `auto_merge` parameter is used to ensure that the requested ref is not behind the repository's default branch. If the ref _is_ behind the default branch for the repository, we will attempt to merge it for you. If the merge succeeds, the API will return a successful merge commit. If merge conflicts prevent the merge from succeeding, the API will return a failure response. By default, [commit statuses](https://docs.github.com/rest/commits/statuses) for every submitted context must be in a `success` state. The `required_contexts` parameter allows you to specify a subset of contexts that must be `success`, or to specify contexts that have not yet been submitted. You are not required to use commit statuses to deploy. If you do not require any contexts or create any commit statuses, the deployment will always succeed. The `payload` parameter is available for any extra information that a deployment system might need. It is a JSON text field that will be passed on when a deployment event is dispatched. The `task` parameter is used by the deployment system to allow different execution paths. In the web world this might be `deploy:migrations` to run schema changes on the system. In the compiled world this could be a flag to compile an application with debugging enabled. Merged branch response: You will see this response when GitHub automatically merges the base branch into the topic branch instead of creating a deployment. This…
+    /// Deployments offer a few configurable parameters with certain defaults. The `ref` parameter can be any named
+    /// branch, tag, or SHA. At GitHub we often deploy branches and verify them before we merge a pull request. The
+    /// `environment` parameter allows deployments to be issued to different runtime environments. Teams often have
+    /// multiple environments for verifying their applications, such as `production`, `staging`, and `qa`. This
+    /// parameter makes it easier to track which environments have requested deployments. The default environment is
+    /// `production`. The `auto_merge` parameter is used to ensure that the requested ref is not behind the repository's
+    /// default branch. If the ref _is_ behind the default branch for the repository, we will attempt to merge it for
+    /// you. If the merge succeeds, the API will return a successful merge commit. If merge conflicts prevent the merge
+    /// from succeeding, the API will return a failure response. By default, [commit
+    /// statuses](https://docs.github.com/rest/commits/statuses) for every submitted context must be in a `success`
+    /// state. The `required_contexts` parameter allows you to specify a subset of contexts that must be `success`, or
+    /// to specify contexts that have not yet been submitted. You are not required to use commit statuses to deploy. If
+    /// you do not require any contexts or create any commit statuses, the deployment will always succeed. The `payload`
+    /// parameter is available for any extra information that a deployment system might need. It is a JSON text field
+    /// that will be passed on when a deployment event is dispatched. The `task` parameter is used by the deployment
+    /// system to allow different execution paths. In the web world this might be `deploy:migrations` to run schema
+    /// changes on the system. In the compiled world this could be a flag to compile an application with debugging
+    /// enabled. Merged branch response: You will see this response when GitHub automatically merges the base branch
+    /// into the topic branch instead of creating a deployment. This…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -54,9 +75,25 @@ extension ReposMethods {
     /// - productionEnvironment: Specifies if the given environment is one that
     ///   end-users directly interact with. Default: `true` when `environment` is
     ///   `production` and `false` otherwise.
-    public static func reposCreateDeployment(config: ClientConfig, options: ReposCreateDeploymentOptions) async throws -> Deployment {
+    static func reposCreateDeployment(
+        config: ClientConfig,
+        options: ReposCreateDeploymentOptions
+    ) async throws -> Deployment {
         let requestBody = ReposCreateDeploymentRequestBody(options: options)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/deployments"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateDeployment")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/deployments",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateDeployment"
+        )).data
     }
 }

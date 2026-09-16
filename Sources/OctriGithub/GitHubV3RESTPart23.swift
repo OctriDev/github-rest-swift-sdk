@@ -4,90 +4,237 @@
 import Foundation
 
 public extension CopilotSpacesNamespace {
-/// Get a Copilot Space for a user
+    /// Get a Copilot Space for a user
     ///
-    /// Gets details about a specific Copilot Space owned by a user. The authenticated user must have read access to the Space. Private user spaces require the authenticated user to be the owner of the space. Public user spaces are accessible to any authenticated user. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getForUser(username: String, spaceNumber: Int) async throws -> CopilotSpace {
-        return try await CopilotSpacesMethods.copilotSpacesGetForUser(config: config, username: username, spaceNumber: spaceNumber)
+    /// Gets details about a specific Copilot Space owned by a user. The authenticated user must have read access to the
+    /// Space. Private user spaces require the authenticated user to be the owner of the space. Public user spaces are
+    /// accessible to any authenticated user. OAuth app tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint.
+    func getForUser(username: String, spaceNumber: Int) async throws -> CopilotSpace {
+        try await CopilotSpacesMethods.copilotSpacesGetForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber
+        )
     }
 
-/// Set a Copilot Space for a user
+    /// Set a Copilot Space for a user
     ///
-    /// Updates a Copilot Space owned by a user. Only the authenticated user can update spaces for their own account. Users can update their personal Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the `read:user` scope to use this endpoint.
-    public func updateForUser(username: String, spaceNumber: Int, name: String?, description: String?, generalInstructions: String?, baseRole: CopilotSpacesUpdateForUserRequestBodyBaseRole?, resourcesAttributes: [CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem]?) async throws -> CopilotSpace {
-        return try await CopilotSpacesMethods.copilotSpacesUpdateForUser(config: config, username: username, spaceNumber: spaceNumber, name: name, description: description, generalInstructions: generalInstructions, baseRole: baseRole, resourcesAttributes: resourcesAttributes)
+    /// Updates a Copilot Space owned by a user. Only the authenticated user can update spaces for their own account.
+    /// Users can update their personal Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:user` scope to use this endpoint.
+    func updateForUser(
+        username: String,
+        spaceNumber: Int,
+        name: String?,
+        description: String?,
+        generalInstructions: String?,
+        baseRole: CopilotSpacesUpdateForUserRequestBodyBaseRole?,
+        resourcesAttributes: [CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem]?
+    ) async throws -> CopilotSpace {
+        try await CopilotSpacesMethods.copilotSpacesUpdateForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            name: name,
+            description: description,
+            generalInstructions: generalInstructions,
+            baseRole: baseRole,
+            resourcesAttributes: resourcesAttributes
+        )
     }
 
-/// Delete a Copilot Space for a user
+    /// Delete a Copilot Space for a user
     ///
-    /// Deletes a Copilot Space owned by a user. The authenticated user must be the owner of the space. **Warning:** This action is permanent and cannot be undone. Deleting a space will remove all associated resources and configurations. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func deleteForUser(username: String, spaceNumber: Int) async throws -> SdkEmptyResponse {
-        return try await CopilotSpacesMethods.copilotSpacesDeleteForUser(config: config, username: username, spaceNumber: spaceNumber)
+    /// Deletes a Copilot Space owned by a user. The authenticated user must be the owner of the space. **Warning:**
+    /// This action is permanent and cannot be undone. Deleting a space will remove all associated resources and
+    /// configurations. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this
+    /// endpoint.
+    func deleteForUser(username: String, spaceNumber: Int) async throws -> SdkEmptyResponse {
+        try await CopilotSpacesMethods.copilotSpacesDeleteForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber
+        )
     }
 
-/// List collaborators for a Copilot Space for a user
+    /// List collaborators for a Copilot Space for a user
     ///
-    /// Lists all collaborators for a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. Each collaborator entry specifies which user has access to the space and at what level (reader, writer, or admin). The space owner is excluded from this list. Team collaborators are not supported for user-owned Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func listCollaboratorsForUser(username: String, spaceNumber: Int) async throws -> CopilotSpacesListCollaboratorsForUserResponse {
-        return try await CopilotSpacesMethods.copilotSpacesListCollaboratorsForUser(config: config, username: username, spaceNumber: spaceNumber)
+    /// Lists all collaborators for a specific Copilot Space owned by a user. The authenticated user must be the owner
+    /// of the space or have admin access to the space. Each collaborator entry specifies which user has access to the
+    /// space and at what level (reader, writer, or admin). The space owner is excluded from this list. Team
+    /// collaborators are not supported for user-owned Copilot Spaces. OAuth app tokens and personal access tokens
+    /// (classic) need the `user` scope to use this endpoint.
+    func listCollaboratorsForUser(
+        username: String,
+        spaceNumber: Int
+    ) async throws -> CopilotSpacesListCollaboratorsForUserResponse {
+        try await CopilotSpacesMethods.copilotSpacesListCollaboratorsForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber
+        )
     }
 
-/// Add a collaborator to a Copilot Space for a user
+    /// Add a collaborator to a Copilot Space for a user
     ///
-    /// Adds a collaborator to a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. Team collaborators are not supported for user-owned Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func addCollaboratorForUser(username: String, spaceNumber: Int, actorType: CopilotSpacesAddCollaboratorForUserRequestBodyActorType, actorIdentifier: String, role: CopilotSpacesAddCollaboratorForUserRequestBodyRole) async throws -> CopilotSpaceCollaborator {
-        return try await CopilotSpacesMethods.copilotSpacesAddCollaboratorForUser(config: config, username: username, spaceNumber: spaceNumber, actorType: actorType, actorIdentifier: actorIdentifier, role: role)
+    /// Adds a collaborator to a specific Copilot Space owned by a user. The authenticated user must be the owner of the
+    /// space or have admin access to the space. Team collaborators are not supported for user-owned Copilot Spaces.
+    /// OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
+    func addCollaboratorForUser(
+        username: String,
+        spaceNumber: Int,
+        actorType: CopilotSpacesAddCollaboratorForUserRequestBodyActorType,
+        actorIdentifier: String,
+        role: CopilotSpacesAddCollaboratorForUserRequestBodyRole
+    ) async throws -> CopilotSpaceCollaborator {
+        try await CopilotSpacesMethods.copilotSpacesAddCollaboratorForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            actorType: actorType,
+            actorIdentifier: actorIdentifier,
+            role: role
+        )
     }
 
-/// Set a collaborator role for a Copilot Space for a user
+    /// Set a collaborator role for a Copilot Space for a user
     ///
-    /// Updates the role of a collaborator for a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func updateCollaboratorForUser(username: String, spaceNumber: Int, actorType: CopilotSpacesUpdateCollaboratorForUserParameter, actorIdentifier: String, role: CopilotSpacesUpdateCollaboratorForUserRequestBodyRole) async throws -> CopilotSpaceCollaborator {
-        return try await CopilotSpacesMethods.copilotSpacesUpdateCollaboratorForUser(config: config, username: username, spaceNumber: spaceNumber, actorType: actorType, actorIdentifier: actorIdentifier, role: role)
+    /// Updates the role of a collaborator for a specific Copilot Space owned by a user. The authenticated user must be
+    /// the owner of the space or have admin access to the space. OAuth app tokens and personal access tokens (classic)
+    /// need the `user` scope to use this endpoint.
+    func updateCollaboratorForUser(
+        username: String,
+        spaceNumber: Int,
+        actorType: CopilotSpacesUpdateCollaboratorForUserParameter,
+        actorIdentifier: String,
+        role: CopilotSpacesUpdateCollaboratorForUserRequestBodyRole
+    ) async throws -> CopilotSpaceCollaborator {
+        try await CopilotSpacesMethods.copilotSpacesUpdateCollaboratorForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            actorType: actorType,
+            actorIdentifier: actorIdentifier,
+            role: role
+        )
     }
 
-/// Remove a collaborator from a Copilot Space for a user
+    /// Remove a collaborator from a Copilot Space for a user
     ///
-    /// Removes a collaborator from a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func removeCollaboratorForUser(username: String, spaceNumber: Int, actorType: CopilotSpacesRemoveCollaboratorForUserParameter, actorIdentifier: String) async throws -> SdkEmptyResponse {
-        return try await CopilotSpacesMethods.copilotSpacesRemoveCollaboratorForUser(config: config, username: username, spaceNumber: spaceNumber, actorType: actorType, actorIdentifier: actorIdentifier)
+    /// Removes a collaborator from a specific Copilot Space owned by a user. The authenticated user must be the owner
+    /// of the space or have admin access to the space. OAuth app tokens and personal access tokens (classic) need the
+    /// `user` scope to use this endpoint.
+    func removeCollaboratorForUser(
+        username: String,
+        spaceNumber: Int,
+        actorType: CopilotSpacesRemoveCollaboratorForUserParameter,
+        actorIdentifier: String
+    ) async throws -> SdkEmptyResponse {
+        try await CopilotSpacesMethods.copilotSpacesRemoveCollaboratorForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            actorType: actorType,
+            actorIdentifier: actorIdentifier
+        )
     }
 
-/// List resources for a Copilot Space for a user
+    /// List resources for a Copilot Space for a user
     ///
-    /// Lists all resources attached to a specific Copilot Space owned by a user. The authenticated user must have appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the `read:user` scope to use this endpoint.
-    public func listResourcesForUser(username: String, spaceNumber: Int) async throws -> CopilotSpacesListResourcesForUserResponse {
-        return try await CopilotSpacesMethods.copilotSpacesListResourcesForUser(config: config, username: username, spaceNumber: spaceNumber)
+    /// Lists all resources attached to a specific Copilot Space owned by a user. The authenticated user must have
+    /// appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:user` scope to use this endpoint.
+    func listResourcesForUser(
+        username: String,
+        spaceNumber: Int
+    ) async throws -> CopilotSpacesListResourcesForUserResponse {
+        try await CopilotSpacesMethods.copilotSpacesListResourcesForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber
+        )
     }
 }
 
 public extension CopilotSpacesNamespace {
-/// Create a resource for a Copilot Space for a user
+    /// Create a resource for a Copilot Space for a user
     ///
-    /// Creates a new resource in a specific Copilot Space owned by a user. The authenticated user must have write permissions on the space. The following resource types are supported: `repository`, `github_file`, `free_text`, `github_issue`, `github_pull_request`. The `uploaded_text_file` and `media_content` types are not supported via this endpoint. For `github_file` resources, if a resource with the same repository, file path, and SHA already exists, the existing resource is returned with a `200` status. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to use this endpoint.
-    public func createResourceForUser(username: String, spaceNumber: Int, resourceType: CopilotSpacesCreateResourceForUserRequestBodyResourceType, metadata: [String: JSONValue]) async throws -> CopilotSpaceResource {
-        return try await CopilotSpacesMethods.copilotSpacesCreateResourceForUser(config: config, username: username, spaceNumber: spaceNumber, resourceType: resourceType, metadata: metadata)
+    /// Creates a new resource in a specific Copilot Space owned by a user. The authenticated user must have write
+    /// permissions on the space. The following resource types are supported: `repository`, `github_file`, `free_text`,
+    /// `github_issue`, `github_pull_request`. The `uploaded_text_file` and `media_content` types are not supported via
+    /// this endpoint. For `github_file` resources, if a resource with the same repository, file path, and SHA already
+    /// exists, the existing resource is returned with a `200` status. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:user` scope to use this endpoint.
+    func createResourceForUser(
+        username: String,
+        spaceNumber: Int,
+        resourceType: CopilotSpacesCreateResourceForUserRequestBodyResourceType,
+        metadata: [String: JSONValue]
+    ) async throws -> CopilotSpaceResource {
+        try await CopilotSpacesMethods.copilotSpacesCreateResourceForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            resourceType: resourceType,
+            metadata: metadata
+        )
     }
 
-/// Get a resource for a Copilot Space for a user
+    /// Get a resource for a Copilot Space for a user
     ///
-    /// Gets a specific resource attached to a Copilot Space owned by a user. The authenticated user must have appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the `read:user` scope to use this endpoint.
-    public func getResourceForUser(username: String, spaceNumber: Int, spaceResourceId: Int) async throws -> CopilotSpaceResource {
-        return try await CopilotSpacesMethods.copilotSpacesGetResourceForUser(config: config, username: username, spaceNumber: spaceNumber, spaceResourceId: spaceResourceId)
+    /// Gets a specific resource attached to a Copilot Space owned by a user. The authenticated user must have
+    /// appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:user` scope to use this endpoint.
+    func getResourceForUser(
+        username: String,
+        spaceNumber: Int,
+        spaceResourceId: Int
+    ) async throws -> CopilotSpaceResource {
+        try await CopilotSpacesMethods.copilotSpacesGetResourceForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            spaceResourceId: spaceResourceId
+        )
     }
 
-/// Set a resource for a Copilot Space for a user
+    /// Set a resource for a Copilot Space for a user
     ///
-    /// Updates the metadata of a resource in a specific Copilot Space owned by a user. The authenticated user must have write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to use this endpoint.
-    public func updateResourceForUser(username: String, spaceNumber: Int, spaceResourceId: Int, metadata: [String: JSONValue]?) async throws -> CopilotSpaceResource {
-        return try await CopilotSpacesMethods.copilotSpacesUpdateResourceForUser(config: config, username: username, spaceNumber: spaceNumber, spaceResourceId: spaceResourceId, metadata: metadata)
+    /// Updates the metadata of a resource in a specific Copilot Space owned by a user. The authenticated user must have
+    /// write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user`
+    /// scope to use this endpoint.
+    func updateResourceForUser(
+        username: String,
+        spaceNumber: Int,
+        spaceResourceId: Int,
+        metadata: [String: JSONValue]?
+    ) async throws -> CopilotSpaceResource {
+        try await CopilotSpacesMethods.copilotSpacesUpdateResourceForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            spaceResourceId: spaceResourceId,
+            metadata: metadata
+        )
     }
 
-/// Delete a resource from a Copilot Space for a user
+    /// Delete a resource from a Copilot Space for a user
     ///
-    /// Deletes a resource from a specific Copilot Space owned by a user. The authenticated user must have write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to use this endpoint.
-    public func deleteResourceForUser(username: String, spaceNumber: Int, spaceResourceId: Int) async throws -> SdkEmptyResponse {
-        return try await CopilotSpacesMethods.copilotSpacesDeleteResourceForUser(config: config, username: username, spaceNumber: spaceNumber, spaceResourceId: spaceResourceId)
+    /// Deletes a resource from a specific Copilot Space owned by a user. The authenticated user must have write
+    /// permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to
+    /// use this endpoint.
+    func deleteResourceForUser(
+        username: String,
+        spaceNumber: Int,
+        spaceResourceId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await CopilotSpacesMethods.copilotSpacesDeleteResourceForUser(
+            config: config,
+            username: username,
+            spaceNumber: spaceNumber,
+            spaceResourceId: spaceResourceId
+        )
     }
 }
 
@@ -97,99 +244,305 @@ public class PackagesNamespace {
         self.config = config
     }
 
-/// Lists all packages that are in a specific organization, are readable by the requesting user, and that encountered a conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint.
+    /// Lists all packages that are in a specific organization, are readable by the requesting user, and that
+    /// encountered a conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:packages` scope to use this endpoint.
     public func packagesListDockerMigrationConflictingForOrganization(org: String) async throws -> [Package] {
-        return try await PackagesMethods.packagesListDockerMigrationConflictingPackagesForOrganization(config: config, org: org)
+        try await PackagesMethods.packagesListDockerMigrationConflictingPackagesForOrganization(
+            config: config,
+            org: org
+        )
     }
 
-/// Lists packages in an organization readable by the user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func packagesListForOrganization(org: String, packageType: PackagesListPackagesForOrganizationParameterXbaeb57df, visibility: PackagesListPackagesForOrganizationParameter?, page: Int?, perPage: Int?) async throws -> [Package] {
-        return try await PackagesMethods.packagesListPackagesForOrganization(config: config, org: org, packageType: packageType, visibility: visibility, page: page, perPage: perPage)
+    /// Lists packages in an organization readable by the user. OAuth app tokens and personal access tokens (classic)
+    /// need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func packagesListForOrganization(
+        org: String,
+        packageType: PackagesListPackagesForOrganizationParameterXbaeb57df,
+        visibility: PackagesListPackagesForOrganizationParameter?,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> [Package] {
+        try await PackagesMethods.packagesListPackagesForOrganization(
+            config: config,
+            org: org,
+            packageType: packageType,
+            visibility: visibility,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Gets a specific package in an organization. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func getPackageForOrganization(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String) async throws -> Package {
-        return try await PackagesMethods.packagesGetPackageForOrganization(config: config, packageType: packageType, packageName: packageName, org: org)
+    /// Gets a specific package in an organization. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func getPackageForOrganization(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String
+    ) async throws -> Package {
+        try await PackagesMethods.packagesGetPackageForOrganization(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org
+        )
     }
 
-/// Deletes an entire package in an organization. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance. The authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)." OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func deletePackageForOrg(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String) async throws -> SdkEmptyResponse {
-        return try await PackagesMethods.packagesDeletePackageForOrg(config: config, packageType: packageType, packageName: packageName, org: org)
+    /// Deletes an entire package in an organization. You cannot delete a public package if any version of the package
+    /// has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance. The
+    /// authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type`
+    /// belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have
+    /// admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
+    /// OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to
+    /// use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func deletePackageForOrg(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String
+    ) async throws -> SdkEmptyResponse {
+        try await PackagesMethods.packagesDeletePackageForOrg(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org
+        )
     }
 
-/// Restores an entire package in an organization. You can restore a deleted package under the following conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first. The authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)." OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func restorePackageForOrg(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, token: String?) async throws -> SdkEmptyResponse {
-        return try await PackagesMethods.packagesRestorePackageForOrg(config: config, packageType: packageType, packageName: packageName, org: org, token: token)
+    /// Restores an entire package in an organization. You can restore a deleted package under the following conditions:
+    /// - The package was deleted within the last 30 days. - The same package namespace and version is still available
+    /// and not reused for a new package. If the same package namespace is not available, you will not be able to
+    /// restore your package. In this scenario, to restore the deleted package, you must delete the new package that
+    /// uses the deleted package's namespace first. The authenticated user must have admin permissions in the
+    /// organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports
+    /// granular permissions, the authenticated user must also have admin permissions to the package. For the list of
+    /// these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
+    /// OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to
+    /// use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func restorePackageForOrg(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        token: String?
+    ) async throws -> SdkEmptyResponse {
+        try await PackagesMethods.packagesRestorePackageForOrg(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org,
+            token: token
+        )
     }
 
-/// Lists package versions for a package owned by an organization. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func getAllPackageVersionsForPackageOwnedByOrg(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, page: Int?, perPage: Int?, state: PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter?) async throws -> [PackageVersion] {
-        return try await PackagesMethods.packagesGetAllPackageVersionsForPackageOwnedByOrg(config: config, packageType: packageType, packageName: packageName, org: org, page: page, perPage: perPage, state: state)
+    /// Lists package versions for a package owned by an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for
+    /// GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func getAllPackageVersionsForPackageOwnedByOrg(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        page: Int?,
+        perPage: Int?,
+        state: PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter?
+    ) async throws -> [PackageVersion] {
+        try await PackagesMethods.packagesGetAllPackageVersionsForPackageOwnedByOrg(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org,
+            page: page,
+            perPage: perPage,
+            state: state
+        )
     }
 
-/// Gets a specific package version in an organization. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func getPackageVersionForOrganization(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, packageVersionId: Int) async throws -> PackageVersion {
-        return try await PackagesMethods.packagesGetPackageVersionForOrganization(config: config, packageType: packageType, packageName: packageName, org: org, packageVersionId: packageVersionId)
+    /// Gets a specific package version in an organization. OAuth app tokens and personal access tokens (classic) need
+    /// the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func getPackageVersionForOrganization(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        packageVersionId: Int
+    ) async throws -> PackageVersion {
+        try await PackagesMethods.packagesGetPackageVersionForOrganization(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org,
+            packageVersionId: packageVersionId
+        )
     }
 
-/// Deletes a specific package version in an organization. If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance. The authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)." OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func deletePackageVersionForOrg(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, packageVersionId: Int) async throws -> SdkEmptyResponse {
-        return try await PackagesMethods.packagesDeletePackageVersionForOrg(config: config, packageType: packageType, packageName: packageName, org: org, packageVersionId: packageVersionId)
+    /// Deletes a specific package version in an organization. If the package is public and the package version has more
+    /// than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for
+    /// further assistance. The authenticated user must have admin permissions in the organization to use this endpoint.
+    /// If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the
+    /// authenticated user must also have admin permissions to the package. For the list of these registries, see
+    /// "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
+    /// OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to
+    /// use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    public func deletePackageVersionForOrg(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        packageVersionId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await PackagesMethods.packagesDeletePackageVersionForOrg(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org,
+            packageVersionId: packageVersionId
+        )
     }
 }
 
 public extension PackagesNamespace {
-/// Restores a specific package version in an organization. You can restore a deleted package under the following conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first. The authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)." OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func restorePackageVersionForOrg(packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, packageVersionId: Int) async throws -> SdkEmptyResponse {
-        return try await PackagesMethods.packagesRestorePackageVersionForOrg(config: config, packageType: packageType, packageName: packageName, org: org, packageVersionId: packageVersionId)
+    /// Restores a specific package version in an organization. You can restore a deleted package under the following
+    /// conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still
+    /// available and not reused for a new package. If the same package namespace is not available, you will not be able
+    /// to restore your package. In this scenario, to restore the deleted package, you must delete the new package that
+    /// uses the deleted package's namespace first. The authenticated user must have admin permissions in the
+    /// organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports
+    /// granular permissions, the authenticated user must also have admin permissions to the package. For the list of
+    /// these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
+    /// OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to
+    /// use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func restorePackageVersionForOrg(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        packageVersionId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await PackagesMethods.packagesRestorePackageVersionForOrg(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            org: org,
+            packageVersionId: packageVersionId
+        )
     }
 
-/// Get list of conflicting packages during Docker migration for authenticated-user
+    /// Get list of conflicting packages during Docker migration for authenticated-user
     ///
-    /// Lists all packages that are owned by the authenticated user within the user's namespace, and that encountered a conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint.
-    public func packagesListDockerMigrationConflictingForAuthenticatedUser() async throws -> [Package] {
-        return try await PackagesMethods.packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(config: config)
+    /// Lists all packages that are owned by the authenticated user within the user's namespace, and that encountered a
+    /// conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:packages` scope to use this endpoint.
+    func packagesListDockerMigrationConflictingForAuthenticatedUser() async throws -> [Package] {
+        try await PackagesMethods.packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(config: config)
     }
 
-/// List packages for the authenticated user's namespace
+    /// List packages for the authenticated user's namespace
     ///
-    /// Lists packages owned by the authenticated user within the user's namespace. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func packagesListForAuthenticatedUser(packageType: PackagesListPackagesForAuthenticatedUserParameter, visibility: PackagesListPackagesForOrganizationParameter?, page: Int?, perPage: Int?) async throws -> [Package] {
-        return try await PackagesMethods.packagesListPackagesForAuthenticatedUser(config: config, packageType: packageType, visibility: visibility, page: page, perPage: perPage)
+    /// Lists packages owned by the authenticated user within the user's namespace. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func packagesListForAuthenticatedUser(
+        packageType: PackagesListPackagesForAuthenticatedUserParameter,
+        visibility: PackagesListPackagesForOrganizationParameter?,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> [Package] {
+        try await PackagesMethods.packagesListPackagesForAuthenticatedUser(
+            config: config,
+            packageType: packageType,
+            visibility: visibility,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Get a package for the authenticated user
+    /// Get a package for the authenticated user
     ///
-    /// Gets a specific package for a package owned by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func getPackageForAuthenticatedUser(packageType: PackagesDeletePackageForOrgParameter, packageName: String) async throws -> Package {
-        return try await PackagesMethods.packagesGetPackageForAuthenticatedUser(config: config, packageType: packageType, packageName: packageName)
+    /// Gets a specific package for a package owned by the authenticated user. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func getPackageForAuthenticatedUser(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String
+    ) async throws -> Package {
+        try await PackagesMethods.packagesGetPackageForAuthenticatedUser(
+            config: config,
+            packageType: packageType,
+            packageName: packageName
+        )
     }
 
-/// Delete a package for the authenticated user
+    /// Delete a package for the authenticated user
     ///
-    /// Deletes a package owned by the authenticated user. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance. OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func deletePackageForAuthenticatedUser(packageType: PackagesDeletePackageForOrgParameter, packageName: String) async throws -> SdkEmptyResponse {
-        return try await PackagesMethods.packagesDeletePackageForAuthenticatedUser(config: config, packageType: packageType, packageName: packageName)
+    /// Deletes a package owned by the authenticated user. You cannot delete a public package if any version of the
+    /// package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance. OAuth
+    /// app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use
+    /// this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func deletePackageForAuthenticatedUser(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String
+    ) async throws -> SdkEmptyResponse {
+        try await PackagesMethods.packagesDeletePackageForAuthenticatedUser(
+            config: config,
+            packageType: packageType,
+            packageName: packageName
+        )
     }
 
-/// Restore a package for the authenticated user
+    /// Restore a package for the authenticated user
     ///
-    /// Restores a package owned by the authenticated user. You can restore a deleted package under the following conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first. OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func restorePackageForAuthenticatedUser(packageType: PackagesDeletePackageForOrgParameter, packageName: String, token: String?) async throws -> SdkEmptyResponse {
-        return try await PackagesMethods.packagesRestorePackageForAuthenticatedUser(config: config, packageType: packageType, packageName: packageName, token: token)
+    /// Restores a package owned by the authenticated user. You can restore a deleted package under the following
+    /// conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still
+    /// available and not reused for a new package. If the same package namespace is not available, you will not be able
+    /// to restore your package. In this scenario, to restore the deleted package, you must delete the new package that
+    /// uses the deleted package's namespace first. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions
+    /// for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func restorePackageForAuthenticatedUser(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        token: String?
+    ) async throws -> SdkEmptyResponse {
+        try await PackagesMethods.packagesRestorePackageForAuthenticatedUser(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            token: token
+        )
     }
 
-/// List package versions for a package owned by the authenticated user
+    /// List package versions for a package owned by the authenticated user
     ///
-    /// Lists package versions for a package owned by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func getAllPackageVersionsForPackageOwnedByAuthenticatedUser(packageType: PackagesDeletePackageForOrgParameter, packageName: String, page: Int?, perPage: Int?, state: PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter?) async throws -> [PackageVersion] {
-        return try await PackagesMethods.packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(config: config, packageType: packageType, packageName: packageName, page: page, perPage: perPage, state: state)
+    /// Lists package versions for a package owned by the authenticated user. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func getAllPackageVersionsForPackageOwnedByAuthenticatedUser(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        page: Int?,
+        perPage: Int?,
+        state: PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter?
+    ) async throws -> [PackageVersion] {
+        try await PackagesMethods.packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            page: page,
+            perPage: perPage,
+            state: state
+        )
     }
 
-/// Get a package version for the authenticated user
+    /// Get a package version for the authenticated user
     ///
-    /// Gets a specific package version for a package owned by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
-    public func getPackageVersionForAuthenticatedUser(packageType: PackagesDeletePackageForOrgParameter, packageName: String, packageVersionId: Int) async throws -> PackageVersion {
-        return try await PackagesMethods.packagesGetPackageVersionForAuthenticatedUser(config: config, packageType: packageType, packageName: packageName, packageVersionId: packageVersionId)
+    /// Gets a specific package version for a package owned by the authenticated user. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    func getPackageVersionForAuthenticatedUser(
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        packageVersionId: Int
+    ) async throws -> PackageVersion {
+        try await PackagesMethods.packagesGetPackageVersionForAuthenticatedUser(
+            config: config,
+            packageType: packageType,
+            packageName: packageName,
+            packageVersionId: packageVersionId
+        )
     }
 }

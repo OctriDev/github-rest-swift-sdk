@@ -3,25 +3,36 @@
 
 import Foundation
 
-// Issues domain models
+/// Issues domain models
 public extension RemovedFromProjectIssueEvent {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.projectCard = try container.sdkDecodeIfPresent(.projectCard)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        projectCard = try container.sdkDecodeIfPresent(.projectCard)
     }
 }
 
 public extension RemovedFromProjectIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, projectCard: RemovedFromProjectIssueEventProjectCard? = nil) {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        projectCard: RemovedFromProjectIssueEventProjectCard? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -54,45 +65,74 @@ public struct RemovedFromProjectIssueEventProjectCard: Codable {
         case previousColumnName = "previous_column_name"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RemovedFromProjectIssueEventProjectCard {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.projectId) else {
-            throw SdkValidationError(field: "project_id", code: "required", message: "Validation failed for 'project_id': value is required")
-        }
-        guard container.contains(.projectUrl) else {
-            throw SdkValidationError(field: "project_url", code: "required", message: "Validation failed for 'project_url': value is required")
-        }
-        guard container.contains(.columnName) else {
-            throw SdkValidationError(field: "column_name", code: "required", message: "Validation failed for 'column_name': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.projectId = try container.sdkDecodeRequired(.projectId)
-        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        self.columnName = try container.sdkDecodeRequired(.columnName)
-        self.previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("project_url", self.projectUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RemovedFromProjectIssueEventProjectCard {
-    public init(id: Int, url: String, projectId: Int, projectUrl: String, columnName: String, previousColumnName: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.projectId) else {
+            throw SdkValidationError(
+                field: "project_id",
+                code: "required",
+                message: "Validation failed for 'project_id': value is required"
+            )
+        }
+        guard container.contains(.projectUrl) else {
+            throw SdkValidationError(
+                field: "project_url",
+                code: "required",
+                message: "Validation failed for 'project_url': value is required"
+            )
+        }
+        guard container.contains(.columnName) else {
+            throw SdkValidationError(
+                field: "column_name",
+                code: "required",
+                message: "Validation failed for 'column_name': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        url = try container.sdkDecodeRequired(.url)
+        projectId = try container.sdkDecodeRequired(.projectId)
+        projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        columnName = try container.sdkDecodeRequired(.columnName)
+        previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("project_url", projectUrl)
+    }
+}
+
+public extension RemovedFromProjectIssueEventProjectCard {
+    init(
+        id: Int,
+        url: String,
+        projectId: Int,
+        projectUrl: String,
+        columnName: String,
+        previousColumnName: String? = nil
+    ) throws {
         (self.id, self.url) = (id, url)
         (self.projectId, self.projectUrl) = (projectId, projectUrl)
         (self.columnName, self.previousColumnName) = (columnName, previousColumnName)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("project_url", self.projectUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
@@ -134,27 +174,40 @@ public struct RenamedIssueEvent: Codable {
         case rename
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RenamedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.rename = try container.sdkDecodeRequired(.rename)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RenamedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, rename: RenamedIssueEventRename) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        rename = try container.sdkDecodeRequired(.rename)
+    }
+}
+
+public extension RenamedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        rename: RenamedIssueEventRename
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -175,25 +228,35 @@ public struct RenamedIssueEventRename: Codable {
         case to
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RenamedIssueEventRename {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        guard container.contains(.to) else {
-            throw SdkValidationError(field: "to", code: "required", message: "Validation failed for 'to': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
-        self.to = try container.sdkDecodeRequired(.to)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RenamedIssueEventRename {
-    public init(from: String, to: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        guard container.contains(.to) else {
+            throw SdkValidationError(
+                field: "to",
+                code: "required",
+                message: "Validation failed for 'to': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+        to = try container.sdkDecodeRequired(.to)
+    }
+}
+
+public extension RenamedIssueEventRename {
+    init(from: String, to: String) {
         (self.from, self.to) = (from, to)
     }
 }
@@ -242,28 +305,42 @@ public struct StateChangeIssueEvent: Codable {
         case intent
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension StateChangeIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.stateReason = try container.sdkDecodeIfPresent(.stateReason)
-        self.intent = try container.sdkDecodeIfPresent(.intent)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension StateChangeIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, stateReason: String? = nil, intent: NullableIssueEventIntent? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        stateReason = try container.sdkDecodeIfPresent(.stateReason)
+        intent = try container.sdkDecodeIfPresent(.intent)
+    }
+}
+
+public extension StateChangeIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        stateReason: String? = nil,
+        intent: NullableIssueEventIntent? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -314,28 +391,42 @@ public struct UnassignedIssueEvent: Codable {
         case assigner
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension UnassignedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.assignee = try container.sdkDecodeRequired(.assignee)
-        self.assigner = try container.sdkDecodeRequired(.assigner)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension UnassignedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, assignee: SimpleUser, assigner: SimpleUser) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        assignee = try container.sdkDecodeRequired(.assignee)
+        assigner = try container.sdkDecodeRequired(.assigner)
+    }
+}
+
+public extension UnassignedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        assignee: SimpleUser,
+        assigner: SimpleUser
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -389,28 +480,42 @@ public struct UnlabeledIssueEvent: Codable {
         case intent
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension UnlabeledIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.label = try container.sdkDecodeRequired(.label)
-        self.intent = try container.sdkDecodeIfPresent(.intent)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension UnlabeledIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, label: UnlabeledIssueEventLabel, intent: NullableIssueEventIntent? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        label = try container.sdkDecodeRequired(.label)
+        intent = try container.sdkDecodeIfPresent(.intent)
+    }
+}
+
+public extension UnlabeledIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        label: UnlabeledIssueEventLabel,
+        intent: NullableIssueEventIntent? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -432,25 +537,35 @@ public struct UnlabeledIssueEventLabel: Codable {
         case color
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension UnlabeledIssueEventLabel {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.color) else {
-            throw SdkValidationError(field: "color", code: "required", message: "Validation failed for 'color': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.color = try container.sdkDecodeRequired(.color)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension UnlabeledIssueEventLabel {
-    public init(name: String, color: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.color) else {
+            throw SdkValidationError(
+                field: "color",
+                code: "required",
+                message: "Validation failed for 'color': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        color = try container.sdkDecodeRequired(.color)
+    }
+}
+
+public extension UnlabeledIssueEventLabel {
+    init(name: String, color: String) {
         (self.name, self.color) = (name, color)
     }
 }
@@ -459,13 +574,16 @@ public extension UnlabeledIssueEventLabel {
 public struct MilestoneState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = MilestoneState(rawValue: "open")
     public static let closed = MilestoneState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeSecurityMethods {
-    public struct CodeSecurityUpdateConfigurationOptions: Codable {
+public extension CodeSecurityMethods {
+    struct CodeSecurityUpdateConfigurationOptions: Codable {
         public var org: String
         public var configurationId: Int
         public var name: String?
@@ -43,7 +43,9 @@ extension CodeSecurityMethods {
         }
     }
 
-    /// Updates a code security configuration in an organization. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    /// Updates a code security configuration in an organization. The authenticated user must be an administrator or
+    /// security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -97,13 +99,28 @@ extension CodeSecurityMethods {
     /// - privateVulnerabilityReporting: The enablement status of private
     ///   vulnerability reporting
     /// - enforcement: The enforcement status for a security configuration
-    public static func codeSecurityUpdateConfiguration(config: ClientConfig, options: CodeSecurityUpdateConfigurationOptions) async throws -> CodeSecurityConfiguration {
+    static func codeSecurityUpdateConfiguration(
+        config: ClientConfig,
+        options: CodeSecurityUpdateConfigurationOptions
+    ) async throws -> CodeSecurityConfiguration {
         if let description = options.description {
             try validateLength("description", description, max: 255)
         }
 
         let requestBody = CodeSecurityUpdateConfigurationRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(options.configurationId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeSecurityUpdateConfiguration")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(options.org)),
+                "/code-security/configurations/",
+                sdkEncodePathSegment(sdkWireString(options.configurationId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "codeSecurityUpdateConfiguration"
+        )).data
     }
 }

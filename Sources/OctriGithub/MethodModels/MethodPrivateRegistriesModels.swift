@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical privateRegistries operation model declarations
+/// Canonical privateRegistries operation model declarations
 public struct PrivateRegistriesGetOrgPublicKeyResponse: Codable {
     /// The identifier for the key.
     /// - Example: "012345678912345678"
@@ -21,25 +21,35 @@ public struct PrivateRegistriesGetOrgPublicKeyResponse: Codable {
         case key
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PrivateRegistriesGetOrgPublicKeyResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.keyId) else {
-            throw SdkValidationError(field: "key_id", code: "required", message: "Validation failed for 'key_id': value is required")
-        }
-        guard container.contains(.key) else {
-            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
-        }
-        self.keyId = try container.sdkDecodeRequired(.keyId)
-        self.key = try container.sdkDecodeRequired(.key)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PrivateRegistriesGetOrgPublicKeyResponse {
-    public init(keyId: String, key: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.keyId) else {
+            throw SdkValidationError(
+                field: "key_id",
+                code: "required",
+                message: "Validation failed for 'key_id': value is required"
+            )
+        }
+        guard container.contains(.key) else {
+            throw SdkValidationError(
+                field: "key",
+                code: "required",
+                message: "Validation failed for 'key': value is required"
+            )
+        }
+        keyId = try container.sdkDecodeRequired(.keyId)
+        key = try container.sdkDecodeRequired(.key)
+    }
+}
+
+public extension PrivateRegistriesGetOrgPublicKeyResponse {
+    init(keyId: String, key: String) {
         (self.keyId, self.key) = (keyId, key)
     }
 }
@@ -53,25 +63,35 @@ public struct PrivateRegistriesListOrgPrivateRegistriesResponse: Codable {
         case configurations
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PrivateRegistriesListOrgPrivateRegistriesResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.configurations) else {
-            throw SdkValidationError(field: "configurations", code: "required", message: "Validation failed for 'configurations': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.configurations = try container.sdkDecodeRequired(.configurations)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PrivateRegistriesListOrgPrivateRegistriesResponse {
-    public init(totalCount: Int, configurations: [OrgPrivateRegistryConfiguration]) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.configurations) else {
+            throw SdkValidationError(
+                field: "configurations",
+                code: "required",
+                message: "Validation failed for 'configurations': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        configurations = try container.sdkDecodeRequired(.configurations)
+    }
+}
+
+public extension PrivateRegistriesListOrgPrivateRegistriesResponse {
+    init(totalCount: Int, configurations: [OrgPrivateRegistryConfiguration]) {
         (self.totalCount, self.configurations) = (totalCount, configurations)
     }
 }

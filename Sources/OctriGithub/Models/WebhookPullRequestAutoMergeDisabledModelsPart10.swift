@@ -3,18 +3,30 @@
 
 import Foundation
 
-// WebhookPullRequestAutoMergeDisabled domain models
+/// WebhookPullRequestAutoMergeDisabled domain models
 public extension WebhookPullRequestAutoMergeDisabledPullRequestRequestedTeamsItemParent {
-    public init(description: String?, htmlUrl: String, id: Int, membersUrl: String, name: String, nodeId: String, permission: String, privacy: WebhookPullRequestAutoMergeDisabledPullRequestRequestedTeamsIXa9a6195a77, repositoriesUrl: String, slug: String, url: String) throws {
+    init(
+        description: String?,
+        htmlUrl: String,
+        id: Int,
+        membersUrl: String,
+        name: String,
+        nodeId: String,
+        permission: String,
+        privacy: WebhookPullRequestAutoMergeDisabledPullRequestRequestedTeamsIXa9a6195a77,
+        repositoriesUrl: String,
+        slug: String,
+        url: String
+    ) throws {
         (self.description, self.htmlUrl) = (description, htmlUrl)
         (self.id, self.membersUrl) = (id, membersUrl)
         (self.name, self.nodeId) = (name, nodeId)
         (self.permission, self.privacy) = (permission, privacy)
         (self.repositoriesUrl, self.slug) = (repositoriesUrl, slug)
         self.url = url
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -90,46 +102,79 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestUser: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookPullRequestAutoMergeDisabledPullRequestUser {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        email = try container.sdkDecodeIfPresent(.email)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
 public extension WebhookPullRequestAutoMergeDisabledPullRequestUser {
-    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookPullRequestAutoMergeDisabledPullRequestUserType? = nil, url: String? = nil, userViewType: String? = nil) throws {
+    init(
+        id: Int,
+        login: String,
+        avatarUrl: String? = nil,
+        deleted: Bool? = nil,
+        email: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        name: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: WebhookPullRequestAutoMergeDisabledPullRequestUserType? = nil,
+        url: String? = nil,
+        userViewType: String? = nil
+    ) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -147,45 +192,50 @@ public extension WebhookPullRequestAutoMergeDisabledPullRequestUser {
 
 extension WebhookPullRequestAutoMergeDisabledPullRequestUser {
     func sdkValidateConstraints() throws {
-        if let value = self.avatarUrl {
+        if let value = avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = self.followersUrl {
+        if let value = followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.organizationsUrl {
+        if let value = organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = self.receivedEventsUrl {
+        if let value = receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = self.reposUrl {
+        if let value = reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = self.subscriptionsUrl {
+        if let value = subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType(rawValue: "Bot")
     public static let user = WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType(rawValue: "User")
-    public static let organization = WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType(rawValue: "Organization")
+    public static let organization =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -195,16 +245,21 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadUserType: RawRep
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoPullReqX99ed4c9150: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoPullReqX99ed4c9150: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoPullReqX99ed4c9150(rawValue: "all")
-    public static let collaboratorsOnly = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoPullReqX99ed4c9150(rawValue: "collaborators_only")
+    public static let collaboratorsOnly =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoPullReqX99ed4c9150(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -214,17 +269,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoPullReqX99ed
 }
 
 /// Required enumerated value serialized in the `visibility` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `public` = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility(rawValue: "public")
     public static let `private` = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility(rawValue: "private")
-    public static let `internal` = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility(rawValue: "internal")
+    public static let `internal` =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility(rawValue: "internal")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -234,16 +294,21 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoVisibility: 
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoPullReqXc029a559af: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoPullReqXc029a559af: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoPullReqXc029a559af(rawValue: "all")
-    public static let collaboratorsOnly = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoPullReqXc029a559af(rawValue: "collaborators_only")
+    public static let collaboratorsOnly =
+        WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoPullReqXc029a559af(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -253,14 +318,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoPullReqXc029
 }
 
 /// How the author is associated with the repository.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let collaborator = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "COLLABORATOR")
-    public static let contributor = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "CONTRIBUTOR")
-    public static let firstTimer = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "FIRST_TIMER")
-    public static let firstTimeContributor = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "FIRST_TIME_CONTRIBUTOR")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let collaborator =
+        WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "COLLABORATOR")
+    public static let contributor =
+        WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "CONTRIBUTOR")
+    public static let firstTimer =
+        WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "FIRST_TIMER")
+    public static let firstTimeContributor =
+        WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "FIRST_TIME_CONTRIBUTOR")
     public static let mannequin = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "MANNEQUIN")
     public static let member = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "MEMBER")
     public static let none = WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation(rawValue: "NONE")
@@ -268,7 +341,7 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation: R
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -280,16 +353,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestAuthorAssociation: R
 /// The default value for a merge commit title. - `PR_TITLE` - default to the pull request's title. -
 /// `MERGE_MESSAGE` - default to the classic title for a merge message (e.g., Merge pull request #123 from
 /// branch-name).
-public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitTitle: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let prTitle = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let mergeMessage = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitTitle(rawValue: "MERGE_MESSAGE")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let prTitle =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitTitle(rawValue: "PR_TITLE")
+    public static let mergeMessage =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -300,17 +379,24 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoMergeCommitT
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let prBody = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548(rawValue: "PR_BODY")
-    public static let commitMessages = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548(rawValue: "COMMIT_MESSAGES")
-    public static let blank = WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548(rawValue: "BLANK")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let prBody =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548(rawValue: "PR_BODY")
+    public static let commitMessages =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548(rawValue: "COMMIT_MESSAGES")
+    public static let blank =
+        WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02620548(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -320,17 +406,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestHeadRepoSquashMX5d02
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByType(rawValue: "Bot")
     public static let user = WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByType(rawValue: "User")
-    public static let organization = WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByType(rawValue: "Organization")
+    public static let organization =
+        WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -340,17 +431,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestAutoMergeEnabledByTy
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType(rawValue: "Bot")
     public static let user = WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType(rawValue: "User")
-    public static let organization = WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType(rawValue: "Organization")
+    public static let organization =
+        WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -360,17 +456,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestAssigneesItemType: R
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType(rawValue: "Bot")
     public static let user = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType(rawValue: "User")
-    public static let organization = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType(rawValue: "Organization")
+    public static let organization =
+        WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -380,10 +481,14 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoOwnerType: R
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestUserType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookPullRequestAutoMergeDisabledPullRequestUserType(rawValue: "Bot")
     public static let user = WebhookPullRequestAutoMergeDisabledPullRequestUserType(rawValue: "User")
     public static let organization = WebhookPullRequestAutoMergeDisabledPullRequestUserType(rawValue: "Organization")
@@ -391,7 +496,7 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestUserType: RawReprese
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -402,17 +507,24 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestUserType: RawReprese
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let prBody = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage(rawValue: "PR_BODY")
-    public static let prTitle = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage(rawValue: "PR_TITLE")
-    public static let blank = WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage(rawValue: "BLANK")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let prBody =
+        WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage(rawValue: "PR_BODY")
+    public static let prTitle =
+        WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage(rawValue: "PR_TITLE")
+    public static let blank =
+        WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -422,17 +534,22 @@ public struct WebhookPullRequestAutoMergeDisabledPullRequestBaseRepoMergeCommitM
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestAutoMergeDisabledPullRequestMilestoneCreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestAutoMergeDisabledPullRequestMilestoneCreatorType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookPullRequestAutoMergeDisabledPullRequestMilestoneCreatorType(rawValue: "Bot")
     public static let user = WebhookPullRequestAutoMergeDisabledPullRequestMilestoneCreatorType(rawValue: "User")
-    public static let organization = WebhookPullRequestAutoMergeDisabledPullRequestMilestoneCreatorType(rawValue: "Organization")
+    public static let organization =
+        WebhookPullRequestAutoMergeDisabledPullRequestMilestoneCreatorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

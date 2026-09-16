@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Lists timeline events for a specific issue in a repository. Use `exclude` to omit selected event types, and use `page` and `per_page` to paginate the results; `per_page` can be at most 100.
+public extension IssuesMethods {
+    /// Lists timeline events for a specific issue in a repository. Use `exclude` to omit selected event types, and use
+    /// `page` and `per_page` to paginate the results; `per_page` can be at most 100.
     ///
     /// List all timeline events for an issue.
     ///
@@ -27,11 +28,34 @@ extension IssuesMethods {
     ///   -rest-api)."
     /// - exclude: A comma-separated list of timeline event names to exclude from
     ///   the response.
-    public static func issuesListEventsForTimeline(config: ClientConfig, owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?, exclude: String?) async throws -> [TimelineIssueEvents] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/timeline"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("exclude", value: exclude),
-        ], decoder: .json, operationId: "issuesListEventsForTimeline")).data
+    static func issuesListEventsForTimeline(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        issueNumber: Int,
+        perPage: Int?,
+        page: Int?,
+        exclude: String?
+    ) async throws -> [TimelineIssueEvents] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/",
+                sdkEncodePathSegment(sdkWireString(issueNumber)),
+                "/timeline",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("exclude", value: exclude),
+            ],
+            decoder: .json,
+            operationId: "issuesListEventsForTimeline"
+        )).data
     }
 }

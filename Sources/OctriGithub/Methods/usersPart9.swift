@@ -6,37 +6,69 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Create a GPG key for the authenticated user
     ///
-    /// Adds a GPG key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `write:gpg_key` scope to use this endpoint.
+    /// Adds a GPG key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic)
+    /// need the `write:gpg_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - armoredPublicKey: A GPG key in ASCII-armored format.
     /// - name: A descriptive name for the new key.
-    public static func usersCreateGpgKeyForAuthenticatedUser(config: ClientConfig, armoredPublicKey: String, name: String?) async throws -> GpgKey {
-        let requestBody = UsersCreateGpgKeyForAuthenticatedUserRequestBody(armoredPublicKey: armoredPublicKey, name: name)
+    static func usersCreateGpgKeyForAuthenticatedUser(
+        config: ClientConfig,
+        armoredPublicKey: String,
+        name: String?
+    ) async throws -> GpgKey {
+        let requestBody = UsersCreateGpgKeyForAuthenticatedUserRequestBody(
+            armoredPublicKey: armoredPublicKey,
+            name: name
+        )
 
-        return try (await sdkRequest("POST", "/user/gpg_keys", config: config, body: requestBody, decoder: .json, operationId: "usersCreateGpgKeyForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "POST",
+            "/user/gpg_keys",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "usersCreateGpgKeyForAuthenticatedUser"
+        )).data
     }
 
     /// Get a GPG key for the authenticated user
     ///
-    /// View extended details for a single GPG key. OAuth app tokens and personal access tokens (classic) need the `read:gpg_key` scope to use this endpoint.
+    /// View extended details for a single GPG key. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:gpg_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - gpgKeyId: The unique identifier of the GPG key.
-    public static func usersGetGpgKeyForAuthenticatedUser(config: ClientConfig, gpgKeyId: Int) async throws -> GpgKey {
-        return try (await sdkRequest("GET", ["/user/gpg_keys/", sdkEncodePathSegment(sdkWireString(gpgKeyId))].joined(), config: config, decoder: .json, operationId: "usersGetGpgKeyForAuthenticatedUser")).data
+    static func usersGetGpgKeyForAuthenticatedUser(config: ClientConfig, gpgKeyId: Int) async throws -> GpgKey {
+        try await (sdkRequest(
+            "GET",
+            ["/user/gpg_keys/", sdkEncodePathSegment(sdkWireString(gpgKeyId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "usersGetGpgKeyForAuthenticatedUser"
+        )).data
     }
 
     /// Delete a GPG key for the authenticated user
     ///
-    /// Removes a GPG key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `admin:gpg_key` scope to use this endpoint.
+    /// Removes a GPG key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:gpg_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - gpgKeyId: The unique identifier of the GPG key.
-    public static func usersDeleteGpgKeyForAuthenticatedUser(config: ClientConfig, gpgKeyId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/user/gpg_keys/", sdkEncodePathSegment(sdkWireString(gpgKeyId))].joined(), config: config, decoder: .empty, operationId: "usersDeleteGpgKeyForAuthenticatedUser")).data
+    static func usersDeleteGpgKeyForAuthenticatedUser(
+        config: ClientConfig,
+        gpgKeyId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            ["/user/gpg_keys/", sdkEncodePathSegment(sdkWireString(gpgKeyId))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersDeleteGpgKeyForAuthenticatedUser"
+        )).data
     }
 }

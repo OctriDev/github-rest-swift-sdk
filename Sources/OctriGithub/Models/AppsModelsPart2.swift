@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Apps domain models
+/// Apps domain models
 /// Marketplace Purchase
 public struct MarketplacePurchase: Codable {
     /// Required `string` value serialized in the `url` wire field.
@@ -34,40 +34,71 @@ public struct MarketplacePurchase: Codable {
         case marketplacePendingChange = "marketplace_pending_change"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension MarketplacePurchase {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
-        }
-        guard container.contains(.marketplacePurchase) else {
-            throw SdkValidationError(field: "marketplace_purchase", code: "required", message: "Validation failed for 'marketplace_purchase': value is required")
-        }
-        self.url = try container.sdkDecodeRequired(.url)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.marketplacePurchase = try container.sdkDecodeRequired(.marketplacePurchase)
-        self.organizationBillingEmail = try container.sdkDecodeIfPresent(.organizationBillingEmail)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.marketplacePendingChange = try container.sdkDecodeIfPresent(.marketplacePendingChange)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension MarketplacePurchase {
-    public init(url: String, type: String, id: Int, login: String, marketplacePurchase: MarketplacePurchaseMarketplacePurchase, organizationBillingEmail: String? = nil, email: String? = nil, marketplacePendingChange: MarketplacePurchaseMarketplacePendingChange? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.login) else {
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
+        }
+        guard container.contains(.marketplacePurchase) else {
+            throw SdkValidationError(
+                field: "marketplace_purchase",
+                code: "required",
+                message: "Validation failed for 'marketplace_purchase': value is required"
+            )
+        }
+        url = try container.sdkDecodeRequired(.url)
+        type = try container.sdkDecodeRequired(.type)
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        marketplacePurchase = try container.sdkDecodeRequired(.marketplacePurchase)
+        organizationBillingEmail = try container.sdkDecodeIfPresent(.organizationBillingEmail)
+        email = try container.sdkDecodeIfPresent(.email)
+        marketplacePendingChange = try container.sdkDecodeIfPresent(.marketplacePendingChange)
+    }
+}
+
+public extension MarketplacePurchase {
+    init(
+        url: String,
+        type: String,
+        id: Int,
+        login: String,
+        marketplacePurchase: MarketplacePurchaseMarketplacePurchase,
+        organizationBillingEmail: String? = nil,
+        email: String? = nil,
+        marketplacePendingChange: MarketplacePurchaseMarketplacePendingChange? = nil
+    ) {
         (self.url, self.type) = (url, type)
         (self.id, self.login) = (id, login)
         self.marketplacePurchase = marketplacePurchase
@@ -98,23 +129,29 @@ public struct MarketplacePurchaseMarketplacePendingChange: Codable {
     }
 
     init() {
-        (self.isInstalled, self.effectiveDate, self.unitCount, self.id, self.plan) = (nil, nil, nil, nil, nil)
+        (isInstalled, effectiveDate, unitCount, id, plan) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension MarketplacePurchaseMarketplacePendingChange {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.isInstalled = try container.sdkDecodeIfPresent(.isInstalled)
-        self.effectiveDate = try container.sdkDecodeIfPresent(.effectiveDate)
-        self.unitCount = try container.sdkDecodeIfPresent(.unitCount)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.plan = try container.sdkDecodeIfPresent(.plan)
+        isInstalled = try container.sdkDecodeIfPresent(.isInstalled)
+        effectiveDate = try container.sdkDecodeIfPresent(.effectiveDate)
+        unitCount = try container.sdkDecodeIfPresent(.unitCount)
+        id = try container.sdkDecodeIfPresent(.id)
+        plan = try container.sdkDecodeIfPresent(.plan)
     }
 }
 
 public extension MarketplacePurchaseMarketplacePendingChange {
-    public init(isInstalled: Bool? = nil, effectiveDate: String? = nil, unitCount: Int? = nil, id: Int? = nil, plan: MarketplaceListingPlan? = nil) {
+    init(
+        isInstalled: Bool? = nil,
+        effectiveDate: String? = nil,
+        unitCount: Int? = nil,
+        id: Int? = nil,
+        plan: MarketplaceListingPlan? = nil
+    ) {
         self.init()
         (self.isInstalled, self.effectiveDate) = (isInstalled, effectiveDate)
         (self.unitCount, self.id) = (unitCount, id)
@@ -153,27 +190,36 @@ public struct MarketplacePurchaseMarketplacePurchase: Codable {
     }
 
     init() {
-        (self.billingCycle, self.nextBillingDate, self.isInstalled, self.unitCount, self.onFreeTrial) = (nil, nil, nil, nil, nil)
-        (self.freeTrialEndsOn, self.updatedAt, self.plan) = (nil, nil, nil)
+        (billingCycle, nextBillingDate, isInstalled, unitCount, onFreeTrial) = (nil, nil, nil, nil, nil)
+        (freeTrialEndsOn, updatedAt, plan) = (nil, nil, nil)
     }
 }
 
 public extension MarketplacePurchaseMarketplacePurchase {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.billingCycle = try container.sdkDecodeIfPresent(.billingCycle)
-        self.nextBillingDate = try container.sdkDecodeIfPresent(.nextBillingDate)
-        self.isInstalled = try container.sdkDecodeIfPresent(.isInstalled)
-        self.unitCount = try container.sdkDecodeIfPresent(.unitCount)
-        self.onFreeTrial = try container.sdkDecodeIfPresent(.onFreeTrial)
-        self.freeTrialEndsOn = try container.sdkDecodeIfPresent(.freeTrialEndsOn)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.plan = try container.sdkDecodeIfPresent(.plan)
+        billingCycle = try container.sdkDecodeIfPresent(.billingCycle)
+        nextBillingDate = try container.sdkDecodeIfPresent(.nextBillingDate)
+        isInstalled = try container.sdkDecodeIfPresent(.isInstalled)
+        unitCount = try container.sdkDecodeIfPresent(.unitCount)
+        onFreeTrial = try container.sdkDecodeIfPresent(.onFreeTrial)
+        freeTrialEndsOn = try container.sdkDecodeIfPresent(.freeTrialEndsOn)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        plan = try container.sdkDecodeIfPresent(.plan)
     }
 }
 
 public extension MarketplacePurchaseMarketplacePurchase {
-    public init(billingCycle: String? = nil, nextBillingDate: String? = nil, isInstalled: Bool? = nil, unitCount: Int? = nil, onFreeTrial: Bool? = nil, freeTrialEndsOn: String? = nil, updatedAt: String? = nil, plan: MarketplaceListingPlan? = nil) {
+    init(
+        billingCycle: String? = nil,
+        nextBillingDate: String? = nil,
+        isInstalled: Bool? = nil,
+        unitCount: Int? = nil,
+        onFreeTrial: Bool? = nil,
+        freeTrialEndsOn: String? = nil,
+        updatedAt: String? = nil,
+        plan: MarketplaceListingPlan? = nil
+    ) {
         self.init()
         (self.billingCycle, self.nextBillingDate) = (billingCycle, nextBillingDate)
         (self.isInstalled, self.unitCount) = (isInstalled, unitCount)
@@ -214,45 +260,75 @@ public struct NullableScopedInstallation: Codable {
         case singleFilePaths = "single_file_paths"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension NullableScopedInstallation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.permissions) else {
-            throw SdkValidationError(field: "permissions", code: "required", message: "Validation failed for 'permissions': value is required")
-        }
-        guard container.contains(.repositorySelection) else {
-            throw SdkValidationError(field: "repository_selection", code: "required", message: "Validation failed for 'repository_selection': value is required")
-        }
-        guard container.contains(.singleFileName) else {
-            throw SdkValidationError(field: "single_file_name", code: "required", message: "Validation failed for 'single_file_name': value is required")
-        }
-        guard container.contains(.repositoriesUrl) else {
-            throw SdkValidationError(field: "repositories_url", code: "required", message: "Validation failed for 'repositories_url': value is required")
-        }
-        guard container.contains(.account) else {
-            throw SdkValidationError(field: "account", code: "required", message: "Validation failed for 'account': value is required")
-        }
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
-        self.singleFileName = try container.sdkDecodeIfPresent(.singleFileName)
-        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        self.account = try container.sdkDecodeRequired(.account)
-        self.hasMultipleSingleFiles = try container.sdkDecodeIfPresent(.hasMultipleSingleFiles)
-        self.singleFilePaths = try container.sdkDecodeIfPresent(.singleFilePaths)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension NullableScopedInstallation {
-    public init(permissions: AppPermissions, repositorySelection: NullableScopedInstallationRepositorySelection, singleFileName: String?, repositoriesUrl: String, account: SimpleUser, hasMultipleSingleFiles: Bool? = nil, singleFilePaths: [String]? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.permissions) else {
+            throw SdkValidationError(
+                field: "permissions",
+                code: "required",
+                message: "Validation failed for 'permissions': value is required"
+            )
+        }
+        guard container.contains(.repositorySelection) else {
+            throw SdkValidationError(
+                field: "repository_selection",
+                code: "required",
+                message: "Validation failed for 'repository_selection': value is required"
+            )
+        }
+        guard container.contains(.singleFileName) else {
+            throw SdkValidationError(
+                field: "single_file_name",
+                code: "required",
+                message: "Validation failed for 'single_file_name': value is required"
+            )
+        }
+        guard container.contains(.repositoriesUrl) else {
+            throw SdkValidationError(
+                field: "repositories_url",
+                code: "required",
+                message: "Validation failed for 'repositories_url': value is required"
+            )
+        }
+        guard container.contains(.account) else {
+            throw SdkValidationError(
+                field: "account",
+                code: "required",
+                message: "Validation failed for 'account': value is required"
+            )
+        }
+        permissions = try container.sdkDecodeRequired(.permissions)
+        repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
+        singleFileName = try container.sdkDecodeIfPresent(.singleFileName)
+        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        account = try container.sdkDecodeRequired(.account)
+        hasMultipleSingleFiles = try container.sdkDecodeIfPresent(.hasMultipleSingleFiles)
+        singleFilePaths = try container.sdkDecodeIfPresent(.singleFilePaths)
+        try sdkValidateUri("repositories_url", repositoriesUrl)
+    }
+}
+
+public extension NullableScopedInstallation {
+    init(
+        permissions: AppPermissions,
+        repositorySelection: NullableScopedInstallationRepositorySelection,
+        singleFileName: String?,
+        repositoriesUrl: String,
+        account: SimpleUser,
+        hasMultipleSingleFiles: Bool? = nil,
+        singleFilePaths: [String]? = nil
+    ) throws {
         (self.permissions, self.repositorySelection) = (permissions, repositorySelection)
         (self.singleFileName, self.repositoriesUrl) = (singleFileName, repositoriesUrl)
         (self.account, self.hasMultipleSingleFiles) = (account, hasMultipleSingleFiles)
         self.singleFilePaths = singleFilePaths
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+        try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
@@ -291,34 +367,45 @@ public struct UserMarketplacePurchase: Codable {
         case plan
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension UserMarketplacePurchase {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.billingCycle = try container.sdkDecodeRequired(.billingCycle)
-        self.nextBillingDate = try container.sdkDecodeIfPresent(.nextBillingDate)
-        self.unitCount = try container.sdkDecodeIfPresent(.unitCount)
-        self.onFreeTrial = try container.sdkDecodeRequired(.onFreeTrial)
-        self.freeTrialEndsOn = try container.sdkDecodeIfPresent(.freeTrialEndsOn)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.account = try container.sdkDecodeRequired(.account)
-        self.plan = try container.sdkDecodeRequired(.plan)
-        if let value = self.nextBillingDate {
+        billingCycle = try container.sdkDecodeRequired(.billingCycle)
+        nextBillingDate = try container.sdkDecodeIfPresent(.nextBillingDate)
+        unitCount = try container.sdkDecodeIfPresent(.unitCount)
+        onFreeTrial = try container.sdkDecodeRequired(.onFreeTrial)
+        freeTrialEndsOn = try container.sdkDecodeIfPresent(.freeTrialEndsOn)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        account = try container.sdkDecodeRequired(.account)
+        plan = try container.sdkDecodeRequired(.plan)
+        if let value = nextBillingDate {
             try sdkValidateDateTime("next_billing_date", sdkWireString(value))
         }
-        if let value = self.freeTrialEndsOn {
+        if let value = freeTrialEndsOn {
             try sdkValidateDateTime("free_trial_ends_on", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
 public extension UserMarketplacePurchase {
-    public init(billingCycle: String, nextBillingDate: Date?, unitCount: Int?, onFreeTrial: Bool, freeTrialEndsOn: Date?, updatedAt: Date?, account: MarketplaceAccount, plan: MarketplaceListingPlan) throws {
+    init(
+        billingCycle: String,
+        nextBillingDate: Date?,
+        unitCount: Int?,
+        onFreeTrial: Bool,
+        freeTrialEndsOn: Date?,
+        updatedAt: Date?,
+        account: MarketplaceAccount,
+        plan: MarketplaceListingPlan
+    ) throws {
         (self.billingCycle, self.nextBillingDate) = (billingCycle, nextBillingDate)
         (self.unitCount, self.onFreeTrial) = (unitCount, onFreeTrial)
         (self.freeTrialEndsOn, self.updatedAt) = (freeTrialEndsOn, updatedAt)
@@ -339,13 +426,16 @@ public extension UserMarketplacePurchase {
 public struct InstallationTokenRepositorySelection: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = InstallationTokenRepositorySelection(rawValue: "all")
     public static let selected = InstallationTokenRepositorySelection(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -358,14 +448,17 @@ public struct InstallationTokenRepositorySelection: RawRepresentable, Hashable, 
 public struct MarketplaceListingPlanPriceModel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let free = MarketplaceListingPlanPriceModel(rawValue: "FREE")
     public static let flatRate = MarketplaceListingPlanPriceModel(rawValue: "FLAT_RATE")
     public static let perUnit = MarketplaceListingPlanPriceModel(rawValue: "PER_UNIT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -375,16 +468,20 @@ public struct MarketplaceListingPlanPriceModel: RawRepresentable, Hashable, Coda
 }
 
 /// Describe whether all repositories have been selected or there's a selection involved
-public struct NullableScopedInstallationRepositorySelection: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct NullableScopedInstallationRepositorySelection: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = NullableScopedInstallationRepositorySelection(rawValue: "all")
     public static let selected = NullableScopedInstallationRepositorySelection(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

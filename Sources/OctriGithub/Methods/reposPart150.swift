@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Replace all repository topics
     ///
     /// - Parameters:
@@ -18,15 +18,34 @@ extension ReposMethods {
     ///   topics to _replace_ the set of existing topics. Send an empty array (`[]`)
     ///   to clear all topics from the repository. **Note:** Topic `names` will be
     ///   saved as lowercase.
-    public static func reposReplaceAllTopics(config: ClientConfig, owner: String, repo: String, names: [String]) async throws -> Topic {
+    static func reposReplaceAllTopics(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        names: [String]
+    ) async throws -> Topic {
         let requestBody = ReposReplaceAllTopicsRequestBody(names: names)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/topics"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposReplaceAllTopics")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/topics",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposReplaceAllTopics"
+        )).data
     }
 
     /// Get repository clones
     ///
-    /// Get the total number of clones and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
+    /// Get the total number of clones and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC
+    /// midnight of the beginning of the day or week. Week begins on Monday.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -34,9 +53,27 @@ extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - per: The time frame to display results for.
-    public static func reposGetClones(config: ClientConfig, owner: String, repo: String, per: ReposGetClonesParameter?) async throws -> CloneTraffic {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/traffic/clones"].joined(), config: config, query: [
-            SdkQueryParameter("per", value: per),
-        ], decoder: .json, operationId: "reposGetClones")).data
+    static func reposGetClones(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        per: ReposGetClonesParameter?
+    ) async throws -> CloneTraffic {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/traffic/clones",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per", value: per),
+            ],
+            decoder: .json,
+            operationId: "reposGetClones"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// IssuesReview domain models
+/// IssuesReview domain models
 /// Review Dismissed Issue Event
 public struct ReviewDismissedIssueEvent: Codable {
     /// Required `integer` value serialized in the `id` wire field.
@@ -42,27 +42,40 @@ public struct ReviewDismissedIssueEvent: Codable {
         case dismissedReview = "dismissed_review"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewDismissedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.dismissedReview = try container.sdkDecodeRequired(.dismissedReview)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewDismissedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, dismissedReview: ReviewDismissedIssueEventDismissedReview) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        dismissedReview = try container.sdkDecodeRequired(.dismissedReview)
+    }
+}
+
+public extension ReviewDismissedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        dismissedReview: ReviewDismissedIssueEventDismissedReview
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -89,30 +102,44 @@ public struct ReviewDismissedIssueEventDismissedReview: Codable {
         case dismissalCommitId = "dismissal_commit_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewDismissedIssueEventDismissedReview {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        guard container.contains(.reviewId) else {
-            throw SdkValidationError(field: "review_id", code: "required", message: "Validation failed for 'review_id': value is required")
-        }
-        guard container.contains(.dismissalMessage) else {
-            throw SdkValidationError(field: "dismissal_message", code: "required", message: "Validation failed for 'dismissal_message': value is required")
-        }
-        self.state = try container.sdkDecodeRequired(.state)
-        self.reviewId = try container.sdkDecodeRequired(.reviewId)
-        self.dismissalMessage = try container.sdkDecodeIfPresent(.dismissalMessage)
-        self.dismissalCommitId = try container.sdkDecodeIfPresent(.dismissalCommitId)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewDismissedIssueEventDismissedReview {
-    public init(state: String, reviewId: Int, dismissalMessage: String?, dismissalCommitId: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        guard container.contains(.reviewId) else {
+            throw SdkValidationError(
+                field: "review_id",
+                code: "required",
+                message: "Validation failed for 'review_id': value is required"
+            )
+        }
+        guard container.contains(.dismissalMessage) else {
+            throw SdkValidationError(
+                field: "dismissal_message",
+                code: "required",
+                message: "Validation failed for 'dismissal_message': value is required"
+            )
+        }
+        state = try container.sdkDecodeRequired(.state)
+        reviewId = try container.sdkDecodeRequired(.reviewId)
+        dismissalMessage = try container.sdkDecodeIfPresent(.dismissalMessage)
+        dismissalCommitId = try container.sdkDecodeIfPresent(.dismissalCommitId)
+    }
+}
+
+public extension ReviewDismissedIssueEventDismissedReview {
+    init(state: String, reviewId: Int, dismissalMessage: String?, dismissalCommitId: String? = nil) {
         (self.state, self.reviewId) = (state, reviewId)
         (self.dismissalMessage, self.dismissalCommitId) = (dismissalMessage, dismissalCommitId)
     }
@@ -162,29 +189,44 @@ public struct ReviewRequestRemovedIssueEvent: Codable {
         case requestedReviewer = "requested_reviewer"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewRequestRemovedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.reviewRequester = try container.sdkDecodeRequired(.reviewRequester)
-        self.requestedTeam = try container.sdkDecodeIfPresent(.requestedTeam)
-        self.requestedReviewer = try container.sdkDecodeIfPresent(.requestedReviewer)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewRequestRemovedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, reviewRequester: SimpleUser, requestedTeam: Team? = nil, requestedReviewer: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        reviewRequester = try container.sdkDecodeRequired(.reviewRequester)
+        requestedTeam = try container.sdkDecodeIfPresent(.requestedTeam)
+        requestedReviewer = try container.sdkDecodeIfPresent(.requestedReviewer)
+    }
+}
+
+public extension ReviewRequestRemovedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        reviewRequester: SimpleUser,
+        requestedTeam: Team? = nil,
+        requestedReviewer: SimpleUser? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -238,29 +280,44 @@ public struct ReviewRequestedIssueEvent: Codable {
         case requestedReviewer = "requested_reviewer"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewRequestedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.reviewRequester = try container.sdkDecodeRequired(.reviewRequester)
-        self.requestedTeam = try container.sdkDecodeIfPresent(.requestedTeam)
-        self.requestedReviewer = try container.sdkDecodeIfPresent(.requestedReviewer)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewRequestedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, reviewRequester: SimpleUser, requestedTeam: Team? = nil, requestedReviewer: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        reviewRequester = try container.sdkDecodeRequired(.reviewRequester)
+        requestedTeam = try container.sdkDecodeIfPresent(.requestedTeam)
+        requestedReviewer = try container.sdkDecodeIfPresent(.requestedReviewer)
+    }
+}
+
+public extension ReviewRequestedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        reviewRequester: SimpleUser,
+        requestedTeam: Team? = nil,
+        requestedReviewer: SimpleUser? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)

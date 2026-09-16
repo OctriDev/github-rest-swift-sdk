@@ -6,15 +6,38 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentTasksMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID scoped to an owner/repo path **Fine-grained access tokens for "Get a task by repo"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+public extension AgentTasksMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID scoped to an
+    /// owner/repo path **Fine-grained access tokens for "Get a task by repo"** This endpoint works with the following
+    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
+    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
+    /// GitHub App installation access tokens are not supported for this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository. The name is not case sensitive.
     /// - taskId: The unique identifier of the task.
-    public static func agentTasksGetTaskByRepoAndId(config: ClientConfig, owner: String, repo: String, taskId: String) async throws -> AgentTasksGetTaskByRepoAndIdResponse {
-        return try (await sdkRequest("GET", ["/agents/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/tasks/", sdkEncodePathSegment(sdkWireString(taskId))].joined(), config: config, decoder: .json, operationId: "agentTasksGetTaskByRepoAndId")).data
+    static func agentTasksGetTaskByRepoAndId(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        taskId: String
+    ) async throws -> AgentTasksGetTaskByRepoAndIdResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/agents/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/tasks/",
+                sdkEncodePathSegment(sdkWireString(taskId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "agentTasksGetTaskByRepoAndId"
+        )).data
     }
 }

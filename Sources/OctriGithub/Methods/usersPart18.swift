@@ -6,10 +6,18 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List attestations by bulk subject digests
     ///
-    /// List a collection of artifact attestations associated with any entry in a list of subject digests owned by a user. The collection of attestations returned by this endpoint is filtered according to the authenticated user's permissions; if the authenticated user cannot read a repository, the attestations associated with that repository will not be included in the response. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    /// List a collection of artifact attestations associated with any entry in a list of subject digests owned by a
+    /// user. The collection of attestations returned by this endpoint is filtered according to the authenticated user's
+    /// permissions; if the authenticated user cannot read a repository, the attestations associated with that
+    /// repository will not be included in the response. In addition, when using a fine-grained access token the
+    /// `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an
+    /// attestation's signature and timestamps **must** be cryptographically verified, and the identity of the
+    /// attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation
+    /// verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on
+    /// how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -33,15 +41,34 @@ extension UsersMethods {
     /// - predicateType: Optional filter for fetching attestations with a given
     ///   predicate type. This option accepts `provenance`, `sbom`, `release`, or
     ///   freeform text for custom predicate types.
-    public static func usersListAttestationsBulk(config: ClientConfig, username: String, subjectDigests: [String], perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> UsersListAttestationsBulkResponse {
+    static func usersListAttestationsBulk(
+        config: ClientConfig,
+        username: String,
+        subjectDigests: [String],
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        predicateType: String?
+    ) async throws -> UsersListAttestationsBulkResponse {
         try validateItems("subject_digests", subjectDigests, min: 1, max: 1024)
 
-        let requestBody = UsersListAttestationsBulkRequestBody(subjectDigests: subjectDigests, predicateType: predicateType)
+        let requestBody = UsersListAttestationsBulkRequestBody(
+            subjectDigests: subjectDigests,
+            predicateType: predicateType
+        )
 
-        return try (await sdkRequest("POST", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/bulk-list"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-        ], body: requestBody, decoder: .json, operationId: "usersListAttestationsBulk")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/bulk-list"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+            ],
+            body: requestBody,
+            decoder: .json,
+            operationId: "usersListAttestationsBulk"
+        )).data
     }
 }

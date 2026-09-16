@@ -3,7 +3,7 @@
 
 import Foundation
 
-// IssuesTimeline domain models
+/// IssuesTimeline domain models
 public enum TimelineIssueEvents {
     case labeledIssueEvent(LabeledIssueEvent)
     case unlabeledIssueEvent(UnlabeledIssueEvent)
@@ -43,66 +43,169 @@ public enum TimelineIssueEvents {
 }
 
 extension TimelineIssueEvents: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        if let value = Self.decodeGroup2(from: container) { self = value; return }
-        if let value = Self.decodeGroup3(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for TimelineIssueEvents")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        if let value = Self.decodeGroup2(from: container) {
+            self = value; return
+        }
+        if let value = Self.decodeGroup3(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for TimelineIssueEvents"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(LabeledIssueEvent.self) { return .labeledIssueEvent(value) }
-        if let value = try? container.decode(UnlabeledIssueEvent.self) { return .unlabeledIssueEvent(value) }
-        if let value = try? container.decode(MilestonedIssueEvent.self) { return .milestonedIssueEvent(value) }
-        if let value = try? container.decode(DemilestonedIssueEvent.self) { return .demilestonedIssueEvent(value) }
-        if let value = try? container.decode(RenamedIssueEvent.self) { return .renamedIssueEvent(value) }
-        if let value = try? container.decode(ReviewRequestedIssueEvent.self) { return .reviewRequestedIssueEvent(value) }
-        if let value = try? container.decode(ReviewRequestRemovedIssueEvent.self) { return .reviewRequestRemovedIssueEvent(value) }
-        if let value = try? container.decode(ReviewDismissedIssueEvent.self) { return .reviewDismissedIssueEvent(value) }
-        if let value = try? container.decode(LockedIssueEvent.self) { return .lockedIssueEvent(value) }
-        if let value = try? container.decode(AddedToProjectIssueEvent.self) { return .addedToProjectIssueEvent(value) }
-        if let value = try? container.decode(MovedColumnInProjectIssueEvent.self) { return .movedColumnInProjectIssueEvent(value) }
-        if let value = try? container.decode(RemovedFromProjectIssueEvent.self) { return .removedFromProjectIssueEvent(value) }
+        if let value = try? container.decode(LabeledIssueEvent.self) {
+            return .labeledIssueEvent(value)
+        }
+        if let value = try? container.decode(UnlabeledIssueEvent.self) {
+            return .unlabeledIssueEvent(value)
+        }
+        if let value = try? container.decode(MilestonedIssueEvent.self) {
+            return .milestonedIssueEvent(value)
+        }
+        if let value = try? container.decode(DemilestonedIssueEvent.self) {
+            return .demilestonedIssueEvent(value)
+        }
+        if let value = try? container.decode(RenamedIssueEvent.self) {
+            return .renamedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(ReviewRequestedIssueEvent.self) {
+            return .reviewRequestedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(ReviewRequestRemovedIssueEvent.self) {
+            return .reviewRequestRemovedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(ReviewDismissedIssueEvent.self) {
+            return .reviewDismissedIssueEvent(value)
+        }
+        if let value = try? container.decode(LockedIssueEvent.self) {
+            return .lockedIssueEvent(value)
+        }
+        if let value = try? container.decode(AddedToProjectIssueEvent.self) {
+            return .addedToProjectIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(MovedColumnInProjectIssueEvent.self) {
+            return .movedColumnInProjectIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(RemovedFromProjectIssueEvent.self) {
+            return .removedFromProjectIssueEvent(value)
+        }
         return nil
     }
 
     private static func decodeGroup2(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(ConvertedNoteToIssueIssueEvent.self) { return .convertedNoteToIssueIssueEvent(value) }
-        if let value = try? container.decode(TimelineCommentEvent.self) { return .timelineCommentEvent(value) }
-        if let value = try? container.decode(TimelineCrossReferencedEvent.self) { return .timelineCrossReferencedEvent(value) }
-        if let value = try? container.decode(TimelineCommittedEvent.self) { return .timelineCommittedEvent(value) }
-        if let value = try? container.decode(TimelineReviewedEvent.self) { return .timelineReviewedEvent(value) }
-        if let value = try? container.decode(TimelineLineCommentedEvent.self) { return .timelineLineCommentedEvent(value) }
-        if let value = try? container.decode(TimelineCommitCommentedEvent.self) { return .timelineCommitCommentedEvent(value) }
-        if let value = try? container.decode(TimelineAssignedIssueEvent.self) { return .timelineAssignedIssueEvent(value) }
-        if let value = try? container.decode(TimelineUnassignedIssueEvent.self) { return .timelineUnassignedIssueEvent(value) }
-        if let value = try? container.decode(StateChangeIssueEvent.self) { return .stateChangeIssueEvent(value) }
-        if let value = try? container.decode(IssueTypeAddedIssueEvent.self) { return .issueTypeAddedIssueEvent(value) }
-        if let value = try? container.decode(IssueTypeRemovedIssueEvent.self) { return .issueTypeRemovedIssueEvent(value) }
+        if let value = try? container
+            .decode(ConvertedNoteToIssueIssueEvent.self) {
+            return .convertedNoteToIssueIssueEvent(value)
+        }
+        if let value = try? container.decode(TimelineCommentEvent.self) {
+            return .timelineCommentEvent(value)
+        }
+        if let value = try? container
+            .decode(TimelineCrossReferencedEvent.self) {
+            return .timelineCrossReferencedEvent(value)
+        }
+        if let value = try? container.decode(TimelineCommittedEvent.self) {
+            return .timelineCommittedEvent(value)
+        }
+        if let value = try? container.decode(TimelineReviewedEvent.self) {
+            return .timelineReviewedEvent(value)
+        }
+        if let value = try? container
+            .decode(TimelineLineCommentedEvent.self) {
+            return .timelineLineCommentedEvent(value)
+        }
+        if let value = try? container
+            .decode(TimelineCommitCommentedEvent.self) {
+            return .timelineCommitCommentedEvent(value)
+        }
+        if let value = try? container
+            .decode(TimelineAssignedIssueEvent.self) {
+            return .timelineAssignedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(TimelineUnassignedIssueEvent.self) {
+            return .timelineUnassignedIssueEvent(value)
+        }
+        if let value = try? container.decode(StateChangeIssueEvent.self) {
+            return .stateChangeIssueEvent(value)
+        }
+        if let value = try? container.decode(IssueTypeAddedIssueEvent.self) {
+            return .issueTypeAddedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(IssueTypeRemovedIssueEvent.self) {
+            return .issueTypeRemovedIssueEvent(value)
+        }
         return nil
     }
 
     private static func decodeGroup3(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(IssueTypeChangedIssueEvent.self) { return .issueTypeChangedIssueEvent(value) }
-        if let value = try? container.decode(SubIssueAddedIssueEvent.self) { return .subIssueAddedIssueEvent(value) }
-        if let value = try? container.decode(SubIssueRemovedIssueEvent.self) { return .subIssueRemovedIssueEvent(value) }
-        if let value = try? container.decode(ParentIssueAddedIssueEvent.self) { return .parentIssueAddedIssueEvent(value) }
-        if let value = try? container.decode(ParentIssueRemovedIssueEvent.self) { return .parentIssueRemovedIssueEvent(value) }
-        if let value = try? container.decode(BlockedByAddedIssueEvent.self) { return .blockedByAddedIssueEvent(value) }
-        if let value = try? container.decode(BlockedByRemovedIssueEvent.self) { return .blockedByRemovedIssueEvent(value) }
-        if let value = try? container.decode(BlockingAddedIssueEvent.self) { return .blockingAddedIssueEvent(value) }
-        if let value = try? container.decode(BlockingRemovedIssueEvent.self) { return .blockingRemovedIssueEvent(value) }
-        if let value = try? container.decode(TimelineConnectedEvent.self) { return .timelineConnectedEvent(value) }
-        if let value = try? container.decode(TimelineDisconnectedEvent.self) { return .timelineDisconnectedEvent(value) }
+        if let value = try? container
+            .decode(IssueTypeChangedIssueEvent.self) {
+            return .issueTypeChangedIssueEvent(value)
+        }
+        if let value = try? container.decode(SubIssueAddedIssueEvent.self) {
+            return .subIssueAddedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(SubIssueRemovedIssueEvent.self) {
+            return .subIssueRemovedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(ParentIssueAddedIssueEvent.self) {
+            return .parentIssueAddedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(ParentIssueRemovedIssueEvent.self) {
+            return .parentIssueRemovedIssueEvent(value)
+        }
+        if let value = try? container.decode(BlockedByAddedIssueEvent.self) {
+            return .blockedByAddedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(BlockedByRemovedIssueEvent.self) {
+            return .blockedByRemovedIssueEvent(value)
+        }
+        if let value = try? container.decode(BlockingAddedIssueEvent.self) {
+            return .blockingAddedIssueEvent(value)
+        }
+        if let value = try? container
+            .decode(BlockingRemovedIssueEvent.self) {
+            return .blockingRemovedIssueEvent(value)
+        }
+        if let value = try? container.decode(TimelineConnectedEvent.self) {
+            return .timelineConnectedEvent(value)
+        }
+        if let value = try? container
+            .decode(TimelineDisconnectedEvent.self) {
+            return .timelineDisconnectedEvent(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
-        if try encodeGroup2(to: encoder) { return }
-        if try encodeGroup3(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
+        if try encodeGroup2(to: encoder) {
+            return
+        }
+        if try encodeGroup3(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -160,7 +263,6 @@ extension TimelineIssueEvents: Codable {
         default: return false
         }
     }
-
 }
 
 /// Timeline Assigned Issue Event
@@ -207,28 +309,42 @@ public struct TimelineAssignedIssueEvent: Codable {
         case intent
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension TimelineAssignedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.assignee = try container.sdkDecodeRequired(.assignee)
-        self.intent = try container.sdkDecodeIfPresent(.intent)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension TimelineAssignedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, assignee: SimpleUser, intent: NullableIssueEventIntent? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        assignee = try container.sdkDecodeRequired(.assignee)
+        intent = try container.sdkDecodeIfPresent(.intent)
+    }
+}
+
+public extension TimelineAssignedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        assignee: SimpleUser,
+        intent: NullableIssueEventIntent? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -306,40 +422,61 @@ public struct TimelineCommentEvent: Codable {
         case minimized
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension TimelineCommentEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.user = try container.sdkDecodeRequired(.user)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.issueUrl = try container.sdkDecodeRequired(.issueUrl)
-        self.authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
-        self.body = try container.sdkDecodeIfPresent(.body)
-        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.reactions = try container.sdkDecodeIfPresent(.reactions)
-        self.pin = try container.sdkDecodeIfPresent(.pin)
-        self.minimized = try container.sdkDecodeIfPresent(.minimized)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("issue_url", self.issueUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension TimelineCommentEvent {
-    public init(event: String, actor: SimpleUser, id: Int, nodeId: String, url: String, htmlUrl: String, user: SimpleUser, createdAt: Date, updatedAt: Date, issueUrl: String, authorAssociation: AuthorAssociation, body: String? = nil, bodyText: String? = nil, bodyHtml: String? = nil, performedViaGithubApp: NullableIntegration? = nil, reactions: ReactionRollup? = nil, pin: NullablePinnedIssueComment? = nil, minimized: NullableIssueCommentMinimized? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        event = try container.sdkDecodeRequired(.event)
+        actor = try container.sdkDecodeRequired(.actor)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        user = try container.sdkDecodeRequired(.user)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        issueUrl = try container.sdkDecodeRequired(.issueUrl)
+        authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
+        body = try container.sdkDecodeIfPresent(.body)
+        bodyText = try container.sdkDecodeIfPresent(.bodyText)
+        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        reactions = try container.sdkDecodeIfPresent(.reactions)
+        pin = try container.sdkDecodeIfPresent(.pin)
+        minimized = try container.sdkDecodeIfPresent(.minimized)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("issue_url", issueUrl)
+    }
+}
+
+public extension TimelineCommentEvent {
+    init(
+        event: String,
+        actor: SimpleUser,
+        id: Int,
+        nodeId: String,
+        url: String,
+        htmlUrl: String,
+        user: SimpleUser,
+        createdAt: Date,
+        updatedAt: Date,
+        issueUrl: String,
+        authorAssociation: AuthorAssociation,
+        body: String? = nil,
+        bodyText: String? = nil,
+        bodyHtml: String? = nil,
+        performedViaGithubApp: NullableIntegration? = nil,
+        reactions: ReactionRollup? = nil,
+        pin: NullablePinnedIssueComment? = nil,
+        minimized: NullableIssueCommentMinimized? = nil
+    ) throws {
         (self.event, self.actor) = (event, actor)
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.htmlUrl) = (url, htmlUrl)
@@ -349,11 +486,11 @@ public extension TimelineCommentEvent {
         (self.bodyText, self.bodyHtml) = (bodyText, bodyHtml)
         (self.performedViaGithubApp, self.reactions) = (performedViaGithubApp, reactions)
         (self.pin, self.minimized) = (pin, minimized)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("issue_url", self.issueUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("issue_url", self.issueUrl)
     }
 }
 
@@ -376,22 +513,22 @@ public struct TimelineCommitCommentedEvent: Codable {
     }
 
     init() {
-        (self.event, self.nodeId, self.commitId, self.comments) = (nil, nil, nil, nil)
+        (event, nodeId, commitId, comments) = (nil, nil, nil, nil)
     }
 }
 
 public extension TimelineCommitCommentedEvent {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.event = try container.sdkDecodeIfPresent(.event)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.comments = try container.sdkDecodeIfPresent(.comments)
+        event = try container.sdkDecodeIfPresent(.event)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        comments = try container.sdkDecodeIfPresent(.comments)
     }
 }
 
 public extension TimelineCommitCommentedEvent {
-    public init(event: String? = nil, nodeId: String? = nil, commitId: String? = nil, comments: [CommitComment]? = nil) {
+    init(event: String? = nil, nodeId: String? = nil, commitId: String? = nil, comments: [CommitComment]? = nil) {
         self.init()
         (self.event, self.nodeId) = (event, nodeId)
         (self.commitId, self.comments) = (commitId, comments)
@@ -439,38 +576,52 @@ public struct TimelineCommittedEvent: Codable {
         case event
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension TimelineCommittedEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.author = try container.sdkDecodeRequired(.author)
-        self.committer = try container.sdkDecodeRequired(.committer)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.tree = try container.sdkDecodeRequired(.tree)
-        self.parents = try container.sdkDecodeRequired(.parents)
-        self.verification = try container.sdkDecodeRequired(.verification)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.event = try container.sdkDecodeIfPresent(.event)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension TimelineCommittedEvent {
-    public init(sha: String, nodeId: String, url: String, author: TimelineCommittedEventAuthor, committer: TimelineCommittedEventCommitter, message: String, tree: TimelineCommittedEventTree, parents: [TimelineCommittedEventParentsItem], verification: TimelineCommittedEventVerification, htmlUrl: String, event: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        sha = try container.sdkDecodeRequired(.sha)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        author = try container.sdkDecodeRequired(.author)
+        committer = try container.sdkDecodeRequired(.committer)
+        message = try container.sdkDecodeRequired(.message)
+        tree = try container.sdkDecodeRequired(.tree)
+        parents = try container.sdkDecodeRequired(.parents)
+        verification = try container.sdkDecodeRequired(.verification)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        event = try container.sdkDecodeIfPresent(.event)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+    }
+}
+
+public extension TimelineCommittedEvent {
+    init(
+        sha: String,
+        nodeId: String,
+        url: String,
+        author: TimelineCommittedEventAuthor,
+        committer: TimelineCommittedEventCommitter,
+        message: String,
+        tree: TimelineCommittedEventTree,
+        parents: [TimelineCommittedEventParentsItem],
+        verification: TimelineCommittedEventVerification,
+        htmlUrl: String,
+        event: String? = nil
+    ) throws {
         (self.sha, self.nodeId) = (sha, nodeId)
         (self.url, self.author) = (url, author)
         (self.committer, self.message) = (committer, message)
         (self.tree, self.parents) = (tree, parents)
         (self.verification, self.htmlUrl) = (verification, htmlUrl)
         self.event = event
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
@@ -492,5 +643,7 @@ public struct TimelineCommittedEventAuthor: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

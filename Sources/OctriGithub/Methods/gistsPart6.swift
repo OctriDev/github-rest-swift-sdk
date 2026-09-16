@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GistsMethods {
-    /// Lists the comments on a gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+public extension GistsMethods {
+    /// Lists the comments on a gist. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
@@ -19,23 +22,45 @@ extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func gistsListComments(config: ClientConfig, gistId: String, perPage: Int?, page: Int?) async throws -> [GistComment] {
-        return try (await sdkRequest("GET", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "gistsListComments")).data
+    static func gistsListComments(
+        config: ClientConfig,
+        gistId: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [GistComment] {
+        try await (sdkRequest(
+            "GET",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "gistsListComments"
+        )).data
     }
 
-    /// Creates a comment on a gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+    /// Creates a comment on a gist. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
     /// - body: The comment text.
-    public static func gistsCreateComment(config: ClientConfig, gistId: String, body: String) async throws -> GistComment {
+    static func gistsCreateComment(config: ClientConfig, gistId: String, body: String) async throws -> GistComment {
         try validateLength("body", body, max: 65535)
 
         let requestBody = GistsCreateCommentRequestBody(body: body)
 
-        return try (await sdkRequest("POST", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments"].joined(), config: config, body: requestBody, decoder: .json, operationId: "gistsCreateComment")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gistsCreateComment"
+        )).data
     }
 }

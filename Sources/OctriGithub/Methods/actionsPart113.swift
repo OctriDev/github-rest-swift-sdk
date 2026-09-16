@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Deletes an environment variable using the variable name. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Deletes an environment variable using the variable name. Authenticated users must have collaborator access to a
+    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,7 +19,28 @@ extension ActionsMethods {
     /// - name: The name of the variable.
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
-    public static func actionsDeleteEnvironmentVariable(config: ClientConfig, owner: String, repo: String, name: String, environmentName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteEnvironmentVariable")).data
+    static func actionsDeleteEnvironmentVariable(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        name: String,
+        environmentName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/variables/",
+                sdkEncodePathSegment(sdkWireString(name)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDeleteEnvironmentVariable"
+        )).data
     }
 }

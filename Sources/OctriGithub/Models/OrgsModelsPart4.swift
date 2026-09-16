@@ -3,83 +3,160 @@
 
 import Foundation
 
-// Orgs domain models
+/// Orgs domain models
 public extension OrganizationFull {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
-        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        self.publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
-        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.hasOrganizationProjects = try container.sdkDecodeRequired(.hasOrganizationProjects)
-        self.hasRepositoryProjects = try container.sdkDecodeRequired(.hasRepositoryProjects)
-        self.publicRepos = try container.sdkDecodeRequired(.publicRepos)
-        self.publicGists = try container.sdkDecodeRequired(.publicGists)
-        self.followers = try container.sdkDecodeRequired(.followers)
-        self.following = try container.sdkDecodeRequired(.following)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.company = try container.sdkDecodeIfPresent(.company)
-        self.blog = try container.sdkDecodeIfPresent(.blog)
-        self.location = try container.sdkDecodeIfPresent(.location)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.twitterUsername = try container.sdkDecodeIfPresent(.twitterUsername)
-        self.isVerified = try container.sdkDecodeIfPresent(.isVerified)
-        self.totalPrivateRepos = try container.sdkDecodeIfPresent(.totalPrivateRepos)
-        self.ownedPrivateRepos = try container.sdkDecodeIfPresent(.ownedPrivateRepos)
-        self.privateGists = try container.sdkDecodeIfPresent(.privateGists)
-        self.diskUsage = try container.sdkDecodeIfPresent(.diskUsage)
-        self.collaborators = try container.sdkDecodeIfPresent(.collaborators)
-        self.billingEmail = try container.sdkDecodeIfPresent(.billingEmail)
-        self.plan = try container.sdkDecodeIfPresent(.plan)
-        self.defaultRepositoryPermission = try container.sdkDecodeIfPresent(.defaultRepositoryPermission)
-        self.defaultRepositoryBranch = try container.sdkDecodeIfPresent(.defaultRepositoryBranch)
-        self.membersCanCreateRepositories = try container.sdkDecodeIfPresent(.membersCanCreateRepositories)
-        self.twoFactorRequirementEnabled = try container.sdkDecodeIfPresent(.twoFactorRequirementEnabled)
-        self.membersAllowedRepositoryCreationType = try container.sdkDecodeIfPresent(.membersAllowedRepositoryCreationType)
-        self.membersCanCreatePublicRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePublicRepositories)
-        self.membersCanCreatePrivateRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePrivateRepositories)
-        self.membersCanCreateInternalRepositories = try container.sdkDecodeIfPresent(.membersCanCreateInternalRepositories)
-        self.membersCanCreatePages = try container.sdkDecodeIfPresent(.membersCanCreatePages)
-        self.membersCanCreatePublicPages = try container.sdkDecodeIfPresent(.membersCanCreatePublicPages)
-        self.membersCanCreatePrivatePages = try container.sdkDecodeIfPresent(.membersCanCreatePrivatePages)
-        self.membersCanDeleteRepositories = try container.sdkDecodeIfPresent(.membersCanDeleteRepositories)
-        self.membersCanChangeRepoVisibility = try container.sdkDecodeIfPresent(.membersCanChangeRepoVisibility)
-        self.membersCanInviteOutsideCollaborators = try container.sdkDecodeIfPresent(.membersCanInviteOutsideCollaborators)
-        self.membersCanDeleteIssues = try container.sdkDecodeIfPresent(.membersCanDeleteIssues)
-        self.displayCommenterFullNameSettingEnabled = try container.sdkDecodeIfPresent(.displayCommenterFullNameSettingEnabled)
-        self.readersCanCreateDiscussions = try container.sdkDecodeIfPresent(.readersCanCreateDiscussions)
-        self.membersCanCreateTeams = try container.sdkDecodeIfPresent(.membersCanCreateTeams)
-        self.membersCanViewDependencyInsights = try container.sdkDecodeIfPresent(.membersCanViewDependencyInsights)
-        self.membersCanForkPrivateRepositories = try container.sdkDecodeIfPresent(.membersCanForkPrivateRepositories)
-        self.webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
-        self.advancedSecurityEnabledForNewRepositories = try container.sdkDecodeIfPresent(.advancedSecurityEnabledForNewRepositories)
-        self.dependabotAlertsEnabledForNewRepositories = try container.sdkDecodeIfPresent(.dependabotAlertsEnabledForNewRepositories)
-        self.dependabotSecurityUpdatesEnabledForNewRepositories = try container.sdkDecodeIfPresent(.dependabotSecurityUpdatesEnabledForNewRepositories)
-        self.dependencyGraphEnabledForNewRepositories = try container.sdkDecodeIfPresent(.dependencyGraphEnabledForNewRepositories)
-        self.secretScanningEnabledForNewRepositories = try container.sdkDecodeIfPresent(.secretScanningEnabledForNewRepositories)
-        self.secretScanningPushProtectionEnabledForNewRepositories = try container.sdkDecodeIfPresent(.secretScanningPushProtectionEnabledForNewRepositories)
-        self.secretScanningPushProtectionCustomLinkEnabled = try container.sdkDecodeIfPresent(.secretScanningPushProtectionCustomLinkEnabled)
-        self.secretScanningPushProtectionCustomLink = try container.sdkDecodeIfPresent(.secretScanningPushProtectionCustomLink)
-        self.deployKeysEnabledForRepositories = try container.sdkDecodeIfPresent(.deployKeysEnabledForRepositories)
+        login = try container.sdkDecodeRequired(.login)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
+        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        description = try container.sdkDecodeIfPresent(.description)
+        hasOrganizationProjects = try container.sdkDecodeRequired(.hasOrganizationProjects)
+        hasRepositoryProjects = try container.sdkDecodeRequired(.hasRepositoryProjects)
+        publicRepos = try container.sdkDecodeRequired(.publicRepos)
+        publicGists = try container.sdkDecodeRequired(.publicGists)
+        followers = try container.sdkDecodeRequired(.followers)
+        following = try container.sdkDecodeRequired(.following)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        type = try container.sdkDecodeRequired(.type)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        name = try container.sdkDecodeIfPresent(.name)
+        company = try container.sdkDecodeIfPresent(.company)
+        blog = try container.sdkDecodeIfPresent(.blog)
+        location = try container.sdkDecodeIfPresent(.location)
+        email = try container.sdkDecodeIfPresent(.email)
+        twitterUsername = try container.sdkDecodeIfPresent(.twitterUsername)
+        isVerified = try container.sdkDecodeIfPresent(.isVerified)
+        totalPrivateRepos = try container.sdkDecodeIfPresent(.totalPrivateRepos)
+        ownedPrivateRepos = try container.sdkDecodeIfPresent(.ownedPrivateRepos)
+        privateGists = try container.sdkDecodeIfPresent(.privateGists)
+        diskUsage = try container.sdkDecodeIfPresent(.diskUsage)
+        collaborators = try container.sdkDecodeIfPresent(.collaborators)
+        billingEmail = try container.sdkDecodeIfPresent(.billingEmail)
+        plan = try container.sdkDecodeIfPresent(.plan)
+        defaultRepositoryPermission = try container.sdkDecodeIfPresent(.defaultRepositoryPermission)
+        defaultRepositoryBranch = try container.sdkDecodeIfPresent(.defaultRepositoryBranch)
+        membersCanCreateRepositories = try container.sdkDecodeIfPresent(.membersCanCreateRepositories)
+        twoFactorRequirementEnabled = try container.sdkDecodeIfPresent(.twoFactorRequirementEnabled)
+        membersAllowedRepositoryCreationType = try container.sdkDecodeIfPresent(.membersAllowedRepositoryCreationType)
+        membersCanCreatePublicRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePublicRepositories)
+        membersCanCreatePrivateRepositories = try container.sdkDecodeIfPresent(.membersCanCreatePrivateRepositories)
+        membersCanCreateInternalRepositories = try container.sdkDecodeIfPresent(.membersCanCreateInternalRepositories)
+        membersCanCreatePages = try container.sdkDecodeIfPresent(.membersCanCreatePages)
+        membersCanCreatePublicPages = try container.sdkDecodeIfPresent(.membersCanCreatePublicPages)
+        membersCanCreatePrivatePages = try container.sdkDecodeIfPresent(.membersCanCreatePrivatePages)
+        membersCanDeleteRepositories = try container.sdkDecodeIfPresent(.membersCanDeleteRepositories)
+        membersCanChangeRepoVisibility = try container.sdkDecodeIfPresent(.membersCanChangeRepoVisibility)
+        membersCanInviteOutsideCollaborators = try container.sdkDecodeIfPresent(.membersCanInviteOutsideCollaborators)
+        membersCanDeleteIssues = try container.sdkDecodeIfPresent(.membersCanDeleteIssues)
+        displayCommenterFullNameSettingEnabled = try container
+            .sdkDecodeIfPresent(.displayCommenterFullNameSettingEnabled)
+        readersCanCreateDiscussions = try container.sdkDecodeIfPresent(.readersCanCreateDiscussions)
+        membersCanCreateTeams = try container.sdkDecodeIfPresent(.membersCanCreateTeams)
+        membersCanViewDependencyInsights = try container.sdkDecodeIfPresent(.membersCanViewDependencyInsights)
+        membersCanForkPrivateRepositories = try container.sdkDecodeIfPresent(.membersCanForkPrivateRepositories)
+        webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
+        advancedSecurityEnabledForNewRepositories = try container
+            .sdkDecodeIfPresent(.advancedSecurityEnabledForNewRepositories)
+        dependabotAlertsEnabledForNewRepositories = try container
+            .sdkDecodeIfPresent(.dependabotAlertsEnabledForNewRepositories)
+        dependabotSecurityUpdatesEnabledForNewRepositories = try container
+            .sdkDecodeIfPresent(.dependabotSecurityUpdatesEnabledForNewRepositories)
+        dependencyGraphEnabledForNewRepositories = try container
+            .sdkDecodeIfPresent(.dependencyGraphEnabledForNewRepositories)
+        secretScanningEnabledForNewRepositories = try container
+            .sdkDecodeIfPresent(.secretScanningEnabledForNewRepositories)
+        secretScanningPushProtectionEnabledForNewRepositories = try container
+            .sdkDecodeIfPresent(.secretScanningPushProtectionEnabledForNewRepositories)
+        secretScanningPushProtectionCustomLinkEnabled = try container
+            .sdkDecodeIfPresent(.secretScanningPushProtectionCustomLinkEnabled)
+        secretScanningPushProtectionCustomLink = try container
+            .sdkDecodeIfPresent(.secretScanningPushProtectionCustomLink)
+        deployKeysEnabledForRepositories = try container.sdkDecodeIfPresent(.deployKeysEnabledForRepositories)
         try sdkValidateConstraints()
     }
 }
 
 public extension OrganizationFull {
-    public init(login: String, id: Int, nodeId: String, url: String, reposUrl: String, eventsUrl: String, hooksUrl: String, issuesUrl: String, membersUrl: String, publicMembersUrl: String, avatarUrl: String, description: String?, hasOrganizationProjects: Bool, hasRepositoryProjects: Bool, publicRepos: Int, publicGists: Int, followers: Int, following: Int, htmlUrl: String, type: String, createdAt: Date, updatedAt: Date, archivedAt: Date?, name: String? = nil, company: String? = nil, blog: String? = nil, location: String? = nil, email: String? = nil, twitterUsername: String? = nil, isVerified: Bool? = nil, totalPrivateRepos: Int? = nil, ownedPrivateRepos: Int? = nil, privateGists: Int? = nil, diskUsage: Int? = nil, collaborators: Int? = nil, billingEmail: String? = nil, plan: OrganizationFullPlan? = nil, defaultRepositoryPermission: String? = nil, defaultRepositoryBranch: String? = nil, membersCanCreateRepositories: Bool? = nil, twoFactorRequirementEnabled: Bool? = nil, membersAllowedRepositoryCreationType: String? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, membersCanDeleteRepositories: Bool? = nil, membersCanChangeRepoVisibility: Bool? = nil, membersCanInviteOutsideCollaborators: Bool? = nil, membersCanDeleteIssues: Bool? = nil, displayCommenterFullNameSettingEnabled: Bool? = nil, readersCanCreateDiscussions: Bool? = nil, membersCanCreateTeams: Bool? = nil, membersCanViewDependencyInsights: Bool? = nil, membersCanForkPrivateRepositories: Bool? = nil, webCommitSignoffRequired: Bool? = nil, advancedSecurityEnabledForNewRepositories: Bool? = nil, dependabotAlertsEnabledForNewRepositories: Bool? = nil, dependabotSecurityUpdatesEnabledForNewRepositories: Bool? = nil, dependencyGraphEnabledForNewRepositories: Bool? = nil, secretScanningEnabledForNewRepositories: Bool? = nil, secretScanningPushProtectionEnabledForNewRepositories: Bool? = nil, secretScanningPushProtectionCustomLinkEnabled: Bool? = nil, secretScanningPushProtectionCustomLink: String? = nil, deployKeysEnabledForRepositories: Bool? = nil) throws {
+    init(
+        login: String,
+        id: Int,
+        nodeId: String,
+        url: String,
+        reposUrl: String,
+        eventsUrl: String,
+        hooksUrl: String,
+        issuesUrl: String,
+        membersUrl: String,
+        publicMembersUrl: String,
+        avatarUrl: String,
+        description: String?,
+        hasOrganizationProjects: Bool,
+        hasRepositoryProjects: Bool,
+        publicRepos: Int,
+        publicGists: Int,
+        followers: Int,
+        following: Int,
+        htmlUrl: String,
+        type: String,
+        createdAt: Date,
+        updatedAt: Date,
+        archivedAt: Date?,
+        name: String? = nil,
+        company: String? = nil,
+        blog: String? = nil,
+        location: String? = nil,
+        email: String? = nil,
+        twitterUsername: String? = nil,
+        isVerified: Bool? = nil,
+        totalPrivateRepos: Int? = nil,
+        ownedPrivateRepos: Int? = nil,
+        privateGists: Int? = nil,
+        diskUsage: Int? = nil,
+        collaborators: Int? = nil,
+        billingEmail: String? = nil,
+        plan: OrganizationFullPlan? = nil,
+        defaultRepositoryPermission: String? = nil,
+        defaultRepositoryBranch: String? = nil,
+        membersCanCreateRepositories: Bool? = nil,
+        twoFactorRequirementEnabled: Bool? = nil,
+        membersAllowedRepositoryCreationType: String? = nil,
+        membersCanCreatePublicRepositories: Bool? = nil,
+        membersCanCreatePrivateRepositories: Bool? = nil,
+        membersCanCreateInternalRepositories: Bool? = nil,
+        membersCanCreatePages: Bool? = nil,
+        membersCanCreatePublicPages: Bool? = nil,
+        membersCanCreatePrivatePages: Bool? = nil,
+        membersCanDeleteRepositories: Bool? = nil,
+        membersCanChangeRepoVisibility: Bool? = nil,
+        membersCanInviteOutsideCollaborators: Bool? = nil,
+        membersCanDeleteIssues: Bool? = nil,
+        displayCommenterFullNameSettingEnabled: Bool? = nil,
+        readersCanCreateDiscussions: Bool? = nil,
+        membersCanCreateTeams: Bool? = nil,
+        membersCanViewDependencyInsights: Bool? = nil,
+        membersCanForkPrivateRepositories: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil,
+        advancedSecurityEnabledForNewRepositories: Bool? = nil,
+        dependabotAlertsEnabledForNewRepositories: Bool? = nil,
+        dependabotSecurityUpdatesEnabledForNewRepositories: Bool? = nil,
+        dependencyGraphEnabledForNewRepositories: Bool? = nil,
+        secretScanningEnabledForNewRepositories: Bool? = nil,
+        secretScanningPushProtectionEnabledForNewRepositories: Bool? = nil,
+        secretScanningPushProtectionCustomLinkEnabled: Bool? = nil,
+        secretScanningPushProtectionCustomLink: String? = nil,
+        deployKeysEnabledForRepositories: Bool? = nil
+    ) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.url) = (nodeId, url)
         (self.reposUrl, self.eventsUrl) = (reposUrl, eventsUrl)
@@ -125,7 +202,9 @@ public extension OrganizationFull {
         self.dependabotSecurityUpdatesEnabledForNewRepositories = dependabotSecurityUpdatesEnabledForNewRepositories
         self.dependencyGraphEnabledForNewRepositories = dependencyGraphEnabledForNewRepositories
         self.secretScanningEnabledForNewRepositories = secretScanningEnabledForNewRepositories
-        self.secretScanningPushProtectionEnabledForNewRepositories = secretScanningPushProtectionEnabledForNewRepositories
+        self
+            .secretScanningPushProtectionEnabledForNewRepositories =
+            secretScanningPushProtectionEnabledForNewRepositories
         self.secretScanningPushProtectionCustomLinkEnabled = secretScanningPushProtectionCustomLinkEnabled
         self.secretScanningPushProtectionCustomLink = secretScanningPushProtectionCustomLink
         self.deployKeysEnabledForRepositories = deployKeysEnabledForRepositories
@@ -135,22 +214,22 @@ public extension OrganizationFull {
 
 extension OrganizationFull {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("repos_url", self.reposUrl)
-            try sdkValidateUri("events_url", self.eventsUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.archivedAt {
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("repos_url", reposUrl)
+        try sdkValidateUri("events_url", eventsUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
-        if let value = self.blog {
+        if let value = blog {
             try sdkValidateUri("blog", value)
         }
-        if let value = self.email {
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.billingEmail {
+        if let value = billingEmail {
             try sdkValidateEmail("billing_email", value)
         }
     }
@@ -177,31 +256,45 @@ public struct OrganizationFullPlan: Codable {
         case seats
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension OrganizationFullPlan {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.space) else {
-            throw SdkValidationError(field: "space", code: "required", message: "Validation failed for 'space': value is required")
-        }
-        guard container.contains(.privateRepos) else {
-            throw SdkValidationError(field: "private_repos", code: "required", message: "Validation failed for 'private_repos': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.space = try container.sdkDecodeRequired(.space)
-        self.privateRepos = try container.sdkDecodeRequired(.privateRepos)
-        self.filledSeats = try container.sdkDecodeIfPresent(.filledSeats)
-        self.seats = try container.sdkDecodeIfPresent(.seats)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension OrganizationFullPlan {
-    public init(name: String, space: Int, privateRepos: Int, filledSeats: Int? = nil, seats: Int? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.space) else {
+            throw SdkValidationError(
+                field: "space",
+                code: "required",
+                message: "Validation failed for 'space': value is required"
+            )
+        }
+        guard container.contains(.privateRepos) else {
+            throw SdkValidationError(
+                field: "private_repos",
+                code: "required",
+                message: "Validation failed for 'private_repos': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        space = try container.sdkDecodeRequired(.space)
+        privateRepos = try container.sdkDecodeRequired(.privateRepos)
+        filledSeats = try container.sdkDecodeIfPresent(.filledSeats)
+        seats = try container.sdkDecodeIfPresent(.seats)
+    }
+}
+
+public extension OrganizationFullPlan {
+    init(name: String, space: Int, privateRepos: Int, filledSeats: Int? = nil, seats: Int? = nil) {
         (self.name, self.space) = (name, space)
         (self.privateRepos, self.filledSeats) = (privateRepos, filledSeats)
         self.seats = seats
@@ -251,28 +344,42 @@ public struct OrganizationProgrammaticAccessGrant: Codable {
         case tokenLastUsedAt = "token_last_used_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension OrganizationProgrammaticAccessGrant {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.owner = try container.sdkDecodeRequired(.owner)
-        self.repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
-        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.accessGrantedAt = try container.sdkDecodeRequired(.accessGrantedAt)
-        self.tokenId = try container.sdkDecodeRequired(.tokenId)
-        self.tokenName = try container.sdkDecodeRequired(.tokenName)
-        self.tokenExpired = try container.sdkDecodeRequired(.tokenExpired)
-        self.tokenExpiresAt = try container.sdkDecodeIfPresent(.tokenExpiresAt)
-        self.tokenLastUsedAt = try container.sdkDecodeIfPresent(.tokenLastUsedAt)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension OrganizationProgrammaticAccessGrant {
-    public init(id: Int, owner: SimpleUser, repositorySelection: OrganizationProgrammaticAccessGrantRepositorySelection, repositoriesUrl: String, permissions: OrganizationProgrammaticAccessGrantPermissions, accessGrantedAt: String, tokenId: Int, tokenName: String, tokenExpired: Bool, tokenExpiresAt: String?, tokenLastUsedAt: String?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        owner = try container.sdkDecodeRequired(.owner)
+        repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
+        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        permissions = try container.sdkDecodeRequired(.permissions)
+        accessGrantedAt = try container.sdkDecodeRequired(.accessGrantedAt)
+        tokenId = try container.sdkDecodeRequired(.tokenId)
+        tokenName = try container.sdkDecodeRequired(.tokenName)
+        tokenExpired = try container.sdkDecodeRequired(.tokenExpired)
+        tokenExpiresAt = try container.sdkDecodeIfPresent(.tokenExpiresAt)
+        tokenLastUsedAt = try container.sdkDecodeIfPresent(.tokenLastUsedAt)
+    }
+}
+
+public extension OrganizationProgrammaticAccessGrant {
+    init(
+        id: Int,
+        owner: SimpleUser,
+        repositorySelection: OrganizationProgrammaticAccessGrantRepositorySelection,
+        repositoriesUrl: String,
+        permissions: OrganizationProgrammaticAccessGrantPermissions,
+        accessGrantedAt: String,
+        tokenId: Int,
+        tokenName: String,
+        tokenExpired: Bool,
+        tokenExpiresAt: String?,
+        tokenLastUsedAt: String?
+    ) {
         (self.id, self.owner) = (id, owner)
         (self.repositorySelection, self.repositoriesUrl) = (repositorySelection, repositoriesUrl)
         (self.permissions, self.accessGrantedAt) = (permissions, accessGrantedAt)
@@ -298,21 +405,21 @@ public struct OrganizationProgrammaticAccessGrantPermissions: Codable {
     }
 
     init() {
-        (self.organization, self.repository, self.other) = (nil, nil, nil)
+        (organization, repository, other) = (nil, nil, nil)
     }
 }
 
 public extension OrganizationProgrammaticAccessGrantPermissions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.other = try container.sdkDecodeIfPresent(.other)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        other = try container.sdkDecodeIfPresent(.other)
     }
 }
 
 public extension OrganizationProgrammaticAccessGrantPermissions {
-    public init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
+    init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
         self.init()
         (self.organization, self.repository) = (organization, repository)
         self.other = other
@@ -365,29 +472,44 @@ public struct OrganizationProgrammaticAccessGrantRequest: Codable {
         case tokenLastUsedAt = "token_last_used_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension OrganizationProgrammaticAccessGrantRequest {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.reason = try container.sdkDecodeIfPresent(.reason)
-        self.owner = try container.sdkDecodeRequired(.owner)
-        self.repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
-        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.tokenId = try container.sdkDecodeRequired(.tokenId)
-        self.tokenName = try container.sdkDecodeRequired(.tokenName)
-        self.tokenExpired = try container.sdkDecodeRequired(.tokenExpired)
-        self.tokenExpiresAt = try container.sdkDecodeIfPresent(.tokenExpiresAt)
-        self.tokenLastUsedAt = try container.sdkDecodeIfPresent(.tokenLastUsedAt)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension OrganizationProgrammaticAccessGrantRequest {
-    public init(id: Int, reason: String?, owner: SimpleUser, repositorySelection: OrganizationProgrammaticAccessGrantRequestRepositorySelection, repositoriesUrl: String, permissions: OrganizationProgrammaticAccessGrantRequestPermissions, createdAt: String, tokenId: Int, tokenName: String, tokenExpired: Bool, tokenExpiresAt: String?, tokenLastUsedAt: String?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        reason = try container.sdkDecodeIfPresent(.reason)
+        owner = try container.sdkDecodeRequired(.owner)
+        repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
+        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        permissions = try container.sdkDecodeRequired(.permissions)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        tokenId = try container.sdkDecodeRequired(.tokenId)
+        tokenName = try container.sdkDecodeRequired(.tokenName)
+        tokenExpired = try container.sdkDecodeRequired(.tokenExpired)
+        tokenExpiresAt = try container.sdkDecodeIfPresent(.tokenExpiresAt)
+        tokenLastUsedAt = try container.sdkDecodeIfPresent(.tokenLastUsedAt)
+    }
+}
+
+public extension OrganizationProgrammaticAccessGrantRequest {
+    init(
+        id: Int,
+        reason: String?,
+        owner: SimpleUser,
+        repositorySelection: OrganizationProgrammaticAccessGrantRequestRepositorySelection,
+        repositoriesUrl: String,
+        permissions: OrganizationProgrammaticAccessGrantRequestPermissions,
+        createdAt: String,
+        tokenId: Int,
+        tokenName: String,
+        tokenExpired: Bool,
+        tokenExpiresAt: String?,
+        tokenLastUsedAt: String?
+    ) {
         (self.id, self.reason) = (id, reason)
         (self.owner, self.repositorySelection) = (owner, repositorySelection)
         (self.repositoriesUrl, self.permissions) = (repositoriesUrl, permissions)
@@ -413,21 +535,21 @@ public struct OrganizationProgrammaticAccessGrantRequestPermissions: Codable {
     }
 
     init() {
-        (self.organization, self.repository, self.other) = (nil, nil, nil)
+        (organization, repository, other) = (nil, nil, nil)
     }
 }
 
 public extension OrganizationProgrammaticAccessGrantRequestPermissions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.other = try container.sdkDecodeIfPresent(.other)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        other = try container.sdkDecodeIfPresent(.other)
     }
 }
 
 public extension OrganizationProgrammaticAccessGrantRequestPermissions {
-    public init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
+    init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
         self.init()
         (self.organization, self.repository) = (organization, repository)
         self.other = other
@@ -467,5 +589,7 @@ public struct OrganizationRole: Codable {
         case source
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

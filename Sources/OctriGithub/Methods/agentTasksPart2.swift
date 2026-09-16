@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentTasksMethods {
-    public struct AgentTasksListTasksForRepoOptions: Codable {
+public extension AgentTasksMethods {
+    struct AgentTasksListTasksForRepoOptions: Codable {
         public var owner: String
         public var repo: String
         public var perPage: Int?
@@ -25,7 +25,12 @@ extension AgentTasksMethods {
         }
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for a specific repository **Fine-grained access tokens for "List tasks for repository"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for a specific
+    /// repository **Fine-grained access tokens for "List tasks for repository"** This endpoint works with the following
+    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
+    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
+    /// GitHub App installation access tokens are not supported for this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -43,7 +48,10 @@ extension AgentTasksMethods {
     ///   `false`.
     /// - since: Only show tasks updated at or after this time (ISO 8601 timestamp)
     /// - creatorId: Filter tasks by creator user ID. Accepts one or more user IDs.
-    public static func agentTasksListTasksForRepo(config: ClientConfig, options: AgentTasksListTasksForRepoOptions) async throws -> AgentTasksListTasksForRepoResponse {
+    static func agentTasksListTasksForRepo(
+        config: ClientConfig,
+        options: AgentTasksListTasksForRepoOptions
+    ) async throws -> AgentTasksListTasksForRepoResponse {
         if let perPage = options.perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 100)
         }
@@ -56,15 +64,28 @@ extension AgentTasksMethods {
             try sdkValidateDateTime("since", since)
         }
 
-        return try (await sdkRequest("GET", ["/agents/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/tasks"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("page", value: options.page),
-            SdkQueryParameter("sort", value: options.sort),
-            SdkQueryParameter("direction", value: options.direction),
-            SdkQueryParameter("state", value: options.state),
-            SdkQueryParameter("is_archived", value: options.isArchived),
-            SdkQueryParameter("since", value: options.since),
-            SdkQueryParameter("creator_id", values: options.creatorId, style: "form", explode: true),
-        ], decoder: .json, operationId: "agentTasksListTasksForRepo")).data
+        return try await (sdkRequest(
+            "GET",
+            [
+                "/agents/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/tasks",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("page", value: options.page),
+                SdkQueryParameter("sort", value: options.sort),
+                SdkQueryParameter("direction", value: options.direction),
+                SdkQueryParameter("state", value: options.state),
+                SdkQueryParameter("is_archived", value: options.isArchived),
+                SdkQueryParameter("since", value: options.since),
+                SdkQueryParameter("creator_id", values: options.creatorId, style: "form", explode: true),
+            ],
+            decoder: .json,
+            operationId: "agentTasksListTasksForRepo"
+        )).data
     }
 }

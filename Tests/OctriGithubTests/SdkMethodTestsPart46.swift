@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testTeamsRemoveMembershipForUserInOrgTeamsRemoveMembershipForUserInOrgReachesMockAndDecodesResponse() async throws {
+    func testTeamsRemoveMembershipForUserInOrgTeamsRemoveMembershipForUserInOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -19,7 +20,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testTeamsRemoveMembershipForUserLegacyTeamsRemoveMembershipForUserLegacyReachesMockAndDecodesResponse() async throws {
+    func testTeamsRemoveMembershipForUserLegacyTeamsRemoveMembershipForUserLegacyReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -63,7 +65,10 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try TeamsMethods.TeamsUpdateInOrgOptions(org: decoded("\"org\""), teamSlug: decoded("\"team_slug\""))
+        var options = try TeamsMethods.TeamsUpdateInOrgOptions(
+            org: decoded("\"org\""),
+            teamSlug: decoded("\"team_slug\"")
+        )
         options.name = try decoded("\"new team name\"")
         options.description = try decoded("\"new team description\"")
         options.privacy = try decoded("\"closed\"")
@@ -90,7 +95,10 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try TeamsMethods.TeamsUpdateLegacyOptions(teamId: decoded("1"), name: decoded("\"new team name\""))
+        var options = try TeamsMethods.TeamsUpdateLegacyOptions(
+            teamId: decoded("1"),
+            name: decoded("\"new team name\"")
+        )
         options.description = try decoded("\"new team description\"")
         options.privacy = try decoded("\"closed\"")
         options.notificationSetting = try decoded("\"notifications_enabled\"")
@@ -111,7 +119,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersAddEmailForAuthenticatedUserUsersAddEmailForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testUsersAddEmailForAuthenticatedUserUsersAddEmailForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -130,7 +139,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersAddSocialAccountForAuthenticatedUserUsersAddSocialAccounX437f912f1aReachesMockAndDecodesResponse() async throws {
+    func testUsersAddSocialAccountForAuthenticatedUserUsersAddSocialAccounX437f912f1aReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -183,7 +193,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersCheckPersonIsFollowedByAuthenticatedUsersCheckPersonIsFoX9284b01eedReachesMockAndDecodesResponse() async throws {
+    func testUsersCheckPersonIsFollowedByAuthenticatedUsersCheckPersonIsFoX9284b01eedReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -194,7 +205,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersCreateGpgKeyForAuthenticatedUserUsersCreateGpgKeyForAuthX5af8ba0297ReachesMockAndDecodesResponse() async throws {
+    func testUsersCreateGpgKeyForAuthenticatedUserUsersCreateGpgKeyForAuthX5af8ba0297ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -214,7 +226,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersCreatePublicSshKeyForAuthenticatedUserUsersCreatePublicSX4d053a12f0ReachesMockAndDecodesResponse() async throws {
+    func testUsersCreatePublicSshKeyForAuthenticatedUserUsersCreatePublicSX4d053a12f0ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -234,7 +247,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersCreateSshSigningKeyForAuthenticatedUserUsersCreateSshSigXb2be43d6daReachesMockAndDecodesResponse() async throws {
+    func testUsersCreateSshSigningKeyForAuthenticatedUserUsersCreateSshSigXb2be43d6daReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -278,7 +292,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersDeleteAttestationsBySubjectDigestUsersDeleteAttestationsXfaed73af27ReachesMockAndDecodesResponse() async throws {
+    func testUsersDeleteAttestationsBySubjectDigestUsersDeleteAttestationsXfaed73af27ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -290,7 +305,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersDeleteEmailForAuthenticatedUserUsersDeleteEmailForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testUsersDeleteEmailForAuthenticatedUserUsersDeleteEmailForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -301,7 +317,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersDeleteGpgKeyForAuthenticatedUserUsersDeleteGpgKeyForAuthX0c01bda996ReachesMockAndDecodesResponse() async throws {
+    func testUsersDeleteGpgKeyForAuthenticatedUserUsersDeleteGpgKeyForAuthX0c01bda996ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -312,7 +329,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersDeletePublicSshKeyForAuthenticatedUserUsersDeletePublicSXd7c1a1e641ReachesMockAndDecodesResponse() async throws {
+    func testUsersDeletePublicSshKeyForAuthenticatedUserUsersDeletePublicSXd7c1a1e641ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -323,7 +341,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersDeleteSocialAccountForAuthenticatedUserUsersDeleteSocialX5f8a7b59ffReachesMockAndDecodesResponse() async throws {
+    func testUsersDeleteSocialAccountForAuthenticatedUserUsersDeleteSocialX5f8a7b59ffReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -334,7 +353,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testUsersDeleteSshSigningKeyForAuthenticatedUserUsersDeleteSshSigX8e7a15da8fReachesMockAndDecodesResponse() async throws {
+    func testUsersDeleteSshSigningKeyForAuthenticatedUserUsersDeleteSshSigX8e7a15da8fReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -432,7 +452,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersGetGpgKeyForAuthenticatedUserUsersGetGpgKeyForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testUsersGetGpgKeyForAuthenticatedUserUsersGetGpgKeyForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -451,7 +472,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersGetPublicSshKeyForAuthenticatedUserUsersGetPublicSshKeyFX792550ec66ReachesMockAndDecodesResponse() async throws {
+    func testUsersGetPublicSshKeyForAuthenticatedUserUsersGetPublicSshKeyFX792550ec66ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -470,7 +492,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersGetSshSigningKeyForAuthenticatedUserUsersGetSshSigningKeXfc995d9fa6ReachesMockAndDecodesResponse() async throws {
+    func testUsersGetSshSigningKeyForAuthenticatedUserUsersGetSshSigningKeXfc995d9fa6ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

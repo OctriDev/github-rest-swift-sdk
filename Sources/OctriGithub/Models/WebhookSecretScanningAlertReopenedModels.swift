@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSecretScanningAlertReopened domain models
+/// WebhookSecretScanningAlertReopened domain models
 /// Typed representation of the `WebhookSecretScanningAlertReopened` API schema.
 public struct WebhookSecretScanningAlertReopened: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,33 +36,55 @@ public struct WebhookSecretScanningAlertReopened: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookSecretScanningAlertReopened {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.alert) else {
-            throw SdkValidationError(field: "alert", code: "required", message: "Validation failed for 'alert': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.alert = try container.sdkDecodeRequired(.alert)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookSecretScanningAlertReopened {
-    public init(action: WebhookSecretScanningAlertReopenedAction, alert: SecretScanningAlertWebhook, repository: RepositoryWebhooks, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.alert) else {
+            throw SdkValidationError(
+                field: "alert",
+                code: "required",
+                message: "Validation failed for 'alert': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        alert = try container.sdkDecodeRequired(.alert)
+        repository = try container.sdkDecodeRequired(.repository)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookSecretScanningAlertReopened {
+    init(
+        action: WebhookSecretScanningAlertReopenedAction,
+        alert: SecretScanningAlertWebhook,
+        repository: RepositoryWebhooks,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.action, self.alert) = (action, alert)
         (self.repository, self.enterprise) = (repository, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -71,15 +93,19 @@ public extension WebhookSecretScanningAlertReopened {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookSecretScanningAlertReopenedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSecretScanningAlertReopenedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reopened = WebhookSecretScanningAlertReopenedAction(rawValue: "reopened")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

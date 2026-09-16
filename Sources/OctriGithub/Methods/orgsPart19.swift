@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Create a hook that posts payloads in JSON format. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+public extension OrgsMethods {
+    /// Create a hook that posts payloads in JSON format. You must be an organization owner to use this endpoint. OAuth
+    /// app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or
+    /// edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth
+    /// apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -18,19 +21,43 @@ extension OrgsMethods {
     ///   triggered for. Set to `["*"]` to receive all possible events.
     /// - active: Determines if notifications are sent when the webhook is
     ///   triggered. Set to `true` to send notifications.
-    public static func orgsCreateWebhook(config: ClientConfig, org: String, name: String, config2: OrgsCreateWebhookRequestBodyConfig, events: [String]?, active: Bool?) async throws -> OrgHook {
+    static func orgsCreateWebhook(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        config2: OrgsCreateWebhookRequestBodyConfig,
+        events: [String]?,
+        active: Bool?
+    ) async throws -> OrgHook {
         let requestBody = OrgsCreateWebhookRequestBody(name: name, config2: config2, events: events, active: active)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsCreateWebhook")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsCreateWebhook"
+        )).data
     }
 
-    /// Returns a webhook configured in an organization. To get only the webhook `config` properties, see "Get a webhook configuration for an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    /// Returns a webhook configured in an organization. To get only the webhook `config` properties, see "Get a webhook
+    /// configuration for an organization. You must be an organization owner to use this endpoint. OAuth app tokens and
+    /// personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks
+    /// that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    public static func orgsGetWebhook(config: ClientConfig, org: String, hookId: Int) async throws -> OrgHook {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))].joined(), config: config, decoder: .json, operationId: "orgsGetWebhook")).data
+    static func orgsGetWebhook(config: ClientConfig, org: String, hookId: Int) async throws -> OrgHook {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))]
+                .joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsGetWebhook"
+        )).data
     }
 }

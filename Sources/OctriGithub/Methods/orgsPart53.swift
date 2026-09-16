@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can use this endpoint.
+public extension OrgsMethods {
+    /// Approves or denies multiple pending requests to access organization resources via a fine-grained personal access
+    /// token. Only GitHub Apps can use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -16,8 +17,14 @@ extension OrgsMethods {
     ///   fine-grained personal access token. Must be formed of between 1 and 100
     ///   `pat_request_id` values.
     /// - reason: Reason for approving or denying the requests. Max 1024 characters.
-    public static func orgsReviewPatGrantRequestsInBulk(config: ClientConfig, org: String, action: OrgsReviewPatGrantRequestsInBulkRequestBodyAction, patRequestIds: [Int]?, reason: SdkOptional<String>?) async throws -> [String: JSONValue] {
-        if let patRequestIds = patRequestIds {
+    static func orgsReviewPatGrantRequestsInBulk(
+        config: ClientConfig,
+        org: String,
+        action: OrgsReviewPatGrantRequestsInBulkRequestBodyAction,
+        patRequestIds: [Int]?,
+        reason: SdkOptional<String>?
+    ) async throws -> [String: JSONValue] {
+        if let patRequestIds {
             try validateItems("pat_request_ids", patRequestIds, min: 1, max: 100)
         }
 
@@ -25,12 +32,24 @@ extension OrgsMethods {
             try validateLength("reason", reason, max: 1024)
         }
 
-        let requestBody = OrgsReviewPatGrantRequestsInBulkRequestBody(action: action, patRequestIds: patRequestIds, reason: reason)
+        let requestBody = OrgsReviewPatGrantRequestsInBulkRequestBody(
+            action: action,
+            patRequestIds: patRequestIds,
+            reason: reason
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-token-requests"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsReviewPatGrantRequestsInBulk")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-token-requests"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsReviewPatGrantRequestsInBulk"
+        )).data
     }
 
-    /// Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can use this endpoint.
+    /// Approves or denies a pending request to access organization resources via a fine-grained personal access token.
+    /// Only GitHub Apps can use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -38,13 +57,31 @@ extension OrgsMethods {
     ///   personal access token.
     /// - action: Action to apply to the request.
     /// - reason: Reason for approving or denying the request. Max 1024 characters.
-    public static func orgsReviewPatGrantRequest(config: ClientConfig, org: String, patRequestId: Int, action: OrgsReviewPatGrantRequestRequestBodyAction, reason: SdkOptional<String>?) async throws -> SdkEmptyResponse {
+    static func orgsReviewPatGrantRequest(
+        config: ClientConfig,
+        org: String,
+        patRequestId: Int,
+        action: OrgsReviewPatGrantRequestRequestBodyAction,
+        reason: SdkOptional<String>?
+    ) async throws -> SdkEmptyResponse {
         if let reason = reason?.valueOrNil {
             try validateLength("reason", reason, max: 1024)
         }
 
         let requestBody = OrgsReviewPatGrantRequestRequestBody(action: action, reason: reason)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-token-requests/", sdkEncodePathSegment(sdkWireString(patRequestId))].joined(), config: config, body: requestBody, decoder: .empty, operationId: "orgsReviewPatGrantRequest")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/personal-access-token-requests/",
+                sdkEncodePathSegment(sdkWireString(patRequestId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "orgsReviewPatGrantRequest"
+        )).data
     }
 }

@@ -3,45 +3,83 @@
 
 import Foundation
 
-// Webhooks domain models
+/// Webhooks domain models
 public extension WebhooksSponsorshipTier {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.description) else {
-            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
+            throw SdkValidationError(
+                field: "description",
+                code: "required",
+                message: "Validation failed for 'description': value is required"
+            )
         }
         guard container.contains(.isOneTime) else {
-            throw SdkValidationError(field: "is_one_time", code: "required", message: "Validation failed for 'is_one_time': value is required")
+            throw SdkValidationError(
+                field: "is_one_time",
+                code: "required",
+                message: "Validation failed for 'is_one_time': value is required"
+            )
         }
         guard container.contains(.monthlyPriceInCents) else {
-            throw SdkValidationError(field: "monthly_price_in_cents", code: "required", message: "Validation failed for 'monthly_price_in_cents': value is required")
+            throw SdkValidationError(
+                field: "monthly_price_in_cents",
+                code: "required",
+                message: "Validation failed for 'monthly_price_in_cents': value is required"
+            )
         }
         guard container.contains(.monthlyPriceInDollars) else {
-            throw SdkValidationError(field: "monthly_price_in_dollars", code: "required", message: "Validation failed for 'monthly_price_in_dollars': value is required")
+            throw SdkValidationError(
+                field: "monthly_price_in_dollars",
+                code: "required",
+                message: "Validation failed for 'monthly_price_in_dollars': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
         }
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.description = try container.sdkDecodeRequired(.description)
-        self.isOneTime = try container.sdkDecodeRequired(.isOneTime)
-        self.monthlyPriceInCents = try container.sdkDecodeRequired(.monthlyPriceInCents)
-        self.monthlyPriceInDollars = try container.sdkDecodeRequired(.monthlyPriceInDollars)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.isCustomAmmount = try container.sdkDecodeIfPresent(.isCustomAmmount)
-        self.isCustomAmount = try container.sdkDecodeIfPresent(.isCustomAmount)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        description = try container.sdkDecodeRequired(.description)
+        isOneTime = try container.sdkDecodeRequired(.isOneTime)
+        monthlyPriceInCents = try container.sdkDecodeRequired(.monthlyPriceInCents)
+        monthlyPriceInDollars = try container.sdkDecodeRequired(.monthlyPriceInDollars)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        isCustomAmmount = try container.sdkDecodeIfPresent(.isCustomAmmount)
+        isCustomAmount = try container.sdkDecodeIfPresent(.isCustomAmount)
     }
 }
 
 public extension WebhooksSponsorshipTier {
-    public init(createdAt: String, description: String, isOneTime: Bool, monthlyPriceInCents: Int, monthlyPriceInDollars: Int, name: String, nodeId: String, isCustomAmmount: Bool? = nil, isCustomAmount: Bool? = nil) {
+    init(
+        createdAt: String,
+        description: String,
+        isOneTime: Bool,
+        monthlyPriceInCents: Int,
+        monthlyPriceInDollars: Int,
+        name: String,
+        nodeId: String,
+        isCustomAmmount: Bool? = nil,
+        isCustomAmount: Bool? = nil
+    ) {
         (self.createdAt, self.description) = (createdAt, description)
         (self.isOneTime, self.monthlyPriceInCents) = (isOneTime, monthlyPriceInCents)
         (self.monthlyPriceInDollars, self.name) = (monthlyPriceInDollars, name)
@@ -109,49 +147,77 @@ public struct WebhooksTeam: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhooksTeam {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.membersUrl = try container.sdkDecodeIfPresent(.membersUrl)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.parent = try container.sdkDecodeIfPresent(.parent)
-        self.permission = try container.sdkDecodeIfPresent(.permission)
-        self.privacy = try container.sdkDecodeIfPresent(.privacy)
-        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-        self.repositoriesUrl = try container.sdkDecodeIfPresent(.repositoriesUrl)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-        if let value = self.htmlUrl {
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        description = try container.sdkDecodeIfPresent(.description)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        membersUrl = try container.sdkDecodeIfPresent(.membersUrl)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        parent = try container.sdkDecodeIfPresent(.parent)
+        permission = try container.sdkDecodeIfPresent(.permission)
+        privacy = try container.sdkDecodeIfPresent(.privacy)
+        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        repositoriesUrl = try container.sdkDecodeIfPresent(.repositoriesUrl)
+        slug = try container.sdkDecodeIfPresent(.slug)
+        url = try container.sdkDecodeIfPresent(.url)
+        type = try container.sdkDecodeIfPresent(.type)
+        organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.repositoriesUrl {
+        if let value = repositoriesUrl {
             try sdkValidateUri("repositories_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
 public extension WebhooksTeam {
-    public init(id: Int, name: String, deleted: Bool? = nil, description: String? = nil, htmlUrl: String? = nil, membersUrl: String? = nil, nodeId: String? = nil, parent: WebhooksTeamParent? = nil, permission: String? = nil, privacy: WebhooksTeamPrivacy? = nil, notificationSetting: WebhooksTeamNotificationSetting? = nil, repositoriesUrl: String? = nil, slug: String? = nil, url: String? = nil, type: WebhooksTeamType? = nil, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
+    init(
+        id: Int,
+        name: String,
+        deleted: Bool? = nil,
+        description: String? = nil,
+        htmlUrl: String? = nil,
+        membersUrl: String? = nil,
+        nodeId: String? = nil,
+        parent: WebhooksTeamParent? = nil,
+        permission: String? = nil,
+        privacy: WebhooksTeamPrivacy? = nil,
+        notificationSetting: WebhooksTeamNotificationSetting? = nil,
+        repositoriesUrl: String? = nil,
+        slug: String? = nil,
+        url: String? = nil,
+        type: WebhooksTeamType? = nil,
+        organizationId: Int? = nil,
+        enterpriseId: Int? = nil
+    ) throws {
         (self.id, self.name) = (id, name)
         (self.deleted, self.description) = (deleted, description)
         (self.htmlUrl, self.membersUrl) = (htmlUrl, membersUrl)
@@ -226,35 +292,53 @@ public struct WebhooksTeamParent: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhooksTeamParent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.permission = try container.sdkDecodeRequired(.permission)
-        self.privacy = try container.sdkDecodeRequired(.privacy)
-        self.notificationSetting = try container.sdkDecodeRequired(.notificationSetting)
-        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        self.slug = try container.sdkDecodeRequired(.slug)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhooksTeamParent {
-    public init(description: String?, htmlUrl: String, id: Int, membersUrl: String, name: String, nodeId: String, permission: String, privacy: WebhooksTeamParentPrivacy, notificationSetting: WebhooksTeamParentNotificationSetting, repositoriesUrl: String, slug: String, url: String, type: WebhooksTeamParentType, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        description = try container.sdkDecodeIfPresent(.description)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeRequired(.id)
+        membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        permission = try container.sdkDecodeRequired(.permission)
+        privacy = try container.sdkDecodeRequired(.privacy)
+        notificationSetting = try container.sdkDecodeRequired(.notificationSetting)
+        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        slug = try container.sdkDecodeRequired(.slug)
+        url = try container.sdkDecodeRequired(.url)
+        type = try container.sdkDecodeRequired(.type)
+        organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("repositories_url", repositoriesUrl)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhooksTeamParent {
+    init(
+        description: String?,
+        htmlUrl: String,
+        id: Int,
+        membersUrl: String,
+        name: String,
+        nodeId: String,
+        permission: String,
+        privacy: WebhooksTeamParentPrivacy,
+        notificationSetting: WebhooksTeamParentNotificationSetting,
+        repositoriesUrl: String,
+        slug: String,
+        url: String,
+        type: WebhooksTeamParentType,
+        organizationId: Int? = nil,
+        enterpriseId: Int? = nil
+    ) throws {
         (self.description, self.htmlUrl) = (description, htmlUrl)
         (self.id, self.membersUrl) = (id, membersUrl)
         (self.name, self.nodeId) = (name, nodeId)
@@ -263,9 +347,9 @@ public extension WebhooksTeamParent {
         (self.slug, self.url) = (slug, url)
         (self.type, self.organizationId) = (type, organizationId)
         self.enterpriseId = enterpriseId
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -328,49 +412,77 @@ public struct WebhooksTeam1: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhooksTeam1 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.membersUrl = try container.sdkDecodeIfPresent(.membersUrl)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.parent = try container.sdkDecodeIfPresent(.parent)
-        self.permission = try container.sdkDecodeIfPresent(.permission)
-        self.privacy = try container.sdkDecodeIfPresent(.privacy)
-        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-        self.repositoriesUrl = try container.sdkDecodeIfPresent(.repositoriesUrl)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-        if let value = self.htmlUrl {
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        description = try container.sdkDecodeIfPresent(.description)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        membersUrl = try container.sdkDecodeIfPresent(.membersUrl)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        parent = try container.sdkDecodeIfPresent(.parent)
+        permission = try container.sdkDecodeIfPresent(.permission)
+        privacy = try container.sdkDecodeIfPresent(.privacy)
+        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        repositoriesUrl = try container.sdkDecodeIfPresent(.repositoriesUrl)
+        slug = try container.sdkDecodeIfPresent(.slug)
+        url = try container.sdkDecodeIfPresent(.url)
+        type = try container.sdkDecodeIfPresent(.type)
+        organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.repositoriesUrl {
+        if let value = repositoriesUrl {
             try sdkValidateUri("repositories_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
 public extension WebhooksTeam1 {
-    public init(id: Int, name: String, deleted: Bool? = nil, description: String? = nil, htmlUrl: String? = nil, membersUrl: String? = nil, nodeId: String? = nil, parent: WebhooksTeam1Parent? = nil, permission: String? = nil, privacy: WebhooksTeam1Privacy? = nil, notificationSetting: WebhooksTeam1NotificationSetting? = nil, repositoriesUrl: String? = nil, slug: String? = nil, url: String? = nil, type: WebhooksTeam1Type? = nil, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
+    init(
+        id: Int,
+        name: String,
+        deleted: Bool? = nil,
+        description: String? = nil,
+        htmlUrl: String? = nil,
+        membersUrl: String? = nil,
+        nodeId: String? = nil,
+        parent: WebhooksTeam1Parent? = nil,
+        permission: String? = nil,
+        privacy: WebhooksTeam1Privacy? = nil,
+        notificationSetting: WebhooksTeam1NotificationSetting? = nil,
+        repositoriesUrl: String? = nil,
+        slug: String? = nil,
+        url: String? = nil,
+        type: WebhooksTeam1Type? = nil,
+        organizationId: Int? = nil,
+        enterpriseId: Int? = nil
+    ) throws {
         (self.id, self.name) = (id, name)
         (self.deleted, self.description) = (deleted, description)
         (self.htmlUrl, self.membersUrl) = (htmlUrl, membersUrl)
@@ -445,35 +557,53 @@ public struct WebhooksTeam1Parent: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhooksTeam1Parent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.permission = try container.sdkDecodeRequired(.permission)
-        self.privacy = try container.sdkDecodeRequired(.privacy)
-        self.notificationSetting = try container.sdkDecodeRequired(.notificationSetting)
-        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        self.slug = try container.sdkDecodeRequired(.slug)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhooksTeam1Parent {
-    public init(description: String?, htmlUrl: String, id: Int, membersUrl: String, name: String, nodeId: String, permission: String, privacy: WebhooksTeam1ParentPrivacy, notificationSetting: WebhooksTeam1ParentNotificationSetting, repositoriesUrl: String, slug: String, url: String, type: WebhooksTeam1ParentType, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        description = try container.sdkDecodeIfPresent(.description)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeRequired(.id)
+        membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        permission = try container.sdkDecodeRequired(.permission)
+        privacy = try container.sdkDecodeRequired(.privacy)
+        notificationSetting = try container.sdkDecodeRequired(.notificationSetting)
+        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        slug = try container.sdkDecodeRequired(.slug)
+        url = try container.sdkDecodeRequired(.url)
+        type = try container.sdkDecodeRequired(.type)
+        organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("repositories_url", repositoriesUrl)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhooksTeam1Parent {
+    init(
+        description: String?,
+        htmlUrl: String,
+        id: Int,
+        membersUrl: String,
+        name: String,
+        nodeId: String,
+        permission: String,
+        privacy: WebhooksTeam1ParentPrivacy,
+        notificationSetting: WebhooksTeam1ParentNotificationSetting,
+        repositoriesUrl: String,
+        slug: String,
+        url: String,
+        type: WebhooksTeam1ParentType,
+        organizationId: Int? = nil,
+        enterpriseId: Int? = nil
+    ) throws {
         (self.description, self.htmlUrl) = (description, htmlUrl)
         (self.id, self.membersUrl) = (id, membersUrl)
         (self.name, self.nodeId) = (name, nodeId)
@@ -482,8 +612,8 @@ public extension WebhooksTeam1Parent {
         (self.slug, self.url) = (slug, url)
         (self.type, self.organizationId) = (type, organizationId)
         self.enterpriseId = enterpriseId
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+        try sdkValidateUri("url", self.url)
     }
 }

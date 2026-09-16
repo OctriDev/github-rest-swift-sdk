@@ -6,26 +6,77 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentsMethods {
-    /// Adds a repository to the selected repository list for an organization secret. Use this operation only when the secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth tokens and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is private.
+public extension AgentsMethods {
+    /// Adds a repository to the selected repository list for an organization secret. Use this operation only when the
+    /// secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth tokens
+    /// and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is private.
     ///
-    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. For more information about setting the visibility, see [Create or update an organization secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`.
+    /// For more information about setting the visibility, see [Create or update an organization
+    /// secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated
+    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    public static func agentsAddSelectedRepoToOrgSecret(config: ClientConfig, org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "agentsAddSelectedRepoToOrgSecret")).data
+    static func agentsAddSelectedRepoToOrgSecret(
+        config: ClientConfig,
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+                "/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "agentsAddSelectedRepoToOrgSecret"
+        )).data
     }
 
-    /// Removes a repository from the selected repository list for an organization secret. Use this operation only when the secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth app tokens and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is private.
+    /// Removes a repository from the selected repository list for an organization secret. Use this operation only when
+    /// the secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth
+    /// app tokens and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is
+    /// private.
     ///
-    /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    /// Removes a repository from an organization secret when the `visibility` for repository access is set to
+    /// `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated
+    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    public static func agentsRemoveSelectedRepoFromOrgSecret(config: ClientConfig, org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "agentsRemoveSelectedRepoFromOrgSecret")).data
+    static func agentsRemoveSelectedRepoFromOrgSecret(
+        config: ClientConfig,
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+                "/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "agentsRemoveSelectedRepoFromOrgSecret"
+        )).data
     }
 }

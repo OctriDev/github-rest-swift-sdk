@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotSpacesMethods {
-    /// Creates a new Copilot Space owned by an organization. The authenticated user must have permissions to create spaces in the organization. Organization members with appropriate permissions can create Copilot Spaces to be shared within their organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by the submitted resources.
+public extension CopilotSpacesMethods {
+    /// Creates a new Copilot Space owned by an organization. The authenticated user must have permissions to create
+    /// spaces in the organization. Organization members with appropriate permissions can create Copilot Spaces to be
+    /// shared within their organization. OAuth app tokens and personal access tokens (classic) need the `read:org`
+    /// scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access
+    /// to the organization that owns the space. They must also have been granted access to every repository referenced
+    /// by the submitted resources.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,22 +25,63 @@ extension CopilotSpacesMethods {
     ///   read and edit the space - `admin`: Organization members have full admin
     ///   access to the space
     /// - resourcesAttributes: Resources to attach to the space.
-    public static func copilotSpacesCreateForOrg(config: ClientConfig, org: String, name: String, description: String?, generalInstructions: String?, baseRole: CopilotSpacesCreateForOrgRequestBodyBaseRole?, resourcesAttributes: [CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem]?) async throws -> CopilotSpace {
-        if let generalInstructions = generalInstructions {
+    static func copilotSpacesCreateForOrg(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        description: String?,
+        generalInstructions: String?,
+        baseRole: CopilotSpacesCreateForOrgRequestBodyBaseRole?,
+        resourcesAttributes: [CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem]?
+    ) async throws -> CopilotSpace {
+        if let generalInstructions {
             try validateLength("general_instructions", generalInstructions, max: 4000)
         }
 
-        let requestBody = CopilotSpacesCreateForOrgRequestBody(name: name, description: description, generalInstructions: generalInstructions, baseRole: baseRole, resourcesAttributes: resourcesAttributes)
+        let requestBody = CopilotSpacesCreateForOrgRequestBody(
+            name: name,
+            description: description,
+            generalInstructions: generalInstructions,
+            baseRole: baseRole,
+            resourcesAttributes: resourcesAttributes
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces"].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesCreateForOrg")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "copilotSpacesCreateForOrg"
+        )).data
     }
 
-    /// Gets details about a specific Copilot Space owned by an organization. The authenticated user must have read access to the Space. Internal Spaces require the authenticated user to be a member of the organization or have been granted read permissions. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space.
+    /// Gets details about a specific Copilot Space owned by an organization. The authenticated user must have read
+    /// access to the Space. Internal Spaces require the authenticated user to be a member of the organization or have
+    /// been granted read permissions. OAuth app tokens and personal access tokens (classic) need the `read:org` scope
+    /// to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the
+    /// organization that owns the space. They must also have been granted access to every repository referenced by
+    /// resources in the space.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - spaceNumber: The unique identifier of the Copilot Space.
-    public static func copilotSpacesGetForOrg(config: ClientConfig, org: String, spaceNumber: Int) async throws -> CopilotSpace {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber))].joined(), config: config, decoder: .json, operationId: "copilotSpacesGetForOrg")).data
+    static func copilotSpacesGetForOrg(
+        config: ClientConfig,
+        org: String,
+        spaceNumber: Int
+    ) async throws -> CopilotSpace {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/copilot-spaces/",
+                sdkEncodePathSegment(sdkWireString(spaceNumber)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "copilotSpacesGetForOrg"
+        )).data
     }
 }

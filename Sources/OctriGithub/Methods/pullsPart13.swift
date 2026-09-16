@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty.
+public extension PullsMethods {
+    /// Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether
+    /// or not the pull request has been merged; the response body is empty.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +16,26 @@ extension PullsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - pullNumber: The number that identifies the pull request.
-    public static func pullsCheckIfMerged(config: ClientConfig, owner: String, repo: String, pullNumber: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/merge"].joined(), config: config, decoder: .empty, operationId: "pullsCheckIfMerged")).data
+    static func pullsCheckIfMerged(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/merge",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "pullsCheckIfMerged"
+        )).data
     }
 }

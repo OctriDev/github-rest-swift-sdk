@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List public keys for a user
     ///
     /// Lists the _verified_ public SSH keys for a user. This is accessible by anyone.
@@ -21,10 +21,22 @@ extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func usersListPublicKeysForUser(config: ClientConfig, username: String, perPage: Int?, page: Int?) async throws -> [KeySimple] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/keys"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "usersListPublicKeysForUser")).data
+    static func usersListPublicKeysForUser(
+        config: ClientConfig,
+        username: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [KeySimple] {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/keys"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "usersListPublicKeysForUser"
+        )).data
     }
 }

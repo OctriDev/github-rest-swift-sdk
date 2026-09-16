@@ -6,10 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension BillingMethods {
+public extension BillingMethods {
     /// Get billing usage summary for a user
     ///
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for a user. **Note:** Only data from the past 24 months is accessible via this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for a
+    /// user. **Note:** Only data from the past 24 months is accessible via this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -27,14 +28,30 @@ extension BillingMethods {
     /// - product: The product name to query usage for. The name is not case
     ///   sensitive.
     /// - sku: The SKU to query for usage.
-    public static func billingGetGithubBillingUsageSummaryReportUser(config: ClientConfig, username: String, year: Int?, month: Int?, day: Int?, repository: String?, product: String?, sku: String?) async throws -> BillingUsageSummaryReportUser {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/usage/summary"].joined(), config: config, query: [
-            SdkQueryParameter("year", value: year),
-            SdkQueryParameter("month", value: month),
-            SdkQueryParameter("day", value: day),
-            SdkQueryParameter("repository", value: repository),
-            SdkQueryParameter("product", value: product),
-            SdkQueryParameter("sku", value: sku),
-        ], decoder: .json, operationId: "billingGetGithubBillingUsageSummaryReportUser")).data
+    static func billingGetGithubBillingUsageSummaryReportUser(
+        config: ClientConfig,
+        username: String,
+        year: Int?,
+        month: Int?,
+        day: Int?,
+        repository: String?,
+        product: String?,
+        sku: String?
+    ) async throws -> BillingUsageSummaryReportUser {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/usage/summary"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("year", value: year),
+                SdkQueryParameter("month", value: month),
+                SdkQueryParameter("day", value: day),
+                SdkQueryParameter("repository", value: repository),
+                SdkQueryParameter("product", value: product),
+                SdkQueryParameter("sku", value: sku),
+            ],
+            decoder: .json,
+            operationId: "billingGetGithubBillingUsageSummaryReportUser"
+        )).data
     }
 }

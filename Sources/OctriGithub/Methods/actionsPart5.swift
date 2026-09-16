@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Lists repositories and their GitHub Actions cache usage for an organization. The data fetched using this API is refreshed approximately every 5 minutes, so values returned from this endpoint may take at least 5 minutes to get updated. OAuth tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Lists repositories and their GitHub Actions cache usage for an organization. The data fetched using this API is
+    /// refreshed approximately every 5 minutes, so values returned from this endpoint may take at least 5 minutes to
+    /// get updated. OAuth tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,10 +21,22 @@ extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsGetActionsCacheUsageByRepoForOrg(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> ActionsGetActionsCacheUsageByRepoForOrgResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/cache/usage-by-repository"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "actionsGetActionsCacheUsageByRepoForOrg")).data
+    static func actionsGetActionsCacheUsageByRepoForOrg(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsGetActionsCacheUsageByRepoForOrgResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/cache/usage-by-repository"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "actionsGetActionsCacheUsageByRepoForOrg"
+        )).data
     }
 }

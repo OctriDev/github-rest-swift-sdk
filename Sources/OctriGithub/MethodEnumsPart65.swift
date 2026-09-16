@@ -17,23 +17,23 @@ struct ProjectsCreateViewForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(self.layout, forKey: SdkCodingKey("layout"))
-        try keyedContainer.encodeIfPresent(self.filter, forKey: SdkCodingKey("filter"))
-        try keyedContainer.encodeIfPresent(self.visibleFields, forKey: SdkCodingKey("visible_fields"))
-        try keyedContainer.encodeIfPresent(self.sortBy, forKey: SdkCodingKey("sort_by"))
-        try keyedContainer.encodeIfPresent(self.groupBy, forKey: SdkCodingKey("group_by"))
-        try keyedContainer.encodeIfPresent(self.verticalGroupBy, forKey: SdkCodingKey("vertical_group_by"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(layout, forKey: SdkCodingKey("layout"))
+        try keyedContainer.encodeIfPresent(filter, forKey: SdkCodingKey("filter"))
+        try keyedContainer.encodeIfPresent(visibleFields, forKey: SdkCodingKey("visible_fields"))
+        try keyedContainer.encodeIfPresent(sortBy, forKey: SdkCodingKey("sort_by"))
+        try keyedContainer.encodeIfPresent(groupBy, forKey: SdkCodingKey("group_by"))
+        try keyedContainer.encodeIfPresent(verticalGroupBy, forKey: SdkCodingKey("vertical_group_by"))
     }
 
     init(options: ProjectsMethods.ProjectsCreateViewForOrgOptions) {
-        self.name = options.name
-        self.layout = options.layout
-        self.filter = options.filter
-        self.visibleFields = options.visibleFields
-        self.sortBy = options.sortBy
-        self.groupBy = options.groupBy
-        self.verticalGroupBy = options.verticalGroupBy
+        name = options.name
+        layout = options.layout
+        filter = options.filter
+        visibleFields = options.visibleFields
+        sortBy = options.sortBy
+        groupBy = options.groupBy
+        verticalGroupBy = options.verticalGroupBy
     }
 }
 
@@ -43,8 +43,8 @@ struct ProjectsCreateDraftItemForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.title, forKey: SdkCodingKey("title"))
-        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(title, forKey: SdkCodingKey("title"))
+        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
     }
 }
 
@@ -59,23 +59,23 @@ struct ProjectsCreateViewForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(self.layout, forKey: SdkCodingKey("layout"))
-        try keyedContainer.encodeIfPresent(self.filter, forKey: SdkCodingKey("filter"))
-        try keyedContainer.encodeIfPresent(self.visibleFields, forKey: SdkCodingKey("visible_fields"))
-        try keyedContainer.encodeIfPresent(self.sortBy, forKey: SdkCodingKey("sort_by"))
-        try keyedContainer.encodeIfPresent(self.groupBy, forKey: SdkCodingKey("group_by"))
-        try keyedContainer.encodeIfPresent(self.verticalGroupBy, forKey: SdkCodingKey("vertical_group_by"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(layout, forKey: SdkCodingKey("layout"))
+        try keyedContainer.encodeIfPresent(filter, forKey: SdkCodingKey("filter"))
+        try keyedContainer.encodeIfPresent(visibleFields, forKey: SdkCodingKey("visible_fields"))
+        try keyedContainer.encodeIfPresent(sortBy, forKey: SdkCodingKey("sort_by"))
+        try keyedContainer.encodeIfPresent(groupBy, forKey: SdkCodingKey("group_by"))
+        try keyedContainer.encodeIfPresent(verticalGroupBy, forKey: SdkCodingKey("vertical_group_by"))
     }
 
     init(options: ProjectsMethods.ProjectsCreateViewForUserOptions) {
-        self.name = options.name
-        self.layout = options.layout
-        self.filter = options.filter
-        self.visibleFields = options.visibleFields
-        self.sortBy = options.sortBy
-        self.groupBy = options.groupBy
-        self.verticalGroupBy = options.verticalGroupBy
+        name = options.name
+        layout = options.layout
+        filter = options.filter
+        visibleFields = options.visibleFields
+        sortBy = options.sortBy
+        groupBy = options.groupBy
+        verticalGroupBy = options.verticalGroupBy
     }
 }
 
@@ -88,11 +88,11 @@ struct ProjectsAddItemForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.type, forKey: SdkCodingKey("type"))
-        try keyedContainer.encodeIfPresent(self.id, forKey: SdkCodingKey("id"))
-        try keyedContainer.encodeIfPresent(self.owner, forKey: SdkCodingKey("owner"))
-        try keyedContainer.encodeIfPresent(self.repo, forKey: SdkCodingKey("repo"))
-        try keyedContainer.encodeIfPresent(self.number, forKey: SdkCodingKey("number"))
+        try keyedContainer.encode(type, forKey: SdkCodingKey("type"))
+        try keyedContainer.encodeIfPresent(id, forKey: SdkCodingKey("id"))
+        try keyedContainer.encodeIfPresent(owner, forKey: SdkCodingKey("owner"))
+        try keyedContainer.encodeIfPresent(repo, forKey: SdkCodingKey("repo"))
+        try keyedContainer.encodeIfPresent(number, forKey: SdkCodingKey("number"))
     }
 }
 
@@ -101,7 +101,7 @@ struct ProjectsUpdateItemForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.fields, forKey: SdkCodingKey("fields"))
+        try keyedContainer.encode(fields, forKey: SdkCodingKey("fields"))
     }
 }
 
@@ -134,59 +134,65 @@ struct ReposCreateInOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(self.homepage, forKey: SdkCodingKey("homepage"))
-        try keyedContainer.encodeIfPresent(self.`private`, forKey: SdkCodingKey("private"))
-        try keyedContainer.encodeIfPresent(self.visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(self.hasIssues, forKey: SdkCodingKey("has_issues"))
-        try keyedContainer.encodeIfPresent(self.hasProjects, forKey: SdkCodingKey("has_projects"))
-        try keyedContainer.encodeIfPresent(self.hasWiki, forKey: SdkCodingKey("has_wiki"))
-        try keyedContainer.encodeIfPresent(self.hasDownloads, forKey: SdkCodingKey("has_downloads"))
-        try keyedContainer.encodeIfPresent(self.isTemplate, forKey: SdkCodingKey("is_template"))
-        try keyedContainer.encodeIfPresent(self.teamId, forKey: SdkCodingKey("team_id"))
-        try keyedContainer.encodeIfPresent(self.autoInit, forKey: SdkCodingKey("auto_init"))
-        try keyedContainer.encodeIfPresent(self.gitignoreTemplate, forKey: SdkCodingKey("gitignore_template"))
-        try keyedContainer.encodeIfPresent(self.licenseTemplate, forKey: SdkCodingKey("license_template"))
-        try keyedContainer.encodeIfPresent(self.allowSquashMerge, forKey: SdkCodingKey("allow_squash_merge"))
-        try keyedContainer.encodeIfPresent(self.allowMergeCommit, forKey: SdkCodingKey("allow_merge_commit"))
-        try keyedContainer.encodeIfPresent(self.allowRebaseMerge, forKey: SdkCodingKey("allow_rebase_merge"))
-        try keyedContainer.encodeIfPresent(self.allowAutoMerge, forKey: SdkCodingKey("allow_auto_merge"))
-        try keyedContainer.encodeIfPresent(self.deleteBranchOnMerge, forKey: SdkCodingKey("delete_branch_on_merge"))
-        try keyedContainer.encodeIfPresent(self.useSquashPrTitleAsDefault, forKey: SdkCodingKey("use_squash_pr_title_as_default"))
-        try keyedContainer.encodeIfPresent(self.squashMergeCommitTitle, forKey: SdkCodingKey("squash_merge_commit_title"))
-        try keyedContainer.encodeIfPresent(self.squashMergeCommitMessage, forKey: SdkCodingKey("squash_merge_commit_message"))
-        try keyedContainer.encodeIfPresent(self.mergeCommitTitle, forKey: SdkCodingKey("merge_commit_title"))
-        try keyedContainer.encodeIfPresent(self.mergeCommitMessage, forKey: SdkCodingKey("merge_commit_message"))
-        try keyedContainer.encodeIfPresent(self.customProperties, forKey: SdkCodingKey("custom_properties"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(homepage, forKey: SdkCodingKey("homepage"))
+        try keyedContainer.encodeIfPresent(self.private, forKey: SdkCodingKey("private"))
+        try keyedContainer.encodeIfPresent(visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(hasIssues, forKey: SdkCodingKey("has_issues"))
+        try keyedContainer.encodeIfPresent(hasProjects, forKey: SdkCodingKey("has_projects"))
+        try keyedContainer.encodeIfPresent(hasWiki, forKey: SdkCodingKey("has_wiki"))
+        try keyedContainer.encodeIfPresent(hasDownloads, forKey: SdkCodingKey("has_downloads"))
+        try keyedContainer.encodeIfPresent(isTemplate, forKey: SdkCodingKey("is_template"))
+        try keyedContainer.encodeIfPresent(teamId, forKey: SdkCodingKey("team_id"))
+        try keyedContainer.encodeIfPresent(autoInit, forKey: SdkCodingKey("auto_init"))
+        try keyedContainer.encodeIfPresent(gitignoreTemplate, forKey: SdkCodingKey("gitignore_template"))
+        try keyedContainer.encodeIfPresent(licenseTemplate, forKey: SdkCodingKey("license_template"))
+        try keyedContainer.encodeIfPresent(allowSquashMerge, forKey: SdkCodingKey("allow_squash_merge"))
+        try keyedContainer.encodeIfPresent(allowMergeCommit, forKey: SdkCodingKey("allow_merge_commit"))
+        try keyedContainer.encodeIfPresent(allowRebaseMerge, forKey: SdkCodingKey("allow_rebase_merge"))
+        try keyedContainer.encodeIfPresent(allowAutoMerge, forKey: SdkCodingKey("allow_auto_merge"))
+        try keyedContainer.encodeIfPresent(deleteBranchOnMerge, forKey: SdkCodingKey("delete_branch_on_merge"))
+        try keyedContainer.encodeIfPresent(
+            useSquashPrTitleAsDefault,
+            forKey: SdkCodingKey("use_squash_pr_title_as_default")
+        )
+        try keyedContainer.encodeIfPresent(squashMergeCommitTitle, forKey: SdkCodingKey("squash_merge_commit_title"))
+        try keyedContainer.encodeIfPresent(
+            squashMergeCommitMessage,
+            forKey: SdkCodingKey("squash_merge_commit_message")
+        )
+        try keyedContainer.encodeIfPresent(mergeCommitTitle, forKey: SdkCodingKey("merge_commit_title"))
+        try keyedContainer.encodeIfPresent(mergeCommitMessage, forKey: SdkCodingKey("merge_commit_message"))
+        try keyedContainer.encodeIfPresent(customProperties, forKey: SdkCodingKey("custom_properties"))
     }
 
     init(options: ReposMethods.ReposCreateInOrgOptions) {
-        self.name = options.name
-        self.description = options.description
-        self.homepage = options.homepage
-        self.`private` = options.`private`
-        self.visibility = options.visibility
-        self.hasIssues = options.hasIssues
-        self.hasProjects = options.hasProjects
-        self.hasWiki = options.hasWiki
-        self.hasDownloads = options.hasDownloads
-        self.isTemplate = options.isTemplate
-        self.teamId = options.teamId
-        self.autoInit = options.autoInit
-        self.gitignoreTemplate = options.gitignoreTemplate
-        self.licenseTemplate = options.licenseTemplate
-        self.allowSquashMerge = options.allowSquashMerge
-        self.allowMergeCommit = options.allowMergeCommit
-        self.allowRebaseMerge = options.allowRebaseMerge
-        self.allowAutoMerge = options.allowAutoMerge
-        self.deleteBranchOnMerge = options.deleteBranchOnMerge
-        self.useSquashPrTitleAsDefault = options.useSquashPrTitleAsDefault
-        self.squashMergeCommitTitle = options.squashMergeCommitTitle
-        self.squashMergeCommitMessage = options.squashMergeCommitMessage
-        self.mergeCommitTitle = options.mergeCommitTitle
-        self.mergeCommitMessage = options.mergeCommitMessage
-        self.customProperties = options.customProperties
+        name = options.name
+        description = options.description
+        homepage = options.homepage
+        self.private = options.private
+        visibility = options.visibility
+        hasIssues = options.hasIssues
+        hasProjects = options.hasProjects
+        hasWiki = options.hasWiki
+        hasDownloads = options.hasDownloads
+        isTemplate = options.isTemplate
+        teamId = options.teamId
+        autoInit = options.autoInit
+        gitignoreTemplate = options.gitignoreTemplate
+        licenseTemplate = options.licenseTemplate
+        allowSquashMerge = options.allowSquashMerge
+        allowMergeCommit = options.allowMergeCommit
+        allowRebaseMerge = options.allowRebaseMerge
+        allowAutoMerge = options.allowAutoMerge
+        deleteBranchOnMerge = options.deleteBranchOnMerge
+        useSquashPrTitleAsDefault = options.useSquashPrTitleAsDefault
+        squashMergeCommitTitle = options.squashMergeCommitTitle
+        squashMergeCommitMessage = options.squashMergeCommitMessage
+        mergeCommitTitle = options.mergeCommitTitle
+        mergeCommitMessage = options.mergeCommitMessage
+        customProperties = options.customProperties
     }
 }
 
@@ -200,11 +206,11 @@ struct ReposCreateOrgRulesetRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(self.enforcement, forKey: SdkCodingKey("enforcement"))
-        try keyedContainer.encodeIfPresent(self.target, forKey: SdkCodingKey("target"))
-        try keyedContainer.encodeIfPresent(self.bypassActors, forKey: SdkCodingKey("bypass_actors"))
-        try keyedContainer.encodeIfPresent(self.conditions, forKey: SdkCodingKey("conditions"))
-        try keyedContainer.encodeIfPresent(self.rules, forKey: SdkCodingKey("rules"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(enforcement, forKey: SdkCodingKey("enforcement"))
+        try keyedContainer.encodeIfPresent(target, forKey: SdkCodingKey("target"))
+        try keyedContainer.encodeIfPresent(bypassActors, forKey: SdkCodingKey("bypass_actors"))
+        try keyedContainer.encodeIfPresent(conditions, forKey: SdkCodingKey("conditions"))
+        try keyedContainer.encodeIfPresent(rules, forKey: SdkCodingKey("rules"))
     }
 }

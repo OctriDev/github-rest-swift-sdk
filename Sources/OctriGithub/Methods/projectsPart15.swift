@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// List project fields for user
     ///
     /// List all fields for a specific user-owned project.
@@ -30,11 +30,31 @@ extension ProjectsMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func projectsListFieldsForUser(config: ClientConfig, projectNumber: Int, username: String, perPage: Int?, before: String?, after: String?) async throws -> [ProjectsV2Field] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/fields"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-        ], decoder: .json, operationId: "projectsListFieldsForUser")).data
+    static func projectsListFieldsForUser(
+        config: ClientConfig,
+        projectNumber: Int,
+        username: String,
+        perPage: Int?,
+        before: String?,
+        after: String?
+    ) async throws -> [ProjectsV2Field] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/fields",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+            ],
+            decoder: .json,
+            operationId: "projectsListFieldsForUser"
+        )).data
     }
 }

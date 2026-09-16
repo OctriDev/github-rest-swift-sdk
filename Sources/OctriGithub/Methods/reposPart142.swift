@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Retrieves a specific historical version of a repository ruleset. Identify the repository, ruleset, and historical version with `owner`, `repo`, `ruleset_id`, and `version_id`. The response includes the version metadata and the ruleset state recorded for that version.
+public extension ReposMethods {
+    /// Retrieves a specific historical version of a repository ruleset. Identify the repository, ruleset, and
+    /// historical version with `owner`, `repo`, `ruleset_id`, and `version_id`. The response includes the version
+    /// metadata and the ruleset state recorded for that version.
     ///
     /// Get a version of a repository ruleset.
     ///
@@ -18,20 +20,59 @@ extension ReposMethods {
     ///   not case sensitive.
     /// - rulesetId: The ID of the ruleset.
     /// - versionId: The ID of the version
-    public static func reposGetRepoRulesetVersion(config: ClientConfig, owner: String, repo: String, rulesetId: Int, versionId: Int) async throws -> RulesetVersionWithState {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId)), "/history/", sdkEncodePathSegment(sdkWireString(versionId))].joined(), config: config, decoder: .json, operationId: "reposGetRepoRulesetVersion")).data
+    static func reposGetRepoRulesetVersion(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        rulesetId: Int,
+        versionId: Int
+    ) async throws -> RulesetVersionWithState {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/rulesets/",
+                sdkEncodePathSegment(sdkWireString(rulesetId)),
+                "/history/",
+                sdkEncodePathSegment(sdkWireString(versionId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetRepoRulesetVersion"
+        )).data
     }
 
     /// Get the weekly commit activity
     ///
-    /// Returns a weekly aggregate of the number of additions and deletions pushed to a repository. > [!NOTE] > This endpoint can only be used for repositories with fewer than 10,000 commits. If the repository contains 10,000 or more commits, a 422 status code will be returned.
+    /// Returns a weekly aggregate of the number of additions and deletions pushed to a repository. > [!NOTE] > This
+    /// endpoint can only be used for repositories with fewer than 10,000 commits. If the repository contains 10,000 or
+    /// more commits, a 422 status code will be returned.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGetCodeFrequencyStats(config: ClientConfig, owner: String, repo: String) async throws -> [CodeFrequencyStat] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stats/code_frequency"].joined(), config: config, decoder: .json, operationId: "reposGetCodeFrequencyStats")).data
+    static func reposGetCodeFrequencyStats(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> [CodeFrequencyStat] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stats/code_frequency",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetCodeFrequencyStats"
+        )).data
     }
 }

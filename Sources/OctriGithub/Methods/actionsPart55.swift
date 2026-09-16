@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Lists the active concurrency groups for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+public extension ActionsMethods {
+    /// Lists the active concurrency groups for a repository. OAuth app tokens and personal access tokens (classic) need
+    /// the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,10 +25,29 @@ extension ActionsMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsListConcurrencyGroupsForRepository(config: ClientConfig, owner: String, repo: String, perPage: Int?, after: String?) async throws -> ConcurrencyGroupList {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/concurrency_groups"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("after", value: after),
-        ], decoder: .json, operationId: "actionsListConcurrencyGroupsForRepository")).data
+    static func actionsListConcurrencyGroupsForRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        after: String?
+    ) async throws -> ConcurrencyGroupList {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/concurrency_groups",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("after", value: after),
+            ],
+            decoder: .json,
+            operationId: "actionsListConcurrencyGroupsForRepository"
+        )).data
     }
 }

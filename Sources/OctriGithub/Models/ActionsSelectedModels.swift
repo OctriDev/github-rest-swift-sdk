@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ActionsSelected domain models
+/// ActionsSelected domain models
 public typealias SelectedActionsUrl = String
 
 /// Typed representation of the `SelectedActions` API schema.
@@ -26,21 +26,21 @@ public struct SelectedActions: Codable {
     }
 
     init() {
-        (self.githubOwnedAllowed, self.verifiedAllowed, self.patternsAllowed) = (nil, nil, nil)
+        (githubOwnedAllowed, verifiedAllowed, patternsAllowed) = (nil, nil, nil)
     }
 }
 
 public extension SelectedActions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.githubOwnedAllowed = try container.sdkDecodeIfPresent(.githubOwnedAllowed)
-        self.verifiedAllowed = try container.sdkDecodeIfPresent(.verifiedAllowed)
-        self.patternsAllowed = try container.sdkDecodeIfPresent(.patternsAllowed)
+        githubOwnedAllowed = try container.sdkDecodeIfPresent(.githubOwnedAllowed)
+        verifiedAllowed = try container.sdkDecodeIfPresent(.verifiedAllowed)
+        patternsAllowed = try container.sdkDecodeIfPresent(.patternsAllowed)
     }
 }
 
 public extension SelectedActions {
-    public init(githubOwnedAllowed: Bool? = nil, verifiedAllowed: Bool? = nil, patternsAllowed: [String]? = nil) {
+    init(githubOwnedAllowed: Bool? = nil, verifiedAllowed: Bool? = nil, patternsAllowed: [String]? = nil) {
         self.init()
         (self.githubOwnedAllowed, self.verifiedAllowed) = (githubOwnedAllowed, verifiedAllowed)
         self.patternsAllowed = patternsAllowed

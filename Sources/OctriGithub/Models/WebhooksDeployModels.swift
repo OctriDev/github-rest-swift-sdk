@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhooksDeploy domain models
+/// WebhooksDeploy domain models
 public typealias WebhooksDeployPusherType = String
 
 /// The `deploy key` resource.
@@ -42,54 +42,95 @@ public struct WebhooksDeployKey: Codable {
         case enabled
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhooksDeployKey {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.key) else {
-            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
-        }
-        guard container.contains(.readOnly) else {
-            throw SdkValidationError(field: "read_only", code: "required", message: "Validation failed for 'read_only': value is required")
-        }
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.verified) else {
-            throw SdkValidationError(field: "verified", code: "required", message: "Validation failed for 'verified': value is required")
-        }
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.key = try container.sdkDecodeRequired(.key)
-        self.readOnly = try container.sdkDecodeRequired(.readOnly)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.verified = try container.sdkDecodeRequired(.verified)
-        self.addedBy = try container.sdkDecodeIfPresent(.addedBy)
-        self.lastUsed = try container.sdkDecodeIfPresent(.lastUsed)
-        self.enabled = try container.sdkDecodeIfPresent(.enabled)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhooksDeployKey {
-    public init(createdAt: String, id: Int, key: String, readOnly: Bool, title: String, url: String, verified: Bool, addedBy: String? = nil, lastUsed: String? = nil, enabled: Bool? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.createdAt) else {
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.key) else {
+            throw SdkValidationError(
+                field: "key",
+                code: "required",
+                message: "Validation failed for 'key': value is required"
+            )
+        }
+        guard container.contains(.readOnly) else {
+            throw SdkValidationError(
+                field: "read_only",
+                code: "required",
+                message: "Validation failed for 'read_only': value is required"
+            )
+        }
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.verified) else {
+            throw SdkValidationError(
+                field: "verified",
+                code: "required",
+                message: "Validation failed for 'verified': value is required"
+            )
+        }
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        id = try container.sdkDecodeRequired(.id)
+        key = try container.sdkDecodeRequired(.key)
+        readOnly = try container.sdkDecodeRequired(.readOnly)
+        title = try container.sdkDecodeRequired(.title)
+        url = try container.sdkDecodeRequired(.url)
+        verified = try container.sdkDecodeRequired(.verified)
+        addedBy = try container.sdkDecodeIfPresent(.addedBy)
+        lastUsed = try container.sdkDecodeIfPresent(.lastUsed)
+        enabled = try container.sdkDecodeIfPresent(.enabled)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhooksDeployKey {
+    init(
+        createdAt: String,
+        id: Int,
+        key: String,
+        readOnly: Bool,
+        title: String,
+        url: String,
+        verified: Bool,
+        addedBy: String? = nil,
+        lastUsed: String? = nil,
+        enabled: Bool? = nil
+    ) throws {
         (self.createdAt, self.id) = (createdAt, id)
         (self.key, self.readOnly) = (key, readOnly)
         (self.title, self.url) = (title, url)
         (self.verified, self.addedBy) = (verified, addedBy)
         (self.lastUsed, self.enabled) = (lastUsed, enabled)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }

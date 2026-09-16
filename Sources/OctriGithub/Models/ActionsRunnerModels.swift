@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ActionsRunner domain models
+/// ActionsRunner domain models
 /// A self hosted runner
 public struct Runner: Codable {
     /// The ID of the runner.
@@ -44,44 +44,80 @@ public struct Runner: Codable {
         case version
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension Runner {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.os) else {
-            throw SdkValidationError(field: "os", code: "required", message: "Validation failed for 'os': value is required")
-        }
-        guard container.contains(.status) else {
-            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
-        }
-        guard container.contains(.busy) else {
-            throw SdkValidationError(field: "busy", code: "required", message: "Validation failed for 'busy': value is required")
-        }
-        guard container.contains(.labels) else {
-            throw SdkValidationError(field: "labels", code: "required", message: "Validation failed for 'labels': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.os = try container.sdkDecodeRequired(.os)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.busy = try container.sdkDecodeRequired(.busy)
-        self.labels = try container.sdkDecodeRequired(.labels)
-        self.runnerGroupId = try container.sdkDecodeIfPresent(.runnerGroupId)
-        self.ephemeral = try container.sdkDecodeIfPresent(.ephemeral)
-        self.version = try container.sdkDecodeIfPresent(.version)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension Runner {
-    public init(id: Int, name: String, os: String, status: String, busy: Bool, labels: [RunnerLabel], runnerGroupId: Int? = nil, ephemeral: Bool? = nil, version: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.os) else {
+            throw SdkValidationError(
+                field: "os",
+                code: "required",
+                message: "Validation failed for 'os': value is required"
+            )
+        }
+        guard container.contains(.status) else {
+            throw SdkValidationError(
+                field: "status",
+                code: "required",
+                message: "Validation failed for 'status': value is required"
+            )
+        }
+        guard container.contains(.busy) else {
+            throw SdkValidationError(
+                field: "busy",
+                code: "required",
+                message: "Validation failed for 'busy': value is required"
+            )
+        }
+        guard container.contains(.labels) else {
+            throw SdkValidationError(
+                field: "labels",
+                code: "required",
+                message: "Validation failed for 'labels': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        os = try container.sdkDecodeRequired(.os)
+        status = try container.sdkDecodeRequired(.status)
+        busy = try container.sdkDecodeRequired(.busy)
+        labels = try container.sdkDecodeRequired(.labels)
+        runnerGroupId = try container.sdkDecodeIfPresent(.runnerGroupId)
+        ephemeral = try container.sdkDecodeIfPresent(.ephemeral)
+        version = try container.sdkDecodeIfPresent(.version)
+    }
+}
+
+public extension Runner {
+    init(
+        id: Int,
+        name: String,
+        os: String,
+        status: String,
+        busy: Bool,
+        labels: [RunnerLabel],
+        runnerGroupId: Int? = nil,
+        ephemeral: Bool? = nil,
+        version: String? = nil
+    ) {
         (self.id, self.name) = (id, name)
         (self.os, self.status) = (os, status)
         (self.busy, self.labels) = (busy, labels)
@@ -114,35 +150,60 @@ public struct RunnerApplication: Codable {
         case sha256Checksum = "sha256_checksum"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RunnerApplication {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.os) else {
-            throw SdkValidationError(field: "os", code: "required", message: "Validation failed for 'os': value is required")
-        }
-        guard container.contains(.architecture) else {
-            throw SdkValidationError(field: "architecture", code: "required", message: "Validation failed for 'architecture': value is required")
-        }
-        guard container.contains(.downloadUrl) else {
-            throw SdkValidationError(field: "download_url", code: "required", message: "Validation failed for 'download_url': value is required")
-        }
-        guard container.contains(.filename) else {
-            throw SdkValidationError(field: "filename", code: "required", message: "Validation failed for 'filename': value is required")
-        }
-        self.os = try container.sdkDecodeRequired(.os)
-        self.architecture = try container.sdkDecodeRequired(.architecture)
-        self.downloadUrl = try container.sdkDecodeRequired(.downloadUrl)
-        self.filename = try container.sdkDecodeRequired(.filename)
-        self.tempDownloadToken = try container.sdkDecodeIfPresent(.tempDownloadToken)
-        self.sha256Checksum = try container.sdkDecodeIfPresent(.sha256Checksum)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RunnerApplication {
-    public init(os: String, architecture: String, downloadUrl: String, filename: String, tempDownloadToken: String? = nil, sha256Checksum: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.os) else {
+            throw SdkValidationError(
+                field: "os",
+                code: "required",
+                message: "Validation failed for 'os': value is required"
+            )
+        }
+        guard container.contains(.architecture) else {
+            throw SdkValidationError(
+                field: "architecture",
+                code: "required",
+                message: "Validation failed for 'architecture': value is required"
+            )
+        }
+        guard container.contains(.downloadUrl) else {
+            throw SdkValidationError(
+                field: "download_url",
+                code: "required",
+                message: "Validation failed for 'download_url': value is required"
+            )
+        }
+        guard container.contains(.filename) else {
+            throw SdkValidationError(
+                field: "filename",
+                code: "required",
+                message: "Validation failed for 'filename': value is required"
+            )
+        }
+        os = try container.sdkDecodeRequired(.os)
+        architecture = try container.sdkDecodeRequired(.architecture)
+        downloadUrl = try container.sdkDecodeRequired(.downloadUrl)
+        filename = try container.sdkDecodeRequired(.filename)
+        tempDownloadToken = try container.sdkDecodeIfPresent(.tempDownloadToken)
+        sha256Checksum = try container.sdkDecodeIfPresent(.sha256Checksum)
+    }
+}
+
+public extension RunnerApplication {
+    init(
+        os: String,
+        architecture: String,
+        downloadUrl: String,
+        filename: String,
+        tempDownloadToken: String? = nil,
+        sha256Checksum: String? = nil
+    ) {
         (self.os, self.architecture) = (os, architecture)
         (self.downloadUrl, self.filename) = (downloadUrl, filename)
         (self.tempDownloadToken, self.sha256Checksum) = (tempDownloadToken, sha256Checksum)
@@ -200,54 +261,99 @@ public struct RunnerGroupsOrg: Codable {
         case selectedWorkflows = "selected_workflows"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RunnerGroupsOrg {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.visibility) else {
-            throw SdkValidationError(field: "visibility", code: "required", message: "Validation failed for 'visibility': value is required")
-        }
-        guard container.contains(.`default`) else {
-            throw SdkValidationError(field: "default", code: "required", message: "Validation failed for 'default': value is required")
-        }
-        guard container.contains(.runnersUrl) else {
-            throw SdkValidationError(field: "runners_url", code: "required", message: "Validation failed for 'runners_url': value is required")
-        }
-        guard container.contains(.inherited) else {
-            throw SdkValidationError(field: "inherited", code: "required", message: "Validation failed for 'inherited': value is required")
-        }
-        guard container.contains(.allowsPublicRepositories) else {
-            throw SdkValidationError(field: "allows_public_repositories", code: "required", message: "Validation failed for 'allows_public_repositories': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.visibility = try container.sdkDecodeRequired(.visibility)
-        self.`default` = try container.sdkDecodeRequired(.`default`)
-        self.runnersUrl = try container.sdkDecodeRequired(.runnersUrl)
-        self.inherited = try container.sdkDecodeRequired(.inherited)
-        self.allowsPublicRepositories = try container.sdkDecodeRequired(.allowsPublicRepositories)
-        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
-        self.hostedRunnersUrl = try container.sdkDecodeIfPresent(.hostedRunnersUrl)
-        self.networkConfigurationId = try container.sdkDecodeIfPresent(.networkConfigurationId)
-        self.inheritedAllowsPublicRepositories = try container.sdkDecodeIfPresent(.inheritedAllowsPublicRepositories)
-        self.workflowRestrictionsReadOnly = try container.sdkDecodeIfPresent(.workflowRestrictionsReadOnly)
-        self.restrictedToWorkflows = try container.sdkDecodeIfPresent(.restrictedToWorkflows)
-        self.selectedWorkflows = try container.sdkDecodeIfPresent(.selectedWorkflows)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RunnerGroupsOrg {
-    public init(id: Double, name: String, visibility: String, `default`: Bool, runnersUrl: String, inherited: Bool, allowsPublicRepositories: Bool, selectedRepositoriesUrl: String? = nil, hostedRunnersUrl: String? = nil, networkConfigurationId: String? = nil, inheritedAllowsPublicRepositories: Bool? = nil, workflowRestrictionsReadOnly: Bool? = nil, restrictedToWorkflows: Bool? = nil, selectedWorkflows: [String]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.visibility) else {
+            throw SdkValidationError(
+                field: "visibility",
+                code: "required",
+                message: "Validation failed for 'visibility': value is required"
+            )
+        }
+        guard container.contains(.default) else {
+            throw SdkValidationError(
+                field: "default",
+                code: "required",
+                message: "Validation failed for 'default': value is required"
+            )
+        }
+        guard container.contains(.runnersUrl) else {
+            throw SdkValidationError(
+                field: "runners_url",
+                code: "required",
+                message: "Validation failed for 'runners_url': value is required"
+            )
+        }
+        guard container.contains(.inherited) else {
+            throw SdkValidationError(
+                field: "inherited",
+                code: "required",
+                message: "Validation failed for 'inherited': value is required"
+            )
+        }
+        guard container.contains(.allowsPublicRepositories) else {
+            throw SdkValidationError(
+                field: "allows_public_repositories",
+                code: "required",
+                message: "Validation failed for 'allows_public_repositories': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        visibility = try container.sdkDecodeRequired(.visibility)
+        self.default = try container.sdkDecodeRequired(.default)
+        runnersUrl = try container.sdkDecodeRequired(.runnersUrl)
+        inherited = try container.sdkDecodeRequired(.inherited)
+        allowsPublicRepositories = try container.sdkDecodeRequired(.allowsPublicRepositories)
+        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+        hostedRunnersUrl = try container.sdkDecodeIfPresent(.hostedRunnersUrl)
+        networkConfigurationId = try container.sdkDecodeIfPresent(.networkConfigurationId)
+        inheritedAllowsPublicRepositories = try container.sdkDecodeIfPresent(.inheritedAllowsPublicRepositories)
+        workflowRestrictionsReadOnly = try container.sdkDecodeIfPresent(.workflowRestrictionsReadOnly)
+        restrictedToWorkflows = try container.sdkDecodeIfPresent(.restrictedToWorkflows)
+        selectedWorkflows = try container.sdkDecodeIfPresent(.selectedWorkflows)
+    }
+}
+
+public extension RunnerGroupsOrg {
+    init(
+        id: Double,
+        name: String,
+        visibility: String,
+        default: Bool,
+        runnersUrl: String,
+        inherited: Bool,
+        allowsPublicRepositories: Bool,
+        selectedRepositoriesUrl: String? = nil,
+        hostedRunnersUrl: String? = nil,
+        networkConfigurationId: String? = nil,
+        inheritedAllowsPublicRepositories: Bool? = nil,
+        workflowRestrictionsReadOnly: Bool? = nil,
+        restrictedToWorkflows: Bool? = nil,
+        selectedWorkflows: [String]? = nil
+    ) {
         (self.id, self.name) = (id, name)
-        (self.visibility, self.`default`) = (visibility, `default`)
+        (self.visibility, self.default) = (visibility, `default`)
         (self.runnersUrl, self.inherited) = (runnersUrl, inherited)
         self.allowsPublicRepositories = allowsPublicRepositories
         (self.selectedRepositoriesUrl, self.hostedRunnersUrl) = (selectedRepositoriesUrl, hostedRunnersUrl)
@@ -273,23 +379,29 @@ public struct RunnerLabel: Codable {
         case type
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RunnerLabel {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.type = try container.sdkDecodeIfPresent(.type)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RunnerLabel {
-    public init(name: String, id: Int? = nil, type: RunnerLabelType? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        id = try container.sdkDecodeIfPresent(.id)
+        type = try container.sdkDecodeIfPresent(.type)
+    }
+}
+
+public extension RunnerLabel {
+    init(name: String, id: Int? = nil, type: RunnerLabelType? = nil) {
         (self.name, self.id) = (name, id)
         self.type = type
     }
@@ -299,13 +411,16 @@ public extension RunnerLabel {
 public struct RunnerLabelType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let readOnly = RunnerLabelType(rawValue: "read-only")
     public static let custom = RunnerLabelType(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// CodeQuality domain models
+/// CodeQuality domain models
 public enum CodeQualitySetupUpdate {
     case jsonValue(JSONValue)
     case jsonValue1(JSONValue)
@@ -13,24 +13,40 @@ public enum CodeQualitySetupUpdate {
 }
 
 extension CodeQualitySetupUpdate: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for CodeQualitySetupUpdate")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for CodeQualitySetupUpdate"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(JSONValue.self) { return .jsonValue(value) }
-        if let value = try? container.decode(JSONValue.self) { return .jsonValue1(value) }
-        if let value = try? container.decode(JSONValue.self) { return .jsonValue2(value) }
-        if let value = try? container.decode(JSONValue.self) { return .jsonValue3(value) }
-        if let value = try? container.decode(JSONValue.self) { return .jsonValue4(value) }
+        if let value = try? container.decode(JSONValue.self) {
+            return .jsonValue(value)
+        }
+        if let value = try? container.decode(JSONValue.self) {
+            return .jsonValue1(value)
+        }
+        if let value = try? container.decode(JSONValue.self) {
+            return .jsonValue2(value)
+        }
+        if let value = try? container.decode(JSONValue.self) {
+            return .jsonValue3(value)
+        }
+        if let value = try? container.decode(JSONValue.self) {
+            return .jsonValue4(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -43,7 +59,6 @@ extension CodeQualitySetupUpdate: Codable {
         case let .jsonValue4(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Code quality finding
@@ -73,51 +88,85 @@ public struct CodeQualityFinding: Codable {
         case createdAt = "created_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension CodeQualityFinding {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.number) else {
-            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
+            throw SdkValidationError(
+                field: "number",
+                code: "required",
+                message: "Validation failed for 'number': value is required"
+            )
         }
         guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
         guard container.contains(.rule) else {
-            throw SdkValidationError(field: "rule", code: "required", message: "Validation failed for 'rule': value is required")
+            throw SdkValidationError(
+                field: "rule",
+                code: "required",
+                message: "Validation failed for 'rule': value is required"
+            )
         }
         guard container.contains(.location) else {
-            throw SdkValidationError(field: "location", code: "required", message: "Validation failed for 'location': value is required")
+            throw SdkValidationError(
+                field: "location",
+                code: "required",
+                message: "Validation failed for 'location': value is required"
+            )
         }
         guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
         }
-        self.number = try container.sdkDecodeRequired(.number)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.location = try container.sdkDecodeRequired(.location)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-            try sdkValidateUri("url", self.url)
-        if let value = self.createdAt {
+        number = try container.sdkDecodeRequired(.number)
+        state = try container.sdkDecodeRequired(.state)
+        url = try container.sdkDecodeRequired(.url)
+        rule = try container.sdkDecodeRequired(.rule)
+        location = try container.sdkDecodeRequired(.location)
+        message = try container.sdkDecodeRequired(.message)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        try sdkValidateUri("url", url)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
     }
 }
 
 public extension CodeQualityFinding {
-    public init(number: Int, state: CodeQualityFindingState, url: String, rule: CodeQualityFindingRule, location: CodeQualityFindingLocation, message: CodeQualityFindingMessage, createdAt: Date? = nil) throws {
+    init(
+        number: Int,
+        state: CodeQualityFindingState,
+        url: String,
+        rule: CodeQualityFindingRule,
+        location: CodeQualityFindingLocation,
+        message: CodeQualityFindingMessage,
+        createdAt: Date? = nil
+    ) throws {
         (self.number, self.state) = (number, state)
         (self.url, self.rule) = (url, rule)
         (self.location, self.message) = (location, message)
         self.createdAt = createdAt
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
         if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
@@ -145,25 +194,31 @@ public struct CodeQualityFindingLocation: Codable {
         case endColumn = "end_column"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CodeQualityFindingLocation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.path) else {
-            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
-        }
-        self.path = try container.sdkDecodeRequired(.path)
-        self.startLine = try container.sdkDecodeIfPresent(.startLine)
-        self.startColumn = try container.sdkDecodeIfPresent(.startColumn)
-        self.endLine = try container.sdkDecodeIfPresent(.endLine)
-        self.endColumn = try container.sdkDecodeIfPresent(.endColumn)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CodeQualityFindingLocation {
-    public init(path: String, startLine: Int? = nil, startColumn: Int? = nil, endLine: Int? = nil, endColumn: Int? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.path) else {
+            throw SdkValidationError(
+                field: "path",
+                code: "required",
+                message: "Validation failed for 'path': value is required"
+            )
+        }
+        path = try container.sdkDecodeRequired(.path)
+        startLine = try container.sdkDecodeIfPresent(.startLine)
+        startColumn = try container.sdkDecodeIfPresent(.startColumn)
+        endLine = try container.sdkDecodeIfPresent(.endLine)
+        endColumn = try container.sdkDecodeIfPresent(.endColumn)
+    }
+}
+
+public extension CodeQualityFindingLocation {
+    init(path: String, startLine: Int? = nil, startColumn: Int? = nil, endLine: Int? = nil, endColumn: Int? = nil) {
         (self.path, self.startLine) = (path, startLine)
         (self.startColumn, self.endLine) = (startColumn, endLine)
         self.endColumn = endColumn
@@ -182,25 +237,35 @@ public struct CodeQualityFindingMessage: Codable {
         case markdown
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CodeQualityFindingMessage {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.text) else {
-            throw SdkValidationError(field: "text", code: "required", message: "Validation failed for 'text': value is required")
-        }
-        guard container.contains(.markdown) else {
-            throw SdkValidationError(field: "markdown", code: "required", message: "Validation failed for 'markdown': value is required")
-        }
-        self.text = try container.sdkDecodeRequired(.text)
-        self.markdown = try container.sdkDecodeRequired(.markdown)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CodeQualityFindingMessage {
-    public init(text: String, markdown: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.text) else {
+            throw SdkValidationError(
+                field: "text",
+                code: "required",
+                message: "Validation failed for 'text': value is required"
+            )
+        }
+        guard container.contains(.markdown) else {
+            throw SdkValidationError(
+                field: "markdown",
+                code: "required",
+                message: "Validation failed for 'markdown': value is required"
+            )
+        }
+        text = try container.sdkDecodeRequired(.text)
+        markdown = try container.sdkDecodeRequired(.markdown)
+    }
+}
+
+public extension CodeQualityFindingMessage {
+    init(text: String, markdown: String) {
         (self.text, self.markdown) = (text, markdown)
     }
 }
@@ -229,38 +294,67 @@ public struct CodeQualityFindingRule: Codable {
         case help
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CodeQualityFindingRule {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        guard container.contains(.description) else {
-            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
-        }
-        guard container.contains(.severity) else {
-            throw SdkValidationError(field: "severity", code: "required", message: "Validation failed for 'severity': value is required")
-        }
-        guard container.contains(.category) else {
-            throw SdkValidationError(field: "category", code: "required", message: "Validation failed for 'category': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.description = try container.sdkDecodeRequired(.description)
-        self.severity = try container.sdkDecodeRequired(.severity)
-        self.category = try container.sdkDecodeRequired(.category)
-        self.help = try container.sdkDecodeIfPresent(.help)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CodeQualityFindingRule {
-    public init(id: String, title: String, description: String, severity: CodeQualityFindingRuleSeverity, category: CodeQualityFindingRuleCategory, help: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        guard container.contains(.description) else {
+            throw SdkValidationError(
+                field: "description",
+                code: "required",
+                message: "Validation failed for 'description': value is required"
+            )
+        }
+        guard container.contains(.severity) else {
+            throw SdkValidationError(
+                field: "severity",
+                code: "required",
+                message: "Validation failed for 'severity': value is required"
+            )
+        }
+        guard container.contains(.category) else {
+            throw SdkValidationError(
+                field: "category",
+                code: "required",
+                message: "Validation failed for 'category': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        title = try container.sdkDecodeRequired(.title)
+        description = try container.sdkDecodeRequired(.description)
+        severity = try container.sdkDecodeRequired(.severity)
+        category = try container.sdkDecodeRequired(.category)
+        help = try container.sdkDecodeIfPresent(.help)
+    }
+}
+
+public extension CodeQualityFindingRule {
+    init(
+        id: String,
+        title: String,
+        description: String,
+        severity: CodeQualityFindingRuleSeverity,
+        category: CodeQualityFindingRuleCategory,
+        help: String? = nil
+    ) {
         (self.id, self.title) = (id, title)
         (self.description, self.severity) = (description, severity)
         (self.category, self.help) = (category, help)
@@ -297,29 +391,37 @@ public struct CodeQualitySetup: Codable {
     }
 
     init() {
-        (self.state, self.languages, self.runnerType, self.runnerLabel, self.updatedAt) = (nil, nil, nil, nil, nil)
-        (self.schedule, self.aiFindingsOption) = (nil, nil)
+        (state, languages, runnerType, runnerLabel, updatedAt) = (nil, nil, nil, nil, nil)
+        (schedule, aiFindingsOption) = (nil, nil)
     }
 }
 
 public extension CodeQualitySetup {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.languages = try container.sdkDecodeIfPresent(.languages)
-        self.runnerType = try container.sdkDecodeIfPresent(.runnerType)
-        self.runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.schedule = try container.sdkDecodeIfPresent(.schedule)
-        self.aiFindingsOption = try container.sdkDecodeIfPresent(.aiFindingsOption)
-        if let value = self.updatedAt {
+        state = try container.sdkDecodeIfPresent(.state)
+        languages = try container.sdkDecodeIfPresent(.languages)
+        runnerType = try container.sdkDecodeIfPresent(.runnerType)
+        runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        schedule = try container.sdkDecodeIfPresent(.schedule)
+        aiFindingsOption = try container.sdkDecodeIfPresent(.aiFindingsOption)
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
 public extension CodeQualitySetup {
-    public init(state: CodeQualitySetupState? = nil, languages: [CodeQualitySetupLanguagesItem]? = nil, runnerType: CodeQualitySetupRunnerType? = nil, runnerLabel: String? = nil, updatedAt: Date? = nil, schedule: CodeQualitySetupSchedule? = nil, aiFindingsOption: CodeQualitySetupAiFindingsOption? = nil) throws {
+    init(
+        state: CodeQualitySetupState? = nil,
+        languages: [CodeQualitySetupLanguagesItem]? = nil,
+        runnerType: CodeQualitySetupRunnerType? = nil,
+        runnerLabel: String? = nil,
+        updatedAt: Date? = nil,
+        schedule: CodeQualitySetupSchedule? = nil,
+        aiFindingsOption: CodeQualitySetupAiFindingsOption? = nil
+    ) throws {
         self.init()
         (self.state, self.languages) = (state, languages)
         (self.runnerType, self.runnerLabel) = (runnerType, runnerLabel)
@@ -345,20 +447,20 @@ public struct CodeQualitySetupUpdateResponse: Codable {
     }
 
     init() {
-        (self.runId, self.runUrl) = (nil, nil)
+        (runId, runUrl) = (nil, nil)
     }
 }
 
 public extension CodeQualitySetupUpdateResponse {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.runId = try container.sdkDecodeIfPresent(.runId)
-        self.runUrl = try container.sdkDecodeIfPresent(.runUrl)
+        runId = try container.sdkDecodeIfPresent(.runId)
+        runUrl = try container.sdkDecodeIfPresent(.runUrl)
     }
 }
 
 public extension CodeQualitySetupUpdateResponse {
-    public init(runId: Int? = nil, runUrl: String? = nil) {
+    init(runId: Int? = nil, runUrl: String? = nil) {
         self.init()
         (self.runId, self.runUrl) = (runId, runUrl)
     }
@@ -368,12 +470,15 @@ public extension CodeQualitySetupUpdateResponse {
 public struct CodeQualitySetupSchedule: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let weekly = CodeQualitySetupSchedule(rawValue: "weekly")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -386,13 +491,16 @@ public struct CodeQualitySetupSchedule: RawRepresentable, Hashable, Codable, Sen
 public struct CodeQualitySetupUpdateState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let configured = CodeQualitySetupUpdateState(rawValue: "configured")
     public static let notConfigured = CodeQualitySetupUpdateState(rawValue: "not-configured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -405,7 +513,10 @@ public struct CodeQualitySetupUpdateState: RawRepresentable, Hashable, Codable, 
 public struct CodeQualityFindingRuleSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let error = CodeQualityFindingRuleSeverity(rawValue: "error")
     public static let warning = CodeQualityFindingRuleSeverity(rawValue: "warning")
     public static let note = CodeQualityFindingRuleSeverity(rawValue: "note")
@@ -413,7 +524,7 @@ public struct CodeQualityFindingRuleSeverity: RawRepresentable, Hashable, Codabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -423,16 +534,20 @@ public struct CodeQualityFindingRuleSeverity: RawRepresentable, Hashable, Codabl
 }
 
 /// Whether AI findings run for Code Quality on this repository.
-public struct CodeQualitySetupUpdateAiFindingsOption: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeQualitySetupUpdateAiFindingsOption: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let disabled = CodeQualitySetupUpdateAiFindingsOption(rawValue: "disabled")
     public static let onPush = CodeQualitySetupUpdateAiFindingsOption(rawValue: "on_push")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -445,7 +560,10 @@ public struct CodeQualitySetupUpdateAiFindingsOption: RawRepresentable, Hashable
 public struct CodeQualitySetupLanguagesItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let csharp = CodeQualitySetupLanguagesItem(rawValue: "csharp")
     public static let go = CodeQualitySetupLanguagesItem(rawValue: "go")
     public static let javaKotlin = CodeQualitySetupLanguagesItem(rawValue: "java-kotlin")
@@ -456,7 +574,7 @@ public struct CodeQualitySetupLanguagesItem: RawRepresentable, Hashable, Codable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -469,13 +587,16 @@ public struct CodeQualitySetupLanguagesItem: RawRepresentable, Hashable, Codable
 public struct CodeQualitySetupUpdateRunnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let standard = CodeQualitySetupUpdateRunnerType(rawValue: "standard")
     public static let labeled = CodeQualitySetupUpdateRunnerType(rawValue: "labeled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -488,13 +609,16 @@ public struct CodeQualitySetupUpdateRunnerType: RawRepresentable, Hashable, Coda
 public struct CodeQualitySetupState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let configured = CodeQualitySetupState(rawValue: "configured")
     public static let notConfigured = CodeQualitySetupState(rawValue: "not-configured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -507,13 +631,16 @@ public struct CodeQualitySetupState: RawRepresentable, Hashable, Codable, Sendab
 public struct CodeQualityFindingState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = CodeQualityFindingState(rawValue: "open")
     public static let dismissed = CodeQualityFindingState(rawValue: "dismissed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

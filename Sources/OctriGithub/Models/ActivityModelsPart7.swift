@@ -3,27 +3,39 @@
 
 import Foundation
 
-// Activity domain models
+/// Activity domain models
 public extension PullRequestReviewEvent {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
         }
         guard container.contains(.review) else {
-            throw SdkValidationError(field: "review", code: "required", message: "Validation failed for 'review': value is required")
+            throw SdkValidationError(
+                field: "review",
+                code: "required",
+                message: "Validation failed for 'review': value is required"
+            )
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
+            throw SdkValidationError(
+                field: "pull_request",
+                code: "required",
+                message: "Validation failed for 'pull_request': value is required"
+            )
         }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.review = try container.sdkDecodeRequired(.review)
-        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        action = try container.sdkDecodeRequired(.action)
+        review = try container.sdkDecodeRequired(.review)
+        pullRequest = try container.sdkDecodeRequired(.pullRequest)
     }
 }
 
 public extension PullRequestReviewEvent {
-    public init(action: String, review: PullRequestReviewEventReview, pullRequest: PullRequestMinimal) {
+    init(action: String, review: PullRequestReviewEventReview, pullRequest: PullRequestMinimal) {
         (self.action, self.review) = (action, review)
         self.pullRequest = pullRequest
     }
@@ -69,37 +81,49 @@ public struct PullRequestReviewEventReview: Codable {
     }
 
     init() {
-        (self.id, self.nodeId, self.user, self.body, self.commitId) = (nil, nil, nil, nil, nil)
-        (self.submittedAt, self.state, self.htmlUrl, self.pullRequestUrl, self.links) = (nil, nil, nil, nil, nil)
-        self.updatedAt = nil
+        (id, nodeId, user, body, commitId) = (nil, nil, nil, nil, nil)
+        (submittedAt, state, htmlUrl, pullRequestUrl, links) = (nil, nil, nil, nil, nil)
+        updatedAt = nil
     }
 }
 
 public extension PullRequestReviewEventReview {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.user = try container.sdkDecodeIfPresent(.user)
-        self.body = try container.sdkDecodeIfPresent(.body)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.submittedAt = try container.sdkDecodeIfPresent(.submittedAt)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.pullRequestUrl = try container.sdkDecodeIfPresent(.pullRequestUrl)
-        self.links = try container.sdkDecodeIfPresent(.links)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        if let value = self.htmlUrl {
+        id = try container.sdkDecodeIfPresent(.id)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        user = try container.sdkDecodeIfPresent(.user)
+        body = try container.sdkDecodeIfPresent(.body)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        submittedAt = try container.sdkDecodeIfPresent(.submittedAt)
+        state = try container.sdkDecodeIfPresent(.state)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        pullRequestUrl = try container.sdkDecodeIfPresent(.pullRequestUrl)
+        links = try container.sdkDecodeIfPresent(.links)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.pullRequestUrl {
+        if let value = pullRequestUrl {
             try sdkValidateUri("pull_request_url", value)
         }
     }
 }
 
 public extension PullRequestReviewEventReview {
-    public init(id: Int? = nil, nodeId: String? = nil, user: NullableSimpleUser? = nil, body: String? = nil, commitId: String? = nil, submittedAt: String? = nil, state: String? = nil, htmlUrl: String? = nil, pullRequestUrl: String? = nil, links: PullRequestReviewEventReviewLinks? = nil, updatedAt: String? = nil) throws {
+    init(
+        id: Int? = nil,
+        nodeId: String? = nil,
+        user: NullableSimpleUser? = nil,
+        body: String? = nil,
+        commitId: String? = nil,
+        submittedAt: String? = nil,
+        state: String? = nil,
+        htmlUrl: String? = nil,
+        pullRequestUrl: String? = nil,
+        links: PullRequestReviewEventReviewLinks? = nil,
+        updatedAt: String? = nil
+    ) throws {
         self.init()
         (self.id, self.nodeId) = (id, nodeId)
         (self.user, self.body) = (user, body)
@@ -128,25 +152,35 @@ public struct PullRequestReviewEventReviewLinks: Codable {
         case pullRequest = "pull_request"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PullRequestReviewEventReviewLinks {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
-        }
-        guard container.contains(.pullRequest) else {
-            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
-        }
-        self.html = try container.sdkDecodeRequired(.html)
-        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PullRequestReviewEventReviewLinks {
-    public init(html: PullRequestReviewEventReviewLinksHtml, pullRequest: PullRequestReviewEventReviewLinksPullRequest) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.html) else {
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
+        }
+        guard container.contains(.pullRequest) else {
+            throw SdkValidationError(
+                field: "pull_request",
+                code: "required",
+                message: "Validation failed for 'pull_request': value is required"
+            )
+        }
+        html = try container.sdkDecodeRequired(.html)
+        pullRequest = try container.sdkDecodeRequired(.pullRequest)
+    }
+}
+
+public extension PullRequestReviewEventReviewLinks {
+    init(html: PullRequestReviewEventReviewLinksHtml, pullRequest: PullRequestReviewEventReviewLinksPullRequest) {
         (self.html, self.pullRequest) = (html, pullRequest)
     }
 }
@@ -160,21 +194,27 @@ public struct PullRequestReviewEventReviewLinksHtml: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PullRequestReviewEventReviewLinksHtml {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.href) else {
-            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
-        }
-        self.href = try container.sdkDecodeRequired(.href)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PullRequestReviewEventReviewLinksHtml {
-    public init(href: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.href) else {
+            throw SdkValidationError(
+                field: "href",
+                code: "required",
+                message: "Validation failed for 'href': value is required"
+            )
+        }
+        href = try container.sdkDecodeRequired(.href)
+    }
+}
+
+public extension PullRequestReviewEventReviewLinksHtml {
+    init(href: String) {
         self.href = href
     }
 }
@@ -188,21 +228,27 @@ public struct PullRequestReviewEventReviewLinksPullRequest: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PullRequestReviewEventReviewLinksPullRequest {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.href) else {
-            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
-        }
-        self.href = try container.sdkDecodeRequired(.href)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PullRequestReviewEventReviewLinksPullRequest {
-    public init(href: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.href) else {
+            throw SdkValidationError(
+                field: "href",
+                code: "required",
+                message: "Validation failed for 'href': value is required"
+            )
+        }
+        href = try container.sdkDecodeRequired(.href)
+    }
+}
+
+public extension PullRequestReviewEventReviewLinksPullRequest {
+    init(href: String) {
         self.href = href
     }
 }
@@ -228,37 +274,59 @@ public struct PushEvent: Codable {
         case before
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension PushEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.repositoryId) else {
-            throw SdkValidationError(field: "repository_id", code: "required", message: "Validation failed for 'repository_id': value is required")
-        }
-        guard container.contains(.pushId) else {
-            throw SdkValidationError(field: "push_id", code: "required", message: "Validation failed for 'push_id': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.head) else {
-            throw SdkValidationError(field: "head", code: "required", message: "Validation failed for 'head': value is required")
-        }
-        guard container.contains(.before) else {
-            throw SdkValidationError(field: "before", code: "required", message: "Validation failed for 'before': value is required")
-        }
-        self.repositoryId = try container.sdkDecodeRequired(.repositoryId)
-        self.pushId = try container.sdkDecodeRequired(.pushId)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.head = try container.sdkDecodeRequired(.head)
-        self.before = try container.sdkDecodeRequired(.before)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension PushEvent {
-    public init(repositoryId: Int, pushId: Int, ref: String, head: String, before: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.repositoryId) else {
+            throw SdkValidationError(
+                field: "repository_id",
+                code: "required",
+                message: "Validation failed for 'repository_id': value is required"
+            )
+        }
+        guard container.contains(.pushId) else {
+            throw SdkValidationError(
+                field: "push_id",
+                code: "required",
+                message: "Validation failed for 'push_id': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.head) else {
+            throw SdkValidationError(
+                field: "head",
+                code: "required",
+                message: "Validation failed for 'head': value is required"
+            )
+        }
+        guard container.contains(.before) else {
+            throw SdkValidationError(
+                field: "before",
+                code: "required",
+                message: "Validation failed for 'before': value is required"
+            )
+        }
+        repositoryId = try container.sdkDecodeRequired(.repositoryId)
+        pushId = try container.sdkDecodeRequired(.pushId)
+        ref = try container.sdkDecodeRequired(.ref)
+        head = try container.sdkDecodeRequired(.head)
+        before = try container.sdkDecodeRequired(.before)
+    }
+}
+
+public extension PushEvent {
+    init(repositoryId: Int, pushId: Int, ref: String, head: String, before: String) {
         (self.repositoryId, self.pushId) = (repositoryId, pushId)
         (self.ref, self.head) = (ref, head)
         self.before = before
@@ -277,25 +345,35 @@ public struct ReleaseEvent: Codable {
         case release
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReleaseEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.release) else {
-            throw SdkValidationError(field: "release", code: "required", message: "Validation failed for 'release': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.release = try container.sdkDecodeRequired(.release)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReleaseEvent {
-    public init(action: String, release: ReleaseEventRelease) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.release) else {
+            throw SdkValidationError(
+                field: "release",
+                code: "required",
+                message: "Validation failed for 'release': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        release = try container.sdkDecodeRequired(.release)
+    }
+}
+
+public extension ReleaseEvent {
+    init(action: String, release: ReleaseEventRelease) {
         (self.action, self.release) = (action, release)
     }
 }
@@ -389,45 +467,75 @@ public struct ReleaseEventRelease: Codable {
         case shortDescriptionHtml = "short_description_html"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension ReleaseEventRelease {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.assetsUrl = try container.sdkDecodeRequired(.assetsUrl)
-        self.uploadUrl = try container.sdkDecodeRequired(.uploadUrl)
-        self.tarballUrl = try container.sdkDecodeIfPresent(.tarballUrl)
-        self.zipballUrl = try container.sdkDecodeIfPresent(.zipballUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.tagName = try container.sdkDecodeRequired(.tagName)
-        self.targetCommitish = try container.sdkDecodeRequired(.targetCommitish)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.draft = try container.sdkDecodeRequired(.draft)
-        self.prerelease = try container.sdkDecodeRequired(.prerelease)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
-        self.author = try container.sdkDecodeRequired(.author)
-        self.assets = try container.sdkDecodeRequired(.assets)
-        self.body = try container.sdkDecodeIfPresent(.body)
-        self.immutable = try container.sdkDecodeIfPresent(.immutable)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        self.mentionsCount = try container.sdkDecodeIfPresent(.mentionsCount)
-        self.discussionUrl = try container.sdkDecodeIfPresent(.discussionUrl)
-        self.reactions = try container.sdkDecodeIfPresent(.reactions)
-        self.isShortDescriptionHtmlTruncated = try container.sdkDecodeIfPresent(.isShortDescriptionHtmlTruncated)
-        self.shortDescriptionHtml = try container.sdkDecodeIfPresent(.shortDescriptionHtml)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        assetsUrl = try container.sdkDecodeRequired(.assetsUrl)
+        uploadUrl = try container.sdkDecodeRequired(.uploadUrl)
+        tarballUrl = try container.sdkDecodeIfPresent(.tarballUrl)
+        zipballUrl = try container.sdkDecodeIfPresent(.zipballUrl)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        tagName = try container.sdkDecodeRequired(.tagName)
+        targetCommitish = try container.sdkDecodeRequired(.targetCommitish)
+        name = try container.sdkDecodeIfPresent(.name)
+        draft = try container.sdkDecodeRequired(.draft)
+        prerelease = try container.sdkDecodeRequired(.prerelease)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
+        author = try container.sdkDecodeRequired(.author)
+        assets = try container.sdkDecodeRequired(.assets)
+        body = try container.sdkDecodeIfPresent(.body)
+        immutable = try container.sdkDecodeIfPresent(.immutable)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        bodyText = try container.sdkDecodeIfPresent(.bodyText)
+        mentionsCount = try container.sdkDecodeIfPresent(.mentionsCount)
+        discussionUrl = try container.sdkDecodeIfPresent(.discussionUrl)
+        reactions = try container.sdkDecodeIfPresent(.reactions)
+        isShortDescriptionHtmlTruncated = try container.sdkDecodeIfPresent(.isShortDescriptionHtmlTruncated)
+        shortDescriptionHtml = try container.sdkDecodeIfPresent(.shortDescriptionHtml)
         try sdkValidateConstraints()
     }
 }
 
 public extension ReleaseEventRelease {
-    public init(url: String, htmlUrl: String, assetsUrl: String, uploadUrl: String, tarballUrl: String?, zipballUrl: String?, id: Int, nodeId: String, tagName: String, targetCommitish: String, name: String?, draft: Bool, prerelease: Bool, createdAt: Date, publishedAt: Date?, author: SimpleUser, assets: [ReleaseAsset], body: String? = nil, immutable: Bool? = nil, updatedAt: Date? = nil, bodyHtml: String? = nil, bodyText: String? = nil, mentionsCount: Int? = nil, discussionUrl: String? = nil, reactions: ReactionRollup? = nil, isShortDescriptionHtmlTruncated: Bool? = nil, shortDescriptionHtml: String? = nil) throws {
+    init(
+        url: String,
+        htmlUrl: String,
+        assetsUrl: String,
+        uploadUrl: String,
+        tarballUrl: String?,
+        zipballUrl: String?,
+        id: Int,
+        nodeId: String,
+        tagName: String,
+        targetCommitish: String,
+        name: String?,
+        draft: Bool,
+        prerelease: Bool,
+        createdAt: Date,
+        publishedAt: Date?,
+        author: SimpleUser,
+        assets: [ReleaseAsset],
+        body: String? = nil,
+        immutable: Bool? = nil,
+        updatedAt: Date? = nil,
+        bodyHtml: String? = nil,
+        bodyText: String? = nil,
+        mentionsCount: Int? = nil,
+        discussionUrl: String? = nil,
+        reactions: ReactionRollup? = nil,
+        isShortDescriptionHtmlTruncated: Bool? = nil,
+        shortDescriptionHtml: String? = nil
+    ) throws {
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.assetsUrl, self.uploadUrl) = (assetsUrl, uploadUrl)
         (self.tarballUrl, self.zipballUrl) = (tarballUrl, zipballUrl)
@@ -449,23 +557,23 @@ public extension ReleaseEventRelease {
 
 extension ReleaseEventRelease {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("assets_url", self.assetsUrl)
-        if let value = self.tarballUrl {
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("assets_url", assetsUrl)
+        if let value = tarballUrl {
             try sdkValidateUri("tarball_url", value)
         }
-        if let value = self.zipballUrl {
+        if let value = zipballUrl {
             try sdkValidateUri("zipball_url", value)
         }
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        if let value = self.publishedAt {
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        if let value = publishedAt {
             try sdkValidateDateTime("published_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.discussionUrl {
+        if let value = discussionUrl {
             try sdkValidateUri("discussion_url", value)
         }
     }
@@ -484,20 +592,20 @@ public struct ReleaseEventReleaseVariant1: Codable {
     }
 
     init() {
-        (self.isShortDescriptionHtmlTruncated, self.shortDescriptionHtml) = (nil, nil)
+        (isShortDescriptionHtmlTruncated, shortDescriptionHtml) = (nil, nil)
     }
 }
 
 public extension ReleaseEventReleaseVariant1 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.isShortDescriptionHtmlTruncated = try container.sdkDecodeIfPresent(.isShortDescriptionHtmlTruncated)
-        self.shortDescriptionHtml = try container.sdkDecodeIfPresent(.shortDescriptionHtml)
+        isShortDescriptionHtmlTruncated = try container.sdkDecodeIfPresent(.isShortDescriptionHtmlTruncated)
+        shortDescriptionHtml = try container.sdkDecodeIfPresent(.shortDescriptionHtml)
     }
 }
 
 public extension ReleaseEventReleaseVariant1 {
-    public init(isShortDescriptionHtmlTruncated: Bool? = nil, shortDescriptionHtml: String? = nil) {
+    init(isShortDescriptionHtmlTruncated: Bool? = nil, shortDescriptionHtml: String? = nil) {
         self.init()
         self.isShortDescriptionHtmlTruncated = isShortDescriptionHtmlTruncated
         self.shortDescriptionHtml = shortDescriptionHtml

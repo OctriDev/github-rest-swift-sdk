@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Lists the selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Lists the selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint,
+    /// the organization permission policy for `enabled_repositories` must be configured to `selected`. For more
+    /// information, see "Set GitHub Actions permissions for an organization." OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,23 +22,52 @@ extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsListSelectedRepositoriesEnabledGithubActionsOrganization(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "actionsListSelectedRepositoriesEnabledGithubActionsOrganization")).data
+    static func actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/repositories"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "actionsListSelectedRepositoriesEnabledGithubActionsOrganization"
+        )).data
     }
 
-    /// Replaces the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Replaces the list of selected repositories that are enabled for GitHub Actions in an organization. To use this
+    /// endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For
+    /// more information, see "Set GitHub Actions permissions for an organization." OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - selectedRepositoryIds: List of repository IDs to enable for GitHub
     ///   Actions.
-    public static func actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(config: ClientConfig, org: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizatioX4f25ee9156(selectedRepositoryIds: selectedRepositoryIds)
+    static func actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
+        config: ClientConfig,
+        org: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        let requestBody =
+            ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizatioX4f25ee9156(
+                selectedRepositoryIds: selectedRepositoryIds
+            )
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/repositories"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization"
+        )).data
     }
 
     private struct ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizatioX4f25ee9156: Encodable {
@@ -43,7 +75,7 @@ extension ActionsMethods {
 
         func encode(to encoder: Encoder) throws {
             var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-            try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+            try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
         }
     }
 }

@@ -3,12 +3,118 @@
 
 import Foundation
 
-// Shared domain models
+/// Shared domain models
 public extension FullRepository {
-    public init(id: Int, nodeId: String, name: String, fullName: String, owner: SimpleUser, `private`: Bool, htmlUrl: String, description: String?, fork: Bool, url: String, archiveUrl: String, assigneesUrl: String, blobsUrl: String, branchesUrl: String, collaboratorsUrl: String, commentsUrl: String, commitsUrl: String, compareUrl: String, contentsUrl: String, contributorsUrl: String, deploymentsUrl: String, downloadsUrl: String, eventsUrl: String, forksUrl: String, gitCommitsUrl: String, gitRefsUrl: String, gitTagsUrl: String, gitUrl: String, issueCommentUrl: String, issueEventsUrl: String, issuesUrl: String, keysUrl: String, labelsUrl: String, languagesUrl: String, mergesUrl: String, milestonesUrl: String, notificationsUrl: String, pullsUrl: String, releasesUrl: String, sshUrl: String, stargazersUrl: String, statusesUrl: String, subscribersUrl: String, subscriptionUrl: String, tagsUrl: String, teamsUrl: String, treesUrl: String, cloneUrl: String, mirrorUrl: String?, hooksUrl: String, svnUrl: String, homepage: String?, language: String?, forksCount: Int, stargazersCount: Int, watchersCount: Int, size: Int, defaultBranch: String, openIssuesCount: Int, hasIssues: Bool, hasProjects: Bool, hasWiki: Bool, hasPages: Bool, hasDiscussions: Bool, archived: Bool, disabled: Bool, pushedAt: Date, createdAt: Date, updatedAt: Date, subscribersCount: Int, networkCount: Int, license: NullableLicenseSimple?, forks: Int, openIssues: Int, watchers: Int, isTemplate: Bool? = nil, topics: [String]? = nil, hasDownloads: Bool? = nil, hasPullRequests: Bool? = nil, pullRequestCreationPolicy: FullRepositoryPullRequestCreationPolicy? = nil, visibility: String? = nil, permissions: FullRepositoryPermissions? = nil, allowRebaseMerge: Bool? = nil, templateRepository: NullableRepository? = nil, tempCloneToken: String? = nil, allowSquashMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowUpdateBranch: Bool? = nil, useSquashPrTitleAsDefault: Bool? = nil, squashMergeCommitTitle: FullRepositorySquashMergeCommitTitle? = nil, squashMergeCommitMessage: FullRepositorySquashMergeCommitMessage? = nil, mergeCommitTitle: FullRepositoryMergeCommitTitle? = nil, mergeCommitMessage: FullRepositoryMergeCommitMessage? = nil, allowForking: Bool? = nil, webCommitSignoffRequired: Bool? = nil, organization: NullableSimpleUser? = nil, parent: Repository? = nil, source: Repository? = nil, primaryBranch: String? = nil, anonymousAccessEnabled: Bool? = nil, codeOfConduct: CodeOfConductSimple? = nil, securityAndAnalysis: SecurityAndAnalysis? = nil, customProperties: [String: JSONValue]? = nil) throws {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        fullName: String,
+        owner: SimpleUser,
+        private: Bool,
+        htmlUrl: String,
+        description: String?,
+        fork: Bool,
+        url: String,
+        archiveUrl: String,
+        assigneesUrl: String,
+        blobsUrl: String,
+        branchesUrl: String,
+        collaboratorsUrl: String,
+        commentsUrl: String,
+        commitsUrl: String,
+        compareUrl: String,
+        contentsUrl: String,
+        contributorsUrl: String,
+        deploymentsUrl: String,
+        downloadsUrl: String,
+        eventsUrl: String,
+        forksUrl: String,
+        gitCommitsUrl: String,
+        gitRefsUrl: String,
+        gitTagsUrl: String,
+        gitUrl: String,
+        issueCommentUrl: String,
+        issueEventsUrl: String,
+        issuesUrl: String,
+        keysUrl: String,
+        labelsUrl: String,
+        languagesUrl: String,
+        mergesUrl: String,
+        milestonesUrl: String,
+        notificationsUrl: String,
+        pullsUrl: String,
+        releasesUrl: String,
+        sshUrl: String,
+        stargazersUrl: String,
+        statusesUrl: String,
+        subscribersUrl: String,
+        subscriptionUrl: String,
+        tagsUrl: String,
+        teamsUrl: String,
+        treesUrl: String,
+        cloneUrl: String,
+        mirrorUrl: String?,
+        hooksUrl: String,
+        svnUrl: String,
+        homepage: String?,
+        language: String?,
+        forksCount: Int,
+        stargazersCount: Int,
+        watchersCount: Int,
+        size: Int,
+        defaultBranch: String,
+        openIssuesCount: Int,
+        hasIssues: Bool,
+        hasProjects: Bool,
+        hasWiki: Bool,
+        hasPages: Bool,
+        hasDiscussions: Bool,
+        archived: Bool,
+        disabled: Bool,
+        pushedAt: Date,
+        createdAt: Date,
+        updatedAt: Date,
+        subscribersCount: Int,
+        networkCount: Int,
+        license: NullableLicenseSimple?,
+        forks: Int,
+        openIssues: Int,
+        watchers: Int,
+        isTemplate: Bool? = nil,
+        topics: [String]? = nil,
+        hasDownloads: Bool? = nil,
+        hasPullRequests: Bool? = nil,
+        pullRequestCreationPolicy: FullRepositoryPullRequestCreationPolicy? = nil,
+        visibility: String? = nil,
+        permissions: FullRepositoryPermissions? = nil,
+        allowRebaseMerge: Bool? = nil,
+        templateRepository: NullableRepository? = nil,
+        tempCloneToken: String? = nil,
+        allowSquashMerge: Bool? = nil,
+        allowAutoMerge: Bool? = nil,
+        deleteBranchOnMerge: Bool? = nil,
+        allowMergeCommit: Bool? = nil,
+        allowUpdateBranch: Bool? = nil,
+        useSquashPrTitleAsDefault: Bool? = nil,
+        squashMergeCommitTitle: FullRepositorySquashMergeCommitTitle? = nil,
+        squashMergeCommitMessage: FullRepositorySquashMergeCommitMessage? = nil,
+        mergeCommitTitle: FullRepositoryMergeCommitTitle? = nil,
+        mergeCommitMessage: FullRepositoryMergeCommitMessage? = nil,
+        allowForking: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil,
+        organization: NullableSimpleUser? = nil,
+        parent: Repository? = nil,
+        source: Repository? = nil,
+        primaryBranch: String? = nil,
+        anonymousAccessEnabled: Bool? = nil,
+        codeOfConduct: CodeOfConductSimple? = nil,
+        securityAndAnalysis: SecurityAndAnalysis? = nil,
+        customProperties: [String: JSONValue]? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.fullName) = (name, fullName)
-        (self.owner, self.`private`) = (owner, `private`)
+        (self.owner, self.private) = (owner, `private`)
         (self.htmlUrl, self.description) = (htmlUrl, description)
         (self.fork, self.url) = (fork, url)
         (self.archiveUrl, self.assigneesUrl) = (archiveUrl, assigneesUrl)
@@ -68,36 +174,36 @@ public extension FullRepository {
 
 extension FullRepository {
     func sdkValidateConstraintsPart1() throws {
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("contributors_url", self.contributorsUrl)
-            try sdkValidateUri("deployments_url", self.deploymentsUrl)
-            try sdkValidateUri("downloads_url", self.downloadsUrl)
-            try sdkValidateUri("events_url", self.eventsUrl)
-            try sdkValidateUri("forks_url", self.forksUrl)
-            try sdkValidateUri("languages_url", self.languagesUrl)
-            try sdkValidateUri("merges_url", self.mergesUrl)
-            try sdkValidateUri("stargazers_url", self.stargazersUrl)
-            try sdkValidateUri("subscribers_url", self.subscribersUrl)
-            try sdkValidateUri("subscription_url", self.subscriptionUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("contributors_url", contributorsUrl)
+        try sdkValidateUri("deployments_url", deploymentsUrl)
+        try sdkValidateUri("downloads_url", downloadsUrl)
+        try sdkValidateUri("events_url", eventsUrl)
+        try sdkValidateUri("forks_url", forksUrl)
+        try sdkValidateUri("languages_url", languagesUrl)
+        try sdkValidateUri("merges_url", mergesUrl)
+        try sdkValidateUri("stargazers_url", stargazersUrl)
+        try sdkValidateUri("subscribers_url", subscribersUrl)
+        try sdkValidateUri("subscription_url", subscriptionUrl)
     }
 }
 
 extension FullRepository {
     func sdkValidateConstraintsPart2() throws {
-            try sdkValidateUri("tags_url", self.tagsUrl)
-            try sdkValidateUri("teams_url", self.teamsUrl)
-        if let value = self.mirrorUrl {
+        try sdkValidateUri("tags_url", tagsUrl)
+        try sdkValidateUri("teams_url", teamsUrl)
+        if let value = mirrorUrl {
             try sdkValidateUri("mirror_url", value)
         }
-            try sdkValidateUri("hooks_url", self.hooksUrl)
-            try sdkValidateUri("svn_url", self.svnUrl)
-        if let value = self.homepage {
+        try sdkValidateUri("hooks_url", hooksUrl)
+        try sdkValidateUri("svn_url", svnUrl)
+        if let value = homepage {
             try sdkValidateUri("homepage", value)
         }
-            try sdkValidateDateTime("pushed_at", sdkWireString(self.pushedAt))
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("pushed_at", sdkWireString(pushedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
     }
 }
 
@@ -122,31 +228,45 @@ public struct FullRepositoryPermissions: Codable {
         case triage
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension FullRepositoryPermissions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.admin) else {
-            throw SdkValidationError(field: "admin", code: "required", message: "Validation failed for 'admin': value is required")
-        }
-        guard container.contains(.push) else {
-            throw SdkValidationError(field: "push", code: "required", message: "Validation failed for 'push': value is required")
-        }
-        guard container.contains(.pull) else {
-            throw SdkValidationError(field: "pull", code: "required", message: "Validation failed for 'pull': value is required")
-        }
-        self.admin = try container.sdkDecodeRequired(.admin)
-        self.push = try container.sdkDecodeRequired(.push)
-        self.pull = try container.sdkDecodeRequired(.pull)
-        self.maintain = try container.sdkDecodeIfPresent(.maintain)
-        self.triage = try container.sdkDecodeIfPresent(.triage)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension FullRepositoryPermissions {
-    public init(admin: Bool, push: Bool, pull: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.admin) else {
+            throw SdkValidationError(
+                field: "admin",
+                code: "required",
+                message: "Validation failed for 'admin': value is required"
+            )
+        }
+        guard container.contains(.push) else {
+            throw SdkValidationError(
+                field: "push",
+                code: "required",
+                message: "Validation failed for 'push': value is required"
+            )
+        }
+        guard container.contains(.pull) else {
+            throw SdkValidationError(
+                field: "pull",
+                code: "required",
+                message: "Validation failed for 'pull': value is required"
+            )
+        }
+        admin = try container.sdkDecodeRequired(.admin)
+        push = try container.sdkDecodeRequired(.push)
+        pull = try container.sdkDecodeRequired(.pull)
+        maintain = try container.sdkDecodeIfPresent(.maintain)
+        triage = try container.sdkDecodeIfPresent(.triage)
+    }
+}
+
+public extension FullRepositoryPermissions {
+    init(admin: Bool, push: Bool, pull: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
         (self.admin, self.push) = (admin, push)
         (self.pull, self.maintain) = (pull, maintain)
         self.triage = triage
@@ -235,46 +355,70 @@ public struct Installation: Codable {
         case contactEmail = "contact_email"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension Installation {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.account = try container.sdkDecodeIfPresent(.account)
-        self.repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
-        self.accessTokensUrl = try container.sdkDecodeRequired(.accessTokensUrl)
-        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.appId = try container.sdkDecodeRequired(.appId)
-        self.targetId = try container.sdkDecodeRequired(.targetId)
-        self.targetType = try container.sdkDecodeRequired(.targetType)
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.events = try container.sdkDecodeRequired(.events)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.singleFileName = try container.sdkDecodeIfPresent(.singleFileName)
-        self.appSlug = try container.sdkDecodeRequired(.appSlug)
-        self.suspendedBy = try container.sdkDecodeIfPresent(.suspendedBy)
-        self.suspendedAt = try container.sdkDecodeIfPresent(.suspendedAt)
-        self.clientId = try container.sdkDecodeIfPresent(.clientId)
-        self.hasMultipleSingleFiles = try container.sdkDecodeIfPresent(.hasMultipleSingleFiles)
-        self.singleFilePaths = try container.sdkDecodeIfPresent(.singleFilePaths)
-        self.contactEmail = try container.sdkDecodeIfPresent(.contactEmail)
-            try sdkValidateUri("access_tokens_url", self.accessTokensUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.suspendedAt {
+        id = try container.sdkDecodeRequired(.id)
+        account = try container.sdkDecodeIfPresent(.account)
+        repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
+        accessTokensUrl = try container.sdkDecodeRequired(.accessTokensUrl)
+        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        appId = try container.sdkDecodeRequired(.appId)
+        targetId = try container.sdkDecodeRequired(.targetId)
+        targetType = try container.sdkDecodeRequired(.targetType)
+        permissions = try container.sdkDecodeRequired(.permissions)
+        events = try container.sdkDecodeRequired(.events)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        singleFileName = try container.sdkDecodeIfPresent(.singleFileName)
+        appSlug = try container.sdkDecodeRequired(.appSlug)
+        suspendedBy = try container.sdkDecodeIfPresent(.suspendedBy)
+        suspendedAt = try container.sdkDecodeIfPresent(.suspendedAt)
+        clientId = try container.sdkDecodeIfPresent(.clientId)
+        hasMultipleSingleFiles = try container.sdkDecodeIfPresent(.hasMultipleSingleFiles)
+        singleFilePaths = try container.sdkDecodeIfPresent(.singleFilePaths)
+        contactEmail = try container.sdkDecodeIfPresent(.contactEmail)
+        try sdkValidateUri("access_tokens_url", accessTokensUrl)
+        try sdkValidateUri("repositories_url", repositoriesUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = suspendedAt {
             try sdkValidateDateTime("suspended_at", sdkWireString(value))
         }
     }
 }
 
 public extension Installation {
-    public init(id: Int, account: InstallationAccount?, repositorySelection: InstallationRepositorySelection, accessTokensUrl: String, repositoriesUrl: String, htmlUrl: String, appId: Int, targetId: Int, targetType: String, permissions: AppPermissions, events: [String], createdAt: Date, updatedAt: Date, singleFileName: String?, appSlug: String, suspendedBy: NullableSimpleUser?, suspendedAt: Date?, clientId: String? = nil, hasMultipleSingleFiles: Bool? = nil, singleFilePaths: [String]? = nil, contactEmail: String? = nil) throws {
+    init(
+        id: Int,
+        account: InstallationAccount?,
+        repositorySelection: InstallationRepositorySelection,
+        accessTokensUrl: String,
+        repositoriesUrl: String,
+        htmlUrl: String,
+        appId: Int,
+        targetId: Int,
+        targetType: String,
+        permissions: AppPermissions,
+        events: [String],
+        createdAt: Date,
+        updatedAt: Date,
+        singleFileName: String?,
+        appSlug: String,
+        suspendedBy: NullableSimpleUser?,
+        suspendedAt: Date?,
+        clientId: String? = nil,
+        hasMultipleSingleFiles: Bool? = nil,
+        singleFilePaths: [String]? = nil,
+        contactEmail: String? = nil
+    ) throws {
         (self.id, self.account) = (id, account)
         (self.repositorySelection, self.accessTokensUrl) = (repositorySelection, accessTokensUrl)
         (self.repositoriesUrl, self.htmlUrl) = (repositoriesUrl, htmlUrl)
@@ -286,11 +430,11 @@ public extension Installation {
         (self.suspendedAt, self.clientId) = (suspendedAt, clientId)
         (self.hasMultipleSingleFiles, self.singleFilePaths) = (hasMultipleSingleFiles, singleFilePaths)
         self.contactEmail = contactEmail
-            try sdkValidateUri("access_tokens_url", self.accessTokensUrl)
-            try sdkValidateUri("repositories_url", self.repositoriesUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("access_tokens_url", self.accessTokensUrl)
+        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.suspendedAt {
             try sdkValidateDateTime("suspended_at", sdkWireString(value))
         }
@@ -303,21 +447,31 @@ public enum InstallationAccount {
 }
 
 extension InstallationAccount: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for InstallationAccount")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for InstallationAccount"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(SimpleUser.self) { return .simpleUser(value) }
-        if let value = try? container.decode(Enterprise.self) { return .enterprise(value) }
+        if let value = try? container.decode(SimpleUser.self) {
+            return .simpleUser(value)
+        }
+        if let value = try? container.decode(Enterprise.self) {
+            return .enterprise(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -327,7 +481,6 @@ extension InstallationAccount: Codable {
         case let .enterprise(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts
@@ -395,35 +548,52 @@ public struct Integration: Codable {
         case installationsCount = "installations_count"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension Integration {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.owner = try container.sdkDecodeRequired(.owner)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.externalUrl = try container.sdkDecodeRequired(.externalUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.events = try container.sdkDecodeRequired(.events)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
-        self.clientId = try container.sdkDecodeIfPresent(.clientId)
-        self.installationsCount = try container.sdkDecodeIfPresent(.installationsCount)
-            try sdkValidateUri("external_url", self.externalUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension Integration {
-    public init(id: Int, nodeId: String, owner: IntegrationOwner, name: String, description: String?, externalUrl: String, htmlUrl: String, createdAt: Date, updatedAt: Date, permissions: IntegrationPermissions, events: [String], slug: String? = nil, clientId: String? = nil, installationsCount: Int? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        owner = try container.sdkDecodeRequired(.owner)
+        name = try container.sdkDecodeRequired(.name)
+        description = try container.sdkDecodeIfPresent(.description)
+        externalUrl = try container.sdkDecodeRequired(.externalUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        permissions = try container.sdkDecodeRequired(.permissions)
+        events = try container.sdkDecodeRequired(.events)
+        slug = try container.sdkDecodeIfPresent(.slug)
+        clientId = try container.sdkDecodeIfPresent(.clientId)
+        installationsCount = try container.sdkDecodeIfPresent(.installationsCount)
+        try sdkValidateUri("external_url", externalUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension Integration {
+    init(
+        id: Int,
+        nodeId: String,
+        owner: IntegrationOwner,
+        name: String,
+        description: String?,
+        externalUrl: String,
+        htmlUrl: String,
+        createdAt: Date,
+        updatedAt: Date,
+        permissions: IntegrationPermissions,
+        events: [String],
+        slug: String? = nil,
+        clientId: String? = nil,
+        installationsCount: Int? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.owner, self.name) = (owner, name)
         (self.description, self.externalUrl) = (description, externalUrl)
@@ -431,10 +601,10 @@ public extension Integration {
         (self.updatedAt, self.permissions) = (updatedAt, permissions)
         (self.events, self.slug) = (events, slug)
         (self.clientId, self.installationsCount) = (clientId, installationsCount)
-            try sdkValidateUri("external_url", self.externalUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("external_url", self.externalUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 

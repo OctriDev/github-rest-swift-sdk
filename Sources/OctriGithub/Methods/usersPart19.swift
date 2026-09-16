@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Delete attestations in bulk
     ///
     /// Delete artifact attestations in bulk by either subject digests or unique ID.
@@ -15,8 +15,19 @@ extension UsersMethods {
     /// - username: The handle for the GitHub user account.
     /// - body: The request body must include either `subject_digests` or
     ///   `attestation_ids`, but not both.
-    public static func usersDeleteAttestationsBulk(config: ClientConfig, username: String, body: [String: JSONValue]) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("POST", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/delete-request"].joined(), config: config, rawBody: (try sdkJsonEncoder().encode(body)), decoder: .empty, operationId: "usersDeleteAttestationsBulk")).data
+    static func usersDeleteAttestationsBulk(
+        config: ClientConfig,
+        username: String,
+        body: [String: JSONValue]
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "POST",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/delete-request"].joined(),
+            config: config,
+            rawBody: sdkJsonEncoder().encode(body),
+            decoder: .empty,
+            operationId: "usersDeleteAttestationsBulk"
+        )).data
     }
 
     /// Delete attestations by subject digest
@@ -26,7 +37,22 @@ extension UsersMethods {
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - subjectDigest: Subject Digest
-    public static func usersDeleteAttestationsBySubjectDigest(config: ClientConfig, username: String, subjectDigest: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/digest/", sdkEncodePathSegment(sdkWireString(subjectDigest))].joined(), config: config, decoder: .empty, operationId: "usersDeleteAttestationsBySubjectDigest")).data
+    static func usersDeleteAttestationsBySubjectDigest(
+        config: ClientConfig,
+        username: String,
+        subjectDigest: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/attestations/digest/",
+                sdkEncodePathSegment(sdkWireString(subjectDigest)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersDeleteAttestationsBySubjectDigest"
+        )).data
     }
 }

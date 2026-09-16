@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
+public extension OrgsMethods {
     /// List all users who are outside collaborators of an organization.
     ///
     /// - Parameters:
@@ -28,11 +28,24 @@ extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsListOutsideCollaborators(config: ClientConfig, org: String, filter: OrgsListOutsideCollaboratorsParameter?, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/outside_collaborators"].joined(), config: config, query: [
-            SdkQueryParameter("filter", value: filter),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "orgsListOutsideCollaborators")).data
+    static func orgsListOutsideCollaborators(
+        config: ClientConfig,
+        org: String,
+        filter: OrgsListOutsideCollaboratorsParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [SimpleUser] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/outside_collaborators"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("filter", value: filter),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "orgsListOutsideCollaborators"
+        )).data
     }
 }

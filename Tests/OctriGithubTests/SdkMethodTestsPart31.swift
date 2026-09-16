@@ -54,7 +54,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsUpdateMembershipForAuthenticatedUserOrgsUpdateMembershipFX2a966a2828ReachesMockAndDecodesResponse() async throws {
+    func testOrgsUpdateMembershipForAuthenticatedUserOrgsUpdateMembershipFX2a966a2828ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -156,7 +157,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesDeletePackageForAuthenticatedUserPackagesDeletePackagX811b536802ReachesMockAndDecodesResponse() async throws {
+    func testPackagesDeletePackageForAuthenticatedUserPackagesDeletePackagX811b536802ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -194,7 +196,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesDeletePackageVersionForAuthenticatedUserPackagesDeletXc065670fd2ReachesMockAndDecodesResponse() async throws {
+    func testPackagesDeletePackageVersionForAuthenticatedUserPackagesDeletXc065670fd2ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -207,7 +210,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesDeletePackageVersionForOrgPackagesDeletePackageVersionForOrgReachesMockAndDecodesResponse() async throws {
+    func testPackagesDeletePackageVersionForOrgPackagesDeletePackageVersionForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -221,7 +225,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesDeletePackageVersionForUserPackagesDeletePackageVersionForUserReachesMockAndDecodesResponse() async throws {
+    func testPackagesDeletePackageVersionForUserPackagesDeletePackageVersionForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -235,7 +240,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUsX0057f4f1daReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUsX0057f4f1daReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -258,7 +264,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetAllPackageVersionsForPackageOwnedByOrgPackagesGetAX93646a7d88ReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetAllPackageVersionsForPackageOwnedByOrgPackagesGetAX93646a7d88ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -282,7 +289,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetAllPackageVersionsForPackageOwnedByUserPackagesGetXd7df91f43bReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetAllPackageVersionsForPackageOwnedByUserPackagesGetXd7df91f43bReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -303,7 +311,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetPackageForAuthenticatedUserPackagesGetPackageForAuX2777503d88ReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetPackageForAuthenticatedUserPackagesGetPackageForAuX2777503d88ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -323,7 +332,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetPackageForOrganizationPackagesGetPackageForOrganizationReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetPackageForOrganizationPackagesGetPackageForOrganizationReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -365,7 +375,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetPackageVersionForAuthenticatedUserPackagesGetPackaX8c8e4e13aaReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetPackageVersionForAuthenticatedUserPackagesGetPackaX8c8e4e13aaReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -386,7 +397,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetPackageVersionForOrganizationPackagesGetPackageVerXb7772b111cReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetPackageVersionForOrganizationPackagesGetPackageVerXb7772b111cReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -408,7 +420,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesGetPackageVersionForUserPackagesGetPackageVersionForUserReachesMockAndDecodesResponse() async throws {
+    func testPackagesGetPackageVersionForUserPackagesGetPackageVersionForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -430,7 +443,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesListDockerMigrationConflictingPackagesForAuthenticateXe826f49129ReachesMockAndDecodesResponse() async throws {
+    func testPackagesListDockerMigrationConflictingPackagesForAuthenticateXe826f49129ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -447,7 +461,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesListDockerMigrationConflictingPackagesForOrganizationXc35d179f50ReachesMockAndDecodesResponse() async throws {
+    func testPackagesListDockerMigrationConflictingPackagesForOrganizationXc35d179f50ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -466,7 +481,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesListDockerMigrationConflictingPackagesForUserPackagesX4cca3c73baReachesMockAndDecodesResponse() async throws {
+    func testPackagesListDockerMigrationConflictingPackagesForUserPackagesX4cca3c73baReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -485,7 +501,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesListPackagesForAuthenticatedUserPackagesListPackagesFX25322ae28cReachesMockAndDecodesResponse() async throws {
+    func testPackagesListPackagesForAuthenticatedUserPackagesListPackagesFX25322ae28cReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

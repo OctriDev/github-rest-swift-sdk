@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// List items for a user owned project
     ///
     /// List all items for a specific user-owned project accessible by the authenticated user.
@@ -36,13 +36,35 @@ extension ProjectsMethods {
     /// - fields: Limit results to specific fields, by their IDs. If not specified,
     ///   the title field will be returned. Example:
     ///   `fields[]=123&fields[]=456&fields[]=789` or `fields=123,456,789`
-    public static func projectsListItemsForUser(config: ClientConfig, projectNumber: Int, username: String, before: String?, after: String?, perPage: Int?, q: String?, fields: ProjectsListItemsForUserParameter?) async throws -> [ProjectsV2ItemWithContent] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items"].joined(), config: config, query: [
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("q", value: q),
-            SdkQueryParameter("fields", value: fields),
-        ], decoder: .json, operationId: "projectsListItemsForUser")).data
+    static func projectsListItemsForUser(
+        config: ClientConfig,
+        projectNumber: Int,
+        username: String,
+        before: String?,
+        after: String?,
+        perPage: Int?,
+        q: String?,
+        fields: ProjectsListItemsForUserParameter?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("q", value: q),
+                SdkQueryParameter("fields", value: fields),
+            ],
+            decoder: .json,
+            operationId: "projectsListItemsForUser"
+        )).data
     }
 }

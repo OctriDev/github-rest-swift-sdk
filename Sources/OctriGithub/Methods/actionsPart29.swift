@@ -6,24 +6,66 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Adds a repository to the list of repositories that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "Create a self-hosted runner group for an organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Adds a repository to the list of repositories that can access a self-hosted runner group. The runner group must
+    /// have `visibility` set to `selected`. For more information, see "Create a self-hosted runner group for an
+    /// organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerGroupId: Unique identifier of the self-hosted runner group.
     /// - repositoryId: The unique identifier of the repository.
-    public static func actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(config: ClientConfig, org: String, runnerGroupId: Int, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "actionsAddRepoAccessToSelfHostedRunnerGroupInOrg")).data
+    static func actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(
+        config: ClientConfig,
+        org: String,
+        runnerGroupId: Int,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/runner-groups/",
+                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
+                "/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsAddRepoAccessToSelfHostedRunnerGroupInOrg"
+        )).data
     }
 
-    /// Removes a repository from the list of selected repositories that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "Create a self-hosted runner group for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Removes a repository from the list of selected repositories that can access a self-hosted runner group. The
+    /// runner group must have `visibility` set to `selected`. For more information, see "Create a self-hosted runner
+    /// group for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerGroupId: Unique identifier of the self-hosted runner group.
     /// - repositoryId: The unique identifier of the repository.
-    public static func actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(config: ClientConfig, org: String, runnerGroupId: Int, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg")).data
+    static func actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(
+        config: ClientConfig,
+        org: String,
+        runnerGroupId: Int,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/runner-groups/",
+                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
+                "/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg"
+        )).data
     }
 }

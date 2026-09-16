@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testPackagesListPackagesForOrganizationPackagesListPackagesForOrganizationReachesMockAndDecodesResponse() async throws {
+    func testPackagesListPackagesForOrganizationPackagesListPackagesForOrganizationReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -52,7 +53,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPackagesRestorePackageForAuthenticatedUserPackagesRestorePackXfd120f37ceReachesMockAndDecodesResponse() async throws {
+    func testPackagesRestorePackageForAuthenticatedUserPackagesRestorePackXfd120f37ceReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -93,7 +95,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesRestorePackageVersionForAuthenticatedUserPackagesRestX40384d40c8ReachesMockAndDecodesResponse() async throws {
+    func testPackagesRestorePackageVersionForAuthenticatedUserPackagesRestX40384d40c8ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -106,7 +109,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesRestorePackageVersionForOrgPackagesRestorePackageVersionForOrgReachesMockAndDecodesResponse() async throws {
+    func testPackagesRestorePackageVersionForOrgPackagesRestorePackageVersionForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -120,7 +124,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPackagesRestorePackageVersionForUserPackagesRestorePackageVersionForUserReachesMockAndDecodesResponse() async throws {
+    func testPackagesRestorePackageVersionForUserPackagesRestorePackageVersionForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -134,12 +139,18 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPrivateRegistriesCreateOrgPrivateRegistryPrivateRegistriesCreX2219737b01ReachesMockAndDecodesResponse() async throws {
+    func testPrivateRegistriesCreateOrgPrivateRegistryPrivateRegistriesCreX2219737b01ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try PrivateRegistriesMethods.PrivateRegistriesCreateOrgPrivateRegistryOptions(org: decoded("\"org\""), registryType: decoded("\"maven_repository\""), url: decoded("\"https://maven.pkg.github.com/organization/\""), visibility: decoded("\"private\""))
+        var options = try PrivateRegistriesMethods.PrivateRegistriesCreateOrgPrivateRegistryOptions(
+            org: decoded("\"org\""),
+            registryType: decoded("\"maven_repository\""),
+            url: decoded("\"https://maven.pkg.github.com/organization/\""),
+            visibility: decoded("\"private\"")
+        )
         options.username = try decoded("\"monalisa\"")
         options.replacesBase = try decoded("true")
         options.encryptedValue = try decoded("\"c2VjcmV0\"")
@@ -175,7 +186,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPrivateRegistriesDeleteOrgPrivateRegistryPrivateRegistriesDelX2a00aaee6dReachesMockAndDecodesResponse() async throws {
+    func testPrivateRegistriesDeleteOrgPrivateRegistryPrivateRegistriesDelX2a00aaee6dReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -187,7 +199,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testPrivateRegistriesGetOrgPrivateRegistryPrivateRegistriesGetOrgX28d9b36725ReachesMockAndDecodesResponse() async throws {
+    func testPrivateRegistriesGetOrgPrivateRegistryPrivateRegistriesGetOrgX28d9b36725ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -207,7 +220,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPrivateRegistriesGetOrgPublicKeyPrivateRegistriesGetOrgPublicKeyReachesMockAndDecodesResponse() async throws {
+    func testPrivateRegistriesGetOrgPublicKeyPrivateRegistriesGetOrgPublicKeyReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -226,7 +240,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testPrivateRegistriesListOrgPrivateRegistriesPrivateRegistriesLisX797d49a037ReachesMockAndDecodesResponse() async throws {
+    func testPrivateRegistriesListOrgPrivateRegistriesPrivateRegistriesLisX797d49a037ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -247,12 +262,16 @@ extension SdkMethodTests {
         )
     }
 
-    func testPrivateRegistriesUpdateOrgPrivateRegistryPrivateRegistriesUpdXb694917a13ReachesMockAndDecodesResponse() async throws {
+    func testPrivateRegistriesUpdateOrgPrivateRegistryPrivateRegistriesUpdXb694917a13ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try PrivateRegistriesMethods.PrivateRegistriesUpdateOrgPrivateRegistryOptions(org: decoded("\"org\""), secretName: decoded("\"Example Name\""))
+        var options = try PrivateRegistriesMethods.PrivateRegistriesUpdateOrgPrivateRegistryOptions(
+            org: decoded("\"org\""),
+            secretName: decoded("\"Example Name\"")
+        )
         options.registryType = try decoded("null")
         options.url = try decoded("null")
         options.username = try decoded("\"monalisa\"")
@@ -375,7 +394,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testProjectsCreateDraftItemForAuthenticatedUserProjectsCreateDrafXa2ca47ecd5ReachesMockAndDecodesResponse() async throws {
+    func testProjectsCreateDraftItemForAuthenticatedUserProjectsCreateDrafXa2ca47ecd5ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -424,7 +444,12 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ProjectsMethods.ProjectsCreateViewForOrgOptions(org: decoded("\"org\""), projectNumber: decoded("1"), name: decoded("\"All Issues\""), layout: decoded("\"table\""))
+        var options = try ProjectsMethods.ProjectsCreateViewForOrgOptions(
+            org: decoded("\"org\""),
+            projectNumber: decoded("1"),
+            name: decoded("\"All Issues\""),
+            layout: decoded("\"table\"")
+        )
         options.filter = try decoded("\"is:issue\"")
         options.visibleFields = try decoded("[123,456,789]")
         options.sortBy = try decoded("null")
@@ -449,7 +474,12 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ProjectsMethods.ProjectsCreateViewForUserOptions(userId: decoded("\"user_-1\""), projectNumber: decoded("1"), name: decoded("\"All Issues\""), layout: decoded("\"table\""))
+        var options = try ProjectsMethods.ProjectsCreateViewForUserOptions(
+            userId: decoded("\"user_-1\""),
+            projectNumber: decoded("1"),
+            name: decoded("\"All Issues\""),
+            layout: decoded("\"table\"")
+        )
         options.filter = try decoded("\"is:issue\"")
         options.visibleFields = try decoded("[123,456,789]")
         options.sortBy = try decoded("null")

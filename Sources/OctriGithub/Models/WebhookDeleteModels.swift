@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDelete domain models
+/// WebhookDelete domain models
 /// Typed representation of the `WebhookDelete` API schema.
 public struct WebhookDelete: Codable {
     /// The pusher type for the event. Can be either `user` or a deploy key.
@@ -39,40 +39,71 @@ public struct WebhookDelete: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookDelete {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.pusherType) else {
-            throw SdkValidationError(field: "pusher_type", code: "required", message: "Validation failed for 'pusher_type': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.refType) else {
-            throw SdkValidationError(field: "ref_type", code: "required", message: "Validation failed for 'ref_type': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.pusherType = try container.sdkDecodeRequired(.pusherType)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.refType = try container.sdkDecodeRequired(.refType)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookDelete {
-    public init(pusherType: WebhooksDeployPusherType, ref: WebhooksRef0, refType: WebhookDeleteRefType, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.pusherType) else {
+            throw SdkValidationError(
+                field: "pusher_type",
+                code: "required",
+                message: "Validation failed for 'pusher_type': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.refType) else {
+            throw SdkValidationError(
+                field: "ref_type",
+                code: "required",
+                message: "Validation failed for 'ref_type': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        pusherType = try container.sdkDecodeRequired(.pusherType)
+        ref = try container.sdkDecodeRequired(.ref)
+        refType = try container.sdkDecodeRequired(.refType)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookDelete {
+    init(
+        pusherType: WebhooksDeployPusherType,
+        ref: WebhooksRef0,
+        refType: WebhookDeleteRefType,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.pusherType, self.ref) = (pusherType, ref)
         (self.refType, self.repository) = (refType, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -84,13 +115,16 @@ public extension WebhookDelete {
 public struct WebhookDeleteRefType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let tag = WebhookDeleteRefType(rawValue: "tag")
     public static let branch = WebhookDeleteRefType(rawValue: "branch")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

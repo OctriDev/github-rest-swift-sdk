@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Meta domain models
+/// Meta domain models
 /// Api Overview
 public struct ApiOverview: Codable {
     /// Required `boolean` value serialized in the `verifiable_password_authentication` wire field.
@@ -80,38 +80,63 @@ public struct ApiOverview: Codable {
         case domains
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ApiOverview {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.verifiablePasswordAuthentication) else {
-            throw SdkValidationError(field: "verifiable_password_authentication", code: "required", message: "Validation failed for 'verifiable_password_authentication': value is required")
-        }
-        self.verifiablePasswordAuthentication = try container.sdkDecodeRequired(.verifiablePasswordAuthentication)
-        self.sshKeyFingerprints = try container.sdkDecodeIfPresent(.sshKeyFingerprints)
-        self.sshKeys = try container.sdkDecodeIfPresent(.sshKeys)
-        self.hooks = try container.sdkDecodeIfPresent(.hooks)
-        self.githubEnterpriseImporter = try container.sdkDecodeIfPresent(.githubEnterpriseImporter)
-        self.web = try container.sdkDecodeIfPresent(.web)
-        self.api = try container.sdkDecodeIfPresent(.api)
-        self.git = try container.sdkDecodeIfPresent(.git)
-        self.packages = try container.sdkDecodeIfPresent(.packages)
-        self.pages = try container.sdkDecodeIfPresent(.pages)
-        self.importer = try container.sdkDecodeIfPresent(.importer)
-        self.actions = try container.sdkDecodeIfPresent(.actions)
-        self.actionsMacos = try container.sdkDecodeIfPresent(.actionsMacos)
-        self.codespaces = try container.sdkDecodeIfPresent(.codespaces)
-        self.dependabot = try container.sdkDecodeIfPresent(.dependabot)
-        self.copilot = try container.sdkDecodeIfPresent(.copilot)
-        self.commitSigningKeys = try container.sdkDecodeIfPresent(.commitSigningKeys)
-        self.domains = try container.sdkDecodeIfPresent(.domains)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ApiOverview {
-    public init(verifiablePasswordAuthentication: Bool, sshKeyFingerprints: ApiOverviewSshKeyFingerprints? = nil, sshKeys: [String]? = nil, hooks: [String]? = nil, githubEnterpriseImporter: [String]? = nil, web: [String]? = nil, api: [String]? = nil, git: [String]? = nil, packages: [String]? = nil, pages: [String]? = nil, importer: [String]? = nil, actions: [String]? = nil, actionsMacos: [String]? = nil, codespaces: [String]? = nil, dependabot: [String]? = nil, copilot: [String]? = nil, commitSigningKeys: [String]? = nil, domains: ApiOverviewDomains? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.verifiablePasswordAuthentication) else {
+            throw SdkValidationError(
+                field: "verifiable_password_authentication",
+                code: "required",
+                message: "Validation failed for 'verifiable_password_authentication': value is required"
+            )
+        }
+        verifiablePasswordAuthentication = try container.sdkDecodeRequired(.verifiablePasswordAuthentication)
+        sshKeyFingerprints = try container.sdkDecodeIfPresent(.sshKeyFingerprints)
+        sshKeys = try container.sdkDecodeIfPresent(.sshKeys)
+        hooks = try container.sdkDecodeIfPresent(.hooks)
+        githubEnterpriseImporter = try container.sdkDecodeIfPresent(.githubEnterpriseImporter)
+        web = try container.sdkDecodeIfPresent(.web)
+        api = try container.sdkDecodeIfPresent(.api)
+        git = try container.sdkDecodeIfPresent(.git)
+        packages = try container.sdkDecodeIfPresent(.packages)
+        pages = try container.sdkDecodeIfPresent(.pages)
+        importer = try container.sdkDecodeIfPresent(.importer)
+        actions = try container.sdkDecodeIfPresent(.actions)
+        actionsMacos = try container.sdkDecodeIfPresent(.actionsMacos)
+        codespaces = try container.sdkDecodeIfPresent(.codespaces)
+        dependabot = try container.sdkDecodeIfPresent(.dependabot)
+        copilot = try container.sdkDecodeIfPresent(.copilot)
+        commitSigningKeys = try container.sdkDecodeIfPresent(.commitSigningKeys)
+        domains = try container.sdkDecodeIfPresent(.domains)
+    }
+}
+
+public extension ApiOverview {
+    init(
+        verifiablePasswordAuthentication: Bool,
+        sshKeyFingerprints: ApiOverviewSshKeyFingerprints? = nil,
+        sshKeys: [String]? = nil,
+        hooks: [String]? = nil,
+        githubEnterpriseImporter: [String]? = nil,
+        web: [String]? = nil,
+        api: [String]? = nil,
+        git: [String]? = nil,
+        packages: [String]? = nil,
+        pages: [String]? = nil,
+        importer: [String]? = nil,
+        actions: [String]? = nil,
+        actionsMacos: [String]? = nil,
+        codespaces: [String]? = nil,
+        dependabot: [String]? = nil,
+        copilot: [String]? = nil,
+        commitSigningKeys: [String]? = nil,
+        domains: ApiOverviewDomains? = nil
+    ) {
         self.verifiablePasswordAuthentication = verifiablePasswordAuthentication
         (self.sshKeyFingerprints, self.sshKeys) = (sshKeyFingerprints, sshKeys)
         (self.hooks, self.githubEnterpriseImporter) = (hooks, githubEnterpriseImporter)
@@ -156,27 +181,36 @@ public struct ApiOverviewDomains: Codable {
     }
 
     init() {
-        (self.website, self.codespaces, self.copilot, self.packages, self.storage) = (nil, nil, nil, nil, nil)
-        (self.actions, self.actionsInbound, self.artifactAttestations) = (nil, nil, nil)
+        (website, codespaces, copilot, packages, storage) = (nil, nil, nil, nil, nil)
+        (actions, actionsInbound, artifactAttestations) = (nil, nil, nil)
     }
 }
 
 public extension ApiOverviewDomains {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.website = try container.sdkDecodeIfPresent(.website)
-        self.codespaces = try container.sdkDecodeIfPresent(.codespaces)
-        self.copilot = try container.sdkDecodeIfPresent(.copilot)
-        self.packages = try container.sdkDecodeIfPresent(.packages)
-        self.storage = try container.sdkDecodeIfPresent(.storage)
-        self.actions = try container.sdkDecodeIfPresent(.actions)
-        self.actionsInbound = try container.sdkDecodeIfPresent(.actionsInbound)
-        self.artifactAttestations = try container.sdkDecodeIfPresent(.artifactAttestations)
+        website = try container.sdkDecodeIfPresent(.website)
+        codespaces = try container.sdkDecodeIfPresent(.codespaces)
+        copilot = try container.sdkDecodeIfPresent(.copilot)
+        packages = try container.sdkDecodeIfPresent(.packages)
+        storage = try container.sdkDecodeIfPresent(.storage)
+        actions = try container.sdkDecodeIfPresent(.actions)
+        actionsInbound = try container.sdkDecodeIfPresent(.actionsInbound)
+        artifactAttestations = try container.sdkDecodeIfPresent(.artifactAttestations)
     }
 }
 
 public extension ApiOverviewDomains {
-    public init(website: [String]? = nil, codespaces: [String]? = nil, copilot: [String]? = nil, packages: [String]? = nil, storage: [String]? = nil, actions: [String]? = nil, actionsInbound: ApiOverviewDomainsActionsInbound? = nil, artifactAttestations: ApiOverviewDomainsArtifactAttestations? = nil) {
+    init(
+        website: [String]? = nil,
+        codespaces: [String]? = nil,
+        copilot: [String]? = nil,
+        packages: [String]? = nil,
+        storage: [String]? = nil,
+        actions: [String]? = nil,
+        actionsInbound: ApiOverviewDomainsActionsInbound? = nil,
+        artifactAttestations: ApiOverviewDomainsArtifactAttestations? = nil
+    ) {
         self.init()
         (self.website, self.codespaces) = (website, codespaces)
         (self.copilot, self.packages) = (copilot, packages)
@@ -198,20 +232,20 @@ public struct ApiOverviewDomainsActionsInbound: Codable {
     }
 
     init() {
-        (self.fullDomains, self.wildcardDomains) = (nil, nil)
+        (fullDomains, wildcardDomains) = (nil, nil)
     }
 }
 
 public extension ApiOverviewDomainsActionsInbound {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fullDomains = try container.sdkDecodeIfPresent(.fullDomains)
-        self.wildcardDomains = try container.sdkDecodeIfPresent(.wildcardDomains)
+        fullDomains = try container.sdkDecodeIfPresent(.fullDomains)
+        wildcardDomains = try container.sdkDecodeIfPresent(.wildcardDomains)
     }
 }
 
 public extension ApiOverviewDomainsActionsInbound {
-    public init(fullDomains: [String]? = nil, wildcardDomains: [String]? = nil) {
+    init(fullDomains: [String]? = nil, wildcardDomains: [String]? = nil) {
         self.init()
         (self.fullDomains, self.wildcardDomains) = (fullDomains, wildcardDomains)
     }
@@ -231,20 +265,20 @@ public struct ApiOverviewDomainsArtifactAttestations: Codable {
     }
 
     init() {
-        (self.trustDomain, self.services) = (nil, nil)
+        (trustDomain, services) = (nil, nil)
     }
 }
 
 public extension ApiOverviewDomainsArtifactAttestations {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.trustDomain = try container.sdkDecodeIfPresent(.trustDomain)
-        self.services = try container.sdkDecodeIfPresent(.services)
+        trustDomain = try container.sdkDecodeIfPresent(.trustDomain)
+        services = try container.sdkDecodeIfPresent(.services)
     }
 }
 
 public extension ApiOverviewDomainsArtifactAttestations {
-    public init(trustDomain: String? = nil, services: [String]? = nil) {
+    init(trustDomain: String? = nil, services: [String]? = nil) {
         self.init()
         (self.trustDomain, self.services) = (trustDomain, services)
     }
@@ -269,22 +303,22 @@ public struct ApiOverviewSshKeyFingerprints: Codable {
     }
 
     init() {
-        (self.sHA256RSA, self.sHA256DSA, self.sHA256ECDSA, self.sHA256ED25519) = (nil, nil, nil, nil)
+        (sHA256RSA, sHA256DSA, sHA256ECDSA, sHA256ED25519) = (nil, nil, nil, nil)
     }
 }
 
 public extension ApiOverviewSshKeyFingerprints {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sHA256RSA = try container.sdkDecodeIfPresent(.sHA256RSA)
-        self.sHA256DSA = try container.sdkDecodeIfPresent(.sHA256DSA)
-        self.sHA256ECDSA = try container.sdkDecodeIfPresent(.sHA256ECDSA)
-        self.sHA256ED25519 = try container.sdkDecodeIfPresent(.sHA256ED25519)
+        sHA256RSA = try container.sdkDecodeIfPresent(.sHA256RSA)
+        sHA256DSA = try container.sdkDecodeIfPresent(.sHA256DSA)
+        sHA256ECDSA = try container.sdkDecodeIfPresent(.sHA256ECDSA)
+        sHA256ED25519 = try container.sdkDecodeIfPresent(.sHA256ED25519)
     }
 }
 
 public extension ApiOverviewSshKeyFingerprints {
-    public init(sHA256RSA: String? = nil, sHA256DSA: String? = nil, sHA256ECDSA: String? = nil, sHA256ED25519: String? = nil) {
+    init(sHA256RSA: String? = nil, sHA256DSA: String? = nil, sHA256ECDSA: String? = nil, sHA256ED25519: String? = nil) {
         self.init()
         (self.sHA256RSA, self.sHA256DSA) = (sHA256RSA, sHA256DSA)
         (self.sHA256ECDSA, self.sHA256ED25519) = (sHA256ECDSA, sHA256ED25519)
@@ -396,50 +430,86 @@ public struct Root: Codable {
         case topicSearchUrl = "topic_search_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension Root {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.currentUserUrl = try container.sdkDecodeRequired(.currentUserUrl)
-        self.currentUserAuthorizationsHtmlUrl = try container.sdkDecodeRequired(.currentUserAuthorizationsHtmlUrl)
-        self.authorizationsUrl = try container.sdkDecodeRequired(.authorizationsUrl)
-        self.codeSearchUrl = try container.sdkDecodeRequired(.codeSearchUrl)
-        self.commitSearchUrl = try container.sdkDecodeRequired(.commitSearchUrl)
-        self.emailsUrl = try container.sdkDecodeRequired(.emailsUrl)
-        self.emojisUrl = try container.sdkDecodeRequired(.emojisUrl)
-        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        self.feedsUrl = try container.sdkDecodeRequired(.feedsUrl)
-        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        self.issueSearchUrl = try container.sdkDecodeRequired(.issueSearchUrl)
-        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        self.keysUrl = try container.sdkDecodeRequired(.keysUrl)
-        self.labelSearchUrl = try container.sdkDecodeRequired(.labelSearchUrl)
-        self.notificationsUrl = try container.sdkDecodeRequired(.notificationsUrl)
-        self.organizationUrl = try container.sdkDecodeRequired(.organizationUrl)
-        self.organizationRepositoriesUrl = try container.sdkDecodeRequired(.organizationRepositoriesUrl)
-        self.organizationTeamsUrl = try container.sdkDecodeRequired(.organizationTeamsUrl)
-        self.publicGistsUrl = try container.sdkDecodeRequired(.publicGistsUrl)
-        self.rateLimitUrl = try container.sdkDecodeRequired(.rateLimitUrl)
-        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-        self.repositorySearchUrl = try container.sdkDecodeRequired(.repositorySearchUrl)
-        self.currentUserRepositoriesUrl = try container.sdkDecodeRequired(.currentUserRepositoriesUrl)
-        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        self.starredGistsUrl = try container.sdkDecodeRequired(.starredGistsUrl)
-        self.userUrl = try container.sdkDecodeRequired(.userUrl)
-        self.userOrganizationsUrl = try container.sdkDecodeRequired(.userOrganizationsUrl)
-        self.userRepositoriesUrl = try container.sdkDecodeRequired(.userRepositoriesUrl)
-        self.userSearchUrl = try container.sdkDecodeRequired(.userSearchUrl)
-        self.hubUrl = try container.sdkDecodeIfPresent(.hubUrl)
-        self.topicSearchUrl = try container.sdkDecodeIfPresent(.topicSearchUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension Root {
-    public init(currentUserUrl: String, currentUserAuthorizationsHtmlUrl: String, authorizationsUrl: String, codeSearchUrl: String, commitSearchUrl: String, emailsUrl: String, emojisUrl: String, eventsUrl: String, feedsUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, issueSearchUrl: String, issuesUrl: String, keysUrl: String, labelSearchUrl: String, notificationsUrl: String, organizationUrl: String, organizationRepositoriesUrl: String, organizationTeamsUrl: String, publicGistsUrl: String, rateLimitUrl: String, repositoryUrl: String, repositorySearchUrl: String, currentUserRepositoriesUrl: String, starredUrl: String, starredGistsUrl: String, userUrl: String, userOrganizationsUrl: String, userRepositoriesUrl: String, userSearchUrl: String, hubUrl: String? = nil, topicSearchUrl: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        currentUserUrl = try container.sdkDecodeRequired(.currentUserUrl)
+        currentUserAuthorizationsHtmlUrl = try container.sdkDecodeRequired(.currentUserAuthorizationsHtmlUrl)
+        authorizationsUrl = try container.sdkDecodeRequired(.authorizationsUrl)
+        codeSearchUrl = try container.sdkDecodeRequired(.codeSearchUrl)
+        commitSearchUrl = try container.sdkDecodeRequired(.commitSearchUrl)
+        emailsUrl = try container.sdkDecodeRequired(.emailsUrl)
+        emojisUrl = try container.sdkDecodeRequired(.emojisUrl)
+        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        feedsUrl = try container.sdkDecodeRequired(.feedsUrl)
+        followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        issueSearchUrl = try container.sdkDecodeRequired(.issueSearchUrl)
+        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        keysUrl = try container.sdkDecodeRequired(.keysUrl)
+        labelSearchUrl = try container.sdkDecodeRequired(.labelSearchUrl)
+        notificationsUrl = try container.sdkDecodeRequired(.notificationsUrl)
+        organizationUrl = try container.sdkDecodeRequired(.organizationUrl)
+        organizationRepositoriesUrl = try container.sdkDecodeRequired(.organizationRepositoriesUrl)
+        organizationTeamsUrl = try container.sdkDecodeRequired(.organizationTeamsUrl)
+        publicGistsUrl = try container.sdkDecodeRequired(.publicGistsUrl)
+        rateLimitUrl = try container.sdkDecodeRequired(.rateLimitUrl)
+        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        repositorySearchUrl = try container.sdkDecodeRequired(.repositorySearchUrl)
+        currentUserRepositoriesUrl = try container.sdkDecodeRequired(.currentUserRepositoriesUrl)
+        starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        starredGistsUrl = try container.sdkDecodeRequired(.starredGistsUrl)
+        userUrl = try container.sdkDecodeRequired(.userUrl)
+        userOrganizationsUrl = try container.sdkDecodeRequired(.userOrganizationsUrl)
+        userRepositoriesUrl = try container.sdkDecodeRequired(.userRepositoriesUrl)
+        userSearchUrl = try container.sdkDecodeRequired(.userSearchUrl)
+        hubUrl = try container.sdkDecodeIfPresent(.hubUrl)
+        topicSearchUrl = try container.sdkDecodeIfPresent(.topicSearchUrl)
+    }
+}
+
+public extension Root {
+    init(
+        currentUserUrl: String,
+        currentUserAuthorizationsHtmlUrl: String,
+        authorizationsUrl: String,
+        codeSearchUrl: String,
+        commitSearchUrl: String,
+        emailsUrl: String,
+        emojisUrl: String,
+        eventsUrl: String,
+        feedsUrl: String,
+        followersUrl: String,
+        followingUrl: String,
+        gistsUrl: String,
+        issueSearchUrl: String,
+        issuesUrl: String,
+        keysUrl: String,
+        labelSearchUrl: String,
+        notificationsUrl: String,
+        organizationUrl: String,
+        organizationRepositoriesUrl: String,
+        organizationTeamsUrl: String,
+        publicGistsUrl: String,
+        rateLimitUrl: String,
+        repositoryUrl: String,
+        repositorySearchUrl: String,
+        currentUserRepositoriesUrl: String,
+        starredUrl: String,
+        starredGistsUrl: String,
+        userUrl: String,
+        userOrganizationsUrl: String,
+        userRepositoriesUrl: String,
+        userSearchUrl: String,
+        hubUrl: String? = nil,
+        topicSearchUrl: String? = nil
+    ) {
         self.currentUserUrl = currentUserUrl
         self.currentUserAuthorizationsHtmlUrl = currentUserAuthorizationsHtmlUrl
         (self.authorizationsUrl, self.codeSearchUrl) = (authorizationsUrl, codeSearchUrl)

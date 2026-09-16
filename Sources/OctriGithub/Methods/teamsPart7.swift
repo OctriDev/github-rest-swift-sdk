@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
-    /// Team members will include the members of child teams. Each member includes their `role` on the team (`member` or `maintainer`) and an `inherited` flag indicating whether the membership is inherited from a child team (`true`) or is a direct membership (`false`). These fields let you read a member's role and direct/inherited status without additional requests. To list members in a team, the team must be visible to the authenticated user. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/members`.
+public extension TeamsMethods {
+    /// Team members will include the members of child teams. Each member includes their `role` on the team (`member` or
+    /// `maintainer`) and an `inherited` flag indicating whether the membership is inherited from a child team (`true`)
+    /// or is a direct membership (`false`). These fields let you read a member's role and direct/inherited status
+    /// without additional requests. To list members in a team, the team must be visible to the authenticated user. >
+    /// [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET
+    /// /organizations/{org_id}/team/{team_id}/members`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,21 +26,64 @@ extension TeamsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func teamsListMembersInOrg(config: ClientConfig, org: String, teamSlug: String, role: TeamsListMembersInOrgParameter?, perPage: Int?, page: Int?) async throws -> [TeamMember] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug)), "/members"].joined(), config: config, query: [
-            SdkQueryParameter("role", value: role),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "teamsListMembersInOrg")).data
+    static func teamsListMembersInOrg(
+        config: ClientConfig,
+        org: String,
+        teamSlug: String,
+        role: TeamsListMembersInOrgParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [TeamMember] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+                "/members",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("role", value: role),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "teamsListMembersInOrg"
+        )).data
     }
 
-    /// Team members will include the members of child teams. To get a user's membership with a team, the team must be visible to the authenticated user. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/memberships/{username}`. > [!NOTE] > The response contains the `state` of the membership and the member's `role`. The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
+    /// Team members will include the members of child teams. To get a user's membership with a team, the team must be
+    /// visible to the authenticated user. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the
+    /// route `GET /organizations/{org_id}/team/{team_id}/memberships/{username}`. > [!NOTE] > The response contains the
+    /// `state` of the membership and the member's `role`. The `role` for organization owners is set to `maintainer`.
+    /// For more information about `maintainer` roles, see [Create a
+    /// team](https://docs.github.com/rest/teams/teams#create-a-team).
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - teamSlug: The slug of the team name.
     /// - username: The handle for the GitHub user account.
-    public static func teamsGetMembershipForUserInOrg(config: ClientConfig, org: String, teamSlug: String, username: String) async throws -> TeamMembership {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .json, operationId: "teamsGetMembershipForUserInOrg")).data
+    static func teamsGetMembershipForUserInOrg(
+        config: ClientConfig,
+        org: String,
+        teamSlug: String,
+        username: String
+    ) async throws -> TeamMembership {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "teamsGetMembershipForUserInOrg"
+        )).data
     }
 }

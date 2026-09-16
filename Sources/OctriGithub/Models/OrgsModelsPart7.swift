@@ -3,12 +3,15 @@
 
 import Foundation
 
-// Orgs domain models
+/// Orgs domain models
 /// The data type of the issue field.
 public struct OrganizationCreateIssueFieldDataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let text = OrganizationCreateIssueFieldDataType(rawValue: "text")
     public static let date = OrganizationCreateIssueFieldDataType(rawValue: "date")
     public static let singleSelect = OrganizationCreateIssueFieldDataType(rawValue: "single_select")
@@ -17,7 +20,7 @@ public struct OrganizationCreateIssueFieldDataType: RawRepresentable, Hashable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,14 +33,17 @@ public struct OrganizationCreateIssueFieldDataType: RawRepresentable, Hashable, 
 public struct UserRoleAssignmentAssignment: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let direct = UserRoleAssignmentAssignment(rawValue: "direct")
     public static let indirect = UserRoleAssignmentAssignment(rawValue: "indirect")
     public static let mixed = UserRoleAssignmentAssignment(rawValue: "mixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,14 +56,17 @@ public struct UserRoleAssignmentAssignment: RawRepresentable, Hashable, Codable,
 public struct OrgMembershipRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let admin = OrgMembershipRole(rawValue: "admin")
     public static let member = OrgMembershipRole(rawValue: "member")
     public static let billingManager = OrgMembershipRole(rawValue: "billing_manager")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

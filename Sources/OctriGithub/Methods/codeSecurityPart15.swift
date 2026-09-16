@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeSecurityMethods {
-    /// Lists the repositories associated with a code security configuration in an organization. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint.
+public extension CodeSecurityMethods {
+    /// Lists the repositories associated with a code security configuration in an organization. The authenticated user
+    /// must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and
+    /// personal access tokens (classic) need the `read:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -32,12 +34,33 @@ extension CodeSecurityMethods {
     ///   repositories with these attachment statuses will be returned. Can be: `all`,
     ///   `attached`, `attaching`, `detached`, `removed`, `enforced`, `failed`,
     ///   `updating`, `removed_by_enterprise`
-    public static func codeSecurityGetRepositoriesForConfiguration(config: ClientConfig, org: String, configurationId: Int, perPage: Int?, before: String?, after: String?, status: String?) async throws -> [CodeSecurityConfigurationRepositories] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId)), "/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("status", value: status),
-        ], decoder: .json, operationId: "codeSecurityGetRepositoriesForConfiguration")).data
+    static func codeSecurityGetRepositoriesForConfiguration(
+        config: ClientConfig,
+        org: String,
+        configurationId: Int,
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        status: String?
+    ) async throws -> [CodeSecurityConfigurationRepositories] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/code-security/configurations/",
+                sdkEncodePathSegment(sdkWireString(configurationId)),
+                "/repositories",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("status", value: status),
+            ],
+            decoder: .json,
+            operationId: "codeSecurityGetRepositoriesForConfiguration"
+        )).data
     }
 }

@@ -3,54 +3,92 @@
 
 import Foundation
 
-// Repos domain models
+/// Repos domain models
 public extension Environment {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
         guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.protectionRules = try container.sdkDecodeIfPresent(.protectionRules)
-        self.deploymentBranchPolicy = try container.sdkDecodeIfPresent(.deploymentBranchPolicy)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        protectionRules = try container.sdkDecodeIfPresent(.protectionRules)
+        deploymentBranchPolicy = try container.sdkDecodeIfPresent(.deploymentBranchPolicy)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
     }
 }
 
 public extension Environment {
-    public init(id: Int, nodeId: String, name: String, url: String, htmlUrl: String, createdAt: Date, updatedAt: Date, protectionRules: [EnvironmentProtectionRulesItem]? = nil, deploymentBranchPolicy: DeploymentBranchPolicySettings? = nil) throws {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        url: String,
+        htmlUrl: String,
+        createdAt: Date,
+        updatedAt: Date,
+        protectionRules: [EnvironmentProtectionRulesItem]? = nil,
+        deploymentBranchPolicy: DeploymentBranchPolicySettings? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.url) = (name, url)
         (self.htmlUrl, self.createdAt) = (htmlUrl, createdAt)
         (self.updatedAt, self.protectionRules) = (updatedAt, protectionRules)
         self.deploymentBranchPolicy = deploymentBranchPolicy
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -61,34 +99,40 @@ public enum EnvironmentProtectionRulesItem {
 }
 
 extension EnvironmentProtectionRulesItem: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for EnvironmentProtectionRulesItem")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for EnvironmentProtectionRulesItem"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
         if let value = try? container.decode(
             EnvironmentProtectionRulesItemVariant0.self
         ) {
-            return             .environmentProtectionRulesItemVariant0(value)
+            return .environmentProtectionRulesItemVariant0(value)
         }
         if let value = try? container.decode(
             EnvironmentProtectionRulesItemVariant1.self
         ) {
-            return             .environmentProtectionRulesItemVariant1(value)
+            return .environmentProtectionRulesItemVariant1(value)
         }
         if let value = try? container.decode(
             EnvironmentProtectionRulesItemVariant2.self
         ) {
-            return             .environmentProtectionRulesItemVariant2(value)
+            return .environmentProtectionRulesItemVariant2(value)
         }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -99,7 +143,6 @@ extension EnvironmentProtectionRulesItem: Codable {
         case let .environmentProtectionRulesItemVariant2(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Required object value serialized in the `protection_rules[]` wire field.
@@ -125,30 +168,44 @@ public struct EnvironmentProtectionRulesItemVariant0: Codable {
         case waitTimer = "wait_timer"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension EnvironmentProtectionRulesItemVariant0 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.waitTimer = try container.sdkDecodeIfPresent(.waitTimer)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension EnvironmentProtectionRulesItemVariant0 {
-    public init(id: Int, nodeId: String, type: String, waitTimer: WaitTimer? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        type = try container.sdkDecodeRequired(.type)
+        waitTimer = try container.sdkDecodeIfPresent(.waitTimer)
+    }
+}
+
+public extension EnvironmentProtectionRulesItemVariant0 {
+    init(id: Int, nodeId: String, type: String, waitTimer: WaitTimer? = nil) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.type, self.waitTimer) = (type, waitTimer)
     }
@@ -180,31 +237,51 @@ public struct EnvironmentProtectionRulesItemVariant1: Codable {
         case reviewers
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension EnvironmentProtectionRulesItemVariant1 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.preventSelfReview = try container.sdkDecodeIfPresent(.preventSelfReview)
-        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension EnvironmentProtectionRulesItemVariant1 {
-    public init(id: Int, nodeId: String, type: String, preventSelfReview: Bool? = nil, reviewers: [EnvironmentProtectionRulesItemVariant1ReviewersItem]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        type = try container.sdkDecodeRequired(.type)
+        preventSelfReview = try container.sdkDecodeIfPresent(.preventSelfReview)
+        reviewers = try container.sdkDecodeIfPresent(.reviewers)
+    }
+}
+
+public extension EnvironmentProtectionRulesItemVariant1 {
+    init(
+        id: Int,
+        nodeId: String,
+        type: String,
+        preventSelfReview: Bool? = nil,
+        reviewers: [EnvironmentProtectionRulesItemVariant1ReviewersItem]? = nil
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.type, self.preventSelfReview) = (type, preventSelfReview)
         self.reviewers = reviewers
@@ -225,20 +302,23 @@ public struct EnvironmentProtectionRulesItemVariant1ReviewersItem: Codable {
     }
 
     init() {
-        (self.type, self.reviewer) = (nil, nil)
+        (type, reviewer) = (nil, nil)
     }
 }
 
 public extension EnvironmentProtectionRulesItemVariant1ReviewersItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.reviewer = try container.sdkDecodeIfPresent(.reviewer)
+        type = try container.sdkDecodeIfPresent(.type)
+        reviewer = try container.sdkDecodeIfPresent(.reviewer)
     }
 }
 
 public extension EnvironmentProtectionRulesItemVariant1ReviewersItem {
-    public init(type: DeploymentReviewerType? = nil, reviewer: EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer? = nil) {
+    init(
+        type: DeploymentReviewerType? = nil,
+        reviewer: EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer? = nil
+    ) {
         self.init()
         (self.type, self.reviewer) = (type, reviewer)
     }
@@ -250,21 +330,31 @@ public enum EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer {
 }
 
 extension EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(SimpleUser.self) { return .simpleUser(value) }
-        if let value = try? container.decode(Team.self) { return .team(value) }
+        if let value = try? container.decode(SimpleUser.self) {
+            return .simpleUser(value)
+        }
+        if let value = try? container.decode(Team.self) {
+            return .team(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -274,7 +364,6 @@ extension EnvironmentProtectionRulesItemVariant1ReviewersItemReviewer: Codable {
         case let .team(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Required object value serialized in the `protection_rules[]` wire field.
@@ -295,29 +384,43 @@ public struct EnvironmentProtectionRulesItemVariant2: Codable {
         case type
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension EnvironmentProtectionRulesItemVariant2 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.type = try container.sdkDecodeRequired(.type)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension EnvironmentProtectionRulesItemVariant2 {
-    public init(id: Int, nodeId: String, type: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        type = try container.sdkDecodeRequired(.type)
+    }
+}
+
+public extension EnvironmentProtectionRulesItemVariant2 {
+    init(id: Int, nodeId: String, type: String) {
         (self.id, self.nodeId) = (id, nodeId)
         self.type = type
     }
@@ -335,25 +438,35 @@ public struct FileCommit: Codable {
         case commit
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension FileCommit {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.content) else {
-            throw SdkValidationError(field: "content", code: "required", message: "Validation failed for 'content': value is required")
-        }
-        guard container.contains(.commit) else {
-            throw SdkValidationError(field: "commit", code: "required", message: "Validation failed for 'commit': value is required")
-        }
-        self.content = try container.sdkDecodeIfPresent(.content)
-        self.commit = try container.sdkDecodeRequired(.commit)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension FileCommit {
-    public init(content: FileCommitContent?, commit: FileCommitCommit) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.content) else {
+            throw SdkValidationError(
+                field: "content",
+                code: "required",
+                message: "Validation failed for 'content': value is required"
+            )
+        }
+        guard container.contains(.commit) else {
+            throw SdkValidationError(
+                field: "commit",
+                code: "required",
+                message: "Validation failed for 'commit': value is required"
+            )
+        }
+        content = try container.sdkDecodeIfPresent(.content)
+        commit = try container.sdkDecodeRequired(.commit)
+    }
+}
+
+public extension FileCommit {
+    init(content: FileCommitContent?, commit: FileCommitCommit) {
         (self.content, self.commit) = (content, commit)
     }
 }
@@ -395,29 +508,40 @@ public struct FileCommitCommit: Codable {
     }
 
     init() {
-        (self.sha, self.nodeId, self.url, self.htmlUrl, self.author) = (nil, nil, nil, nil, nil)
-        (self.committer, self.message, self.tree, self.parents, self.verification) = (nil, nil, nil, nil, nil)
+        (sha, nodeId, url, htmlUrl, author) = (nil, nil, nil, nil, nil)
+        (committer, message, tree, parents, verification) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension FileCommitCommit {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sha = try container.sdkDecodeIfPresent(.sha)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.author = try container.sdkDecodeIfPresent(.author)
-        self.committer = try container.sdkDecodeIfPresent(.committer)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.tree = try container.sdkDecodeIfPresent(.tree)
-        self.parents = try container.sdkDecodeIfPresent(.parents)
-        self.verification = try container.sdkDecodeIfPresent(.verification)
+        sha = try container.sdkDecodeIfPresent(.sha)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        url = try container.sdkDecodeIfPresent(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        author = try container.sdkDecodeIfPresent(.author)
+        committer = try container.sdkDecodeIfPresent(.committer)
+        message = try container.sdkDecodeIfPresent(.message)
+        tree = try container.sdkDecodeIfPresent(.tree)
+        parents = try container.sdkDecodeIfPresent(.parents)
+        verification = try container.sdkDecodeIfPresent(.verification)
     }
 }
 
 public extension FileCommitCommit {
-    public init(sha: String? = nil, nodeId: String? = nil, url: String? = nil, htmlUrl: String? = nil, author: FileCommitCommitAuthor? = nil, committer: FileCommitCommitCommitter? = nil, message: String? = nil, tree: FileCommitCommitTree? = nil, parents: [FileCommitCommitParentsItem]? = nil, verification: FileCommitCommitVerification? = nil) {
+    init(
+        sha: String? = nil,
+        nodeId: String? = nil,
+        url: String? = nil,
+        htmlUrl: String? = nil,
+        author: FileCommitCommitAuthor? = nil,
+        committer: FileCommitCommitCommitter? = nil,
+        message: String? = nil,
+        tree: FileCommitCommitTree? = nil,
+        parents: [FileCommitCommitParentsItem]? = nil,
+        verification: FileCommitCommitVerification? = nil
+    ) {
         self.init()
         (self.sha, self.nodeId) = (sha, nodeId)
         (self.url, self.htmlUrl) = (url, htmlUrl)
@@ -443,21 +567,21 @@ public struct FileCommitCommitAuthor: Codable {
     }
 
     init() {
-        (self.date, self.name, self.email) = (nil, nil, nil)
+        (date, name, email) = (nil, nil, nil)
     }
 }
 
 public extension FileCommitCommitAuthor {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.email = try container.sdkDecodeIfPresent(.email)
+        date = try container.sdkDecodeIfPresent(.date)
+        name = try container.sdkDecodeIfPresent(.name)
+        email = try container.sdkDecodeIfPresent(.email)
     }
 }
 
 public extension FileCommitCommitAuthor {
-    public init(date: String? = nil, name: String? = nil, email: String? = nil) {
+    init(date: String? = nil, name: String? = nil, email: String? = nil) {
         self.init()
         (self.date, self.name) = (date, name)
         self.email = email
@@ -480,21 +604,21 @@ public struct FileCommitCommitCommitter: Codable {
     }
 
     init() {
-        (self.date, self.name, self.email) = (nil, nil, nil)
+        (date, name, email) = (nil, nil, nil)
     }
 }
 
 public extension FileCommitCommitCommitter {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.email = try container.sdkDecodeIfPresent(.email)
+        date = try container.sdkDecodeIfPresent(.date)
+        name = try container.sdkDecodeIfPresent(.name)
+        email = try container.sdkDecodeIfPresent(.email)
     }
 }
 
 public extension FileCommitCommitCommitter {
-    public init(date: String? = nil, name: String? = nil, email: String? = nil) {
+    init(date: String? = nil, name: String? = nil, email: String? = nil) {
         self.init()
         (self.date, self.name) = (date, name)
         self.email = email

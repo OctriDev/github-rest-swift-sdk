@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ActionsReview domain models
+/// ActionsReview domain models
 /// Typed representation of the `ReviewCustomGatesCommentRequired` API schema.
 public struct ReviewCustomGatesCommentRequired: Codable {
     /// The name of the environment to approve or reject.
@@ -16,25 +16,35 @@ public struct ReviewCustomGatesCommentRequired: Codable {
         case comment
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewCustomGatesCommentRequired {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.environmentName) else {
-            throw SdkValidationError(field: "environment_name", code: "required", message: "Validation failed for 'environment_name': value is required")
-        }
-        guard container.contains(.comment) else {
-            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
-        }
-        self.environmentName = try container.sdkDecodeRequired(.environmentName)
-        self.comment = try container.sdkDecodeRequired(.comment)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewCustomGatesCommentRequired {
-    public init(environmentName: String, comment: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.environmentName) else {
+            throw SdkValidationError(
+                field: "environment_name",
+                code: "required",
+                message: "Validation failed for 'environment_name': value is required"
+            )
+        }
+        guard container.contains(.comment) else {
+            throw SdkValidationError(
+                field: "comment",
+                code: "required",
+                message: "Validation failed for 'comment': value is required"
+            )
+        }
+        environmentName = try container.sdkDecodeRequired(.environmentName)
+        comment = try container.sdkDecodeRequired(.comment)
+    }
+}
+
+public extension ReviewCustomGatesCommentRequired {
+    init(environmentName: String, comment: String) {
         (self.environmentName, self.comment) = (environmentName, comment)
     }
 }
@@ -54,26 +64,36 @@ public struct ReviewCustomGatesStateRequired: Codable {
         case comment
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReviewCustomGatesStateRequired {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.environmentName) else {
-            throw SdkValidationError(field: "environment_name", code: "required", message: "Validation failed for 'environment_name': value is required")
-        }
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        self.environmentName = try container.sdkDecodeRequired(.environmentName)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.comment = try container.sdkDecodeIfPresent(.comment)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReviewCustomGatesStateRequired {
-    public init(environmentName: String, state: ReviewCustomGatesStateRequiredState, comment: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.environmentName) else {
+            throw SdkValidationError(
+                field: "environment_name",
+                code: "required",
+                message: "Validation failed for 'environment_name': value is required"
+            )
+        }
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        environmentName = try container.sdkDecodeRequired(.environmentName)
+        state = try container.sdkDecodeRequired(.state)
+        comment = try container.sdkDecodeIfPresent(.comment)
+    }
+}
+
+public extension ReviewCustomGatesStateRequired {
+    init(environmentName: String, state: ReviewCustomGatesStateRequiredState, comment: String? = nil) {
         (self.environmentName, self.state) = (environmentName, state)
         self.comment = comment
     }
@@ -83,13 +103,16 @@ public extension ReviewCustomGatesStateRequired {
 public struct ReviewCustomGatesStateRequiredState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let approved = ReviewCustomGatesStateRequiredState(rawValue: "approved")
     public static let rejected = ReviewCustomGatesStateRequiredState(rawValue: "rejected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

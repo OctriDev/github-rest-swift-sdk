@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Gitignore domain models
+/// Gitignore domain models
 /// Gitignore Template
 public struct GitignoreTemplate: Codable {
     /// Required `string` value serialized in the `name` wire field.
@@ -19,25 +19,35 @@ public struct GitignoreTemplate: Codable {
         case source
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension GitignoreTemplate {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.source) else {
-            throw SdkValidationError(field: "source", code: "required", message: "Validation failed for 'source': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.source = try container.sdkDecodeRequired(.source)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension GitignoreTemplate {
-    public init(name: String, source: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.source) else {
+            throw SdkValidationError(
+                field: "source",
+                code: "required",
+                message: "Validation failed for 'source': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        source = try container.sdkDecodeRequired(.source)
+    }
+}
+
+public extension GitignoreTemplate {
+    init(name: String, source: String) {
         (self.name, self.source) = (name, source)
     }
 }

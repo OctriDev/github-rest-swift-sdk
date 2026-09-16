@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Create or update an environment with protection rules, such as required reviewers. For more information about environment protection rules, see "Environments." > [!NOTE] > To create or update name patterns that branches must match in order to deploy to this environment, see "Deployment branch policies." > [!NOTE] > To create or update secrets for an environment, see "GitHub Actions secrets." OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ReposMethods {
+    /// Create or update an environment with protection rules, such as required reviewers. For more information about
+    /// environment protection rules, see "Environments." > [!NOTE] > To create or update name patterns that branches
+    /// must match in order to deploy to this environment, see "Deployment branch policies." > [!NOTE] > To create or
+    /// update secrets for an environment, see "GitHub Actions secrets." OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,9 +31,37 @@ extension ReposMethods {
     ///   required reviewers needs to approve the job for it to proceed.
     /// - deploymentBranchPolicy: The type of deployment branch policy for this
     ///   environment. To allow all branches to deploy, set to `null`.
-    public static func reposCreateOrUpdateEnvironment(config: ClientConfig, owner: String, repo: String, environmentName: String, waitTimer: WaitTimer?, preventSelfReview: PreventSelfReview?, reviewers: SdkOptional<[ReposCreateOrUpdateEnvironmentRequestBodyReviewersItem]>?, deploymentBranchPolicy: SdkOptional<DeploymentBranchPolicySettings>?) async throws -> Environment {
-        let requestBody = ReposCreateOrUpdateEnvironmentRequestBody(waitTimer: waitTimer, preventSelfReview: preventSelfReview, reviewers: reviewers, deploymentBranchPolicy: deploymentBranchPolicy)
+    static func reposCreateOrUpdateEnvironment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        environmentName: String,
+        waitTimer: WaitTimer?,
+        preventSelfReview: PreventSelfReview?,
+        reviewers: SdkOptional<[ReposCreateOrUpdateEnvironmentRequestBodyReviewersItem]>?,
+        deploymentBranchPolicy: SdkOptional<DeploymentBranchPolicySettings>?
+    ) async throws -> Environment {
+        let requestBody = ReposCreateOrUpdateEnvironmentRequestBody(
+            waitTimer: waitTimer,
+            preventSelfReview: preventSelfReview,
+            reviewers: reviewers,
+            deploymentBranchPolicy: deploymentBranchPolicy
+        )
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateOrUpdateEnvironment")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateOrUpdateEnvironment"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Activity domain models
+/// Activity domain models
 /// Required object value serialized in the `forkee` wire field.
 public struct ForkEventForkee: Codable {
     /// Optional `integer` value serialized in the `id` wire field.
@@ -262,7 +262,7 @@ extension ForkEventForkee {
 }
 
 public extension ForkEventForkee {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(sdkDefaults: ())
         try sdkDecodeFieldsPart1(container)
@@ -272,20 +272,103 @@ public extension ForkEventForkee {
         try sdkDecodeFieldsPart5(container)
         try sdkDecodeFieldsPart6(container)
         try sdkDecodeFieldsPart7(container)
-        if let value = self.createdAt {
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.pushedAt {
+        if let value = pushedAt {
             try sdkValidateDateTime("pushed_at", sdkWireString(value))
         }
     }
 }
 
 public extension ForkEventForkee {
-    public init(id: Int? = nil, nodeId: String? = nil, name: String? = nil, fullName: String? = nil, `private`: Bool? = nil, owner: SimpleUser? = nil, htmlUrl: String? = nil, description: String? = nil, fork: Bool? = nil, url: String? = nil, forksUrl: String? = nil, keysUrl: String? = nil, collaboratorsUrl: String? = nil, teamsUrl: String? = nil, hooksUrl: String? = nil, issueEventsUrl: String? = nil, eventsUrl: String? = nil, assigneesUrl: String? = nil, branchesUrl: String? = nil, tagsUrl: String? = nil, blobsUrl: String? = nil, gitTagsUrl: String? = nil, gitRefsUrl: String? = nil, treesUrl: String? = nil, statusesUrl: String? = nil, languagesUrl: String? = nil, stargazersUrl: String? = nil, contributorsUrl: String? = nil, subscribersUrl: String? = nil, subscriptionUrl: String? = nil, commitsUrl: String? = nil, gitCommitsUrl: String? = nil, commentsUrl: String? = nil, issueCommentUrl: String? = nil, contentsUrl: String? = nil, compareUrl: String? = nil, mergesUrl: String? = nil, archiveUrl: String? = nil, downloadsUrl: String? = nil, issuesUrl: String? = nil, pullsUrl: String? = nil, milestonesUrl: String? = nil, notificationsUrl: String? = nil, labelsUrl: String? = nil, releasesUrl: String? = nil, deploymentsUrl: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, pushedAt: Date? = nil, gitUrl: String? = nil, sshUrl: String? = nil, cloneUrl: String? = nil, svnUrl: String? = nil, homepage: String? = nil, size: Int? = nil, stargazersCount: Int? = nil, watchersCount: Int? = nil, language: String? = nil, hasIssues: Bool? = nil, hasProjects: Bool? = nil, hasDownloads: Bool? = nil, hasWiki: Bool? = nil, hasPages: Bool? = nil, hasDiscussions: Bool? = nil, hasPullRequests: Bool? = nil, pullRequestCreationPolicy: ForkEventForkeePullRequestCreationPolicy? = nil, forksCount: Int? = nil, mirrorUrl: String? = nil, archived: Bool? = nil, disabled: Bool? = nil, openIssuesCount: Int? = nil, license: NullableLicenseSimple? = nil, allowForking: Bool? = nil, isTemplate: Bool? = nil, webCommitSignoffRequired: Bool? = nil, topics: [String]? = nil, visibility: String? = nil, forks: Int? = nil, openIssues: Int? = nil, watchers: Int? = nil, defaultBranch: String? = nil, `public`: Bool? = nil) throws {
+    init(
+        id: Int? = nil,
+        nodeId: String? = nil,
+        name: String? = nil,
+        fullName: String? = nil,
+        private: Bool? = nil,
+        owner: SimpleUser? = nil,
+        htmlUrl: String? = nil,
+        description: String? = nil,
+        fork: Bool? = nil,
+        url: String? = nil,
+        forksUrl: String? = nil,
+        keysUrl: String? = nil,
+        collaboratorsUrl: String? = nil,
+        teamsUrl: String? = nil,
+        hooksUrl: String? = nil,
+        issueEventsUrl: String? = nil,
+        eventsUrl: String? = nil,
+        assigneesUrl: String? = nil,
+        branchesUrl: String? = nil,
+        tagsUrl: String? = nil,
+        blobsUrl: String? = nil,
+        gitTagsUrl: String? = nil,
+        gitRefsUrl: String? = nil,
+        treesUrl: String? = nil,
+        statusesUrl: String? = nil,
+        languagesUrl: String? = nil,
+        stargazersUrl: String? = nil,
+        contributorsUrl: String? = nil,
+        subscribersUrl: String? = nil,
+        subscriptionUrl: String? = nil,
+        commitsUrl: String? = nil,
+        gitCommitsUrl: String? = nil,
+        commentsUrl: String? = nil,
+        issueCommentUrl: String? = nil,
+        contentsUrl: String? = nil,
+        compareUrl: String? = nil,
+        mergesUrl: String? = nil,
+        archiveUrl: String? = nil,
+        downloadsUrl: String? = nil,
+        issuesUrl: String? = nil,
+        pullsUrl: String? = nil,
+        milestonesUrl: String? = nil,
+        notificationsUrl: String? = nil,
+        labelsUrl: String? = nil,
+        releasesUrl: String? = nil,
+        deploymentsUrl: String? = nil,
+        createdAt: Date? = nil,
+        updatedAt: Date? = nil,
+        pushedAt: Date? = nil,
+        gitUrl: String? = nil,
+        sshUrl: String? = nil,
+        cloneUrl: String? = nil,
+        svnUrl: String? = nil,
+        homepage: String? = nil,
+        size: Int? = nil,
+        stargazersCount: Int? = nil,
+        watchersCount: Int? = nil,
+        language: String? = nil,
+        hasIssues: Bool? = nil,
+        hasProjects: Bool? = nil,
+        hasDownloads: Bool? = nil,
+        hasWiki: Bool? = nil,
+        hasPages: Bool? = nil,
+        hasDiscussions: Bool? = nil,
+        hasPullRequests: Bool? = nil,
+        pullRequestCreationPolicy: ForkEventForkeePullRequestCreationPolicy? = nil,
+        forksCount: Int? = nil,
+        mirrorUrl: String? = nil,
+        archived: Bool? = nil,
+        disabled: Bool? = nil,
+        openIssuesCount: Int? = nil,
+        license: NullableLicenseSimple? = nil,
+        allowForking: Bool? = nil,
+        isTemplate: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil,
+        topics: [String]? = nil,
+        visibility: String? = nil,
+        forks: Int? = nil,
+        openIssues: Int? = nil,
+        watchers: Int? = nil,
+        defaultBranch: String? = nil,
+        public: Bool? = nil
+    ) throws {
         self.init(sdkDefaults: ())
         sdkSet1(id, nodeId, name, fullName, `private`)
         sdkSet2(owner, htmlUrl, description, fork, url)
@@ -317,17 +400,23 @@ public extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet1(_ id: Int?, _ nodeId: String?, _ name: String?, _ fullName: String?, _ `private`: Bool?) {
+    mutating func sdkSet1(_ id: Int?, _ nodeId: String?, _ name: String?, _ fullName: String?, _ private: Bool?) {
         self.id = id
         self.nodeId = nodeId
         self.name = name
         self.fullName = fullName
-        self.`private` = `private`
+        self.private = `private`
     }
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet2(_ owner: SimpleUser?, _ htmlUrl: String?, _ description: String?, _ fork: Bool?, _ url: String?) {
+    mutating func sdkSet2(
+        _ owner: SimpleUser?,
+        _ htmlUrl: String?,
+        _ description: String?,
+        _ fork: Bool?,
+        _ url: String?
+    ) {
         self.owner = owner
         self.htmlUrl = htmlUrl
         self.description = description
@@ -337,7 +426,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet3(_ forksUrl: String?, _ keysUrl: String?, _ collaboratorsUrl: String?, _ teamsUrl: String?, _ hooksUrl: String?) {
+    mutating func sdkSet3(
+        _ forksUrl: String?,
+        _ keysUrl: String?,
+        _ collaboratorsUrl: String?,
+        _ teamsUrl: String?,
+        _ hooksUrl: String?
+    ) {
         self.forksUrl = forksUrl
         self.keysUrl = keysUrl
         self.collaboratorsUrl = collaboratorsUrl
@@ -347,7 +442,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet4(_ issueEventsUrl: String?, _ eventsUrl: String?, _ assigneesUrl: String?, _ branchesUrl: String?, _ tagsUrl: String?) {
+    mutating func sdkSet4(
+        _ issueEventsUrl: String?,
+        _ eventsUrl: String?,
+        _ assigneesUrl: String?,
+        _ branchesUrl: String?,
+        _ tagsUrl: String?
+    ) {
         self.issueEventsUrl = issueEventsUrl
         self.eventsUrl = eventsUrl
         self.assigneesUrl = assigneesUrl
@@ -357,7 +458,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet5(_ blobsUrl: String?, _ gitTagsUrl: String?, _ gitRefsUrl: String?, _ treesUrl: String?, _ statusesUrl: String?) {
+    mutating func sdkSet5(
+        _ blobsUrl: String?,
+        _ gitTagsUrl: String?,
+        _ gitRefsUrl: String?,
+        _ treesUrl: String?,
+        _ statusesUrl: String?
+    ) {
         self.blobsUrl = blobsUrl
         self.gitTagsUrl = gitTagsUrl
         self.gitRefsUrl = gitRefsUrl
@@ -367,7 +474,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet6(_ languagesUrl: String?, _ stargazersUrl: String?, _ contributorsUrl: String?, _ subscribersUrl: String?, _ subscriptionUrl: String?) {
+    mutating func sdkSet6(
+        _ languagesUrl: String?,
+        _ stargazersUrl: String?,
+        _ contributorsUrl: String?,
+        _ subscribersUrl: String?,
+        _ subscriptionUrl: String?
+    ) {
         self.languagesUrl = languagesUrl
         self.stargazersUrl = stargazersUrl
         self.contributorsUrl = contributorsUrl
@@ -377,7 +490,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet7(_ commitsUrl: String?, _ gitCommitsUrl: String?, _ commentsUrl: String?, _ issueCommentUrl: String?, _ contentsUrl: String?) {
+    mutating func sdkSet7(
+        _ commitsUrl: String?,
+        _ gitCommitsUrl: String?,
+        _ commentsUrl: String?,
+        _ issueCommentUrl: String?,
+        _ contentsUrl: String?
+    ) {
         self.commitsUrl = commitsUrl
         self.gitCommitsUrl = gitCommitsUrl
         self.commentsUrl = commentsUrl
@@ -387,7 +506,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet8(_ compareUrl: String?, _ mergesUrl: String?, _ archiveUrl: String?, _ downloadsUrl: String?, _ issuesUrl: String?) {
+    mutating func sdkSet8(
+        _ compareUrl: String?,
+        _ mergesUrl: String?,
+        _ archiveUrl: String?,
+        _ downloadsUrl: String?,
+        _ issuesUrl: String?
+    ) {
         self.compareUrl = compareUrl
         self.mergesUrl = mergesUrl
         self.archiveUrl = archiveUrl
@@ -397,7 +522,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet9(_ pullsUrl: String?, _ milestonesUrl: String?, _ notificationsUrl: String?, _ labelsUrl: String?, _ releasesUrl: String?) {
+    mutating func sdkSet9(
+        _ pullsUrl: String?,
+        _ milestonesUrl: String?,
+        _ notificationsUrl: String?,
+        _ labelsUrl: String?,
+        _ releasesUrl: String?
+    ) {
         self.pullsUrl = pullsUrl
         self.milestonesUrl = milestonesUrl
         self.notificationsUrl = notificationsUrl
@@ -407,7 +538,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet10(_ deploymentsUrl: String?, _ createdAt: Date?, _ updatedAt: Date?, _ pushedAt: Date?, _ gitUrl: String?) {
+    mutating func sdkSet10(
+        _ deploymentsUrl: String?,
+        _ createdAt: Date?,
+        _ updatedAt: Date?,
+        _ pushedAt: Date?,
+        _ gitUrl: String?
+    ) {
         self.deploymentsUrl = deploymentsUrl
         self.createdAt = createdAt
         self.updatedAt = updatedAt
@@ -417,7 +554,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet11(_ sshUrl: String?, _ cloneUrl: String?, _ svnUrl: String?, _ homepage: String?, _ size: Int?) {
+    mutating func sdkSet11(
+        _ sshUrl: String?,
+        _ cloneUrl: String?,
+        _ svnUrl: String?,
+        _ homepage: String?,
+        _ size: Int?
+    ) {
         self.sshUrl = sshUrl
         self.cloneUrl = cloneUrl
         self.svnUrl = svnUrl
@@ -427,7 +570,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet12(_ stargazersCount: Int?, _ watchersCount: Int?, _ language: String?, _ hasIssues: Bool?, _ hasProjects: Bool?) {
+    mutating func sdkSet12(
+        _ stargazersCount: Int?,
+        _ watchersCount: Int?,
+        _ language: String?,
+        _ hasIssues: Bool?,
+        _ hasProjects: Bool?
+    ) {
         self.stargazersCount = stargazersCount
         self.watchersCount = watchersCount
         self.language = language
@@ -437,7 +586,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet13(_ hasDownloads: Bool?, _ hasWiki: Bool?, _ hasPages: Bool?, _ hasDiscussions: Bool?, _ hasPullRequests: Bool?) {
+    mutating func sdkSet13(
+        _ hasDownloads: Bool?,
+        _ hasWiki: Bool?,
+        _ hasPages: Bool?,
+        _ hasDiscussions: Bool?,
+        _ hasPullRequests: Bool?
+    ) {
         self.hasDownloads = hasDownloads
         self.hasWiki = hasWiki
         self.hasPages = hasPages
@@ -447,7 +602,13 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet14(_ pullRequestCreationPolicy: ForkEventForkeePullRequestCreationPolicy?, _ forksCount: Int?, _ mirrorUrl: String?, _ archived: Bool?, _ disabled: Bool?) {
+    mutating func sdkSet14(
+        _ pullRequestCreationPolicy: ForkEventForkeePullRequestCreationPolicy?,
+        _ forksCount: Int?,
+        _ mirrorUrl: String?,
+        _ archived: Bool?,
+        _ disabled: Bool?
+    ) {
         self.pullRequestCreationPolicy = pullRequestCreationPolicy
         self.forksCount = forksCount
         self.mirrorUrl = mirrorUrl

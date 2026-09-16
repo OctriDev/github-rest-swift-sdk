@@ -6,16 +6,29 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists languages for the specified repository. The value shown for each language is the number of bytes of code written in that language.
+public extension ReposMethods {
+    /// Lists languages for the specified repository. The value shown for each language is the number of bytes of code
+    /// written in that language.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposListLanguages(config: ClientConfig, owner: String, repo: String) async throws -> Language {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/languages"].joined(), config: config, decoder: .json, operationId: "reposListLanguages")).data
+    static func reposListLanguages(config: ClientConfig, owner: String, repo: String) async throws -> Language {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/languages",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposListLanguages"
+        )).data
     }
 
     /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
@@ -26,9 +39,27 @@ extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - branch: The name of the branch which should be updated to match upstream.
-    public static func reposMergeUpstream(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> MergedUpstream {
+    static func reposMergeUpstream(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> MergedUpstream {
         let requestBody = ReposMergeUpstreamRequestBody(branch: branch)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/merge-upstream"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposMergeUpstream")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/merge-upstream",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposMergeUpstream"
+        )).data
     }
 }

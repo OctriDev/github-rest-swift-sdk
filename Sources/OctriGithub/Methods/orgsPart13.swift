@@ -6,13 +6,28 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
+public extension OrgsMethods {
     /// Delete an artifact attestation by unique ID that is associated with a repository owned by an org.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - attestationId: Attestation ID
-    public static func orgsDeleteAttestationsById(config: ClientConfig, org: String, attestationId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/attestations/", sdkEncodePathSegment(sdkWireString(attestationId))].joined(), config: config, decoder: .empty, operationId: "orgsDeleteAttestationsById")).data
+    static func orgsDeleteAttestationsById(
+        config: ClientConfig,
+        org: String,
+        attestationId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/attestations/",
+                sdkEncodePathSegment(sdkWireString(attestationId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsDeleteAttestationsById"
+        )).data
     }
 }

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeScanningMethods {
-    public struct CodeScanningUpdateAlertOptions: Codable {
+public extension CodeScanningMethods {
+    struct CodeScanningUpdateAlertOptions: Codable {
         public var owner: String
         public var repo: String
         public var alertNumber: AlertNumber
@@ -24,7 +24,9 @@ extension CodeScanningMethods {
         }
     }
 
-    /// Updates the status of a single code scanning alert. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+    /// Updates the status of a single code scanning alert. OAuth app tokens and personal access tokens (classic) need
+    /// the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope
+    /// to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -44,13 +46,30 @@ extension CodeScanningMethods {
     /// - createRequest: If `true`, attempt to create an alert dismissal request.
     /// - assignees: The list of users to assign to the code scanning alert. An
     ///   empty array unassigns all previous assignees from the alert.
-    public static func codeScanningUpdateAlert(config: ClientConfig, options: CodeScanningUpdateAlertOptions) async throws -> CodeScanningAlert {
+    static func codeScanningUpdateAlert(
+        config: ClientConfig,
+        options: CodeScanningUpdateAlertOptions
+    ) async throws -> CodeScanningAlert {
         if let dismissedComment = options.dismissedComment?.valueOrNil {
             try validateLength("dismissed_comment", dismissedComment, max: 280)
         }
 
         let requestBody = CodeScanningUpdateAlertRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/code-scanning/alerts/", sdkEncodePathSegment(sdkWireString(options.alertNumber))].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningUpdateAlert")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/code-scanning/alerts/",
+                sdkEncodePathSegment(sdkWireString(options.alertNumber)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "codeScanningUpdateAlert"
+        )).data
     }
 }

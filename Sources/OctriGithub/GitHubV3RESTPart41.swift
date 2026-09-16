@@ -5,7 +5,7 @@ import Foundation
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart18(_ config: ClientConfig) -> (ReposNamespace, SecretScanningNamespace) {
-        return (
+        (
             ReposNamespace(config: config),
             SecretScanningNamespace(config: config)
         )
@@ -14,7 +14,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart19(_ config: ClientConfig) -> (HostedComputeNamespace, TeamsNamespace) {
-        return (
+        (
             HostedComputeNamespace(config: config),
             TeamsNamespace(config: config)
         )
@@ -23,7 +23,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart20(_ config: ClientConfig) -> (RateLimitNamespace, ChecksNamespace) {
-        return (
+        (
             RateLimitNamespace(config: config),
             ChecksNamespace(config: config)
         )
@@ -32,7 +32,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart21(_ config: ClientConfig) -> (CodeQualityNamespace, ReactionsNamespace) {
-        return (
+        (
             CodeQualityNamespace(config: config),
             ReactionsNamespace(config: config)
         )
@@ -41,7 +41,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart22(_ config: ClientConfig) -> (DependencyGraphNamespace, GitNamespace) {
-        return (
+        (
             DependencyGraphNamespace(config: config),
             GitNamespace(config: config)
         )
@@ -50,7 +50,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart23(_ config: ClientConfig) -> (PullsNamespace, SearchNamespace) {
-        return (
+        (
             PullsNamespace(config: config),
             SearchNamespace(config: config)
         )
@@ -59,7 +59,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart24(_ config: ClientConfig) -> UsersNamespace {
-        return UsersNamespace(config: config)
+        UsersNamespace(config: config)
     }
 }
 
@@ -114,30 +114,30 @@ public class GitHubV3REST {
     public private(set) var users: UsersNamespace
     public init(config: ClientConfig) {
         self.config = config
-        (self.meta, self.securityAdvisories) = Self.sdkMakeNamespacesPart1(config)
-        (self.agentTasks, self.apps) = Self.sdkMakeNamespacesPart2(config)
-        (self.classroom, self.codesOfConduct) = Self.sdkMakeNamespacesPart3(config)
-        (self.credentials, self.emojis) = Self.sdkMakeNamespacesPart4(config)
-        (self.actions, self.oidc) = Self.sdkMakeNamespacesPart5(config)
-        (self.codeSecurity, self.copilot) = Self.sdkMakeNamespacesPart6(config)
-        (self.dependabot, self.enterpriseTeamMemberships) = Self.sdkMakeNamespacesPart7(config)
-        (self.enterpriseTeams, self.enterpriseTeamOrganizations) = Self.sdkMakeNamespacesPart8(config)
-        (self.activity, self.gists) = Self.sdkMakeNamespacesPart9(config)
-        (self.gitignore, self.issues) = Self.sdkMakeNamespacesPart10(config)
-        (self.licenses, self.markdown) = Self.sdkMakeNamespacesPart11(config)
-        (self.orgs, self.billing) = Self.sdkMakeNamespacesPart12(config)
-        (self.agents, self.campaigns) = Self.sdkMakeNamespacesPart13(config)
-        (self.codeScanning, self.codespaces) = Self.sdkMakeNamespacesPart14(config)
-        (self.copilotSpaces, self.packages) = Self.sdkMakeNamespacesPart15(config)
-        (self.interactions, self.migrations) = Self.sdkMakeNamespacesPart16(config)
-        (self.privateRegistries, self.projects) = Self.sdkMakeNamespacesPart17(config)
-        (self.repos, self.secretScanning) = Self.sdkMakeNamespacesPart18(config)
-        (self.hostedCompute, self.teams) = Self.sdkMakeNamespacesPart19(config)
-        (self.rateLimit, self.checks) = Self.sdkMakeNamespacesPart20(config)
-        (self.codeQuality, self.reactions) = Self.sdkMakeNamespacesPart21(config)
-        (self.dependencyGraph, self.git) = Self.sdkMakeNamespacesPart22(config)
-        (self.pulls, self.search) = Self.sdkMakeNamespacesPart23(config)
-        self.users = Self.sdkMakeNamespacesPart24(config)
+        (meta, securityAdvisories) = Self.sdkMakeNamespacesPart1(config)
+        (agentTasks, apps) = Self.sdkMakeNamespacesPart2(config)
+        (classroom, codesOfConduct) = Self.sdkMakeNamespacesPart3(config)
+        (credentials, emojis) = Self.sdkMakeNamespacesPart4(config)
+        (actions, oidc) = Self.sdkMakeNamespacesPart5(config)
+        (codeSecurity, copilot) = Self.sdkMakeNamespacesPart6(config)
+        (dependabot, enterpriseTeamMemberships) = Self.sdkMakeNamespacesPart7(config)
+        (enterpriseTeams, enterpriseTeamOrganizations) = Self.sdkMakeNamespacesPart8(config)
+        (activity, gists) = Self.sdkMakeNamespacesPart9(config)
+        (gitignore, issues) = Self.sdkMakeNamespacesPart10(config)
+        (licenses, markdown) = Self.sdkMakeNamespacesPart11(config)
+        (orgs, billing) = Self.sdkMakeNamespacesPart12(config)
+        (agents, campaigns) = Self.sdkMakeNamespacesPart13(config)
+        (codeScanning, codespaces) = Self.sdkMakeNamespacesPart14(config)
+        (copilotSpaces, packages) = Self.sdkMakeNamespacesPart15(config)
+        (interactions, migrations) = Self.sdkMakeNamespacesPart16(config)
+        (privateRegistries, projects) = Self.sdkMakeNamespacesPart17(config)
+        (repos, secretScanning) = Self.sdkMakeNamespacesPart18(config)
+        (hostedCompute, teams) = Self.sdkMakeNamespacesPart19(config)
+        (rateLimit, checks) = Self.sdkMakeNamespacesPart20(config)
+        (codeQuality, reactions) = Self.sdkMakeNamespacesPart21(config)
+        (dependencyGraph, git) = Self.sdkMakeNamespacesPart22(config)
+        (pulls, search) = Self.sdkMakeNamespacesPart23(config)
+        users = Self.sdkMakeNamespacesPart24(config)
     }
 
     /// Turns SDK logging on and configures it. Logging is OFF by default — this
@@ -149,12 +149,24 @@ public class GitHubV3REST {
     public func setLoggingConfig(_ logging: LoggingConfig? = nil) -> LoggingConfig {
         var current = config.logging ?? LoggingConfig()
         if let overrides = logging {
-            if let endpoint = overrides.endpoint { current.endpoint = endpoint }
-            if let apiKey = overrides.apiKey { current.apiKey = apiKey }
-            if let environment = overrides.environment { current.environment = environment }
-            if let release = overrides.release { current.release = release }
-            if let user = overrides.user { current.user = user }
-            if let tags = overrides.tags { current.tags = tags }
+            if let endpoint = overrides.endpoint {
+                current.endpoint = endpoint
+            }
+            if let apiKey = overrides.apiKey {
+                current.apiKey = apiKey
+            }
+            if let environment = overrides.environment {
+                current.environment = environment
+            }
+            if let release = overrides.release {
+                current.release = release
+            }
+            if let user = overrides.user {
+                current.user = user
+            }
+            if let tags = overrides.tags {
+                current.tags = tags
+            }
             current.filterPii = overrides.filterPii
         }
         // Opting in IS the point of this call, so enabled flips to true unless the
@@ -166,29 +178,29 @@ public class GitHubV3REST {
     }
 
     private func sdkRebuildNamespaces() {
-        (self.meta, self.securityAdvisories) = Self.sdkMakeNamespacesPart1(self.config)
-        (self.agentTasks, self.apps) = Self.sdkMakeNamespacesPart2(self.config)
-        (self.classroom, self.codesOfConduct) = Self.sdkMakeNamespacesPart3(self.config)
-        (self.credentials, self.emojis) = Self.sdkMakeNamespacesPart4(self.config)
-        (self.actions, self.oidc) = Self.sdkMakeNamespacesPart5(self.config)
-        (self.codeSecurity, self.copilot) = Self.sdkMakeNamespacesPart6(self.config)
-        (self.dependabot, self.enterpriseTeamMemberships) = Self.sdkMakeNamespacesPart7(self.config)
-        (self.enterpriseTeams, self.enterpriseTeamOrganizations) = Self.sdkMakeNamespacesPart8(self.config)
-        (self.activity, self.gists) = Self.sdkMakeNamespacesPart9(self.config)
-        (self.gitignore, self.issues) = Self.sdkMakeNamespacesPart10(self.config)
-        (self.licenses, self.markdown) = Self.sdkMakeNamespacesPart11(self.config)
-        (self.orgs, self.billing) = Self.sdkMakeNamespacesPart12(self.config)
-        (self.agents, self.campaigns) = Self.sdkMakeNamespacesPart13(self.config)
-        (self.codeScanning, self.codespaces) = Self.sdkMakeNamespacesPart14(self.config)
-        (self.copilotSpaces, self.packages) = Self.sdkMakeNamespacesPart15(self.config)
-        (self.interactions, self.migrations) = Self.sdkMakeNamespacesPart16(self.config)
-        (self.privateRegistries, self.projects) = Self.sdkMakeNamespacesPart17(self.config)
-        (self.repos, self.secretScanning) = Self.sdkMakeNamespacesPart18(self.config)
-        (self.hostedCompute, self.teams) = Self.sdkMakeNamespacesPart19(self.config)
-        (self.rateLimit, self.checks) = Self.sdkMakeNamespacesPart20(self.config)
-        (self.codeQuality, self.reactions) = Self.sdkMakeNamespacesPart21(self.config)
-        (self.dependencyGraph, self.git) = Self.sdkMakeNamespacesPart22(self.config)
-        (self.pulls, self.search) = Self.sdkMakeNamespacesPart23(self.config)
-        self.users = Self.sdkMakeNamespacesPart24(self.config)
+        (meta, securityAdvisories) = Self.sdkMakeNamespacesPart1(config)
+        (agentTasks, apps) = Self.sdkMakeNamespacesPart2(config)
+        (classroom, codesOfConduct) = Self.sdkMakeNamespacesPart3(config)
+        (credentials, emojis) = Self.sdkMakeNamespacesPart4(config)
+        (actions, oidc) = Self.sdkMakeNamespacesPart5(config)
+        (codeSecurity, copilot) = Self.sdkMakeNamespacesPart6(config)
+        (dependabot, enterpriseTeamMemberships) = Self.sdkMakeNamespacesPart7(config)
+        (enterpriseTeams, enterpriseTeamOrganizations) = Self.sdkMakeNamespacesPart8(config)
+        (activity, gists) = Self.sdkMakeNamespacesPart9(config)
+        (gitignore, issues) = Self.sdkMakeNamespacesPart10(config)
+        (licenses, markdown) = Self.sdkMakeNamespacesPart11(config)
+        (orgs, billing) = Self.sdkMakeNamespacesPart12(config)
+        (agents, campaigns) = Self.sdkMakeNamespacesPart13(config)
+        (codeScanning, codespaces) = Self.sdkMakeNamespacesPart14(config)
+        (copilotSpaces, packages) = Self.sdkMakeNamespacesPart15(config)
+        (interactions, migrations) = Self.sdkMakeNamespacesPart16(config)
+        (privateRegistries, projects) = Self.sdkMakeNamespacesPart17(config)
+        (repos, secretScanning) = Self.sdkMakeNamespacesPart18(config)
+        (hostedCompute, teams) = Self.sdkMakeNamespacesPart19(config)
+        (rateLimit, checks) = Self.sdkMakeNamespacesPart20(config)
+        (codeQuality, reactions) = Self.sdkMakeNamespacesPart21(config)
+        (dependencyGraph, git) = Self.sdkMakeNamespacesPart22(config)
+        (pulls, search) = Self.sdkMakeNamespacesPart23(config)
+        users = Self.sdkMakeNamespacesPart24(config)
     }
 }

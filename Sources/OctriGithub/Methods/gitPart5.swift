@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GitMethods {
-    /// Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned. > [!NOTE] > You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+public extension GitMethods {
+    /// Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch
+    /// name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is
+    /// returned. > [!NOTE] > You need to explicitly [request a pull
+    /// request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which
+    /// checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,11 +21,25 @@ extension GitMethods {
     /// - ref: The Git reference. For more information, see "[Git
     ///   References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in
     ///   the Git documentation.
-    public static func gitGetRef(config: ClientConfig, owner: String, repo: String, ref: String) async throws -> GitRef {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/ref/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, decoder: .json, operationId: "gitGetRef")).data
+    static func gitGetRef(config: ClientConfig, owner: String, repo: String, ref: String) async throws -> GitRef {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/ref/",
+                sdkEncodePathSegment(sdkWireString(ref)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "gitGetRef"
+        )).data
     }
 
-    /// Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
+    /// Creates a reference for your repository. You are unable to create new references for empty repositories, even if
+    /// the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -32,9 +50,28 @@ extension GitMethods {
     ///   If it doesn't start with 'refs' and have at least two slashes, it will be
     ///   rejected.
     /// - sha: The SHA1 value for this reference.
-    public static func gitCreateRef(config: ClientConfig, owner: String, repo: String, ref: String, sha: String) async throws -> GitRef {
+    static func gitCreateRef(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String,
+        sha: String
+    ) async throws -> GitRef {
         let requestBody = GitCreateRefRequestBody(ref: ref, sha: sha)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/refs"].joined(), config: config, body: requestBody, decoder: .json, operationId: "gitCreateRef")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/refs",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gitCreateRef"
+        )).data
     }
 }

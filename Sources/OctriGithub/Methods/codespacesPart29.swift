@@ -6,36 +6,74 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
+public extension CodespacesMethods {
     /// Export a codespace for the authenticated user
     ///
-    /// Triggers an export of the specified codespace and returns a URL and ID where the status of the export can be monitored. If changes cannot be pushed to the codespace's repository, they will be pushed to a new or previously-existing fork instead. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// Triggers an export of the specified codespace and returns a URL and ID where the status of the export can be
+    /// monitored. If changes cannot be pushed to the codespace's repository, they will be pushed to a new or
+    /// previously-existing fork instead. OAuth app tokens and personal access tokens (classic) need the `codespace`
+    /// scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
-    public static func codespacesExportForAuthenticatedUser(config: ClientConfig, codespaceName: String) async throws -> CodespaceExportDetails {
-        return try (await sdkRequest("POST", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/exports"].joined(), config: config, decoder: .json, operationId: "codespacesExportForAuthenticatedUser")).data
+    static func codespacesExportForAuthenticatedUser(
+        config: ClientConfig,
+        codespaceName: String
+    ) async throws -> CodespaceExportDetails {
+        try await (sdkRequest(
+            "POST",
+            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/exports"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesExportForAuthenticatedUser"
+        )).data
     }
 
     /// Get details about a codespace export
     ///
-    /// Gets information about an export of a codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// Gets information about an export of a codespace. OAuth app tokens and personal access tokens (classic) need the
+    /// `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
     /// - exportId: The ID of the export operation, or `latest`. Currently only
     ///   `latest` is currently supported.
-    public static func codespacesGetExportDetailsForAuthenticatedUser(config: ClientConfig, codespaceName: String, exportId: String) async throws -> CodespaceExportDetails {
-        return try (await sdkRequest("GET", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/exports/", sdkEncodePathSegment(sdkWireString(exportId))].joined(), config: config, decoder: .json, operationId: "codespacesGetExportDetailsForAuthenticatedUser")).data
+    static func codespacesGetExportDetailsForAuthenticatedUser(
+        config: ClientConfig,
+        codespaceName: String,
+        exportId: String
+    ) async throws -> CodespaceExportDetails {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/user/codespaces/",
+                sdkEncodePathSegment(sdkWireString(codespaceName)),
+                "/exports/",
+                sdkEncodePathSegment(sdkWireString(exportId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesGetExportDetailsForAuthenticatedUser"
+        )).data
     }
 
     /// List machine types for a codespace
     ///
-    /// List the machine types a codespace can transition to use. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// List the machine types a codespace can transition to use. OAuth app tokens and personal access tokens (classic)
+    /// need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
-    public static func codespacesCodespaceMachinesForAuthenticatedUser(config: ClientConfig, codespaceName: String) async throws -> CodespacesCodespaceMachinesForAuthenticatedUserResponse {
-        return try (await sdkRequest("GET", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/machines"].joined(), config: config, decoder: .json, operationId: "codespacesCodespaceMachinesForAuthenticatedUser")).data
+    static func codespacesCodespaceMachinesForAuthenticatedUser(
+        config: ClientConfig,
+        codespaceName: String
+    ) async throws -> CodespacesCodespaceMachinesForAuthenticatedUserResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/machines"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesCodespaceMachinesForAuthenticatedUser"
+        )).data
     }
 }

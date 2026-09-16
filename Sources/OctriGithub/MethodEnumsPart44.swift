@@ -7,16 +7,20 @@ import Foundation
     import FoundationNetworking
 #endif
 /// The type of actor (must be `User` for user-owned spaces; `Team` will be rejected).
-public struct CopilotSpacesAddCollaboratorForUserRequestBodyActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesAddCollaboratorForUserRequestBodyActorType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let user = CopilotSpacesAddCollaboratorForUserRequestBodyActorType(rawValue: "User")
     public static let team = CopilotSpacesAddCollaboratorForUserRequestBodyActorType(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -26,17 +30,21 @@ public struct CopilotSpacesAddCollaboratorForUserRequestBodyActorType: RawRepres
 }
 
 /// The role to grant to the collaborator.
-public struct CopilotSpacesAddCollaboratorForUserRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesAddCollaboratorForUserRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reader = CopilotSpacesAddCollaboratorForUserRequestBodyRole(rawValue: "reader")
     public static let writer = CopilotSpacesAddCollaboratorForUserRequestBodyRole(rawValue: "writer")
     public static let admin = CopilotSpacesAddCollaboratorForUserRequestBodyRole(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -45,16 +53,20 @@ public struct CopilotSpacesAddCollaboratorForUserRequestBodyRole: RawRepresentab
     }
 }
 
-public struct CopilotSpacesRemoveCollaboratorForUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesRemoveCollaboratorForUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let user = CopilotSpacesRemoveCollaboratorForUserParameter(rawValue: "User")
     public static let team = CopilotSpacesRemoveCollaboratorForUserParameter(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -63,16 +75,20 @@ public struct CopilotSpacesRemoveCollaboratorForUserParameter: RawRepresentable,
     }
 }
 
-public struct CopilotSpacesUpdateCollaboratorForUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesUpdateCollaboratorForUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let user = CopilotSpacesUpdateCollaboratorForUserParameter(rawValue: "User")
     public static let team = CopilotSpacesUpdateCollaboratorForUserParameter(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -82,10 +98,14 @@ public struct CopilotSpacesUpdateCollaboratorForUserParameter: RawRepresentable,
 }
 
 /// The new role to grant to the collaborator. Use `no_access` to remove the collaborator.
-public struct CopilotSpacesUpdateCollaboratorForUserRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesUpdateCollaboratorForUserRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reader = CopilotSpacesUpdateCollaboratorForUserRequestBodyRole(rawValue: "reader")
     public static let writer = CopilotSpacesUpdateCollaboratorForUserRequestBodyRole(rawValue: "writer")
     public static let admin = CopilotSpacesUpdateCollaboratorForUserRequestBodyRole(rawValue: "admin")
@@ -93,7 +113,7 @@ public struct CopilotSpacesUpdateCollaboratorForUserRequestBodyRole: RawRepresen
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -103,19 +123,24 @@ public struct CopilotSpacesUpdateCollaboratorForUserRequestBodyRole: RawRepresen
 }
 
 /// The type of resource to create.
-public struct CopilotSpacesCreateResourceForUserRequestBodyResourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesCreateResourceForUserRequestBodyResourceType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let repository = CopilotSpacesCreateResourceForUserRequestBodyResourceType(rawValue: "repository")
     public static let githubFile = CopilotSpacesCreateResourceForUserRequestBodyResourceType(rawValue: "github_file")
     public static let freeText = CopilotSpacesCreateResourceForUserRequestBodyResourceType(rawValue: "free_text")
     public static let githubIssue = CopilotSpacesCreateResourceForUserRequestBodyResourceType(rawValue: "github_issue")
-    public static let githubPullRequest = CopilotSpacesCreateResourceForUserRequestBodyResourceType(rawValue: "github_pull_request")
+    public static let githubPullRequest =
+        CopilotSpacesCreateResourceForUserRequestBodyResourceType(rawValue: "github_pull_request")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -127,7 +152,10 @@ public struct CopilotSpacesCreateResourceForUserRequestBodyResourceType: RawRepr
 public struct UsersGetContextForUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let organization = UsersGetContextForUserParameter(rawValue: "organization")
     public static let repository = UsersGetContextForUserParameter(rawValue: "repository")
     public static let issue = UsersGetContextForUserParameter(rawValue: "issue")
@@ -135,7 +163,7 @@ public struct UsersGetContextForUserParameter: RawRepresentable, Hashable, Codab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -147,7 +175,10 @@ public struct UsersGetContextForUserParameter: RawRepresentable, Hashable, Codab
 public struct PackagesListPackagesForUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let npm = PackagesListPackagesForUserParameter(rawValue: "npm")
     public static let maven = PackagesListPackagesForUserParameter(rawValue: "maven")
     public static let rubygems = PackagesListPackagesForUserParameter(rawValue: "rubygems")
@@ -157,7 +188,7 @@ public struct PackagesListPackagesForUserParameter: RawRepresentable, Hashable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -167,17 +198,21 @@ public struct PackagesListPackagesForUserParameter: RawRepresentable, Hashable, 
 }
 
 /// The field's data type.
-public struct ProjectsAddFieldForUserRequestBodyVariant0DataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsAddFieldForUserRequestBodyVariant0DataType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let text = ProjectsAddFieldForUserRequestBodyVariant0DataType(rawValue: "text")
     public static let number = ProjectsAddFieldForUserRequestBodyVariant0DataType(rawValue: "number")
     public static let date = ProjectsAddFieldForUserRequestBodyVariant0DataType(rawValue: "date")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -187,15 +222,19 @@ public struct ProjectsAddFieldForUserRequestBodyVariant0DataType: RawRepresentab
 }
 
 /// The field's data type.
-public struct ProjectsAddFieldForUserRequestBodyVariant1DataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsAddFieldForUserRequestBodyVariant1DataType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let singleSelect = ProjectsAddFieldForUserRequestBodyVariant1DataType(rawValue: "single_select")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookProjectColumnEdited domain models
+/// WebhookProjectColumnEdited domain models
 /// Typed representation of the `WebhookProjectColumnEdited` API schema.
 public struct WebhookProjectColumnEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,34 +39,57 @@ public struct WebhookProjectColumnEdited: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookProjectColumnEdited {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.projectColumn) else {
-            throw SdkValidationError(field: "project_column", code: "required", message: "Validation failed for 'project_column': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.projectColumn = try container.sdkDecodeRequired(.projectColumn)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookProjectColumnEdited {
-    public init(action: WebhookProjectColumnEditedAction, changes: WebhookProjectColumnEditedChanges, projectColumn: WebhooksProjectColumn, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.projectColumn) else {
+            throw SdkValidationError(
+                field: "project_column",
+                code: "required",
+                message: "Validation failed for 'project_column': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        projectColumn = try container.sdkDecodeRequired(.projectColumn)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookProjectColumnEdited {
+    init(
+        action: WebhookProjectColumnEditedAction,
+        changes: WebhookProjectColumnEditedChanges,
+        projectColumn: WebhooksProjectColumn,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.action, self.changes) = (action, changes)
         (self.projectColumn, self.enterprise) = (projectColumn, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -84,19 +107,19 @@ public struct WebhookProjectColumnEditedChanges: Codable {
     }
 
     init() {
-        self.name = nil
+        name = nil
     }
 }
 
 public extension WebhookProjectColumnEditedChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.sdkDecodeIfPresent(.name)
+        name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
 public extension WebhookProjectColumnEditedChanges {
-    public init(name: WebhookProjectColumnEditedChangesName? = nil) {
+    init(name: WebhookProjectColumnEditedChangesName? = nil) {
         self.init()
         self.name = name
     }
@@ -111,21 +134,27 @@ public struct WebhookProjectColumnEditedChangesName: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookProjectColumnEditedChangesName {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookProjectColumnEditedChangesName {
-    public init(from: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookProjectColumnEditedChangesName {
+    init(from: String) {
         self.from = from
     }
 }
@@ -134,12 +163,15 @@ public extension WebhookProjectColumnEditedChangesName {
 public struct WebhookProjectColumnEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let edited = WebhookProjectColumnEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

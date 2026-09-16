@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    public struct OrgsCreateArtifactStorageRecordOptions: Codable {
+public extension OrgsMethods {
+    struct OrgsCreateArtifactStorageRecordOptions: Codable {
         public var org: String
         public var name: String
         public var digest: String
@@ -28,7 +28,9 @@ extension OrgsMethods {
         }
     }
 
-    /// Create metadata storage records for artifacts associated with an organization. This endpoint will create a new artifact storage record on behalf of any artifact matching the provided digest and associated with a repository owned by the organization.
+    /// Create metadata storage records for artifacts associated with an organization. This endpoint will create a new
+    /// artifact storage record on behalf of any artifact matching the provided digest and associated with a repository
+    /// owned by the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -48,7 +50,10 @@ extension OrgsMethods {
     ///   attestation instead of this parameter.
     /// - returnRecords: If true, the endpoint will return the created record in the
     ///   response body.
-    public static func orgsCreateArtifactStorageRecord(config: ClientConfig, options: OrgsCreateArtifactStorageRecordOptions) async throws -> OrgsCreateArtifactStorageRecordResponse {
+    static func orgsCreateArtifactStorageRecord(
+        config: ClientConfig,
+        options: OrgsCreateArtifactStorageRecordOptions
+    ) async throws -> OrgsCreateArtifactStorageRecordResponse {
         try validateLength("name", options.name, min: 1, max: 256)
 
         try validateLength("digest", options.digest, min: 71, max: 71)
@@ -84,6 +89,13 @@ extension OrgsMethods {
 
         let requestBody = OrgsCreateArtifactStorageRecordRequestBody(options: options)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/artifacts/metadata/storage-record"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsCreateArtifactStorageRecord")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/artifacts/metadata/storage-record"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsCreateArtifactStorageRecord"
+        )).data
     }
 }

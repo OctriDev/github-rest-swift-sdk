@@ -6,8 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Removes the ability of an app to push to this branch. Only GitHub Apps that are installed on the repository and that have been granted write access to the repository contents can be added as authorized actors on a protected branch.
+public extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. Removes the ability of an app to push to this branch. Only GitHub Apps that are installed on the
+    /// repository and that have been granted write access to the repository contents can be added as authorized actors
+    /// on a protected branch.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,9 +26,30 @@ extension ReposMethods {
     /// - apps: The GitHub Apps that have push access to this branch. Use the
     ///   slugified version of the app name. **Note**: The list of users, apps, and
     ///   teams in total is limited to 100 items.
-    public static func reposRemoveAppAccessRestrictions(config: ClientConfig, owner: String, repo: String, branch: String, apps: [String]) async throws -> [Integration?] {
+    static func reposRemoveAppAccessRestrictions(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String,
+        apps: [String]
+    ) async throws -> [Integration?] {
         let requestBody = ReposRemoveAppAccessRestrictionsRequestBody(apps: apps)
 
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/restrictions/apps"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposRemoveAppAccessRestrictions")).data
+        return try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/restrictions/apps",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposRemoveAppAccessRestrictions"
+        )).data
     }
 }

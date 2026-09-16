@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Replaces all repositories that have been selected for immutable releases enforcement in an organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension OrgsMethods {
+    /// Replaces all repositories that have been selected for immutable releases enforcement in an organization. To use
+    /// this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to
+    /// `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,18 +23,48 @@ extension OrgsMethods {
     ///   repository for immutable releases in an
     ///   organization](https://docs.github.com/rest/orgs/orgs#disable-a-selected-repo
     ///   sitory-for-immutable-releases-in-an-organization) endpoints.
-    public static func orgsSetImmutableReleasesSettingsRepositories(config: ClientConfig, org: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        let requestBody = OrgsSetImmutableReleasesSettingsRepositoriesRequestBody(selectedRepositoryIds: selectedRepositoryIds)
+    static func orgsSetImmutableReleasesSettingsRepositories(
+        config: ClientConfig,
+        org: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        let requestBody =
+            OrgsSetImmutableReleasesSettingsRepositoriesRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "orgsSetImmutableReleasesSettingsRepositories")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases/repositories"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "orgsSetImmutableReleasesSettingsRepositories"
+        )).data
     }
 
-    /// Adds a repository to the list of selected repositories that are enforced for immutable releases in an organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Adds a repository to the list of selected repositories that are enforced for immutable releases in an
+    /// organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must
+    /// be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use
+    /// this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryId: The unique identifier of the repository.
-    public static func orgsEnableSelectedRepositoryImmutableReleasesOrganization(config: ClientConfig, org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "orgsEnableSelectedRepositoryImmutableReleasesOrganization")).data
+    static func orgsEnableSelectedRepositoryImmutableReleasesOrganization(
+        config: ClientConfig,
+        org: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/settings/immutable-releases/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsEnableSelectedRepositoryImmutableReleasesOrganization"
+        )).data
     }
 }

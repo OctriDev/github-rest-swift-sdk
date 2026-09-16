@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension EnterpriseTeamMembershipsMethods {
-    /// Adds multiple GitHub users to an enterprise team. Supply the user handles in the required `usernames` array, using `enterprise` and `enterprise-team` to identify the target team.
+public extension EnterpriseTeamMembershipsMethods {
+    /// Adds multiple GitHub users to an enterprise team. Supply the user handles in the required `usernames` array,
+    /// using `enterprise` and `enterprise-team` to identify the target team.
     ///
     /// Add multiple team members to an enterprise team.
     ///
@@ -16,10 +17,28 @@ extension EnterpriseTeamMembershipsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - usernames: The GitHub user handles to add to the team.
-    public static func enterpriseTeamMembershipsBulkAdd(config: ClientConfig, enterprise: String, enterpriseTeam: String, usernames: [String]) async throws -> [SimpleUser] {
+    static func enterpriseTeamMembershipsBulkAdd(
+        config: ClientConfig,
+        enterprise: String,
+        enterpriseTeam: String,
+        usernames: [String]
+    ) async throws -> [SimpleUser] {
         let requestBody = EnterpriseTeamMembershipsBulkAddRequestBody(usernames: usernames)
 
-        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/memberships/add"].joined(), config: config, body: requestBody, decoder: .json, operationId: "enterpriseTeamMembershipsBulkAdd")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
+                "/memberships/add",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "enterpriseTeamMembershipsBulkAdd"
+        )).data
     }
 
     /// Remove multiple team members from an enterprise team.
@@ -29,9 +48,27 @@ extension EnterpriseTeamMembershipsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - usernames: The GitHub user handles to be removed from the team.
-    public static func enterpriseTeamMembershipsBulkRemove(config: ClientConfig, enterprise: String, enterpriseTeam: String, usernames: [String]) async throws -> [SimpleUser] {
+    static func enterpriseTeamMembershipsBulkRemove(
+        config: ClientConfig,
+        enterprise: String,
+        enterpriseTeam: String,
+        usernames: [String]
+    ) async throws -> [SimpleUser] {
         let requestBody = EnterpriseTeamMembershipsBulkRemoveRequestBody(usernames: usernames)
 
-        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/memberships/remove"].joined(), config: config, body: requestBody, decoder: .json, operationId: "enterpriseTeamMembershipsBulkRemove")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
+                "/memberships/remove",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "enterpriseTeamMembershipsBulkRemove"
+        )).data
     }
 }

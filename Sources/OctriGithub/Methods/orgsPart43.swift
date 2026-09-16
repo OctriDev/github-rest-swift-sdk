@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// List all users who are members of an organization. If the authenticated user is also a member of this organization then both concealed and public members will be returned.
+public extension OrgsMethods {
+    /// List all users who are members of an organization. If the authenticated user is also a member of this
+    /// organization then both concealed and public members will be returned.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -30,12 +31,26 @@ extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsListMembers(config: ClientConfig, org: String, filter: OrgsListMembersParameter?, role: OrgsListMembersParameterX38b3e4da?, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members"].joined(), config: config, query: [
-            SdkQueryParameter("filter", value: filter),
-            SdkQueryParameter("role", value: role),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "orgsListMembers")).data
+    static func orgsListMembers(
+        config: ClientConfig,
+        org: String,
+        filter: OrgsListMembersParameter?,
+        role: OrgsListMembersParameterX38b3e4da?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [SimpleUser] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("filter", value: filter),
+                SdkQueryParameter("role", value: role),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "orgsListMembers"
+        )).data
     }
 }

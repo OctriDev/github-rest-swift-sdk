@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
+public extension TeamsMethods {
     /// Check team permissions for a repository (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a repository](https://docs.github.com/rest/teams/teams#check-team-permissions-for-a-repository) endpoint. > [!NOTE] > Repositories inherited through a parent team will also be checked. You can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types/) via the `Accept` header:
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a
+    /// repository](https://docs.github.com/rest/teams/teams#check-team-permissions-for-a-repository) endpoint. >
+    /// [!NOTE] > Repositories inherited through a parent team will also be checked. You can also get information about
+    /// the specified repository, including what permissions the team grants on it, by passing the following custom
+    /// [media type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types/) via
+    /// the `Accept` header:
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
@@ -19,7 +25,25 @@ extension TeamsMethods {
     ///   not case sensitive.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func teamsCheckPermissionsForRepoLegacy(config: ClientConfig, teamId: Int, owner: String, repo: String) async throws -> TeamRepository {
-        return try (await sdkRequest("GET", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, decoder: .json, operationId: "teamsCheckPermissionsForRepoLegacy")).data
+    static func teamsCheckPermissionsForRepoLegacy(
+        config: ClientConfig,
+        teamId: Int,
+        owner: String,
+        repo: String
+    ) async throws -> TeamRepository {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(teamId)),
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "teamsCheckPermissionsForRepoLegacy"
+        )).data
     }
 }

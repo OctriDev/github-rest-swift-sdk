@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can use this endpoint.
+public extension OrgsMethods {
+    /// Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps
+    /// can use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,10 +22,29 @@ extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsListPatGrantRequestRepositories(config: ClientConfig, org: String, patRequestId: Int, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-token-requests/", sdkEncodePathSegment(sdkWireString(patRequestId)), "/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "orgsListPatGrantRequestRepositories")).data
+    static func orgsListPatGrantRequestRepositories(
+        config: ClientConfig,
+        org: String,
+        patRequestId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [MinimalRepository] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/personal-access-token-requests/",
+                sdkEncodePathSegment(sdkWireString(patRequestId)),
+                "/repositories",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "orgsListPatGrantRequestRepositories"
+        )).data
     }
 }

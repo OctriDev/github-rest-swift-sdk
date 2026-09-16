@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SecurityAdvisories domain models
+/// SecurityAdvisories domain models
 /// A repository security advisory.
 public struct RepositoryAdvisory: Codable {
     /// The GitHub Security Advisory ID.
@@ -91,45 +91,75 @@ public struct RepositoryAdvisory: Codable {
         case cvssSeverities = "cvss_severities"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension RepositoryAdvisory {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.ghsaId = try container.sdkDecodeRequired(.ghsaId)
-        self.cveId = try container.sdkDecodeIfPresent(.cveId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.summary = try container.sdkDecodeRequired(.summary)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.severity = try container.sdkDecodeIfPresent(.severity)
-        self.author = try container.sdkDecodeIfPresent(.author)
-        self.publisher = try container.sdkDecodeIfPresent(.publisher)
-        self.identifiers = try container.sdkDecodeRequired(.identifiers)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
-        self.closedAt = try container.sdkDecodeIfPresent(.closedAt)
-        self.withdrawnAt = try container.sdkDecodeIfPresent(.withdrawnAt)
-        self.submission = try container.sdkDecodeIfPresent(.submission)
-        self.vulnerabilities = try container.sdkDecodeIfPresent(.vulnerabilities)
-        self.cvss = try container.sdkDecodeIfPresent(.cvss)
-        self.cwes = try container.sdkDecodeIfPresent(.cwes)
-        self.cweIds = try container.sdkDecodeIfPresent(.cweIds)
-        self.credits = try container.sdkDecodeIfPresent(.credits)
-        self.creditsDetailed = try container.sdkDecodeIfPresent(.creditsDetailed)
-        self.collaboratingUsers = try container.sdkDecodeIfPresent(.collaboratingUsers)
-        self.collaboratingTeams = try container.sdkDecodeIfPresent(.collaboratingTeams)
-        self.privateFork = try container.sdkDecodeIfPresent(.privateFork)
-        self.cvssSeverities = try container.sdkDecodeIfPresent(.cvssSeverities)
+        ghsaId = try container.sdkDecodeRequired(.ghsaId)
+        cveId = try container.sdkDecodeIfPresent(.cveId)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        summary = try container.sdkDecodeRequired(.summary)
+        description = try container.sdkDecodeIfPresent(.description)
+        severity = try container.sdkDecodeIfPresent(.severity)
+        author = try container.sdkDecodeIfPresent(.author)
+        publisher = try container.sdkDecodeIfPresent(.publisher)
+        identifiers = try container.sdkDecodeRequired(.identifiers)
+        state = try container.sdkDecodeRequired(.state)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
+        closedAt = try container.sdkDecodeIfPresent(.closedAt)
+        withdrawnAt = try container.sdkDecodeIfPresent(.withdrawnAt)
+        submission = try container.sdkDecodeIfPresent(.submission)
+        vulnerabilities = try container.sdkDecodeIfPresent(.vulnerabilities)
+        cvss = try container.sdkDecodeIfPresent(.cvss)
+        cwes = try container.sdkDecodeIfPresent(.cwes)
+        cweIds = try container.sdkDecodeIfPresent(.cweIds)
+        credits = try container.sdkDecodeIfPresent(.credits)
+        creditsDetailed = try container.sdkDecodeIfPresent(.creditsDetailed)
+        collaboratingUsers = try container.sdkDecodeIfPresent(.collaboratingUsers)
+        collaboratingTeams = try container.sdkDecodeIfPresent(.collaboratingTeams)
+        privateFork = try container.sdkDecodeIfPresent(.privateFork)
+        cvssSeverities = try container.sdkDecodeIfPresent(.cvssSeverities)
         try sdkValidateConstraints()
     }
 }
 
 public extension RepositoryAdvisory {
-    public init(ghsaId: String, cveId: String?, url: String, htmlUrl: String, summary: String, description: String?, severity: RepositoryAdvisorySeverity?, author: RepositoryAdvisoryAuthor?, publisher: RepositoryAdvisoryPublisher?, identifiers: [RepositoryAdvisoryIdentifiersItem], state: RepositoryAdvisoryState, createdAt: Date?, updatedAt: Date?, publishedAt: Date?, closedAt: Date?, withdrawnAt: Date?, submission: RepositoryAdvisorySubmission?, vulnerabilities: [RepositoryAdvisoryVulnerability]?, cvss: RepositoryAdvisoryCvss?, cwes: [RepositoryAdvisoryCwesItem]?, cweIds: [String]?, credits: [RepositoryAdvisoryCreditsItem]?, creditsDetailed: [RepositoryAdvisoryCredit]?, collaboratingUsers: [SimpleUser]?, collaboratingTeams: [Team]?, privateFork: RepositoryAdvisoryPrivateFork?, cvssSeverities: CvssSeverities? = nil) throws {
+    init(
+        ghsaId: String,
+        cveId: String?,
+        url: String,
+        htmlUrl: String,
+        summary: String,
+        description: String?,
+        severity: RepositoryAdvisorySeverity?,
+        author: RepositoryAdvisoryAuthor?,
+        publisher: RepositoryAdvisoryPublisher?,
+        identifiers: [RepositoryAdvisoryIdentifiersItem],
+        state: RepositoryAdvisoryState,
+        createdAt: Date?,
+        updatedAt: Date?,
+        publishedAt: Date?,
+        closedAt: Date?,
+        withdrawnAt: Date?,
+        submission: RepositoryAdvisorySubmission?,
+        vulnerabilities: [RepositoryAdvisoryVulnerability]?,
+        cvss: RepositoryAdvisoryCvss?,
+        cwes: [RepositoryAdvisoryCwesItem]?,
+        cweIds: [String]?,
+        credits: [RepositoryAdvisoryCreditsItem]?,
+        creditsDetailed: [RepositoryAdvisoryCredit]?,
+        collaboratingUsers: [SimpleUser]?,
+        collaboratingTeams: [Team]?,
+        privateFork: RepositoryAdvisoryPrivateFork?,
+        cvssSeverities: CvssSeverities? = nil
+    ) throws {
         (self.ghsaId, self.cveId) = (ghsaId, cveId)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.summary, self.description) = (summary, description)
@@ -150,25 +180,25 @@ public extension RepositoryAdvisory {
 
 extension RepositoryAdvisory {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try validateLength("summary", self.summary, min: nil, max: 1024)
-        if let value = self.description {
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try validateLength("summary", summary, min: nil, max: 1024)
+        if let value = description {
             try validateLength("description", value, min: nil, max: 65535)
         }
-        if let value = self.createdAt {
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.publishedAt {
+        if let value = publishedAt {
             try sdkValidateDateTime("published_at", sdkWireString(value))
         }
-        if let value = self.closedAt {
+        if let value = closedAt {
             try sdkValidateDateTime("closed_at", sdkWireString(value))
         }
-        if let value = self.withdrawnAt {
+        if let value = withdrawnAt {
             try sdkValidateDateTime("withdrawn_at", sdkWireString(value))
         }
     }
@@ -265,40 +295,65 @@ public struct RepositoryAdvisoryAuthor: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension RepositoryAdvisoryAuthor {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        login = try container.sdkDecodeRequired(.login)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        type = try container.sdkDecodeRequired(.type)
+        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        name = try container.sdkDecodeIfPresent(.name)
+        email = try container.sdkDecodeIfPresent(.email)
+        starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
 public extension RepositoryAdvisoryAuthor {
-    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String? = nil, email: String? = nil, starredAt: String? = nil, userViewType: String? = nil) throws {
+    init(
+        login: String,
+        id: Int,
+        nodeId: String,
+        avatarUrl: String,
+        gravatarId: String?,
+        url: String,
+        htmlUrl: String,
+        followersUrl: String,
+        followingUrl: String,
+        gistsUrl: String,
+        starredUrl: String,
+        subscriptionsUrl: String,
+        organizationsUrl: String,
+        reposUrl: String,
+        eventsUrl: String,
+        receivedEventsUrl: String,
+        type: String,
+        siteAdmin: Bool,
+        name: String? = nil,
+        email: String? = nil,
+        starredAt: String? = nil,
+        userViewType: String? = nil
+    ) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -316,14 +371,14 @@ public extension RepositoryAdvisoryAuthor {
 
 extension RepositoryAdvisoryAuthor {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("avatar_url", self.avatarUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("followers_url", self.followersUrl)
-            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
-            try sdkValidateUri("organizations_url", self.organizationsUrl)
-            try sdkValidateUri("repos_url", self.reposUrl)
-            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
+        try sdkValidateUri("avatar_url", avatarUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("followers_url", followersUrl)
+        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
+        try sdkValidateUri("organizations_url", organizationsUrl)
+        try sdkValidateUri("repos_url", reposUrl)
+        try sdkValidateUri("received_events_url", receivedEventsUrl)
     }
 }
 
@@ -340,20 +395,20 @@ public struct RepositoryAdvisoryCreditsItem: Codable {
     }
 
     init() {
-        (self.login, self.type) = (nil, nil)
+        (login, type) = (nil, nil)
     }
 }
 
 public extension RepositoryAdvisoryCreditsItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.login = try container.sdkDecodeIfPresent(.login)
-        self.type = try container.sdkDecodeIfPresent(.type)
+        login = try container.sdkDecodeIfPresent(.login)
+        type = try container.sdkDecodeIfPresent(.type)
     }
 }
 
 public extension RepositoryAdvisoryCreditsItem {
-    public init(login: String? = nil, type: SecurityAdvisoryCreditTypes? = nil) {
+    init(login: String? = nil, type: SecurityAdvisoryCreditTypes? = nil) {
         self.init()
         (self.login, self.type) = (login, type)
     }
@@ -371,31 +426,57 @@ public struct RepositoryAdvisoryCvss: Codable {
         case score
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension RepositoryAdvisoryCvss {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.vectorString) else {
-            throw SdkValidationError(field: "vector_string", code: "required", message: "Validation failed for 'vector_string': value is required")
+            throw SdkValidationError(
+                field: "vector_string",
+                code: "required",
+                message: "Validation failed for 'vector_string': value is required"
+            )
         }
         guard container.contains(.score) else {
-            throw SdkValidationError(field: "score", code: "required", message: "Validation failed for 'score': value is required")
+            throw SdkValidationError(
+                field: "score",
+                code: "required",
+                message: "Validation failed for 'score': value is required"
+            )
         }
-        self.vectorString = try container.sdkDecodeIfPresent(.vectorString)
-        self.score = try container.sdkDecodeIfPresent(.score)
-        if let value = self.score {
-            try validateRange("score", Double(value), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+        vectorString = try container.sdkDecodeIfPresent(.vectorString)
+        score = try container.sdkDecodeIfPresent(.score)
+        if let value = score {
+            try validateRange(
+                "score",
+                Double(value),
+                min: 0,
+                max: 10,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
 
 public extension RepositoryAdvisoryCvss {
-    public init(vectorString: String?, score: Double?) throws {
+    init(vectorString: String?, score: Double?) throws {
         (self.vectorString, self.score) = (vectorString, score)
         if let value = self.score {
-            try validateRange("score", Double(value), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+            try validateRange(
+                "score",
+                Double(value),
+                min: 0,
+                max: 10,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
@@ -412,25 +493,35 @@ public struct RepositoryAdvisoryCwesItem: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RepositoryAdvisoryCwesItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.cweId) else {
-            throw SdkValidationError(field: "cwe_id", code: "required", message: "Validation failed for 'cwe_id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        self.cweId = try container.sdkDecodeRequired(.cweId)
-        self.name = try container.sdkDecodeRequired(.name)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RepositoryAdvisoryCwesItem {
-    public init(cweId: String, name: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.cweId) else {
+            throw SdkValidationError(
+                field: "cwe_id",
+                code: "required",
+                message: "Validation failed for 'cwe_id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        cweId = try container.sdkDecodeRequired(.cweId)
+        name = try container.sdkDecodeRequired(.name)
+    }
+}
+
+public extension RepositoryAdvisoryCwesItem {
+    init(cweId: String, name: String) {
         (self.cweId, self.name) = (cweId, name)
     }
 }
@@ -447,25 +538,35 @@ public struct RepositoryAdvisoryIdentifiersItem: Codable {
         case value
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension RepositoryAdvisoryIdentifiersItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        guard container.contains(.value) else {
-            throw SdkValidationError(field: "value", code: "required", message: "Validation failed for 'value': value is required")
-        }
-        self.type = try container.sdkDecodeRequired(.type)
-        self.value = try container.sdkDecodeRequired(.value)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension RepositoryAdvisoryIdentifiersItem {
-    public init(type: RepositoryAdvisoryIdentifiersItemType, value: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        guard container.contains(.value) else {
+            throw SdkValidationError(
+                field: "value",
+                code: "required",
+                message: "Validation failed for 'value': value is required"
+            )
+        }
+        type = try container.sdkDecodeRequired(.type)
+        value = try container.sdkDecodeRequired(.value)
+    }
+}
+
+public extension RepositoryAdvisoryIdentifiersItem {
+    init(type: RepositoryAdvisoryIdentifiersItemType, value: String) {
         (self.type, self.value) = (type, value)
     }
 }

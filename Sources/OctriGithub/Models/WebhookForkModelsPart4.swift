@@ -3,9 +3,88 @@
 
 import Foundation
 
-// WebhookFork domain models
+/// WebhookFork domain models
 public extension WebhookForkForkeeVariant1 {
-    public init(allowForking: Bool? = nil, archiveUrl: String? = nil, archived: Bool? = nil, assigneesUrl: String? = nil, blobsUrl: String? = nil, branchesUrl: String? = nil, cloneUrl: String? = nil, collaboratorsUrl: String? = nil, commentsUrl: String? = nil, commitsUrl: String? = nil, compareUrl: String? = nil, contentsUrl: String? = nil, contributorsUrl: String? = nil, createdAt: String? = nil, defaultBranch: String? = nil, deploymentsUrl: String? = nil, description: String? = nil, disabled: Bool? = nil, downloadsUrl: String? = nil, eventsUrl: String? = nil, fork: Bool? = nil, forks: Int? = nil, forksCount: Int? = nil, forksUrl: String? = nil, fullName: String? = nil, gitCommitsUrl: String? = nil, gitRefsUrl: String? = nil, gitTagsUrl: String? = nil, gitUrl: String? = nil, hasDownloads: Bool? = nil, hasIssues: Bool? = nil, hasPages: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, homepage: String? = nil, hooksUrl: String? = nil, htmlUrl: String? = nil, id: Int? = nil, isTemplate: Bool? = nil, issueCommentUrl: String? = nil, issueEventsUrl: String? = nil, issuesUrl: String? = nil, keysUrl: String? = nil, labelsUrl: String? = nil, language: JSONValue? = nil, languagesUrl: String? = nil, license: [String: JSONValue]? = nil, mergesUrl: String? = nil, milestonesUrl: String? = nil, mirrorUrl: JSONValue? = nil, name: String? = nil, nodeId: String? = nil, notificationsUrl: String? = nil, openIssues: Int? = nil, openIssuesCount: Int? = nil, owner: WebhookForkForkeeVariant1Owner? = nil, `private`: Bool? = nil, `public`: Bool? = nil, pullsUrl: String? = nil, pushedAt: String? = nil, releasesUrl: String? = nil, size: Int? = nil, sshUrl: String? = nil, stargazersCount: Int? = nil, stargazersUrl: String? = nil, statusesUrl: String? = nil, subscribersUrl: String? = nil, subscriptionUrl: String? = nil, svnUrl: String? = nil, tagsUrl: String? = nil, teamsUrl: String? = nil, topics: [JSONValue?]? = nil, treesUrl: String? = nil, updatedAt: String? = nil, url: String? = nil, visibility: String? = nil, watchers: Int? = nil, watchersCount: Int? = nil) {
+    init(
+        allowForking: Bool? = nil,
+        archiveUrl: String? = nil,
+        archived: Bool? = nil,
+        assigneesUrl: String? = nil,
+        blobsUrl: String? = nil,
+        branchesUrl: String? = nil,
+        cloneUrl: String? = nil,
+        collaboratorsUrl: String? = nil,
+        commentsUrl: String? = nil,
+        commitsUrl: String? = nil,
+        compareUrl: String? = nil,
+        contentsUrl: String? = nil,
+        contributorsUrl: String? = nil,
+        createdAt: String? = nil,
+        defaultBranch: String? = nil,
+        deploymentsUrl: String? = nil,
+        description: String? = nil,
+        disabled: Bool? = nil,
+        downloadsUrl: String? = nil,
+        eventsUrl: String? = nil,
+        fork: Bool? = nil,
+        forks: Int? = nil,
+        forksCount: Int? = nil,
+        forksUrl: String? = nil,
+        fullName: String? = nil,
+        gitCommitsUrl: String? = nil,
+        gitRefsUrl: String? = nil,
+        gitTagsUrl: String? = nil,
+        gitUrl: String? = nil,
+        hasDownloads: Bool? = nil,
+        hasIssues: Bool? = nil,
+        hasPages: Bool? = nil,
+        hasProjects: Bool? = nil,
+        hasWiki: Bool? = nil,
+        homepage: String? = nil,
+        hooksUrl: String? = nil,
+        htmlUrl: String? = nil,
+        id: Int? = nil,
+        isTemplate: Bool? = nil,
+        issueCommentUrl: String? = nil,
+        issueEventsUrl: String? = nil,
+        issuesUrl: String? = nil,
+        keysUrl: String? = nil,
+        labelsUrl: String? = nil,
+        language: JSONValue? = nil,
+        languagesUrl: String? = nil,
+        license: [String: JSONValue]? = nil,
+        mergesUrl: String? = nil,
+        milestonesUrl: String? = nil,
+        mirrorUrl: JSONValue? = nil,
+        name: String? = nil,
+        nodeId: String? = nil,
+        notificationsUrl: String? = nil,
+        openIssues: Int? = nil,
+        openIssuesCount: Int? = nil,
+        owner: WebhookForkForkeeVariant1Owner? = nil,
+        private: Bool? = nil,
+        public: Bool? = nil,
+        pullsUrl: String? = nil,
+        pushedAt: String? = nil,
+        releasesUrl: String? = nil,
+        size: Int? = nil,
+        sshUrl: String? = nil,
+        stargazersCount: Int? = nil,
+        stargazersUrl: String? = nil,
+        statusesUrl: String? = nil,
+        subscribersUrl: String? = nil,
+        subscriptionUrl: String? = nil,
+        svnUrl: String? = nil,
+        tagsUrl: String? = nil,
+        teamsUrl: String? = nil,
+        topics: [JSONValue?]? = nil,
+        treesUrl: String? = nil,
+        updatedAt: String? = nil,
+        url: String? = nil,
+        visibility: String? = nil,
+        watchers: Int? = nil,
+        watchersCount: Int? = nil
+    ) {
         self.init(sdkDefaults: ())
         sdkSet1(allowForking, archiveUrl, archived, assigneesUrl, blobsUrl)
         sdkSet2(branchesUrl, cloneUrl, collaboratorsUrl, commentsUrl, commitsUrl)
@@ -27,7 +106,13 @@ public extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet1(_ allowForking: Bool?, _ archiveUrl: String?, _ archived: Bool?, _ assigneesUrl: String?, _ blobsUrl: String?) {
+    mutating func sdkSet1(
+        _ allowForking: Bool?,
+        _ archiveUrl: String?,
+        _ archived: Bool?,
+        _ assigneesUrl: String?,
+        _ blobsUrl: String?
+    ) {
         self.allowForking = allowForking
         self.archiveUrl = archiveUrl
         self.archived = archived
@@ -37,7 +122,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet2(_ branchesUrl: String?, _ cloneUrl: String?, _ collaboratorsUrl: String?, _ commentsUrl: String?, _ commitsUrl: String?) {
+    mutating func sdkSet2(
+        _ branchesUrl: String?,
+        _ cloneUrl: String?,
+        _ collaboratorsUrl: String?,
+        _ commentsUrl: String?,
+        _ commitsUrl: String?
+    ) {
         self.branchesUrl = branchesUrl
         self.cloneUrl = cloneUrl
         self.collaboratorsUrl = collaboratorsUrl
@@ -47,7 +138,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet3(_ compareUrl: String?, _ contentsUrl: String?, _ contributorsUrl: String?, _ createdAt: String?, _ defaultBranch: String?) {
+    mutating func sdkSet3(
+        _ compareUrl: String?,
+        _ contentsUrl: String?,
+        _ contributorsUrl: String?,
+        _ createdAt: String?,
+        _ defaultBranch: String?
+    ) {
         self.compareUrl = compareUrl
         self.contentsUrl = contentsUrl
         self.contributorsUrl = contributorsUrl
@@ -57,7 +154,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet4(_ deploymentsUrl: String?, _ description: String?, _ disabled: Bool?, _ downloadsUrl: String?, _ eventsUrl: String?) {
+    mutating func sdkSet4(
+        _ deploymentsUrl: String?,
+        _ description: String?,
+        _ disabled: Bool?,
+        _ downloadsUrl: String?,
+        _ eventsUrl: String?
+    ) {
         self.deploymentsUrl = deploymentsUrl
         self.description = description
         self.disabled = disabled
@@ -77,7 +180,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet6(_ gitCommitsUrl: String?, _ gitRefsUrl: String?, _ gitTagsUrl: String?, _ gitUrl: String?, _ hasDownloads: Bool?) {
+    mutating func sdkSet6(
+        _ gitCommitsUrl: String?,
+        _ gitRefsUrl: String?,
+        _ gitTagsUrl: String?,
+        _ gitUrl: String?,
+        _ hasDownloads: Bool?
+    ) {
         self.gitCommitsUrl = gitCommitsUrl
         self.gitRefsUrl = gitRefsUrl
         self.gitTagsUrl = gitTagsUrl
@@ -87,7 +196,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet7(_ hasIssues: Bool?, _ hasPages: Bool?, _ hasProjects: Bool?, _ hasWiki: Bool?, _ homepage: String?) {
+    mutating func sdkSet7(
+        _ hasIssues: Bool?,
+        _ hasPages: Bool?,
+        _ hasProjects: Bool?,
+        _ hasWiki: Bool?,
+        _ homepage: String?
+    ) {
         self.hasIssues = hasIssues
         self.hasPages = hasPages
         self.hasProjects = hasProjects
@@ -97,7 +212,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet8(_ hooksUrl: String?, _ htmlUrl: String?, _ id: Int?, _ isTemplate: Bool?, _ issueCommentUrl: String?) {
+    mutating func sdkSet8(
+        _ hooksUrl: String?,
+        _ htmlUrl: String?,
+        _ id: Int?,
+        _ isTemplate: Bool?,
+        _ issueCommentUrl: String?
+    ) {
         self.hooksUrl = hooksUrl
         self.htmlUrl = htmlUrl
         self.id = id
@@ -107,7 +228,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet9(_ issueEventsUrl: String?, _ issuesUrl: String?, _ keysUrl: String?, _ labelsUrl: String?, _ language: JSONValue?) {
+    mutating func sdkSet9(
+        _ issueEventsUrl: String?,
+        _ issuesUrl: String?,
+        _ keysUrl: String?,
+        _ labelsUrl: String?,
+        _ language: JSONValue?
+    ) {
         self.issueEventsUrl = issueEventsUrl
         self.issuesUrl = issuesUrl
         self.keysUrl = keysUrl
@@ -117,7 +244,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet10(_ languagesUrl: String?, _ license: [String: JSONValue]?, _ mergesUrl: String?, _ milestonesUrl: String?, _ mirrorUrl: JSONValue?) {
+    mutating func sdkSet10(
+        _ languagesUrl: String?,
+        _ license: [String: JSONValue]?,
+        _ mergesUrl: String?,
+        _ milestonesUrl: String?,
+        _ mirrorUrl: JSONValue?
+    ) {
         self.languagesUrl = languagesUrl
         self.license = license
         self.mergesUrl = mergesUrl
@@ -127,7 +260,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet11(_ name: String?, _ nodeId: String?, _ notificationsUrl: String?, _ openIssues: Int?, _ openIssuesCount: Int?) {
+    mutating func sdkSet11(
+        _ name: String?,
+        _ nodeId: String?,
+        _ notificationsUrl: String?,
+        _ openIssues: Int?,
+        _ openIssuesCount: Int?
+    ) {
         self.name = name
         self.nodeId = nodeId
         self.notificationsUrl = notificationsUrl
@@ -137,17 +276,29 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet12(_ owner: WebhookForkForkeeVariant1Owner?, _ `private`: Bool?, _ `public`: Bool?, _ pullsUrl: String?, _ pushedAt: String?) {
+    mutating func sdkSet12(
+        _ owner: WebhookForkForkeeVariant1Owner?,
+        _ private: Bool?,
+        _ public: Bool?,
+        _ pullsUrl: String?,
+        _ pushedAt: String?
+    ) {
         self.owner = owner
-        self.`private` = `private`
-        self.`public` = `public`
+        self.private = `private`
+        self.public = `public`
         self.pullsUrl = pullsUrl
         self.pushedAt = pushedAt
     }
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet13(_ releasesUrl: String?, _ size: Int?, _ sshUrl: String?, _ stargazersCount: Int?, _ stargazersUrl: String?) {
+    mutating func sdkSet13(
+        _ releasesUrl: String?,
+        _ size: Int?,
+        _ sshUrl: String?,
+        _ stargazersCount: Int?,
+        _ stargazersUrl: String?
+    ) {
         self.releasesUrl = releasesUrl
         self.size = size
         self.sshUrl = sshUrl
@@ -157,7 +308,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet14(_ statusesUrl: String?, _ subscribersUrl: String?, _ subscriptionUrl: String?, _ svnUrl: String?, _ tagsUrl: String?) {
+    mutating func sdkSet14(
+        _ statusesUrl: String?,
+        _ subscribersUrl: String?,
+        _ subscriptionUrl: String?,
+        _ svnUrl: String?,
+        _ tagsUrl: String?
+    ) {
         self.statusesUrl = statusesUrl
         self.subscribersUrl = subscribersUrl
         self.subscriptionUrl = subscriptionUrl
@@ -167,7 +324,13 @@ extension WebhookForkForkeeVariant1 {
 }
 
 extension WebhookForkForkeeVariant1 {
-    mutating func sdkSet15(_ teamsUrl: String?, _ topics: [JSONValue?]?, _ treesUrl: String?, _ updatedAt: String?, _ url: String?) {
+    mutating func sdkSet15(
+        _ teamsUrl: String?,
+        _ topics: [JSONValue?]?,
+        _ treesUrl: String?,
+        _ updatedAt: String?,
+        _ url: String?
+    ) {
         self.teamsUrl = teamsUrl
         self.topics = topics
         self.treesUrl = treesUrl
@@ -186,126 +349,126 @@ extension WebhookForkForkeeVariant1 {
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.allowForking = try container.sdkDecodeIfPresent(.allowForking)
-        self.archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
-        self.archived = try container.sdkDecodeIfPresent(.archived)
-        self.assigneesUrl = try container.sdkDecodeIfPresent(.assigneesUrl)
-        self.blobsUrl = try container.sdkDecodeIfPresent(.blobsUrl)
-        self.branchesUrl = try container.sdkDecodeIfPresent(.branchesUrl)
-        self.cloneUrl = try container.sdkDecodeIfPresent(.cloneUrl)
-        self.collaboratorsUrl = try container.sdkDecodeIfPresent(.collaboratorsUrl)
-        self.commentsUrl = try container.sdkDecodeIfPresent(.commentsUrl)
-        self.commitsUrl = try container.sdkDecodeIfPresent(.commitsUrl)
-        self.compareUrl = try container.sdkDecodeIfPresent(.compareUrl)
-        self.contentsUrl = try container.sdkDecodeIfPresent(.contentsUrl)
+        allowForking = try container.sdkDecodeIfPresent(.allowForking)
+        archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
+        archived = try container.sdkDecodeIfPresent(.archived)
+        assigneesUrl = try container.sdkDecodeIfPresent(.assigneesUrl)
+        blobsUrl = try container.sdkDecodeIfPresent(.blobsUrl)
+        branchesUrl = try container.sdkDecodeIfPresent(.branchesUrl)
+        cloneUrl = try container.sdkDecodeIfPresent(.cloneUrl)
+        collaboratorsUrl = try container.sdkDecodeIfPresent(.collaboratorsUrl)
+        commentsUrl = try container.sdkDecodeIfPresent(.commentsUrl)
+        commitsUrl = try container.sdkDecodeIfPresent(.commitsUrl)
+        compareUrl = try container.sdkDecodeIfPresent(.compareUrl)
+        contentsUrl = try container.sdkDecodeIfPresent(.contentsUrl)
     }
 }
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.contributorsUrl = try container.sdkDecodeIfPresent(.contributorsUrl)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
-        self.deploymentsUrl = try container.sdkDecodeIfPresent(.deploymentsUrl)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.disabled = try container.sdkDecodeIfPresent(.disabled)
-        self.downloadsUrl = try container.sdkDecodeIfPresent(.downloadsUrl)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.fork = try container.sdkDecodeIfPresent(.fork)
-        self.forks = try container.sdkDecodeIfPresent(.forks)
-        self.forksCount = try container.sdkDecodeIfPresent(.forksCount)
-        self.forksUrl = try container.sdkDecodeIfPresent(.forksUrl)
+        contributorsUrl = try container.sdkDecodeIfPresent(.contributorsUrl)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
+        deploymentsUrl = try container.sdkDecodeIfPresent(.deploymentsUrl)
+        description = try container.sdkDecodeIfPresent(.description)
+        disabled = try container.sdkDecodeIfPresent(.disabled)
+        downloadsUrl = try container.sdkDecodeIfPresent(.downloadsUrl)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        fork = try container.sdkDecodeIfPresent(.fork)
+        forks = try container.sdkDecodeIfPresent(.forks)
+        forksCount = try container.sdkDecodeIfPresent(.forksCount)
+        forksUrl = try container.sdkDecodeIfPresent(.forksUrl)
     }
 }
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.fullName = try container.sdkDecodeIfPresent(.fullName)
-        self.gitCommitsUrl = try container.sdkDecodeIfPresent(.gitCommitsUrl)
-        self.gitRefsUrl = try container.sdkDecodeIfPresent(.gitRefsUrl)
-        self.gitTagsUrl = try container.sdkDecodeIfPresent(.gitTagsUrl)
-        self.gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
-        self.hasDownloads = try container.sdkDecodeIfPresent(.hasDownloads)
-        self.hasIssues = try container.sdkDecodeIfPresent(.hasIssues)
-        self.hasPages = try container.sdkDecodeIfPresent(.hasPages)
-        self.hasProjects = try container.sdkDecodeIfPresent(.hasProjects)
-        self.hasWiki = try container.sdkDecodeIfPresent(.hasWiki)
-        self.homepage = try container.sdkDecodeIfPresent(.homepage)
-        self.hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
+        fullName = try container.sdkDecodeIfPresent(.fullName)
+        gitCommitsUrl = try container.sdkDecodeIfPresent(.gitCommitsUrl)
+        gitRefsUrl = try container.sdkDecodeIfPresent(.gitRefsUrl)
+        gitTagsUrl = try container.sdkDecodeIfPresent(.gitTagsUrl)
+        gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
+        hasDownloads = try container.sdkDecodeIfPresent(.hasDownloads)
+        hasIssues = try container.sdkDecodeIfPresent(.hasIssues)
+        hasPages = try container.sdkDecodeIfPresent(.hasPages)
+        hasProjects = try container.sdkDecodeIfPresent(.hasProjects)
+        hasWiki = try container.sdkDecodeIfPresent(.hasWiki)
+        homepage = try container.sdkDecodeIfPresent(.homepage)
+        hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
     }
 }
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart4(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.isTemplate = try container.sdkDecodeIfPresent(.isTemplate)
-        self.issueCommentUrl = try container.sdkDecodeIfPresent(.issueCommentUrl)
-        self.issueEventsUrl = try container.sdkDecodeIfPresent(.issueEventsUrl)
-        self.issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
-        self.keysUrl = try container.sdkDecodeIfPresent(.keysUrl)
-        self.labelsUrl = try container.sdkDecodeIfPresent(.labelsUrl)
-        self.language = try container.sdkDecodeIfPresent(.language)
-        self.languagesUrl = try container.sdkDecodeIfPresent(.languagesUrl)
-        self.license = try container.sdkDecodeIfPresent(.license)
-        self.mergesUrl = try container.sdkDecodeIfPresent(.mergesUrl)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        id = try container.sdkDecodeIfPresent(.id)
+        isTemplate = try container.sdkDecodeIfPresent(.isTemplate)
+        issueCommentUrl = try container.sdkDecodeIfPresent(.issueCommentUrl)
+        issueEventsUrl = try container.sdkDecodeIfPresent(.issueEventsUrl)
+        issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
+        keysUrl = try container.sdkDecodeIfPresent(.keysUrl)
+        labelsUrl = try container.sdkDecodeIfPresent(.labelsUrl)
+        language = try container.sdkDecodeIfPresent(.language)
+        languagesUrl = try container.sdkDecodeIfPresent(.languagesUrl)
+        license = try container.sdkDecodeIfPresent(.license)
+        mergesUrl = try container.sdkDecodeIfPresent(.mergesUrl)
     }
 }
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart5(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.milestonesUrl = try container.sdkDecodeIfPresent(.milestonesUrl)
-        self.mirrorUrl = try container.sdkDecodeIfPresent(.mirrorUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.notificationsUrl = try container.sdkDecodeIfPresent(.notificationsUrl)
-        self.openIssues = try container.sdkDecodeIfPresent(.openIssues)
-        self.openIssuesCount = try container.sdkDecodeIfPresent(.openIssuesCount)
-        self.owner = try container.sdkDecodeIfPresent(.owner)
-        self.`private` = try container.sdkDecodeIfPresent(.`private`)
-        self.`public` = try container.sdkDecodeIfPresent(.`public`)
-        self.pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
-        self.pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
+        milestonesUrl = try container.sdkDecodeIfPresent(.milestonesUrl)
+        mirrorUrl = try container.sdkDecodeIfPresent(.mirrorUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        notificationsUrl = try container.sdkDecodeIfPresent(.notificationsUrl)
+        openIssues = try container.sdkDecodeIfPresent(.openIssues)
+        openIssuesCount = try container.sdkDecodeIfPresent(.openIssuesCount)
+        owner = try container.sdkDecodeIfPresent(.owner)
+        self.private = try container.sdkDecodeIfPresent(.private)
+        self.public = try container.sdkDecodeIfPresent(.public)
+        pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
+        pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
     }
 }
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart6(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.releasesUrl = try container.sdkDecodeIfPresent(.releasesUrl)
-        self.size = try container.sdkDecodeIfPresent(.size)
-        self.sshUrl = try container.sdkDecodeIfPresent(.sshUrl)
-        self.stargazersCount = try container.sdkDecodeIfPresent(.stargazersCount)
-        self.stargazersUrl = try container.sdkDecodeIfPresent(.stargazersUrl)
-        self.statusesUrl = try container.sdkDecodeIfPresent(.statusesUrl)
-        self.subscribersUrl = try container.sdkDecodeIfPresent(.subscribersUrl)
-        self.subscriptionUrl = try container.sdkDecodeIfPresent(.subscriptionUrl)
-        self.svnUrl = try container.sdkDecodeIfPresent(.svnUrl)
-        self.tagsUrl = try container.sdkDecodeIfPresent(.tagsUrl)
-        self.teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
-        self.topics = try container.sdkDecodeIfPresent(.topics)
+        releasesUrl = try container.sdkDecodeIfPresent(.releasesUrl)
+        size = try container.sdkDecodeIfPresent(.size)
+        sshUrl = try container.sdkDecodeIfPresent(.sshUrl)
+        stargazersCount = try container.sdkDecodeIfPresent(.stargazersCount)
+        stargazersUrl = try container.sdkDecodeIfPresent(.stargazersUrl)
+        statusesUrl = try container.sdkDecodeIfPresent(.statusesUrl)
+        subscribersUrl = try container.sdkDecodeIfPresent(.subscribersUrl)
+        subscriptionUrl = try container.sdkDecodeIfPresent(.subscriptionUrl)
+        svnUrl = try container.sdkDecodeIfPresent(.svnUrl)
+        tagsUrl = try container.sdkDecodeIfPresent(.tagsUrl)
+        teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
+        topics = try container.sdkDecodeIfPresent(.topics)
     }
 }
 
 extension WebhookForkForkeeVariant1 {
     mutating func sdkDecodeFieldsPart7(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.treesUrl = try container.sdkDecodeIfPresent(.treesUrl)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.visibility = try container.sdkDecodeIfPresent(.visibility)
-        self.watchers = try container.sdkDecodeIfPresent(.watchers)
-        self.watchersCount = try container.sdkDecodeIfPresent(.watchersCount)
+        treesUrl = try container.sdkDecodeIfPresent(.treesUrl)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        url = try container.sdkDecodeIfPresent(.url)
+        visibility = try container.sdkDecodeIfPresent(.visibility)
+        watchers = try container.sdkDecodeIfPresent(.watchers)
+        watchersCount = try container.sdkDecodeIfPresent(.watchersCount)
     }
 }
 
 /// Optional object value serialized in the `license` wire field.
 public struct WebhookForkForkeeVariant1License: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookForkForkeeVariant1License {
-    public init() {
-    }
+    init() {}
 }
 
 /// Optional object value serialized in the `owner` wire field.
@@ -369,39 +532,58 @@ public struct WebhookForkForkeeVariant1Owner: Codable {
     }
 
     init() {
-        (self.avatarUrl, self.eventsUrl, self.followersUrl, self.followingUrl, self.gistsUrl) = (nil, nil, nil, nil, nil)
-        (self.gravatarId, self.htmlUrl, self.id, self.login, self.nodeId) = (nil, nil, nil, nil, nil)
-        (self.organizationsUrl, self.receivedEventsUrl, self.reposUrl, self.siteAdmin, self.starredUrl) = (nil, nil, nil, nil, nil)
-        (self.subscriptionsUrl, self.type, self.url) = (nil, nil, nil)
+        (avatarUrl, eventsUrl, followersUrl, followingUrl, gistsUrl) = (nil, nil, nil, nil, nil)
+        (gravatarId, htmlUrl, id, login, nodeId) = (nil, nil, nil, nil, nil)
+        (organizationsUrl, receivedEventsUrl, reposUrl, siteAdmin, starredUrl) = (nil, nil, nil, nil, nil)
+        (subscriptionsUrl, type, url) = (nil, nil, nil)
     }
 }
 
 public extension WebhookForkForkeeVariant1Owner {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.login = try container.sdkDecodeIfPresent(.login)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
+        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        id = try container.sdkDecodeIfPresent(.id)
+        login = try container.sdkDecodeIfPresent(.login)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
     }
 }
 
 public extension WebhookForkForkeeVariant1Owner {
-    public init(avatarUrl: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, id: Int? = nil, login: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: String? = nil, url: String? = nil) {
+    init(
+        avatarUrl: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        id: Int? = nil,
+        login: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: String? = nil,
+        url: String? = nil
+    ) {
         self.init()
         (self.avatarUrl, self.eventsUrl) = (avatarUrl, eventsUrl)
         (self.followersUrl, self.followingUrl) = (followersUrl, followingUrl)

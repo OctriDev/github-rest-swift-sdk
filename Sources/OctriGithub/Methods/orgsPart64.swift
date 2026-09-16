@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Lists historical versions of an organization ruleset. Use `org` and `ruleset_id` to identify the ruleset, and use `page` and `per_page` to paginate the results.
+public extension OrgsMethods {
+    /// Lists historical versions of an organization ruleset. Use `org` and `ruleset_id` to identify the ruleset, and
+    /// use `page` and `per_page` to paginate the results.
     ///
     /// Get the history of an organization ruleset.
     ///
@@ -22,10 +23,29 @@ extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsGetOrgRulesetHistory(config: ClientConfig, org: String, rulesetId: Int, perPage: Int?, page: Int?) async throws -> [RulesetVersion] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId)), "/history"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "orgsGetOrgRulesetHistory")).data
+    static func orgsGetOrgRulesetHistory(
+        config: ClientConfig,
+        org: String,
+        rulesetId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [RulesetVersion] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/rulesets/",
+                sdkEncodePathSegment(sdkWireString(rulesetId)),
+                "/history",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "orgsGetOrgRulesetHistory"
+        )).data
     }
 }

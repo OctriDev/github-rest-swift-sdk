@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Shared domain models
+/// Shared domain models
 public typealias SecretScanningPushProtectionBypassPlaceholderId = String
 
 /// The permissions granted to the fine-grained access token.
@@ -138,7 +138,8 @@ public struct AppPermissions: Codable {
     public var starring: AppPermissionsStarring? = .none
     /// The level of permission to grant the access token for organization custom properties management at the
     /// enterprise level.
-    public var enterpriseCustomPropertiesForOrganizations: AppPermissionsEnterpriseCustomPropertiesForOrganizations? = .none
+    public var enterpriseCustomPropertiesForOrganizations: AppPermissionsEnterpriseCustomPropertiesForOrganizations? =
+        .none
 
     init(sdkDefaults _: Void) {}
 }
@@ -204,7 +205,7 @@ extension AppPermissions {
 }
 
 public extension AppPermissions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(sdkDefaults: ())
         try sdkDecodeFieldsPart1(container)
@@ -216,7 +217,63 @@ public extension AppPermissions {
 }
 
 public extension AppPermissions {
-    public init(actions: AppPermissionsActions? = nil, administration: AppPermissionsAdministration? = nil, artifactMetadata: AppPermissionsArtifactMetadata? = nil, attestations: AppPermissionsAttestations? = nil, checks: AppPermissionsChecks? = nil, codeQuality: AppPermissionsCodeQuality? = nil, codespaces: AppPermissionsCodespaces? = nil, contents: AppPermissionsContents? = nil, dependabotSecrets: AppPermissionsDependabotSecrets? = nil, deployments: AppPermissionsDeployments? = nil, discussions: AppPermissionsDiscussions? = nil, environments: AppPermissionsEnvironments? = nil, issues: AppPermissionsIssues? = nil, mergeQueues: AppPermissionsMergeQueues? = nil, metadata: AppPermissionsMetadata? = nil, packages: AppPermissionsPackages? = nil, pages: AppPermissionsPages? = nil, pullRequests: AppPermissionsPullRequests? = nil, repositoryCustomProperties: AppPermissionsRepositoryCustomProperties? = nil, repositoryHooks: AppPermissionsRepositoryHooks? = nil, repositoryProjects: AppPermissionsRepositoryProjects? = nil, secretScanningAlerts: AppPermissionsSecretScanningAlerts? = nil, secrets: AppPermissionsSecrets? = nil, securityEvents: AppPermissionsSecurityEvents? = nil, singleFile: AppPermissionsSingleFile? = nil, statuses: AppPermissionsStatuses? = nil, vulnerabilityAlerts: AppPermissionsVulnerabilityAlerts? = nil, workflows: AppPermissionsWorkflows? = nil, customPropertiesForOrganizations: AppPermissionsCustomPropertiesForOrganizations? = nil, members: AppPermissionsMembers? = nil, organizationAdministration: AppPermissionsOrganizationAdministration? = nil, organizationCustomRoles: AppPermissionsOrganizationCustomRoles? = nil, organizationCustomOrgRoles: AppPermissionsOrganizationCustomOrgRoles? = nil, organizationCustomProperties: AppPermissionsOrganizationCustomProperties? = nil, organizationCopilotSeatManagement: AppPermissionsOrganizationCopilotSeatManagement? = nil, organizationCopilotAgentSettings: AppPermissionsOrganizationCopilotAgentSettings? = nil, organizationAnnouncementBanners: AppPermissionsOrganizationAnnouncementBanners? = nil, organizationEvents: AppPermissionsOrganizationEvents? = nil, organizationHooks: AppPermissionsOrganizationHooks? = nil, organizationPersonalAccessTokens: AppPermissionsOrganizationPersonalAccessTokens? = nil, organizationPersonalAccessTokenRequests: AppPermissionsOrganizationPersonalAccessTokenRequests? = nil, organizationPlan: AppPermissionsOrganizationPlan? = nil, organizationProjects: AppPermissionsOrganizationProjects? = nil, organizationPackages: AppPermissionsOrganizationPackages? = nil, organizationSecrets: AppPermissionsOrganizationSecrets? = nil, organizationSelfHostedRunners: AppPermissionsOrganizationSelfHostedRunners? = nil, organizationUserBlocking: AppPermissionsOrganizationUserBlocking? = nil, emailAddresses: AppPermissionsEmailAddresses? = nil, followers: AppPermissionsFollowers? = nil, gitSshKeys: AppPermissionsGitSshKeys? = nil, gpgKeys: AppPermissionsGpgKeys? = nil, interactionLimits: AppPermissionsInteractionLimits? = nil, profile: AppPermissionsProfile? = nil, starring: AppPermissionsStarring? = nil, enterpriseCustomPropertiesForOrganizations: AppPermissionsEnterpriseCustomPropertiesForOrganizations? = nil) {
+    init(
+        actions: AppPermissionsActions? = nil,
+        administration: AppPermissionsAdministration? = nil,
+        artifactMetadata: AppPermissionsArtifactMetadata? = nil,
+        attestations: AppPermissionsAttestations? = nil,
+        checks: AppPermissionsChecks? = nil,
+        codeQuality: AppPermissionsCodeQuality? = nil,
+        codespaces: AppPermissionsCodespaces? = nil,
+        contents: AppPermissionsContents? = nil,
+        dependabotSecrets: AppPermissionsDependabotSecrets? = nil,
+        deployments: AppPermissionsDeployments? = nil,
+        discussions: AppPermissionsDiscussions? = nil,
+        environments: AppPermissionsEnvironments? = nil,
+        issues: AppPermissionsIssues? = nil,
+        mergeQueues: AppPermissionsMergeQueues? = nil,
+        metadata: AppPermissionsMetadata? = nil,
+        packages: AppPermissionsPackages? = nil,
+        pages: AppPermissionsPages? = nil,
+        pullRequests: AppPermissionsPullRequests? = nil,
+        repositoryCustomProperties: AppPermissionsRepositoryCustomProperties? = nil,
+        repositoryHooks: AppPermissionsRepositoryHooks? = nil,
+        repositoryProjects: AppPermissionsRepositoryProjects? = nil,
+        secretScanningAlerts: AppPermissionsSecretScanningAlerts? = nil,
+        secrets: AppPermissionsSecrets? = nil,
+        securityEvents: AppPermissionsSecurityEvents? = nil,
+        singleFile: AppPermissionsSingleFile? = nil,
+        statuses: AppPermissionsStatuses? = nil,
+        vulnerabilityAlerts: AppPermissionsVulnerabilityAlerts? = nil,
+        workflows: AppPermissionsWorkflows? = nil,
+        customPropertiesForOrganizations: AppPermissionsCustomPropertiesForOrganizations? = nil,
+        members: AppPermissionsMembers? = nil,
+        organizationAdministration: AppPermissionsOrganizationAdministration? = nil,
+        organizationCustomRoles: AppPermissionsOrganizationCustomRoles? = nil,
+        organizationCustomOrgRoles: AppPermissionsOrganizationCustomOrgRoles? = nil,
+        organizationCustomProperties: AppPermissionsOrganizationCustomProperties? = nil,
+        organizationCopilotSeatManagement: AppPermissionsOrganizationCopilotSeatManagement? = nil,
+        organizationCopilotAgentSettings: AppPermissionsOrganizationCopilotAgentSettings? = nil,
+        organizationAnnouncementBanners: AppPermissionsOrganizationAnnouncementBanners? = nil,
+        organizationEvents: AppPermissionsOrganizationEvents? = nil,
+        organizationHooks: AppPermissionsOrganizationHooks? = nil,
+        organizationPersonalAccessTokens: AppPermissionsOrganizationPersonalAccessTokens? = nil,
+        organizationPersonalAccessTokenRequests: AppPermissionsOrganizationPersonalAccessTokenRequests? = nil,
+        organizationPlan: AppPermissionsOrganizationPlan? = nil,
+        organizationProjects: AppPermissionsOrganizationProjects? = nil,
+        organizationPackages: AppPermissionsOrganizationPackages? = nil,
+        organizationSecrets: AppPermissionsOrganizationSecrets? = nil,
+        organizationSelfHostedRunners: AppPermissionsOrganizationSelfHostedRunners? = nil,
+        organizationUserBlocking: AppPermissionsOrganizationUserBlocking? = nil,
+        emailAddresses: AppPermissionsEmailAddresses? = nil,
+        followers: AppPermissionsFollowers? = nil,
+        gitSshKeys: AppPermissionsGitSshKeys? = nil,
+        gpgKeys: AppPermissionsGpgKeys? = nil,
+        interactionLimits: AppPermissionsInteractionLimits? = nil,
+        profile: AppPermissionsProfile? = nil,
+        starring: AppPermissionsStarring? = nil,
+        enterpriseCustomPropertiesForOrganizations: AppPermissionsEnterpriseCustomPropertiesForOrganizations? = nil
+    ) {
         self.init(sdkDefaults: ())
         sdkSet1(actions, administration, artifactMetadata, attestations, checks)
         sdkSet2(codeQuality, codespaces, contents, dependabotSecrets, deployments)
@@ -235,7 +292,13 @@ public extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet1(_ actions: AppPermissionsActions?, _ administration: AppPermissionsAdministration?, _ artifactMetadata: AppPermissionsArtifactMetadata?, _ attestations: AppPermissionsAttestations?, _ checks: AppPermissionsChecks?) {
+    mutating func sdkSet1(
+        _ actions: AppPermissionsActions?,
+        _ administration: AppPermissionsAdministration?,
+        _ artifactMetadata: AppPermissionsArtifactMetadata?,
+        _ attestations: AppPermissionsAttestations?,
+        _ checks: AppPermissionsChecks?
+    ) {
         self.actions = actions
         self.administration = administration
         self.artifactMetadata = artifactMetadata
@@ -245,7 +308,13 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet2(_ codeQuality: AppPermissionsCodeQuality?, _ codespaces: AppPermissionsCodespaces?, _ contents: AppPermissionsContents?, _ dependabotSecrets: AppPermissionsDependabotSecrets?, _ deployments: AppPermissionsDeployments?) {
+    mutating func sdkSet2(
+        _ codeQuality: AppPermissionsCodeQuality?,
+        _ codespaces: AppPermissionsCodespaces?,
+        _ contents: AppPermissionsContents?,
+        _ dependabotSecrets: AppPermissionsDependabotSecrets?,
+        _ deployments: AppPermissionsDeployments?
+    ) {
         self.codeQuality = codeQuality
         self.codespaces = codespaces
         self.contents = contents
@@ -255,7 +324,13 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet3(_ discussions: AppPermissionsDiscussions?, _ environments: AppPermissionsEnvironments?, _ issues: AppPermissionsIssues?, _ mergeQueues: AppPermissionsMergeQueues?, _ metadata: AppPermissionsMetadata?) {
+    mutating func sdkSet3(
+        _ discussions: AppPermissionsDiscussions?,
+        _ environments: AppPermissionsEnvironments?,
+        _ issues: AppPermissionsIssues?,
+        _ mergeQueues: AppPermissionsMergeQueues?,
+        _ metadata: AppPermissionsMetadata?
+    ) {
         self.discussions = discussions
         self.environments = environments
         self.issues = issues
@@ -265,7 +340,13 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet4(_ packages: AppPermissionsPackages?, _ pages: AppPermissionsPages?, _ pullRequests: AppPermissionsPullRequests?, _ repositoryCustomProperties: AppPermissionsRepositoryCustomProperties?, _ repositoryHooks: AppPermissionsRepositoryHooks?) {
+    mutating func sdkSet4(
+        _ packages: AppPermissionsPackages?,
+        _ pages: AppPermissionsPages?,
+        _ pullRequests: AppPermissionsPullRequests?,
+        _ repositoryCustomProperties: AppPermissionsRepositoryCustomProperties?,
+        _ repositoryHooks: AppPermissionsRepositoryHooks?
+    ) {
         self.packages = packages
         self.pages = pages
         self.pullRequests = pullRequests
@@ -275,7 +356,13 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet5(_ repositoryProjects: AppPermissionsRepositoryProjects?, _ secretScanningAlerts: AppPermissionsSecretScanningAlerts?, _ secrets: AppPermissionsSecrets?, _ securityEvents: AppPermissionsSecurityEvents?, _ singleFile: AppPermissionsSingleFile?) {
+    mutating func sdkSet5(
+        _ repositoryProjects: AppPermissionsRepositoryProjects?,
+        _ secretScanningAlerts: AppPermissionsSecretScanningAlerts?,
+        _ secrets: AppPermissionsSecrets?,
+        _ securityEvents: AppPermissionsSecurityEvents?,
+        _ singleFile: AppPermissionsSingleFile?
+    ) {
         self.repositoryProjects = repositoryProjects
         self.secretScanningAlerts = secretScanningAlerts
         self.secrets = secrets
@@ -285,7 +372,13 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet6(_ statuses: AppPermissionsStatuses?, _ vulnerabilityAlerts: AppPermissionsVulnerabilityAlerts?, _ workflows: AppPermissionsWorkflows?, _ customPropertiesForOrganizations: AppPermissionsCustomPropertiesForOrganizations?, _ members: AppPermissionsMembers?) {
+    mutating func sdkSet6(
+        _ statuses: AppPermissionsStatuses?,
+        _ vulnerabilityAlerts: AppPermissionsVulnerabilityAlerts?,
+        _ workflows: AppPermissionsWorkflows?,
+        _ customPropertiesForOrganizations: AppPermissionsCustomPropertiesForOrganizations?,
+        _ members: AppPermissionsMembers?
+    ) {
         self.statuses = statuses
         self.vulnerabilityAlerts = vulnerabilityAlerts
         self.workflows = workflows
@@ -295,7 +388,11 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet7(_ organizationAdministration: AppPermissionsOrganizationAdministration?, _ organizationCustomRoles: AppPermissionsOrganizationCustomRoles?, _ organizationCustomOrgRoles: AppPermissionsOrganizationCustomOrgRoles?) {
+    mutating func sdkSet7(
+        _ organizationAdministration: AppPermissionsOrganizationAdministration?,
+        _ organizationCustomRoles: AppPermissionsOrganizationCustomRoles?,
+        _ organizationCustomOrgRoles: AppPermissionsOrganizationCustomOrgRoles?
+    ) {
         self.organizationAdministration = organizationAdministration
         self.organizationCustomRoles = organizationCustomRoles
         self.organizationCustomOrgRoles = organizationCustomOrgRoles
@@ -303,7 +400,11 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet8(_ organizationCustomProperties: AppPermissionsOrganizationCustomProperties?, _ organizationCopilotSeatManagement: AppPermissionsOrganizationCopilotSeatManagement?, _ organizationCopilotAgentSettings: AppPermissionsOrganizationCopilotAgentSettings?) {
+    mutating func sdkSet8(
+        _ organizationCustomProperties: AppPermissionsOrganizationCustomProperties?,
+        _ organizationCopilotSeatManagement: AppPermissionsOrganizationCopilotSeatManagement?,
+        _ organizationCopilotAgentSettings: AppPermissionsOrganizationCopilotAgentSettings?
+    ) {
         self.organizationCustomProperties = organizationCustomProperties
         self.organizationCopilotSeatManagement = organizationCopilotSeatManagement
         self.organizationCopilotAgentSettings = organizationCopilotAgentSettings
@@ -311,7 +412,11 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet9(_ organizationAnnouncementBanners: AppPermissionsOrganizationAnnouncementBanners?, _ organizationEvents: AppPermissionsOrganizationEvents?, _ organizationHooks: AppPermissionsOrganizationHooks?) {
+    mutating func sdkSet9(
+        _ organizationAnnouncementBanners: AppPermissionsOrganizationAnnouncementBanners?,
+        _ organizationEvents: AppPermissionsOrganizationEvents?,
+        _ organizationHooks: AppPermissionsOrganizationHooks?
+    ) {
         self.organizationAnnouncementBanners = organizationAnnouncementBanners
         self.organizationEvents = organizationEvents
         self.organizationHooks = organizationHooks
@@ -319,7 +424,11 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet10(_ organizationPersonalAccessTokens: AppPermissionsOrganizationPersonalAccessTokens?, _ organizationPersonalAccessTokenRequests: AppPermissionsOrganizationPersonalAccessTokenRequests?, _ organizationPlan: AppPermissionsOrganizationPlan?) {
+    mutating func sdkSet10(
+        _ organizationPersonalAccessTokens: AppPermissionsOrganizationPersonalAccessTokens?,
+        _ organizationPersonalAccessTokenRequests: AppPermissionsOrganizationPersonalAccessTokenRequests?,
+        _ organizationPlan: AppPermissionsOrganizationPlan?
+    ) {
         self.organizationPersonalAccessTokens = organizationPersonalAccessTokens
         self.organizationPersonalAccessTokenRequests = organizationPersonalAccessTokenRequests
         self.organizationPlan = organizationPlan
@@ -327,7 +436,12 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet11(_ organizationProjects: AppPermissionsOrganizationProjects?, _ organizationPackages: AppPermissionsOrganizationPackages?, _ organizationSecrets: AppPermissionsOrganizationSecrets?, _ organizationSelfHostedRunners: AppPermissionsOrganizationSelfHostedRunners?) {
+    mutating func sdkSet11(
+        _ organizationProjects: AppPermissionsOrganizationProjects?,
+        _ organizationPackages: AppPermissionsOrganizationPackages?,
+        _ organizationSecrets: AppPermissionsOrganizationSecrets?,
+        _ organizationSelfHostedRunners: AppPermissionsOrganizationSelfHostedRunners?
+    ) {
         self.organizationProjects = organizationProjects
         self.organizationPackages = organizationPackages
         self.organizationSecrets = organizationSecrets
@@ -336,7 +450,13 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet12(_ organizationUserBlocking: AppPermissionsOrganizationUserBlocking?, _ emailAddresses: AppPermissionsEmailAddresses?, _ followers: AppPermissionsFollowers?, _ gitSshKeys: AppPermissionsGitSshKeys?, _ gpgKeys: AppPermissionsGpgKeys?) {
+    mutating func sdkSet12(
+        _ organizationUserBlocking: AppPermissionsOrganizationUserBlocking?,
+        _ emailAddresses: AppPermissionsEmailAddresses?,
+        _ followers: AppPermissionsFollowers?,
+        _ gitSshKeys: AppPermissionsGitSshKeys?,
+        _ gpgKeys: AppPermissionsGpgKeys?
+    ) {
         self.organizationUserBlocking = organizationUserBlocking
         self.emailAddresses = emailAddresses
         self.followers = followers
@@ -346,7 +466,12 @@ extension AppPermissions {
 }
 
 extension AppPermissions {
-    mutating func sdkSet13(_ interactionLimits: AppPermissionsInteractionLimits?, _ profile: AppPermissionsProfile?, _ starring: AppPermissionsStarring?, _ enterpriseCustomPropertiesForOrganizations: AppPermissionsEnterpriseCustomPropertiesForOrganizations?) {
+    mutating func sdkSet13(
+        _ interactionLimits: AppPermissionsInteractionLimits?,
+        _ profile: AppPermissionsProfile?,
+        _ starring: AppPermissionsStarring?,
+        _ enterpriseCustomPropertiesForOrganizations: AppPermissionsEnterpriseCustomPropertiesForOrganizations?
+    ) {
         self.interactionLimits = interactionLimits
         self.profile = profile
         self.starring = starring
@@ -356,81 +481,83 @@ extension AppPermissions {
 
 extension AppPermissions {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.actions = try container.sdkDecodeIfPresent(.actions)
-        self.administration = try container.sdkDecodeIfPresent(.administration)
-        self.artifactMetadata = try container.sdkDecodeIfPresent(.artifactMetadata)
-        self.attestations = try container.sdkDecodeIfPresent(.attestations)
-        self.checks = try container.sdkDecodeIfPresent(.checks)
-        self.codeQuality = try container.sdkDecodeIfPresent(.codeQuality)
-        self.codespaces = try container.sdkDecodeIfPresent(.codespaces)
-        self.contents = try container.sdkDecodeIfPresent(.contents)
-        self.dependabotSecrets = try container.sdkDecodeIfPresent(.dependabotSecrets)
-        self.deployments = try container.sdkDecodeIfPresent(.deployments)
-        self.discussions = try container.sdkDecodeIfPresent(.discussions)
-        self.environments = try container.sdkDecodeIfPresent(.environments)
+        actions = try container.sdkDecodeIfPresent(.actions)
+        administration = try container.sdkDecodeIfPresent(.administration)
+        artifactMetadata = try container.sdkDecodeIfPresent(.artifactMetadata)
+        attestations = try container.sdkDecodeIfPresent(.attestations)
+        checks = try container.sdkDecodeIfPresent(.checks)
+        codeQuality = try container.sdkDecodeIfPresent(.codeQuality)
+        codespaces = try container.sdkDecodeIfPresent(.codespaces)
+        contents = try container.sdkDecodeIfPresent(.contents)
+        dependabotSecrets = try container.sdkDecodeIfPresent(.dependabotSecrets)
+        deployments = try container.sdkDecodeIfPresent(.deployments)
+        discussions = try container.sdkDecodeIfPresent(.discussions)
+        environments = try container.sdkDecodeIfPresent(.environments)
     }
 }
 
 extension AppPermissions {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.issues = try container.sdkDecodeIfPresent(.issues)
-        self.mergeQueues = try container.sdkDecodeIfPresent(.mergeQueues)
-        self.metadata = try container.sdkDecodeIfPresent(.metadata)
-        self.packages = try container.sdkDecodeIfPresent(.packages)
-        self.pages = try container.sdkDecodeIfPresent(.pages)
-        self.pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
-        self.repositoryCustomProperties = try container.sdkDecodeIfPresent(.repositoryCustomProperties)
-        self.repositoryHooks = try container.sdkDecodeIfPresent(.repositoryHooks)
-        self.repositoryProjects = try container.sdkDecodeIfPresent(.repositoryProjects)
-        self.secretScanningAlerts = try container.sdkDecodeIfPresent(.secretScanningAlerts)
-        self.secrets = try container.sdkDecodeIfPresent(.secrets)
-        self.securityEvents = try container.sdkDecodeIfPresent(.securityEvents)
+        issues = try container.sdkDecodeIfPresent(.issues)
+        mergeQueues = try container.sdkDecodeIfPresent(.mergeQueues)
+        metadata = try container.sdkDecodeIfPresent(.metadata)
+        packages = try container.sdkDecodeIfPresent(.packages)
+        pages = try container.sdkDecodeIfPresent(.pages)
+        pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
+        repositoryCustomProperties = try container.sdkDecodeIfPresent(.repositoryCustomProperties)
+        repositoryHooks = try container.sdkDecodeIfPresent(.repositoryHooks)
+        repositoryProjects = try container.sdkDecodeIfPresent(.repositoryProjects)
+        secretScanningAlerts = try container.sdkDecodeIfPresent(.secretScanningAlerts)
+        secrets = try container.sdkDecodeIfPresent(.secrets)
+        securityEvents = try container.sdkDecodeIfPresent(.securityEvents)
     }
 }
 
 extension AppPermissions {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.singleFile = try container.sdkDecodeIfPresent(.singleFile)
-        self.statuses = try container.sdkDecodeIfPresent(.statuses)
-        self.vulnerabilityAlerts = try container.sdkDecodeIfPresent(.vulnerabilityAlerts)
-        self.workflows = try container.sdkDecodeIfPresent(.workflows)
-        self.customPropertiesForOrganizations = try container.sdkDecodeIfPresent(.customPropertiesForOrganizations)
-        self.members = try container.sdkDecodeIfPresent(.members)
-        self.organizationAdministration = try container.sdkDecodeIfPresent(.organizationAdministration)
-        self.organizationCustomRoles = try container.sdkDecodeIfPresent(.organizationCustomRoles)
-        self.organizationCustomOrgRoles = try container.sdkDecodeIfPresent(.organizationCustomOrgRoles)
-        self.organizationCustomProperties = try container.sdkDecodeIfPresent(.organizationCustomProperties)
-        self.organizationCopilotSeatManagement = try container.sdkDecodeIfPresent(.organizationCopilotSeatManagement)
-        self.organizationCopilotAgentSettings = try container.sdkDecodeIfPresent(.organizationCopilotAgentSettings)
+        singleFile = try container.sdkDecodeIfPresent(.singleFile)
+        statuses = try container.sdkDecodeIfPresent(.statuses)
+        vulnerabilityAlerts = try container.sdkDecodeIfPresent(.vulnerabilityAlerts)
+        workflows = try container.sdkDecodeIfPresent(.workflows)
+        customPropertiesForOrganizations = try container.sdkDecodeIfPresent(.customPropertiesForOrganizations)
+        members = try container.sdkDecodeIfPresent(.members)
+        organizationAdministration = try container.sdkDecodeIfPresent(.organizationAdministration)
+        organizationCustomRoles = try container.sdkDecodeIfPresent(.organizationCustomRoles)
+        organizationCustomOrgRoles = try container.sdkDecodeIfPresent(.organizationCustomOrgRoles)
+        organizationCustomProperties = try container.sdkDecodeIfPresent(.organizationCustomProperties)
+        organizationCopilotSeatManagement = try container.sdkDecodeIfPresent(.organizationCopilotSeatManagement)
+        organizationCopilotAgentSettings = try container.sdkDecodeIfPresent(.organizationCopilotAgentSettings)
     }
 }
 
 extension AppPermissions {
     mutating func sdkDecodeFieldsPart4(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.organizationAnnouncementBanners = try container.sdkDecodeIfPresent(.organizationAnnouncementBanners)
-        self.organizationEvents = try container.sdkDecodeIfPresent(.organizationEvents)
-        self.organizationHooks = try container.sdkDecodeIfPresent(.organizationHooks)
-        self.organizationPersonalAccessTokens = try container.sdkDecodeIfPresent(.organizationPersonalAccessTokens)
-        self.organizationPersonalAccessTokenRequests = try container.sdkDecodeIfPresent(.organizationPersonalAccessTokenRequests)
-        self.organizationPlan = try container.sdkDecodeIfPresent(.organizationPlan)
-        self.organizationProjects = try container.sdkDecodeIfPresent(.organizationProjects)
-        self.organizationPackages = try container.sdkDecodeIfPresent(.organizationPackages)
-        self.organizationSecrets = try container.sdkDecodeIfPresent(.organizationSecrets)
-        self.organizationSelfHostedRunners = try container.sdkDecodeIfPresent(.organizationSelfHostedRunners)
-        self.organizationUserBlocking = try container.sdkDecodeIfPresent(.organizationUserBlocking)
-        self.emailAddresses = try container.sdkDecodeIfPresent(.emailAddresses)
+        organizationAnnouncementBanners = try container.sdkDecodeIfPresent(.organizationAnnouncementBanners)
+        organizationEvents = try container.sdkDecodeIfPresent(.organizationEvents)
+        organizationHooks = try container.sdkDecodeIfPresent(.organizationHooks)
+        organizationPersonalAccessTokens = try container.sdkDecodeIfPresent(.organizationPersonalAccessTokens)
+        organizationPersonalAccessTokenRequests = try container
+            .sdkDecodeIfPresent(.organizationPersonalAccessTokenRequests)
+        organizationPlan = try container.sdkDecodeIfPresent(.organizationPlan)
+        organizationProjects = try container.sdkDecodeIfPresent(.organizationProjects)
+        organizationPackages = try container.sdkDecodeIfPresent(.organizationPackages)
+        organizationSecrets = try container.sdkDecodeIfPresent(.organizationSecrets)
+        organizationSelfHostedRunners = try container.sdkDecodeIfPresent(.organizationSelfHostedRunners)
+        organizationUserBlocking = try container.sdkDecodeIfPresent(.organizationUserBlocking)
+        emailAddresses = try container.sdkDecodeIfPresent(.emailAddresses)
     }
 }
 
 extension AppPermissions {
     mutating func sdkDecodeFieldsPart5(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.followers = try container.sdkDecodeIfPresent(.followers)
-        self.gitSshKeys = try container.sdkDecodeIfPresent(.gitSshKeys)
-        self.gpgKeys = try container.sdkDecodeIfPresent(.gpgKeys)
-        self.interactionLimits = try container.sdkDecodeIfPresent(.interactionLimits)
-        self.profile = try container.sdkDecodeIfPresent(.profile)
-        self.starring = try container.sdkDecodeIfPresent(.starring)
-        self.enterpriseCustomPropertiesForOrganizations = try container.sdkDecodeIfPresent(.enterpriseCustomPropertiesForOrganizations)
+        followers = try container.sdkDecodeIfPresent(.followers)
+        gitSshKeys = try container.sdkDecodeIfPresent(.gitSshKeys)
+        gpgKeys = try container.sdkDecodeIfPresent(.gpgKeys)
+        interactionLimits = try container.sdkDecodeIfPresent(.interactionLimits)
+        profile = try container.sdkDecodeIfPresent(.profile)
+        starring = try container.sdkDecodeIfPresent(.starring)
+        enterpriseCustomPropertiesForOrganizations = try container
+            .sdkDecodeIfPresent(.enterpriseCustomPropertiesForOrganizations)
     }
 }
 
@@ -452,5 +579,7 @@ public struct AutoMerge: Codable {
         case commitMessage = "commit_message"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

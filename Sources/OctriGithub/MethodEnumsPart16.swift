@@ -7,10 +7,14 @@ import Foundation
     import FoundationNetworking
 #endif
 /// Default permission level members have for organization repositories.
-public struct OrgsUpdateRequestBodyDefaultRepositoryPermission: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsUpdateRequestBodyDefaultRepositoryPermission: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = OrgsUpdateRequestBodyDefaultRepositoryPermission(rawValue: "read")
     public static let write = OrgsUpdateRequestBodyDefaultRepositoryPermission(rawValue: "write")
     public static let admin = OrgsUpdateRequestBodyDefaultRepositoryPermission(rawValue: "admin")
@@ -18,7 +22,7 @@ public struct OrgsUpdateRequestBodyDefaultRepositoryPermission: RawRepresentable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,17 +36,21 @@ public struct OrgsUpdateRequestBodyDefaultRepositoryPermission: RawRepresentable
 /// closing down and will be removed in the future. Its return value ignores internal repositories. Using this
 /// parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in
 /// the operation description for details.
-public struct OrgsUpdateRequestBodyMembersAllowedRepositoryCreationType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsUpdateRequestBodyMembersAllowedRepositoryCreationType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = OrgsUpdateRequestBodyMembersAllowedRepositoryCreationType(rawValue: "all")
     public static let `private` = OrgsUpdateRequestBodyMembersAllowedRepositoryCreationType(rawValue: "private")
     public static let none = OrgsUpdateRequestBodyMembersAllowedRepositoryCreationType(rawValue: "none")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,17 +60,21 @@ public struct OrgsUpdateRequestBodyMembersAllowedRepositoryCreationType: RawRepr
 }
 
 /// The source of the runner image.
-public struct ActionsCreateHostedRunnerForOrgRequestBodyImageSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsCreateHostedRunnerForOrgRequestBodyImageSource: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let github = ActionsCreateHostedRunnerForOrgRequestBodyImageSource(rawValue: "github")
     public static let partner = ActionsCreateHostedRunnerForOrgRequestBodyImageSource(rawValue: "partner")
     public static let custom = ActionsCreateHostedRunnerForOrgRequestBodyImageSource(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -73,17 +85,21 @@ public struct ActionsCreateHostedRunnerForOrgRequestBodyImageSource: RawRepresen
 
 /// The source type of the runner image to use. Must match the source of the image specified by `image_id`. Can
 /// be one of `github`, `partner`, or `custom`.
-public struct ActionsUpdateHostedRunnerForOrgRequestBodyImageSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsUpdateHostedRunnerForOrgRequestBodyImageSource: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let github = ActionsUpdateHostedRunnerForOrgRequestBodyImageSource(rawValue: "github")
     public static let partner = ActionsUpdateHostedRunnerForOrgRequestBodyImageSource(rawValue: "partner")
     public static let custom = ActionsUpdateHostedRunnerForOrgRequestBodyImageSource(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -93,17 +109,22 @@ public struct ActionsUpdateHostedRunnerForOrgRequestBodyImageSource: RawRepresen
 }
 
 /// The policy that controls whether self-hosted runners can be used in the organization
-public struct ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570(rawValue: "all")
-    public static let selected = ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570(rawValue: "selected")
+    public static let selected =
+        ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570(rawValue: "selected")
     public static let none = ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570(rawValue: "none")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -114,17 +135,21 @@ public struct ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5
 
 /// Visibility of a runner group. You can select all repositories, select individual repositories, or limit
 /// access to private repositories.
-public struct ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let selected = ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility(rawValue: "selected")
     public static let all = ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility(rawValue: "all")
     public static let `private` = ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility(rawValue: "private")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -135,17 +160,21 @@ public struct ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility: Raw
 
 /// Visibility of a runner group. You can select all repositories, select individual repositories, or all
 /// private repositories.
-public struct ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let selected = ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility(rawValue: "selected")
     public static let all = ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility(rawValue: "all")
     public static let `private` = ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility(rawValue: "private")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -156,17 +185,21 @@ public struct ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility: Raw
 
 /// Which type of organization repositories have access to the organization secret. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the secret.
-public struct ActionsCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ActionsCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "all")
     public static let `private` = ActionsCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "private")
     public static let selected = ActionsCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -177,17 +210,21 @@ public struct ActionsCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresenta
 
 /// The type of repositories in the organization that can access the variable. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the variable.
-public struct ActionsCreateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsCreateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ActionsCreateOrgVariableRequestBodyVisibility(rawValue: "all")
     public static let `private` = ActionsCreateOrgVariableRequestBodyVisibility(rawValue: "private")
     public static let selected = ActionsCreateOrgVariableRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -198,17 +235,21 @@ public struct ActionsCreateOrgVariableRequestBodyVisibility: RawRepresentable, H
 
 /// The type of repositories in the organization that can access the variable. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the variable.
-public struct ActionsUpdateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsUpdateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ActionsUpdateOrgVariableRequestBodyVisibility(rawValue: "all")
     public static let `private` = ActionsUpdateOrgVariableRequestBodyVisibility(rawValue: "private")
     public static let selected = ActionsUpdateOrgVariableRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

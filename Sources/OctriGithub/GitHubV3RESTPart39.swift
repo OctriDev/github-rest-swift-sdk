@@ -4,175 +4,299 @@
 import Foundation
 
 public extension UsersNamespace {
-/// Create a GPG key for the authenticated user
+    /// Create a GPG key for the authenticated user
     ///
-    /// Adds a GPG key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `write:gpg_key` scope to use this endpoint.
-    public func createGpgKeyForAuthenticatedUser(armoredPublicKey: String, name: String?) async throws -> GpgKey {
-        return try await UsersMethods.usersCreateGpgKeyForAuthenticatedUser(config: config, armoredPublicKey: armoredPublicKey, name: name)
+    /// Adds a GPG key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic)
+    /// need the `write:gpg_key` scope to use this endpoint.
+    func createGpgKeyForAuthenticatedUser(armoredPublicKey: String, name: String?) async throws -> GpgKey {
+        try await UsersMethods.usersCreateGpgKeyForAuthenticatedUser(
+            config: config,
+            armoredPublicKey: armoredPublicKey,
+            name: name
+        )
     }
 
-/// Get a GPG key for the authenticated user
+    /// Get a GPG key for the authenticated user
     ///
-    /// View extended details for a single GPG key. OAuth app tokens and personal access tokens (classic) need the `read:gpg_key` scope to use this endpoint.
-    public func getGpgKeyForAuthenticatedUser(gpgKeyId: Int) async throws -> GpgKey {
-        return try await UsersMethods.usersGetGpgKeyForAuthenticatedUser(config: config, gpgKeyId: gpgKeyId)
+    /// View extended details for a single GPG key. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:gpg_key` scope to use this endpoint.
+    func getGpgKeyForAuthenticatedUser(gpgKeyId: Int) async throws -> GpgKey {
+        try await UsersMethods.usersGetGpgKeyForAuthenticatedUser(config: config, gpgKeyId: gpgKeyId)
     }
 
-/// Delete a GPG key for the authenticated user
+    /// Delete a GPG key for the authenticated user
     ///
-    /// Removes a GPG key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `admin:gpg_key` scope to use this endpoint.
-    public func deleteGpgKeyForAuthenticatedUser(gpgKeyId: Int) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeleteGpgKeyForAuthenticatedUser(config: config, gpgKeyId: gpgKeyId)
+    /// Removes a GPG key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:gpg_key` scope to use this endpoint.
+    func deleteGpgKeyForAuthenticatedUser(gpgKeyId: Int) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeleteGpgKeyForAuthenticatedUser(config: config, gpgKeyId: gpgKeyId)
     }
 
-/// List public SSH keys for the authenticated user
+    /// List public SSH keys for the authenticated user
     ///
-    /// Lists the public SSH keys for the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `read:public_key` scope to use this endpoint.
-    public func listPublicSshKeysForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [Key] {
-        return try await UsersMethods.usersListPublicSshKeysForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    /// Lists the public SSH keys for the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:public_key` scope to use this endpoint.
+    func listPublicSshKeysForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [Key] {
+        try await UsersMethods.usersListPublicSshKeysForAuthenticatedUser(config: config, perPage: perPage, page: page)
     }
 
-/// Create a public SSH key for the authenticated user
+    /// Create a public SSH key for the authenticated user
     ///
-    /// Adds a public SSH key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `write:public_key` scope to use this endpoint.
-    public func createPublicSshKeyForAuthenticatedUser(key: String, title: String?) async throws -> Key {
-        return try await UsersMethods.usersCreatePublicSshKeyForAuthenticatedUser(config: config, key: key, title: title)
+    /// Adds a public SSH key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:public_key` scope to use this endpoint.
+    func createPublicSshKeyForAuthenticatedUser(key: String, title: String?) async throws -> Key {
+        try await UsersMethods.usersCreatePublicSshKeyForAuthenticatedUser(config: config, key: key, title: title)
     }
 
-/// Get a public SSH key for the authenticated user
+    /// Get a public SSH key for the authenticated user
     ///
-    /// View extended details for a single public SSH key. OAuth app tokens and personal access tokens (classic) need the `read:public_key` scope to use this endpoint.
-    public func getPublicSshKeyForAuthenticatedUser(keyId: Int) async throws -> Key {
-        return try await UsersMethods.usersGetPublicSshKeyForAuthenticatedUser(config: config, keyId: keyId)
+    /// View extended details for a single public SSH key. OAuth app tokens and personal access tokens (classic) need
+    /// the `read:public_key` scope to use this endpoint.
+    func getPublicSshKeyForAuthenticatedUser(keyId: Int) async throws -> Key {
+        try await UsersMethods.usersGetPublicSshKeyForAuthenticatedUser(config: config, keyId: keyId)
     }
 
-/// Delete a public SSH key for the authenticated user
+    /// Delete a public SSH key for the authenticated user
     ///
-    /// Removes a public SSH key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `admin:public_key` scope to use this endpoint.
-    public func deletePublicSshKeyForAuthenticatedUser(keyId: Int) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeletePublicSshKeyForAuthenticatedUser(config: config, keyId: keyId)
+    /// Removes a public SSH key from the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:public_key` scope to use this endpoint.
+    func deletePublicSshKeyForAuthenticatedUser(keyId: Int) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeletePublicSshKeyForAuthenticatedUser(config: config, keyId: keyId)
     }
 
-/// List public email addresses for the authenticated user
+    /// List public email addresses for the authenticated user
     ///
-    /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user) endpoint. OAuth app tokens and personal access tokens (classic) need the `user:email` scope to use this endpoint.
-    public func listPublicEmailsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [Email] {
-        return try await UsersMethods.usersListPublicEmailsForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the
+    /// authenticated
+    /// user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user)
+    /// endpoint. OAuth app tokens and personal access tokens (classic) need the `user:email` scope to use this
+    /// endpoint.
+    func listPublicEmailsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [Email] {
+        try await UsersMethods.usersListPublicEmailsForAuthenticatedUser(config: config, perPage: perPage, page: page)
     }
 }
 
 public extension UsersNamespace {
-/// List social accounts for the authenticated user
+    /// List social accounts for the authenticated user
     ///
     /// Lists all of your social accounts.
-    public func listSocialAccountsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [SocialAccount] {
-        return try await UsersMethods.usersListSocialAccountsForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    func listSocialAccountsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [SocialAccount] {
+        try await UsersMethods.usersListSocialAccountsForAuthenticatedUser(config: config, perPage: perPage, page: page)
     }
 
-/// Add social accounts for the authenticated user
+    /// Add social accounts for the authenticated user
     ///
-    /// Add one or more social accounts to the authenticated user's profile. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func addSocialAccountForAuthenticatedUser(accountUrls: [String]) async throws -> [SocialAccount] {
-        return try await UsersMethods.usersAddSocialAccountForAuthenticatedUser(config: config, accountUrls: accountUrls)
+    /// Add one or more social accounts to the authenticated user's profile. OAuth app tokens and personal access tokens
+    /// (classic) need the `user` scope to use this endpoint.
+    func addSocialAccountForAuthenticatedUser(accountUrls: [String]) async throws -> [SocialAccount] {
+        try await UsersMethods.usersAddSocialAccountForAuthenticatedUser(config: config, accountUrls: accountUrls)
     }
 
-/// Delete social accounts for the authenticated user
+    /// Delete social accounts for the authenticated user
     ///
-    /// Deletes one or more social accounts from the authenticated user's profile. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    public func deleteSocialAccountForAuthenticatedUser(accountUrls: [String]) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeleteSocialAccountForAuthenticatedUser(config: config, accountUrls: accountUrls)
+    /// Deletes one or more social accounts from the authenticated user's profile. OAuth app tokens and personal access
+    /// tokens (classic) need the `user` scope to use this endpoint.
+    func deleteSocialAccountForAuthenticatedUser(accountUrls: [String]) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeleteSocialAccountForAuthenticatedUser(config: config, accountUrls: accountUrls)
     }
 
-/// List SSH signing keys for the authenticated user
+    /// List SSH signing keys for the authenticated user
     ///
-    /// Lists the SSH signing keys for the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `read:ssh_signing_key` scope to use this endpoint.
-    public func listSshSigningKeysForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [SshSigningKey] {
-        return try await UsersMethods.usersListSshSigningKeysForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    /// Lists the SSH signing keys for the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:ssh_signing_key` scope to use this endpoint.
+    func listSshSigningKeysForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [SshSigningKey] {
+        try await UsersMethods.usersListSshSigningKeysForAuthenticatedUser(config: config, perPage: perPage, page: page)
     }
 
-/// Create a SSH signing key for the authenticated user
+    /// Create a SSH signing key for the authenticated user
     ///
-    /// Creates an SSH signing key for the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `write:ssh_signing_key` scope to use this endpoint.
-    public func createSshSigningKeyForAuthenticatedUser(key: String, title: String?) async throws -> SshSigningKey {
-        return try await UsersMethods.usersCreateSshSigningKeyForAuthenticatedUser(config: config, key: key, title: title)
+    /// Creates an SSH signing key for the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `write:ssh_signing_key` scope to use this endpoint.
+    func createSshSigningKeyForAuthenticatedUser(key: String, title: String?) async throws -> SshSigningKey {
+        try await UsersMethods.usersCreateSshSigningKeyForAuthenticatedUser(config: config, key: key, title: title)
     }
 
-/// Get an SSH signing key for the authenticated user
+    /// Get an SSH signing key for the authenticated user
     ///
-    /// Gets extended details for an SSH signing key. OAuth app tokens and personal access tokens (classic) need the `read:ssh_signing_key` scope to use this endpoint.
-    public func getSshSigningKeyForAuthenticatedUser(sshSigningKeyId: Int) async throws -> SshSigningKey {
-        return try await UsersMethods.usersGetSshSigningKeyForAuthenticatedUser(config: config, sshSigningKeyId: sshSigningKeyId)
+    /// Gets extended details for an SSH signing key. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:ssh_signing_key` scope to use this endpoint.
+    func getSshSigningKeyForAuthenticatedUser(sshSigningKeyId: Int) async throws -> SshSigningKey {
+        try await UsersMethods.usersGetSshSigningKeyForAuthenticatedUser(
+            config: config,
+            sshSigningKeyId: sshSigningKeyId
+        )
     }
 
-/// Delete an SSH signing key for the authenticated user
+    /// Delete an SSH signing key for the authenticated user
     ///
-    /// Deletes an SSH signing key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `admin:ssh_signing_key` scope to use this endpoint.
-    public func deleteSshSigningKeyForAuthenticatedUser(sshSigningKeyId: Int) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeleteSshSigningKeyForAuthenticatedUser(config: config, sshSigningKeyId: sshSigningKeyId)
+    /// Deletes an SSH signing key from the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:ssh_signing_key` scope to use this endpoint.
+    func deleteSshSigningKeyForAuthenticatedUser(sshSigningKeyId: Int) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeleteSshSigningKeyForAuthenticatedUser(
+            config: config,
+            sshSigningKeyId: sshSigningKeyId
+        )
     }
 
-/// Get a user using their ID
+    /// Get a user using their ID
     ///
-    /// Provides publicly available information about someone with a GitHub account. This method takes their durable user `ID` instead of their `login`, which can change over time. If you are requesting information about an [Enterprise Managed User](https://docs.github.com/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-enterprise-managed-users), or a GitHub App bot that is installed in an organization that uses Enterprise Managed Users, your requests must be authenticated as a user or GitHub App that has access to the organization to view that account's information. If you are not authorized, the request will return a `404 Not Found` status. The `email` key in the following response is the publicly visible email address from your GitHub [profile page](https://github.com/settings/profile). When setting up your profile, you can select a primary email address to be public which provides an email entry for this endpoint. If you do not set a public email address for `email`, then it will have a value of `null`. You only see publicly visible email addresses when authenticated with GitHub. For more information, see [Authentication](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#authentication). The Emails API enables you to list all of your email addresses, and toggle a primary email to be visible publicly. For more information, see [Emails API](https://docs.github.com/rest/users/emails).
-    public func getById(accountId: Int) async throws -> UsersGetByIdResponse {
-        return try await UsersMethods.usersGetById(config: config, accountId: accountId)
+    /// Provides publicly available information about someone with a GitHub account. This method takes their durable
+    /// user `ID` instead of their `login`, which can change over time. If you are requesting information about an
+    /// [Enterprise Managed User](https://docs.github.com/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-enterprise-managed-users),
+    /// or a GitHub App bot that is installed in an organization that uses Enterprise Managed Users, your requests must
+    /// be authenticated as a user or GitHub App that has access to the organization to view that account's information.
+    /// If you are not authorized, the request will return a `404 Not Found` status. The `email` key in the following
+    /// response is the publicly visible email address from your GitHub [profile
+    /// page](https://github.com/settings/profile). When setting up your profile, you can select a primary email address
+    /// to be public which provides an email entry for this endpoint. If you do not set a public email address for
+    /// `email`, then it will have a value of `null`. You only see publicly visible email addresses when authenticated
+    /// with GitHub. For more information, see
+    /// [Authentication](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#authentication). The
+    /// Emails API enables you to list all of your email addresses, and toggle a primary email to be visible publicly.
+    /// For more information, see [Emails API](https://docs.github.com/rest/users/emails).
+    func getById(accountId: Int) async throws -> UsersGetByIdResponse {
+        try await UsersMethods.usersGetById(config: config, accountId: accountId)
     }
 }
 
 public extension UsersNamespace {
-/// List users
+    /// List users
     ///
-    /// Lists all users, in the order that they signed up on GitHub. This list includes personal user accounts and organization accounts. Note: Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL for the next page of users.
-    public func list(since: Int?, perPage: Int?) async throws -> [SimpleUser] {
-        return try await UsersMethods.usersList(config: config, since: since, perPage: perPage)
+    /// Lists all users, in the order that they signed up on GitHub. This list includes personal user accounts and
+    /// organization accounts. Note: Pagination is powered exclusively by the `since` parameter. Use the [Link
+    /// header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL
+    /// for the next page of users.
+    func list(since: Int?, perPage: Int?) async throws -> [SimpleUser] {
+        try await UsersMethods.usersList(config: config, since: since, perPage: perPage)
     }
 
-/// Get a user
+    /// Get a user
     ///
-    /// Provides publicly available information about someone with a GitHub account. If the specified user has a [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), the `followers` and `following` values are `0` unless the request is authenticated as that user. A request authenticated as the specified user returns the actual values even if the token has no OAuth scopes. The `events_url` value is a URI template. Replace `{/privacy}` with `/public` to retrieve only public events. Omit it to retrieve public events and, when authenticated as the user, private events. For more information, see "[List events for the authenticated user](https://docs.github.com/rest/activity/events#list-events-for-the-authenticated-user)." If you are requesting information about an [Enterprise Managed User](https://docs.github.com/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-enterprise-managed-users), or a GitHub App bot that is installed in an organization that uses Enterprise Managed Users, your requests must be authenticated as a user or GitHub App that has access to the organization to view that account's information. If you are not authorized, the request will return a `404 Not Found` status. The `email` key in the following response is the publicly visible email address from your GitHub [profile page](https://github.com/settings/profile). When setting up your profile, you can select a primary email address to be public which provides an email entry for this endpoint. If you do not set a public email address for `email`, then it will have a value of `null`. You only see publicly visible email addresses when authenticated with GitHub. For more information, see [Authentication](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#authentication). The Emails API enables you to list all of your email addresses, and toggle a primary email to be visible publicly. For more information, see…
-    public func getByUsername(username: String) async throws -> UsersGetByUsernameResponse {
-        return try await UsersMethods.usersGetByUsername(config: config, username: username)
+    /// Provides publicly available information about someone with a GitHub account. If the specified user has a
+    /// [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), the
+    /// `followers` and `following` values are `0` unless the request is authenticated as that user. A request
+    /// authenticated as the specified user returns the actual values even if the token has no OAuth scopes. The
+    /// `events_url` value is a URI template. Replace `{/privacy}` with `/public` to retrieve only public events. Omit
+    /// it to retrieve public events and, when authenticated as the user, private events. For more information, see
+    /// "[List events for the authenticated
+    /// user](https://docs.github.com/rest/activity/events#list-events-for-the-authenticated-user)." If you are
+    /// requesting information about an [Enterprise Managed User](https://docs.github.com/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-enterprise-managed-users),
+    /// or a GitHub App bot that is installed in an organization that uses Enterprise Managed Users, your requests must
+    /// be authenticated as a user or GitHub App that has access to the organization to view that account's information.
+    /// If you are not authorized, the request will return a `404 Not Found` status. The `email` key in the following
+    /// response is the publicly visible email address from your GitHub [profile
+    /// page](https://github.com/settings/profile). When setting up your profile, you can select a primary email address
+    /// to be public which provides an email entry for this endpoint. If you do not set a public email address for
+    /// `email`, then it will have a value of `null`. You only see publicly visible email addresses when authenticated
+    /// with GitHub. For more information, see
+    /// [Authentication](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#authentication). The
+    /// Emails API enables you to list all of your email addresses, and toggle a primary email to be visible publicly.
+    /// For more information, see…
+    func getByUsername(username: String) async throws -> UsersGetByUsernameResponse {
+        try await UsersMethods.usersGetByUsername(config: config, username: username)
     }
 
-/// List attestations by bulk subject digests
+    /// List attestations by bulk subject digests
     ///
-    /// List a collection of artifact attestations associated with any entry in a list of subject digests owned by a user. The collection of attestations returned by this endpoint is filtered according to the authenticated user's permissions; if the authenticated user cannot read a repository, the attestations associated with that repository will not be included in the response. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
-    public func listAttestationsBulk(username: String, subjectDigests: [String], perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> UsersListAttestationsBulkResponse {
-        return try await UsersMethods.usersListAttestationsBulk(config: config, username: username, subjectDigests: subjectDigests, perPage: perPage, before: before, after: after, predicateType: predicateType)
+    /// List a collection of artifact attestations associated with any entry in a list of subject digests owned by a
+    /// user. The collection of attestations returned by this endpoint is filtered according to the authenticated user's
+    /// permissions; if the authenticated user cannot read a repository, the attestations associated with that
+    /// repository will not be included in the response. In addition, when using a fine-grained access token the
+    /// `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an
+    /// attestation's signature and timestamps **must** be cryptographically verified, and the identity of the
+    /// attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation
+    /// verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on
+    /// how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    func listAttestationsBulk(
+        username: String,
+        subjectDigests: [String],
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        predicateType: String?
+    ) async throws -> UsersListAttestationsBulkResponse {
+        try await UsersMethods.usersListAttestationsBulk(
+            config: config,
+            username: username,
+            subjectDigests: subjectDigests,
+            perPage: perPage,
+            before: before,
+            after: after,
+            predicateType: predicateType
+        )
     }
 
-/// Delete attestations in bulk
+    /// Delete attestations in bulk
     ///
     /// Delete artifact attestations in bulk by either subject digests or unique ID.
-    public func deleteAttestationsBulk(username: String, body: [String: JSONValue]) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeleteAttestationsBulk(config: config, username: username, body: body)
+    func deleteAttestationsBulk(username: String, body: [String: JSONValue]) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeleteAttestationsBulk(config: config, username: username, body: body)
     }
 
-/// Delete attestations by subject digest
+    /// Delete attestations by subject digest
     ///
     /// Delete an artifact attestation by subject digest.
-    public func deleteAttestationsBySubjectDigest(username: String, subjectDigest: String) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeleteAttestationsBySubjectDigest(config: config, username: username, subjectDigest: subjectDigest)
+    func deleteAttestationsBySubjectDigest(username: String, subjectDigest: String) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeleteAttestationsBySubjectDigest(
+            config: config,
+            username: username,
+            subjectDigest: subjectDigest
+        )
     }
 
-/// Delete attestations by ID
+    /// Delete attestations by ID
     ///
     /// Delete an artifact attestation by unique ID that is associated with a repository owned by a user.
-    public func deleteAttestationsById(username: String, attestationId: Int) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersDeleteAttestationsById(config: config, username: username, attestationId: attestationId)
+    func deleteAttestationsById(username: String, attestationId: Int) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersDeleteAttestationsById(
+            config: config,
+            username: username,
+            attestationId: attestationId
+        )
     }
 
-/// List attestations
+    /// List attestations
     ///
-    /// List a collection of artifact attestations with a given subject digest that are associated with repositories owned by a user. The collection of attestations returned by this endpoint is filtered according to the authenticated user's permissions; if the authenticated user cannot read a repository, the attestations associated with that repository will not be included in the response. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
-    public func listAttestations(username: String, subjectDigest: String, perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> UsersListAttestationsResponse {
-        return try await UsersMethods.usersListAttestations(config: config, username: username, subjectDigest: subjectDigest, perPage: perPage, before: before, after: after, predicateType: predicateType)
+    /// List a collection of artifact attestations with a given subject digest that are associated with repositories
+    /// owned by a user. The collection of attestations returned by this endpoint is filtered according to the
+    /// authenticated user's permissions; if the authenticated user cannot read a repository, the attestations
+    /// associated with that repository will not be included in the response. In addition, when using a fine-grained
+    /// access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful
+    /// security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the
+    /// identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI
+    /// `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see
+    /// [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    func listAttestations(
+        username: String,
+        subjectDigest: String,
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        predicateType: String?
+    ) async throws -> UsersListAttestationsResponse {
+        try await UsersMethods.usersListAttestations(
+            config: config,
+            username: username,
+            subjectDigest: subjectDigest,
+            perPage: perPage,
+            before: before,
+            after: after,
+            predicateType: predicateType
+        )
     }
 
-/// List followers of a user
+    /// List followers of a user
     ///
-    /// Lists the people following the specified user. If the specified user has a [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint returns an empty list unless the request is authenticated as that user. A request authenticated as the specified user returns the list even if the token has no OAuth scopes.
-    public func listFollowersForUser(username: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try await UsersMethods.usersListFollowersForUser(config: config, username: username, perPage: perPage, page: page)
+    /// Lists the people following the specified user. If the specified user has a [private
+    /// profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint
+    /// returns an empty list unless the request is authenticated as that user. A request authenticated as the specified
+    /// user returns the list even if the token has no OAuth scopes.
+    func listFollowersForUser(username: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        try await UsersMethods.usersListFollowersForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 }

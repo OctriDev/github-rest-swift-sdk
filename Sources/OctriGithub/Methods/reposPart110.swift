@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Configures a GitHub Pages site. For more information, see "About GitHub Pages." The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ReposMethods {
+    /// Configures a GitHub Pages site. For more information, see "About GitHub Pages." The authenticated user must be a
+    /// repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens
+    /// and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,9 +19,28 @@ extension ReposMethods {
     /// - buildType: The process in which the Page will be built. Possible values
     ///   are `"legacy"` and `"workflow"`.
     /// - source: The source branch and directory used to publish your Pages site.
-    public static func reposCreatePagesSite(config: ClientConfig, owner: String, repo: String, buildType: ReposCreatePagesSiteRequestBodyBuildType?, source: ReposCreatePagesSiteRequestBodySource?) async throws -> Page {
+    static func reposCreatePagesSite(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        buildType: ReposCreatePagesSiteRequestBodyBuildType?,
+        source: ReposCreatePagesSiteRequestBodySource?
+    ) async throws -> Page {
         let requestBody = ReposCreatePagesSiteRequestBody(buildType: buildType, source: source)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreatePagesSite")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pages",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreatePagesSite"
+        )).data
     }
 }

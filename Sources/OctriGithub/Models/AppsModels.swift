@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Apps domain models
+/// Apps domain models
 /// The authorization for an OAuth app, GitHub App, or a Personal Access Token.
 public struct Authorization: Codable {
     /// Required `int64`-formatted value serialized in the `id` wire field.
@@ -55,41 +55,59 @@ public struct Authorization: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension Authorization {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.scopes = try container.sdkDecodeIfPresent(.scopes)
-        self.token = try container.sdkDecodeRequired(.token)
-        self.tokenLastEight = try container.sdkDecodeIfPresent(.tokenLastEight)
-        self.hashedToken = try container.sdkDecodeIfPresent(.hashedToken)
-        self.app = try container.sdkDecodeRequired(.app)
-        self.note = try container.sdkDecodeIfPresent(.note)
-        self.noteUrl = try container.sdkDecodeIfPresent(.noteUrl)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.fingerprint = try container.sdkDecodeIfPresent(.fingerprint)
-        self.expiresAt = try container.sdkDecodeIfPresent(.expiresAt)
-        self.user = try container.sdkDecodeIfPresent(.user)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-            try sdkValidateUri("url", self.url)
-        if let value = self.noteUrl {
+        id = try container.sdkDecodeRequired(.id)
+        url = try container.sdkDecodeRequired(.url)
+        scopes = try container.sdkDecodeIfPresent(.scopes)
+        token = try container.sdkDecodeRequired(.token)
+        tokenLastEight = try container.sdkDecodeIfPresent(.tokenLastEight)
+        hashedToken = try container.sdkDecodeIfPresent(.hashedToken)
+        app = try container.sdkDecodeRequired(.app)
+        note = try container.sdkDecodeIfPresent(.note)
+        noteUrl = try container.sdkDecodeIfPresent(.noteUrl)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        fingerprint = try container.sdkDecodeIfPresent(.fingerprint)
+        expiresAt = try container.sdkDecodeIfPresent(.expiresAt)
+        user = try container.sdkDecodeIfPresent(.user)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        try sdkValidateUri("url", url)
+        if let value = noteUrl {
             try sdkValidateUri("note_url", value)
         }
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        if let value = self.expiresAt {
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        if let value = expiresAt {
             try sdkValidateDateTime("expires_at", sdkWireString(value))
         }
     }
 }
 
 public extension Authorization {
-    public init(id: Int, url: String, scopes: [String]?, token: String, tokenLastEight: String?, hashedToken: String?, app: AuthorizationApp, note: String?, noteUrl: String?, updatedAt: Date, createdAt: Date, fingerprint: String?, expiresAt: Date?, user: NullableSimpleUser? = nil, installation: NullableScopedInstallation? = nil) throws {
+    init(
+        id: Int,
+        url: String,
+        scopes: [String]?,
+        token: String,
+        tokenLastEight: String?,
+        hashedToken: String?,
+        app: AuthorizationApp,
+        note: String?,
+        noteUrl: String?,
+        updatedAt: Date,
+        createdAt: Date,
+        fingerprint: String?,
+        expiresAt: Date?,
+        user: NullableSimpleUser? = nil,
+        installation: NullableScopedInstallation? = nil
+    ) throws {
         (self.id, self.url) = (id, url)
         (self.scopes, self.token) = (scopes, token)
         (self.tokenLastEight, self.hashedToken) = (tokenLastEight, hashedToken)
@@ -98,12 +116,12 @@ public extension Authorization {
         (self.createdAt, self.fingerprint) = (createdAt, fingerprint)
         (self.expiresAt, self.user) = (expiresAt, user)
         self.installation = installation
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
         if let value = self.noteUrl {
             try sdkValidateUri("note_url", value)
         }
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
         if let value = self.expiresAt {
             try sdkValidateDateTime("expires_at", sdkWireString(value))
         }
@@ -125,33 +143,47 @@ public struct AuthorizationApp: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension AuthorizationApp {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.clientId) else {
-            throw SdkValidationError(field: "client_id", code: "required", message: "Validation failed for 'client_id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.clientId = try container.sdkDecodeRequired(.clientId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension AuthorizationApp {
-    public init(clientId: String, name: String, url: String) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.clientId) else {
+            throw SdkValidationError(
+                field: "client_id",
+                code: "required",
+                message: "Validation failed for 'client_id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        clientId = try container.sdkDecodeRequired(.clientId)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension AuthorizationApp {
+    init(clientId: String, name: String, url: String) throws {
         (self.clientId, self.name) = (clientId, name)
         self.url = url
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -189,31 +221,50 @@ public struct InstallationToken: Codable {
         case singleFilePaths = "single_file_paths"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension InstallationToken {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.token) else {
-            throw SdkValidationError(field: "token", code: "required", message: "Validation failed for 'token': value is required")
-        }
-        guard container.contains(.expiresAt) else {
-            throw SdkValidationError(field: "expires_at", code: "required", message: "Validation failed for 'expires_at': value is required")
-        }
-        self.token = try container.sdkDecodeRequired(.token)
-        self.expiresAt = try container.sdkDecodeRequired(.expiresAt)
-        self.permissions = try container.sdkDecodeIfPresent(.permissions)
-        self.repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
-        self.repositories = try container.sdkDecodeIfPresent(.repositories)
-        self.singleFile = try container.sdkDecodeIfPresent(.singleFile)
-        self.hasMultipleSingleFiles = try container.sdkDecodeIfPresent(.hasMultipleSingleFiles)
-        self.singleFilePaths = try container.sdkDecodeIfPresent(.singleFilePaths)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension InstallationToken {
-    public init(token: String, expiresAt: String, permissions: AppPermissions? = nil, repositorySelection: InstallationTokenRepositorySelection? = nil, repositories: [Repository]? = nil, singleFile: String? = nil, hasMultipleSingleFiles: Bool? = nil, singleFilePaths: [String]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.token) else {
+            throw SdkValidationError(
+                field: "token",
+                code: "required",
+                message: "Validation failed for 'token': value is required"
+            )
+        }
+        guard container.contains(.expiresAt) else {
+            throw SdkValidationError(
+                field: "expires_at",
+                code: "required",
+                message: "Validation failed for 'expires_at': value is required"
+            )
+        }
+        token = try container.sdkDecodeRequired(.token)
+        expiresAt = try container.sdkDecodeRequired(.expiresAt)
+        permissions = try container.sdkDecodeIfPresent(.permissions)
+        repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
+        repositories = try container.sdkDecodeIfPresent(.repositories)
+        singleFile = try container.sdkDecodeIfPresent(.singleFile)
+        hasMultipleSingleFiles = try container.sdkDecodeIfPresent(.hasMultipleSingleFiles)
+        singleFilePaths = try container.sdkDecodeIfPresent(.singleFilePaths)
+    }
+}
+
+public extension InstallationToken {
+    init(
+        token: String,
+        expiresAt: String,
+        permissions: AppPermissions? = nil,
+        repositorySelection: InstallationTokenRepositorySelection? = nil,
+        repositories: [Repository]? = nil,
+        singleFile: String? = nil,
+        hasMultipleSingleFiles: Bool? = nil,
+        singleFilePaths: [String]? = nil
+    ) {
         (self.token, self.expiresAt) = (token, expiresAt)
         (self.permissions, self.repositorySelection) = (permissions, repositorySelection)
         (self.repositories, self.singleFile) = (repositories, singleFile)
@@ -245,39 +296,63 @@ public struct IntegrationInstallationRequest: Codable {
         case nodeId = "node_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension IntegrationInstallationRequest {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.account) else {
-            throw SdkValidationError(field: "account", code: "required", message: "Validation failed for 'account': value is required")
-        }
-        guard container.contains(.requester) else {
-            throw SdkValidationError(field: "requester", code: "required", message: "Validation failed for 'requester': value is required")
-        }
-        guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.account = try container.sdkDecodeRequired(.account)
-        self.requester = try container.sdkDecodeRequired(.requester)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension IntegrationInstallationRequest {
-    public init(id: Int, account: IntegrationInstallationRequestAccount, requester: SimpleUser, createdAt: Date, nodeId: String? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.account) else {
+            throw SdkValidationError(
+                field: "account",
+                code: "required",
+                message: "Validation failed for 'account': value is required"
+            )
+        }
+        guard container.contains(.requester) else {
+            throw SdkValidationError(
+                field: "requester",
+                code: "required",
+                message: "Validation failed for 'requester': value is required"
+            )
+        }
+        guard container.contains(.createdAt) else {
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        account = try container.sdkDecodeRequired(.account)
+        requester = try container.sdkDecodeRequired(.requester)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+    }
+}
+
+public extension IntegrationInstallationRequest {
+    init(
+        id: Int,
+        account: IntegrationInstallationRequestAccount,
+        requester: SimpleUser,
+        createdAt: Date,
+        nodeId: String? = nil
+    ) throws {
         (self.id, self.account) = (id, account)
         (self.requester, self.createdAt) = (requester, createdAt)
         self.nodeId = nodeId
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
@@ -287,21 +362,31 @@ public enum IntegrationInstallationRequestAccount {
 }
 
 extension IntegrationInstallationRequestAccount: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for IntegrationInstallationRequestAccount")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for IntegrationInstallationRequestAccount"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(SimpleUser.self) { return .simpleUser(value) }
-        if let value = try? container.decode(Enterprise.self) { return .enterprise(value) }
+        if let value = try? container.decode(SimpleUser.self) {
+            return .simpleUser(value)
+        }
+        if let value = try? container.decode(Enterprise.self) {
+            return .enterprise(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -311,7 +396,6 @@ extension IntegrationInstallationRequestAccount: Codable {
         case let .enterprise(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Typed representation of the `MarketplaceAccount` API schema.
@@ -341,48 +425,74 @@ public struct MarketplaceAccount: Codable {
         case organizationBillingEmail = "organization_billing_email"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension MarketplaceAccount {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
         }
-        self.url = try container.sdkDecodeRequired(.url)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.organizationBillingEmail = try container.sdkDecodeIfPresent(.organizationBillingEmail)
-            try sdkValidateUri("url", self.url)
-        if let value = self.email {
+        url = try container.sdkDecodeRequired(.url)
+        id = try container.sdkDecodeRequired(.id)
+        type = try container.sdkDecodeRequired(.type)
+        login = try container.sdkDecodeRequired(.login)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        email = try container.sdkDecodeIfPresent(.email)
+        organizationBillingEmail = try container.sdkDecodeIfPresent(.organizationBillingEmail)
+        try sdkValidateUri("url", url)
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.organizationBillingEmail {
+        if let value = organizationBillingEmail {
             try sdkValidateEmail("organization_billing_email", value)
         }
     }
 }
 
 public extension MarketplaceAccount {
-    public init(url: String, id: Int, type: String, login: String, nodeId: String? = nil, email: String? = nil, organizationBillingEmail: String? = nil) throws {
+    init(
+        url: String,
+        id: Int,
+        type: String,
+        login: String,
+        nodeId: String? = nil,
+        email: String? = nil,
+        organizationBillingEmail: String? = nil
+    ) throws {
         (self.url, self.id) = (url, id)
         (self.type, self.login) = (type, login)
         (self.nodeId, self.email) = (nodeId, email)
         self.organizationBillingEmail = organizationBillingEmail
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
         if let value = self.email {
             try sdkValidateEmail("email", value)
         }
@@ -449,32 +559,48 @@ public struct MarketplaceListingPlan: Codable {
         case bullets
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension MarketplaceListingPlan {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.accountsUrl = try container.sdkDecodeRequired(.accountsUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.description = try container.sdkDecodeRequired(.description)
-        self.monthlyPriceInCents = try container.sdkDecodeRequired(.monthlyPriceInCents)
-        self.yearlyPriceInCents = try container.sdkDecodeRequired(.yearlyPriceInCents)
-        self.priceModel = try container.sdkDecodeRequired(.priceModel)
-        self.hasFreeTrial = try container.sdkDecodeRequired(.hasFreeTrial)
-        self.unitName = try container.sdkDecodeIfPresent(.unitName)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.bullets = try container.sdkDecodeRequired(.bullets)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("accounts_url", self.accountsUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension MarketplaceListingPlan {
-    public init(url: String, accountsUrl: String, id: Int, number: Int, name: String, description: String, monthlyPriceInCents: Int, yearlyPriceInCents: Int, priceModel: MarketplaceListingPlanPriceModel, hasFreeTrial: Bool, unitName: String?, state: String, bullets: [String]) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.sdkDecodeRequired(.url)
+        accountsUrl = try container.sdkDecodeRequired(.accountsUrl)
+        id = try container.sdkDecodeRequired(.id)
+        number = try container.sdkDecodeRequired(.number)
+        name = try container.sdkDecodeRequired(.name)
+        description = try container.sdkDecodeRequired(.description)
+        monthlyPriceInCents = try container.sdkDecodeRequired(.monthlyPriceInCents)
+        yearlyPriceInCents = try container.sdkDecodeRequired(.yearlyPriceInCents)
+        priceModel = try container.sdkDecodeRequired(.priceModel)
+        hasFreeTrial = try container.sdkDecodeRequired(.hasFreeTrial)
+        unitName = try container.sdkDecodeIfPresent(.unitName)
+        state = try container.sdkDecodeRequired(.state)
+        bullets = try container.sdkDecodeRequired(.bullets)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("accounts_url", accountsUrl)
+    }
+}
+
+public extension MarketplaceListingPlan {
+    init(
+        url: String,
+        accountsUrl: String,
+        id: Int,
+        number: Int,
+        name: String,
+        description: String,
+        monthlyPriceInCents: Int,
+        yearlyPriceInCents: Int,
+        priceModel: MarketplaceListingPlanPriceModel,
+        hasFreeTrial: Bool,
+        unitName: String?,
+        state: String,
+        bullets: [String]
+    ) throws {
         (self.url, self.accountsUrl) = (url, accountsUrl)
         (self.id, self.number) = (id, number)
         (self.name, self.description) = (name, description)
@@ -482,7 +608,7 @@ public extension MarketplaceListingPlan {
         (self.priceModel, self.hasFreeTrial) = (priceModel, hasFreeTrial)
         (self.unitName, self.state) = (unitName, state)
         self.bullets = bullets
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("accounts_url", self.accountsUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("accounts_url", self.accountsUrl)
     }
 }

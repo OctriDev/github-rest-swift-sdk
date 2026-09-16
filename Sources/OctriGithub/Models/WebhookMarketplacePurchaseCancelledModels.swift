@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookMarketplacePurchaseCancelled domain models
+/// WebhookMarketplacePurchaseCancelled domain models
 /// Typed representation of the `WebhookMarketplacePurchaseCancelled` API schema.
 public struct WebhookMarketplacePurchaseCancelled: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -42,38 +42,66 @@ public struct WebhookMarketplacePurchaseCancelled: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookMarketplacePurchaseCancelled {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.effectiveDate) else {
-            throw SdkValidationError(field: "effective_date", code: "required", message: "Validation failed for 'effective_date': value is required")
-        }
-        guard container.contains(.marketplacePurchase) else {
-            throw SdkValidationError(field: "marketplace_purchase", code: "required", message: "Validation failed for 'marketplace_purchase': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.effectiveDate = try container.sdkDecodeRequired(.effectiveDate)
-        self.marketplacePurchase = try container.sdkDecodeRequired(.marketplacePurchase)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.previousMarketplacePurchase = try container.sdkDecodeIfPresent(.previousMarketplacePurchase)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookMarketplacePurchaseCancelled {
-    public init(action: WebhookMarketplacePurchaseCancelledAction, effectiveDate: String, marketplacePurchase: WebhooksMarketplacePurchase, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, previousMarketplacePurchase: WebhooksPreviousMarketplacePurchase? = nil, repository: RepositoryWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.effectiveDate) else {
+            throw SdkValidationError(
+                field: "effective_date",
+                code: "required",
+                message: "Validation failed for 'effective_date': value is required"
+            )
+        }
+        guard container.contains(.marketplacePurchase) else {
+            throw SdkValidationError(
+                field: "marketplace_purchase",
+                code: "required",
+                message: "Validation failed for 'marketplace_purchase': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        effectiveDate = try container.sdkDecodeRequired(.effectiveDate)
+        marketplacePurchase = try container.sdkDecodeRequired(.marketplacePurchase)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        previousMarketplacePurchase = try container.sdkDecodeIfPresent(.previousMarketplacePurchase)
+        repository = try container.sdkDecodeIfPresent(.repository)
+    }
+}
+
+public extension WebhookMarketplacePurchaseCancelled {
+    init(
+        action: WebhookMarketplacePurchaseCancelledAction,
+        effectiveDate: String,
+        marketplacePurchase: WebhooksMarketplacePurchase,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        previousMarketplacePurchase: WebhooksPreviousMarketplacePurchase? = nil,
+        repository: RepositoryWebhooks? = nil
+    ) {
         (self.action, self.effectiveDate) = (action, effectiveDate)
         (self.marketplacePurchase, self.sender) = (marketplacePurchase, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -83,15 +111,19 @@ public extension WebhookMarketplacePurchaseCancelled {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookMarketplacePurchaseCancelledAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookMarketplacePurchaseCancelledAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let cancelled = WebhookMarketplacePurchaseCancelledAction(rawValue: "cancelled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSponsorshipTierChanged domain models
+/// WebhookSponsorshipTierChanged domain models
 /// Typed representation of the `WebhookSponsorshipTierChanged` API schema.
 public struct WebhookSponsorshipTierChanged: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,37 +39,64 @@ public struct WebhookSponsorshipTierChanged: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookSponsorshipTierChanged {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        guard container.contains(.sponsorship) else {
-            throw SdkValidationError(field: "sponsorship", code: "required", message: "Validation failed for 'sponsorship': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.sponsorship = try container.sdkDecodeRequired(.sponsorship)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookSponsorshipTierChanged {
-    public init(action: WebhookSponsorshipTierChangedAction, changes: WebhooksChanges8, sender: SimpleUser, sponsorship: WebhooksSponsorship, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        guard container.contains(.sponsorship) else {
+            throw SdkValidationError(
+                field: "sponsorship",
+                code: "required",
+                message: "Validation failed for 'sponsorship': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        sender = try container.sdkDecodeRequired(.sender)
+        sponsorship = try container.sdkDecodeRequired(.sponsorship)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+    }
+}
+
+public extension WebhookSponsorshipTierChanged {
+    init(
+        action: WebhookSponsorshipTierChangedAction,
+        changes: WebhooksChanges8,
+        sender: SimpleUser,
+        sponsorship: WebhooksSponsorship,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil
+    ) {
         (self.action, self.changes) = (action, changes)
         (self.sender, self.sponsorship) = (sender, sponsorship)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -81,12 +108,15 @@ public extension WebhookSponsorshipTierChanged {
 public struct WebhookSponsorshipTierChangedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let tierChanged = WebhookSponsorshipTierChangedAction(rawValue: "tier_changed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

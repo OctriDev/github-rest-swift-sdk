@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets a specific job in a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets a specific job in a workflow run. Anyone with read access to the repository can use this endpoint. If the
+    /// repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +17,32 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - jobId: The unique identifier of the job.
-    public static func actionsGetJobForWorkflowRun(config: ClientConfig, owner: String, repo: String, jobId: Int) async throws -> Job {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/jobs/", sdkEncodePathSegment(sdkWireString(jobId))].joined(), config: config, decoder: .json, operationId: "actionsGetJobForWorkflowRun")).data
+    static func actionsGetJobForWorkflowRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        jobId: Int
+    ) async throws -> Job {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/jobs/",
+                sdkEncodePathSegment(sdkWireString(jobId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetJobForWorkflowRun"
+        )).data
     }
 
-    /// Gets a redirect URL to download a plain text file of logs for a workflow job. This link expires after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets a redirect URL to download a plain text file of logs for a workflow job. This link expires after 1 minute.
+    /// Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the
+    /// repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,7 +50,26 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - jobId: The unique identifier of the job.
-    public static func actionsDownloadJobLogsForWorkflowRun(config: ClientConfig, owner: String, repo: String, jobId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/jobs/", sdkEncodePathSegment(sdkWireString(jobId)), "/logs"].joined(), config: config, decoder: .empty, operationId: "actionsDownloadJobLogsForWorkflowRun")).data
+    static func actionsDownloadJobLogsForWorkflowRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        jobId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/jobs/",
+                sdkEncodePathSegment(sdkWireString(jobId)),
+                "/logs",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDownloadJobLogsForWorkflowRun"
+        )).data
     }
 }

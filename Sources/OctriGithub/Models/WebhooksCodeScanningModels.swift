@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhooksCodeScanning domain models
+/// WebhooksCodeScanning domain models
 public typealias WebhooksCodeScanningCommitOid = String
 
 public typealias WebhooksCodeScanningRef = String

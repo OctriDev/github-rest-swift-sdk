@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    public struct PullsListReviewCommentsOptions: Codable {
+public extension PullsMethods {
+    struct PullsListReviewCommentsOptions: Codable {
         public var owner: String
         public var repo: String
         public var pullNumber: Int
@@ -24,7 +24,16 @@ extension PullsMethods {
         }
     }
 
-    /// Lists all review comments for a specified pull request. By default, review comments are in ascending order by ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Lists all review comments for a specified pull request. By default, review comments are in ascending order by
+    /// ID. This endpoint supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -46,17 +55,35 @@ extension PullsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func pullsListReviewComments(config: ClientConfig, options: PullsListReviewCommentsOptions) async throws -> [PullRequestReviewComment] {
+    static func pullsListReviewComments(
+        config: ClientConfig,
+        options: PullsListReviewCommentsOptions
+    ) async throws -> [PullRequestReviewComment] {
         if let since = options.since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(options.pullNumber)), "/comments"].joined(), config: config, query: [
-            SdkQueryParameter("sort", value: options.sort),
-            SdkQueryParameter("direction", value: options.direction),
-            SdkQueryParameter("since", value: options.since),
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("page", value: options.page),
-        ], decoder: .json, operationId: "pullsListReviewComments")).data
+        return try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(options.pullNumber)),
+                "/comments",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("sort", value: options.sort),
+                SdkQueryParameter("direction", value: options.direction),
+                SdkQueryParameter("since", value: options.since),
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("page", value: options.page),
+            ],
+            decoder: .json,
+            operationId: "pullsListReviewComments"
+        )).data
     }
 }

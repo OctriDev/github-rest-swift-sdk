@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Actions domain models
+/// Actions domain models
 /// Required object value serialized in the `steps[]` wire field.
 public struct JobStepsItem: Codable {
     /// The phase of the lifecycle that the job is currently in.
@@ -34,41 +34,66 @@ public struct JobStepsItem: Codable {
         case completedAt = "completed_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension JobStepsItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.status) else {
-            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
+            throw SdkValidationError(
+                field: "status",
+                code: "required",
+                message: "Validation failed for 'status': value is required"
+            )
         }
         guard container.contains(.conclusion) else {
-            throw SdkValidationError(field: "conclusion", code: "required", message: "Validation failed for 'conclusion': value is required")
+            throw SdkValidationError(
+                field: "conclusion",
+                code: "required",
+                message: "Validation failed for 'conclusion': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.number) else {
-            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
+            throw SdkValidationError(
+                field: "number",
+                code: "required",
+                message: "Validation failed for 'number': value is required"
+            )
         }
-        self.status = try container.sdkDecodeRequired(.status)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.startedAt = try container.sdkDecodeIfPresent(.startedAt)
-        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        if let value = self.startedAt {
+        status = try container.sdkDecodeRequired(.status)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        name = try container.sdkDecodeRequired(.name)
+        number = try container.sdkDecodeRequired(.number)
+        startedAt = try container.sdkDecodeIfPresent(.startedAt)
+        completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        if let value = startedAt {
             try sdkValidateDateTime("started_at", sdkWireString(value))
         }
-        if let value = self.completedAt {
+        if let value = completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }
     }
 }
 
 public extension JobStepsItem {
-    public init(status: JobStepsItemStatus, conclusion: String?, name: String, number: Int, startedAt: Date? = nil, completedAt: Date? = nil) throws {
+    init(
+        status: JobStepsItemStatus,
+        conclusion: String?,
+        name: String,
+        number: Int,
+        startedAt: Date? = nil,
+        completedAt: Date? = nil
+    ) throws {
         (self.status, self.conclusion) = (status, conclusion)
         (self.name, self.number) = (name, number)
         (self.startedAt, self.completedAt) = (startedAt, completedAt)
@@ -101,24 +126,35 @@ public struct OidcCustomSubRepo: Codable {
         case subClaimPrefix = "sub_claim_prefix"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension OidcCustomSubRepo {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.useDefault) else {
-            throw SdkValidationError(field: "use_default", code: "required", message: "Validation failed for 'use_default': value is required")
-        }
-        self.useDefault = try container.sdkDecodeRequired(.useDefault)
-        self.includeClaimKeys = try container.sdkDecodeIfPresent(.includeClaimKeys)
-        self.useImmutableSubject = try container.sdkDecodeIfPresent(.useImmutableSubject)
-        self.subClaimPrefix = try container.sdkDecodeIfPresent(.subClaimPrefix)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension OidcCustomSubRepo {
-    public init(useDefault: Bool, includeClaimKeys: [String]? = nil, useImmutableSubject: Bool? = nil, subClaimPrefix: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.useDefault) else {
+            throw SdkValidationError(
+                field: "use_default",
+                code: "required",
+                message: "Validation failed for 'use_default': value is required"
+            )
+        }
+        useDefault = try container.sdkDecodeRequired(.useDefault)
+        includeClaimKeys = try container.sdkDecodeIfPresent(.includeClaimKeys)
+        useImmutableSubject = try container.sdkDecodeIfPresent(.useImmutableSubject)
+        subClaimPrefix = try container.sdkDecodeIfPresent(.subClaimPrefix)
+    }
+}
+
+public extension OidcCustomSubRepo {
+    init(
+        useDefault: Bool,
+        includeClaimKeys: [String]? = nil,
+        useImmutableSubject: Bool? = nil,
+        subClaimPrefix: String? = nil
+    ) {
         (self.useDefault, self.includeClaimKeys) = (useDefault, includeClaimKeys)
         (self.useImmutableSubject, self.subClaimPrefix) = (useImmutableSubject, subClaimPrefix)
     }
@@ -150,40 +186,68 @@ public struct PendingDeployment: Codable {
         case reviewers
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension PendingDeployment {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.environment) else {
-            throw SdkValidationError(field: "environment", code: "required", message: "Validation failed for 'environment': value is required")
+            throw SdkValidationError(
+                field: "environment",
+                code: "required",
+                message: "Validation failed for 'environment': value is required"
+            )
         }
         guard container.contains(.waitTimer) else {
-            throw SdkValidationError(field: "wait_timer", code: "required", message: "Validation failed for 'wait_timer': value is required")
+            throw SdkValidationError(
+                field: "wait_timer",
+                code: "required",
+                message: "Validation failed for 'wait_timer': value is required"
+            )
         }
         guard container.contains(.waitTimerStartedAt) else {
-            throw SdkValidationError(field: "wait_timer_started_at", code: "required", message: "Validation failed for 'wait_timer_started_at': value is required")
+            throw SdkValidationError(
+                field: "wait_timer_started_at",
+                code: "required",
+                message: "Validation failed for 'wait_timer_started_at': value is required"
+            )
         }
         guard container.contains(.currentUserCanApprove) else {
-            throw SdkValidationError(field: "current_user_can_approve", code: "required", message: "Validation failed for 'current_user_can_approve': value is required")
+            throw SdkValidationError(
+                field: "current_user_can_approve",
+                code: "required",
+                message: "Validation failed for 'current_user_can_approve': value is required"
+            )
         }
         guard container.contains(.reviewers) else {
-            throw SdkValidationError(field: "reviewers", code: "required", message: "Validation failed for 'reviewers': value is required")
+            throw SdkValidationError(
+                field: "reviewers",
+                code: "required",
+                message: "Validation failed for 'reviewers': value is required"
+            )
         }
-        self.environment = try container.sdkDecodeRequired(.environment)
-        self.waitTimer = try container.sdkDecodeRequired(.waitTimer)
-        self.waitTimerStartedAt = try container.sdkDecodeIfPresent(.waitTimerStartedAt)
-        self.currentUserCanApprove = try container.sdkDecodeRequired(.currentUserCanApprove)
-        self.reviewers = try container.sdkDecodeRequired(.reviewers)
-        if let value = self.waitTimerStartedAt {
+        environment = try container.sdkDecodeRequired(.environment)
+        waitTimer = try container.sdkDecodeRequired(.waitTimer)
+        waitTimerStartedAt = try container.sdkDecodeIfPresent(.waitTimerStartedAt)
+        currentUserCanApprove = try container.sdkDecodeRequired(.currentUserCanApprove)
+        reviewers = try container.sdkDecodeRequired(.reviewers)
+        if let value = waitTimerStartedAt {
             try sdkValidateDateTime("wait_timer_started_at", sdkWireString(value))
         }
     }
 }
 
 public extension PendingDeployment {
-    public init(environment: PendingDeploymentEnvironment, waitTimer: Int, waitTimerStartedAt: Date?, currentUserCanApprove: Bool, reviewers: [PendingDeploymentReviewersItem]) throws {
+    init(
+        environment: PendingDeploymentEnvironment,
+        waitTimer: Int,
+        waitTimerStartedAt: Date?,
+        currentUserCanApprove: Bool,
+        reviewers: [PendingDeploymentReviewersItem]
+    ) throws {
         (self.environment, self.waitTimer) = (environment, waitTimer)
         (self.waitTimerStartedAt, self.currentUserCanApprove) = (waitTimerStartedAt, currentUserCanApprove)
         self.reviewers = reviewers
@@ -220,23 +284,23 @@ public struct PendingDeploymentEnvironment: Codable {
     }
 
     init() {
-        (self.id, self.nodeId, self.name, self.url, self.htmlUrl) = (nil, nil, nil, nil, nil)
+        (id, nodeId, name, url, htmlUrl) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension PendingDeploymentEnvironment {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        id = try container.sdkDecodeIfPresent(.id)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        name = try container.sdkDecodeIfPresent(.name)
+        url = try container.sdkDecodeIfPresent(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
     }
 }
 
 public extension PendingDeploymentEnvironment {
-    public init(id: Int? = nil, nodeId: String? = nil, name: String? = nil, url: String? = nil, htmlUrl: String? = nil) {
+    init(id: Int? = nil, nodeId: String? = nil, name: String? = nil, url: String? = nil, htmlUrl: String? = nil) {
         self.init()
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.url) = (name, url)
@@ -258,20 +322,20 @@ public struct PendingDeploymentReviewersItem: Codable {
     }
 
     init() {
-        (self.type, self.reviewer) = (nil, nil)
+        (type, reviewer) = (nil, nil)
     }
 }
 
 public extension PendingDeploymentReviewersItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.reviewer = try container.sdkDecodeIfPresent(.reviewer)
+        type = try container.sdkDecodeIfPresent(.type)
+        reviewer = try container.sdkDecodeIfPresent(.reviewer)
     }
 }
 
 public extension PendingDeploymentReviewersItem {
-    public init(type: DeploymentReviewerType? = nil, reviewer: PendingDeploymentReviewersItemReviewer? = nil) {
+    init(type: DeploymentReviewerType? = nil, reviewer: PendingDeploymentReviewersItemReviewer? = nil) {
         self.init()
         (self.type, self.reviewer) = (type, reviewer)
     }
@@ -283,21 +347,31 @@ public enum PendingDeploymentReviewersItemReviewer {
 }
 
 extension PendingDeploymentReviewersItemReviewer: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for PendingDeploymentReviewersItemReviewer")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for PendingDeploymentReviewersItemReviewer"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(SimpleUser.self) { return .simpleUser(value) }
-        if let value = try? container.decode(Team.self) { return .team(value) }
+        if let value = try? container.decode(SimpleUser.self) {
+            return .simpleUser(value)
+        }
+        if let value = try? container.decode(Team.self) {
+            return .team(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -307,7 +381,6 @@ extension PendingDeploymentReviewersItemReviewer: Codable {
         case let .team(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Provides details of Public IP for a GitHub-hosted larger runners
@@ -329,21 +402,21 @@ public struct PublicIp: Codable {
     }
 
     init() {
-        (self.enabled, self.prefix, self.length) = (nil, nil, nil)
+        (enabled, prefix, length) = (nil, nil, nil)
     }
 }
 
 public extension PublicIp {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.enabled = try container.sdkDecodeIfPresent(.enabled)
-        self.prefix = try container.sdkDecodeIfPresent(.prefix)
-        self.length = try container.sdkDecodeIfPresent(.length)
+        enabled = try container.sdkDecodeIfPresent(.enabled)
+        prefix = try container.sdkDecodeIfPresent(.prefix)
+        length = try container.sdkDecodeIfPresent(.length)
     }
 }
 
 public extension PublicIp {
-    public init(enabled: Bool? = nil, prefix: String? = nil, length: Int? = nil) {
+    init(enabled: Bool? = nil, prefix: String? = nil, length: Int? = nil) {
         self.init()
         (self.enabled, self.prefix) = (enabled, prefix)
         self.length = length
@@ -365,26 +438,36 @@ public struct ReferencedWorkflow: Codable {
         case ref
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReferencedWorkflow {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.path) else {
-            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
-        }
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        self.path = try container.sdkDecodeRequired(.path)
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.ref = try container.sdkDecodeIfPresent(.ref)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReferencedWorkflow {
-    public init(path: String, sha: String, ref: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.path) else {
+            throw SdkValidationError(
+                field: "path",
+                code: "required",
+                message: "Validation failed for 'path': value is required"
+            )
+        }
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        path = try container.sdkDecodeRequired(.path)
+        sha = try container.sdkDecodeRequired(.sha)
+        ref = try container.sdkDecodeIfPresent(.ref)
+    }
+}
+
+public extension ReferencedWorkflow {
+    init(path: String, sha: String, ref: String? = nil) {
         (self.path, self.sha) = (path, sha)
         self.ref = ref
     }
@@ -402,22 +485,28 @@ public struct SelfHostedRunnersSettings: Codable {
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension SelfHostedRunnersSettings {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.enabledRepositories) else {
-            throw SdkValidationError(field: "enabled_repositories", code: "required", message: "Validation failed for 'enabled_repositories': value is required")
-        }
-        self.enabledRepositories = try container.sdkDecodeRequired(.enabledRepositories)
-        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension SelfHostedRunnersSettings {
-    public init(enabledRepositories: SelfHostedRunnersSettingsEnabledRepositories, selectedRepositoriesUrl: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.enabledRepositories) else {
+            throw SdkValidationError(
+                field: "enabled_repositories",
+                code: "required",
+                message: "Validation failed for 'enabled_repositories': value is required"
+            )
+        }
+        enabledRepositories = try container.sdkDecodeRequired(.enabledRepositories)
+        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+    }
+}
+
+public extension SelfHostedRunnersSettings {
+    init(enabledRepositories: SelfHostedRunnersSettingsEnabledRepositories, selectedRepositoriesUrl: String? = nil) {
         self.enabledRepositories = enabledRepositories
         self.selectedRepositoriesUrl = selectedRepositoriesUrl
     }
@@ -427,14 +516,17 @@ public extension SelfHostedRunnersSettings {
 public struct EnabledRepositories: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = EnabledRepositories(rawValue: "all")
     public static let none = EnabledRepositories(rawValue: "none")
     public static let selected = EnabledRepositories(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -447,14 +539,17 @@ public struct EnabledRepositories: RawRepresentable, Hashable, Codable, Sendable
 public struct AllowedActions: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = AllowedActions(rawValue: "all")
     public static let localOnly = AllowedActions(rawValue: "local_only")
     public static let selected = AllowedActions(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -467,7 +562,10 @@ public struct AllowedActions: RawRepresentable, Hashable, Codable, Sendable, Sdk
 public struct JobConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let success = JobConclusion(rawValue: "success")
     public static let failure = JobConclusion(rawValue: "failure")
     public static let neutral = JobConclusion(rawValue: "neutral")
@@ -478,7 +576,7 @@ public struct JobConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkW
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -491,14 +589,17 @@ public struct JobConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkW
 public struct EnvironmentApprovalsState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let approved = EnvironmentApprovalsState(rawValue: "approved")
     public static let rejected = EnvironmentApprovalsState(rawValue: "rejected")
     public static let pending = EnvironmentApprovalsState(rawValue: "pending")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -511,7 +612,10 @@ public struct EnvironmentApprovalsState: RawRepresentable, Hashable, Codable, Se
 public struct JobStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let queued = JobStatus(rawValue: "queued")
     public static let inProgress = JobStatus(rawValue: "in_progress")
     public static let completed = JobStatus(rawValue: "completed")
@@ -521,7 +625,7 @@ public struct JobStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireC
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

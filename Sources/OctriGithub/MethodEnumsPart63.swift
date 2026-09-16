@@ -12,8 +12,8 @@ struct InteractionsSetRestrictionsForRepoRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.limit, forKey: SdkCodingKey("limit"))
-        try keyedContainer.encodeIfPresent(self.expiry, forKey: SdkCodingKey("expiry"))
+        try keyedContainer.encode(limit, forKey: SdkCodingKey("limit"))
+        try keyedContainer.encodeIfPresent(expiry, forKey: SdkCodingKey("expiry"))
     }
 }
 
@@ -22,7 +22,7 @@ struct InteractionsSetPullRequestBypassListForRepoRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.users, forKey: SdkCodingKey("users"))
+        try keyedContainer.encode(users, forKey: SdkCodingKey("users"))
     }
 }
 
@@ -31,7 +31,7 @@ struct InteractionsRemovePullRequestBypassListForRepoRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.users, forKey: SdkCodingKey("users"))
+        try keyedContainer.encode(users, forKey: SdkCodingKey("users"))
     }
 }
 
@@ -41,8 +41,8 @@ struct InteractionsUpdatePullRequestCreationCapForRepoRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.enabled, forKey: SdkCodingKey("enabled"))
-        try keyedContainer.encodeIfPresent(self.maxOpenPullRequests, forKey: SdkCodingKey("max_open_pull_requests"))
+        try keyedContainer.encode(enabled, forKey: SdkCodingKey("enabled"))
+        try keyedContainer.encodeIfPresent(maxOpenPullRequests, forKey: SdkCodingKey("max_open_pull_requests"))
     }
 }
 
@@ -52,8 +52,8 @@ struct InteractionsSetRestrictionsForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.limit, forKey: SdkCodingKey("limit"))
-        try keyedContainer.encodeIfPresent(self.expiry, forKey: SdkCodingKey("expiry"))
+        try keyedContainer.encode(limit, forKey: SdkCodingKey("limit"))
+        try keyedContainer.encodeIfPresent(expiry, forKey: SdkCodingKey("expiry"))
     }
 }
 
@@ -70,27 +70,27 @@ struct MigrationsStartForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.repositories, forKey: SdkCodingKey("repositories"))
-        try keyedContainer.encodeIfPresent(self.lockRepositories, forKey: SdkCodingKey("lock_repositories"))
-        try keyedContainer.encodeIfPresent(self.excludeMetadata, forKey: SdkCodingKey("exclude_metadata"))
-        try keyedContainer.encodeIfPresent(self.excludeGitData, forKey: SdkCodingKey("exclude_git_data"))
-        try keyedContainer.encodeIfPresent(self.excludeAttachments, forKey: SdkCodingKey("exclude_attachments"))
-        try keyedContainer.encodeIfPresent(self.excludeReleases, forKey: SdkCodingKey("exclude_releases"))
-        try keyedContainer.encodeIfPresent(self.excludeOwnerProjects, forKey: SdkCodingKey("exclude_owner_projects"))
-        try keyedContainer.encodeIfPresent(self.orgMetadataOnly, forKey: SdkCodingKey("org_metadata_only"))
-        try keyedContainer.encodeIfPresent(self.exclude, forKey: SdkCodingKey("exclude"))
+        try keyedContainer.encode(repositories, forKey: SdkCodingKey("repositories"))
+        try keyedContainer.encodeIfPresent(lockRepositories, forKey: SdkCodingKey("lock_repositories"))
+        try keyedContainer.encodeIfPresent(excludeMetadata, forKey: SdkCodingKey("exclude_metadata"))
+        try keyedContainer.encodeIfPresent(excludeGitData, forKey: SdkCodingKey("exclude_git_data"))
+        try keyedContainer.encodeIfPresent(excludeAttachments, forKey: SdkCodingKey("exclude_attachments"))
+        try keyedContainer.encodeIfPresent(excludeReleases, forKey: SdkCodingKey("exclude_releases"))
+        try keyedContainer.encodeIfPresent(excludeOwnerProjects, forKey: SdkCodingKey("exclude_owner_projects"))
+        try keyedContainer.encodeIfPresent(orgMetadataOnly, forKey: SdkCodingKey("org_metadata_only"))
+        try keyedContainer.encodeIfPresent(exclude, forKey: SdkCodingKey("exclude"))
     }
 
     init(options: MigrationsMethods.MigrationsStartForOrgOptions) {
-        self.repositories = options.repositories
-        self.lockRepositories = options.lockRepositories
-        self.excludeMetadata = options.excludeMetadata
-        self.excludeGitData = options.excludeGitData
-        self.excludeAttachments = options.excludeAttachments
-        self.excludeReleases = options.excludeReleases
-        self.excludeOwnerProjects = options.excludeOwnerProjects
-        self.orgMetadataOnly = options.orgMetadataOnly
-        self.exclude = options.exclude
+        repositories = options.repositories
+        lockRepositories = options.lockRepositories
+        excludeMetadata = options.excludeMetadata
+        excludeGitData = options.excludeGitData
+        excludeAttachments = options.excludeAttachments
+        excludeReleases = options.excludeReleases
+        excludeOwnerProjects = options.excludeOwnerProjects
+        orgMetadataOnly = options.orgMetadataOnly
+        exclude = options.exclude
     }
 }
 
@@ -103,11 +103,11 @@ struct MigrationsStartImportRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.vcsUrl, forKey: SdkCodingKey("vcs_url"))
-        try keyedContainer.encodeIfPresent(self.vcs, forKey: SdkCodingKey("vcs"))
-        try keyedContainer.encodeIfPresent(self.vcsUsername, forKey: SdkCodingKey("vcs_username"))
-        try keyedContainer.encodeIfPresent(self.vcsPassword, forKey: SdkCodingKey("vcs_password"))
-        try keyedContainer.encodeIfPresent(self.tfvcProject, forKey: SdkCodingKey("tfvc_project"))
+        try keyedContainer.encode(vcsUrl, forKey: SdkCodingKey("vcs_url"))
+        try keyedContainer.encodeIfPresent(vcs, forKey: SdkCodingKey("vcs"))
+        try keyedContainer.encodeIfPresent(vcsUsername, forKey: SdkCodingKey("vcs_username"))
+        try keyedContainer.encodeIfPresent(vcsPassword, forKey: SdkCodingKey("vcs_password"))
+        try keyedContainer.encodeIfPresent(tfvcProject, forKey: SdkCodingKey("tfvc_project"))
     }
 }
 
@@ -119,10 +119,10 @@ struct MigrationsUpdateImportRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.vcsUsername, forKey: SdkCodingKey("vcs_username"))
-        try keyedContainer.encodeIfPresent(self.vcsPassword, forKey: SdkCodingKey("vcs_password"))
-        try keyedContainer.encodeIfPresent(self.vcs, forKey: SdkCodingKey("vcs"))
-        try keyedContainer.encodeIfPresent(self.tfvcProject, forKey: SdkCodingKey("tfvc_project"))
+        try keyedContainer.encodeIfPresent(vcsUsername, forKey: SdkCodingKey("vcs_username"))
+        try keyedContainer.encodeIfPresent(vcsPassword, forKey: SdkCodingKey("vcs_password"))
+        try keyedContainer.encodeIfPresent(vcs, forKey: SdkCodingKey("vcs"))
+        try keyedContainer.encodeIfPresent(tfvcProject, forKey: SdkCodingKey("tfvc_project"))
     }
 }
 
@@ -132,8 +132,8 @@ struct MigrationsMapCommitAuthorRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.email, forKey: SdkCodingKey("email"))
-        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(email, forKey: SdkCodingKey("email"))
+        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
     }
 }
 
@@ -142,7 +142,7 @@ struct MigrationsSetLfsPreferenceRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.useLfs, forKey: SdkCodingKey("use_lfs"))
+        try keyedContainer.encode(useLfs, forKey: SdkCodingKey("use_lfs"))
     }
 }
 
@@ -159,26 +159,26 @@ struct MigrationsStartForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.repositories, forKey: SdkCodingKey("repositories"))
-        try keyedContainer.encodeIfPresent(self.lockRepositories, forKey: SdkCodingKey("lock_repositories"))
-        try keyedContainer.encodeIfPresent(self.excludeMetadata, forKey: SdkCodingKey("exclude_metadata"))
-        try keyedContainer.encodeIfPresent(self.excludeGitData, forKey: SdkCodingKey("exclude_git_data"))
-        try keyedContainer.encodeIfPresent(self.excludeAttachments, forKey: SdkCodingKey("exclude_attachments"))
-        try keyedContainer.encodeIfPresent(self.excludeReleases, forKey: SdkCodingKey("exclude_releases"))
-        try keyedContainer.encodeIfPresent(self.excludeOwnerProjects, forKey: SdkCodingKey("exclude_owner_projects"))
-        try keyedContainer.encodeIfPresent(self.orgMetadataOnly, forKey: SdkCodingKey("org_metadata_only"))
-        try keyedContainer.encodeIfPresent(self.exclude, forKey: SdkCodingKey("exclude"))
+        try keyedContainer.encode(repositories, forKey: SdkCodingKey("repositories"))
+        try keyedContainer.encodeIfPresent(lockRepositories, forKey: SdkCodingKey("lock_repositories"))
+        try keyedContainer.encodeIfPresent(excludeMetadata, forKey: SdkCodingKey("exclude_metadata"))
+        try keyedContainer.encodeIfPresent(excludeGitData, forKey: SdkCodingKey("exclude_git_data"))
+        try keyedContainer.encodeIfPresent(excludeAttachments, forKey: SdkCodingKey("exclude_attachments"))
+        try keyedContainer.encodeIfPresent(excludeReleases, forKey: SdkCodingKey("exclude_releases"))
+        try keyedContainer.encodeIfPresent(excludeOwnerProjects, forKey: SdkCodingKey("exclude_owner_projects"))
+        try keyedContainer.encodeIfPresent(orgMetadataOnly, forKey: SdkCodingKey("org_metadata_only"))
+        try keyedContainer.encodeIfPresent(exclude, forKey: SdkCodingKey("exclude"))
     }
 
     init(options: MigrationsMethods.MigrationsStartForAuthenticatedUserOptions) {
-        self.repositories = options.repositories
-        self.lockRepositories = options.lockRepositories
-        self.excludeMetadata = options.excludeMetadata
-        self.excludeGitData = options.excludeGitData
-        self.excludeAttachments = options.excludeAttachments
-        self.excludeReleases = options.excludeReleases
-        self.excludeOwnerProjects = options.excludeOwnerProjects
-        self.orgMetadataOnly = options.orgMetadataOnly
-        self.exclude = options.exclude
+        repositories = options.repositories
+        lockRepositories = options.lockRepositories
+        excludeMetadata = options.excludeMetadata
+        excludeGitData = options.excludeGitData
+        excludeAttachments = options.excludeAttachments
+        excludeReleases = options.excludeReleases
+        excludeOwnerProjects = options.excludeOwnerProjects
+        orgMetadataOnly = options.orgMetadataOnly
+        exclude = options.exclude
     }
 }

@@ -6,8 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Only authenticated organization owners can add a member to the organization or update the member's role. * If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending` until they accept the invitation. * Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent. **Rate limits** To prevent abuse, organization owners are limited to creating 50 organization invitations for an organization within a 24 hour period. If the organization is more than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
+public extension OrgsMethods {
+    /// Only authenticated organization owners can add a member to the organization or update the member's role. * If
+    /// the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting
+    /// them to the organization. The user's [membership
+    /// status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending`
+    /// until they accept the invitation. * Authenticated users can _update_ a user's membership by passing the `role`
+    /// parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email
+    /// notifying them that they've been made an organization owner. If the authenticated user changes an owner's role
+    /// to `member`, no email will be sent. **Rate limits** To prevent abuse, organization owners are limited to
+    /// creating 50 organization invitations for an organization within a 24 hour period. If the organization is more
+    /// than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -15,26 +24,76 @@ extension OrgsMethods {
     /// - role: The role to give the user in the organization. Can be one of: *
     ///   `admin` - The user will become an owner of the organization. * `member` -
     ///   The user will become a non-owner member of the organization.
-    public static func orgsSetMembershipForUser(config: ClientConfig, org: String, username: String, role: OrgsSetMembershipForUserRequestBodyRole?) async throws -> OrgMembership {
+    static func orgsSetMembershipForUser(
+        config: ClientConfig,
+        org: String,
+        username: String,
+        role: OrgsSetMembershipForUserRequestBodyRole?
+    ) async throws -> OrgMembership {
         let requestBody = OrgsSetMembershipForUserRequestBody(role: role)
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsSetMembershipForUser")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsSetMembershipForUser"
+        )).data
     }
 
-    /// In order to remove a user's membership with an organization, the authenticated user must be an organization owner. If the specified user is an active member of the organization, this will remove them from the organization. If the specified user has been invited to the organization, this will cancel their invitation. The specified user will receive an email notification in both cases. > [!NOTE] > If a user has both direct membership in the organization as well as indirect membership via an enterprise team, only their direct membership will be removed. Their indirect membership via an enterprise team remains until the user is removed from the enterprise team.
+    /// In order to remove a user's membership with an organization, the authenticated user must be an organization
+    /// owner. If the specified user is an active member of the organization, this will remove them from the
+    /// organization. If the specified user has been invited to the organization, this will cancel their invitation. The
+    /// specified user will receive an email notification in both cases. > [!NOTE] > If a user has both direct
+    /// membership in the organization as well as indirect membership via an enterprise team, only their direct
+    /// membership will be removed. Their indirect membership via an enterprise team remains until the user is removed
+    /// from the enterprise team.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsRemoveMembershipForUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsRemoveMembershipForUser")).data
+    static func orgsRemoveMembershipForUser(
+        config: ClientConfig,
+        org: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsRemoveMembershipForUser"
+        )).data
     }
 
-    /// Lists the organization roles available in this organization. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An organization member (or a member of a team) assigned a custom organization role that includes the **View organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Lists the organization roles available in this organization. For more information on organization roles, see
+    /// "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
+    /// To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An
+    /// organization member (or a member of a team) assigned a custom organization role that includes the **View
+    /// organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions
+    /// for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)."
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func orgsListOrgRoles(config: ClientConfig, org: String) async throws -> OrgsListOrgRolesResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/organization-roles"].joined(), config: config, decoder: .json, operationId: "orgsListOrgRoles")).data
+    static func orgsListOrgRoles(config: ClientConfig, org: String) async throws -> OrgsListOrgRolesResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/organization-roles"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsListOrgRoles"
+        )).data
     }
 }

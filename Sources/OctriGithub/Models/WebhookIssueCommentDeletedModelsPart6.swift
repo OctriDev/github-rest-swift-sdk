@@ -3,18 +3,22 @@
 
 import Foundation
 
-// WebhookIssueCommentDeleted domain models
+/// WebhookIssueCommentDeleted domain models
 /// State of the issue; either 'open' or 'closed'
-public struct WebhookIssueCommentDeletedIssueVariant1State: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant1State: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = WebhookIssueCommentDeletedIssueVariant1State(rawValue: "open")
     public static let closed = WebhookIssueCommentDeletedIssueVariant1State(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -24,18 +28,24 @@ public struct WebhookIssueCommentDeletedIssueVariant1State: RawRepresentable, Ha
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType: RawRepresentable, Hashable, Codable,
+    Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType(rawValue: "Bot")
     public static let user = WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType(rawValue: "User")
-    public static let organization = WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType(rawValue: "Organization")
+    public static let organization =
+        WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType(rawValue: "Organization")
     public static let mannequin = WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType(rawValue: "Mannequin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -45,16 +55,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0MilestoneCreatorType: RawRe
 }
 
 /// Optional enumerated value serialized in the `secret_scanning_alerts` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXbc90fdffb4: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXbc90fdffb4: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXbc90fdffb4(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXbc90fdffb4(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXbc90fdffb4(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -64,16 +79,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXbc90
 }
 
 /// Optional enumerated value serialized in the `keys` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXab58ef6347: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXab58ef6347: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXab58ef6347(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXab58ef6347(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXab58ef6347(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -83,16 +103,20 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXab58
 }
 
 /// State of the issue; either 'open' or 'closed'
-public struct WebhookIssueCommentDeletedIssueVariant0State: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0State: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = WebhookIssueCommentDeletedIssueVariant0State(rawValue: "open")
     public static let closed = WebhookIssueCommentDeletedIssueVariant0State(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -102,16 +126,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0State: RawRepresentable, Ha
 }
 
 /// Optional enumerated value serialized in the `secrets` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX1087487353: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX1087487353: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX1087487353(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX1087487353(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX1087487353(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -121,16 +150,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX1087
 }
 
 /// Optional enumerated value serialized in the `administration` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX2a7d15ca84: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX2a7d15ca84: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX2a7d15ca84(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX2a7d15ca84(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX2a7d15ca84(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -140,16 +174,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX2a7d
 }
 
 /// Optional enumerated value serialized in the `organization_administration` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX69151cdad1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX69151cdad1: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX69151cdad1(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX69151cdad1(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX69151cdad1(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -159,16 +198,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6915
 }
 
 /// Optional enumerated value serialized in the `security_scanning_alert` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXf9c85d0396: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXf9c85d0396: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXf9c85d0396(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXf9c85d0396(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXf9c85d0396(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -178,16 +222,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXf9c8
 }
 
 /// Optional enumerated value serialized in the `content_references` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXc16bc5dc43: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXc16bc5dc43: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXc16bc5dc43(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXc16bc5dc43(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXc16bc5dc43(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -197,16 +246,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXc16b
 }
 
 /// Optional enumerated value serialized in the `organization_packages` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX22d24e4645: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX22d24e4645: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX22d24e4645(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX22d24e4645(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX22d24e4645(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -216,16 +270,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX22d2
 }
 
 /// Optional enumerated value serialized in the `pages` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6f1401f974: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6f1401f974: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6f1401f974(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6f1401f974(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6f1401f974(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -235,16 +294,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX6f14
 }
 
 /// Optional enumerated value serialized in the `organization_self_hosted_runners` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXccf0997f3d: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXccf0997f3d: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXccf0997f3d(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXccf0997f3d(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXccf0997f3d(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -254,16 +318,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXccf0
 }
 
 /// Optional enumerated value serialized in the `members` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa93790166b: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa93790166b: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa93790166b(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa93790166b(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa93790166b(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -273,16 +342,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa937
 }
 
 /// Optional enumerated value serialized in the `statuses` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX4a9a297f6a: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX4a9a297f6a: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX4a9a297f6a(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX4a9a297f6a(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX4a9a297f6a(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -292,16 +366,21 @@ public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPX4a9a
 }
 
 /// Optional enumerated value serialized in the `organization_user_blocking` wire field.
-public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa3613f306f: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa3613f306f: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa3613f306f(rawValue: "read")
-    public static let write = WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa3613f306f(rawValue: "write")
+    public static let write =
+        WebhookIssueCommentDeletedIssueVariant0PerformedViaGithubAppPXa3613f306f(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

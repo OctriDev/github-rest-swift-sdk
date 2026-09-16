@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists the forks of a specified repository. Use `sort`, `per_page`, and `page` to control ordering and pagination; the response contains minimal repository objects for the matching forks.
+public extension ReposMethods {
+    /// Lists the forks of a specified repository. Use `sort`, `per_page`, and `page` to control ordering and
+    /// pagination; the response contains minimal repository objects for the matching forks.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,11 +24,31 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListForks(config: ClientConfig, owner: String, repo: String, sort: ReposListForksParameter?, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/forks"].joined(), config: config, query: [
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListForks")).data
+    static func reposListForks(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        sort: ReposListForksParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [MinimalRepository] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/forks",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListForks"
+        )).data
     }
 }

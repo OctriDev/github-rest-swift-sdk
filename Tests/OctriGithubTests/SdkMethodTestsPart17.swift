@@ -28,7 +28,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesListRepositoriesForSecretForAuthenticatedUserCodespX1e872c5225ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesListRepositoriesForSecretForAuthenticatedUserCodespX1e872c5225ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -47,7 +48,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesListSecretsForAuthenticatedUserCodespacesListSecretX510f9daa36ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesListSecretsForAuthenticatedUserCodespacesListSecretX510f9daa36ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -67,7 +69,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesListSelectedReposForOrgSecretCodespacesListSelectedX8184bbb6a2ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesListSelectedReposForOrgSecretCodespacesListSelectedX8184bbb6a2ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -89,7 +92,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesPreFlightWithRepoForAuthenticatedUserCodespacesPreFXc77d6ebf15ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesPreFlightWithRepoForAuthenticatedUserCodespacesPreFXc77d6ebf15ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -111,7 +115,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesPublishForAuthenticatedUserCodespacesPublishForAuthXae3b696b34ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesPublishForAuthenticatedUserCodespacesPublishForAuthXae3b696b34ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -132,7 +137,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesRemoveRepositoryForSecretForAuthenticatedUserCodespXff86f01e46ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesRemoveRepositoryForSecretForAuthenticatedUserCodespXff86f01e46ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -144,7 +150,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesRemoveSelectedRepoFromOrgSecretCodespacesRemoveSeleX0fe40a32b7ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesRemoveSelectedRepoFromOrgSecretCodespacesRemoveSeleX0fe40a32b7ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -157,7 +164,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesRepoMachinesForAuthenticatedUserCodespacesRepoMachiXefe5ca49a5ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesRepoMachinesForAuthenticatedUserCodespacesRepoMachiXefe5ca49a5ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -193,7 +201,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesSetCodespacesAccessUsersCodespacesSetCodespacesAccessUsersReachesMockAndDecodesResponse() async throws {
+    func testCodespacesSetCodespacesAccessUsersCodespacesSetCodespacesAccessUsersReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -205,7 +214,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesSetRepositoriesForSecretForAuthenticatedUserCodespaX55b86aa3c0ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesSetRepositoriesForSecretForAuthenticatedUserCodespaX55b86aa3c0ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -217,7 +227,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesSetSelectedReposForOrgSecretCodespacesSetSelectedReXf8145591aaReachesMockAndDecodesResponse() async throws {
+    func testCodespacesSetSelectedReposForOrgSecretCodespacesSetSelectedReXf8145591aaReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -230,7 +241,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesStartForAuthenticatedUserCodespacesStartForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesStartForAuthenticatedUserCodespacesStartForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -249,7 +261,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesStopForAuthenticatedUserCodespacesStopForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesStopForAuthenticatedUserCodespacesStopForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -289,7 +302,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesUpdateForAuthenticatedUserCodespacesUpdateForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesUpdateForAuthenticatedUserCodespacesUpdateForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -351,7 +365,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotAddOrganizationsToEnterpriseCodingAgentPolicyCopilotAdX102e982173ReachesMockAndDecodesResponse() async throws {
+    func testCopilotAddOrganizationsToEnterpriseCodingAgentPolicyCopilotAdX102e982173ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -364,7 +379,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotCancelCopilotSeatAssignmentForTeamsCopilotCancelCopiloXc1d374f5a7ReachesMockAndDecodesResponse() async throws {
+    func testCopilotCancelCopilotSeatAssignmentForTeamsCopilotCancelCopiloXc1d374f5a7ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -384,7 +400,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCancelCopilotSeatAssignmentForUsersCopilotCancelCopiloXa9924541fbReachesMockAndDecodesResponse() async throws {
+    func testCopilotCancelCopilotSeatAssignmentForUsersCopilotCancelCopiloXa9924541fbReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -404,7 +421,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotContentExclusionForOrganizationCopilotCopilotCoXe4e021ac49ReachesMockAndDecodesResponse() async throws {
+    func testCopilotCopilotContentExclusionForOrganizationCopilotCopilotCoXe4e021ac49ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -423,7 +441,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotEnterpriseOneDayUsageMetricsCopilotCopilotEnterX3893c67f60ReachesMockAndDecodesResponse() async throws {
+    func testCopilotCopilotEnterpriseOneDayUsageMetricsCopilotCopilotEnterX3893c67f60ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -443,7 +462,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotEnterpriseReposOneDayReportCopilotCopilotEnterpX29804aaec0ReachesMockAndDecodesResponse() async throws {
+    func testCopilotCopilotEnterpriseReposOneDayReportCopilotCopilotEnterpX29804aaec0ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -463,7 +483,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotEnterpriseUsageMetricsCopilotCopilotEnterpriseUsageMetricsReachesMockAndDecodesResponse() async throws {
+    func testCopilotCopilotEnterpriseUsageMetricsCopilotCopilotEnterpriseUsageMetricsReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -482,7 +503,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotEnterpriseUserTeamsOneDayReportCopilotCopilotEnXb914a0a3daReachesMockAndDecodesResponse() async throws {
+    func testCopilotCopilotEnterpriseUserTeamsOneDayReportCopilotCopilotEnXb914a0a3daReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

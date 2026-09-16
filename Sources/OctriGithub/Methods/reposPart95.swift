@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposUpdateWebhookOptions: Codable {
+public extension ReposMethods {
+    struct ReposUpdateWebhookOptions: Codable {
         public var owner: String
         public var repo: String
         public var hookId: Int
@@ -24,7 +24,9 @@ extension ReposMethods {
         }
     }
 
-    /// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "Update a webhook configuration for a repository."
+    /// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same
+    /// `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook
+    /// `config` properties, use "Update a webhook configuration for a repository."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -43,9 +45,23 @@ extension ReposMethods {
     ///   events that the Hook triggers for.
     /// - active: Determines if notifications are sent when the webhook is
     ///   triggered. Set to `true` to send notifications.
-    public static func reposUpdateWebhook(config: ClientConfig, options: ReposUpdateWebhookOptions) async throws -> Hook {
+    static func reposUpdateWebhook(config: ClientConfig, options: ReposUpdateWebhookOptions) async throws -> Hook {
         let requestBody = ReposUpdateWebhookRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(options.hookId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateWebhook")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(options.hookId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposUpdateWebhook"
+        )).data
     }
 }

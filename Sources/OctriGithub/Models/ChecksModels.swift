@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Checks domain models
+/// Checks domain models
 /// Check Annotation
 public struct CheckAnnotation: Codable {
     /// Required `string` value serialized in the `path` wire field.
@@ -49,27 +49,40 @@ public struct CheckAnnotation: Codable {
         case blobHref = "blob_href"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CheckAnnotation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.path = try container.sdkDecodeRequired(.path)
-        self.startLine = try container.sdkDecodeRequired(.startLine)
-        self.endLine = try container.sdkDecodeRequired(.endLine)
-        self.startColumn = try container.sdkDecodeIfPresent(.startColumn)
-        self.endColumn = try container.sdkDecodeIfPresent(.endColumn)
-        self.annotationLevel = try container.sdkDecodeIfPresent(.annotationLevel)
-        self.title = try container.sdkDecodeIfPresent(.title)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.rawDetails = try container.sdkDecodeIfPresent(.rawDetails)
-        self.blobHref = try container.sdkDecodeRequired(.blobHref)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CheckAnnotation {
-    public init(path: String, startLine: Int, endLine: Int, startColumn: Int?, endColumn: Int?, annotationLevel: String?, title: String?, message: String?, rawDetails: String?, blobHref: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        path = try container.sdkDecodeRequired(.path)
+        startLine = try container.sdkDecodeRequired(.startLine)
+        endLine = try container.sdkDecodeRequired(.endLine)
+        startColumn = try container.sdkDecodeIfPresent(.startColumn)
+        endColumn = try container.sdkDecodeIfPresent(.endColumn)
+        annotationLevel = try container.sdkDecodeIfPresent(.annotationLevel)
+        title = try container.sdkDecodeIfPresent(.title)
+        message = try container.sdkDecodeIfPresent(.message)
+        rawDetails = try container.sdkDecodeIfPresent(.rawDetails)
+        blobHref = try container.sdkDecodeRequired(.blobHref)
+    }
+}
+
+public extension CheckAnnotation {
+    init(
+        path: String,
+        startLine: Int,
+        endLine: Int,
+        startColumn: Int?,
+        endColumn: Int?,
+        annotationLevel: String?,
+        title: String?,
+        message: String?,
+        rawDetails: String?,
+        blobHref: String
+    ) {
         (self.path, self.startLine) = (path, startLine)
         (self.endLine, self.startColumn) = (endLine, startColumn)
         (self.endColumn, self.annotationLevel) = (endColumn, annotationLevel)
@@ -151,40 +164,60 @@ public struct CheckRun: Codable {
         case deployment
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension CheckRun {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.headSha = try container.sdkDecodeRequired(.headSha)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.externalId = try container.sdkDecodeIfPresent(.externalId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.detailsUrl = try container.sdkDecodeIfPresent(.detailsUrl)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.startedAt = try container.sdkDecodeIfPresent(.startedAt)
-        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        self.output = try container.sdkDecodeRequired(.output)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.checkSuite = try container.sdkDecodeIfPresent(.checkSuite)
-        self.app = try container.sdkDecodeIfPresent(.app)
-        self.pullRequests = try container.sdkDecodeRequired(.pullRequests)
-        self.deployment = try container.sdkDecodeIfPresent(.deployment)
-        if let value = self.startedAt {
+        id = try container.sdkDecodeRequired(.id)
+        headSha = try container.sdkDecodeRequired(.headSha)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        externalId = try container.sdkDecodeIfPresent(.externalId)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        detailsUrl = try container.sdkDecodeIfPresent(.detailsUrl)
+        status = try container.sdkDecodeRequired(.status)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        startedAt = try container.sdkDecodeIfPresent(.startedAt)
+        completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        output = try container.sdkDecodeRequired(.output)
+        name = try container.sdkDecodeRequired(.name)
+        checkSuite = try container.sdkDecodeIfPresent(.checkSuite)
+        app = try container.sdkDecodeIfPresent(.app)
+        pullRequests = try container.sdkDecodeRequired(.pullRequests)
+        deployment = try container.sdkDecodeIfPresent(.deployment)
+        if let value = startedAt {
             try sdkValidateDateTime("started_at", sdkWireString(value))
         }
-        if let value = self.completedAt {
+        if let value = completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }
     }
 }
 
 public extension CheckRun {
-    public init(id: Int, headSha: String, nodeId: String, externalId: String?, url: String, htmlUrl: String?, detailsUrl: String?, status: CheckRunStatus, conclusion: CheckRunConclusion?, startedAt: Date?, completedAt: Date?, output: CheckRunOutput, name: String, checkSuite: CheckRunCheckSuite?, app: NullableIntegration?, pullRequests: [PullRequestMinimal], deployment: DeploymentSimple? = nil) throws {
+    init(
+        id: Int,
+        headSha: String,
+        nodeId: String,
+        externalId: String?,
+        url: String,
+        htmlUrl: String?,
+        detailsUrl: String?,
+        status: CheckRunStatus,
+        conclusion: CheckRunConclusion?,
+        startedAt: Date?,
+        completedAt: Date?,
+        output: CheckRunOutput,
+        name: String,
+        checkSuite: CheckRunCheckSuite?,
+        app: NullableIntegration?,
+        pullRequests: [PullRequestMinimal],
+        deployment: DeploymentSimple? = nil
+    ) throws {
         (self.id, self.headSha) = (id, headSha)
         (self.nodeId, self.externalId) = (nodeId, externalId)
         (self.url, self.htmlUrl) = (url, htmlUrl)
@@ -212,21 +245,27 @@ public struct CheckRunCheckSuite: Codable {
         case id
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CheckRunCheckSuite {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CheckRunCheckSuite {
-    public init(id: Int) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+    }
+}
+
+public extension CheckRunCheckSuite {
+    init(id: Int) {
         self.id = id
     }
 }
@@ -252,42 +291,64 @@ public struct CheckRunOutput: Codable {
         case annotationsUrl = "annotations_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CheckRunOutput {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        guard container.contains(.summary) else {
-            throw SdkValidationError(field: "summary", code: "required", message: "Validation failed for 'summary': value is required")
-        }
-        guard container.contains(.text) else {
-            throw SdkValidationError(field: "text", code: "required", message: "Validation failed for 'text': value is required")
-        }
-        guard container.contains(.annotationsCount) else {
-            throw SdkValidationError(field: "annotations_count", code: "required", message: "Validation failed for 'annotations_count': value is required")
-        }
-        guard container.contains(.annotationsUrl) else {
-            throw SdkValidationError(field: "annotations_url", code: "required", message: "Validation failed for 'annotations_url': value is required")
-        }
-        self.title = try container.sdkDecodeIfPresent(.title)
-        self.summary = try container.sdkDecodeIfPresent(.summary)
-        self.text = try container.sdkDecodeIfPresent(.text)
-        self.annotationsCount = try container.sdkDecodeRequired(.annotationsCount)
-        self.annotationsUrl = try container.sdkDecodeRequired(.annotationsUrl)
-            try sdkValidateUri("annotations_url", self.annotationsUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CheckRunOutput {
-    public init(title: String?, summary: String?, text: String?, annotationsCount: Int, annotationsUrl: String) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        guard container.contains(.summary) else {
+            throw SdkValidationError(
+                field: "summary",
+                code: "required",
+                message: "Validation failed for 'summary': value is required"
+            )
+        }
+        guard container.contains(.text) else {
+            throw SdkValidationError(
+                field: "text",
+                code: "required",
+                message: "Validation failed for 'text': value is required"
+            )
+        }
+        guard container.contains(.annotationsCount) else {
+            throw SdkValidationError(
+                field: "annotations_count",
+                code: "required",
+                message: "Validation failed for 'annotations_count': value is required"
+            )
+        }
+        guard container.contains(.annotationsUrl) else {
+            throw SdkValidationError(
+                field: "annotations_url",
+                code: "required",
+                message: "Validation failed for 'annotations_url': value is required"
+            )
+        }
+        title = try container.sdkDecodeIfPresent(.title)
+        summary = try container.sdkDecodeIfPresent(.summary)
+        text = try container.sdkDecodeIfPresent(.text)
+        annotationsCount = try container.sdkDecodeRequired(.annotationsCount)
+        annotationsUrl = try container.sdkDecodeRequired(.annotationsUrl)
+        try sdkValidateUri("annotations_url", annotationsUrl)
+    }
+}
+
+public extension CheckRunOutput {
+    init(title: String?, summary: String?, text: String?, annotationsCount: Int, annotationsUrl: String) throws {
         (self.title, self.summary) = (title, summary)
         (self.text, self.annotationsCount) = (text, annotationsCount)
         self.annotationsUrl = annotationsUrl
-            try sdkValidateUri("annotations_url", self.annotationsUrl)
+        try sdkValidateUri("annotations_url", self.annotationsUrl)
     }
 }
 
@@ -366,42 +427,64 @@ public struct CheckSuite: Codable {
         case runsRerequestable = "runs_rerequestable"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension CheckSuite {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.headBranch = try container.sdkDecodeIfPresent(.headBranch)
-        self.headSha = try container.sdkDecodeRequired(.headSha)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.before = try container.sdkDecodeIfPresent(.before)
-        self.after = try container.sdkDecodeIfPresent(.after)
-        self.pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
-        self.app = try container.sdkDecodeIfPresent(.app)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.headCommit = try container.sdkDecodeRequired(.headCommit)
-        self.latestCheckRunsCount = try container.sdkDecodeRequired(.latestCheckRunsCount)
-        self.checkRunsUrl = try container.sdkDecodeRequired(.checkRunsUrl)
-        self.rerequestable = try container.sdkDecodeIfPresent(.rerequestable)
-        self.runsRerequestable = try container.sdkDecodeIfPresent(.runsRerequestable)
-        if let value = self.createdAt {
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        headBranch = try container.sdkDecodeIfPresent(.headBranch)
+        headSha = try container.sdkDecodeRequired(.headSha)
+        status = try container.sdkDecodeIfPresent(.status)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        url = try container.sdkDecodeIfPresent(.url)
+        before = try container.sdkDecodeIfPresent(.before)
+        after = try container.sdkDecodeIfPresent(.after)
+        pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
+        app = try container.sdkDecodeIfPresent(.app)
+        repository = try container.sdkDecodeRequired(.repository)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        headCommit = try container.sdkDecodeRequired(.headCommit)
+        latestCheckRunsCount = try container.sdkDecodeRequired(.latestCheckRunsCount)
+        checkRunsUrl = try container.sdkDecodeRequired(.checkRunsUrl)
+        rerequestable = try container.sdkDecodeIfPresent(.rerequestable)
+        runsRerequestable = try container.sdkDecodeIfPresent(.runsRerequestable)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
 public extension CheckSuite {
-    public init(id: Int, nodeId: String, headBranch: String?, headSha: String, status: CheckSuiteStatus?, conclusion: CheckSuiteConclusion?, url: String?, before: String?, after: String?, pullRequests: [PullRequestMinimal]?, app: NullableIntegration?, repository: MinimalRepository, createdAt: Date?, updatedAt: Date?, headCommit: SimpleCommit, latestCheckRunsCount: Int, checkRunsUrl: String, rerequestable: Bool? = nil, runsRerequestable: Bool? = nil) throws {
+    init(
+        id: Int,
+        nodeId: String,
+        headBranch: String?,
+        headSha: String,
+        status: CheckSuiteStatus?,
+        conclusion: CheckSuiteConclusion?,
+        url: String?,
+        before: String?,
+        after: String?,
+        pullRequests: [PullRequestMinimal]?,
+        app: NullableIntegration?,
+        repository: MinimalRepository,
+        createdAt: Date?,
+        updatedAt: Date?,
+        headCommit: SimpleCommit,
+        latestCheckRunsCount: Int,
+        checkRunsUrl: String,
+        rerequestable: Bool? = nil,
+        runsRerequestable: Bool? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.headBranch, self.headSha) = (headBranch, headSha)
         (self.status, self.conclusion) = (status, conclusion)
@@ -433,25 +516,35 @@ public struct CheckSuitePreference: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CheckSuitePreference {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.preferences) else {
-            throw SdkValidationError(field: "preferences", code: "required", message: "Validation failed for 'preferences': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        self.preferences = try container.sdkDecodeRequired(.preferences)
-        self.repository = try container.sdkDecodeRequired(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CheckSuitePreference {
-    public init(preferences: CheckSuitePreferencePreferences, repository: MinimalRepository) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.preferences) else {
+            throw SdkValidationError(
+                field: "preferences",
+                code: "required",
+                message: "Validation failed for 'preferences': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        preferences = try container.sdkDecodeRequired(.preferences)
+        repository = try container.sdkDecodeRequired(.repository)
+    }
+}
+
+public extension CheckSuitePreference {
+    init(preferences: CheckSuitePreferencePreferences, repository: MinimalRepository) {
         (self.preferences, self.repository) = (preferences, repository)
     }
 }
@@ -466,19 +559,19 @@ public struct CheckSuitePreferencePreferences: Codable {
     }
 
     init() {
-        self.autoTriggerChecks = nil
+        autoTriggerChecks = nil
     }
 }
 
 public extension CheckSuitePreferencePreferences {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.autoTriggerChecks = try container.sdkDecodeIfPresent(.autoTriggerChecks)
+        autoTriggerChecks = try container.sdkDecodeIfPresent(.autoTriggerChecks)
     }
 }
 
 public extension CheckSuitePreferencePreferences {
-    public init(autoTriggerChecks: [CheckSuitePreferencePreferencesAutoTriggerChecksItem]? = nil) {
+    init(autoTriggerChecks: [CheckSuitePreferencePreferencesAutoTriggerChecksItem]? = nil) {
         self.init()
         self.autoTriggerChecks = autoTriggerChecks
     }
@@ -496,25 +589,35 @@ public struct CheckSuitePreferencePreferencesAutoTriggerChecksItem: Codable {
         case setting
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension CheckSuitePreferencePreferencesAutoTriggerChecksItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.appId) else {
-            throw SdkValidationError(field: "app_id", code: "required", message: "Validation failed for 'app_id': value is required")
-        }
-        guard container.contains(.setting) else {
-            throw SdkValidationError(field: "setting", code: "required", message: "Validation failed for 'setting': value is required")
-        }
-        self.appId = try container.sdkDecodeRequired(.appId)
-        self.setting = try container.sdkDecodeRequired(.setting)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension CheckSuitePreferencePreferencesAutoTriggerChecksItem {
-    public init(appId: Int, setting: Bool) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.appId) else {
+            throw SdkValidationError(
+                field: "app_id",
+                code: "required",
+                message: "Validation failed for 'app_id': value is required"
+            )
+        }
+        guard container.contains(.setting) else {
+            throw SdkValidationError(
+                field: "setting",
+                code: "required",
+                message: "Validation failed for 'setting': value is required"
+            )
+        }
+        appId = try container.sdkDecodeRequired(.appId)
+        setting = try container.sdkDecodeRequired(.setting)
+    }
+}
+
+public extension CheckSuitePreferencePreferencesAutoTriggerChecksItem {
+    init(appId: Int, setting: Bool) {
         (self.appId, self.setting) = (appId, setting)
     }
 }

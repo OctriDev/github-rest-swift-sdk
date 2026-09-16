@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookOrganizationMemberRemoved domain models
+/// WebhookOrganizationMemberRemoved domain models
 /// Typed representation of the `WebhookOrganizationMemberRemoved` API schema.
 public struct WebhookOrganizationMemberRemoved: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,36 +36,62 @@ public struct WebhookOrganizationMemberRemoved: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookOrganizationMemberRemoved {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.membership) else {
-            throw SdkValidationError(field: "membership", code: "required", message: "Validation failed for 'membership': value is required")
-        }
-        guard container.contains(.organization) else {
-            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.membership = try container.sdkDecodeRequired(.membership)
-        self.organization = try container.sdkDecodeRequired(.organization)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookOrganizationMemberRemoved {
-    public init(action: WebhookOrganizationMemberRemovedAction, membership: WebhooksMembership, organization: OrganizationSimpleWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, repository: RepositoryWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.membership) else {
+            throw SdkValidationError(
+                field: "membership",
+                code: "required",
+                message: "Validation failed for 'membership': value is required"
+            )
+        }
+        guard container.contains(.organization) else {
+            throw SdkValidationError(
+                field: "organization",
+                code: "required",
+                message: "Validation failed for 'organization': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        membership = try container.sdkDecodeRequired(.membership)
+        organization = try container.sdkDecodeRequired(.organization)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        repository = try container.sdkDecodeIfPresent(.repository)
+    }
+}
+
+public extension WebhookOrganizationMemberRemoved {
+    init(
+        action: WebhookOrganizationMemberRemovedAction,
+        membership: WebhooksMembership,
+        organization: OrganizationSimpleWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        repository: RepositoryWebhooks? = nil
+    ) {
         (self.action, self.membership) = (action, membership)
         (self.organization, self.sender) = (organization, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -74,15 +100,19 @@ public extension WebhookOrganizationMemberRemoved {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookOrganizationMemberRemovedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookOrganizationMemberRemovedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let memberRemoved = WebhookOrganizationMemberRemovedAction(rawValue: "member_removed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

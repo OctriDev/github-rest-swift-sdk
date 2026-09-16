@@ -6,13 +6,29 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension EnterpriseTeamsMethods {
-    /// To delete an enterprise team, the authenticated user must be an enterprise owner. If you are an enterprise owner, deleting an enterprise team will delete all of its IdP mappings as well.
+public extension EnterpriseTeamsMethods {
+    /// To delete an enterprise team, the authenticated user must be an enterprise owner. If you are an enterprise
+    /// owner, deleting an enterprise team will delete all of its IdP mappings as well.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
     /// - teamSlug: The slug of the team name.
-    public static func enterpriseTeamsDelete(config: ClientConfig, enterprise: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug))].joined(), config: config, decoder: .empty, operationId: "enterpriseTeamsDelete")).data
+    static func enterpriseTeamsDelete(
+        config: ClientConfig,
+        enterprise: String,
+        teamSlug: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "enterpriseTeamsDelete"
+        )).data
     }
 }

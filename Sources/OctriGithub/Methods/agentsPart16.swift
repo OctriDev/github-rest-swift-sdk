@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentsMethods {
-    /// Gets a single repository secret without revealing its encrypted value. The authenticated user must have collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension AgentsMethods {
+    /// Gets a single repository secret without revealing its encrypted value. The authenticated user must have
+    /// collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +17,25 @@ extension AgentsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - secretName: The name of the secret.
-    public static func agentsGetRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String) async throws -> ActionsSecret {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/agents/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "agentsGetRepoSecret")).data
+    static func agentsGetRepoSecret(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        secretName: String
+    ) async throws -> ActionsSecret {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/agents/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "agentsGetRepoSecret"
+        )).data
     }
 }

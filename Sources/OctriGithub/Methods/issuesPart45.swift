@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Deletes a label from a repository by its name. Supply the repository owner, repository name, and label `name` to identify the label to remove. Deleting the label removes it from the repository's available labels.
+public extension IssuesMethods {
+    /// Deletes a label from a repository by its name. Supply the repository owner, repository name, and label `name` to
+    /// identify the label to remove. Deleting the label removes it from the repository's available labels.
     ///
     /// Deletes a label using the given label name.
     ///
@@ -16,7 +17,25 @@ extension IssuesMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func issuesDeleteLabel(config: ClientConfig, owner: String, repo: String, name: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/labels/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .empty, operationId: "issuesDeleteLabel")).data
+    static func issuesDeleteLabel(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        name: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/labels/",
+                sdkEncodePathSegment(sdkWireString(name)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "issuesDeleteLabel"
+        )).data
     }
 }

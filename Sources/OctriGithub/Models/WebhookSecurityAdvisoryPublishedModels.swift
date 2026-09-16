@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSecurityAdvisoryPublished domain models
+/// WebhookSecurityAdvisoryPublished domain models
 /// Typed representation of the `WebhookSecurityAdvisoryPublished` API schema.
 public struct WebhookSecurityAdvisoryPublished: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,30 +36,48 @@ public struct WebhookSecurityAdvisoryPublished: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookSecurityAdvisoryPublished {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.securityAdvisory) else {
-            throw SdkValidationError(field: "security_advisory", code: "required", message: "Validation failed for 'security_advisory': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.securityAdvisory = try container.sdkDecodeRequired(.securityAdvisory)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookSecurityAdvisoryPublished {
-    public init(action: WebhookSecurityAdvisoryPublishedAction, securityAdvisory: WebhooksSecurityAdvisory, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.securityAdvisory) else {
+            throw SdkValidationError(
+                field: "security_advisory",
+                code: "required",
+                message: "Validation failed for 'security_advisory': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        securityAdvisory = try container.sdkDecodeRequired(.securityAdvisory)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookSecurityAdvisoryPublished {
+    init(
+        action: WebhookSecurityAdvisoryPublishedAction,
+        securityAdvisory: WebhooksSecurityAdvisory,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.action, self.securityAdvisory) = (action, securityAdvisory)
         (self.enterprise, self.installation) = (enterprise, installation)
         (self.organization, self.repository) = (organization, repository)
@@ -68,15 +86,19 @@ public extension WebhookSecurityAdvisoryPublished {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookSecurityAdvisoryPublishedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSecurityAdvisoryPublishedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let published = WebhookSecurityAdvisoryPublishedAction(rawValue: "published")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

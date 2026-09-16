@@ -6,25 +6,53 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Deletes an issue field for an organization. You can find out more about issue fields in [Managing issue fields in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension OrgsMethods {
+    /// Deletes an issue field for an organization. You can find out more about issue fields in [Managing issue fields
+    /// in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization).
+    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - issueFieldId: The unique identifier of the issue field.
-    public static func orgsDeleteIssueField(config: ClientConfig, org: String, issueFieldId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-fields/", sdkEncodePathSegment(sdkWireString(issueFieldId))].joined(), config: config, decoder: .empty, operationId: "orgsDeleteIssueField")).data
+    static func orgsDeleteIssueField(
+        config: ClientConfig,
+        org: String,
+        issueFieldId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/issue-fields/",
+                sdkEncodePathSegment(sdkWireString(issueFieldId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsDeleteIssueField"
+        )).data
     }
 
-    /// Lists all issue types for an organization. OAuth app tokens and personal access tokens (classic) need the read:org scope to use this endpoint.
+    /// Lists all issue types for an organization. OAuth app tokens and personal access tokens (classic) need the
+    /// read:org scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func orgsListIssueTypes(config: ClientConfig, org: String) async throws -> [IssueType?] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-types"].joined(), config: config, decoder: .json, operationId: "orgsListIssueTypes")).data
+    static func orgsListIssueTypes(config: ClientConfig, org: String) async throws -> [IssueType?] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-types"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsListIssueTypes"
+        )).data
     }
 
-    /// Create a new issue type for an organization. You can find out more about issue types in [Managing issue types in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Create a new issue type for an organization. You can find out more about issue types in [Managing issue types in
+    /// an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization).
+    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -33,9 +61,28 @@ extension OrgsMethods {
     ///   level.
     /// - description: Description of the issue type.
     /// - color: Color for the issue type.
-    public static func orgsCreateIssueType(config: ClientConfig, org: String, name: String, isEnabled: Bool, description: SdkOptional<String>?, color: SdkOptional<OrganizationCreateIssueTypeColor>?) async throws -> IssueType {
-        let requestBody = OrgsCreateIssueTypeRequestBody(name: name, isEnabled: isEnabled, description: description, color: color)
+    static func orgsCreateIssueType(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        isEnabled: Bool,
+        description: SdkOptional<String>?,
+        color: SdkOptional<OrganizationCreateIssueTypeColor>?
+    ) async throws -> IssueType {
+        let requestBody = OrgsCreateIssueTypeRequestBody(
+            name: name,
+            isEnabled: isEnabled,
+            description: description,
+            color: color
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-types"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsCreateIssueType")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-types"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsCreateIssueType"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookProjectsV2StatusUpdateCreated domain models
+/// WebhookProjectsV2StatusUpdateCreated domain models
 /// Typed representation of the `WebhookProjectsV2StatusUpdateCreated` API schema.
 public struct WebhookProjectsV2StatusUpdateCreated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -27,34 +27,58 @@ public struct WebhookProjectsV2StatusUpdateCreated: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookProjectsV2StatusUpdateCreated {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.organization) else {
-            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
-        }
-        guard container.contains(.projectsV2StatusUpdate) else {
-            throw SdkValidationError(field: "projects_v2_status_update", code: "required", message: "Validation failed for 'projects_v2_status_update': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.organization = try container.sdkDecodeRequired(.organization)
-        self.projectsV2StatusUpdate = try container.sdkDecodeRequired(.projectsV2StatusUpdate)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookProjectsV2StatusUpdateCreated {
-    public init(action: WebhookProjectsV2StatusUpdateCreatedAction, organization: OrganizationSimpleWebhooks, projectsV2StatusUpdate: ProjectsV2StatusUpdate, sender: SimpleUser, installation: SimpleInstallation? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.organization) else {
+            throw SdkValidationError(
+                field: "organization",
+                code: "required",
+                message: "Validation failed for 'organization': value is required"
+            )
+        }
+        guard container.contains(.projectsV2StatusUpdate) else {
+            throw SdkValidationError(
+                field: "projects_v2_status_update",
+                code: "required",
+                message: "Validation failed for 'projects_v2_status_update': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        organization = try container.sdkDecodeRequired(.organization)
+        projectsV2StatusUpdate = try container.sdkDecodeRequired(.projectsV2StatusUpdate)
+        sender = try container.sdkDecodeRequired(.sender)
+        installation = try container.sdkDecodeIfPresent(.installation)
+    }
+}
+
+public extension WebhookProjectsV2StatusUpdateCreated {
+    init(
+        action: WebhookProjectsV2StatusUpdateCreatedAction,
+        organization: OrganizationSimpleWebhooks,
+        projectsV2StatusUpdate: ProjectsV2StatusUpdate,
+        sender: SimpleUser,
+        installation: SimpleInstallation? = nil
+    ) {
         (self.action, self.organization) = (action, organization)
         (self.projectsV2StatusUpdate, self.sender) = (projectsV2StatusUpdate, sender)
         self.installation = installation
@@ -62,15 +86,19 @@ public extension WebhookProjectsV2StatusUpdateCreated {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookProjectsV2StatusUpdateCreatedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookProjectsV2StatusUpdateCreatedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = WebhookProjectsV2StatusUpdateCreatedAction(rawValue: "created")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

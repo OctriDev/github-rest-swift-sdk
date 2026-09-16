@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookCheckSuiteCompleted domain models
+/// WebhookCheckSuiteCompleted domain models
 /// Typed representation of the `WebhookCheckSuiteCompleted` API schema.
 public struct WebhookCheckSuiteCompleted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,36 +36,62 @@ public struct WebhookCheckSuiteCompleted: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookCheckSuiteCompleted {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.checkSuite) else {
-            throw SdkValidationError(field: "check_suite", code: "required", message: "Validation failed for 'check_suite': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.checkSuite = try container.sdkDecodeRequired(.checkSuite)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookCheckSuiteCompleted {
-    public init(action: WebhookCheckSuiteCompletedAction, checkSuite: WebhookCheckSuiteCompletedCheckSuite, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.checkSuite) else {
+            throw SdkValidationError(
+                field: "check_suite",
+                code: "required",
+                message: "Validation failed for 'check_suite': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        checkSuite = try container.sdkDecodeRequired(.checkSuite)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookCheckSuiteCompleted {
+    init(
+        action: WebhookCheckSuiteCompletedAction,
+        checkSuite: WebhookCheckSuiteCompletedCheckSuite,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.checkSuite) = (action, checkSuite)
         (self.repository, self.sender) = (repository, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -139,39 +165,60 @@ public struct WebhookCheckSuiteCompletedCheckSuite: Codable {
         case runsRerequestable = "runs_rerequestable"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookCheckSuiteCompletedCheckSuite {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.after = try container.sdkDecodeIfPresent(.after)
-        self.app = try container.sdkDecodeRequired(.app)
-        self.before = try container.sdkDecodeIfPresent(.before)
-        self.checkRunsUrl = try container.sdkDecodeRequired(.checkRunsUrl)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.headBranch = try container.sdkDecodeIfPresent(.headBranch)
-        self.headCommit = try container.sdkDecodeRequired(.headCommit)
-        self.headSha = try container.sdkDecodeRequired(.headSha)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.latestCheckRunsCount = try container.sdkDecodeRequired(.latestCheckRunsCount)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.pullRequests = try container.sdkDecodeRequired(.pullRequests)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.rerequestable = try container.sdkDecodeIfPresent(.rerequestable)
-        self.runsRerequestable = try container.sdkDecodeIfPresent(.runsRerequestable)
-            try sdkValidateUri("check_runs_url", self.checkRunsUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookCheckSuiteCompletedCheckSuite {
-    public init(after: String?, app: WebhookCheckSuiteCompletedCheckSuiteApp, before: String?, checkRunsUrl: String, conclusion: WebhookCheckSuiteCompletedCheckSuiteConclusion?, createdAt: Date, headBranch: String?, headCommit: WebhookCheckSuiteCompletedCheckSuiteHeadCommit, headSha: String, id: Int, latestCheckRunsCount: Int, nodeId: String, pullRequests: [WebhookCheckSuiteCompletedCheckSuitePullRequestsItem], status: WebhookCheckSuiteCompletedCheckSuiteStatus?, updatedAt: Date, url: String, rerequestable: Bool? = nil, runsRerequestable: Bool? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        after = try container.sdkDecodeIfPresent(.after)
+        app = try container.sdkDecodeRequired(.app)
+        before = try container.sdkDecodeIfPresent(.before)
+        checkRunsUrl = try container.sdkDecodeRequired(.checkRunsUrl)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        headBranch = try container.sdkDecodeIfPresent(.headBranch)
+        headCommit = try container.sdkDecodeRequired(.headCommit)
+        headSha = try container.sdkDecodeRequired(.headSha)
+        id = try container.sdkDecodeRequired(.id)
+        latestCheckRunsCount = try container.sdkDecodeRequired(.latestCheckRunsCount)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        pullRequests = try container.sdkDecodeRequired(.pullRequests)
+        status = try container.sdkDecodeIfPresent(.status)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        url = try container.sdkDecodeRequired(.url)
+        rerequestable = try container.sdkDecodeIfPresent(.rerequestable)
+        runsRerequestable = try container.sdkDecodeIfPresent(.runsRerequestable)
+        try sdkValidateUri("check_runs_url", checkRunsUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookCheckSuiteCompletedCheckSuite {
+    init(
+        after: String?,
+        app: WebhookCheckSuiteCompletedCheckSuiteApp,
+        before: String?,
+        checkRunsUrl: String,
+        conclusion: WebhookCheckSuiteCompletedCheckSuiteConclusion?,
+        createdAt: Date,
+        headBranch: String?,
+        headCommit: WebhookCheckSuiteCompletedCheckSuiteHeadCommit,
+        headSha: String,
+        id: Int,
+        latestCheckRunsCount: Int,
+        nodeId: String,
+        pullRequests: [WebhookCheckSuiteCompletedCheckSuitePullRequestsItem],
+        status: WebhookCheckSuiteCompletedCheckSuiteStatus?,
+        updatedAt: Date,
+        url: String,
+        rerequestable: Bool? = nil,
+        runsRerequestable: Bool? = nil
+    ) throws {
         (self.after, self.app) = (after, app)
         (self.before, self.checkRunsUrl) = (before, checkRunsUrl)
         (self.conclusion, self.createdAt) = (conclusion, createdAt)
@@ -181,10 +228,10 @@ public extension WebhookCheckSuiteCompletedCheckSuite {
         (self.pullRequests, self.status) = (pullRequests, status)
         (self.updatedAt, self.url) = (updatedAt, url)
         (self.rerequestable, self.runsRerequestable) = (rerequestable, runsRerequestable)
-            try sdkValidateUri("check_runs_url", self.checkRunsUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("check_runs_url", self.checkRunsUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -235,40 +282,56 @@ public struct WebhookCheckSuiteCompletedCheckSuiteApp: Codable {
         case slug
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookCheckSuiteCompletedCheckSuiteApp {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.externalUrl = try container.sdkDecodeIfPresent(.externalUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.owner = try container.sdkDecodeIfPresent(.owner)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.events = try container.sdkDecodeIfPresent(.events)
-        self.clientId = try container.sdkDecodeIfPresent(.clientId)
-        self.permissions = try container.sdkDecodeIfPresent(.permissions)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
-        if let value = self.createdAt {
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        description = try container.sdkDecodeIfPresent(.description)
+        externalUrl = try container.sdkDecodeIfPresent(.externalUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        owner = try container.sdkDecodeIfPresent(.owner)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        events = try container.sdkDecodeIfPresent(.events)
+        clientId = try container.sdkDecodeIfPresent(.clientId)
+        permissions = try container.sdkDecodeIfPresent(.permissions)
+        slug = try container.sdkDecodeIfPresent(.slug)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.externalUrl {
+        if let value = externalUrl {
             try sdkValidateUri("external_url", value)
         }
-            try sdkValidateUri("html_url", self.htmlUrl)
-        if let value = self.updatedAt {
+        try sdkValidateUri("html_url", htmlUrl)
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
 public extension WebhookCheckSuiteCompletedCheckSuiteApp {
-    public init(createdAt: Date?, description: String?, externalUrl: String?, htmlUrl: String, id: Int?, name: String, nodeId: String, owner: WebhookCheckSuiteCompletedCheckSuiteAppOwner?, updatedAt: Date?, events: [WebhookCheckSuiteCompletedCheckSuiteAppEventsItem]? = nil, clientId: String? = nil, permissions: WebhookCheckSuiteCompletedCheckSuiteAppPermissions? = nil, slug: String? = nil) throws {
+    init(
+        createdAt: Date?,
+        description: String?,
+        externalUrl: String?,
+        htmlUrl: String,
+        id: Int?,
+        name: String,
+        nodeId: String,
+        owner: WebhookCheckSuiteCompletedCheckSuiteAppOwner?,
+        updatedAt: Date?,
+        events: [WebhookCheckSuiteCompletedCheckSuiteAppEventsItem]? = nil,
+        clientId: String? = nil,
+        permissions: WebhookCheckSuiteCompletedCheckSuiteAppPermissions? = nil,
+        slug: String? = nil
+    ) throws {
         (self.createdAt, self.description) = (createdAt, description)
         (self.externalUrl, self.htmlUrl) = (externalUrl, htmlUrl)
         (self.id, self.name) = (id, name)
@@ -282,7 +345,7 @@ public extension WebhookCheckSuiteCompletedCheckSuiteApp {
         if let value = self.externalUrl {
             try sdkValidateUri("external_url", value)
         }
-            try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
         if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
@@ -361,46 +424,79 @@ public struct WebhookCheckSuiteCompletedCheckSuiteAppOwner: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension WebhookCheckSuiteCompletedCheckSuiteAppOwner {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        email = try container.sdkDecodeIfPresent(.email)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
 public extension WebhookCheckSuiteCompletedCheckSuiteAppOwner {
-    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookCheckSuiteCompletedCheckSuiteAppOwnerType? = nil, url: String? = nil, userViewType: String? = nil) throws {
+    init(
+        id: Int,
+        login: String,
+        avatarUrl: String? = nil,
+        deleted: Bool? = nil,
+        email: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        name: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: WebhookCheckSuiteCompletedCheckSuiteAppOwnerType? = nil,
+        url: String? = nil,
+        userViewType: String? = nil
+    ) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -418,28 +514,28 @@ public extension WebhookCheckSuiteCompletedCheckSuiteAppOwner {
 
 extension WebhookCheckSuiteCompletedCheckSuiteAppOwner {
     func sdkValidateConstraints() throws {
-        if let value = self.avatarUrl {
+        if let value = avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = self.followersUrl {
+        if let value = followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.organizationsUrl {
+        if let value = organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = self.receivedEventsUrl {
+        if let value = receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = self.reposUrl {
+        if let value = reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = self.subscriptionsUrl {
+        if let value = subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }

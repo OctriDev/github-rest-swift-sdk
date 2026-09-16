@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookGollum domain models
+/// WebhookGollum domain models
 /// Typed representation of the `WebhookGollum` API schema.
 public struct WebhookGollum: Codable {
     /// The pages that were updated.
@@ -33,32 +33,53 @@ public struct WebhookGollum: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookGollum {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.pages) else {
-            throw SdkValidationError(field: "pages", code: "required", message: "Validation failed for 'pages': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.pages = try container.sdkDecodeRequired(.pages)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookGollum {
-    public init(pages: [WebhookGollumPagesItem], repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.pages) else {
+            throw SdkValidationError(
+                field: "pages",
+                code: "required",
+                message: "Validation failed for 'pages': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        pages = try container.sdkDecodeRequired(.pages)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookGollum {
+    init(
+        pages: [WebhookGollumPagesItem],
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.pages, self.repository) = (pages, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -89,46 +110,79 @@ public struct WebhookGollumPagesItem: Codable {
         case title
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookGollumPagesItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
-        }
-        guard container.contains(.pageName) else {
-            throw SdkValidationError(field: "page_name", code: "required", message: "Validation failed for 'page_name': value is required")
-        }
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        guard container.contains(.summary) else {
-            throw SdkValidationError(field: "summary", code: "required", message: "Validation failed for 'summary': value is required")
-        }
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.pageName = try container.sdkDecodeRequired(.pageName)
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.summary = try container.sdkDecodeIfPresent(.summary)
-        self.title = try container.sdkDecodeRequired(.title)
-            try sdkValidateUri("html_url", self.htmlUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookGollumPagesItem {
-    public init(action: WebhookGollumPagesItemAction, htmlUrl: String, pageName: String, sha: String, summary: String?, title: String) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.htmlUrl) else {
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
+        }
+        guard container.contains(.pageName) else {
+            throw SdkValidationError(
+                field: "page_name",
+                code: "required",
+                message: "Validation failed for 'page_name': value is required"
+            )
+        }
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        guard container.contains(.summary) else {
+            throw SdkValidationError(
+                field: "summary",
+                code: "required",
+                message: "Validation failed for 'summary': value is required"
+            )
+        }
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        pageName = try container.sdkDecodeRequired(.pageName)
+        sha = try container.sdkDecodeRequired(.sha)
+        summary = try container.sdkDecodeIfPresent(.summary)
+        title = try container.sdkDecodeRequired(.title)
+        try sdkValidateUri("html_url", htmlUrl)
+    }
+}
+
+public extension WebhookGollumPagesItem {
+    init(
+        action: WebhookGollumPagesItemAction,
+        htmlUrl: String,
+        pageName: String,
+        sha: String,
+        summary: String?,
+        title: String
+    ) throws {
         (self.action, self.htmlUrl) = (action, htmlUrl)
         (self.pageName, self.sha) = (pageName, sha)
         (self.summary, self.title) = (summary, title)
-            try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
@@ -136,13 +190,16 @@ public extension WebhookGollumPagesItem {
 public struct WebhookGollumPagesItemAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = WebhookGollumPagesItemAction(rawValue: "created")
     public static let edited = WebhookGollumPagesItemAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

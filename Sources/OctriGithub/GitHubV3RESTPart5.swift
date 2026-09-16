@@ -4,173 +4,484 @@
 import Foundation
 
 public extension ActionsNamespace {
-/// Adds a repository to the list of repositories that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "Create a self-hosted runner group for an organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func addRepoAccessToSelfHostedRunnerGroupInOrg(org: String, runnerGroupId: Int, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(config: config, org: org, runnerGroupId: runnerGroupId, repositoryId: repositoryId)
+    /// Adds a repository to the list of repositories that can access a self-hosted runner group. The runner group must
+    /// have `visibility` set to `selected`. For more information, see "Create a self-hosted runner group for an
+    /// organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
+    func addRepoAccessToSelfHostedRunnerGroupInOrg(
+        org: String,
+        runnerGroupId: Int,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(
+            config: config,
+            org: org,
+            runnerGroupId: runnerGroupId,
+            repositoryId: repositoryId
+        )
     }
 
-/// Removes a repository from the list of selected repositories that can access a self-hosted runner group. The runner group must have `visibility` set to `selected`. For more information, see "Create a self-hosted runner group for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func removeRepoAccessToSelfHostedRunnerGroupInOrg(org: String, runnerGroupId: Int, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(config: config, org: org, runnerGroupId: runnerGroupId, repositoryId: repositoryId)
+    /// Removes a repository from the list of selected repositories that can access a self-hosted runner group. The
+    /// runner group must have `visibility` set to `selected`. For more information, see "Create a self-hosted runner
+    /// group for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint.
+    func removeRepoAccessToSelfHostedRunnerGroupInOrg(
+        org: String,
+        runnerGroupId: Int,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(
+            config: config,
+            org: org,
+            runnerGroupId: runnerGroupId,
+            repositoryId: repositoryId
+        )
     }
 
-/// Lists self-hosted runners that are in a specific organization group. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func listSelfHostedRunnersInGroupForOrg(org: String, runnerGroupId: Int, perPage: Int?, page: Int?) async throws -> ActionsListSelfHostedRunnersInGroupForOrgResponse {
-        return try await ActionsMethods.actionsListSelfHostedRunnersInGroupForOrg(config: config, org: org, runnerGroupId: runnerGroupId, perPage: perPage, page: page)
+    /// Lists self-hosted runners that are in a specific organization group. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
+    func listSelfHostedRunnersInGroupForOrg(
+        org: String,
+        runnerGroupId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListSelfHostedRunnersInGroupForOrgResponse {
+        try await ActionsMethods.actionsListSelfHostedRunnersInGroupForOrg(
+            config: config,
+            org: org,
+            runnerGroupId: runnerGroupId,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Replaces the list of self-hosted runners that are part of an organization runner group. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func setSelfHostedRunnersInGroupForOrg(org: String, runnerGroupId: Int, runners: [Int]) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsSetSelfHostedRunnersInGroupForOrg(config: config, org: org, runnerGroupId: runnerGroupId, runners: runners)
+    /// Replaces the list of self-hosted runners that are part of an organization runner group. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func setSelfHostedRunnersInGroupForOrg(
+        org: String,
+        runnerGroupId: Int,
+        runners: [Int]
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsSetSelfHostedRunnersInGroupForOrg(
+            config: config,
+            org: org,
+            runnerGroupId: runnerGroupId,
+            runners: runners
+        )
     }
 
-/// Adds a self-hosted runner to a runner group configured in an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func addSelfHostedRunnerToGroupForOrg(org: String, runnerGroupId: Int, runnerId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsAddSelfHostedRunnerToGroupForOrg(config: config, org: org, runnerGroupId: runnerGroupId, runnerId: runnerId)
+    /// Adds a self-hosted runner to a runner group configured in an organization. OAuth tokens and personal access
+    /// tokens (classic) need the `admin:org` scope to use this endpoint.
+    func addSelfHostedRunnerToGroupForOrg(
+        org: String,
+        runnerGroupId: Int,
+        runnerId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsAddSelfHostedRunnerToGroupForOrg(
+            config: config,
+            org: org,
+            runnerGroupId: runnerGroupId,
+            runnerId: runnerId
+        )
     }
 
-/// Removes a self-hosted runner from a group configured in an organization. The runner is then returned to the default group. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func removeSelfHostedRunnerFromGroupForOrg(org: String, runnerGroupId: Int, runnerId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsRemoveSelfHostedRunnerFromGroupForOrg(config: config, org: org, runnerGroupId: runnerGroupId, runnerId: runnerId)
+    /// Removes a self-hosted runner from a group configured in an organization. The runner is then returned to the
+    /// default group. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
+    func removeSelfHostedRunnerFromGroupForOrg(
+        org: String,
+        runnerGroupId: Int,
+        runnerId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsRemoveSelfHostedRunnerFromGroupForOrg(
+            config: config,
+            org: org,
+            runnerGroupId: runnerGroupId,
+            runnerId: runnerId
+        )
     }
 
-/// Lists all self-hosted runners configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func listSelfHostedRunnersForOrg(org: String, name: String?, perPage: Int?, page: Int?) async throws -> ActionsListSelfHostedRunnersForOrgResponse {
-        return try await ActionsMethods.actionsListSelfHostedRunnersForOrg(config: config, org: org, name: name, perPage: perPage, page: page)
+    /// Lists all self-hosted runners configured in an organization. Authenticated users must have admin access to the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`
+    /// scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    func listSelfHostedRunnersForOrg(
+        org: String,
+        name: String?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListSelfHostedRunnersForOrgResponse {
+        try await ActionsMethods.actionsListSelfHostedRunnersForOrg(
+            config: config,
+            org: org,
+            name: name,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Gets the end-of-life schedule for a specific runner version in an organization. Returns the runner version and the dates when registration and runtime support will end. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func getRunnerVersionDeprecationForOrg(org: String, version: String) async throws -> ActionsGetRunnerVersionDeprecationForOrgResponse {
-        return try await ActionsMethods.actionsGetRunnerVersionDeprecationForOrg(config: config, org: org, version: version)
+    /// Gets the end-of-life schedule for a specific runner version in an organization. Returns the runner version and
+    /// the dates when registration and runtime support will end. Authenticated users must have admin access to the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`
+    /// scope to use this endpoint.
+    func getRunnerVersionDeprecationForOrg(
+        org: String,
+        version: String
+    ) async throws -> ActionsGetRunnerVersionDeprecationForOrgResponse {
+        try await ActionsMethods.actionsGetRunnerVersionDeprecationForOrg(config: config, org: org, version: version)
     }
 }
 
 public extension ActionsNamespace {
-/// Lists binaries for the runner application that you can download and run. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func listRunnerApplicationsForOrg(org: String) async throws -> [RunnerApplication] {
-        return try await ActionsMethods.actionsListRunnerApplicationsForOrg(config: config, org: org)
+    /// Lists binaries for the runner application that you can download and run. Authenticated users must have admin
+    /// access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    func listRunnerApplicationsForOrg(org: String) async throws -> [RunnerApplication] {
+        try await ActionsMethods.actionsListRunnerApplicationsForOrg(config: config, org: org)
     }
 
-/// Generates a configuration that can be passed to the runner application at startup. The authenticated user must have admin access to the organization. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func generateRunnerJitconfigForOrg(org: String, name: String, runnerGroupId: Int, labels: [String], workFolder: String?) async throws -> ActionsGenerateRunnerJitconfigForOrgResponse {
-        return try await ActionsMethods.actionsGenerateRunnerJitconfigForOrg(config: config, org: org, name: name, runnerGroupId: runnerGroupId, labels: labels, workFolder: workFolder)
+    /// Generates a configuration that can be passed to the runner application at startup. The authenticated user must
+    /// have admin access to the organization. OAuth tokens and personal access tokens (classic) need the`admin:org`
+    /// scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need
+    /// the `repo` scope to use this endpoint.
+    func generateRunnerJitconfigForOrg(
+        org: String,
+        name: String,
+        runnerGroupId: Int,
+        labels: [String],
+        workFolder: String?
+    ) async throws -> ActionsGenerateRunnerJitconfigForOrgResponse {
+        try await ActionsMethods.actionsGenerateRunnerJitconfigForOrg(
+            config: config,
+            org: org,
+            name: name,
+            runnerGroupId: runnerGroupId,
+            labels: labels,
+            workFolder: workFolder
+        )
     }
 
-/// Returns a token that you can pass to the `config` script. The token expires after one hour. For example, you can replace `TOKEN` in the following example with the registration token provided by this endpoint to configure your self-hosted runner: ``` ./config.sh --url https://github.com/octo-org --token TOKEN ``` Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createRegistrationTokenForOrg(org: String) async throws -> AuthenticationToken {
-        return try await ActionsMethods.actionsCreateRegistrationTokenForOrg(config: config, org: org)
+    /// Returns a token that you can pass to the `config` script. The token expires after one hour. For example, you can
+    /// replace `TOKEN` in the following example with the registration token provided by this endpoint to configure your
+    /// self-hosted runner: ``` ./config.sh --url https://github.com/octo-org --token TOKEN ``` Authenticated users must
+    /// have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic)
+    /// need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
+    func createRegistrationTokenForOrg(org: String) async throws -> AuthenticationToken {
+        try await ActionsMethods.actionsCreateRegistrationTokenForOrg(config: config, org: org)
     }
 
-/// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an organization. The token expires after one hour. For example, you can replace `TOKEN` in the following example with the registration token provided by this endpoint to remove your self-hosted runner from an organization: ``` ./config.sh remove --token TOKEN ``` Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createRemoveTokenForOrg(org: String) async throws -> AuthenticationToken {
-        return try await ActionsMethods.actionsCreateRemoveTokenForOrg(config: config, org: org)
+    /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an organization.
+    /// The token expires after one hour. For example, you can replace `TOKEN` in the following example with the
+    /// registration token provided by this endpoint to remove your self-hosted runner from an organization: ```
+    /// ./config.sh remove --token TOKEN ``` Authenticated users must have admin access to the organization to use this
+    /// endpoint. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If
+    /// the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
+    func createRemoveTokenForOrg(org: String) async throws -> AuthenticationToken {
+        try await ActionsMethods.actionsCreateRemoveTokenForOrg(config: config, org: org)
     }
 
-/// Gets a specific self-hosted runner configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func getSelfHostedRunnerForOrg(org: String, runnerId: Int) async throws -> Runner {
-        return try await ActionsMethods.actionsGetSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId)
+    /// Gets a specific self-hosted runner configured in an organization. Authenticated users must have admin access to
+    /// the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    func getSelfHostedRunnerForOrg(org: String, runnerId: Int) async throws -> Runner {
+        try await ActionsMethods.actionsGetSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId)
     }
 
-/// Forces the removal of a self-hosted runner from an organization. You can use this endpoint to completely remove the runner when the machine you were using no longer exists. Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteSelfHostedRunnerFromOrg(org: String, runnerId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDeleteSelfHostedRunnerFromOrg(config: config, org: org, runnerId: runnerId)
+    /// Forces the removal of a self-hosted runner from an organization. You can use this endpoint to completely remove
+    /// the runner when the machine you were using no longer exists. Authenticated users must have admin access to the
+    /// organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the`admin:org` scope
+    /// to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
+    func deleteSelfHostedRunnerFromOrg(org: String, runnerId: Int) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDeleteSelfHostedRunnerFromOrg(config: config, org: org, runnerId: runnerId)
     }
 
-/// Lists all labels for a self-hosted runner configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func listLabelsForSelfHostedRunnerForOrg(org: String, runnerId: Int) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsListLabelsForSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId)
+    /// Lists all labels for a self-hosted runner configured in an organization. Authenticated users must have admin
+    /// access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    func listLabelsForSelfHostedRunnerForOrg(
+        org: String,
+        runnerId: Int
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsListLabelsForSelfHostedRunnerForOrg(
+            config: config,
+            org: org,
+            runnerId: runnerId
+        )
     }
 
-/// Adds custom labels to a self-hosted runner configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func addCustomLabelsToSelfHostedRunnerForOrg(org: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsAddCustomLabelsToSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId, labels: labels)
+    /// Adds custom labels to a self-hosted runner configured in an organization. Authenticated users must have admin
+    /// access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint.
+    func addCustomLabelsToSelfHostedRunnerForOrg(
+        org: String,
+        runnerId: Int,
+        labels: [String]
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsAddCustomLabelsToSelfHostedRunnerForOrg(
+            config: config,
+            org: org,
+            runnerId: runnerId,
+            labels: labels
+        )
     }
 }
 
 public extension ActionsNamespace {
-/// Remove all previous custom labels and set the new custom labels for a specific self-hosted runner configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func setCustomLabelsForSelfHostedRunnerForOrg(org: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsSetCustomLabelsForSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId, labels: labels)
+    /// Remove all previous custom labels and set the new custom labels for a specific self-hosted runner configured in
+    /// an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository
+    /// is private, the `repo` scope is also required.
+    func setCustomLabelsForSelfHostedRunnerForOrg(
+        org: String,
+        runnerId: Int,
+        labels: [String]
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsSetCustomLabelsForSelfHostedRunnerForOrg(
+            config: config,
+            org: org,
+            runnerId: runnerId,
+            labels: labels
+        )
     }
 
-/// Remove all custom labels from a self-hosted runner configured in an organization. Returns the remaining read-only labels from the runner. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func removeAllCustomLabelsFromSelfHostedRunnerForOrg(org: String, runnerId: Int) async throws -> ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId)
+    /// Remove all custom labels from a self-hosted runner configured in an organization. Returns the remaining
+    /// read-only labels from the runner. Authenticated users must have admin access to the organization to use this
+    /// endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// If the repository is private, the `repo` scope is also required.
+    func removeAllCustomLabelsFromSelfHostedRunnerForOrg(
+        org: String,
+        runnerId: Int
+    ) async throws -> ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
+            config: config,
+            org: org,
+            runnerId: runnerId
+        )
     }
 
-/// Remove a custom label from a self-hosted runner configured in an organization. Returns the remaining labels from the runner. This endpoint returns a `404 Not Found` status if the custom label is not present on the runner. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func removeCustomLabelFromSelfHostedRunnerForOrg(org: String, runnerId: Int, name: String) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(config: config, org: org, runnerId: runnerId, name: name)
+    /// Remove a custom label from a self-hosted runner configured in an organization. Returns the remaining labels from
+    /// the runner. This endpoint returns a `404 Not Found` status if the custom label is not present on the runner.
+    /// Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// the `repo` scope is also required.
+    func removeCustomLabelFromSelfHostedRunnerForOrg(
+        org: String,
+        runnerId: Int,
+        name: String
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
+            config: config,
+            org: org,
+            runnerId: runnerId,
+            name: name
+        )
     }
 
-/// Lists all secrets available in an organization without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func listOrgSecrets(org: String, perPage: Int?, page: Int?) async throws -> ActionsListOrgSecretsResponse {
-        return try await ActionsMethods.actionsListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
+    /// Lists all secrets available in an organization without revealing their encrypted values. Authenticated users
+    /// must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the
+    /// `repo` scope is also required.
+    func listOrgSecrets(org: String, perPage: Int?, page: Int?) async throws -> ActionsListOrgSecretsResponse {
+        try await ActionsMethods.actionsListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
     }
 
-/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. The authenticated user must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getOrgPublicKey(org: String) async throws -> ActionsPublicKey {
-        return try await ActionsMethods.actionsGetOrgPublicKey(config: config, org: org)
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. The authenticated user must have collaborator access to a repository to create, update, or read
+    /// secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If
+    /// the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
+    func getOrgPublicKey(org: String) async throws -> ActionsPublicKey {
+        try await ActionsMethods.actionsGetOrgPublicKey(config: config, org: org)
     }
 
-/// Gets a single organization secret without revealing its encrypted value. The authenticated user must have collaborator access to a repository to create, update, or read secrets OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getOrgSecret(org: String, secretName: String) async throws -> OrganizationActionsSecret {
-        return try await ActionsMethods.actionsGetOrgSecret(config: config, org: org, secretName: secretName)
+    /// Gets a single organization secret without revealing its encrypted value. The authenticated user must have
+    /// collaborator access to a repository to create, update, or read secrets OAuth tokens and personal access tokens
+    /// (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
+    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func getOrgSecret(org: String, secretName: String) async throws -> OrganizationActionsSecret {
+        try await ActionsMethods.actionsGetOrgSecret(config: config, org: org, secretName: secretName)
     }
 
-/// Creates or updates an organization secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createOrUpdateOrgSecret(org: String, secretName: String, encryptedValue: String, keyId: String, visibility: ActionsCreateOrUpdateOrgSecretRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsCreateOrUpdateOrgSecret(config: config, org: org, secretName: secretName, encryptedValue: encryptedValue, keyId: keyId, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
+    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have
+    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
+    /// (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
+    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func createOrUpdateOrgSecret(
+        org: String,
+        secretName: String,
+        encryptedValue: String,
+        keyId: String,
+        visibility: ActionsCreateOrUpdateOrgSecretRequestBodyVisibility,
+        selectedRepositoryIds: [Int]?
+    ) async throws -> EmptyObject {
+        try await ActionsMethods.actionsCreateOrUpdateOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            encryptedValue: encryptedValue,
+            keyId: keyId,
+            visibility: visibility,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 
-/// Deletes a secret in an organization using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDeleteOrgSecret(config: config, org: org, secretName: secretName)
+    /// Deletes a secret in an organization using the secret name. Authenticated users must have collaborator access to
+    /// a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need
+    /// the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
+    func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDeleteOrgSecret(config: config, org: org, secretName: secretName)
     }
 }
 
 public extension ActionsNamespace {
-/// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func listSelectedReposForOrgSecret(org: String, secretName: String, page: Int?, perPage: Int?) async throws -> ActionsListSelectedReposForOrgSecretResponse {
-        return try await ActionsMethods.actionsListSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, page: page, perPage: perPage)
+    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to
+    /// `selected`. Authenticated users must have collaborator access to a repository to create, update, or read
+    /// secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// If the repository is private, the `repo` scope is also required.
+    func listSelectedReposForOrgSecret(
+        org: String,
+        secretName: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> ActionsListSelectedReposForOrgSecretResponse {
+        try await ActionsMethods.actionsListSelectedReposForOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func setSelectedReposForOrgSecret(org: String, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsSetSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, selectedRepositoryIds: selectedRepositoryIds)
+    /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to
+    /// `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated
+    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// the `repo` scope is also required.
+    func setSelectedReposForOrgSecret(
+        org: String,
+        secretName: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsSetSelectedReposForOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 
-/// Adds a repository to an organization secret's selected repository list. Use this operation only when the secret's `visibility` is set to `selected`, and ensure the authenticated user has collaborator access to the repository. OAuth tokens and personal access tokens (classic) require the `admin:org` scope, plus `repo` for private repositories.
+    /// Adds a repository to an organization secret's selected repository list. Use this operation only when the
+    /// secret's `visibility` is set to `selected`, and ensure the authenticated user has collaborator access to the
+    /// repository. OAuth tokens and personal access tokens (classic) require the `admin:org` scope, plus `repo` for
+    /// private repositories.
     ///
-    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. For more information about setting the visibility, see [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func addSelectedRepoToOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsAddSelectedRepoToOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
+    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`.
+    /// For more information about setting the visibility, see [Create or update an organization
+    /// secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated
+    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func addSelectedRepoToOrgSecret(
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsAddSelectedRepoToOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            repositoryId: repositoryId
+        )
     }
 
-/// Removes a repository from an organization secret's selected repository list. Use this operation only when the secret's `visibility` is set to `selected`, and ensure the authenticated user has collaborator access to the repository. OAuth app tokens and personal access tokens (classic) require the `admin:org` scope, plus `repo` for private repositories.
+    /// Removes a repository from an organization secret's selected repository list. Use this operation only when the
+    /// secret's `visibility` is set to `selected`, and ensure the authenticated user has collaborator access to the
+    /// repository. OAuth app tokens and personal access tokens (classic) require the `admin:org` scope, plus `repo` for
+    /// private repositories.
     ///
-    /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func removeSelectedRepoFromOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsRemoveSelectedRepoFromOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
+    /// Removes a repository from an organization secret when the `visibility` for repository access is set to
+    /// `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated
+    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// the `repo` scope is also required.
+    func removeSelectedRepoFromOrgSecret(
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsRemoveSelectedRepoFromOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            repositoryId: repositoryId
+        )
     }
 
-/// Lists all organization variables. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func listOrgVariables(org: String, perPage: Int?, page: Int?) async throws -> ActionsListOrgVariablesResponse {
-        return try await ActionsMethods.actionsListOrgVariables(config: config, org: org, perPage: perPage, page: page)
+    /// Lists all organization variables. Authenticated users must have collaborator access to a repository to create,
+    /// update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint. If the repository is private, the `repo` scope is also required.
+    func listOrgVariables(org: String, perPage: Int?, page: Int?) async throws -> ActionsListOrgVariablesResponse {
+        try await ActionsMethods.actionsListOrgVariables(config: config, org: org, perPage: perPage, page: page)
     }
 
-/// Creates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createOrgVariable(org: String, name: String, value: String, visibility: ActionsCreateOrgVariableRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsCreateOrgVariable(config: config, org: org, name: name, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
+    /// Creates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must
+    /// have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access
+    /// tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
+    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func createOrgVariable(
+        org: String,
+        name: String,
+        value: String,
+        visibility: ActionsCreateOrgVariableRequestBodyVisibility,
+        selectedRepositoryIds: [Int]?
+    ) async throws -> EmptyObject {
+        try await ActionsMethods.actionsCreateOrgVariable(
+            config: config,
+            org: org,
+            name: name,
+            value: value,
+            visibility: visibility,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 
-/// Gets a specific variable in an organization. The authenticated user must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getOrgVariable(org: String, name: String) async throws -> OrganizationActionsVariable {
-        return try await ActionsMethods.actionsGetOrgVariable(config: config, org: org, name: name)
+    /// Gets a specific variable in an organization. The authenticated user must have collaborator access to a
+    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need
+    /// the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
+    func getOrgVariable(org: String, name: String) async throws -> OrganizationActionsVariable {
+        try await ActionsMethods.actionsGetOrgVariable(config: config, org: org, name: name)
     }
 
-/// Updates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
-    public func updateOrgVariable(org: String, name: String, name2: String?, value: String?, visibility: ActionsUpdateOrgVariableRequestBodyVisibility?, selectedRepositoryIds: [Int]?) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsUpdateOrgVariable(config: config, org: org, name: name, name2: name2, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
+    /// Updates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must
+    /// have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the
+    /// `repo` scope is also required.
+    func updateOrgVariable(
+        org: String,
+        name: String,
+        name2: String?,
+        value: String?,
+        visibility: ActionsUpdateOrgVariableRequestBodyVisibility?,
+        selectedRepositoryIds: [Int]?
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsUpdateOrgVariable(
+            config: config,
+            org: org,
+            name: name,
+            name2: name2,
+            value: value,
+            visibility: visibility,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 }

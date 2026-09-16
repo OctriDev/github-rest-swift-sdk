@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDeploymentProtectionRuleRequested domain models
+/// WebhookDeploymentProtectionRuleRequested domain models
 /// Typed representation of the `WebhookDeploymentProtectionRuleRequested` API schema.
 public struct WebhookDeploymentProtectionRuleRequested: Codable {
     /// Optional enumerated value serialized in the `action` wire field.
@@ -52,35 +52,48 @@ public struct WebhookDeploymentProtectionRuleRequested: Codable {
     }
 
     init() {
-        (self.action, self.environment, self.event, self.sha, self.ref) = (nil, nil, nil, nil, nil)
-        (self.deploymentCallbackUrl, self.deployment, self.pullRequests, self.repository, self.organization) = (nil, nil, nil, nil, nil)
-        (self.installation, self.sender) = (nil, nil)
+        (action, environment, event, sha, ref) = (nil, nil, nil, nil, nil)
+        (deploymentCallbackUrl, deployment, pullRequests, repository, organization) = (nil, nil, nil, nil, nil)
+        (installation, sender) = (nil, nil)
     }
 }
 
 public extension WebhookDeploymentProtectionRuleRequested {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.action = try container.sdkDecodeIfPresent(.action)
-        self.environment = try container.sdkDecodeIfPresent(.environment)
-        self.event = try container.sdkDecodeIfPresent(.event)
-        self.sha = try container.sdkDecodeIfPresent(.sha)
-        self.ref = try container.sdkDecodeIfPresent(.ref)
-        self.deploymentCallbackUrl = try container.sdkDecodeIfPresent(.deploymentCallbackUrl)
-        self.deployment = try container.sdkDecodeIfPresent(.deployment)
-        self.pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
-        if let value = self.deploymentCallbackUrl {
+        action = try container.sdkDecodeIfPresent(.action)
+        environment = try container.sdkDecodeIfPresent(.environment)
+        event = try container.sdkDecodeIfPresent(.event)
+        sha = try container.sdkDecodeIfPresent(.sha)
+        ref = try container.sdkDecodeIfPresent(.ref)
+        deploymentCallbackUrl = try container.sdkDecodeIfPresent(.deploymentCallbackUrl)
+        deployment = try container.sdkDecodeIfPresent(.deployment)
+        pullRequests = try container.sdkDecodeIfPresent(.pullRequests)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        sender = try container.sdkDecodeIfPresent(.sender)
+        if let value = deploymentCallbackUrl {
             try sdkValidateUri("deployment_callback_url", value)
         }
     }
 }
 
 public extension WebhookDeploymentProtectionRuleRequested {
-    public init(action: WebhookDeploymentProtectionRuleRequestedAction? = nil, environment: String? = nil, event: String? = nil, sha: String? = nil, ref: String? = nil, deploymentCallbackUrl: String? = nil, deployment: NullableDeployment? = nil, pullRequests: [PullRequest]? = nil, repository: RepositoryWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil, installation: SimpleInstallation? = nil, sender: SimpleUser? = nil) throws {
+    init(
+        action: WebhookDeploymentProtectionRuleRequestedAction? = nil,
+        environment: String? = nil,
+        event: String? = nil,
+        sha: String? = nil,
+        ref: String? = nil,
+        deploymentCallbackUrl: String? = nil,
+        deployment: NullableDeployment? = nil,
+        pullRequests: [PullRequest]? = nil,
+        repository: RepositoryWebhooks? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        sender: SimpleUser? = nil
+    ) throws {
         self.init()
         (self.action, self.environment) = (action, environment)
         (self.event, self.sha) = (event, sha)
@@ -95,15 +108,19 @@ public extension WebhookDeploymentProtectionRuleRequested {
 }
 
 /// Optional enumerated value serialized in the `action` wire field.
-public struct WebhookDeploymentProtectionRuleRequestedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentProtectionRuleRequestedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let requested = WebhookDeploymentProtectionRuleRequestedAction(rawValue: "requested")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

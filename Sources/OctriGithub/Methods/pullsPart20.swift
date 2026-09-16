@@ -6,8 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Retrieves a pull request review by its ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+public extension PullsMethods {
+    /// Retrieves a pull request review by its ID. This endpoint supports the following custom media types. For more
+    /// information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,11 +25,41 @@ extension PullsMethods {
     ///   not case sensitive.
     /// - pullNumber: The number that identifies the pull request.
     /// - reviewId: The unique identifier of the review.
-    public static func pullsGetReview(config: ClientConfig, owner: String, repo: String, pullNumber: Int, reviewId: Int) async throws -> PullRequestReview {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/reviews/", sdkEncodePathSegment(sdkWireString(reviewId))].joined(), config: config, decoder: .json, operationId: "pullsGetReview")).data
+    static func pullsGetReview(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int
+    ) async throws -> PullRequestReview {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/reviews/",
+                sdkEncodePathSegment(sdkWireString(reviewId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "pullsGetReview"
+        )).data
     }
 
-    /// Updates the contents of a specified review summary comment. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Updates the contents of a specified review summary comment. This endpoint supports the following custom media
+    /// types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,9 +69,32 @@ extension PullsMethods {
     /// - pullNumber: The number that identifies the pull request.
     /// - reviewId: The unique identifier of the review.
     /// - body: The body text of the pull request review.
-    public static func pullsUpdateReview(config: ClientConfig, owner: String, repo: String, pullNumber: Int, reviewId: Int, body: String) async throws -> PullRequestReview {
+    static func pullsUpdateReview(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        body: String
+    ) async throws -> PullRequestReview {
         let requestBody = PullsUpdateReviewRequestBody(body: body)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/reviews/", sdkEncodePathSegment(sdkWireString(reviewId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsUpdateReview")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/reviews/",
+                sdkEncodePathSegment(sdkWireString(reviewId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsUpdateReview"
+        )).data
     }
 }

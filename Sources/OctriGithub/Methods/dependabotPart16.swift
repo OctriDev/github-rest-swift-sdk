@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension DependabotMethods {
-    /// Lists all secrets available in a repository without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension DependabotMethods {
+    /// Lists all secrets available in a repository without revealing their encrypted values. OAuth app tokens and
+    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,21 +23,58 @@ extension DependabotMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func dependabotListRepoSecrets(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> DependabotListRepoSecretsResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dependabot/secrets"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "dependabotListRepoSecrets")).data
+    static func dependabotListRepoSecrets(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> DependabotListRepoSecretsResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/dependabot/secrets",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "dependabotListRepoSecrets"
+        )).data
     }
 
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint if the repository is private.
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint if the repository is private.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func dependabotGetRepoPublicKey(config: ClientConfig, owner: String, repo: String) async throws -> DependabotPublicKey {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dependabot/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "dependabotGetRepoPublicKey")).data
+    static func dependabotGetRepoPublicKey(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> DependabotPublicKey {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/dependabot/secrets/public-key",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "dependabotGetRepoPublicKey"
+        )).data
     }
 }

@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GistsMethods {
-    /// Allows you to update a gist's description and to update, delete, or rename gist files. Files from the previous version of the gist that aren't explicitly changed during an edit are unchanged. At least one of `description` or `files` is required. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+public extension GistsMethods {
+    /// Allows you to update a gist's description and to update, delete, or rename gist files. Files from the previous
+    /// version of the gist that aren't explicitly changed during an edit are unchanged. At least one of `description`
+    /// or `files` is required. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
@@ -17,17 +22,36 @@ extension GistsMethods {
     ///   For example: `hello.py`. To delete a file, set the whole file to null. For
     ///   example: `hello.py : null`. The file will also be deleted if the specified
     ///   object does not contain at least one of `content` or `filename`.
-    public static func gistsUpdate(config: ClientConfig, gistId: String, description: String?, files: [String: GistsUpdateRequestBodyFilesValue?]?) async throws -> GistSimple {
+    static func gistsUpdate(
+        config: ClientConfig,
+        gistId: String,
+        description: String?,
+        files: [String: GistsUpdateRequestBodyFilesValue?]?
+    ) async throws -> GistSimple {
         let requestBody = GistsUpdateRequestBody(description: description, files: files)
 
-        return try (await sdkRequest("PATCH", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "gistsUpdate")).data
+        return try await (sdkRequest(
+            "PATCH",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId))].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gistsUpdate"
+        )).data
     }
 
-    /// Deletes a specific gist identified by `gist_id`. Use this operation when you want to permanently remove the gist associated with that identifier. A successful response contains no response body.
+    /// Deletes a specific gist identified by `gist_id`. Use this operation when you want to permanently remove the gist
+    /// associated with that identifier. A successful response contains no response body.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
-    public static func gistsDelete(config: ClientConfig, gistId: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId))].joined(), config: config, decoder: .empty, operationId: "gistsDelete")).data
+    static func gistsDelete(config: ClientConfig, gistId: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "gistsDelete"
+        )).data
     }
 }

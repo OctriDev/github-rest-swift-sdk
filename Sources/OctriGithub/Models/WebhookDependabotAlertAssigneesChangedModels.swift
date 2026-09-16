@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDependabotAlertAssigneesChanged domain models
+/// WebhookDependabotAlertAssigneesChanged domain models
 /// Typed representation of the `WebhookDependabotAlertAssigneesChanged` API schema.
 public struct WebhookDependabotAlertAssigneesChanged: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,36 +36,62 @@ public struct WebhookDependabotAlertAssigneesChanged: Codable {
         case enterprise
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookDependabotAlertAssigneesChanged {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.alert) else {
-            throw SdkValidationError(field: "alert", code: "required", message: "Validation failed for 'alert': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.alert = try container.sdkDecodeRequired(.alert)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookDependabotAlertAssigneesChanged {
-    public init(action: WebhookDependabotAlertAssigneesChangedAction, alert: DependabotAlert, repository: RepositoryWebhooks, sender: SimpleUser, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, enterprise: EnterpriseWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.alert) else {
+            throw SdkValidationError(
+                field: "alert",
+                code: "required",
+                message: "Validation failed for 'alert': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        alert = try container.sdkDecodeRequired(.alert)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+    }
+}
+
+public extension WebhookDependabotAlertAssigneesChanged {
+    init(
+        action: WebhookDependabotAlertAssigneesChangedAction,
+        alert: DependabotAlert,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        enterprise: EnterpriseWebhooks? = nil
+    ) {
         (self.action, self.alert) = (action, alert)
         (self.repository, self.sender) = (repository, sender)
         (self.installation, self.organization) = (installation, organization)
@@ -74,15 +100,19 @@ public extension WebhookDependabotAlertAssigneesChanged {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookDependabotAlertAssigneesChangedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookDependabotAlertAssigneesChangedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let assigneesChanged = WebhookDependabotAlertAssigneesChangedAction(rawValue: "assignees_changed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

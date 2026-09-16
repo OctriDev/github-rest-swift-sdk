@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension EnterpriseTeamMembershipsMethods {
+public extension EnterpriseTeamMembershipsMethods {
     /// Returns whether the user is a member of the enterprise team.
     ///
     /// - Parameters:
@@ -14,11 +14,30 @@ extension EnterpriseTeamMembershipsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - username: The handle for the GitHub user account.
-    public static func enterpriseTeamMembershipsGet(config: ClientConfig, enterprise: String, enterpriseTeam: String, username: String) async throws -> SimpleUser {
-        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .json, operationId: "enterpriseTeamMembershipsGet")).data
+    static func enterpriseTeamMembershipsGet(
+        config: ClientConfig,
+        enterprise: String,
+        enterpriseTeam: String,
+        username: String
+    ) async throws -> SimpleUser {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "enterpriseTeamMembershipsGet"
+        )).data
     }
 
-    /// Adds one GitHub user to an enterprise team. Supply `enterprise`, `enterprise-team`, and `username` to identify the enterprise, team, and user account.
+    /// Adds one GitHub user to an enterprise team. Supply `enterprise`, `enterprise-team`, and `username` to identify
+    /// the enterprise, team, and user account.
     ///
     /// Add a team member to an enterprise team.
     ///
@@ -27,7 +46,25 @@ extension EnterpriseTeamMembershipsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - username: The handle for the GitHub user account.
-    public static func enterpriseTeamMembershipsAdd(config: ClientConfig, enterprise: String, enterpriseTeam: String, username: String) async throws -> SimpleUser {
-        return try (await sdkRequest("PUT", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .json, operationId: "enterpriseTeamMembershipsAdd")).data
+    static func enterpriseTeamMembershipsAdd(
+        config: ClientConfig,
+        enterprise: String,
+        enterpriseTeam: String,
+        username: String
+    ) async throws -> SimpleUser {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "enterpriseTeamMembershipsAdd"
+        )).data
     }
 }

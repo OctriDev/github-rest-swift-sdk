@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Create a fork for the authenticated user. > [!NOTE] > Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api). > [!NOTE] > Although this endpoint works with GitHub Apps, the GitHub App must be installed on the destination account with access to all repositories and on the source account with access to the source repository.
+public extension ReposMethods {
+    /// Create a fork for the authenticated user. > [!NOTE] > Forking a Repository happens asynchronously. You may have
+    /// to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be
+    /// sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api). > [!NOTE] > Although
+    /// this endpoint works with GitHub Apps, the GitHub App must be installed on the destination account with access to
+    /// all repositories and on the source account with access to the source repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,10 +23,34 @@ extension ReposMethods {
     /// - name: When forking from an existing repository, a new name for the fork.
     /// - defaultBranchOnly: When forking from an existing repository, fork with
     ///   only the default branch.
-    public static func reposCreateFork(config: ClientConfig, owner: String, repo: String, organization: String?, name: String?, defaultBranchOnly: Bool?) async throws -> FullRepository {
-        let requestBody = ReposCreateForkRequestBody(organization: organization, name: name, defaultBranchOnly: defaultBranchOnly)
+    static func reposCreateFork(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        organization: String?,
+        name: String?,
+        defaultBranchOnly: Bool?
+    ) async throws -> FullRepository {
+        let requestBody = ReposCreateForkRequestBody(
+            organization: organization,
+            name: name,
+            defaultBranchOnly: defaultBranchOnly
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/forks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateFork")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/forks",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateFork"
+        )).data
     }
 
     /// Returns the hash algorithm used to store repository objects.
@@ -32,7 +60,23 @@ extension ReposMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGetHashAlgorithm(config: ClientConfig, owner: String, repo: String) async throws -> RepositoryHashAlgorithm {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hash-algorithm"].joined(), config: config, decoder: .json, operationId: "reposGetHashAlgorithm")).data
+    static func reposGetHashAlgorithm(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> RepositoryHashAlgorithm {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/hash-algorithm",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetHashAlgorithm"
+        )).data
     }
 }

@@ -6,8 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GitMethods {
-    /// The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure. If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/git/refs#update-a-reference)." Returns an error if you try to delete a file that does not exist.
+public extension GitMethods {
+    /// The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree,
+    /// this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree
+    /// structure. If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to
+    /// commit the tree and then update a branch to point to the commit. For more information see "[Create a
+    /// commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a
+    /// reference](https://docs.github.com/rest/git/refs#update-a-reference)." Returns an error if you try to delete a
+    /// file that does not exist.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,9 +34,28 @@ extension GitMethods {
     ///   a new commit pointing to such a tree, then all files which were a part of
     ///   the parent commit's tree and were not defined in the `tree` parameter will
     ///   be listed as deleted by the new commit.
-    public static func gitCreateTree(config: ClientConfig, owner: String, repo: String, tree: [GitCreateTreeRequestBodyTreeItem], baseTree: String?) async throws -> GitTree {
+    static func gitCreateTree(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        tree: [GitCreateTreeRequestBodyTreeItem],
+        baseTree: String?
+    ) async throws -> GitTree {
         let requestBody = GitCreateTreeRequestBody(tree: tree, baseTree: baseTree)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/trees"].joined(), config: config, body: requestBody, decoder: .json, operationId: "gitCreateTree")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/trees",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gitCreateTree"
+        )).data
     }
 }

@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension MigrationsMethods {
-    /// Start a source import to a GitHub repository using GitHub Importer. Importing into a GitHub repository with GitHub Actions enabled is not supported and will return a status `422 Unprocessable Entity` response. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
+public extension MigrationsMethods {
+    /// Start a source import to a GitHub repository using GitHub Importer. Importing into a GitHub repository with
+    /// GitHub Actions enabled is not supported and will return a status `422 Unprocessable Entity` response. >
+    /// [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this
+    /// endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and
+    /// alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,9 +30,37 @@ extension MigrationsMethods {
     ///   imported.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func migrationsStartImport(config: ClientConfig, owner: String, repo: String, vcsUrl: String, vcs: MigrationsStartImportRequestBodyVcs?, vcsUsername: String?, vcsPassword: String?, tfvcProject: String?) async throws -> Import {
-        let requestBody = MigrationsStartImportRequestBody(vcsUrl: vcsUrl, vcs: vcs, vcsUsername: vcsUsername, vcsPassword: vcsPassword, tfvcProject: tfvcProject)
+    static func migrationsStartImport(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        vcsUrl: String,
+        vcs: MigrationsStartImportRequestBodyVcs?,
+        vcsUsername: String?,
+        vcsPassword: String?,
+        tfvcProject: String?
+    ) async throws -> Import {
+        let requestBody = MigrationsStartImportRequestBody(
+            vcsUrl: vcsUrl,
+            vcs: vcs,
+            vcsUsername: vcsUsername,
+            vcsPassword: vcsPassword,
+            tfvcProject: tfvcProject
+        )
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import"].joined(), config: config, body: requestBody, decoder: .json, operationId: "migrationsStartImport")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/import",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "migrationsStartImport"
+        )).data
     }
 }

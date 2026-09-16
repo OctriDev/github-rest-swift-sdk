@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposDeleteFileOptions: Codable {
+public extension ReposMethods {
+    struct ReposDeleteFileOptions: Codable {
         public var owner: String
         public var repo: String
         public var path: String
@@ -26,7 +26,15 @@ extension ReposMethods {
         }
     }
 
-    /// Deletes a file in a repository. You can provide an additional `committer` parameter, which is an object containing information about the committer. Or, you can provide an `author` parameter, which is an object containing information about the author. The `author` section is optional and is filled in with the `committer` information if omitted. If the `committer` information is omitted, the authenticated user's information is used. You must provide values for both `name` and `email`, whether you choose to use `author` or `committer`. Otherwise, you'll receive a `422` status code. > [!NOTE] > If you use this endpoint and the "[Create or update file contents](https://docs.github.com/rest/repos/contents/#create-or-update-file-contents)" endpoint in parallel, the concurrent requests will conflict and you will receive errors. You must use these endpoints serially instead.
+    /// Deletes a file in a repository. You can provide an additional `committer` parameter, which is an object
+    /// containing information about the committer. Or, you can provide an `author` parameter, which is an object
+    /// containing information about the author. The `author` section is optional and is filled in with the `committer`
+    /// information if omitted. If the `committer` information is omitted, the authenticated user's information is used.
+    /// You must provide values for both `name` and `email`, whether you choose to use `author` or `committer`.
+    /// Otherwise, you'll receive a `422` status code. > [!NOTE] > If you use this endpoint and the "[Create or update
+    /// file contents](https://docs.github.com/rest/repos/contents/#create-or-update-file-contents)" endpoint in
+    /// parallel, the concurrent requests will conflict and you will receive errors. You must use these endpoints
+    /// serially instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -39,9 +47,23 @@ extension ReposMethods {
     /// - branch: The branch name. Default: the repository’s default branch
     /// - committer: object containing information about the committer.
     /// - author: object containing information about the author.
-    public static func reposDeleteFile(config: ClientConfig, options: ReposDeleteFileOptions) async throws -> FileCommit {
+    static func reposDeleteFile(config: ClientConfig, options: ReposDeleteFileOptions) async throws -> FileCommit {
         let requestBody = ReposDeleteFileRequestBody(options: options)
 
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/contents/", sdkEncodePathSegment(sdkWireString(options.path))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposDeleteFile")).data
+        return try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/contents/",
+                sdkEncodePathSegment(sdkWireString(options.path)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposDeleteFile"
+        )).data
     }
 }

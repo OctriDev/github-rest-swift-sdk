@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension DependencyGraphMethods {
-    /// Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.
+public extension DependencyGraphMethods {
+    /// Gets the diff of the dependency changes between two commits of a repository, based on the changes to the
+    /// dependency manifests made in those commits.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,9 +21,29 @@ extension DependencyGraphMethods {
     ///   determined. This parameter expects the format `{base}...{head}`.
     /// - name: The full path, relative to the repository root, of the dependency
     ///   manifest file.
-    public static func dependencyGraphDiffRange(config: ClientConfig, owner: String, repo: String, basehead: String, name: String?) async throws -> DependencyGraphDiff {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dependency-graph/compare/", sdkEncodePathSegment(sdkWireString(basehead))].joined(), config: config, query: [
-            SdkQueryParameter("name", value: name),
-        ], decoder: .json, operationId: "dependencyGraphDiffRange")).data
+    static func dependencyGraphDiffRange(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        basehead: String,
+        name: String?
+    ) async throws -> DependencyGraphDiff {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/dependency-graph/compare/",
+                sdkEncodePathSegment(sdkWireString(basehead)),
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("name", value: name),
+            ],
+            decoder: .json,
+            operationId: "dependencyGraphDiffRange"
+        )).data
     }
 }

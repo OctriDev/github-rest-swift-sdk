@@ -6,17 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public struct SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reviewed = SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37(rawValue: "reviewed")
     public static let malware = SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37(rawValue: "malware")
     public static let unreviewed = SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37(rawValue: "unreviewed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -25,18 +29,24 @@ public struct SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37: RawRepre
     }
 }
 
-public struct SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let updated = SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485(rawValue: "updated")
     public static let published = SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485(rawValue: "published")
-    public static let epssPercentage = SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485(rawValue: "epss_percentage")
-    public static let epssPercentile = SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485(rawValue: "epss_percentile")
+    public static let epssPercentage =
+        SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485(rawValue: "epss_percentage")
+    public static let epssPercentile =
+        SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485(rawValue: "epss_percentile")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -45,10 +55,14 @@ public struct SecurityAdvisoriesListGlobalAdvisoriesParameterXf39a7485: RawRepre
     }
 }
 
-public struct SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let unknown = SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1(rawValue: "unknown")
     public static let low = SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1(rawValue: "low")
     public static let medium = SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1(rawValue: "medium")
@@ -57,7 +71,7 @@ public struct SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1: RawRepre
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -69,13 +83,16 @@ public struct SecurityAdvisoriesListGlobalAdvisoriesParameterX59a803a1: RawRepre
 public struct AgentTasksListTasksForRepoParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let updatedAt = AgentTasksListTasksForRepoParameter(rawValue: "updated_at")
     public static let createdAt = AgentTasksListTasksForRepoParameter(rawValue: "created_at")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -84,16 +101,20 @@ public struct AgentTasksListTasksForRepoParameter: RawRepresentable, Hashable, C
     }
 }
 
-public struct AgentTasksListTasksForRepoParameterXc1a47ffb: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AgentTasksListTasksForRepoParameterXc1a47ffb: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = AgentTasksListTasksForRepoParameterXc1a47ffb(rawValue: "asc")
     public static let desc = AgentTasksListTasksForRepoParameterXc1a47ffb(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -103,15 +124,19 @@ public struct AgentTasksListTasksForRepoParameterXc1a47ffb: RawRepresentable, Ha
 }
 
 /// Provider namespace
-public struct AgentTasksListTasksForRepoResponseTasksItemArtifactsItemProvider: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AgentTasksListTasksForRepoResponseTasksItemArtifactsItemProvider: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let github = AgentTasksListTasksForRepoResponseTasksItemArtifactsItemProvider(rawValue: "github")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -121,16 +146,20 @@ public struct AgentTasksListTasksForRepoResponseTasksItemArtifactsItemProvider: 
 }
 
 /// Type of artifact. Available Values: `pull`, `branch`.
-public struct AgentTasksListTasksForRepoResponseTasksItemArtifactsItemType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AgentTasksListTasksForRepoResponseTasksItemArtifactsItemType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pull = AgentTasksListTasksForRepoResponseTasksItemArtifactsItemType(rawValue: "pull")
     public static let branch = AgentTasksListTasksForRepoResponseTasksItemArtifactsItemType(rawValue: "branch")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -140,16 +169,20 @@ public struct AgentTasksListTasksForRepoResponseTasksItemArtifactsItemType: RawR
 }
 
 /// Type of the task creator
-public struct AgentTasksListTasksForRepoResponseTasksItemCreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AgentTasksListTasksForRepoResponseTasksItemCreatorType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let user = AgentTasksListTasksForRepoResponseTasksItemCreatorType(rawValue: "user")
     public static let organization = AgentTasksListTasksForRepoResponseTasksItemCreatorType(rawValue: "organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -159,10 +192,14 @@ public struct AgentTasksListTasksForRepoResponseTasksItemCreatorType: RawReprese
 }
 
 /// Current state of the task, derived from its most recent session
-public struct AgentTasksListTasksForRepoResponseTasksItemState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AgentTasksListTasksForRepoResponseTasksItemState: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let queued = AgentTasksListTasksForRepoResponseTasksItemState(rawValue: "queued")
     public static let inProgress = AgentTasksListTasksForRepoResponseTasksItemState(rawValue: "in_progress")
     public static let completed = AgentTasksListTasksForRepoResponseTasksItemState(rawValue: "completed")
@@ -174,7 +211,7 @@ public struct AgentTasksListTasksForRepoResponseTasksItemState: RawRepresentable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -184,10 +221,14 @@ public struct AgentTasksListTasksForRepoResponseTasksItemState: RawRepresentable
 }
 
 /// Machine-readable error code
-public struct AgentTasksListTasksForRepoResponseErrorsItemCode: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AgentTasksListTasksForRepoResponseErrorsItemCode: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let missing = AgentTasksListTasksForRepoResponseErrorsItemCode(rawValue: "missing")
     public static let missingField = AgentTasksListTasksForRepoResponseErrorsItemCode(rawValue: "missing_field")
     public static let invalid = AgentTasksListTasksForRepoResponseErrorsItemCode(rawValue: "invalid")
@@ -197,7 +238,7 @@ public struct AgentTasksListTasksForRepoResponseErrorsItemCode: RawRepresentable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

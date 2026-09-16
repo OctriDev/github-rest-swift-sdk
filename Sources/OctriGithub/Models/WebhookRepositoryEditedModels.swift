@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookRepositoryEdited domain models
+/// WebhookRepositoryEdited domain models
 /// Typed representation of the `WebhookRepositoryEdited` API schema.
 public struct WebhookRepositoryEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,36 +36,62 @@ public struct WebhookRepositoryEdited: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookRepositoryEdited {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookRepositoryEdited {
-    public init(action: WebhookRepositoryEditedAction, changes: WebhookRepositoryEditedChanges, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookRepositoryEdited {
+    init(
+        action: WebhookRepositoryEditedAction,
+        changes: WebhookRepositoryEditedChanges,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.changes) = (action, changes)
         (self.repository, self.sender) = (repository, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -92,22 +118,27 @@ public struct WebhookRepositoryEditedChanges: Codable {
     }
 
     init() {
-        (self.defaultBranch, self.description, self.homepage, self.topics) = (nil, nil, nil, nil)
+        (defaultBranch, description, homepage, topics) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookRepositoryEditedChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.homepage = try container.sdkDecodeIfPresent(.homepage)
-        self.topics = try container.sdkDecodeIfPresent(.topics)
+        defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
+        description = try container.sdkDecodeIfPresent(.description)
+        homepage = try container.sdkDecodeIfPresent(.homepage)
+        topics = try container.sdkDecodeIfPresent(.topics)
     }
 }
 
 public extension WebhookRepositoryEditedChanges {
-    public init(defaultBranch: WebhookRepositoryEditedChangesDefaultBranch? = nil, description: WebhookRepositoryEditedChangesDescription? = nil, homepage: WebhookRepositoryEditedChangesHomepage? = nil, topics: WebhookRepositoryEditedChangesTopics? = nil) {
+    init(
+        defaultBranch: WebhookRepositoryEditedChangesDefaultBranch? = nil,
+        description: WebhookRepositoryEditedChangesDescription? = nil,
+        homepage: WebhookRepositoryEditedChangesHomepage? = nil,
+        topics: WebhookRepositoryEditedChangesTopics? = nil
+    ) {
         self.init()
         (self.defaultBranch, self.description) = (defaultBranch, description)
         (self.homepage, self.topics) = (homepage, topics)
@@ -123,21 +154,27 @@ public struct WebhookRepositoryEditedChangesDefaultBranch: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookRepositoryEditedChangesDefaultBranch {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookRepositoryEditedChangesDefaultBranch {
-    public init(from: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookRepositoryEditedChangesDefaultBranch {
+    init(from: String) {
         self.from = from
     }
 }
@@ -151,21 +188,27 @@ public struct WebhookRepositoryEditedChangesDescription: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookRepositoryEditedChangesDescription {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookRepositoryEditedChangesDescription {
-    public init(from: String?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookRepositoryEditedChangesDescription {
+    init(from: String?) {
         self.from = from
     }
 }
@@ -179,21 +222,27 @@ public struct WebhookRepositoryEditedChangesHomepage: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookRepositoryEditedChangesHomepage {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookRepositoryEditedChangesHomepage {
-    public init(from: String?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookRepositoryEditedChangesHomepage {
+    init(from: String?) {
         self.from = from
     }
 }
@@ -208,19 +257,19 @@ public struct WebhookRepositoryEditedChangesTopics: Codable {
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
 public extension WebhookRepositoryEditedChangesTopics {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
 public extension WebhookRepositoryEditedChangesTopics {
-    public init(from: [String]? = nil) {
+    init(from: [String]? = nil) {
         self.init()
         self.from = from
     }
@@ -230,12 +279,15 @@ public extension WebhookRepositoryEditedChangesTopics {
 public struct WebhookRepositoryEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let edited = WebhookRepositoryEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

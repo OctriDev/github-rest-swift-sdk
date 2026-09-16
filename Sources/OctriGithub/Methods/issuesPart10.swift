@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// You can use the REST API to delete comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.
+public extension IssuesMethods {
+    /// You can use the REST API to delete comments on issues and pull requests. Every pull request is an issue, but not
+    /// every issue is a pull request.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,13 +16,41 @@ extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
-    public static func issuesDeleteComment(config: ClientConfig, owner: String, repo: String, commentId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, decoder: .empty, operationId: "issuesDeleteComment")).data
+    static func issuesDeleteComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "issuesDeleteComment"
+        )).data
     }
 
-    /// Pins a specific issue comment in a repository. Supply `owner`, `repo`, and `comment_id` to identify the repository and comment, and use an accepted media type when you need a particular markdown representation in the response. The response includes the pinned comment and its pinning context.
+    /// Pins a specific issue comment in a repository. Supply `owner`, `repo`, and `comment_id` to identify the
+    /// repository and comment, and use an accepted media type when you need a particular markdown representation in the
+    /// response. The response includes the pinned comment and its pinning context.
     ///
-    /// You can use the REST API to pin comments on issues. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// You can use the REST API to pin comments on issues. This endpoint supports the following custom media types. For
+    /// more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,7 +58,26 @@ extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
-    public static func issuesPinComment(config: ClientConfig, owner: String, repo: String, commentId: Int) async throws -> IssueComment {
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/pin"].joined(), config: config, decoder: .json, operationId: "issuesPinComment")).data
+    static func issuesPinComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int
+    ) async throws -> IssueComment {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+                "/pin",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "issuesPinComment"
+        )).data
     }
 }

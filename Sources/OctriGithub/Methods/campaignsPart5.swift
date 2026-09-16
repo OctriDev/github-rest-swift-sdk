@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CampaignsMethods {
-    public struct CampaignsUpdateCampaignOptions: Codable {
+public extension CampaignsMethods {
+    struct CampaignsUpdateCampaignOptions: Codable {
         public var org: String
         public var campaignNumber: Int
         public var name: String?
@@ -24,7 +24,9 @@ extension CampaignsMethods {
         }
     }
 
-    /// Updates a campaign in an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint.
+    /// Updates a campaign in an organization. The authenticated user must be an owner or security manager for the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `security_events` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -38,7 +40,10 @@ extension CampaignsMethods {
     ///   YYYY-MM-DDTHH:MM:SSZ.
     /// - contactLink: The contact link of the campaign. Must be a URI.
     /// - state: Indicates whether a campaign is open or closed
-    public static func campaignsUpdateCampaign(config: ClientConfig, options: CampaignsUpdateCampaignOptions) async throws -> CampaignSummary {
+    static func campaignsUpdateCampaign(
+        config: ClientConfig,
+        options: CampaignsUpdateCampaignOptions
+    ) async throws -> CampaignSummary {
         if let name = options.name {
             try validateLength("name", name, min: 1, max: 50)
         }
@@ -65,6 +70,18 @@ extension CampaignsMethods {
 
         let requestBody = CampaignsUpdateCampaignRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/campaigns/", sdkEncodePathSegment(sdkWireString(options.campaignNumber))].joined(), config: config, body: requestBody, decoder: .json, operationId: "campaignsUpdateCampaign")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(options.org)),
+                "/campaigns/",
+                sdkEncodePathSegment(sdkWireString(options.campaignNumber)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "campaignsUpdateCampaign"
+        )).data
     }
 }

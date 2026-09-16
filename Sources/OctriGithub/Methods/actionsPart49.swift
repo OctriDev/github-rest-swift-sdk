@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets a specific artifact for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets a specific artifact for a workflow run. Anyone with read access to the repository can use this endpoint. If
+    /// the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +17,30 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - artifactId: The unique identifier of the artifact.
-    public static func actionsGetArtifact(config: ClientConfig, owner: String, repo: String, artifactId: Int) async throws -> Artifact {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/artifacts/", sdkEncodePathSegment(sdkWireString(artifactId))].joined(), config: config, decoder: .json, operationId: "actionsGetArtifact")).data
+    static func actionsGetArtifact(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        artifactId: Int
+    ) async throws -> Artifact {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/artifacts/",
+                sdkEncodePathSegment(sdkWireString(artifactId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetArtifact"
+        )).data
     }
 
-    /// Deletes an artifact for a workflow run. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Deletes an artifact for a workflow run. OAuth tokens and personal access tokens (classic) need the `repo` scope
+    /// to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,7 +48,25 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - artifactId: The unique identifier of the artifact.
-    public static func actionsDeleteArtifact(config: ClientConfig, owner: String, repo: String, artifactId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/artifacts/", sdkEncodePathSegment(sdkWireString(artifactId))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteArtifact")).data
+    static func actionsDeleteArtifact(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        artifactId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/artifacts/",
+                sdkEncodePathSegment(sdkWireString(artifactId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDeleteArtifact"
+        )).data
     }
 }

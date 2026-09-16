@@ -13,13 +13,16 @@ import Foundation
 public struct TeamsCreateRequestBodyPrivacy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let secret = TeamsCreateRequestBodyPrivacy(rawValue: "secret")
     public static let closed = TeamsCreateRequestBodyPrivacy(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,16 +34,22 @@ public struct TeamsCreateRequestBodyPrivacy: RawRepresentable, Hashable, Codable
 /// The notification setting the team has chosen. Editing teams without specifying this parameter leaves
 /// `notification_setting` intact. The options are: * `notifications_enabled` - team members receive
 /// notifications when the team is @mentioned. * `notifications_disabled` - no one receives notifications.
-public struct TeamsUpdateInOrgRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct TeamsUpdateInOrgRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let notificationsEnabled = TeamsUpdateInOrgRequestBodyNotificationSetting(rawValue: "notifications_enabled")
-    public static let notificationsDisabled = TeamsUpdateInOrgRequestBodyNotificationSetting(rawValue: "notifications_disabled")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let notificationsEnabled =
+        TeamsUpdateInOrgRequestBodyNotificationSetting(rawValue: "notifications_enabled")
+    public static let notificationsDisabled =
+        TeamsUpdateInOrgRequestBodyNotificationSetting(rawValue: "notifications_disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,14 +63,17 @@ public struct TeamsUpdateInOrgRequestBodyNotificationSetting: RawRepresentable, 
 public struct TeamsUpdateInOrgRequestBodyPermission: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pull = TeamsUpdateInOrgRequestBodyPermission(rawValue: "pull")
     public static let push = TeamsUpdateInOrgRequestBodyPermission(rawValue: "push")
     public static let admin = TeamsUpdateInOrgRequestBodyPermission(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -78,13 +90,16 @@ public struct TeamsUpdateInOrgRequestBodyPermission: RawRepresentable, Hashable,
 public struct TeamsUpdateInOrgRequestBodyPrivacy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let secret = TeamsUpdateInOrgRequestBodyPrivacy(rawValue: "secret")
     public static let closed = TeamsUpdateInOrgRequestBodyPrivacy(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -96,14 +111,17 @@ public struct TeamsUpdateInOrgRequestBodyPrivacy: RawRepresentable, Hashable, Co
 public struct TeamsListMembersInOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let member = TeamsListMembersInOrgParameter(rawValue: "member")
     public static let maintainer = TeamsListMembersInOrgParameter(rawValue: "maintainer")
     public static let all = TeamsListMembersInOrgParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -113,16 +131,20 @@ public struct TeamsListMembersInOrgParameter: RawRepresentable, Hashable, Codabl
 }
 
 /// The role that this user should have in the team.
-public struct TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let member = TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole(rawValue: "member")
     public static let maintainer = TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole(rawValue: "maintainer")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -135,16 +157,22 @@ public struct TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole: RawRepresen
 /// configured with this query suite only on all repositories that didn't have default setup already configured.
 /// It will not change the query suite on repositories that already have default setup configured. If you don't
 /// specify any `query_suite` in your request, the preferred query suite of the organization will be applied.
-public struct OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let `default` = OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite(rawValue: "default")
-    public static let extended = OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite(rawValue: "extended")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let `default` =
+        OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite(rawValue: "default")
+    public static let extended =
+        OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite(rawValue: "extended")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -155,17 +183,21 @@ public struct OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySui
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct ReposUpdateRequestBodyMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateRequestBodyMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = ReposUpdateRequestBodyMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = ReposUpdateRequestBodyMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = ReposUpdateRequestBodyMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -177,16 +209,20 @@ public struct ReposUpdateRequestBodyMergeCommitMessage: RawRepresentable, Hashab
 /// Required when using `merge_commit_message`. The default value for a merge commit title. - `PR_TITLE` -
 /// default to the pull request's title. - `MERGE_MESSAGE` - default to the classic title for a merge message
 /// (e.g., Merge pull request #123 from branch-name).
-public struct ReposUpdateRequestBodyMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateRequestBodyMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = ReposUpdateRequestBodyMergeCommitTitle(rawValue: "PR_TITLE")
     public static let mergeMessage = ReposUpdateRequestBodyMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -196,16 +232,21 @@ public struct ReposUpdateRequestBodyMergeCommitTitle: RawRepresentable, Hashable
 }
 
 /// The policy that controls who can create pull requests for this repository: `all` or `collaborators_only`.
-public struct ReposUpdateRequestBodyPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateRequestBodyPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ReposUpdateRequestBodyPullRequestCreationPolicy(rawValue: "all")
-    public static let collaboratorsOnly = ReposUpdateRequestBodyPullRequestCreationPolicy(rawValue: "collaborators_only")
+    public static let collaboratorsOnly =
+        ReposUpdateRequestBodyPullRequestCreationPolicy(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

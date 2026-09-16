@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Creates a label for the specified repository with the given name and color. The name and color parameters are required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
+public extension IssuesMethods {
+    /// Creates a label for the specified repository with the given name and color. The name and color parameters are
+    /// required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,9 +25,29 @@ extension IssuesMethods {
     ///   label, without the leading `#`.
     /// - description: A short description of the label. Must be 100 characters or
     ///   fewer.
-    public static func issuesCreateLabel(config: ClientConfig, owner: String, repo: String, name: String, color: String?, description: String?) async throws -> Label {
+    static func issuesCreateLabel(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        name: String,
+        color: String?,
+        description: String?
+    ) async throws -> Label {
         let requestBody = IssuesCreateLabelRequestBody(name: name, color: color, description: description)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/labels"].joined(), config: config, body: requestBody, decoder: .json, operationId: "issuesCreateLabel")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/labels",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "issuesCreateLabel"
+        )).data
     }
 }

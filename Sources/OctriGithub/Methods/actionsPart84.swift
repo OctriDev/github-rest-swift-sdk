@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets a redirect URL to download an archive of log files for a specific workflow run attempt. This link expires after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets a redirect URL to download an archive of log files for a specific workflow run attempt. This link expires
+    /// after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read
+    /// access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,11 +19,34 @@ extension ActionsMethods {
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
     /// - attemptNumber: The attempt number of the workflow run.
-    public static func actionsDownloadWorkflowRunAttemptLogs(config: ClientConfig, owner: String, repo: String, runId: Int, attemptNumber: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/attempts/", sdkEncodePathSegment(sdkWireString(attemptNumber)), "/logs"].joined(), config: config, decoder: .empty, operationId: "actionsDownloadWorkflowRunAttemptLogs")).data
+    static func actionsDownloadWorkflowRunAttemptLogs(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int,
+        attemptNumber: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/attempts/",
+                sdkEncodePathSegment(sdkWireString(attemptNumber)),
+                "/logs",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDownloadWorkflowRunAttemptLogs"
+        )).data
     }
 
-    /// Cancels a workflow run using its `id`. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Cancels a workflow run using its `id`. OAuth tokens and personal access tokens (classic) need the `repo` scope
+    /// to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,7 +54,26 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    public static func actionsCancelWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> EmptyObject {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/cancel"].joined(), config: config, decoder: .json, operationId: "actionsCancelWorkflowRun")).data
+    static func actionsCancelWorkflowRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int
+    ) async throws -> EmptyObject {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/cancel",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsCancelWorkflowRun"
+        )).data
     }
 }

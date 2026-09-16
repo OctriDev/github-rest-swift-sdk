@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Re-run a job and its dependent jobs in a workflow run. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Re-run a job and its dependent jobs in a workflow run. OAuth app tokens and personal access tokens (classic)
+    /// need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,20 +18,62 @@ extension ActionsMethods {
     /// - jobId: The unique identifier of the job.
     /// - enableDebugLogging: Whether to enable debug logging for the re-run.
     /// - enableDebugger: Whether to enable the debugger for the re-run of this job.
-    public static func actionsReRunJobForWorkflowRun(config: ClientConfig, owner: String, repo: String, jobId: Int, enableDebugLogging: Bool?, enableDebugger: Bool?) async throws -> EmptyObject {
-        let requestBody = ActionsReRunJobForWorkflowRunRequestBody(enableDebugLogging: enableDebugLogging, enableDebugger: enableDebugger)
+    static func actionsReRunJobForWorkflowRun(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        jobId: Int,
+        enableDebugLogging: Bool?,
+        enableDebugger: Bool?
+    ) async throws -> EmptyObject {
+        let requestBody = ActionsReRunJobForWorkflowRunRequestBody(
+            enableDebugLogging: enableDebugLogging,
+            enableDebugger: enableDebugger
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/jobs/", sdkEncodePathSegment(sdkWireString(jobId)), "/rerun"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsReRunJobForWorkflowRun")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/jobs/",
+                sdkEncodePathSegment(sdkWireString(jobId)),
+                "/rerun",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsReRunJobForWorkflowRun"
+        )).data
     }
 
-    /// Gets the customization template for an OpenID Connect (OIDC) subject claim. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets the customization template for an OpenID Connect (OIDC) subject claim. OAuth tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func actionsGetCustomOidcSubClaimForRepo(config: ClientConfig, owner: String, repo: String) async throws -> OidcCustomSubRepo {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/oidc/customization/sub"].joined(), config: config, decoder: .json, operationId: "actionsGetCustomOidcSubClaimForRepo")).data
+    static func actionsGetCustomOidcSubClaimForRepo(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> OidcCustomSubRepo {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/oidc/customization/sub",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetCustomOidcSubClaimForRepo"
+        )).data
     }
 }

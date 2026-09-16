@@ -6,10 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
+public extension PackagesMethods {
     /// Get a package for the authenticated user
     ///
-    /// Gets a specific package for a package owned by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Gets a specific package for a package owned by the authenticated user. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -19,7 +21,22 @@ extension PackagesMethods {
     ///   (`docker.pkg.github.com`), even if these have now been migrated to the
     ///   Container registry.
     /// - packageName: The name of the package.
-    public static func packagesGetPackageForAuthenticatedUser(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String) async throws -> Package {
-        return try (await sdkRequest("GET", ["/user/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName))].joined(), config: config, decoder: .json, operationId: "packagesGetPackageForAuthenticatedUser")).data
+    static func packagesGetPackageForAuthenticatedUser(
+        config: ClientConfig,
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String
+    ) async throws -> Package {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/user/packages/",
+                sdkEncodePathSegment(sdkWireString(packageType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(packageName)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "packagesGetPackageForAuthenticatedUser"
+        )).data
     }
 }

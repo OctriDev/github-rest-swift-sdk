@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension BillingMethods {
-    /// Gets all budgets for an organization. The authenticated user must be an organization admin or billing manager. Each page returns up to 100 budgets.
+public extension BillingMethods {
+    /// Gets all budgets for an organization. The authenticated user must be an organization admin or billing manager.
+    /// Each page returns up to 100 budgets.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,12 +20,26 @@ extension BillingMethods {
     ///   organization. - `user`: Budgets scoped to an individual user.
     /// - user: Filter consumed amount details for budgets by the specified user
     ///   login.
-    public static func billingGetAllBudgetsOrg(config: ClientConfig, org: String, page: Int?, perPage: Int?, scope: BillingGetAllBudgetsOrgParameter?, user: String?) async throws -> GetAllBudgets {
-        return try (await sdkRequest("GET", ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/budgets"].joined(), config: config, query: [
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("scope", value: scope),
-            SdkQueryParameter("user", value: user),
-        ], decoder: .json, operationId: "billingGetAllBudgetsOrg")).data
+    static func billingGetAllBudgetsOrg(
+        config: ClientConfig,
+        org: String,
+        page: Int?,
+        perPage: Int?,
+        scope: BillingGetAllBudgetsOrgParameter?,
+        user: String?
+    ) async throws -> GetAllBudgets {
+        try await (sdkRequest(
+            "GET",
+            ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/budgets"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("scope", value: scope),
+                SdkQueryParameter("user", value: user),
+            ],
+            decoder: .json,
+            operationId: "billingGetAllBudgetsOrg"
+        )).data
     }
 }

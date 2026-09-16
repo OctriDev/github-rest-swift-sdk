@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GistsMethods {
-    /// Lists the commit history for a specific gist. Use `per_page` and `page` to control the result set, and use `page` and `per_page` to paginate the results. Each returned commit includes its version, author, change summary, and commit timestamp.
+public extension GistsMethods {
+    /// Lists the commit history for a specific gist. Use `per_page` and `page` to control the result set, and use
+    /// `page` and `per_page` to paginate the results. Each returned commit includes its version, author, change
+    /// summary, and commit timestamp.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
@@ -19,10 +21,22 @@ extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func gistsListCommits(config: ClientConfig, gistId: String, perPage: Int?, page: Int?) async throws -> [GistCommit] {
-        return try (await sdkRequest("GET", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/commits"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "gistsListCommits")).data
+    static func gistsListCommits(
+        config: ClientConfig,
+        gistId: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [GistCommit] {
+        try await (sdkRequest(
+            "GET",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/commits"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "gistsListCommits"
+        )).data
     }
 }

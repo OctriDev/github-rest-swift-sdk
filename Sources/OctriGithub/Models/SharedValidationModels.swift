@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedValidation domain models
+/// SharedValidation domain models
 /// Validation Error
 public struct ValidationError: Codable {
     /// Required `string` value serialized in the `message` wire field.
@@ -19,26 +19,36 @@ public struct ValidationError: Codable {
         case errors
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ValidationError {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
-        }
-        guard container.contains(.documentationUrl) else {
-            throw SdkValidationError(field: "documentation_url", code: "required", message: "Validation failed for 'documentation_url': value is required")
-        }
-        self.message = try container.sdkDecodeRequired(.message)
-        self.documentationUrl = try container.sdkDecodeRequired(.documentationUrl)
-        self.errors = try container.sdkDecodeIfPresent(.errors)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ValidationError {
-    public init(message: String, documentationUrl: String, errors: [ValidationErrorErrorsItem]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.message) else {
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
+        }
+        guard container.contains(.documentationUrl) else {
+            throw SdkValidationError(
+                field: "documentation_url",
+                code: "required",
+                message: "Validation failed for 'documentation_url': value is required"
+            )
+        }
+        message = try container.sdkDecodeRequired(.message)
+        documentationUrl = try container.sdkDecodeRequired(.documentationUrl)
+        errors = try container.sdkDecodeIfPresent(.errors)
+    }
+}
+
+public extension ValidationError {
+    init(message: String, documentationUrl: String, errors: [ValidationErrorErrorsItem]? = nil) {
         (self.message, self.documentationUrl) = (message, documentationUrl)
         self.errors = errors
     }
@@ -68,26 +78,39 @@ public struct ValidationErrorErrorsItem: Codable {
         case value
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ValidationErrorErrorsItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.code) else {
-            throw SdkValidationError(field: "code", code: "required", message: "Validation failed for 'code': value is required")
-        }
-        self.code = try container.sdkDecodeRequired(.code)
-        self.resource = try container.sdkDecodeIfPresent(.resource)
-        self.field = try container.sdkDecodeIfPresent(.field)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.index = try container.sdkDecodeIfPresent(.index)
-        self.value = try container.sdkDecodeIfPresent(.value)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ValidationErrorErrorsItem {
-    public init(code: String, resource: String? = nil, field: String? = nil, message: String? = nil, index: Int? = nil, value: ValidationErrorErrorsItemValue? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.code) else {
+            throw SdkValidationError(
+                field: "code",
+                code: "required",
+                message: "Validation failed for 'code': value is required"
+            )
+        }
+        code = try container.sdkDecodeRequired(.code)
+        resource = try container.sdkDecodeIfPresent(.resource)
+        field = try container.sdkDecodeIfPresent(.field)
+        message = try container.sdkDecodeIfPresent(.message)
+        index = try container.sdkDecodeIfPresent(.index)
+        value = try container.sdkDecodeIfPresent(.value)
+    }
+}
+
+public extension ValidationErrorErrorsItem {
+    init(
+        code: String,
+        resource: String? = nil,
+        field: String? = nil,
+        message: String? = nil,
+        index: Int? = nil,
+        value: ValidationErrorErrorsItemValue? = nil
+    ) {
         (self.code, self.resource) = (code, resource)
         (self.field, self.message) = (field, message)
         (self.index, self.value) = (index, value)
@@ -101,22 +124,34 @@ public enum ValidationErrorErrorsItemValue {
 }
 
 extension ValidationErrorErrorsItemValue: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for ValidationErrorErrorsItemValue")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for ValidationErrorErrorsItemValue"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode(Int.self) { return .intValue(value) }
-        if let value = try? container.decode([String].self) { return .stringList(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode(Int.self) {
+            return .intValue(value)
+        }
+        if let value = try? container.decode([String].self) {
+            return .stringList(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -127,7 +162,6 @@ extension ValidationErrorErrorsItemValue: Codable {
         case let .stringList(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Validation Error Simple
@@ -145,26 +179,36 @@ public struct ValidationErrorSimple: Codable {
         case errors
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ValidationErrorSimple {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
-        }
-        guard container.contains(.documentationUrl) else {
-            throw SdkValidationError(field: "documentation_url", code: "required", message: "Validation failed for 'documentation_url': value is required")
-        }
-        self.message = try container.sdkDecodeRequired(.message)
-        self.documentationUrl = try container.sdkDecodeRequired(.documentationUrl)
-        self.errors = try container.sdkDecodeIfPresent(.errors)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ValidationErrorSimple {
-    public init(message: String, documentationUrl: String, errors: [String]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.message) else {
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
+        }
+        guard container.contains(.documentationUrl) else {
+            throw SdkValidationError(
+                field: "documentation_url",
+                code: "required",
+                message: "Validation failed for 'documentation_url': value is required"
+            )
+        }
+        message = try container.sdkDecodeRequired(.message)
+        documentationUrl = try container.sdkDecodeRequired(.documentationUrl)
+        errors = try container.sdkDecodeIfPresent(.errors)
+    }
+}
+
+public extension ValidationErrorSimple {
+    init(message: String, documentationUrl: String, errors: [String]? = nil) {
         (self.message, self.documentationUrl) = (message, documentationUrl)
         self.errors = errors
     }

@@ -6,24 +6,41 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Get a public SSH key for the authenticated user
     ///
-    /// View extended details for a single public SSH key. OAuth app tokens and personal access tokens (classic) need the `read:public_key` scope to use this endpoint.
+    /// View extended details for a single public SSH key. OAuth app tokens and personal access tokens (classic) need
+    /// the `read:public_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - keyId: The unique identifier of the key.
-    public static func usersGetPublicSshKeyForAuthenticatedUser(config: ClientConfig, keyId: Int) async throws -> Key {
-        return try (await sdkRequest("GET", ["/user/keys/", sdkEncodePathSegment(sdkWireString(keyId))].joined(), config: config, decoder: .json, operationId: "usersGetPublicSshKeyForAuthenticatedUser")).data
+    static func usersGetPublicSshKeyForAuthenticatedUser(config: ClientConfig, keyId: Int) async throws -> Key {
+        try await (sdkRequest(
+            "GET",
+            ["/user/keys/", sdkEncodePathSegment(sdkWireString(keyId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "usersGetPublicSshKeyForAuthenticatedUser"
+        )).data
     }
 
     /// Delete a public SSH key for the authenticated user
     ///
-    /// Removes a public SSH key from the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `admin:public_key` scope to use this endpoint.
+    /// Removes a public SSH key from the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:public_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - keyId: The unique identifier of the key.
-    public static func usersDeletePublicSshKeyForAuthenticatedUser(config: ClientConfig, keyId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/user/keys/", sdkEncodePathSegment(sdkWireString(keyId))].joined(), config: config, decoder: .empty, operationId: "usersDeletePublicSshKeyForAuthenticatedUser")).data
+    static func usersDeletePublicSshKeyForAuthenticatedUser(
+        config: ClientConfig,
+        keyId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            ["/user/keys/", sdkEncodePathSegment(sdkWireString(keyId))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersDeletePublicSshKeyForAuthenticatedUser"
+        )).data
     }
 }

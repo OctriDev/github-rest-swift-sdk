@@ -9,14 +9,17 @@ import Foundation
 public struct PullsListParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = PullsListParameter(rawValue: "open")
     public static let closed = PullsListParameter(rawValue: "closed")
     public static let all = PullsListParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,7 +31,10 @@ public struct PullsListParameter: RawRepresentable, Hashable, Codable, Sendable,
 public struct PullsListParameterXc618e7f1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = PullsListParameterXc618e7f1(rawValue: "created")
     public static let updated = PullsListParameterXc618e7f1(rawValue: "updated")
     public static let popularity = PullsListParameterXc618e7f1(rawValue: "popularity")
@@ -36,7 +42,7 @@ public struct PullsListParameterXc618e7f1: RawRepresentable, Hashable, Codable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -48,13 +54,16 @@ public struct PullsListParameterXc618e7f1: RawRepresentable, Hashable, Codable, 
 public struct PullsListParameterX7290b69e: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = PullsListParameterX7290b69e(rawValue: "asc")
     public static let desc = PullsListParameterX7290b69e(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -63,17 +72,21 @@ public struct PullsListParameterX7290b69e: RawRepresentable, Hashable, Codable, 
     }
 }
 
-public struct PullsListReviewCommentsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullsListReviewCommentsForRepoParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = PullsListReviewCommentsForRepoParameter(rawValue: "created")
     public static let updated = PullsListReviewCommentsForRepoParameter(rawValue: "updated")
     public static let createdAt = PullsListReviewCommentsForRepoParameter(rawValue: "created_at")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -82,16 +95,20 @@ public struct PullsListReviewCommentsForRepoParameter: RawRepresentable, Hashabl
     }
 }
 
-public struct PullsListReviewCommentsForRepoParameterXb8109f3c: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullsListReviewCommentsForRepoParameterXb8109f3c: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = PullsListReviewCommentsForRepoParameterXb8109f3c(rawValue: "asc")
     public static let desc = PullsListReviewCommentsForRepoParameterXb8109f3c(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -100,10 +117,14 @@ public struct PullsListReviewCommentsForRepoParameterXb8109f3c: RawRepresentable
     }
 }
 
-public struct ReactionsListForPullRequestReviewCommentParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReactionsListForPullRequestReviewCommentParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let plus1 = ReactionsListForPullRequestReviewCommentParameter(rawValue: "+1")
     public static let minus1 = ReactionsListForPullRequestReviewCommentParameter(rawValue: "-1")
     public static let laugh = ReactionsListForPullRequestReviewCommentParameter(rawValue: "laugh")
@@ -115,7 +136,7 @@ public struct ReactionsListForPullRequestReviewCommentParameter: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -125,10 +146,14 @@ public struct ReactionsListForPullRequestReviewCommentParameter: RawRepresentabl
 }
 
 /// The reaction type to add to the pull request review comment.
-public struct ReactionsCreateForPullRequestReviewCommentRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReactionsCreateForPullRequestReviewCommentRequestBodyContent: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let plus1 = ReactionsCreateForPullRequestReviewCommentRequestBodyContent(rawValue: "+1")
     public static let minus1 = ReactionsCreateForPullRequestReviewCommentRequestBodyContent(rawValue: "-1")
     public static let laugh = ReactionsCreateForPullRequestReviewCommentRequestBodyContent(rawValue: "laugh")
@@ -140,7 +165,7 @@ public struct ReactionsCreateForPullRequestReviewCommentRequestBodyContent: RawR
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -153,13 +178,16 @@ public struct ReactionsCreateForPullRequestReviewCommentRequestBodyContent: RawR
 public struct PullsUpdateRequestBodyState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = PullsUpdateRequestBodyState(rawValue: "open")
     public static let closed = PullsUpdateRequestBodyState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -170,18 +198,23 @@ public struct PullsUpdateRequestBodyState: RawRepresentable, Hashable, Codable, 
 
 /// The geographic area for this codespace. If not specified, the value is assigned by IP. This property
 /// replaces `location`, which is closing down.
-public struct CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let europeWest = CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo(rawValue: "EuropeWest")
-    public static let southeastAsia = CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo(rawValue: "SoutheastAsia")
+    public static let southeastAsia =
+        CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo(rawValue: "SoutheastAsia")
     public static let usEast = CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo(rawValue: "UsEast")
     public static let usWest = CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo(rawValue: "UsWest")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -193,13 +226,16 @@ public struct CodespacesCreateWithPrForAuthenticatedUserRequestBodyGeo: RawRepre
 public struct PullsListReviewCommentsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = PullsListReviewCommentsParameter(rawValue: "asc")
     public static let desc = PullsListReviewCommentsParameter(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

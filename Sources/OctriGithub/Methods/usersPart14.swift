@@ -6,22 +6,34 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Delete social accounts for the authenticated user
     ///
-    /// Deletes one or more social accounts from the authenticated user's profile. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
+    /// Deletes one or more social accounts from the authenticated user's profile. OAuth app tokens and personal access
+    /// tokens (classic) need the `user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - accountUrls: Full URLs for the social media profiles to delete.
-    public static func usersDeleteSocialAccountForAuthenticatedUser(config: ClientConfig, accountUrls: [String]) async throws -> SdkEmptyResponse {
+    static func usersDeleteSocialAccountForAuthenticatedUser(
+        config: ClientConfig,
+        accountUrls: [String]
+    ) async throws -> SdkEmptyResponse {
         let requestBody = UsersDeleteSocialAccountForAuthenticatedUserRequestBody(accountUrls: accountUrls)
 
-        return try (await sdkRequest("DELETE", "/user/social_accounts", config: config, body: requestBody, decoder: .empty, operationId: "usersDeleteSocialAccountForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "DELETE",
+            "/user/social_accounts",
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "usersDeleteSocialAccountForAuthenticatedUser"
+        )).data
     }
 
     /// List SSH signing keys for the authenticated user
     ///
-    /// Lists the SSH signing keys for the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `read:ssh_signing_key` scope to use this endpoint.
+    /// Lists the SSH signing keys for the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:ssh_signing_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -32,8 +44,12 @@ extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func usersListSshSigningKeysForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [SshSigningKey] {
-        return try (await sdkRequest("GET", "/user/ssh_signing_keys", config: config, query: [
+    static func usersListSshSigningKeysForAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [SshSigningKey] {
+        try await (sdkRequest("GET", "/user/ssh_signing_keys", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListSshSigningKeysForAuthenticatedUser")).data

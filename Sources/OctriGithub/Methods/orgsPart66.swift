@@ -6,34 +6,78 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1, 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints instead.
+public extension OrgsMethods {
+    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1,
+    /// 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints
+    /// instead.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - teamSlug: The slug of the team name.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func orgsAddSecurityManagerTeam(config: ClientConfig, org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/security-managers/teams/", sdkEncodePathSegment(sdkWireString(teamSlug))].joined(), config: config, decoder: .empty, operationId: "orgsAddSecurityManagerTeam")).data
+    static func orgsAddSecurityManagerTeam(
+        config: ClientConfig,
+        org: String,
+        teamSlug: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/security-managers/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsAddSecurityManagerTeam"
+        )).data
     }
 
-    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1, 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints instead.
+    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1,
+    /// 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints
+    /// instead.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - teamSlug: The slug of the team name.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func orgsRemoveSecurityManagerTeam(config: ClientConfig, org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/security-managers/teams/", sdkEncodePathSegment(sdkWireString(teamSlug))].joined(), config: config, decoder: .empty, operationId: "orgsRemoveSecurityManagerTeam")).data
+    static func orgsRemoveSecurityManagerTeam(
+        config: ClientConfig,
+        org: String,
+        teamSlug: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/security-managers/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsRemoveSecurityManagerTeam"
+        )).data
     }
 
-    /// Gets the immutable releases policy for repositories in an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Gets the immutable releases policy for repositories in an organization. OAuth tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func orgsGetImmutableReleasesSettings(config: ClientConfig, org: String) async throws -> ImmutableReleasesOrganizationSettings {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases"].joined(), config: config, decoder: .json, operationId: "orgsGetImmutableReleasesSettings")).data
+    static func orgsGetImmutableReleasesSettings(
+        config: ClientConfig,
+        org: String
+    ) async throws -> ImmutableReleasesOrganizationSettings {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsGetImmutableReleasesSettings"
+        )).data
     }
 }

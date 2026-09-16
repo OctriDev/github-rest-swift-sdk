@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
-    /// Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+public extension ActivityMethods {
+    /// Marks all notifications as "read" for the current user. If the number of notifications is too large to complete
+    /// in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark
+    /// notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications
+    /// for the authenticated
+    /// user](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user)
+    /// endpoint and pass the query parameter `all=false`.
     ///
     /// - Parameters:
     /// - lastReadAt: Describes the last point that notifications were checked.
@@ -16,17 +21,29 @@ extension ActivityMethods {
     ///   [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
     ///   `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp.
     /// - read: Whether the notification has been read.
-    public static func activityMarkNotificationsAsRead(config: ClientConfig, lastReadAt: Date?, read: Bool?) async throws -> ActivityMarkNotificationsAsReadResponse {
-        if let lastReadAt = lastReadAt {
+    static func activityMarkNotificationsAsRead(
+        config: ClientConfig,
+        lastReadAt: Date?,
+        read: Bool?
+    ) async throws -> ActivityMarkNotificationsAsReadResponse {
+        if let lastReadAt {
             try sdkValidateDateTime("last_read_at", lastReadAt)
         }
 
         let requestBody = ActivityMarkNotificationsAsReadRequestBody(lastReadAt: lastReadAt, read: read)
 
-        return try (await sdkRequest("PUT", "/notifications", config: config, body: requestBody, decoder: .json, operationId: "activityMarkNotificationsAsRead")).data
+        return try await (sdkRequest(
+            "PUT",
+            "/notifications",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "activityMarkNotificationsAsRead"
+        )).data
     }
 
-    /// Retrieves a notification thread by its unique identifier. Use `thread_id` from the `id` field returned by the notifications list to inspect the thread's repository, subject, read state, and subscription links.
+    /// Retrieves a notification thread by its unique identifier. Use `thread_id` from the `id` field returned by the
+    /// notifications list to inspect the thread's repository, subject, read state, and subscription links.
     ///
     /// Gets information about a notification thread.
     ///
@@ -36,7 +53,13 @@ extension ActivityMethods {
     ///   notifications (for example with the [`GET /notifications`
     ///   operation](https://docs.github.com/rest/activity/notifications#list-notifica
     ///   tions-for-the-authenticated-user)).
-    public static func activityGetThread(config: ClientConfig, threadId: Int) async throws -> Thread {
-        return try (await sdkRequest("GET", ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId))].joined(), config: config, decoder: .json, operationId: "activityGetThread")).data
+    static func activityGetThread(config: ClientConfig, threadId: Int) async throws -> Thread {
+        try await (sdkRequest(
+            "GET",
+            ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "activityGetThread"
+        )).data
     }
 }

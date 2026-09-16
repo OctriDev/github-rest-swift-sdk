@@ -6,10 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// Create a SSH signing key for the authenticated user
     ///
-    /// Creates an SSH signing key for the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `write:ssh_signing_key` scope to use this endpoint.
+    /// Creates an SSH signing key for the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `write:ssh_signing_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - key: The public SSH key to add to your GitHub account. For more
@@ -17,21 +18,42 @@ extension UsersMethods {
     ///   keys](https://docs.github.com/authentication/connecting-to-github-with-ssh/c
     ///   hecking-for-existing-ssh-keys)."
     /// - title: A descriptive name for the new key.
-    public static func usersCreateSshSigningKeyForAuthenticatedUser(config: ClientConfig, key: String, title: String?) async throws -> SshSigningKey {
+    static func usersCreateSshSigningKeyForAuthenticatedUser(
+        config: ClientConfig,
+        key: String,
+        title: String?
+    ) async throws -> SshSigningKey {
         try sdkValidatePattern("key", key, sdkPatternf381f8e2a146)
 
         let requestBody = UsersCreateSshSigningKeyForAuthenticatedUserRequestBody(key: key, title: title)
 
-        return try (await sdkRequest("POST", "/user/ssh_signing_keys", config: config, body: requestBody, decoder: .json, operationId: "usersCreateSshSigningKeyForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "POST",
+            "/user/ssh_signing_keys",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "usersCreateSshSigningKeyForAuthenticatedUser"
+        )).data
     }
 
     /// Get an SSH signing key for the authenticated user
     ///
-    /// Gets extended details for an SSH signing key. OAuth app tokens and personal access tokens (classic) need the `read:ssh_signing_key` scope to use this endpoint.
+    /// Gets extended details for an SSH signing key. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:ssh_signing_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - sshSigningKeyId: The unique identifier of the SSH signing key.
-    public static func usersGetSshSigningKeyForAuthenticatedUser(config: ClientConfig, sshSigningKeyId: Int) async throws -> SshSigningKey {
-        return try (await sdkRequest("GET", ["/user/ssh_signing_keys/", sdkEncodePathSegment(sdkWireString(sshSigningKeyId))].joined(), config: config, decoder: .json, operationId: "usersGetSshSigningKeyForAuthenticatedUser")).data
+    static func usersGetSshSigningKeyForAuthenticatedUser(
+        config: ClientConfig,
+        sshSigningKeyId: Int
+    ) async throws -> SshSigningKey {
+        try await (sdkRequest(
+            "GET",
+            ["/user/ssh_signing_keys/", sdkEncodePathSegment(sdkWireString(sshSigningKeyId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "usersGetSshSigningKeyForAuthenticatedUser"
+        )).data
     }
 }

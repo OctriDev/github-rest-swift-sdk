@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedNullable domain models
+/// SharedNullable domain models
 /// Metaproperties for Git author/committer information.
 public struct NullableGitUser: Codable {
     /// Optional `string` value serialized in the `name` wire field.
@@ -23,24 +23,24 @@ public struct NullableGitUser: Codable {
     }
 
     init() {
-        (self.name, self.email, self.date) = (nil, nil, nil)
+        (name, email, date) = (nil, nil, nil)
     }
 }
 
 public extension NullableGitUser {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        if let value = self.date {
+        name = try container.sdkDecodeIfPresent(.name)
+        email = try container.sdkDecodeIfPresent(.email)
+        date = try container.sdkDecodeIfPresent(.date)
+        if let value = date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
 public extension NullableGitUser {
-    public init(name: String? = nil, email: String? = nil, date: Date? = nil) throws {
+    init(name: String? = nil, email: String? = nil, date: Date? = nil) throws {
         self.init()
         (self.name, self.email) = (name, email)
         self.date = date
@@ -115,35 +115,52 @@ public struct NullableIntegration: Codable {
         case installationsCount = "installations_count"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension NullableIntegration {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.owner = try container.sdkDecodeRequired(.owner)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.externalUrl = try container.sdkDecodeRequired(.externalUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.events = try container.sdkDecodeRequired(.events)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
-        self.clientId = try container.sdkDecodeIfPresent(.clientId)
-        self.installationsCount = try container.sdkDecodeIfPresent(.installationsCount)
-            try sdkValidateUri("external_url", self.externalUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension NullableIntegration {
-    public init(id: Int, nodeId: String, owner: NullableIntegrationOwner, name: String, description: String?, externalUrl: String, htmlUrl: String, createdAt: Date, updatedAt: Date, permissions: NullableIntegrationPermissions, events: [String], slug: String? = nil, clientId: String? = nil, installationsCount: Int? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        owner = try container.sdkDecodeRequired(.owner)
+        name = try container.sdkDecodeRequired(.name)
+        description = try container.sdkDecodeIfPresent(.description)
+        externalUrl = try container.sdkDecodeRequired(.externalUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        permissions = try container.sdkDecodeRequired(.permissions)
+        events = try container.sdkDecodeRequired(.events)
+        slug = try container.sdkDecodeIfPresent(.slug)
+        clientId = try container.sdkDecodeIfPresent(.clientId)
+        installationsCount = try container.sdkDecodeIfPresent(.installationsCount)
+        try sdkValidateUri("external_url", externalUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension NullableIntegration {
+    init(
+        id: Int,
+        nodeId: String,
+        owner: NullableIntegrationOwner,
+        name: String,
+        description: String?,
+        externalUrl: String,
+        htmlUrl: String,
+        createdAt: Date,
+        updatedAt: Date,
+        permissions: NullableIntegrationPermissions,
+        events: [String],
+        slug: String? = nil,
+        clientId: String? = nil,
+        installationsCount: Int? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.owner, self.name) = (owner, name)
         (self.description, self.externalUrl) = (description, externalUrl)
@@ -151,10 +168,10 @@ public extension NullableIntegration {
         (self.updatedAt, self.permissions) = (updatedAt, permissions)
         (self.events, self.slug) = (events, slug)
         (self.clientId, self.installationsCount) = (clientId, installationsCount)
-            try sdkValidateUri("external_url", self.externalUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("external_url", self.externalUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -164,21 +181,31 @@ public enum NullableIntegrationOwner {
 }
 
 extension NullableIntegrationOwner: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for NullableIntegrationOwner")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for NullableIntegrationOwner"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(SimpleUser.self) { return .simpleUser(value) }
-        if let value = try? container.decode(Enterprise.self) { return .enterprise(value) }
+        if let value = try? container.decode(SimpleUser.self) {
+            return .simpleUser(value)
+        }
+        if let value = try? container.decode(Enterprise.self) {
+            return .enterprise(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -188,7 +215,6 @@ extension NullableIntegrationOwner: Codable {
         case let .enterprise(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// The set of permissions for the GitHub app
@@ -213,23 +239,29 @@ public struct NullableIntegrationPermissions: Codable {
     }
 
     init() {
-        (self.issues, self.checks, self.metadata, self.contents, self.deployments) = (nil, nil, nil, nil, nil)
+        (issues, checks, metadata, contents, deployments) = (nil, nil, nil, nil, nil)
     }
 }
 
 public extension NullableIntegrationPermissions {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.issues = try container.sdkDecodeIfPresent(.issues)
-        self.checks = try container.sdkDecodeIfPresent(.checks)
-        self.metadata = try container.sdkDecodeIfPresent(.metadata)
-        self.contents = try container.sdkDecodeIfPresent(.contents)
-        self.deployments = try container.sdkDecodeIfPresent(.deployments)
+        issues = try container.sdkDecodeIfPresent(.issues)
+        checks = try container.sdkDecodeIfPresent(.checks)
+        metadata = try container.sdkDecodeIfPresent(.metadata)
+        contents = try container.sdkDecodeIfPresent(.contents)
+        deployments = try container.sdkDecodeIfPresent(.deployments)
     }
 }
 
 public extension NullableIntegrationPermissions {
-    public init(issues: String? = nil, checks: String? = nil, metadata: String? = nil, contents: String? = nil, deployments: String? = nil) {
+    init(
+        issues: String? = nil,
+        checks: String? = nil,
+        metadata: String? = nil,
+        contents: String? = nil,
+        deployments: String? = nil
+    ) {
         self.init()
         (self.issues, self.checks) = (issues, checks)
         (self.metadata, self.contents) = (metadata, contents)
@@ -299,38 +331,57 @@ public struct NullableIssueComment: Codable {
         case minimized
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension NullableIssueComment {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.user = try container.sdkDecodeIfPresent(.user)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.issueUrl = try container.sdkDecodeRequired(.issueUrl)
-        self.body = try container.sdkDecodeIfPresent(.body)
-        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        self.authorAssociation = try container.sdkDecodeIfPresent(.authorAssociation)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.reactions = try container.sdkDecodeIfPresent(.reactions)
-        self.pin = try container.sdkDecodeIfPresent(.pin)
-        self.minimized = try container.sdkDecodeIfPresent(.minimized)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("issue_url", self.issueUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension NullableIssueComment {
-    public init(id: Int, nodeId: String, url: String, htmlUrl: String, user: NullableSimpleUser?, createdAt: Date, updatedAt: Date, issueUrl: String, body: String? = nil, bodyText: String? = nil, bodyHtml: String? = nil, authorAssociation: AuthorAssociation? = nil, performedViaGithubApp: NullableIntegration? = nil, reactions: ReactionRollup? = nil, pin: NullablePinnedIssueComment? = nil, minimized: NullableIssueCommentMinimized? = nil) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        user = try container.sdkDecodeIfPresent(.user)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        issueUrl = try container.sdkDecodeRequired(.issueUrl)
+        body = try container.sdkDecodeIfPresent(.body)
+        bodyText = try container.sdkDecodeIfPresent(.bodyText)
+        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        authorAssociation = try container.sdkDecodeIfPresent(.authorAssociation)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        reactions = try container.sdkDecodeIfPresent(.reactions)
+        pin = try container.sdkDecodeIfPresent(.pin)
+        minimized = try container.sdkDecodeIfPresent(.minimized)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("issue_url", issueUrl)
+    }
+}
+
+public extension NullableIssueComment {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        htmlUrl: String,
+        user: NullableSimpleUser?,
+        createdAt: Date,
+        updatedAt: Date,
+        issueUrl: String,
+        body: String? = nil,
+        bodyText: String? = nil,
+        bodyHtml: String? = nil,
+        authorAssociation: AuthorAssociation? = nil,
+        performedViaGithubApp: NullableIntegration? = nil,
+        reactions: ReactionRollup? = nil,
+        pin: NullablePinnedIssueComment? = nil,
+        minimized: NullableIssueCommentMinimized? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.user, self.createdAt) = (user, createdAt)
@@ -339,11 +390,11 @@ public extension NullableIssueComment {
         (self.bodyHtml, self.authorAssociation) = (bodyHtml, authorAssociation)
         (self.performedViaGithubApp, self.reactions) = (performedViaGithubApp, reactions)
         (self.pin, self.minimized) = (pin, minimized)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("issue_url", self.issueUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("issue_url", self.issueUrl)
     }
 }
 
@@ -357,21 +408,27 @@ public struct NullableIssueCommentMinimized: Codable {
         case reason
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension NullableIssueCommentMinimized {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.reason) else {
-            throw SdkValidationError(field: "reason", code: "required", message: "Validation failed for 'reason': value is required")
-        }
-        self.reason = try container.sdkDecodeIfPresent(.reason)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension NullableIssueCommentMinimized {
-    public init(reason: String?) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.reason) else {
+            throw SdkValidationError(
+                field: "reason",
+                code: "required",
+                message: "Validation failed for 'reason': value is required"
+            )
+        }
+        reason = try container.sdkDecodeIfPresent(.reason)
+    }
+}
+
+public extension NullableIssueCommentMinimized {
+    init(reason: String?) {
         self.reason = reason
     }
 }
@@ -405,44 +462,66 @@ public struct NullableLicenseSimple: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension NullableLicenseSimple {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.key) else {
-            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
+            throw SdkValidationError(
+                field: "key",
+                code: "required",
+                message: "Validation failed for 'key': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
         guard container.contains(.spdxId) else {
-            throw SdkValidationError(field: "spdx_id", code: "required", message: "Validation failed for 'spdx_id': value is required")
+            throw SdkValidationError(
+                field: "spdx_id",
+                code: "required",
+                message: "Validation failed for 'spdx_id': value is required"
+            )
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
         }
-        self.key = try container.sdkDecodeRequired(.key)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.spdxId = try container.sdkDecodeIfPresent(.spdxId)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        if let value = self.url {
+        key = try container.sdkDecodeRequired(.key)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeIfPresent(.url)
+        spdxId = try container.sdkDecodeIfPresent(.spdxId)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        if let value = url {
             try sdkValidateUri("url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
 public extension NullableLicenseSimple {
-    public init(key: String, name: String, url: String?, spdxId: String?, nodeId: String, htmlUrl: String? = nil) throws {
+    init(key: String, name: String, url: String?, spdxId: String?, nodeId: String, htmlUrl: String? = nil) throws {
         (self.key, self.name) = (key, name)
         (self.url, self.spdxId) = (url, spdxId)
         (self.nodeId, self.htmlUrl) = (nodeId, htmlUrl)
@@ -524,28 +603,30 @@ public struct NullableMilestone: Codable {
         case dueOn = "due_on"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension NullableMilestone {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.creator = try container.sdkDecodeIfPresent(.creator)
-        self.openIssues = try container.sdkDecodeRequired(.openIssues)
-        self.closedIssues = try container.sdkDecodeRequired(.closedIssues)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.closedAt = try container.sdkDecodeIfPresent(.closedAt)
-        self.dueOn = try container.sdkDecodeIfPresent(.dueOn)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        number = try container.sdkDecodeRequired(.number)
+        state = try container.sdkDecodeRequired(.state)
+        title = try container.sdkDecodeRequired(.title)
+        description = try container.sdkDecodeIfPresent(.description)
+        creator = try container.sdkDecodeIfPresent(.creator)
+        openIssues = try container.sdkDecodeRequired(.openIssues)
+        closedIssues = try container.sdkDecodeRequired(.closedIssues)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        closedAt = try container.sdkDecodeIfPresent(.closedAt)
+        dueOn = try container.sdkDecodeIfPresent(.dueOn)
         try sdkValidateConstraints()
     }
 }

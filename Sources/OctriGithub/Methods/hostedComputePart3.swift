@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension HostedComputeMethods {
-    /// Creates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens (classic) need the `write:network_configurations` scope to use this endpoint.
+public extension HostedComputeMethods {
+    /// Creates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:network_configurations` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -24,15 +25,36 @@ extension HostedComputeMethods {
     ///   resource identifier must be specified in the list.
     /// - failoverNetworkEnabled: Indicates whether the failover network resource is
     ///   enabled.
-    public static func hostedComputeCreateNetworkConfigurationForOrg(config: ClientConfig, org: String, name: String, networkSettingsIds: [String], computeService: HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService?, failoverNetworkSettingsIds: [String]?, failoverNetworkEnabled: Bool?) async throws -> NetworkConfiguration {
+    static func hostedComputeCreateNetworkConfigurationForOrg(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        networkSettingsIds: [String],
+        computeService: HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService?,
+        failoverNetworkSettingsIds: [String]?,
+        failoverNetworkEnabled: Bool?
+    ) async throws -> NetworkConfiguration {
         try validateItems("network_settings_ids", networkSettingsIds, min: 1, max: 1)
 
-        if let failoverNetworkSettingsIds = failoverNetworkSettingsIds {
+        if let failoverNetworkSettingsIds {
             try validateItems("failover_network_settings_ids", failoverNetworkSettingsIds, min: 0, max: 1)
         }
 
-        let requestBody = HostedComputeCreateNetworkConfigurationForOrgRequestBody(name: name, networkSettingsIds: networkSettingsIds, computeService: computeService, failoverNetworkSettingsIds: failoverNetworkSettingsIds, failoverNetworkEnabled: failoverNetworkEnabled)
+        let requestBody = HostedComputeCreateNetworkConfigurationForOrgRequestBody(
+            name: name,
+            networkSettingsIds: networkSettingsIds,
+            computeService: computeService,
+            failoverNetworkSettingsIds: failoverNetworkSettingsIds,
+            failoverNetworkEnabled: failoverNetworkEnabled
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-configurations"].joined(), config: config, body: requestBody, decoder: .json, operationId: "hostedComputeCreateNetworkConfigurationForOrg")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-configurations"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "hostedComputeCreateNetworkConfigurationForOrg"
+        )).data
     }
 }

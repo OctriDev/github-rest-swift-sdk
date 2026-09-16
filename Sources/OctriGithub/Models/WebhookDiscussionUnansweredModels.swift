@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDiscussionUnanswered domain models
+/// WebhookDiscussionUnanswered domain models
 /// Typed representation of the `WebhookDiscussionUnanswered` API schema.
 public struct WebhookDiscussionUnanswered: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -30,35 +30,60 @@ public struct WebhookDiscussionUnanswered: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookDiscussionUnanswered {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.discussion) else {
-            throw SdkValidationError(field: "discussion", code: "required", message: "Validation failed for 'discussion': value is required")
-        }
-        guard container.contains(.oldAnswer) else {
-            throw SdkValidationError(field: "old_answer", code: "required", message: "Validation failed for 'old_answer': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.discussion = try container.sdkDecodeRequired(.discussion)
-        self.oldAnswer = try container.sdkDecodeRequired(.oldAnswer)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookDiscussionUnanswered {
-    public init(action: WebhookDiscussionUnansweredAction, discussion: Discussion, oldAnswer: WebhooksAnswer, repository: RepositoryWebhooks, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.discussion) else {
+            throw SdkValidationError(
+                field: "discussion",
+                code: "required",
+                message: "Validation failed for 'discussion': value is required"
+            )
+        }
+        guard container.contains(.oldAnswer) else {
+            throw SdkValidationError(
+                field: "old_answer",
+                code: "required",
+                message: "Validation failed for 'old_answer': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        discussion = try container.sdkDecodeRequired(.discussion)
+        oldAnswer = try container.sdkDecodeRequired(.oldAnswer)
+        repository = try container.sdkDecodeRequired(.repository)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookDiscussionUnanswered {
+    init(
+        action: WebhookDiscussionUnansweredAction,
+        discussion: Discussion,
+        oldAnswer: WebhooksAnswer,
+        repository: RepositoryWebhooks,
+        organization: OrganizationSimpleWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.action, self.discussion) = (action, discussion)
         (self.oldAnswer, self.repository) = (oldAnswer, repository)
         (self.organization, self.sender) = (organization, sender)
@@ -69,12 +94,15 @@ public extension WebhookDiscussionUnanswered {
 public struct WebhookDiscussionUnansweredAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let unanswered = WebhookDiscussionUnansweredAction(rawValue: "unanswered")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposUpdateOrgRulesetOptions: Codable {
+public extension ReposMethods {
+    struct ReposUpdateOrgRulesetOptions: Codable {
         public var org: String
         public var rulesetId: Int
         public var name: String?
@@ -23,7 +23,9 @@ extension ReposMethods {
         }
     }
 
-    /// Updates an organization repository ruleset. Supply the fields you want to change, including `name`, `target`, `enforcement`, `bypass_actors`, `conditions`, or `rules`; the request body itself may be omitted. A 200 response returns the updated ruleset and its current configuration.
+    /// Updates an organization repository ruleset. Supply the fields you want to change, including `name`, `target`,
+    /// `enforcement`, `bypass_actors`, `conditions`, or `rules`; the request body itself may be omitted. A 200 response
+    /// returns the updated ruleset and its current configuration.
     ///
     /// Update a ruleset for an organization.
     ///
@@ -44,9 +46,24 @@ extension ReposMethods {
     ///   policy rulesets, the conditions object should only contain the
     ///   `repository_name`, the `repository_id`, or the `repository_property`.
     /// - rules: An array of rules within the ruleset.
-    public static func reposUpdateOrgRuleset(config: ClientConfig, options: ReposUpdateOrgRulesetOptions) async throws -> RepositoryRuleset {
+    static func reposUpdateOrgRuleset(
+        config: ClientConfig,
+        options: ReposUpdateOrgRulesetOptions
+    ) async throws -> RepositoryRuleset {
         let requestBody = ReposUpdateOrgRulesetRequestBody(options: options)
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/rulesets/", sdkEncodePathSegment(sdkWireString(options.rulesetId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateOrgRuleset")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(options.org)),
+                "/rulesets/",
+                sdkEncodePathSegment(sdkWireString(options.rulesetId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposUpdateOrgRuleset"
+        )).data
     }
 }

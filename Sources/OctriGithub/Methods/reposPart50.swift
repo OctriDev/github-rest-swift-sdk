@@ -6,8 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners. The `permissions` hash returned in the response contains the base role permissions of the collaborator. The `role_name` is the highest role assigned to the collaborator after considering all sources of grants, including: repo, teams, organization, and enterprise. There is presently not a way to differentiate between an organization level grant and a repository level grant from this endpoint response. Team members will include the members of child teams. The authenticated user must have write, maintain, or admin privileges on the repository to use this endpoint. For organization-owned repositories, the authenticated user needs to be a member of the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` and `repo` scopes to use this endpoint.
+public extension ReposMethods {
+    /// For organization-owned repositories, the list of collaborators includes outside collaborators, organization
+    /// members that are direct collaborators, organization members with access through team memberships, organization
+    /// members with access through default organization permissions, and organization owners. The `permissions` hash
+    /// returned in the response contains the base role permissions of the collaborator. The `role_name` is the highest
+    /// role assigned to the collaborator after considering all sources of grants, including: repo, teams, organization,
+    /// and enterprise. There is presently not a way to differentiate between an organization level grant and a
+    /// repository level grant from this endpoint response. Team members will include the members of child teams. The
+    /// authenticated user must have write, maintain, or admin privileges on the repository to use this endpoint. For
+    /// organization-owned repositories, the authenticated user needs to be a member of the organization. OAuth app
+    /// tokens and personal access tokens (classic) need the `read:org` and `repo` scopes to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,12 +38,33 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListCollaborators(config: ClientConfig, owner: String, repo: String, affiliation: ReposListCollaboratorsParameter?, permission: ReposListCollaboratorsParameterX4bd4595c?, perPage: Int?, page: Int?) async throws -> [Collaborator] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/collaborators"].joined(), config: config, query: [
-            SdkQueryParameter("affiliation", value: affiliation),
-            SdkQueryParameter("permission", value: permission),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListCollaborators")).data
+    static func reposListCollaborators(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        affiliation: ReposListCollaboratorsParameter?,
+        permission: ReposListCollaboratorsParameterX4bd4595c?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Collaborator] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/collaborators",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("affiliation", value: affiliation),
+                SdkQueryParameter("permission", value: permission),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListCollaborators"
+        )).data
     }
 }

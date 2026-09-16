@@ -6,13 +6,30 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CampaignsMethods {
-    /// Deletes a campaign in an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint.
+public extension CampaignsMethods {
+    /// Deletes a campaign in an organization. The authenticated user must be an owner or security manager for the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `security_events` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - campaignNumber: The campaign number.
-    public static func campaignsDeleteCampaign(config: ClientConfig, org: String, campaignNumber: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/campaigns/", sdkEncodePathSegment(sdkWireString(campaignNumber))].joined(), config: config, decoder: .empty, operationId: "campaignsDeleteCampaign")).data
+    static func campaignsDeleteCampaign(
+        config: ClientConfig,
+        org: String,
+        campaignNumber: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/campaigns/",
+                sdkEncodePathSegment(sdkWireString(campaignNumber)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "campaignsDeleteCampaign"
+        )).data
     }
 }

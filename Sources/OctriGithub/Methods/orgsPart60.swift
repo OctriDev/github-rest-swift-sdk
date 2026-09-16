@@ -6,13 +6,30 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Removes a custom property that is defined for an organization. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
+public extension OrgsMethods {
+    /// Removes a custom property that is defined for an organization. To use this endpoint, the authenticated user must
+    /// be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained
+    /// permission of `custom_properties_org_definitions_manager` in the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - customPropertyName: The custom property name
-    public static func orgsCustomPropertiesForReposDeleteOrganizationDefinition(config: ClientConfig, org: String, customPropertyName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/properties/schema/", sdkEncodePathSegment(sdkWireString(customPropertyName))].joined(), config: config, decoder: .empty, operationId: "orgsCustomPropertiesForReposDeleteOrganizationDefinition")).data
+    static func orgsCustomPropertiesForReposDeleteOrganizationDefinition(
+        config: ClientConfig,
+        org: String,
+        customPropertyName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/properties/schema/",
+                sdkEncodePathSegment(sdkWireString(customPropertyName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsCustomPropertiesForReposDeleteOrganizationDefinition"
+        )).data
     }
 }

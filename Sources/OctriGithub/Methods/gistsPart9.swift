@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GistsMethods {
-    /// Lists the forks of a specified gist. Use `gist_id` to identify the gist and `page` with `per_page` to control the paginated results. Forks are returned as gist objects with their associated metadata.
+public extension GistsMethods {
+    /// Lists the forks of a specified gist. Use `gist_id` to identify the gist and `page` with `per_page` to control
+    /// the paginated results. Forks are returned as gist objects with their associated metadata.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
@@ -19,26 +20,53 @@ extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func gistsListForks(config: ClientConfig, gistId: String, perPage: Int?, page: Int?) async throws -> [GistSimple] {
-        return try (await sdkRequest("GET", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/forks"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "gistsListForks")).data
+    static func gistsListForks(
+        config: ClientConfig,
+        gistId: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [GistSimple] {
+        try await (sdkRequest(
+            "GET",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/forks"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "gistsListForks"
+        )).data
     }
 
-    /// Creates a fork of the specified gist for the authenticated user. Supply `gist_id` to identify the gist to fork. A 201 response returns the newly created gist object.
+    /// Creates a fork of the specified gist for the authenticated user. Supply `gist_id` to identify the gist to fork.
+    /// A 201 response returns the newly created gist object.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
-    public static func gistsFork(config: ClientConfig, gistId: String) async throws -> BaseGist {
-        return try (await sdkRequest("POST", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/forks"].joined(), config: config, decoder: .json, operationId: "gistsFork")).data
+    static func gistsFork(config: ClientConfig, gistId: String) async throws -> BaseGist {
+        try await (sdkRequest(
+            "POST",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/forks"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "gistsFork"
+        )).data
     }
 
-    /// Verifies whether a specified gist is starred by the authenticated user. Use `gist_id` to identify the gist whose star state to check. A 204 response confirms that the gist is starred, while a 404 response indicates that it is not starred.
+    /// Verifies whether a specified gist is starred by the authenticated user. Use `gist_id` to identify the gist whose
+    /// star state to check. A 204 response confirms that the gist is starred, while a 404 response indicates that it is
+    /// not starred.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
-    public static func gistsCheckIsStarred(config: ClientConfig, gistId: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/star"].joined(), config: config, decoder: .empty, operationId: "gistsCheckIsStarred")).data
+    static func gistsCheckIsStarred(config: ClientConfig, gistId: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/star"].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "gistsCheckIsStarred"
+        )).data
     }
 }

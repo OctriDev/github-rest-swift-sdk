@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    public struct ActionsGetActionsCacheListOptions: Codable {
+public extension ActionsMethods {
+    struct ActionsGetActionsCacheListOptions: Codable {
         public var owner: String
         public var repo: String
         public var perPage: Int?
@@ -23,7 +23,8 @@ extension ActionsMethods {
         }
     }
 
-    /// Lists the GitHub Actions caches for a repository. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Lists the GitHub Actions caches for a repository. OAuth tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -46,14 +47,30 @@ extension ActionsMethods {
     ///   cache was created. `last_accessed_at` means when the cache was last
     ///   accessed. `size_in_bytes` is the size of the cache in bytes.
     /// - direction: The direction to sort the results by.
-    public static func actionsGetActionsCacheList(config: ClientConfig, options: ActionsGetActionsCacheListOptions) async throws -> ActionsCacheList {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/actions/caches"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("page", value: options.page),
-            SdkQueryParameter("ref", value: options.ref),
-            SdkQueryParameter("key", value: options.key),
-            SdkQueryParameter("sort", value: options.sort),
-            SdkQueryParameter("direction", value: options.direction),
-        ], decoder: .json, operationId: "actionsGetActionsCacheList")).data
+    static func actionsGetActionsCacheList(
+        config: ClientConfig,
+        options: ActionsGetActionsCacheListOptions
+    ) async throws -> ActionsCacheList {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/actions/caches",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("page", value: options.page),
+                SdkQueryParameter("ref", value: options.ref),
+                SdkQueryParameter("key", value: options.key),
+                SdkQueryParameter("sort", value: options.sort),
+                SdkQueryParameter("direction", value: options.direction),
+            ],
+            decoder: .json,
+            operationId: "actionsGetActionsCacheList"
+        )).data
     }
 }

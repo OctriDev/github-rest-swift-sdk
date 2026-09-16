@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// List all of the repositories that have been selected for immutable releases enforcement in an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension OrgsMethods {
+    /// List all of the repositories that have been selected for immutable releases enforcement in an organization.
+    /// OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,10 +20,22 @@ extension OrgsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsGetImmutableReleasesSettingsRepositories(config: ClientConfig, org: String, page: Int?, perPage: Int?) async throws -> OrgsGetImmutableReleasesSettingsRepositoriesResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("per_page", value: perPage),
-        ], decoder: .json, operationId: "orgsGetImmutableReleasesSettingsRepositories")).data
+    static func orgsGetImmutableReleasesSettingsRepositories(
+        config: ClientConfig,
+        org: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> OrgsGetImmutableReleasesSettingsRepositoriesResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases/repositories"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("per_page", value: perPage),
+            ],
+            decoder: .json,
+            operationId: "orgsGetImmutableReleasesSettingsRepositories"
+        )).data
     }
 }

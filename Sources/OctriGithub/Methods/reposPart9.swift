@@ -6,26 +6,54 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Deletes an organization repository ruleset. Provide the organization name and the integer `ruleset_id` identifying the ruleset to remove. A successful response contains no response body.
+public extension ReposMethods {
+    /// Deletes an organization repository ruleset. Provide the organization name and the integer `ruleset_id`
+    /// identifying the ruleset to remove. A successful response contains no response body.
     ///
     /// Delete a ruleset for an organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - rulesetId: The ID of the ruleset.
-    public static func reposDeleteOrgRuleset(config: ClientConfig, org: String, rulesetId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteOrgRuleset")).data
+    static func reposDeleteOrgRuleset(
+        config: ClientConfig,
+        org: String,
+        rulesetId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/rulesets/",
+                sdkEncodePathSegment(sdkWireString(rulesetId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDeleteOrgRuleset"
+        )).data
     }
 
-    /// The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this repository was forked from, `source` is the ultimate source for the network. > [!NOTE] > - In order to see the `security_and_analysis` block for a repository you must have admin permissions for the repository or be an owner or security manager for the organization that owns the repository. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)." > - To view merge-related settings, you must have the `contents:read` and `contents:write` permissions.
+    /// The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this
+    /// repository was forked from, `source` is the ultimate source for the network. > [!NOTE] > - In order to see the
+    /// `security_and_analysis` block for a repository you must have admin permissions for the repository or be an owner
+    /// or security manager for the organization that owns the repository. For more information, see "[Managing security
+    /// managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
+    /// > - To view merge-related settings, you must have the `contents:read` and `contents:write` permissions.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGet(config: ClientConfig, owner: String, repo: String) async throws -> FullRepository {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, decoder: .json, operationId: "reposGet")).data
+    static func reposGet(config: ClientConfig, owner: String, repo: String) async throws -> FullRepository {
+        try await (sdkRequest(
+            "GET",
+            ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))]
+                .joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGet"
+        )).data
     }
 }

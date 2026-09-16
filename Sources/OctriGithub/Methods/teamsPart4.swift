@@ -6,13 +6,27 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
-    /// Gets a team using the team's `slug`. To create the `slug`, GitHub replaces special characters in the `name` string, changes all words to lowercase, and replaces spaces with a `-` separator. For example, `"My TEam Näme"` would become `my-team-name`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}`.
+public extension TeamsMethods {
+    /// Gets a team using the team's `slug`. To create the `slug`, GitHub replaces special characters in the `name`
+    /// string, changes all words to lowercase, and replaces spaces with a `-` separator. For example, `"My TEam Näme"`
+    /// would become `my-team-name`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route
+    /// `GET /organizations/{org_id}/team/{team_id}`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - teamSlug: The slug of the team name.
-    public static func teamsGetByName(config: ClientConfig, org: String, teamSlug: String) async throws -> TeamFull {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug))].joined(), config: config, decoder: .json, operationId: "teamsGetByName")).data
+    static func teamsGetByName(config: ClientConfig, org: String, teamSlug: String) async throws -> TeamFull {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "teamsGetByName"
+        )).data
     }
 }

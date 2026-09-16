@@ -6,21 +6,46 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
+public extension ActionsMethods {
     /// Get the list of platforms available for GitHub-hosted runners for an organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func actionsGetHostedRunnersPlatformsForOrg(config: ClientConfig, org: String) async throws -> ActionsGetHostedRunnersPlatformsForOrgResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/platforms"].joined(), config: config, decoder: .json, operationId: "actionsGetHostedRunnersPlatformsForOrg")).data
+    static func actionsGetHostedRunnersPlatformsForOrg(
+        config: ClientConfig,
+        org: String
+    ) async throws -> ActionsGetHostedRunnersPlatformsForOrgResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/platforms"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetHostedRunnersPlatformsForOrg"
+        )).data
     }
 
-    /// Gets a GitHub-hosted runner configured in an organization. OAuth app tokens and personal access tokens (classic) need the `manage_runners:org` scope to use this endpoint.
+    /// Gets a GitHub-hosted runner configured in an organization. OAuth app tokens and personal access tokens (classic)
+    /// need the `manage_runners:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hostedRunnerId: Unique identifier of the GitHub-hosted runner.
-    public static func actionsGetHostedRunnerForOrg(config: ClientConfig, org: String, hostedRunnerId: Int) async throws -> ActionsHostedRunner {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/", sdkEncodePathSegment(sdkWireString(hostedRunnerId))].joined(), config: config, decoder: .json, operationId: "actionsGetHostedRunnerForOrg")).data
+    static func actionsGetHostedRunnerForOrg(
+        config: ClientConfig,
+        org: String,
+        hostedRunnerId: Int
+    ) async throws -> ActionsHostedRunner {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/hosted-runners/",
+                sdkEncodePathSegment(sdkWireString(hostedRunnerId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetHostedRunnerForOrg"
+        )).data
     }
 }

@@ -4,181 +4,432 @@
 import Foundation
 
 public extension ReposNamespace {
-/// Deletes a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deletePagesSite(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposDeletePagesSite(config: config, owner: owner, repo: repo)
+    /// Deletes a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated user must be a
+    /// repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens
+    /// and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func deletePagesSite(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposDeletePagesSite(config: config, owner: owner, repo: repo)
     }
 
-/// Lists builts of a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listPagesBuilds(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [PageBuild] {
-        return try await ReposMethods.reposListPagesBuilds(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Lists builts of a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope
+    /// to use this endpoint.
+    func listPagesBuilds(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [PageBuild] {
+        try await ReposMethods.reposListPagesBuilds(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// You can request that your site be built from the latest revision on the default branch. This has the same effect as pushing a commit to your default branch, but does not require an additional commit. Manually triggering page builds can be helpful when diagnosing build warnings and failures. Build requests are limited to one concurrent build per repository and one concurrent build per requester. If you request a build while another is still in progress, the second request will be queued until the first completes.
-    public func requestPagesBuild(owner: String, repo: String) async throws -> PageBuildStatus {
-        return try await ReposMethods.reposRequestPagesBuild(config: config, owner: owner, repo: repo)
+    /// You can request that your site be built from the latest revision on the default branch. This has the same effect
+    /// as pushing a commit to your default branch, but does not require an additional commit. Manually triggering page
+    /// builds can be helpful when diagnosing build warnings and failures. Build requests are limited to one concurrent
+    /// build per repository and one concurrent build per requester. If you request a build while another is still in
+    /// progress, the second request will be queued until the first completes.
+    func requestPagesBuild(owner: String, repo: String) async throws -> PageBuildStatus {
+        try await ReposMethods.reposRequestPagesBuild(config: config, owner: owner, repo: repo)
     }
 
-/// Gets information about the single most recent build of a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getLatestPagesBuild(owner: String, repo: String) async throws -> PageBuild {
-        return try await ReposMethods.reposGetLatestPagesBuild(config: config, owner: owner, repo: repo)
+    /// Gets information about the single most recent build of a GitHub Pages site. OAuth app tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
+    func getLatestPagesBuild(owner: String, repo: String) async throws -> PageBuild {
+        try await ReposMethods.reposGetLatestPagesBuild(config: config, owner: owner, repo: repo)
     }
 
-/// Retrieves information about a GitHub Pages build for a repository. Provide the repository `owner` and `repo` together with the integer `build_id`; OAuth app tokens and classic personal access tokens require the `repo` scope.
+    /// Retrieves information about a GitHub Pages build for a repository. Provide the repository `owner` and `repo`
+    /// together with the integer `build_id`; OAuth app tokens and classic personal access tokens require the `repo`
+    /// scope.
     ///
-    /// Gets information about a GitHub Pages build. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getPagesBuild(owner: String, repo: String, buildId: Int) async throws -> PageBuild {
-        return try await ReposMethods.reposGetPagesBuild(config: config, owner: owner, repo: repo, buildId: buildId)
+    /// Gets information about a GitHub Pages build. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
+    func getPagesBuild(owner: String, repo: String, buildId: Int) async throws -> PageBuild {
+        try await ReposMethods.reposGetPagesBuild(config: config, owner: owner, repo: repo, buildId: buildId)
     }
 
-/// Create a GitHub Pages deployment for a repository. The authenticated user must have write permission to the repository.
-    public func createPagesDeployment(owner: String, repo: String, pagesBuildVersion: String, oidcToken: String, artifactId: Double?, artifactUrl: String?, environment: String?) async throws -> PageDeployment {
-        return try await ReposMethods.reposCreatePagesDeployment(config: config, owner: owner, repo: repo, pagesBuildVersion: pagesBuildVersion, oidcToken: oidcToken, artifactId: artifactId, artifactUrl: artifactUrl, environment: environment)
+    /// Create a GitHub Pages deployment for a repository. The authenticated user must have write permission to the
+    /// repository.
+    func createPagesDeployment(
+        owner: String,
+        repo: String,
+        pagesBuildVersion: String,
+        oidcToken: String,
+        artifactId: Double?,
+        artifactUrl: String?,
+        environment: String?
+    ) async throws -> PageDeployment {
+        try await ReposMethods.reposCreatePagesDeployment(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pagesBuildVersion: pagesBuildVersion,
+            oidcToken: oidcToken,
+            artifactId: artifactId,
+            artifactUrl: artifactUrl,
+            environment: environment
+        )
     }
 
-/// Gets the current status of a GitHub Pages deployment. The authenticated user must have read permission for the GitHub Pages site.
-    public func getPagesDeployment(owner: String, repo: String, pagesDeploymentId: ReposGetPagesDeploymentParameter) async throws -> PagesDeploymentStatus {
-        return try await ReposMethods.reposGetPagesDeployment(config: config, owner: owner, repo: repo, pagesDeploymentId: pagesDeploymentId)
+    /// Gets the current status of a GitHub Pages deployment. The authenticated user must have read permission for the
+    /// GitHub Pages site.
+    func getPagesDeployment(
+        owner: String,
+        repo: String,
+        pagesDeploymentId: ReposGetPagesDeploymentParameter
+    ) async throws -> PagesDeploymentStatus {
+        try await ReposMethods.reposGetPagesDeployment(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pagesDeploymentId: pagesDeploymentId
+        )
     }
 
-/// Cancels a GitHub Pages deployment. The authenticated user must have write permissions for the GitHub Pages site.
-    public func cancelPagesDeployment(owner: String, repo: String, pagesDeploymentId: ReposGetPagesDeploymentParameter) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposCancelPagesDeployment(config: config, owner: owner, repo: repo, pagesDeploymentId: pagesDeploymentId)
-    }
-}
-
-public extension ReposNamespace {
-/// Gets a health check of the DNS settings for the `CNAME` record configured for a repository's GitHub Pages. The first request to this endpoint returns a `202 Accepted` status and starts an asynchronous background task to get the results for the domain. After the background task completes, subsequent requests to this endpoint return a `200 OK` status with the health check results in the response. The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getPagesHealthCheck(owner: String, repo: String) async throws -> PagesHealthCheck {
-        return try await ReposMethods.reposGetPagesHealthCheck(config: config, owner: owner, repo: repo)
-    }
-
-/// Returns a boolean indicating whether or not private vulnerability reporting is enabled for the repository. For more information, see "[Evaluating the security settings of a repository](https://docs.github.com/code-security/security-advisories/working-with-repository-security-advisories/evaluating-the-security-settings-of-a-repository)".
-    public func checkPrivateVulnerabilityReporting(owner: String, repo: String) async throws -> ReposCheckPrivateVulnerabilityReportingResponse {
-        return try await ReposMethods.reposCheckPrivateVulnerabilityReporting(config: config, owner: owner, repo: repo)
-    }
-
-/// Enables private vulnerability reporting for a repository. The authenticated user must have admin access to the repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)."
-    public func enablePrivateVulnerabilityReporting(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposEnablePrivateVulnerabilityReporting(config: config, owner: owner, repo: repo)
-    }
-
-/// Disables private vulnerability reporting for a repository. The authenticated user must have admin access to the repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)".
-    public func disablePrivateVulnerabilityReporting(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposDisablePrivateVulnerabilityReporting(config: config, owner: owner, repo: repo)
-    }
-
-/// Gets all custom property values that are set for a repository. Users with read access to the repository can use this endpoint.
-    public func reposCustomPropertiesForGetRepositoryValues(owner: String, repo: String) async throws -> [CustomPropertyValue] {
-        return try await ReposMethods.reposCustomPropertiesForReposGetRepositoryValues(config: config, owner: owner, repo: repo)
-    }
-
-/// Create new or update existing custom property values for a repository. Using a value of `null` for a custom property will remove or 'unset' the property value from the repository. Repository admins and other users with the repository-level "edit custom property values" fine-grained permission can use this endpoint.
-    public func reposCustomPropertiesForCreateOrUpdateRepositoryValues(owner: String, repo: String, properties: [CustomPropertyValue]) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposCustomPropertiesForReposCreateOrUpdateRepositoryValues(config: config, owner: owner, repo: repo, properties: properties)
-    }
-
-/// Gets the preferred README for a repository. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw file contents. This is the default if you do not specify a media type. - **`application/vnd.github.html+json`**: Returns the README in HTML. Markup languages are rendered to HTML using GitHub's open-source [Markup library](https://github.com/github/markup).
-    public func getReadme(owner: String, repo: String, ref: String?) async throws -> ContentFile {
-        return try await ReposMethods.reposGetReadme(config: config, owner: owner, repo: repo, ref: ref)
-    }
-
-/// Gets the README from a repository directory. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw file contents. This is the default if you do not specify a media type. - **`application/vnd.github.html+json`**: Returns the README in HTML. Markup languages are rendered to HTML using GitHub's open-source [Markup library](https://github.com/github/markup).
-    public func getReadmeInDirectory(owner: String, repo: String, dir: String, ref: String?) async throws -> ContentFile {
-        return try await ReposMethods.reposGetReadmeInDirectory(config: config, owner: owner, repo: repo, dir: dir, ref: ref)
+    /// Cancels a GitHub Pages deployment. The authenticated user must have write permissions for the GitHub Pages site.
+    func cancelPagesDeployment(
+        owner: String,
+        repo: String,
+        pagesDeploymentId: ReposGetPagesDeploymentParameter
+    ) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposCancelPagesDeployment(
+            config: config,
+            owner: owner,
+            repo: repo,
+            pagesDeploymentId: pagesDeploymentId
+        )
     }
 }
 
 public extension ReposNamespace {
-/// This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/repos/repos#list-repository-tags). Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
-    public func listReleases(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Release] {
-        return try await ReposMethods.reposListReleases(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Gets a health check of the DNS settings for the `CNAME` record configured for a repository's GitHub Pages. The
+    /// first request to this endpoint returns a `202 Accepted` status and starts an asynchronous background task to get
+    /// the results for the domain. After the background task completes, subsequent requests to this endpoint return a
+    /// `200 OK` status with the health check results in the response. The authenticated user must be a repository
+    /// administrator, maintainer, or have the 'manage GitHub Pages settings' permission to use this endpoint. OAuth app
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func getPagesHealthCheck(owner: String, repo: String) async throws -> PagesHealthCheck {
+        try await ReposMethods.reposGetPagesHealthCheck(config: config, owner: owner, repo: repo)
     }
 
-/// Users with push access to the repository can create a release. > [!NOTE] > If the commit identified by `target_commitish` (or, when `target_commitish` is omitted, the latest commit on the default branch) adds or modifies any file under `.github/workflows/` relative to the repository's default branch, the authenticating token must be authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some authentication paths surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal access tokens (classic) need the `workflow` scope when the resolved target commit modifies workflow files. Fine-grained access tokens and GitHub App installation tokens also need the "Workflows" repository permission (write). The `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see "[Automatic token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)". This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    public func createRelease(options: ReposMethods.ReposCreateReleaseOptions) async throws -> Release {
-        return try await ReposMethods.reposCreateRelease(config: config, options: options)
+    /// Returns a boolean indicating whether or not private vulnerability reporting is enabled for the repository. For
+    /// more information, see "[Evaluating the security settings of a repository](https://docs.github.com/code-security/security-advisories/working-with-repository-security-advisories/evaluating-the-security-settings-of-a-repository)".
+    func checkPrivateVulnerabilityReporting(
+        owner: String,
+        repo: String
+    ) async throws -> ReposCheckPrivateVulnerabilityReportingResponse {
+        try await ReposMethods.reposCheckPrivateVulnerabilityReporting(config: config, owner: owner, repo: repo)
     }
 
-/// To download the asset's binary content: - If within a browser, fetch the location specified in the `browser_download_url` key provided in the response. - Alternatively, set the `Accept` header of the request to [`application/octet-stream`](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). The API will either redirect the client to the location, or stream it directly if possible. API clients should handle both a `200` or `302` response.
-    public func getReleaseAsset(owner: String, repo: String, assetId: Int) async throws -> ReleaseAsset {
-        return try await ReposMethods.reposGetReleaseAsset(config: config, owner: owner, repo: repo, assetId: assetId)
+    /// Enables private vulnerability reporting for a repository. The authenticated user must have admin access to the
+    /// repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)."
+    func enablePrivateVulnerabilityReporting(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposEnablePrivateVulnerabilityReporting(config: config, owner: owner, repo: repo)
     }
 
-/// Updates the metadata for a release asset in a repository. Use `name`, `label`, or `state` to change the asset's displayed filename, alternate description, or lifecycle state; omit fields you do not want to change. The authenticated user must have push access to the repository.
+    /// Disables private vulnerability reporting for a repository. The authenticated user must have admin access to the
+    /// repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)".
+    func disablePrivateVulnerabilityReporting(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposDisablePrivateVulnerabilityReporting(config: config, owner: owner, repo: repo)
+    }
+
+    /// Gets all custom property values that are set for a repository. Users with read access to the repository can use
+    /// this endpoint.
+    func reposCustomPropertiesForGetRepositoryValues(
+        owner: String,
+        repo: String
+    ) async throws -> [CustomPropertyValue] {
+        try await ReposMethods.reposCustomPropertiesForReposGetRepositoryValues(
+            config: config,
+            owner: owner,
+            repo: repo
+        )
+    }
+
+    /// Create new or update existing custom property values for a repository. Using a value of `null` for a custom
+    /// property will remove or 'unset' the property value from the repository. Repository admins and other users with
+    /// the repository-level "edit custom property values" fine-grained permission can use this endpoint.
+    func reposCustomPropertiesForCreateOrUpdateRepositoryValues(
+        owner: String,
+        repo: String,
+        properties: [CustomPropertyValue]
+    ) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposCustomPropertiesForReposCreateOrUpdateRepositoryValues(
+            config: config,
+            owner: owner,
+            repo: repo,
+            properties: properties
+        )
+    }
+
+    /// Gets the preferred README for a repository. This endpoint supports the following custom media types. For more
+    /// information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw file contents. This is the default if you do not specify
+    /// a media type. - **`application/vnd.github.html+json`**: Returns the README in HTML. Markup languages are
+    /// rendered to HTML using GitHub's open-source [Markup library](https://github.com/github/markup).
+    func getReadme(owner: String, repo: String, ref: String?) async throws -> ContentFile {
+        try await ReposMethods.reposGetReadme(config: config, owner: owner, repo: repo, ref: ref)
+    }
+
+    /// Gets the README from a repository directory. This endpoint supports the following custom media types. For more
+    /// information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw file contents. This is the default if you do not specify
+    /// a media type. - **`application/vnd.github.html+json`**: Returns the README in HTML. Markup languages are
+    /// rendered to HTML using GitHub's open-source [Markup library](https://github.com/github/markup).
+    func getReadmeInDirectory(owner: String, repo: String, dir: String, ref: String?) async throws -> ContentFile {
+        try await ReposMethods.reposGetReadmeInDirectory(config: config, owner: owner, repo: repo, dir: dir, ref: ref)
+    }
+}
+
+public extension ReposNamespace {
+    /// This returns a list of releases, which does not include regular Git tags that have not been associated with a
+    /// release. To get a list of Git tags, use the [Repository Tags
+    /// API](https://docs.github.com/rest/repos/repos#list-repository-tags). Information about published releases are
+    /// available to everyone. Only users with push access will receive listings for draft releases.
+    func listReleases(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Release] {
+        try await ReposMethods.reposListReleases(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    }
+
+    /// Users with push access to the repository can create a release. > [!NOTE] > If the commit identified by
+    /// `target_commitish` (or, when `target_commitish` is omitted, the latest commit on the default branch) adds or
+    /// modifies any file under `.github/workflows/` relative to the repository's default branch, the authenticating
+    /// token must be authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some
+    /// authentication paths surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal
+    /// access tokens (classic) need the `workflow` scope when the resolved target commit modifies workflow files.
+    /// Fine-grained access tokens and GitHub App installation tokens also need the "Workflows" repository permission
+    /// (write). The `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see
+    /// "[Automatic token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)".
+    /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    func createRelease(options: ReposMethods.ReposCreateReleaseOptions) async throws -> Release {
+        try await ReposMethods.reposCreateRelease(config: config, options: options)
+    }
+
+    /// To download the asset's binary content: - If within a browser, fetch the location specified in the
+    /// `browser_download_url` key provided in the response. - Alternatively, set the `Accept` header of the request to [`application/octet-stream`](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types).
+    /// The API will either redirect the client to the location, or stream it directly if possible. API clients should
+    /// handle both a `200` or `302` response.
+    func getReleaseAsset(owner: String, repo: String, assetId: Int) async throws -> ReleaseAsset {
+        try await ReposMethods.reposGetReleaseAsset(config: config, owner: owner, repo: repo, assetId: assetId)
+    }
+
+    /// Updates the metadata for a release asset in a repository. Use `name`, `label`, or `state` to change the asset's
+    /// displayed filename, alternate description, or lifecycle state; omit fields you do not want to change. The
+    /// authenticated user must have push access to the repository.
     ///
     /// Users with push access to the repository can edit a release asset.
-    public func updateReleaseAsset(owner: String, repo: String, assetId: Int, name: String?, label: String?, state: String?) async throws -> ReleaseAsset {
-        return try await ReposMethods.reposUpdateReleaseAsset(config: config, owner: owner, repo: repo, assetId: assetId, name: name, label: label, state: state)
+    func updateReleaseAsset(
+        owner: String,
+        repo: String,
+        assetId: Int,
+        name: String?,
+        label: String?,
+        state: String?
+    ) async throws -> ReleaseAsset {
+        try await ReposMethods.reposUpdateReleaseAsset(
+            config: config,
+            owner: owner,
+            repo: repo,
+            assetId: assetId,
+            name: name,
+            label: label,
+            state: state
+        )
     }
 
-/// Deletes a release asset from a repository. Use the repository owner, repository name, and asset identifier to select the asset to remove. The operation returns no response body when deletion succeeds.
-    public func deleteReleaseAsset(owner: String, repo: String, assetId: Int) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposDeleteReleaseAsset(config: config, owner: owner, repo: repo, assetId: assetId)
+    /// Deletes a release asset from a repository. Use the repository owner, repository name, and asset identifier to
+    /// select the asset to remove. The operation returns no response body when deletion succeeds.
+    func deleteReleaseAsset(owner: String, repo: String, assetId: Int) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposDeleteReleaseAsset(config: config, owner: owner, repo: repo, assetId: assetId)
     }
 
-/// Generate a name and body describing a [release](https://docs.github.com/rest/releases/releases#get-a-release). The body content will be markdown formatted and contain information like the changes since last release and users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and used when creating a new release.
-    public func generateReleaseNotes(owner: String, repo: String, tagName: String, targetCommitish: String?, previousTagName: String?, configurationFilePath: String?) async throws -> ReleaseNotesContent {
-        return try await ReposMethods.reposGenerateReleaseNotes(config: config, owner: owner, repo: repo, tagName: tagName, targetCommitish: targetCommitish, previousTagName: previousTagName, configurationFilePath: configurationFilePath)
+    /// Generate a name and body describing a [release](https://docs.github.com/rest/releases/releases#get-a-release).
+    /// The body content will be markdown formatted and contain information like the changes since last release and
+    /// users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and
+    /// used when creating a new release.
+    func generateReleaseNotes(
+        owner: String,
+        repo: String,
+        tagName: String,
+        targetCommitish: String?,
+        previousTagName: String?,
+        configurationFilePath: String?
+    ) async throws -> ReleaseNotesContent {
+        try await ReposMethods.reposGenerateReleaseNotes(
+            config: config,
+            owner: owner,
+            repo: repo,
+            tagName: tagName,
+            targetCommitish: targetCommitish,
+            previousTagName: previousTagName,
+            configurationFilePath: configurationFilePath
+        )
     }
 
-/// View the latest published full release for the repository. The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit used for the release, and not the date when the release was drafted or published.
-    public func getLatestRelease(owner: String, repo: String) async throws -> Release {
-        return try await ReposMethods.reposGetLatestRelease(config: config, owner: owner, repo: repo)
+    /// View the latest published full release for the repository. The latest release is the most recent non-prerelease,
+    /// non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit
+    /// used for the release, and not the date when the release was drafted or published.
+    func getLatestRelease(owner: String, repo: String) async throws -> Release {
+        try await ReposMethods.reposGetLatestRelease(config: config, owner: owner, repo: repo)
     }
 
-/// Retrieves a published release associated with a specific tag in a repository. Supply `tag` together with the repository owner and name to identify the release. Use the returned release metadata to access its assets, URLs, publication state, and target commit.
+    /// Retrieves a published release associated with a specific tag in a repository. Supply `tag` together with the
+    /// repository owner and name to identify the release. Use the returned release metadata to access its assets, URLs,
+    /// publication state, and target commit.
     ///
     /// Get a published release with the specified tag.
-    public func getReleaseByTag(owner: String, repo: String, tag: String) async throws -> Release {
-        return try await ReposMethods.reposGetReleaseByTag(config: config, owner: owner, repo: repo, tag: tag)
+    func getReleaseByTag(owner: String, repo: String, tag: String) async throws -> Release {
+        try await ReposMethods.reposGetReleaseByTag(config: config, owner: owner, repo: repo, tag: tag)
     }
 }
 
 public extension ReposNamespace {
-/// Gets a public release with the specified release ID. > [!NOTE] > This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a hypermedia resource. For more information, see "[Getting started with the REST API](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#hypermedia)."
-    public func getRelease(owner: String, repo: String, releaseId: Int) async throws -> Release {
-        return try await ReposMethods.reposGetRelease(config: config, owner: owner, repo: repo, releaseId: releaseId)
+    /// Gets a public release with the specified release ID. > [!NOTE] > This returns an `upload_url` key corresponding
+    /// to the endpoint for uploading release assets. This key is a hypermedia resource. For more information, see
+    /// "[Getting started with the REST
+    /// API](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#hypermedia)."
+    func getRelease(owner: String, repo: String, releaseId: Int) async throws -> Release {
+        try await ReposMethods.reposGetRelease(config: config, owner: owner, repo: repo, releaseId: releaseId)
     }
 
-/// Users with push access to the repository can edit a release. > [!NOTE] > If the resolved target commit (the new value of `target_commitish` if you are changing it, otherwise the existing target) adds or modifies any file under `.github/workflows/` relative to the repository's default branch, the authenticating token must be authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some authentication paths surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal access tokens (classic) need the `workflow` scope when the resolved target commit modifies workflow files. Fine-grained access tokens and GitHub App installation tokens also need the "Workflows" repository permission (write). The `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see "[Automatic token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)".
-    public func updateRelease(options: ReposMethods.ReposUpdateReleaseOptions) async throws -> Release {
-        return try await ReposMethods.reposUpdateRelease(config: config, options: options)
+    /// Users with push access to the repository can edit a release. > [!NOTE] > If the resolved target commit (the new
+    /// value of `target_commitish` if you are changing it, otherwise the existing target) adds or modifies any file
+    /// under `.github/workflows/` relative to the repository's default branch, the authenticating token must be
+    /// authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some authentication paths
+    /// surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal access tokens
+    /// (classic) need the `workflow` scope when the resolved target commit modifies workflow files. Fine-grained access
+    /// tokens and GitHub App installation tokens also need the "Workflows" repository permission (write). The
+    /// `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see "[Automatic
+    /// token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)".
+    func updateRelease(options: ReposMethods.ReposUpdateReleaseOptions) async throws -> Release {
+        try await ReposMethods.reposUpdateRelease(config: config, options: options)
     }
 
-/// Users with push access to the repository can delete a release.
-    public func deleteRelease(owner: String, repo: String, releaseId: Int) async throws -> SdkEmptyResponse {
-        return try await ReposMethods.reposDeleteRelease(config: config, owner: owner, repo: repo, releaseId: releaseId)
+    /// Users with push access to the repository can delete a release.
+    func deleteRelease(owner: String, repo: String, releaseId: Int) async throws -> SdkEmptyResponse {
+        try await ReposMethods.reposDeleteRelease(config: config, owner: owner, repo: repo, releaseId: releaseId)
     }
 
-/// Lists the assets attached to a specific release in a repository. Use `per_page` and `page` to control the paginated result set, with up to 100 assets per page. Each result includes the asset's filename, state, download information, size, digest, timestamps, and uploader.
-    public func listReleaseAssets(owner: String, repo: String, releaseId: Int, perPage: Int?, page: Int?) async throws -> [ReleaseAsset] {
-        return try await ReposMethods.reposListReleaseAssets(config: config, owner: owner, repo: repo, releaseId: releaseId, perPage: perPage, page: page)
+    /// Lists the assets attached to a specific release in a repository. Use `per_page` and `page` to control the
+    /// paginated result set, with up to 100 assets per page. Each result includes the asset's filename, state, download
+    /// information, size, digest, timestamps, and uploader.
+    func listReleaseAssets(
+        owner: String,
+        repo: String,
+        releaseId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [ReleaseAsset] {
+        try await ReposMethods.reposListReleaseAssets(
+            config: config,
+            owner: owner,
+            repo: repo,
+            releaseId: releaseId,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Uploads a binary asset to a release using the release-specific upload URL. Supply the required `name` query parameter and `Content-Type` header, and send the asset as raw binary data rather than JSON. Use the `upload_url` from the release creation response and remove an existing asset before reusing its filename.
+    /// Uploads a binary asset to a release using the release-specific upload URL. Supply the required `name` query
+    /// parameter and `Content-Type` header, and send the asset as raw binary data rather than JSON. Use the
+    /// `upload_url` from the release creation response and remove an existing asset before reusing its filename.
     ///
-    /// This endpoint makes use of a [Hypermedia relation](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#hypermedia) to determine which URL to access. The endpoint you call to upload release assets is specific to your release. Use the `upload_url` returned in the response of the [Create a release endpoint](https://docs.github.com/rest/releases/releases#create-a-release) to upload a release asset. You need to use an HTTP client which supports [SNI](http://en.wikipedia.org/wiki/Server_Name_Indication) to make calls to this endpoint. Most libraries will set the required `Content-Length` header automatically. Use the required `Content-Type` header to provide the media type of the asset. For a list of media types, see [Media Types](https://www.iana.org/assignments/media-types/media-types.xhtml). For example: `application/zip` GitHub expects the asset data in its raw binary form, rather than JSON. You will send the raw binary content of the asset as the request body. Everything else about the endpoint is the same as the rest of the API. For example, you'll still need to pass your authentication to be able to upload an asset. When an upstream failure occurs, you will receive a `502 Bad Gateway` status. This may leave an empty asset with a state of `starter`. It can be safely deleted. **Notes:** * GitHub renames asset filenames that have special characters, non-alphanumeric characters, and leading or trailing periods. The "[List release assets](https://docs.github.com/rest/releases/assets#list-release-assets)" endpoint lists the renamed filenames. For more information and help, contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api). * To find the `release_id` query the [`GET /repos/{owner}/{repo}/releases/latest` endpoint](https://docs.github.com/rest/releases/releases#get-the-latest-release). * If you upload an asset with the same filename as another uploaded asset, you'll receive an error and must delete the old file…
-    public func uploadReleaseAsset(owner: String, repo: String, releaseId: Int, name: String, label: String?, body: Data?) async throws -> ReleaseAsset {
-        return try await ReposMethods.reposUploadReleaseAsset(config: config, owner: owner, repo: repo, releaseId: releaseId, name: name, label: label, body: body)
+    /// This endpoint makes use of a [Hypermedia
+    /// relation](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#hypermedia) to
+    /// determine which URL to access. The endpoint you call to upload release assets is specific to your release. Use
+    /// the `upload_url` returned in the response of the [Create a release
+    /// endpoint](https://docs.github.com/rest/releases/releases#create-a-release) to upload a release asset. You need
+    /// to use an HTTP client which supports [SNI](http://en.wikipedia.org/wiki/Server_Name_Indication) to make calls to
+    /// this endpoint. Most libraries will set the required `Content-Length` header automatically. Use the required
+    /// `Content-Type` header to provide the media type of the asset. For a list of media types, see [Media
+    /// Types](https://www.iana.org/assignments/media-types/media-types.xhtml). For example: `application/zip` GitHub
+    /// expects the asset data in its raw binary form, rather than JSON. You will send the raw binary content of the
+    /// asset as the request body. Everything else about the endpoint is the same as the rest of the API. For example,
+    /// you'll still need to pass your authentication to be able to upload an asset. When an upstream failure occurs,
+    /// you will receive a `502 Bad Gateway` status. This may leave an empty asset with a state of `starter`. It can be
+    /// safely deleted. **Notes:** * GitHub renames asset filenames that have special characters, non-alphanumeric
+    /// characters, and leading or trailing periods. The "[List release
+    /// assets](https://docs.github.com/rest/releases/assets#list-release-assets)" endpoint lists the renamed filenames.
+    /// For more information and help, contact [GitHub
+    /// Support](https://support.github.com/contact?tags=dotcom-rest-api). * To find the `release_id` query the [`GET
+    /// /repos/{owner}/{repo}/releases/latest`
+    /// endpoint](https://docs.github.com/rest/releases/releases#get-the-latest-release). * If you upload an asset with
+    /// the same filename as another uploaded asset, you'll receive an error and must delete the old file…
+    func uploadReleaseAsset(
+        owner: String,
+        repo: String,
+        releaseId: Int,
+        name: String,
+        label: String?,
+        body: Data?
+    ) async throws -> ReleaseAsset {
+        try await ReposMethods.reposUploadReleaseAsset(
+            config: config,
+            owner: owner,
+            repo: repo,
+            releaseId: releaseId,
+            name: name,
+            label: label,
+            body: body
+        )
     }
 
-/// Returns all active rules that apply to the specified branch. The branch does not need to exist; rules that would apply to a branch with that name will be returned. All active rules that apply will be returned, regardless of the level at which they are configured (e.g. repository or organization). Rules in rulesets with "evaluate" or "disabled" enforcement statuses are not returned.
-    public func getBranchRules(owner: String, repo: String, branch: String, perPage: Int?, page: Int?) async throws -> [RepositoryRuleDetailed] {
-        return try await ReposMethods.reposGetBranchRules(config: config, owner: owner, repo: repo, branch: branch, perPage: perPage, page: page)
+    /// Returns all active rules that apply to the specified branch. The branch does not need to exist; rules that would
+    /// apply to a branch with that name will be returned. All active rules that apply will be returned, regardless of
+    /// the level at which they are configured (e.g. repository or organization). Rules in rulesets with "evaluate" or
+    /// "disabled" enforcement statuses are not returned.
+    func getBranchRules(
+        owner: String,
+        repo: String,
+        branch: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [RepositoryRuleDetailed] {
+        try await ReposMethods.reposGetBranchRules(
+            config: config,
+            owner: owner,
+            repo: repo,
+            branch: branch,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Lists all rulesets that apply to a repository. Use `includes_parents` to include rulesets configured at higher levels and `targets` to filter by rule target. Use `page` and `per_page` to paginate the results.
+    /// Lists all rulesets that apply to a repository. Use `includes_parents` to include rulesets configured at higher
+    /// levels and `targets` to filter by rule target. Use `page` and `per_page` to paginate the results.
     ///
     /// Get all the rulesets for a repository.
-    public func getRepoRulesets(owner: String, repo: String, perPage: Int?, page: Int?, includesParents: Bool?, targets: String?) async throws -> [RepositoryRuleset] {
-        return try await ReposMethods.reposGetRepoRulesets(config: config, owner: owner, repo: repo, perPage: perPage, page: page, includesParents: includesParents, targets: targets)
+    func getRepoRulesets(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?,
+        includesParents: Bool?,
+        targets: String?
+    ) async throws -> [RepositoryRuleset] {
+        try await ReposMethods.reposGetRepoRulesets(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page,
+            includesParents: includesParents,
+            targets: targets
+        )
     }
 
-/// Creates a ruleset for a repository. Supply `name` and `enforcement`, and use `target`, `conditions`, `rules`, and `bypass_actors` to define when the ruleset applies and who can bypass it. A 201 response returns the created repository ruleset.
+    /// Creates a ruleset for a repository. Supply `name` and `enforcement`, and use `target`, `conditions`, `rules`,
+    /// and `bypass_actors` to define when the ruleset applies and who can bypass it. A 201 response returns the created
+    /// repository ruleset.
     ///
     /// Create a ruleset for a repository.
-    public func createRepoRuleset(options: ReposMethods.ReposCreateRepoRulesetOptions) async throws -> RepositoryRuleset {
-        return try await ReposMethods.reposCreateRepoRuleset(config: config, options: options)
+    func createRepoRuleset(options: ReposMethods.ReposCreateRepoRulesetOptions) async throws -> RepositoryRuleset {
+        try await ReposMethods.reposCreateRepoRuleset(config: config, options: options)
     }
 }

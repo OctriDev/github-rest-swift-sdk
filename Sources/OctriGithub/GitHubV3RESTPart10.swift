@@ -4,39 +4,107 @@
 import Foundation
 
 public extension CopilotNamespace {
-/// Use this endpoint to retrieve download links for the latest 28-day organization Copilot usage metrics report. The report provides comprehensive usage data for Copilot features across the organization. The report contains aggregated metrics for the previous 28 days, including usage statistics for various Copilot features, user engagement data, and feature adoption metrics. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date range covered by the report. The report covers a complete 28-day period ending on the most recent day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
-    public func copilotOrganizationUsageMetrics(org: String) async throws -> CopilotUsageMetrics28DayReport {
-        return try await CopilotMethods.copilotCopilotOrganizationUsageMetrics(config: config, org: org)
+    /// Use this endpoint to retrieve download links for the latest 28-day organization Copilot usage metrics report.
+    /// The report provides comprehensive usage data for Copilot features across the organization. The report contains
+    /// aggregated metrics for the previous 28 days, including usage statistics for various Copilot features, user
+    /// engagement data, and feature adoption metrics. Reports are generated daily and made available for download
+    /// through signed URLs with a limited expiration time. The response includes download links to the report files,
+    /// along with the specific date range covered by the report. The report covers a complete 28-day period ending on
+    /// the most recent day for which data has been processed. Organization owners and authorized users with
+    /// fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the
+    /// organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this
+    /// endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    func copilotOrganizationUsageMetrics(org: String) async throws -> CopilotUsageMetrics28DayReport {
+        try await CopilotMethods.copilotCopilotOrganizationUsageMetrics(config: config, org: org)
     }
 
-/// Use this endpoint to retrieve download links for the Copilot organization repository report for a specific day. The report provides per-repository pull request metrics for Copilot across the organization, with one entry per repository. The report contains repository-level pull request activity for the specified day, including the Copilot Coding Agent (CCA) and Copilot Code Review (CCR) breakdowns. Only repositories that had activity on the specified day are included. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date of the report. The report covers a complete day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
-    public func copilotOrganizationReposOneDayReport(org: String, day: String) async throws -> CopilotUsageMetrics1DayReport {
-        return try await CopilotMethods.copilotCopilotOrganizationReposOneDayReport(config: config, org: org, day: day)
+    /// Use this endpoint to retrieve download links for the Copilot organization repository report for a specific day.
+    /// The report provides per-repository pull request metrics for Copilot across the organization, with one entry per
+    /// repository. The report contains repository-level pull request activity for the specified day, including the
+    /// Copilot Coding Agent (CCA) and Copilot Code Review (CCR) breakdowns. Only repositories that had activity on the
+    /// specified day are included. Reports are generated daily and made available for download through signed URLs with
+    /// a limited expiration time. The response includes download links to the report files, along with the specific
+    /// date of the report. The report covers a complete day for which data has been processed. Organization owners and
+    /// authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics
+    /// reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to
+    /// use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed
+    /// across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    func copilotOrganizationReposOneDayReport(org: String, day: String) async throws -> CopilotUsageMetrics1DayReport {
+        try await CopilotMethods.copilotCopilotOrganizationReposOneDayReport(config: config, org: org, day: day)
     }
 
-/// Use this endpoint to retrieve download links for the Copilot organization user-teams report for a specific day. The report provides user-team join data for Copilot across the organization, with one entry per user-team pair. The report contains user-team membership data for the specified day, enabling consumers to join with the existing organization user reports to compute team-level usage metrics. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date of the report. The report covers a complete day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
-    public func copilotOrganizationUserTeamsOneDayReport(org: String, day: String) async throws -> CopilotUsageMetrics1DayReport {
-        return try await CopilotMethods.copilotCopilotOrganizationUserTeamsOneDayReport(config: config, org: org, day: day)
+    /// Use this endpoint to retrieve download links for the Copilot organization user-teams report for a specific day.
+    /// The report provides user-team join data for Copilot across the organization, with one entry per user-team pair.
+    /// The report contains user-team membership data for the specified day, enabling consumers to join with the
+    /// existing organization user reports to compute team-level usage metrics. Reports are generated daily and made
+    /// available for download through signed URLs with a limited expiration time. The response includes download links
+    /// to the report files, along with the specific date of the report. The report covers a complete day for which data
+    /// has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot
+    /// Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization
+    /// metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    func copilotOrganizationUserTeamsOneDayReport(
+        org: String,
+        day: String
+    ) async throws -> CopilotUsageMetrics1DayReport {
+        try await CopilotMethods.copilotCopilotOrganizationUserTeamsOneDayReport(config: config, org: org, day: day)
     }
 
-/// Use this endpoint to retrieve download links for the Copilot organization user usage metrics report for a specific day. The report provides detailed user-level usage data and engagement metrics for Copilot features across the organization. The report contains user-specific metrics for the specified day, including individual user engagement statistics, feature usage patterns, and adoption metrics broken down by user. This report allows authorized users to analyze Copilot usage at the user level to understand adoption patterns and identify opportunities for increased engagement. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date of the report. The report covers a complete day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
-    public func copilotOrganizationUsersOneDayUsageMetrics(org: String, day: String) async throws -> CopilotUsageMetrics1DayReport {
-        return try await CopilotMethods.copilotCopilotOrganizationUsersOneDayUsageMetrics(config: config, org: org, day: day)
+    /// Use this endpoint to retrieve download links for the Copilot organization user usage metrics report for a
+    /// specific day. The report provides detailed user-level usage data and engagement metrics for Copilot features
+    /// across the organization. The report contains user-specific metrics for the specified day, including individual
+    /// user engagement statistics, feature usage patterns, and adoption metrics broken down by user. This report allows
+    /// authorized users to analyze Copilot usage at the user level to understand adoption patterns and identify
+    /// opportunities for increased engagement. Reports are generated daily and made available for download through
+    /// signed URLs with a limited expiration time. The response includes download links to the report files, along with
+    /// the specific date of the report. The report covers a complete day for which data has been processed.
+    /// Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can
+    /// retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic)
+    /// need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see
+    /// [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    func copilotOrganizationUsersOneDayUsageMetrics(
+        org: String,
+        day: String
+    ) async throws -> CopilotUsageMetrics1DayReport {
+        try await CopilotMethods.copilotCopilotOrganizationUsersOneDayUsageMetrics(config: config, org: org, day: day)
     }
 
-/// Use this endpoint to retrieve download links for the latest 28-day organization users Copilot usage metrics report. The report provides detailed user-level usage data and engagement metrics for Copilot features across the organization. The report contains user-specific metrics for the previous 28 days, including individual user engagement statistics, feature usage patterns, and adoption metrics broken down by user. This report allows authorized users to analyze Copilot usage at the user level to understand adoption patterns and identify opportunities for increased engagement. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date range covered by the report. The report covers a complete 28-day period ending on the most recent day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
-    public func copilotOrganizationUsersUsageMetrics(org: String) async throws -> CopilotUsageMetrics28DayReport {
-        return try await CopilotMethods.copilotCopilotOrganizationUsersUsageMetrics(config: config, org: org)
+    /// Use this endpoint to retrieve download links for the latest 28-day organization users Copilot usage metrics
+    /// report. The report provides detailed user-level usage data and engagement metrics for Copilot features across
+    /// the organization. The report contains user-specific metrics for the previous 28 days, including individual user
+    /// engagement statistics, feature usage patterns, and adoption metrics broken down by user. This report allows
+    /// authorized users to analyze Copilot usage at the user level to understand adoption patterns and identify
+    /// opportunities for increased engagement. Reports are generated daily and made available for download through
+    /// signed URLs with a limited expiration time. The response includes download links to the report files, along with
+    /// the specific date range covered by the report. The report covers a complete 28-day period ending on the most
+    /// recent day for which data has been processed. Organization owners and authorized users with fine-grained "View
+    /// Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app
+    /// tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information
+    /// about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    func copilotOrganizationUsersUsageMetrics(org: String) async throws -> CopilotUsageMetrics28DayReport {
+        try await CopilotMethods.copilotCopilotOrganizationUsersUsageMetrics(config: config, org: org)
     }
 
-/// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the GitHub Copilot seat details for a member of an organization who currently has access to GitHub Copilot. The seat object contains information about the user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the IDE activity to be reflected in `last_activity_at`. For more information about activity data, see [Metrics data properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data). Only organization owners can view Copilot seat assignment details for members of their organization. OAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint.
-    public func copilotGetSeatDetailsForUser(org: String, username: String) async throws -> CopilotSeatDetails {
-        return try await CopilotMethods.copilotGetCopilotSeatDetailsForUser(config: config, org: org, username: username)
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the GitHub Copilot seat details
+    /// for a member of an organization who currently has access to GitHub Copilot. The seat object contains information
+    /// about the user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the
+    /// IDE activity to be reflected in `last_activity_at`. For more information about activity data, see [Metrics data
+    /// properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data). Only organization owners
+    /// can view Copilot seat assignment details for members of their organization. OAuth app tokens and personal access
+    /// tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint.
+    func copilotGetSeatDetailsForUser(org: String, username: String) async throws -> CopilotSeatDetails {
+        try await CopilotMethods.copilotGetCopilotSeatDetailsForUser(config: config, org: org, username: username)
     }
 
-/// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the Copilot cloud agent configuration for a repository, including MCP server configuration, enabled review tools, Actions workflow approval settings, and firewall configuration. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func copilotGetCloudAgentConfiguration(owner: String, repo: String) async throws -> CopilotGetCopilotCloudAgentConfigurationResponse {
-        return try await CopilotMethods.copilotGetCopilotCloudAgentConfiguration(config: config, owner: owner, repo: repo)
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the Copilot cloud agent
+    /// configuration for a repository, including MCP server configuration, enabled review tools, Actions workflow
+    /// approval settings, and firewall configuration. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
+    func copilotGetCloudAgentConfiguration(
+        owner: String,
+        repo: String
+    ) async throws -> CopilotGetCopilotCloudAgentConfigurationResponse {
+        try await CopilotMethods.copilotGetCopilotCloudAgentConfiguration(config: config, owner: owner, repo: repo)
     }
 }
 
@@ -46,142 +114,356 @@ public class DependabotNamespace {
         self.config = config
     }
 
-/// Lists Dependabot alerts for repositories that are owned by the specified enterprise. The authenticated user must be a member of the enterprise to use this endpoint. Alerts are only returned for organizations in the enterprise for which you are an organization owner or a security manager. For more information about security managers, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)." OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    public func listAlertsForEnterprise(options: DependabotMethods.DependabotListAlertsForEnterpriseOptions) async throws -> [DependabotAlertWithRepository] {
-        return try await DependabotMethods.dependabotListAlertsForEnterprise(config: config, options: options)
+    /// Lists Dependabot alerts for repositories that are owned by the specified enterprise. The authenticated user must
+    /// be a member of the enterprise to use this endpoint. Alerts are only returned for organizations in the enterprise
+    /// for which you are an organization owner or a security manager. For more information about security managers, see
+    /// "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this
+    /// endpoint.
+    public func listAlertsForEnterprise(options: DependabotMethods
+        .DependabotListAlertsForEnterpriseOptions) async throws -> [DependabotAlertWithRepository] {
+        try await DependabotMethods.dependabotListAlertsForEnterprise(config: config, options: options)
     }
 
-/// Lists repositories that enterprise admins have allowed Dependabot to access when updating dependencies across organizations in the enterprise. The authenticated user must be an enterprise owner to use this endpoint.
-    public func repositoryAccessForEnterprise(enterprise: String, page: Int?, perPage: Int?) async throws -> DependabotRepositoryAccessDetails {
-        return try await DependabotMethods.dependabotRepositoryAccessForEnterprise(config: config, enterprise: enterprise, page: page, perPage: perPage)
+    /// Lists repositories that enterprise admins have allowed Dependabot to access when updating dependencies across
+    /// organizations in the enterprise. The authenticated user must be an enterprise owner to use this endpoint.
+    public func repositoryAccessForEnterprise(
+        enterprise: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> DependabotRepositoryAccessDetails {
+        try await DependabotMethods.dependabotRepositoryAccessForEnterprise(
+            config: config,
+            enterprise: enterprise,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Updates repositories according to the list of repositories that enterprise admins have given Dependabot access to when they've updated dependencies across organizations in the enterprise. The authenticated user must be an enterprise owner to use this endpoint. **Example request body:** ```json { "repository_ids_to_add": [123, 456], "repository_ids_to_remove": [789] } ```
-    public func updateRepositoryAccessForEnterprise(enterprise: String, repositoryIdsToAdd: [Int]?, repositoryIdsToRemove: [Int]?) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotUpdateRepositoryAccessForEnterprise(config: config, enterprise: enterprise, repositoryIdsToAdd: repositoryIdsToAdd, repositoryIdsToRemove: repositoryIdsToRemove)
+    /// Updates repositories according to the list of repositories that enterprise admins have given Dependabot access
+    /// to when they've updated dependencies across organizations in the enterprise. The authenticated user must be an
+    /// enterprise owner to use this endpoint. **Example request body:** ```json { "repository_ids_to_add": [123, 456],
+    /// "repository_ids_to_remove": [789] } ```
+    public func updateRepositoryAccessForEnterprise(
+        enterprise: String,
+        repositoryIdsToAdd: [Int]?,
+        repositoryIdsToRemove: [Int]?
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotUpdateRepositoryAccessForEnterprise(
+            config: config,
+            enterprise: enterprise,
+            repositoryIdsToAdd: repositoryIdsToAdd,
+            repositoryIdsToRemove: repositoryIdsToRemove
+        )
     }
 
-/// Sets the default level of repository access Dependabot will have while performing an update across organizations in the enterprise. Available values are: - 'public' - Dependabot will only have access to public repositories, unless access is explicitly granted to non-public repositories. - 'internal' - Dependabot will only have access to public and internal repositories, unless access is explicitly granted to private repositories. The authenticated user must be an enterprise owner to use this endpoint.
-    public func setRepositoryAccessDefaultLevelForEnterprise(enterprise: String, defaultLevel: DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestX89bb5af3b7) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotSetRepositoryAccessDefaultLevelForEnterprise(config: config, enterprise: enterprise, defaultLevel: defaultLevel)
+    /// Sets the default level of repository access Dependabot will have while performing an update across organizations
+    /// in the enterprise. Available values are: - 'public' - Dependabot will only have access to public repositories,
+    /// unless access is explicitly granted to non-public repositories. - 'internal' - Dependabot will only have access
+    /// to public and internal repositories, unless access is explicitly granted to private repositories. The
+    /// authenticated user must be an enterprise owner to use this endpoint.
+    public func setRepositoryAccessDefaultLevelForEnterprise(
+        enterprise: String,
+        defaultLevel: DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestX89bb5af3b7
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotSetRepositoryAccessDefaultLevelForEnterprise(
+            config: config,
+            enterprise: enterprise,
+            defaultLevel: defaultLevel
+        )
     }
 
-/// Lists Dependabot alerts for an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    public func listAlertsForOrg(options: DependabotMethods.DependabotListAlertsForOrgOptions) async throws -> [DependabotAlertWithRepository] {
-        return try await DependabotMethods.dependabotListAlertsForOrg(config: config, options: options)
+    /// Lists Dependabot alerts for an organization. The authenticated user must be an owner or security manager for the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token
+    /// can use the `public_repo` scope instead.
+    public func listAlertsForOrg(options: DependabotMethods
+        .DependabotListAlertsForOrgOptions) async throws -> [DependabotAlertWithRepository] {
+        try await DependabotMethods.dependabotListAlertsForOrg(config: config, options: options)
     }
 
-/// Lists repositories that organization admins have allowed Dependabot to access when updating dependencies. > [!NOTE] > This operation supports both server-to-server and user-to-server access. Unauthorized users will not see the existence of this endpoint.
-    public func repositoryAccessForOrg(org: String, page: Int?, perPage: Int?) async throws -> DependabotRepositoryAccessDetails {
-        return try await DependabotMethods.dependabotRepositoryAccessForOrg(config: config, org: org, page: page, perPage: perPage)
+    /// Lists repositories that organization admins have allowed Dependabot to access when updating dependencies. >
+    /// [!NOTE] > This operation supports both server-to-server and user-to-server access. Unauthorized users will not
+    /// see the existence of this endpoint.
+    public func repositoryAccessForOrg(
+        org: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> DependabotRepositoryAccessDetails {
+        try await DependabotMethods.dependabotRepositoryAccessForOrg(
+            config: config,
+            org: org,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Updates repositories according to the list of repositories that organization admins have given Dependabot access to when they've updated dependencies. > [!NOTE] > This operation supports both server-to-server and user-to-server access. Unauthorized users will not see the existence of this endpoint. **Example request body:** ```json { "repository_ids_to_add": [123, 456], "repository_ids_to_remove": [789] } ```
-    public func updateRepositoryAccessForOrg(org: String, repositoryIdsToAdd: [Int]?, repositoryIdsToRemove: [Int]?) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotUpdateRepositoryAccessForOrg(config: config, org: org, repositoryIdsToAdd: repositoryIdsToAdd, repositoryIdsToRemove: repositoryIdsToRemove)
+    /// Updates repositories according to the list of repositories that organization admins have given Dependabot access
+    /// to when they've updated dependencies. > [!NOTE] > This operation supports both server-to-server and
+    /// user-to-server access. Unauthorized users will not see the existence of this endpoint. **Example request body:**
+    /// ```json { "repository_ids_to_add": [123, 456], "repository_ids_to_remove": [789] } ```
+    public func updateRepositoryAccessForOrg(
+        org: String,
+        repositoryIdsToAdd: [Int]?,
+        repositoryIdsToRemove: [Int]?
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotUpdateRepositoryAccessForOrg(
+            config: config,
+            org: org,
+            repositoryIdsToAdd: repositoryIdsToAdd,
+            repositoryIdsToRemove: repositoryIdsToRemove
+        )
     }
 
-/// Sets the default level of repository access Dependabot will have while performing an update. Available values are: - 'public' - Dependabot will only have access to public repositories, unless access is explicitly granted to non-public repositories. - 'internal' - Dependabot will only have access to public and internal repositories, unless access is explicitly granted to private repositories. Unauthorized users will not see the existence of this endpoint. This operation supports both server-to-server and user-to-server access.
-    public func setRepositoryAccessDefaultLevel(org: String, defaultLevel: DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotSetRepositoryAccessDefaultLevel(config: config, org: org, defaultLevel: defaultLevel)
-    }
-}
-
-public extension DependabotNamespace {
-/// Lists all secrets available in an organization without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func listOrgSecrets(org: String, perPage: Int?, page: Int?) async throws -> DependabotListOrgSecretsResponse {
-        return try await DependabotMethods.dependabotListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
-    }
-
-/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func getOrgPublicKey(org: String) async throws -> DependabotPublicKey {
-        return try await DependabotMethods.dependabotGetOrgPublicKey(config: config, org: org)
-    }
-
-/// Gets a single organization secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func getOrgSecret(org: String, secretName: String) async throws -> OrganizationDependabotSecret {
-        return try await DependabotMethods.dependabotGetOrgSecret(config: config, org: org, secretName: secretName)
-    }
-
-/// Creates or updates an organization secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func createOrUpdateOrgSecret(org: String, secretName: String, visibility: DependabotCreateOrUpdateOrgSecretRequestBodyVisibility, encryptedValue: String?, keyId: String?, selectedRepositoryIds: [DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem]?) async throws -> EmptyObject {
-        return try await DependabotMethods.dependabotCreateOrUpdateOrgSecret(config: config, org: org, secretName: secretName, visibility: visibility, encryptedValue: encryptedValue, keyId: keyId, selectedRepositoryIds: selectedRepositoryIds)
-    }
-
-/// Deletes a secret in an organization using the secret name. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotDeleteOrgSecret(config: config, org: org, secretName: secretName)
-    }
-
-/// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func listSelectedReposForOrgSecret(org: String, secretName: String, page: Int?, perPage: Int?) async throws -> DependabotListSelectedReposForOrgSecretResponse {
-        return try await DependabotMethods.dependabotListSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, page: page, perPage: perPage)
-    }
-
-/// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func setSelectedReposForOrgSecret(org: String, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotSetSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, selectedRepositoryIds: selectedRepositoryIds)
-    }
-
-/// Adds a repository to the selected-repository list for an organization secret. Use this operation only when the secret's `visibility` is set to `selected`, and provide the organization's secret name and repository identifier. OAuth app tokens and personal access tokens (classic) require the `admin:org` scope.
-    ///
-    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func addSelectedRepoToOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotAddSelectedRepoToOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
-    }
-}
-
-public extension DependabotNamespace {
-/// Removes a repository from the selected-repository list for an organization secret. Use this operation only when the secret's `visibility` is set to `selected`, and provide the organization's secret name and repository identifier. OAuth app tokens and personal access tokens (classic) require the `admin:org` scope.
-    ///
-    /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func removeSelectedRepoFromOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotRemoveSelectedRepoFromOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
-    }
-
-/// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    public func listAlertsForRepo(options: DependabotMethods.DependabotListAlertsForRepoOptions) async throws -> [DependabotAlert] {
-        return try await DependabotMethods.dependabotListAlertsForRepo(config: config, options: options)
-    }
-
-/// Retrieves a specific Dependabot alert for a repository. Use `owner`, `repo`, and `alert_number` to identify the repository and alert; OAuth app tokens and classic personal access tokens require the `security_events` scope, or `public_repo` for public repositories. The response includes the alert state, vulnerable dependency, security advisory, and dismissal details.
-    ///
-    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    public func getAlert(owner: String, repo: String, alertNumber: AlertNumber) async throws -> DependabotAlert {
-        return try await DependabotMethods.dependabotGetAlert(config: config, owner: owner, repo: repo, alertNumber: alertNumber)
-    }
-
-/// Updates the state, dismissal details, assignees, or agent assignment for a Dependabot alert. Supply `state` to change the alert state or `assignees` to replace its assignee set; when `state` is `dismissed`, also provide `dismissed_reason`, and use `agent_assignment` only when assigning an agent bot. The response returns the updated alert, including its current security advisory and assignment-related state.
-    ///
-    /// The authenticated user must have access to security alerts for the repository to use this endpoint. For more information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)." OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    public func updateAlert(options: DependabotMethods.DependabotUpdateAlertOptions) async throws -> DependabotAlert {
-        return try await DependabotMethods.dependabotUpdateAlert(config: config, options: options)
-    }
-
-/// Lists all secrets available in a repository without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listRepoSecrets(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> DependabotListRepoSecretsResponse {
-        return try await DependabotMethods.dependabotListRepoSecrets(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
-    }
-
-/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint if the repository is private.
-    public func getRepoPublicKey(owner: String, repo: String) async throws -> DependabotPublicKey {
-        return try await DependabotMethods.dependabotGetRepoPublicKey(config: config, owner: owner, repo: repo)
-    }
-
-/// Gets a single repository secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> DependabotSecret {
-        return try await DependabotMethods.dependabotGetRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
-    }
-
-/// Creates or updates a repository secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createOrUpdateRepoSecret(owner: String, repo: String, secretName: String, encryptedValue: String?, keyId: String?) async throws -> EmptyObject {
-        return try await DependabotMethods.dependabotCreateOrUpdateRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName, encryptedValue: encryptedValue, keyId: keyId)
+    /// Sets the default level of repository access Dependabot will have while performing an update. Available values
+    /// are: - 'public' - Dependabot will only have access to public repositories, unless access is explicitly granted
+    /// to non-public repositories. - 'internal' - Dependabot will only have access to public and internal repositories,
+    /// unless access is explicitly granted to private repositories. Unauthorized users will not see the existence of
+    /// this endpoint. This operation supports both server-to-server and user-to-server access.
+    public func setRepositoryAccessDefaultLevel(
+        org: String,
+        defaultLevel: DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotSetRepositoryAccessDefaultLevel(
+            config: config,
+            org: org,
+            defaultLevel: defaultLevel
+        )
     }
 }
 
 public extension DependabotNamespace {
-/// Deletes a secret in a repository using the secret name. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try await DependabotMethods.dependabotDeleteRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+    /// Lists all secrets available in an organization without revealing their encrypted values. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func listOrgSecrets(org: String, perPage: Int?, page: Int?) async throws -> DependabotListOrgSecretsResponse {
+        try await DependabotMethods.dependabotListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
+    }
+
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
+    func getOrgPublicKey(org: String) async throws -> DependabotPublicKey {
+        try await DependabotMethods.dependabotGetOrgPublicKey(config: config, org: org)
+    }
+
+    /// Gets a single organization secret without revealing its encrypted value. OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:org` scope to use this endpoint.
+    func getOrgSecret(org: String, secretName: String) async throws -> OrganizationDependabotSecret {
+        try await DependabotMethods.dependabotGetOrgSecret(config: config, org: org, secretName: secretName)
+    }
+
+    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func createOrUpdateOrgSecret(
+        org: String,
+        secretName: String,
+        visibility: DependabotCreateOrUpdateOrgSecretRequestBodyVisibility,
+        encryptedValue: String?,
+        keyId: String?,
+        selectedRepositoryIds: [DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem]?
+    ) async throws -> EmptyObject {
+        try await DependabotMethods.dependabotCreateOrUpdateOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            visibility: visibility,
+            encryptedValue: encryptedValue,
+            keyId: keyId,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
+    }
+
+    /// Deletes a secret in an organization using the secret name. OAuth app tokens and personal access tokens (classic)
+    /// need the `admin:org` scope to use this endpoint.
+    func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotDeleteOrgSecret(config: config, org: org, secretName: secretName)
+    }
+
+    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to
+    /// `selected`. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
+    func listSelectedReposForOrgSecret(
+        org: String,
+        secretName: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> DependabotListSelectedReposForOrgSecretResponse {
+        try await DependabotMethods.dependabotListSelectedReposForOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            page: page,
+            perPage: perPage
+        )
+    }
+
+    /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to
+    /// `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func setSelectedReposForOrgSecret(
+        org: String,
+        secretName: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotSetSelectedReposForOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
+    }
+
+    /// Adds a repository to the selected-repository list for an organization secret. Use this operation only when the
+    /// secret's `visibility` is set to `selected`, and provide the organization's secret name and repository
+    /// identifier. OAuth app tokens and personal access tokens (classic) require the `admin:org` scope.
+    ///
+    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`.
+    /// The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func addSelectedRepoToOrgSecret(
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotAddSelectedRepoToOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            repositoryId: repositoryId
+        )
+    }
+}
+
+public extension DependabotNamespace {
+    /// Removes a repository from the selected-repository list for an organization secret. Use this operation only when
+    /// the secret's `visibility` is set to `selected`, and provide the organization's secret name and repository
+    /// identifier. OAuth app tokens and personal access tokens (classic) require the `admin:org` scope.
+    ///
+    /// Removes a repository from an organization secret when the `visibility` for repository access is set to
+    /// `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func removeSelectedRepoFromOrgSecret(
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotRemoveSelectedRepoFromOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            repositoryId: repositoryId
+        )
+    }
+
+    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If
+    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    func listAlertsForRepo(options: DependabotMethods
+        .DependabotListAlertsForRepoOptions) async throws -> [DependabotAlert] {
+        try await DependabotMethods.dependabotListAlertsForRepo(config: config, options: options)
+    }
+
+    /// Retrieves a specific Dependabot alert for a repository. Use `owner`, `repo`, and `alert_number` to identify the
+    /// repository and alert; OAuth app tokens and classic personal access tokens require the `security_events` scope,
+    /// or `public_repo` for public repositories. The response includes the alert state, vulnerable dependency, security
+    /// advisory, and dismissal details.
+    ///
+    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If
+    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    func getAlert(owner: String, repo: String, alertNumber: AlertNumber) async throws -> DependabotAlert {
+        try await DependabotMethods.dependabotGetAlert(
+            config: config,
+            owner: owner,
+            repo: repo,
+            alertNumber: alertNumber
+        )
+    }
+
+    /// Updates the state, dismissal details, assignees, or agent assignment for a Dependabot alert. Supply `state` to
+    /// change the alert state or `assignees` to replace its assignee set; when `state` is `dismissed`, also provide
+    /// `dismissed_reason`, and use `agent_assignment` only when assigning an agent bot. The response returns the
+    /// updated alert, including its current security advisory and assignment-related state.
+    ///
+    /// The authenticated user must have access to security alerts for the repository to use this endpoint. For more
+    /// information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)."
+    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If
+    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    func updateAlert(options: DependabotMethods.DependabotUpdateAlertOptions) async throws -> DependabotAlert {
+        try await DependabotMethods.dependabotUpdateAlert(config: config, options: options)
+    }
+
+    /// Lists all secrets available in a repository without revealing their encrypted values. OAuth app tokens and
+    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func listRepoSecrets(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> DependabotListRepoSecretsResponse {
+        try await DependabotMethods.dependabotListRepoSecrets(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
+    }
+
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint if the repository is private.
+    func getRepoPublicKey(owner: String, repo: String) async throws -> DependabotPublicKey {
+        try await DependabotMethods.dependabotGetRepoPublicKey(config: config, owner: owner, repo: repo)
+    }
+
+    /// Gets a single repository secret without revealing its encrypted value. OAuth app tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
+    func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> DependabotSecret {
+        try await DependabotMethods.dependabotGetRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName
+        )
+    }
+
+    /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
+    func createOrUpdateRepoSecret(
+        owner: String,
+        repo: String,
+        secretName: String,
+        encryptedValue: String?,
+        keyId: String?
+    ) async throws -> EmptyObject {
+        try await DependabotMethods.dependabotCreateOrUpdateRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName,
+            encryptedValue: encryptedValue,
+            keyId: keyId
+        )
+    }
+}
+
+public extension DependabotNamespace {
+    /// Deletes a secret in a repository using the secret name. OAuth app tokens and personal access tokens (classic)
+    /// need the `repo` scope to use this endpoint.
+    func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
+        try await DependabotMethods.dependabotDeleteRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName
+        )
     }
 }

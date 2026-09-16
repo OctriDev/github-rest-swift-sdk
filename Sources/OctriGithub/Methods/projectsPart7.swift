@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// Add an issue or pull request item to the specified organization owned project.
     ///
     /// - Parameters:
@@ -19,10 +19,32 @@ extension ProjectsMethods {
     /// - owner: The repository owner login.
     /// - repo: The repository name.
     /// - number: The issue or pull request number.
-    public static func projectsAddItemForOrg(config: ClientConfig, org: String, projectNumber: Int, type: ProjectsAddItemForOrgRequestBodyType, id: Int?, owner: String?, repo: String?, number: Int?) async throws -> ProjectsV2ItemSimple {
+    static func projectsAddItemForOrg(
+        config: ClientConfig,
+        org: String,
+        projectNumber: Int,
+        type: ProjectsAddItemForOrgRequestBodyType,
+        id: Int?,
+        owner: String?,
+        repo: String?,
+        number: Int?
+    ) async throws -> ProjectsV2ItemSimple {
         let requestBody = ProjectsAddItemForOrgRequestBody(type: type, id: id, owner: owner, repo: repo, number: number)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items"].joined(), config: config, body: requestBody, decoder: .json, operationId: "projectsAddItemForOrg")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "projectsAddItemForOrg"
+        )).data
     }
 
     /// Get a specific item from an organization-owned project.
@@ -34,9 +56,29 @@ extension ProjectsMethods {
     /// - fields: Limit results to specific fields, by their IDs. If not specified,
     ///   the title field will be returned. Example:
     ///   fields[]=123&fields[]=456&fields[]=789 or fields=123,456,789
-    public static func projectsGetOrgItem(config: ClientConfig, projectNumber: Int, org: String, itemId: Int, fields: ProjectsGetOrgItemParameter?) async throws -> ProjectsV2ItemWithContent {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items/", sdkEncodePathSegment(sdkWireString(itemId))].joined(), config: config, query: [
-            SdkQueryParameter("fields", value: fields),
-        ], decoder: .json, operationId: "projectsGetOrgItem")).data
+    static func projectsGetOrgItem(
+        config: ClientConfig,
+        projectNumber: Int,
+        org: String,
+        itemId: Int,
+        fields: ProjectsGetOrgItemParameter?
+    ) async throws -> ProjectsV2ItemWithContent {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items/",
+                sdkEncodePathSegment(sdkWireString(itemId)),
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("fields", value: fields),
+            ],
+            decoder: .json,
+            operationId: "projectsGetOrgItem"
+        )).data
     }
 }

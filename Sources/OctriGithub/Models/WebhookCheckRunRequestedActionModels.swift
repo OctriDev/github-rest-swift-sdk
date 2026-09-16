@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookCheckRunRequestedAction domain models
+/// WebhookCheckRunRequestedAction domain models
 /// Typed representation of the `WebhookCheckRunRequestedAction` API schema.
 public struct WebhookCheckRunRequestedAction: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,37 +39,64 @@ public struct WebhookCheckRunRequestedAction: Codable {
         case requestedAction = "requested_action"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookCheckRunRequestedAction {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.checkRun) else {
-            throw SdkValidationError(field: "check_run", code: "required", message: "Validation failed for 'check_run': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.checkRun = try container.sdkDecodeRequired(.checkRun)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.requestedAction = try container.sdkDecodeIfPresent(.requestedAction)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookCheckRunRequestedAction {
-    public init(action: WebhookCheckRunRequestedActionAction, checkRun: CheckRunWithSimpleCheckSuite, repository: RepositoryWebhooks, sender: SimpleUser, installation: SimpleInstallation? = nil, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil, requestedAction: WebhookCheckRunRequestedActionRequestedAction? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.checkRun) else {
+            throw SdkValidationError(
+                field: "check_run",
+                code: "required",
+                message: "Validation failed for 'check_run': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        checkRun = try container.sdkDecodeRequired(.checkRun)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        requestedAction = try container.sdkDecodeIfPresent(.requestedAction)
+    }
+}
+
+public extension WebhookCheckRunRequestedAction {
+    init(
+        action: WebhookCheckRunRequestedActionAction,
+        checkRun: CheckRunWithSimpleCheckSuite,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        installation: SimpleInstallation? = nil,
+        enterprise: EnterpriseWebhooks? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        requestedAction: WebhookCheckRunRequestedActionRequestedAction? = nil
+    ) {
         (self.action, self.checkRun) = (action, checkRun)
         (self.repository, self.sender) = (repository, sender)
         (self.installation, self.enterprise) = (installation, enterprise)
@@ -87,19 +114,19 @@ public struct WebhookCheckRunRequestedActionRequestedAction: Codable {
     }
 
     init() {
-        self.identifier = nil
+        identifier = nil
     }
 }
 
 public extension WebhookCheckRunRequestedActionRequestedAction {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try container.sdkDecodeIfPresent(.identifier)
+        identifier = try container.sdkDecodeIfPresent(.identifier)
     }
 }
 
 public extension WebhookCheckRunRequestedActionRequestedAction {
-    public init(identifier: String? = nil) {
+    init(identifier: String? = nil) {
         self.init()
         self.identifier = identifier
     }
@@ -109,12 +136,15 @@ public extension WebhookCheckRunRequestedActionRequestedAction {
 public struct WebhookCheckRunRequestedActionAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let requestedAction = WebhookCheckRunRequestedActionAction(rawValue: "requested_action")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

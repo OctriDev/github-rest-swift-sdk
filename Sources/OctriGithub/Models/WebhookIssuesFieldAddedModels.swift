@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookIssuesFieldAdded domain models
+/// WebhookIssuesFieldAdded domain models
 /// Typed representation of the `WebhookIssuesFieldAdded` API schema.
 public struct WebhookIssuesFieldAdded: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -46,42 +46,75 @@ public struct WebhookIssuesFieldAdded: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookIssuesFieldAdded {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.issue) else {
-            throw SdkValidationError(field: "issue", code: "required", message: "Validation failed for 'issue': value is required")
-        }
-        guard container.contains(.issueField) else {
-            throw SdkValidationError(field: "issue_field", code: "required", message: "Validation failed for 'issue_field': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.issue = try container.sdkDecodeRequired(.issue)
-        self.issueField = try container.sdkDecodeRequired(.issueField)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.issueFieldValue = try container.sdkDecodeIfPresent(.issueFieldValue)
-        self.changes = try container.sdkDecodeIfPresent(.changes)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookIssuesFieldAdded {
-    public init(action: WebhookIssuesFieldAddedAction, issue: WebhooksIssue, issueField: WebhookIssuesFieldAddedIssueField, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, issueFieldValue: WebhookIssuesFieldAddedIssueFieldValue? = nil, changes: WebhookIssuesFieldAddedChanges? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.issue) else {
+            throw SdkValidationError(
+                field: "issue",
+                code: "required",
+                message: "Validation failed for 'issue': value is required"
+            )
+        }
+        guard container.contains(.issueField) else {
+            throw SdkValidationError(
+                field: "issue_field",
+                code: "required",
+                message: "Validation failed for 'issue_field': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        issue = try container.sdkDecodeRequired(.issue)
+        issueField = try container.sdkDecodeRequired(.issueField)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        issueFieldValue = try container.sdkDecodeIfPresent(.issueFieldValue)
+        changes = try container.sdkDecodeIfPresent(.changes)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookIssuesFieldAdded {
+    init(
+        action: WebhookIssuesFieldAddedAction,
+        issue: WebhooksIssue,
+        issueField: WebhookIssuesFieldAddedIssueField,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        issueFieldValue: WebhookIssuesFieldAddedIssueFieldValue? = nil,
+        changes: WebhookIssuesFieldAddedChanges? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.issue) = (action, issue)
         (self.issueField, self.repository) = (issueField, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -100,19 +133,19 @@ public struct WebhookIssuesFieldAddedChanges: Codable {
     }
 
     init() {
-        self.issueFieldValue = nil
+        issueFieldValue = nil
     }
 }
 
 public extension WebhookIssuesFieldAddedChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.issueFieldValue = try container.sdkDecodeIfPresent(.issueFieldValue)
+        issueFieldValue = try container.sdkDecodeIfPresent(.issueFieldValue)
     }
 }
 
 public extension WebhookIssuesFieldAddedChanges {
-    public init(issueFieldValue: WebhookIssuesFieldAddedChangesIssueFieldValue? = nil) {
+    init(issueFieldValue: WebhookIssuesFieldAddedChangesIssueFieldValue? = nil) {
         self.init()
         self.issueFieldValue = issueFieldValue
     }
@@ -127,21 +160,27 @@ public struct WebhookIssuesFieldAddedChangesIssueFieldValue: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookIssuesFieldAddedChangesIssueFieldValue {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookIssuesFieldAddedChangesIssueFieldValue {
-    public init(from: WebhookIssuesFieldAddedChangesIssueFieldValueFrom) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookIssuesFieldAddedChangesIssueFieldValue {
+    init(from: WebhookIssuesFieldAddedChangesIssueFieldValueFrom) {
         self.from = from
     }
 }
@@ -170,26 +209,39 @@ public struct WebhookIssuesFieldAddedChangesIssueFieldValueFrom: Codable {
         case options
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookIssuesFieldAddedChangesIssueFieldValueFrom {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.value = try container.sdkDecodeIfPresent(.value)
-        self.valueId = try container.sdkDecodeIfPresent(.valueId)
-        self.option = try container.sdkDecodeIfPresent(.option)
-        self.valueIds = try container.sdkDecodeIfPresent(.valueIds)
-        self.options = try container.sdkDecodeIfPresent(.options)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookIssuesFieldAddedChangesIssueFieldValueFrom {
-    public init(id: Int, value: WebhookIssuesFieldAddedChangesIssueFieldValueFromValue? = nil, valueId: Int? = nil, option: WebhookIssuesFieldAddedChangesIssueFieldValueFromOption? = nil, valueIds: [Int]? = nil, options: [WebhookIssuesFieldAddedChangesIssueFieldValueFromOptionsItem]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        value = try container.sdkDecodeIfPresent(.value)
+        valueId = try container.sdkDecodeIfPresent(.valueId)
+        option = try container.sdkDecodeIfPresent(.option)
+        valueIds = try container.sdkDecodeIfPresent(.valueIds)
+        options = try container.sdkDecodeIfPresent(.options)
+    }
+}
+
+public extension WebhookIssuesFieldAddedChangesIssueFieldValueFrom {
+    init(
+        id: Int,
+        value: WebhookIssuesFieldAddedChangesIssueFieldValueFromValue? = nil,
+        valueId: Int? = nil,
+        option: WebhookIssuesFieldAddedChangesIssueFieldValueFromOption? = nil,
+        valueIds: [Int]? = nil,
+        options: [WebhookIssuesFieldAddedChangesIssueFieldValueFromOptionsItem]? = nil
+    ) {
         (self.id, self.value) = (id, value)
         (self.valueId, self.option) = (valueId, option)
         (self.valueIds, self.options) = (valueIds, options)
@@ -215,22 +267,22 @@ public struct WebhookIssuesFieldAddedChangesIssueFieldValueFromOption: Codable {
     }
 
     init() {
-        (self.id, self.name, self.color, self.description) = (nil, nil, nil, nil)
+        (id, name, color, description) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookIssuesFieldAddedChangesIssueFieldValueFromOption {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
-        self.description = try container.sdkDecodeIfPresent(.description)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+        description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
 public extension WebhookIssuesFieldAddedChangesIssueFieldValueFromOption {
-    public init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
+    init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
@@ -256,22 +308,22 @@ public struct WebhookIssuesFieldAddedChangesIssueFieldValueFromOptionsItem: Coda
     }
 
     init() {
-        (self.id, self.name, self.color, self.description) = (nil, nil, nil, nil)
+        (id, name, color, description) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookIssuesFieldAddedChangesIssueFieldValueFromOptionsItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
-        self.description = try container.sdkDecodeIfPresent(.description)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+        description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
 public extension WebhookIssuesFieldAddedChangesIssueFieldValueFromOptionsItem {
-    public init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
+    init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
@@ -285,22 +337,34 @@ public enum WebhookIssuesFieldAddedChangesIssueFieldValueFromValue {
 }
 
 extension WebhookIssuesFieldAddedChangesIssueFieldValueFromValue: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookIssuesFieldAddedChangesIssueFieldValueFromValue")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookIssuesFieldAddedChangesIssueFieldValueFromValue"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode(Double.self) { return .doubleValue(value) }
-        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode(Double.self) {
+            return .doubleValue(value)
+        }
+        if let value = try? container.decode(Int.self) {
+            return .intValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -311,7 +375,6 @@ extension WebhookIssuesFieldAddedChangesIssueFieldValueFromValue: Codable {
         case let .intValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// The issue field whose value was set or updated on the issue.
@@ -329,29 +392,43 @@ public struct WebhookIssuesFieldAddedIssueField: Codable {
         case fieldType = "field_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookIssuesFieldAddedIssueField {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.fieldType) else {
-            throw SdkValidationError(field: "field_type", code: "required", message: "Validation failed for 'field_type': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.fieldType = try container.sdkDecodeRequired(.fieldType)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookIssuesFieldAddedIssueField {
-    public init(id: Int, name: String, fieldType: WebhookIssuesFieldAddedIssueFieldFieldType) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.fieldType) else {
+            throw SdkValidationError(
+                field: "field_type",
+                code: "required",
+                message: "Validation failed for 'field_type': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        fieldType = try container.sdkDecodeRequired(.fieldType)
+    }
+}
+
+public extension WebhookIssuesFieldAddedIssueField {
+    init(id: Int, name: String, fieldType: WebhookIssuesFieldAddedIssueFieldFieldType) {
         (self.id, self.name) = (id, name)
         self.fieldType = fieldType
     }
@@ -382,26 +459,39 @@ public struct WebhookIssuesFieldAddedIssueFieldValue: Codable {
         case options
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookIssuesFieldAddedIssueFieldValue {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.value = try container.sdkDecodeIfPresent(.value)
-        self.valueId = try container.sdkDecodeIfPresent(.valueId)
-        self.option = try container.sdkDecodeIfPresent(.option)
-        self.valueIds = try container.sdkDecodeIfPresent(.valueIds)
-        self.options = try container.sdkDecodeIfPresent(.options)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookIssuesFieldAddedIssueFieldValue {
-    public init(id: Int, value: WebhookIssuesFieldAddedIssueFieldValueValue? = nil, valueId: Int? = nil, option: WebhookIssuesFieldAddedIssueFieldValueOption? = nil, valueIds: [Int]? = nil, options: [WebhookIssuesFieldAddedIssueFieldValueOptionsItem]? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        value = try container.sdkDecodeIfPresent(.value)
+        valueId = try container.sdkDecodeIfPresent(.valueId)
+        option = try container.sdkDecodeIfPresent(.option)
+        valueIds = try container.sdkDecodeIfPresent(.valueIds)
+        options = try container.sdkDecodeIfPresent(.options)
+    }
+}
+
+public extension WebhookIssuesFieldAddedIssueFieldValue {
+    init(
+        id: Int,
+        value: WebhookIssuesFieldAddedIssueFieldValueValue? = nil,
+        valueId: Int? = nil,
+        option: WebhookIssuesFieldAddedIssueFieldValueOption? = nil,
+        valueIds: [Int]? = nil,
+        options: [WebhookIssuesFieldAddedIssueFieldValueOptionsItem]? = nil
+    ) {
         (self.id, self.value) = (id, value)
         (self.valueId, self.option) = (valueId, option)
         (self.valueIds, self.options) = (valueIds, options)
@@ -427,22 +517,22 @@ public struct WebhookIssuesFieldAddedIssueFieldValueOption: Codable {
     }
 
     init() {
-        (self.id, self.name, self.color, self.description) = (nil, nil, nil, nil)
+        (id, name, color, description) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookIssuesFieldAddedIssueFieldValueOption {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
-        self.description = try container.sdkDecodeIfPresent(.description)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+        description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
 public extension WebhookIssuesFieldAddedIssueFieldValueOption {
-    public init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
+    init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
@@ -468,22 +558,22 @@ public struct WebhookIssuesFieldAddedIssueFieldValueOptionsItem: Codable {
     }
 
     init() {
-        (self.id, self.name, self.color, self.description) = (nil, nil, nil, nil)
+        (id, name, color, description) = (nil, nil, nil, nil)
     }
 }
 
 public extension WebhookIssuesFieldAddedIssueFieldValueOptionsItem {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
-        self.description = try container.sdkDecodeIfPresent(.description)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+        description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
 public extension WebhookIssuesFieldAddedIssueFieldValueOptionsItem {
-    public init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
+    init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
@@ -497,22 +587,34 @@ public enum WebhookIssuesFieldAddedIssueFieldValueValue {
 }
 
 extension WebhookIssuesFieldAddedIssueFieldValueValue: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookIssuesFieldAddedIssueFieldValueValue")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookIssuesFieldAddedIssueFieldValueValue"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode(Double.self) { return .doubleValue(value) }
-        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode(Double.self) {
+            return .doubleValue(value)
+        }
+        if let value = try? container.decode(Int.self) {
+            return .intValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -523,19 +625,21 @@ extension WebhookIssuesFieldAddedIssueFieldValueValue: Codable {
         case let .intValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Required enumerated value serialized in the `action` wire field.
 public struct WebhookIssuesFieldAddedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let fieldAdded = WebhookIssuesFieldAddedAction(rawValue: "field_added")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,10 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List public email addresses for the authenticated user
     ///
-    /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user) endpoint. OAuth app tokens and personal access tokens (classic) need the `user:email` scope to use this endpoint.
+    /// Lists your publicly visible email address, which you can set with the [Set primary email visibility for the
+    /// authenticated
+    /// user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user)
+    /// endpoint. OAuth app tokens and personal access tokens (classic) need the `user:email` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -20,8 +24,12 @@ extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func usersListPublicEmailsForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [Email] {
-        return try (await sdkRequest("GET", "/user/public_emails", config: config, query: [
+    static func usersListPublicEmailsForAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Email] {
+        try await (sdkRequest("GET", "/user/public_emails", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListPublicEmailsForAuthenticatedUser")).data

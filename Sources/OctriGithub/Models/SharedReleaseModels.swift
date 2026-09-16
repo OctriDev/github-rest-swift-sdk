@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedRelease domain models
+/// SharedRelease domain models
 /// A release.
 public struct Release: Codable {
     /// Required `uri`-formatted value serialized in the `url` wire field.
@@ -87,43 +87,71 @@ public struct Release: Codable {
         case reactions
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
 public extension Release {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.assetsUrl = try container.sdkDecodeRequired(.assetsUrl)
-        self.uploadUrl = try container.sdkDecodeRequired(.uploadUrl)
-        self.tarballUrl = try container.sdkDecodeIfPresent(.tarballUrl)
-        self.zipballUrl = try container.sdkDecodeIfPresent(.zipballUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.tagName = try container.sdkDecodeRequired(.tagName)
-        self.targetCommitish = try container.sdkDecodeRequired(.targetCommitish)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.draft = try container.sdkDecodeRequired(.draft)
-        self.prerelease = try container.sdkDecodeRequired(.prerelease)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
-        self.author = try container.sdkDecodeRequired(.author)
-        self.assets = try container.sdkDecodeRequired(.assets)
-        self.body = try container.sdkDecodeIfPresent(.body)
-        self.immutable = try container.sdkDecodeIfPresent(.immutable)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        self.mentionsCount = try container.sdkDecodeIfPresent(.mentionsCount)
-        self.discussionUrl = try container.sdkDecodeIfPresent(.discussionUrl)
-        self.reactions = try container.sdkDecodeIfPresent(.reactions)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        assetsUrl = try container.sdkDecodeRequired(.assetsUrl)
+        uploadUrl = try container.sdkDecodeRequired(.uploadUrl)
+        tarballUrl = try container.sdkDecodeIfPresent(.tarballUrl)
+        zipballUrl = try container.sdkDecodeIfPresent(.zipballUrl)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        tagName = try container.sdkDecodeRequired(.tagName)
+        targetCommitish = try container.sdkDecodeRequired(.targetCommitish)
+        name = try container.sdkDecodeIfPresent(.name)
+        draft = try container.sdkDecodeRequired(.draft)
+        prerelease = try container.sdkDecodeRequired(.prerelease)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
+        author = try container.sdkDecodeRequired(.author)
+        assets = try container.sdkDecodeRequired(.assets)
+        body = try container.sdkDecodeIfPresent(.body)
+        immutable = try container.sdkDecodeIfPresent(.immutable)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        bodyText = try container.sdkDecodeIfPresent(.bodyText)
+        mentionsCount = try container.sdkDecodeIfPresent(.mentionsCount)
+        discussionUrl = try container.sdkDecodeIfPresent(.discussionUrl)
+        reactions = try container.sdkDecodeIfPresent(.reactions)
         try sdkValidateConstraints()
     }
 }
 
 public extension Release {
-    public init(url: String, htmlUrl: String, assetsUrl: String, uploadUrl: String, tarballUrl: String?, zipballUrl: String?, id: Int, nodeId: String, tagName: String, targetCommitish: String, name: String?, draft: Bool, prerelease: Bool, createdAt: Date, publishedAt: Date?, author: SimpleUser, assets: [ReleaseAsset], body: String? = nil, immutable: Bool? = nil, updatedAt: Date? = nil, bodyHtml: String? = nil, bodyText: String? = nil, mentionsCount: Int? = nil, discussionUrl: String? = nil, reactions: ReactionRollup? = nil) throws {
+    init(
+        url: String,
+        htmlUrl: String,
+        assetsUrl: String,
+        uploadUrl: String,
+        tarballUrl: String?,
+        zipballUrl: String?,
+        id: Int,
+        nodeId: String,
+        tagName: String,
+        targetCommitish: String,
+        name: String?,
+        draft: Bool,
+        prerelease: Bool,
+        createdAt: Date,
+        publishedAt: Date?,
+        author: SimpleUser,
+        assets: [ReleaseAsset],
+        body: String? = nil,
+        immutable: Bool? = nil,
+        updatedAt: Date? = nil,
+        bodyHtml: String? = nil,
+        bodyText: String? = nil,
+        mentionsCount: Int? = nil,
+        discussionUrl: String? = nil,
+        reactions: ReactionRollup? = nil
+    ) throws {
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.assetsUrl, self.uploadUrl) = (assetsUrl, uploadUrl)
         (self.tarballUrl, self.zipballUrl) = (tarballUrl, zipballUrl)
@@ -143,23 +171,23 @@ public extension Release {
 
 extension Release {
     func sdkValidateConstraints() throws {
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("assets_url", self.assetsUrl)
-        if let value = self.tarballUrl {
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("assets_url", assetsUrl)
+        if let value = tarballUrl {
             try sdkValidateUri("tarball_url", value)
         }
-        if let value = self.zipballUrl {
+        if let value = zipballUrl {
             try sdkValidateUri("zipball_url", value)
         }
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        if let value = self.publishedAt {
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        if let value = publishedAt {
             try sdkValidateDateTime("published_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.discussionUrl {
+        if let value = discussionUrl {
             try sdkValidateUri("discussion_url", value)
         }
     }
@@ -214,35 +242,52 @@ public struct ReleaseAsset: Codable {
         case uploader
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension ReleaseAsset {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.browserDownloadUrl = try container.sdkDecodeRequired(.browserDownloadUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.label = try container.sdkDecodeIfPresent(.label)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.contentType = try container.sdkDecodeRequired(.contentType)
-        self.size = try container.sdkDecodeRequired(.size)
-        self.digest = try container.sdkDecodeIfPresent(.digest)
-        self.downloadCount = try container.sdkDecodeRequired(.downloadCount)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.uploader = try container.sdkDecodeIfPresent(.uploader)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("browser_download_url", self.browserDownloadUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension ReleaseAsset {
-    public init(url: String, browserDownloadUrl: String, id: Int, nodeId: String, name: String, label: String?, state: ReleaseAssetState, contentType: String, size: Int, digest: String?, downloadCount: Int, createdAt: Date, updatedAt: Date, uploader: NullableSimpleUser?) throws {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.sdkDecodeRequired(.url)
+        browserDownloadUrl = try container.sdkDecodeRequired(.browserDownloadUrl)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        name = try container.sdkDecodeRequired(.name)
+        label = try container.sdkDecodeIfPresent(.label)
+        state = try container.sdkDecodeRequired(.state)
+        contentType = try container.sdkDecodeRequired(.contentType)
+        size = try container.sdkDecodeRequired(.size)
+        digest = try container.sdkDecodeIfPresent(.digest)
+        downloadCount = try container.sdkDecodeRequired(.downloadCount)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        uploader = try container.sdkDecodeIfPresent(.uploader)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("browser_download_url", browserDownloadUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension ReleaseAsset {
+    init(
+        url: String,
+        browserDownloadUrl: String,
+        id: Int,
+        nodeId: String,
+        name: String,
+        label: String?,
+        state: ReleaseAssetState,
+        contentType: String,
+        size: Int,
+        digest: String?,
+        downloadCount: Int,
+        createdAt: Date,
+        updatedAt: Date,
+        uploader: NullableSimpleUser?
+    ) throws {
         (self.url, self.browserDownloadUrl) = (url, browserDownloadUrl)
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.label) = (name, label)
@@ -250,10 +295,10 @@ public extension ReleaseAsset {
         (self.size, self.digest) = (size, digest)
         (self.downloadCount, self.createdAt) = (downloadCount, createdAt)
         (self.updatedAt, self.uploader) = (updatedAt, uploader)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("browser_download_url", self.browserDownloadUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("browser_download_url", self.browserDownloadUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -261,13 +306,16 @@ public extension ReleaseAsset {
 public struct ReleaseAssetState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let uploaded = ReleaseAssetState(rawValue: "uploaded")
     public static let open = ReleaseAssetState(rawValue: "open")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

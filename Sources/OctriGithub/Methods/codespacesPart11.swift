@@ -6,18 +6,39 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
-    /// Stops a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension CodespacesMethods {
+    /// Stops a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
     /// - codespaceName: The name of the codespace.
-    public static func codespacesStopInOrganization(config: ClientConfig, org: String, username: String, codespaceName: String) async throws -> Codespace {
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members/", sdkEncodePathSegment(sdkWireString(username)), "/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/stop"].joined(), config: config, decoder: .json, operationId: "codespacesStopInOrganization")).data
+    static func codespacesStopInOrganization(
+        config: ClientConfig,
+        org: String,
+        username: String,
+        codespaceName: String
+    ) async throws -> Codespace {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/codespaces/",
+                sdkEncodePathSegment(sdkWireString(codespaceName)),
+                "/stop",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesStopInOrganization"
+        )).data
     }
 
-    /// Lists the codespaces associated to a specified repository and the authenticated user. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// Lists the codespaces associated to a specified repository and the authenticated user. OAuth app tokens and
+    /// personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -32,10 +53,29 @@ extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func codespacesListInRepositoryForAuthenticatedUser(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> CodespacesListInRepositoryForAuthenticatedUserResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codespaces"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "codespacesListInRepositoryForAuthenticatedUser")).data
+    static func codespacesListInRepositoryForAuthenticatedUser(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListInRepositoryForAuthenticatedUserResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/codespaces",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "codespacesListInRepositoryForAuthenticatedUser"
+        )).data
     }
 }

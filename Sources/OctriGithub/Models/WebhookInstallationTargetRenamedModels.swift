@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookInstallationTargetRenamed domain models
+/// WebhookInstallationTargetRenamed domain models
 /// Typed representation of the `WebhookInstallationTargetRenamed` API schema.
 public struct WebhookInstallationTargetRenamed: Codable {
     /// Required object value serialized in the `account` wire field.
@@ -42,41 +42,73 @@ public struct WebhookInstallationTargetRenamed: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookInstallationTargetRenamed {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.account) else {
-            throw SdkValidationError(field: "account", code: "required", message: "Validation failed for 'account': value is required")
-        }
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.installation) else {
-            throw SdkValidationError(field: "installation", code: "required", message: "Validation failed for 'installation': value is required")
-        }
-        guard container.contains(.targetType) else {
-            throw SdkValidationError(field: "target_type", code: "required", message: "Validation failed for 'target_type': value is required")
-        }
-        self.account = try container.sdkDecodeRequired(.account)
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.installation = try container.sdkDecodeRequired(.installation)
-        self.targetType = try container.sdkDecodeRequired(.targetType)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookInstallationTargetRenamed {
-    public init(account: WebhookInstallationTargetRenamedAccount, action: WebhookInstallationTargetRenamedAction, changes: WebhookInstallationTargetRenamedChanges, installation: SimpleInstallation, targetType: String, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.account) else {
+            throw SdkValidationError(
+                field: "account",
+                code: "required",
+                message: "Validation failed for 'account': value is required"
+            )
+        }
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.installation) else {
+            throw SdkValidationError(
+                field: "installation",
+                code: "required",
+                message: "Validation failed for 'installation': value is required"
+            )
+        }
+        guard container.contains(.targetType) else {
+            throw SdkValidationError(
+                field: "target_type",
+                code: "required",
+                message: "Validation failed for 'target_type': value is required"
+            )
+        }
+        account = try container.sdkDecodeRequired(.account)
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        installation = try container.sdkDecodeRequired(.installation)
+        targetType = try container.sdkDecodeRequired(.targetType)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookInstallationTargetRenamed {
+    init(
+        account: WebhookInstallationTargetRenamedAccount,
+        action: WebhookInstallationTargetRenamedAction,
+        changes: WebhookInstallationTargetRenamedChanges,
+        installation: SimpleInstallation,
+        targetType: String,
+        enterprise: EnterpriseWebhooks? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.account, self.action) = (account, action)
         (self.changes, self.installation) = (changes, installation)
         (self.targetType, self.enterprise) = (targetType, enterprise)
@@ -202,66 +234,122 @@ public struct WebhookInstallationTargetRenamedAccount: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookInstallationTargetRenamedAccount {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.avatarUrl) else {
-            throw SdkValidationError(field: "avatar_url", code: "required", message: "Validation failed for 'avatar_url': value is required")
-        }
-        guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followers = try container.sdkDecodeIfPresent(.followers)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.following = try container.sdkDecodeIfPresent(.following)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.hasOrganizationProjects = try container.sdkDecodeIfPresent(.hasOrganizationProjects)
-        self.hasRepositoryProjects = try container.sdkDecodeIfPresent(.hasRepositoryProjects)
-        self.hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
-        self.isVerified = try container.sdkDecodeIfPresent(.isVerified)
-        self.issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
-        self.login = try container.sdkDecodeIfPresent(.login)
-        self.membersUrl = try container.sdkDecodeIfPresent(.membersUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.publicGists = try container.sdkDecodeIfPresent(.publicGists)
-        self.publicMembersUrl = try container.sdkDecodeIfPresent(.publicMembersUrl)
-        self.publicRepos = try container.sdkDecodeIfPresent(.publicRepos)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.websiteUrl = try container.sdkDecodeIfPresent(.websiteUrl)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookInstallationTargetRenamedAccount {
-    public init(avatarUrl: String, htmlUrl: String, id: Int, nodeId: String, archivedAt: String? = nil, createdAt: String? = nil, description: JSONValue? = nil, eventsUrl: String? = nil, followers: Int? = nil, followersUrl: String? = nil, following: Int? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, hasOrganizationProjects: Bool? = nil, hasRepositoryProjects: Bool? = nil, hooksUrl: String? = nil, isVerified: Bool? = nil, issuesUrl: String? = nil, login: String? = nil, membersUrl: String? = nil, name: String? = nil, organizationsUrl: String? = nil, publicGists: Int? = nil, publicMembersUrl: String? = nil, publicRepos: Int? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, slug: String? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: String? = nil, updatedAt: String? = nil, url: String? = nil, websiteUrl: JSONValue? = nil, userViewType: String? = nil) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.avatarUrl) else {
+            throw SdkValidationError(
+                field: "avatar_url",
+                code: "required",
+                message: "Validation failed for 'avatar_url': value is required"
+            )
+        }
+        guard container.contains(.htmlUrl) else {
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        description = try container.sdkDecodeIfPresent(.description)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followers = try container.sdkDecodeIfPresent(.followers)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        following = try container.sdkDecodeIfPresent(.following)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        hasOrganizationProjects = try container.sdkDecodeIfPresent(.hasOrganizationProjects)
+        hasRepositoryProjects = try container.sdkDecodeIfPresent(.hasRepositoryProjects)
+        hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
+        isVerified = try container.sdkDecodeIfPresent(.isVerified)
+        issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
+        login = try container.sdkDecodeIfPresent(.login)
+        membersUrl = try container.sdkDecodeIfPresent(.membersUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        publicGists = try container.sdkDecodeIfPresent(.publicGists)
+        publicMembersUrl = try container.sdkDecodeIfPresent(.publicMembersUrl)
+        publicRepos = try container.sdkDecodeIfPresent(.publicRepos)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        slug = try container.sdkDecodeIfPresent(.slug)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        url = try container.sdkDecodeIfPresent(.url)
+        websiteUrl = try container.sdkDecodeIfPresent(.websiteUrl)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+    }
+}
+
+public extension WebhookInstallationTargetRenamedAccount {
+    init(
+        avatarUrl: String,
+        htmlUrl: String,
+        id: Int,
+        nodeId: String,
+        archivedAt: String? = nil,
+        createdAt: String? = nil,
+        description: JSONValue? = nil,
+        eventsUrl: String? = nil,
+        followers: Int? = nil,
+        followersUrl: String? = nil,
+        following: Int? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        hasOrganizationProjects: Bool? = nil,
+        hasRepositoryProjects: Bool? = nil,
+        hooksUrl: String? = nil,
+        isVerified: Bool? = nil,
+        issuesUrl: String? = nil,
+        login: String? = nil,
+        membersUrl: String? = nil,
+        name: String? = nil,
+        organizationsUrl: String? = nil,
+        publicGists: Int? = nil,
+        publicMembersUrl: String? = nil,
+        publicRepos: Int? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        slug: String? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: String? = nil,
+        updatedAt: String? = nil,
+        url: String? = nil,
+        websiteUrl: JSONValue? = nil,
+        userViewType: String? = nil
+    ) {
         (self.avatarUrl, self.htmlUrl) = (avatarUrl, htmlUrl)
         (self.id, self.nodeId) = (id, nodeId)
         (self.archivedAt, self.createdAt) = (archivedAt, createdAt)
@@ -297,20 +385,23 @@ public struct WebhookInstallationTargetRenamedChanges: Codable {
     }
 
     init() {
-        (self.login, self.slug) = (nil, nil)
+        (login, slug) = (nil, nil)
     }
 }
 
 public extension WebhookInstallationTargetRenamedChanges {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.login = try container.sdkDecodeIfPresent(.login)
-        self.slug = try container.sdkDecodeIfPresent(.slug)
+        login = try container.sdkDecodeIfPresent(.login)
+        slug = try container.sdkDecodeIfPresent(.slug)
     }
 }
 
 public extension WebhookInstallationTargetRenamedChanges {
-    public init(login: WebhookInstallationTargetRenamedChangesLogin? = nil, slug: WebhookInstallationTargetRenamedChangesSlug? = nil) {
+    init(
+        login: WebhookInstallationTargetRenamedChangesLogin? = nil,
+        slug: WebhookInstallationTargetRenamedChangesSlug? = nil
+    ) {
         self.init()
         (self.login, self.slug) = (login, slug)
     }
@@ -325,21 +416,27 @@ public struct WebhookInstallationTargetRenamedChangesLogin: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookInstallationTargetRenamedChangesLogin {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookInstallationTargetRenamedChangesLogin {
-    public init(from: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookInstallationTargetRenamedChangesLogin {
+    init(from: String) {
         self.from = from
     }
 }
@@ -353,35 +450,45 @@ public struct WebhookInstallationTargetRenamedChangesSlug: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-public extension WebhookInstallationTargetRenamedChangesSlug {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
 public extension WebhookInstallationTargetRenamedChangesSlug {
-    public init(from: String) {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookInstallationTargetRenamedChangesSlug {
+    init(from: String) {
         self.from = from
     }
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookInstallationTargetRenamedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookInstallationTargetRenamedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let renamed = WebhookInstallationTargetRenamedAction(rawValue: "renamed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
