@@ -1,0 +1,6 @@
+# Auto-generated SDK — swiftformat config tuned for generated code.
+--disable wrapMultilineStatementBraces
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first

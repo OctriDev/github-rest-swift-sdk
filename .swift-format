@@ -1,0 +1,13 @@
+{
+  "indentation": {
+    "spaces": 4
+  },
+  "lineLength": 120,
+  "respectsExistingLineBreaks": true,
+  "lineBreakBeforeEachArgument": false,
+  "multiElementCollectionTrailingCommas": false,
+  "rules": {
+    "AlwaysUseLowerCamelCase": false,
+    "OrderedImports": false
+  }
+}

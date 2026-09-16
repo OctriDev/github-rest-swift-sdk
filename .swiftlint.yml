@@ -1,0 +1,45 @@
+included:
+  - Sources
+  - Tests
+line_length:
+  warning: 140
+  error: 160
+  # ONLY doc comments are exempt: they carry the spec's own prose + reference
+  # URLs, which routinely run long. Real code still obeys the 140/160 cap.
+  ignores_comments: true
+  ignores_urls: true
+identifier_name:
+  min_length: 1
+  max_length:
+    warning: 80
+    error: 100
+type_name:
+  # Provider-authored short model names such as W2 are public compatibility
+  # boundaries, so the floor drops rather than the rule coming off: casing and
+  # the length ceiling stay enforced.
+  min_length: 1
+  max_length:
+    warning: 80
+    error: 100
+function_parameter_count:
+  warning: 20
+  error: 25
+cyclomatic_complexity:
+  warning: 25
+  error: 30
+file_length:
+  warning: 750
+  error: 900
+function_body_length:
+  warning: 140
+  error: 180
+trailing_comma:
+  mandatory_comma: true
+# A namespace type mirrors the API surface 1:1 — GitHub's `repos` tag alone has
+# 200+ operations — so its member count is dictated by the spec, not by code
+# structure. Every other cop (including file_length, which the per-namespace
+# file split satisfies) stays on.
+disabled_rules:
+  - type_body_length
+  # Spec-derived public symbols such as MasterM3u8 are compatibility boundaries.
+  - inclusive_language
