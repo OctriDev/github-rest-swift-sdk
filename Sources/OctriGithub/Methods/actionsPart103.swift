@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    struct ActionsListWorkflowRunsOptions: Codable {
+extension ActionsMethods {
+    public struct ActionsListWorkflowRunsOptions: Codable {
         public var owner: String
         public var repo: String
         public var workflowId: ActionsGetWorkflowParameter
@@ -29,14 +29,7 @@ public extension ActionsMethods {
         }
     }
 
-    /// List all workflow runs for a workflow. You can replace `workflow_id` with the workflow file name. For example,
-    /// you could use `main.yaml`. You can use parameters to narrow the list of results. For more information about
-    /// using parameters, see
-    /// [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read
-    /// access to the repository can use this endpoint OAuth app tokens and personal access tokens (classic) need the
-    /// `repo` scope to use this endpoint with a private repository. This endpoint will return up to 1,000 results for
-    /// each search when using the following parameters: `actor`, `branch`, `check_suite_id`, `created`, `event`,
-    /// `head_sha`, `status`.
+    /// List all workflow runs for a workflow. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read access to the repository can use this endpoint OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository. This endpoint will return up to 1,000 results for each search when using the following parameters: `actor`, `branch`, `check_suite_id`, `created`, `event`, `head_sha`, `status`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -76,40 +69,22 @@ public extension ActionsMethods {
     ///   specify.
     /// - headSha: Only returns workflow runs that are associated with the specified
     ///   `head_sha`.
-    static func actionsListWorkflowRuns(
-        config: ClientConfig,
-        options: ActionsListWorkflowRunsOptions
-    ) async throws -> ActionsListWorkflowRunsResponse {
+    public static func actionsListWorkflowRuns(config: ClientConfig, options: ActionsListWorkflowRunsOptions) async throws -> ActionsListWorkflowRunsResponse {
         if let created = options.created {
             try sdkValidateDateTime("created", created)
         }
 
-        return try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/actions/workflows/",
-                sdkEncodePathSegment(sdkWireString(options.workflowId)),
-                "/runs",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("actor", value: options.actor),
-                SdkQueryParameter("branch", value: options.branch),
-                SdkQueryParameter("event", value: options.event),
-                SdkQueryParameter("status", value: options.status),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("created", value: options.created),
-                SdkQueryParameter("exclude_pull_requests", value: options.excludePullRequests),
-                SdkQueryParameter("check_suite_id", value: options.checkSuiteId),
-                SdkQueryParameter("head_sha", value: options.headSha),
-            ],
-            decoder: .json,
-            operationId: "actionsListWorkflowRuns"
-        )).data
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/actions/workflows/", sdkEncodePathSegment(sdkWireString(options.workflowId)), "/runs"].joined(), config: config, query: [
+            SdkQueryParameter("actor", value: options.actor),
+            SdkQueryParameter("branch", value: options.branch),
+            SdkQueryParameter("event", value: options.event),
+            SdkQueryParameter("status", value: options.status),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("created", value: options.created),
+            SdkQueryParameter("exclude_pull_requests", value: options.excludePullRequests),
+            SdkQueryParameter("check_suite_id", value: options.checkSuiteId),
+            SdkQueryParameter("head_sha", value: options.headSha),
+        ], decoder: .json, operationId: "actionsListWorkflowRuns")).data
     }
 }

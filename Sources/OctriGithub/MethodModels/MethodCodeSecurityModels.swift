@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical codeSecurity operation model declarations
+// Canonical codeSecurity operation model declarations
 public struct CodeSecuritySetConfigurationAsDefaultResponse: Codable {
     /// Specifies which types of repository this security configuration is applied to by default.
     public var defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos?
@@ -20,23 +20,20 @@ public struct CodeSecuritySetConfigurationAsDefaultResponse: Codable {
     }
 
     init() {
-        (defaultForNewRepos, configuration) = (nil, nil)
+        (self.defaultForNewRepos, self.configuration) = (nil, nil)
     }
 }
 
-public extension CodeSecuritySetConfigurationAsDefaultResponse {
-    init(from decoder: Decoder) throws {
+extension CodeSecuritySetConfigurationAsDefaultResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        defaultForNewRepos = try container.sdkDecodeIfPresent(.defaultForNewRepos)
-        configuration = try container.sdkDecodeIfPresent(.configuration)
+        self.defaultForNewRepos = try container.sdkDecodeIfPresent(.defaultForNewRepos)
+        self.configuration = try container.sdkDecodeIfPresent(.configuration)
     }
 }
 
-public extension CodeSecuritySetConfigurationAsDefaultResponse {
-    init(
-        defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos? = nil,
-        configuration: CodeSecurityConfiguration? = nil
-    ) {
+extension CodeSecuritySetConfigurationAsDefaultResponse {
+    public init(defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultResponseDefaultForNewRepos? = nil, configuration: CodeSecurityConfiguration? = nil) {
         self.init()
         (self.defaultForNewRepos, self.configuration) = (defaultForNewRepos, configuration)
     }
@@ -52,19 +49,19 @@ public struct CodeSecurityUpdateEnterpriseConfigurationRequestBodyDependencXe403
     }
 
     init() {
-        labeledRunners = nil
+        self.labeledRunners = nil
     }
 }
 
-public extension CodeSecurityUpdateEnterpriseConfigurationRequestBodyDependencXe403375aec {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityUpdateEnterpriseConfigurationRequestBodyDependencXe403375aec {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
+        self.labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
     }
 }
 
-public extension CodeSecurityUpdateEnterpriseConfigurationRequestBodyDependencXe403375aec {
-    init(labeledRunners: Bool? = nil) {
+extension CodeSecurityUpdateEnterpriseConfigurationRequestBodyDependencXe403375aec {
+    public init(labeledRunners: Bool? = nil) {
         self.init()
         self.labeledRunners = labeledRunners
     }
@@ -80,19 +77,19 @@ public struct CodeSecurityUpdateConfigurationRequestBodyDependencyGraphAutoX4aa3
     }
 
     init() {
-        labeledRunners = nil
+        self.labeledRunners = nil
     }
 }
 
-public extension CodeSecurityUpdateConfigurationRequestBodyDependencyGraphAutoX4aa3ee43c2 {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityUpdateConfigurationRequestBodyDependencyGraphAutoX4aa3ee43c2 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
+        self.labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
     }
 }
 
-public extension CodeSecurityUpdateConfigurationRequestBodyDependencyGraphAutoX4aa3ee43c2 {
-    init(labeledRunners: Bool? = nil) {
+extension CodeSecurityUpdateConfigurationRequestBodyDependencyGraphAutoX4aa3ee43c2 {
+    public init(labeledRunners: Bool? = nil) {
         self.init()
         self.labeledRunners = labeledRunners
     }
@@ -110,23 +107,20 @@ public struct CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse: Codabl
     }
 
     init() {
-        (defaultForNewRepos, configuration) = (nil, nil)
+        (self.defaultForNewRepos, self.configuration) = (nil, nil)
     }
 }
 
-public extension CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse {
-    init(from decoder: Decoder) throws {
+extension CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        defaultForNewRepos = try container.sdkDecodeIfPresent(.defaultForNewRepos)
-        configuration = try container.sdkDecodeIfPresent(.configuration)
+        self.defaultForNewRepos = try container.sdkDecodeIfPresent(.defaultForNewRepos)
+        self.configuration = try container.sdkDecodeIfPresent(.configuration)
     }
 }
 
-public extension CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse {
-    init(
-        defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultForEnterpriseResponseDefXa2fa29f8bf? = nil,
-        configuration: CodeSecurityConfiguration? = nil
-    ) {
+extension CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse {
+    public init(defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultForEnterpriseResponseDefXa2fa29f8bf? = nil, configuration: CodeSecurityConfiguration? = nil) {
         self.init()
         (self.defaultForNewRepos, self.configuration) = (defaultForNewRepos, configuration)
     }
@@ -142,23 +136,27 @@ public struct CodeSecurityCreateConfigurationRequestBodyDependencyGraphAutoXc09d
     }
 
     init() {
-        labeledRunners = nil
+        self.labeledRunners = nil
     }
 }
 
-public extension CodeSecurityCreateConfigurationRequestBodyDependencyGraphAutoXc09dc5dd2c {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityCreateConfigurationRequestBodyDependencyGraphAutoXc09dc5dd2c {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
+        self.labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
     }
 }
 
-public extension CodeSecurityCreateConfigurationRequestBodyDependencyGraphAutoXc09dc5dd2c {
-    init(labeledRunners: Bool? = nil) {
+extension CodeSecurityCreateConfigurationRequestBodyDependencyGraphAutoXc09dc5dd2c {
+    public init(labeledRunners: Bool? = nil) {
         self.init()
         self.labeledRunners = labeledRunners
     }
 }
+
+
+
+
 
 public struct CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390: Codable {
     /// The ID of the team or role selected as a bypass reviewer
@@ -174,44 +172,34 @@ public struct CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c72
         case mode
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390 {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.reviewerId) else {
-            throw SdkValidationError(
-                field: "reviewer_id",
-                code: "required",
-                message: "Validation failed for 'reviewer_id': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_id", code: "required", message: "Validation failed for 'reviewer_id': value is required")
         }
         guard container.contains(.reviewerType) else {
-            throw SdkValidationError(
-                field: "reviewer_type",
-                code: "required",
-                message: "Validation failed for 'reviewer_type': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_type", code: "required", message: "Validation failed for 'reviewer_type': value is required")
         }
-        reviewerId = try container.sdkDecodeRequired(.reviewerId)
-        reviewerType = try container.sdkDecodeRequired(.reviewerType)
-        mode = try container.sdkDecodeIfPresent(.mode)
+        self.reviewerId = try container.sdkDecodeRequired(.reviewerId)
+        self.reviewerType = try container.sdkDecodeRequired(.reviewerType)
+        self.mode = try container.sdkDecodeIfPresent(.mode)
     }
 }
 
-public extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390 {
-    init(
-        reviewerId: Int,
-        reviewerType: CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXb9596b3afc,
-        mode: CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX74245daa1e? = nil
-    ) {
+extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390 {
+    public init(reviewerId: Int, reviewerType: CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXb9596b3afc, mode: CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX74245daa1e? = nil) {
         (self.reviewerId, self.reviewerType) = (reviewerId, reviewerType)
         self.mode = mode
     }
 }
+
+
+
+
 
 public struct CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3: Codable {
     /// The ID of the team or role selected as a bypass reviewer
@@ -227,47 +215,32 @@ public struct CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097b
         case mode
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3 {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.reviewerId) else {
-            throw SdkValidationError(
-                field: "reviewer_id",
-                code: "required",
-                message: "Validation failed for 'reviewer_id': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_id", code: "required", message: "Validation failed for 'reviewer_id': value is required")
         }
         guard container.contains(.reviewerType) else {
-            throw SdkValidationError(
-                field: "reviewer_type",
-                code: "required",
-                message: "Validation failed for 'reviewer_type': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_type", code: "required", message: "Validation failed for 'reviewer_type': value is required")
         }
-        reviewerId = try container.sdkDecodeRequired(.reviewerId)
-        reviewerType = try container.sdkDecodeRequired(.reviewerType)
-        mode = try container.sdkDecodeIfPresent(.mode)
+        self.reviewerId = try container.sdkDecodeRequired(.reviewerId)
+        self.reviewerType = try container.sdkDecodeRequired(.reviewerType)
+        self.mode = try container.sdkDecodeIfPresent(.mode)
     }
 }
 
-public extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3 {
-    init(
-        reviewerId: Int,
-        reviewerType: CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX0785f32557,
-        mode: CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegXb8ce035c88? = nil
-    ) {
+extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3 {
+    public init(reviewerId: Int, reviewerType: CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX0785f32557, mode: CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegXb8ce035c88? = nil) {
         (self.reviewerId, self.reviewerType) = (reviewerId, reviewerType)
         self.mode = mode
     }
 }
 
-public typealias CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegXa1cb011801 =
-    [CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3]
+public typealias CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegXa1cb011801 = [CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX097bbd6ab3]
 
 /// Feature options for secret scanning delegated bypass
 public struct CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX332f6d89e9: Codable {
@@ -279,19 +252,19 @@ public struct CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX332f
     }
 
     init() {
-        reviewers = nil
+        self.reviewers = nil
     }
 }
 
-public extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX332f6d89e9 {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX332f6d89e9 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        reviewers = try container.sdkDecodeIfPresent(.reviewers)
+        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
     }
 }
 
-public extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX332f6d89e9 {
-    init(reviewers: CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegXa1cb011801? = nil) {
+extension CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegX332f6d89e9 {
+    public init(reviewers: CodeSecurityUpdateConfigurationRequestBodySecretScanningDelegXa1cb011801? = nil) {
         self.init()
         self.reviewers = reviewers
     }
@@ -307,26 +280,25 @@ public struct CodeSecurityCreateConfigurationForEnterpriseRequestBodyDependX8e04
     }
 
     init() {
-        labeledRunners = nil
+        self.labeledRunners = nil
     }
 }
 
-public extension CodeSecurityCreateConfigurationForEnterpriseRequestBodyDependX8e04f0f904 {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityCreateConfigurationForEnterpriseRequestBodyDependX8e04f0f904 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
+        self.labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
     }
 }
 
-public extension CodeSecurityCreateConfigurationForEnterpriseRequestBodyDependX8e04f0f904 {
-    init(labeledRunners: Bool? = nil) {
+extension CodeSecurityCreateConfigurationForEnterpriseRequestBodyDependX8e04f0f904 {
+    public init(labeledRunners: Bool? = nil) {
         self.init()
         self.labeledRunners = labeledRunners
     }
 }
 
-public typealias CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX590c83fadd =
-    [CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390]
+public typealias CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX590c83fadd = [CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX5c720bb390]
 
 /// Feature options for secret scanning delegated bypass
 public struct CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXbbd036f52f: Codable {
@@ -338,19 +310,19 @@ public struct CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXbbd0
     }
 
     init() {
-        reviewers = nil
+        self.reviewers = nil
     }
 }
 
-public extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXbbd036f52f {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXbbd036f52f {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        reviewers = try container.sdkDecodeIfPresent(.reviewers)
+        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
     }
 }
 
-public extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXbbd036f52f {
-    init(reviewers: CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX590c83fadd? = nil) {
+extension CodeSecurityCreateConfigurationRequestBodySecretScanningDelegXbbd036f52f {
+    public init(reviewers: CodeSecurityCreateConfigurationRequestBodySecretScanningDelegX590c83fadd? = nil) {
         self.init()
         self.reviewers = reviewers
     }

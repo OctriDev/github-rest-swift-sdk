@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AgentsMethods {
-    /// Lists all secrets available in a repository without revealing their encrypted values. Authenticated users must
-    /// have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` scope to use this endpoint.
+extension AgentsMethods {
+    /// Lists all secrets available in a repository without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,58 +22,21 @@ public extension AgentsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func agentsListRepoSecrets(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AgentsListRepoSecretsResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/agents/secrets",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "agentsListRepoSecrets"
-        )).data
+    public static func agentsListRepoSecrets(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> AgentsListRepoSecretsResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/agents/secrets"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "agentsListRepoSecrets")).data
     }
 
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private,
-    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func agentsGetRepoPublicKey(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActionsPublicKey {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/agents/secrets/public-key",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "agentsGetRepoPublicKey"
-        )).data
+    public static func agentsGetRepoPublicKey(config: ClientConfig, owner: String, repo: String) async throws -> ActionsPublicKey {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/agents/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "agentsGetRepoPublicKey")).data
     }
 }

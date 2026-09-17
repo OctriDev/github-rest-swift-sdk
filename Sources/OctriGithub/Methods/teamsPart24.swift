@@ -6,19 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
+extension TeamsMethods {
     /// Add or update team repository permissions (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
-    /// the Teams API. We recommend migrating your existing code to use the new "[Add or update team repository
-    /// permissions](https://docs.github.com/rest/teams/teams#add-or-update-team-repository-permissions)" endpoint. To
-    /// add a repository to a team or update the team's permission on a repository, the authenticated user must have
-    /// admin access to the repository, and must be able to see the team. The repository must be owned by the
-    /// organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable
-    /// Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if
-    /// you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this
-    /// endpoint. For more information, see "[HTTP
-    /// method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Add or update team repository permissions](https://docs.github.com/rest/teams/teams#add-or-update-team-repository-permissions)" endpoint. To add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
@@ -31,29 +22,9 @@ public extension TeamsMethods {
     ///   determine what permission to grant the team on this repository.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func teamsAddOrUpdateRepoPermissionsLegacy(
-        config: ClientConfig,
-        teamId: Int,
-        owner: String,
-        repo: String,
-        permission: TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission?
-    ) async throws -> SdkEmptyResponse {
+    public static func teamsAddOrUpdateRepoPermissionsLegacy(config: ClientConfig, teamId: Int, owner: String, repo: String, permission: TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission?) async throws -> SdkEmptyResponse {
         let requestBody = TeamsAddOrUpdateRepoPermissionsLegacyRequestBody(permission: permission)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamId)),
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "teamsAddOrUpdateRepoPermissionsLegacy"
-        )).data
+        return try (await sdkRequest("PUT", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, body: requestBody, decoder: .empty, operationId: "teamsAddOrUpdateRepoPermissionsLegacy")).data
     }
 }

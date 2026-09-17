@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Teams domain models
+// Teams domain models
 public typealias LdapDn = String
 
 /// Groups of organization members that gives permissions on specified repositories.
@@ -97,69 +97,44 @@ public struct TeamFull: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamFull {
-    init(from decoder: Decoder) throws {
+extension TeamFull {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        name = try container.sdkDecodeRequired(.name)
-        slug = try container.sdkDecodeRequired(.slug)
-        description = try container.sdkDecodeIfPresent(.description)
-        permission = try container.sdkDecodeRequired(.permission)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        membersCount = try container.sdkDecodeRequired(.membersCount)
-        reposCount = try container.sdkDecodeRequired(.reposCount)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        organization = try container.sdkDecodeRequired(.organization)
-        type = try container.sdkDecodeRequired(.type)
-        privacy = try container.sdkDecodeIfPresent(.privacy)
-        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-        parent = try container.sdkDecodeIfPresent(.parent)
-        ldapDn = try container.sdkDecodeIfPresent(.ldapDn)
-        organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.membersCount = try container.sdkDecodeRequired(.membersCount)
+        self.reposCount = try container.sdkDecodeRequired(.reposCount)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.privacy = try container.sdkDecodeIfPresent(.privacy)
+        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        self.parent = try container.sdkDecodeIfPresent(.parent)
+        self.ldapDn = try container.sdkDecodeIfPresent(.ldapDn)
+        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension TeamFull {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        htmlUrl: String,
-        name: String,
-        slug: String,
-        description: String?,
-        permission: String,
-        membersUrl: String,
-        repositoriesUrl: String,
-        membersCount: Int,
-        reposCount: Int,
-        createdAt: Date,
-        updatedAt: Date,
-        organization: TeamOrganization,
-        type: TeamFullType,
-        privacy: TeamFullPrivacy? = nil,
-        notificationSetting: TeamFullNotificationSetting? = nil,
-        parent: NullableTeamSimple? = nil,
-        ldapDn: LdapDn? = nil,
-        organizationId: Int? = nil,
-        enterpriseId: Int? = nil
-    ) throws {
+extension TeamFull {
+    public init(id: Int, nodeId: String, url: String, htmlUrl: String, name: String, slug: String, description: String?, permission: String, membersUrl: String, repositoriesUrl: String, membersCount: Int, reposCount: Int, createdAt: Date, updatedAt: Date, organization: TeamOrganization, type: TeamFullType, privacy: TeamFullPrivacy? = nil, notificationSetting: TeamFullNotificationSetting? = nil, parent: NullableTeamSimple? = nil, ldapDn: LdapDn? = nil, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.name, self.slug) = (name, slug)
@@ -171,11 +146,11 @@ public extension TeamFull {
         (self.privacy, self.notificationSetting) = (privacy, notificationSetting)
         (self.parent, self.ldapDn) = (parent, ldapDn)
         (self.organizationId, self.enterpriseId) = (organizationId, enterpriseId)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -281,69 +256,42 @@ public struct TeamMember: Codable {
         case inherited
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamMember {
-    init(from decoder: Decoder) throws {
+extension TeamMember {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
-        role = try container.sdkDecodeIfPresent(.role)
-        inherited = try container.sdkDecodeIfPresent(.inherited)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.role = try container.sdkDecodeIfPresent(.role)
+        self.inherited = try container.sdkDecodeIfPresent(.inherited)
         try sdkValidateConstraints()
     }
 }
 
-public extension TeamMember {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarUrl: String,
-        gravatarId: String?,
-        url: String,
-        htmlUrl: String,
-        followersUrl: String,
-        followingUrl: String,
-        gistsUrl: String,
-        starredUrl: String,
-        subscriptionsUrl: String,
-        organizationsUrl: String,
-        reposUrl: String,
-        eventsUrl: String,
-        receivedEventsUrl: String,
-        type: String,
-        siteAdmin: Bool,
-        name: String? = nil,
-        email: String? = nil,
-        starredAt: String? = nil,
-        userViewType: String? = nil,
-        role: TeamMemberRole? = nil,
-        inherited: Bool? = nil
-    ) throws {
+extension TeamMember {
+    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String? = nil, email: String? = nil, starredAt: String? = nil, userViewType: String? = nil, role: TeamMemberRole? = nil, inherited: Bool? = nil) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -362,14 +310,14 @@ public extension TeamMember {
 
 extension TeamMember {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("followers_url", followersUrl)
-        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
-        try sdkValidateUri("organizations_url", organizationsUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("received_events_url", receivedEventsUrl)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("followers_url", self.followersUrl)
+            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
+            try sdkValidateUri("organizations_url", self.organizationsUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
     }
 }
 
@@ -389,47 +337,33 @@ public struct TeamMembership: Codable {
         case state
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamMembership {
-    init(from decoder: Decoder) throws {
+extension TeamMembership {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.role) else {
-            throw SdkValidationError(
-                field: "role",
-                code: "required",
-                message: "Validation failed for 'role': value is required"
-            )
+            throw SdkValidationError(field: "role", code: "required", message: "Validation failed for 'role': value is required")
         }
         guard container.contains(.state) else {
-            throw SdkValidationError(
-                field: "state",
-                code: "required",
-                message: "Validation failed for 'state': value is required"
-            )
+            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
         }
-        url = try container.sdkDecodeRequired(.url)
-        role = try container.sdkDecodeRequired(.role)
-        state = try container.sdkDecodeRequired(.state)
-        try sdkValidateUri("url", url)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.role = try container.sdkDecodeRequired(.role)
+        self.state = try container.sdkDecodeRequired(.state)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension TeamMembership {
-    init(url: String, role: TeamMembershipRole, state: TeamMembershipState) throws {
+extension TeamMembership {
+    public init(url: String, role: TeamMembershipRole, state: TeamMembershipState) throws {
         (self.url, self.role) = (url, role)
         self.state = state
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -628,7 +562,5 @@ public struct TeamOrganization: Codable {
         case webCommitSignoffRequired = "web_commit_signoff_required"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

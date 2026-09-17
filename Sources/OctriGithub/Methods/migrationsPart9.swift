@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    /// Stop an import for a repository. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of
-    /// usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC
-    /// on April 12, 2024. For more details and alternatives, see the
-    /// [changelog](https://gh.io/source-imports-api-deprecation).
+extension MigrationsMethods {
+    /// Stop an import for a repository. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,36 +16,11 @@ public extension MigrationsMethods {
     ///   not case sensitive.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func migrationsCancelImport(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/import",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "migrationsCancelImport"
-        )).data
+    public static func migrationsCancelImport(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import"].joined(), config: config, decoder: .empty, operationId: "migrationsCancelImport")).data
     }
 
-    /// Each type of source control system represents authors in a different way. For example, a Git commit author has a
-    /// display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will
-    /// make the author information valid, but the author might not be correct. For example, it will change the bare
-    /// Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`. This
-    /// endpoint and the [Map a commit
-    /// author](https://docs.github.com/rest/migrations/source-imports#map-a-commit-author) endpoint allow you to
-    /// provide correct Git author information. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels
-    /// of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00
-    /// UTC on April 12, 2024. For more details and alternatives, see the
-    /// [changelog](https://gh.io/source-imports-api-deprecation).
+    /// Each type of source control system represents authors in a different way. For example, a Git commit author has a display name and an email address, but a Subversion commit author just has a username. The GitHub Importer will make the author information valid, but the author might not be correct. For example, it will change the bare Subversion username `hubot` into something like `hubot <hubot@12341234-abab-fefe-8787-fedcba987654>`. This endpoint and the [Map a commit author](https://docs.github.com/rest/migrations/source-imports#map-a-commit-author) endpoint allow you to provide correct Git author information. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -58,27 +30,9 @@ public extension MigrationsMethods {
     /// - since: A user ID. Only return users with an ID greater than this ID.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func migrationsGetCommitAuthors(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        since: Int?
-    ) async throws -> [PorterAuthor] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/import/authors",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("since", value: since),
-            ],
-            decoder: .json,
-            operationId: "migrationsGetCommitAuthors"
-        )).data
+    public static func migrationsGetCommitAuthors(config: ClientConfig, owner: String, repo: String, since: Int?) async throws -> [PorterAuthor] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import/authors"].joined(), config: config, query: [
+            SdkQueryParameter("since", value: since),
+        ], decoder: .json, operationId: "migrationsGetCommitAuthors")).data
     }
 }

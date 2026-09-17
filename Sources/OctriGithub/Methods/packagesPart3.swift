@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PackagesMethods {
-    /// Lists packages in an organization readable by the user. OAuth app tokens and personal access tokens (classic)
-    /// need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+extension PackagesMethods {
+    /// Lists packages in an organization readable by the user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -35,26 +34,12 @@ public extension PackagesMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func packagesListPackagesForOrganization(
-        config: ClientConfig,
-        org: String,
-        packageType: PackagesListPackagesForOrganizationParameterXbaeb57df,
-        visibility: PackagesListPackagesForOrganizationParameter?,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> [Package] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/packages"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("package_type", value: packageType),
-                SdkQueryParameter("visibility", value: visibility),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "packagesListPackagesForOrganization"
-        )).data
+    public static func packagesListPackagesForOrganization(config: ClientConfig, org: String, packageType: PackagesListPackagesForOrganizationParameterXbaeb57df, visibility: PackagesListPackagesForOrganizationParameter?, page: Int?, perPage: Int?) async throws -> [Package] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/packages"].joined(), config: config, query: [
+            SdkQueryParameter("package_type", value: packageType),
+            SdkQueryParameter("visibility", value: visibility),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "packagesListPackagesForOrganization")).data
     }
 }

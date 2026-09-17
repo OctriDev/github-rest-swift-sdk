@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// > [!NOTE] > To get information about name patterns that branches must match in order to deploy to this
-    /// environment, see "Get a deployment branch policy." Anyone with read access to the repository can use this
-    /// endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with
-    /// a private repository.
+extension ReposMethods {
+    /// > [!NOTE] > To get information about name patterns that branches must match in order to deploy to this environment, see "Get a deployment branch policy." Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,25 +16,7 @@ public extension ReposMethods {
     ///   not case sensitive.
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
-    static func reposGetEnvironment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String
-    ) async throws -> Environment {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetEnvironment"
-        )).data
+    public static func reposGetEnvironment(config: ClientConfig, owner: String, repo: String, environmentName: String) async throws -> Environment {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName))].joined(), config: config, decoder: .json, operationId: "reposGetEnvironment")).data
     }
 }

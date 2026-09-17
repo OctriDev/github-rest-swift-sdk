@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SecurityAdvisories domain models
+// SecurityAdvisories domain models
 /// The name of the package affected by the vulnerability.
 public struct RepositoryAdvisoryUpdateVulnerabilitiesItemPackage: Codable {
     /// The package's language or package management ecosystem.
@@ -16,28 +16,22 @@ public struct RepositoryAdvisoryUpdateVulnerabilitiesItemPackage: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryAdvisoryUpdateVulnerabilitiesItemPackage {
-    init(from decoder: Decoder) throws {
+extension RepositoryAdvisoryUpdateVulnerabilitiesItemPackage {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ecosystem) else {
-            throw SdkValidationError(
-                field: "ecosystem",
-                code: "required",
-                message: "Validation failed for 'ecosystem': value is required"
-            )
+            throw SdkValidationError(field: "ecosystem", code: "required", message: "Validation failed for 'ecosystem': value is required")
         }
-        ecosystem = try container.sdkDecodeRequired(.ecosystem)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.ecosystem = try container.sdkDecodeRequired(.ecosystem)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension RepositoryAdvisoryUpdateVulnerabilitiesItemPackage {
-    init(ecosystem: SecurityAdvisoryEcosystems, name: String? = nil) {
+extension RepositoryAdvisoryUpdateVulnerabilitiesItemPackage {
+    public init(ecosystem: SecurityAdvisoryEcosystems, name: String? = nil) {
         (self.ecosystem, self.name) = (ecosystem, name)
     }
 }
@@ -60,56 +54,33 @@ public struct RepositoryAdvisoryVulnerability: Codable {
         case vulnerableFunctions = "vulnerable_functions"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryAdvisoryVulnerability {
-    init(from decoder: Decoder) throws {
+extension RepositoryAdvisoryVulnerability {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.package) else {
-            throw SdkValidationError(
-                field: "package",
-                code: "required",
-                message: "Validation failed for 'package': value is required"
-            )
+            throw SdkValidationError(field: "package", code: "required", message: "Validation failed for 'package': value is required")
         }
         guard container.contains(.vulnerableVersionRange) else {
-            throw SdkValidationError(
-                field: "vulnerable_version_range",
-                code: "required",
-                message: "Validation failed for 'vulnerable_version_range': value is required"
-            )
+            throw SdkValidationError(field: "vulnerable_version_range", code: "required", message: "Validation failed for 'vulnerable_version_range': value is required")
         }
         guard container.contains(.patchedVersions) else {
-            throw SdkValidationError(
-                field: "patched_versions",
-                code: "required",
-                message: "Validation failed for 'patched_versions': value is required"
-            )
+            throw SdkValidationError(field: "patched_versions", code: "required", message: "Validation failed for 'patched_versions': value is required")
         }
         guard container.contains(.vulnerableFunctions) else {
-            throw SdkValidationError(
-                field: "vulnerable_functions",
-                code: "required",
-                message: "Validation failed for 'vulnerable_functions': value is required"
-            )
+            throw SdkValidationError(field: "vulnerable_functions", code: "required", message: "Validation failed for 'vulnerable_functions': value is required")
         }
-        package = try container.sdkDecodeIfPresent(.package)
-        vulnerableVersionRange = try container.sdkDecodeIfPresent(.vulnerableVersionRange)
-        patchedVersions = try container.sdkDecodeIfPresent(.patchedVersions)
-        vulnerableFunctions = try container.sdkDecodeIfPresent(.vulnerableFunctions)
+        self.package = try container.sdkDecodeIfPresent(.package)
+        self.vulnerableVersionRange = try container.sdkDecodeIfPresent(.vulnerableVersionRange)
+        self.patchedVersions = try container.sdkDecodeIfPresent(.patchedVersions)
+        self.vulnerableFunctions = try container.sdkDecodeIfPresent(.vulnerableFunctions)
     }
 }
 
-public extension RepositoryAdvisoryVulnerability {
-    init(
-        package: RepositoryAdvisoryVulnerabilityPackage?,
-        vulnerableVersionRange: String?,
-        patchedVersions: String?,
-        vulnerableFunctions: [String]?
-    ) {
+extension RepositoryAdvisoryVulnerability {
+    public init(package: RepositoryAdvisoryVulnerabilityPackage?, vulnerableVersionRange: String?, patchedVersions: String?, vulnerableFunctions: [String]?) {
         (self.package, self.vulnerableVersionRange) = (package, vulnerableVersionRange)
         (self.patchedVersions, self.vulnerableFunctions) = (patchedVersions, vulnerableFunctions)
     }
@@ -127,35 +98,25 @@ public struct RepositoryAdvisoryVulnerabilityPackage: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryAdvisoryVulnerabilityPackage {
-    init(from decoder: Decoder) throws {
+extension RepositoryAdvisoryVulnerabilityPackage {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ecosystem) else {
-            throw SdkValidationError(
-                field: "ecosystem",
-                code: "required",
-                message: "Validation failed for 'ecosystem': value is required"
-            )
+            throw SdkValidationError(field: "ecosystem", code: "required", message: "Validation failed for 'ecosystem': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        ecosystem = try container.sdkDecodeRequired(.ecosystem)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.ecosystem = try container.sdkDecodeRequired(.ecosystem)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension RepositoryAdvisoryVulnerabilityPackage {
-    init(ecosystem: SecurityAdvisoryEcosystems, name: String?) {
+extension RepositoryAdvisoryVulnerabilityPackage {
+    public init(ecosystem: SecurityAdvisoryEcosystems, name: String?) {
         (self.ecosystem, self.name) = (ecosystem, name)
     }
 }
@@ -178,56 +139,33 @@ public struct Vulnerability: Codable {
         case vulnerableFunctions = "vulnerable_functions"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Vulnerability {
-    init(from decoder: Decoder) throws {
+extension Vulnerability {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.package) else {
-            throw SdkValidationError(
-                field: "package",
-                code: "required",
-                message: "Validation failed for 'package': value is required"
-            )
+            throw SdkValidationError(field: "package", code: "required", message: "Validation failed for 'package': value is required")
         }
         guard container.contains(.vulnerableVersionRange) else {
-            throw SdkValidationError(
-                field: "vulnerable_version_range",
-                code: "required",
-                message: "Validation failed for 'vulnerable_version_range': value is required"
-            )
+            throw SdkValidationError(field: "vulnerable_version_range", code: "required", message: "Validation failed for 'vulnerable_version_range': value is required")
         }
         guard container.contains(.firstPatchedVersion) else {
-            throw SdkValidationError(
-                field: "first_patched_version",
-                code: "required",
-                message: "Validation failed for 'first_patched_version': value is required"
-            )
+            throw SdkValidationError(field: "first_patched_version", code: "required", message: "Validation failed for 'first_patched_version': value is required")
         }
         guard container.contains(.vulnerableFunctions) else {
-            throw SdkValidationError(
-                field: "vulnerable_functions",
-                code: "required",
-                message: "Validation failed for 'vulnerable_functions': value is required"
-            )
+            throw SdkValidationError(field: "vulnerable_functions", code: "required", message: "Validation failed for 'vulnerable_functions': value is required")
         }
-        package = try container.sdkDecodeIfPresent(.package)
-        vulnerableVersionRange = try container.sdkDecodeIfPresent(.vulnerableVersionRange)
-        firstPatchedVersion = try container.sdkDecodeIfPresent(.firstPatchedVersion)
-        vulnerableFunctions = try container.sdkDecodeIfPresent(.vulnerableFunctions)
+        self.package = try container.sdkDecodeIfPresent(.package)
+        self.vulnerableVersionRange = try container.sdkDecodeIfPresent(.vulnerableVersionRange)
+        self.firstPatchedVersion = try container.sdkDecodeIfPresent(.firstPatchedVersion)
+        self.vulnerableFunctions = try container.sdkDecodeIfPresent(.vulnerableFunctions)
     }
 }
 
-public extension Vulnerability {
-    init(
-        package: VulnerabilityPackage?,
-        vulnerableVersionRange: String?,
-        firstPatchedVersion: String?,
-        vulnerableFunctions: [String]?
-    ) {
+extension Vulnerability {
+    public init(package: VulnerabilityPackage?, vulnerableVersionRange: String?, firstPatchedVersion: String?, vulnerableFunctions: [String]?) {
         (self.package, self.vulnerableVersionRange) = (package, vulnerableVersionRange)
         (self.firstPatchedVersion, self.vulnerableFunctions) = (firstPatchedVersion, vulnerableFunctions)
     }
@@ -245,35 +183,25 @@ public struct VulnerabilityPackage: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension VulnerabilityPackage {
-    init(from decoder: Decoder) throws {
+extension VulnerabilityPackage {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ecosystem) else {
-            throw SdkValidationError(
-                field: "ecosystem",
-                code: "required",
-                message: "Validation failed for 'ecosystem': value is required"
-            )
+            throw SdkValidationError(field: "ecosystem", code: "required", message: "Validation failed for 'ecosystem': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        ecosystem = try container.sdkDecodeRequired(.ecosystem)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.ecosystem = try container.sdkDecodeRequired(.ecosystem)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension VulnerabilityPackage {
-    init(ecosystem: SecurityAdvisoryEcosystems, name: String?) {
+extension VulnerabilityPackage {
+    public init(ecosystem: SecurityAdvisoryEcosystems, name: String?) {
         (self.ecosystem, self.name) = (ecosystem, name)
     }
 }
@@ -282,10 +210,7 @@ public extension VulnerabilityPackage {
 public struct SecurityAdvisoryEcosystems: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let rubygems = SecurityAdvisoryEcosystems(rawValue: "rubygems")
     public static let npm = SecurityAdvisoryEcosystems(rawValue: "npm")
     public static let pip = SecurityAdvisoryEcosystems(rawValue: "pip")
@@ -302,7 +227,7 @@ public struct SecurityAdvisoryEcosystems: RawRepresentable, Hashable, Codable, S
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -315,17 +240,14 @@ public struct SecurityAdvisoryEcosystems: RawRepresentable, Hashable, Codable, S
 public struct RepositoryAdvisoryUpdateState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let published = RepositoryAdvisoryUpdateState(rawValue: "published")
     public static let closed = RepositoryAdvisoryUpdateState(rawValue: "closed")
     public static let draft = RepositoryAdvisoryUpdateState(rawValue: "draft")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -338,10 +260,7 @@ public struct RepositoryAdvisoryUpdateState: RawRepresentable, Hashable, Codable
 public struct SecurityAdvisoryCreditTypes: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let analyst = SecurityAdvisoryCreditTypes(rawValue: "analyst")
     public static let finder = SecurityAdvisoryCreditTypes(rawValue: "finder")
     public static let reporter = SecurityAdvisoryCreditTypes(rawValue: "reporter")
@@ -355,7 +274,7 @@ public struct SecurityAdvisoryCreditTypes: RawRepresentable, Hashable, Codable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -368,17 +287,14 @@ public struct SecurityAdvisoryCreditTypes: RawRepresentable, Hashable, Codable, 
 public struct RepositoryAdvisoryCreditState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let accepted = RepositoryAdvisoryCreditState(rawValue: "accepted")
     public static let declined = RepositoryAdvisoryCreditState(rawValue: "declined")
     public static let pending = RepositoryAdvisoryCreditState(rawValue: "pending")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -391,10 +307,7 @@ public struct RepositoryAdvisoryCreditState: RawRepresentable, Hashable, Codable
 public struct RepositoryAdvisorySeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let critical = RepositoryAdvisorySeverity(rawValue: "critical")
     public static let high = RepositoryAdvisorySeverity(rawValue: "high")
     public static let medium = RepositoryAdvisorySeverity(rawValue: "medium")
@@ -402,7 +315,7 @@ public struct RepositoryAdvisorySeverity: RawRepresentable, Hashable, Codable, S
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -415,16 +328,13 @@ public struct RepositoryAdvisorySeverity: RawRepresentable, Hashable, Codable, S
 public struct GlobalAdvisoryIdentifiersItemType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let cve = GlobalAdvisoryIdentifiersItemType(rawValue: "CVE")
     public static let ghsa = GlobalAdvisoryIdentifiersItemType(rawValue: "GHSA")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -437,10 +347,7 @@ public struct GlobalAdvisoryIdentifiersItemType: RawRepresentable, Hashable, Cod
 public struct RepositoryAdvisoryCreateSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let critical = RepositoryAdvisoryCreateSeverity(rawValue: "critical")
     public static let high = RepositoryAdvisoryCreateSeverity(rawValue: "high")
     public static let medium = RepositoryAdvisoryCreateSeverity(rawValue: "medium")
@@ -448,7 +355,7 @@ public struct RepositoryAdvisoryCreateSeverity: RawRepresentable, Hashable, Coda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -461,16 +368,13 @@ public struct RepositoryAdvisoryCreateSeverity: RawRepresentable, Hashable, Coda
 public struct RepositoryAdvisoryIdentifiersItemType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let cve = RepositoryAdvisoryIdentifiersItemType(rawValue: "CVE")
     public static let ghsa = RepositoryAdvisoryIdentifiersItemType(rawValue: "GHSA")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -483,10 +387,7 @@ public struct RepositoryAdvisoryIdentifiersItemType: RawRepresentable, Hashable,
 public struct RepositoryAdvisoryUpdateSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let critical = RepositoryAdvisoryUpdateSeverity(rawValue: "critical")
     public static let high = RepositoryAdvisoryUpdateSeverity(rawValue: "high")
     public static let medium = RepositoryAdvisoryUpdateSeverity(rawValue: "medium")
@@ -494,7 +395,7 @@ public struct RepositoryAdvisoryUpdateSeverity: RawRepresentable, Hashable, Coda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -507,10 +408,7 @@ public struct RepositoryAdvisoryUpdateSeverity: RawRepresentable, Hashable, Coda
 public struct RepositoryAdvisoryState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let published = RepositoryAdvisoryState(rawValue: "published")
     public static let closed = RepositoryAdvisoryState(rawValue: "closed")
     public static let withdrawn = RepositoryAdvisoryState(rawValue: "withdrawn")
@@ -519,7 +417,7 @@ public struct RepositoryAdvisoryState: RawRepresentable, Hashable, Codable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -532,17 +430,14 @@ public struct RepositoryAdvisoryState: RawRepresentable, Hashable, Codable, Send
 public struct GlobalAdvisoryType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let reviewed = GlobalAdvisoryType(rawValue: "reviewed")
     public static let unreviewed = GlobalAdvisoryType(rawValue: "unreviewed")
     public static let malware = GlobalAdvisoryType(rawValue: "malware")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -555,10 +450,7 @@ public struct GlobalAdvisoryType: RawRepresentable, Hashable, Codable, Sendable,
 public struct GlobalAdvisorySeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let critical = GlobalAdvisorySeverity(rawValue: "critical")
     public static let high = GlobalAdvisorySeverity(rawValue: "high")
     public static let medium = GlobalAdvisorySeverity(rawValue: "medium")
@@ -567,7 +459,7 @@ public struct GlobalAdvisorySeverity: RawRepresentable, Hashable, Codable, Senda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -577,14 +469,10 @@ public struct GlobalAdvisorySeverity: RawRepresentable, Hashable, Codable, Senda
 }
 
 /// The severity of the advisory. You must choose between setting this field or `cvss_vector_string`.
-public struct PrivateVulnerabilityReportCreateSeverity: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct PrivateVulnerabilityReportCreateSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let critical = PrivateVulnerabilityReportCreateSeverity(rawValue: "critical")
     public static let high = PrivateVulnerabilityReportCreateSeverity(rawValue: "high")
     public static let medium = PrivateVulnerabilityReportCreateSeverity(rawValue: "medium")
@@ -592,7 +480,7 @@ public struct PrivateVulnerabilityReportCreateSeverity: RawRepresentable, Hashab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

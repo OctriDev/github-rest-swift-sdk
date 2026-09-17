@@ -6,65 +6,27 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists all labels for a self-hosted runner configured in an organization. Authenticated users must have admin
-    /// access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+extension ActionsMethods {
+    /// Lists all labels for a self-hosted runner configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
-    static func actionsListLabelsForSelfHostedRunnerForOrg(
-        config: ClientConfig,
-        org: String,
-        runnerId: Int
-    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/runners/",
-                sdkEncodePathSegment(sdkWireString(runnerId)),
-                "/labels",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsListLabelsForSelfHostedRunnerForOrg"
-        )).data
+    public static func actionsListLabelsForSelfHostedRunnerForOrg(config: ClientConfig, org: String, runnerId: Int) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId)), "/labels"].joined(), config: config, decoder: .json, operationId: "actionsListLabelsForSelfHostedRunnerForOrg")).data
     }
 
-    /// Adds custom labels to a self-hosted runner configured in an organization. Authenticated users must have admin
-    /// access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the
-    /// `admin:org` scope to use this endpoint.
+    /// Adds custom labels to a self-hosted runner configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
     /// - labels: The names of the custom labels to add to the runner.
-    static func actionsAddCustomLabelsToSelfHostedRunnerForOrg(
-        config: ClientConfig,
-        org: String,
-        runnerId: Int,
-        labels: [String]
-    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+    public static func actionsAddCustomLabelsToSelfHostedRunnerForOrg(config: ClientConfig, org: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
         try validateItems("labels", labels, min: 1, max: 100)
 
         let requestBody = ActionsAddCustomLabelsToSelfHostedRunnerForOrgRequestBody(labels: labels)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/runners/",
-                sdkEncodePathSegment(sdkWireString(runnerId)),
-                "/labels",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsAddCustomLabelsToSelfHostedRunnerForOrg"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId)), "/labels"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsAddCustomLabelsToSelfHostedRunnerForOrg")).data
     }
 }

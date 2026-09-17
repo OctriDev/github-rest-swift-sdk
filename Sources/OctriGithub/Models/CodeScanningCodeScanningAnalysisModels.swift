@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// CodeScanningCodeScanningAnalysis domain models
+// CodeScanningCodeScanningAnalysis domain models
 public typealias CodeScanningAnalysisAnalysisKey = String
 
 public typealias CodeScanningAnalysisCategory = String
@@ -83,54 +83,36 @@ public struct CodeScanningAnalysis: Codable {
         case category
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningAnalysis {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAnalysis {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        ref = try container.sdkDecodeRequired(.ref)
-        commitSha = try container.sdkDecodeRequired(.commitSha)
-        analysisKey = try container.sdkDecodeRequired(.analysisKey)
-        environment = try container.sdkDecodeRequired(.environment)
-        error = try container.sdkDecodeRequired(.error)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        resultsCount = try container.sdkDecodeRequired(.resultsCount)
-        rulesCount = try container.sdkDecodeRequired(.rulesCount)
-        id = try container.sdkDecodeRequired(.id)
-        url = try container.sdkDecodeRequired(.url)
-        sarifId = try container.sdkDecodeRequired(.sarifId)
-        tool = try container.sdkDecodeRequired(.tool)
-        deletable = try container.sdkDecodeRequired(.deletable)
-        warning = try container.sdkDecodeRequired(.warning)
-        category = try container.sdkDecodeIfPresent(.category)
-        try validateLength("commit_sha", sdkWireString(commitSha), min: 40, max: 64)
-        try sdkValidatePattern("commit_sha", sdkWireString(commitSha), sdkPatternbefac02b7dfd)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateUri("url", sdkWireString(url))
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.commitSha = try container.sdkDecodeRequired(.commitSha)
+        self.analysisKey = try container.sdkDecodeRequired(.analysisKey)
+        self.environment = try container.sdkDecodeRequired(.environment)
+        self.error = try container.sdkDecodeRequired(.error)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.resultsCount = try container.sdkDecodeRequired(.resultsCount)
+        self.rulesCount = try container.sdkDecodeRequired(.rulesCount)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.sarifId = try container.sdkDecodeRequired(.sarifId)
+        self.tool = try container.sdkDecodeRequired(.tool)
+        self.deletable = try container.sdkDecodeRequired(.deletable)
+        self.warning = try container.sdkDecodeRequired(.warning)
+        self.category = try container.sdkDecodeIfPresent(.category)
+            try validateLength("commit_sha", sdkWireString(self.commitSha), min: 40, max: 64)
+            try sdkValidatePattern("commit_sha", sdkWireString(self.commitSha), sdkPatternbefac02b7dfd)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("url", sdkWireString(self.url))
     }
 }
 
-public extension CodeScanningAnalysis {
-    init(
-        ref: CodeScanningRef,
-        commitSha: CodeScanningAnalysisCommitSha,
-        analysisKey: CodeScanningAnalysisAnalysisKey,
-        environment: CodeScanningAnalysisEnvironment,
-        error: String,
-        createdAt: CodeScanningAnalysisCreatedAt,
-        resultsCount: Int,
-        rulesCount: Int,
-        id: Int,
-        url: CodeScanningAnalysisUrl,
-        sarifId: CodeScanningAnalysisSarifId,
-        tool: CodeScanningAnalysisTool,
-        deletable: Bool,
-        warning: String,
-        category: CodeScanningAnalysisCategory? = nil
-    ) throws {
+extension CodeScanningAnalysis {
+    public init(ref: CodeScanningRef, commitSha: CodeScanningAnalysisCommitSha, analysisKey: CodeScanningAnalysisAnalysisKey, environment: CodeScanningAnalysisEnvironment, error: String, createdAt: CodeScanningAnalysisCreatedAt, resultsCount: Int, rulesCount: Int, id: Int, url: CodeScanningAnalysisUrl, sarifId: CodeScanningAnalysisSarifId, tool: CodeScanningAnalysisTool, deletable: Bool, warning: String, category: CodeScanningAnalysisCategory? = nil) throws {
         (self.ref, self.commitSha) = (ref, commitSha)
         (self.analysisKey, self.environment) = (analysisKey, environment)
         (self.error, self.createdAt) = (error, createdAt)
@@ -139,10 +121,10 @@ public extension CodeScanningAnalysis {
         (self.sarifId, self.tool) = (sarifId, tool)
         (self.deletable, self.warning) = (deletable, warning)
         self.category = category
-        try validateLength("commit_sha", sdkWireString(self.commitSha), min: 40, max: 64)
-        try sdkValidatePattern("commit_sha", sdkWireString(self.commitSha), sdkPatternbefac02b7dfd)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateUri("url", sdkWireString(self.url))
+            try validateLength("commit_sha", sdkWireString(self.commitSha), min: 40, max: 64)
+            try sdkValidatePattern("commit_sha", sdkWireString(self.commitSha), sdkPatternbefac02b7dfd)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("url", sdkWireString(self.url))
     }
 }
 
@@ -158,41 +140,31 @@ public struct CodeScanningAnalysisDeletion: Codable {
         case confirmDeleteUrl = "confirm_delete_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningAnalysisDeletion {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAnalysisDeletion {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.nextAnalysisUrl) else {
-            throw SdkValidationError(
-                field: "next_analysis_url",
-                code: "required",
-                message: "Validation failed for 'next_analysis_url': value is required"
-            )
+            throw SdkValidationError(field: "next_analysis_url", code: "required", message: "Validation failed for 'next_analysis_url': value is required")
         }
         guard container.contains(.confirmDeleteUrl) else {
-            throw SdkValidationError(
-                field: "confirm_delete_url",
-                code: "required",
-                message: "Validation failed for 'confirm_delete_url': value is required"
-            )
+            throw SdkValidationError(field: "confirm_delete_url", code: "required", message: "Validation failed for 'confirm_delete_url': value is required")
         }
-        nextAnalysisUrl = try container.sdkDecodeIfPresent(.nextAnalysisUrl)
-        confirmDeleteUrl = try container.sdkDecodeIfPresent(.confirmDeleteUrl)
-        if let value = nextAnalysisUrl {
+        self.nextAnalysisUrl = try container.sdkDecodeIfPresent(.nextAnalysisUrl)
+        self.confirmDeleteUrl = try container.sdkDecodeIfPresent(.confirmDeleteUrl)
+        if let value = self.nextAnalysisUrl {
             try sdkValidateUri("next_analysis_url", value)
         }
-        if let value = confirmDeleteUrl {
+        if let value = self.confirmDeleteUrl {
             try sdkValidateUri("confirm_delete_url", value)
         }
     }
 }
 
-public extension CodeScanningAnalysisDeletion {
-    init(nextAnalysisUrl: String?, confirmDeleteUrl: String?) throws {
+extension CodeScanningAnalysisDeletion {
+    public init(nextAnalysisUrl: String?, confirmDeleteUrl: String?) throws {
         (self.nextAnalysisUrl, self.confirmDeleteUrl) = (nextAnalysisUrl, confirmDeleteUrl)
         if let value = self.nextAnalysisUrl {
             try sdkValidateUri("next_analysis_url", value)
@@ -219,25 +191,21 @@ public struct CodeScanningAnalysisTool: Codable {
     }
 
     init() {
-        (name, version, guid) = (nil, nil, nil)
+        (self.name, self.version, self.guid) = (nil, nil, nil)
     }
 }
 
-public extension CodeScanningAnalysisTool {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAnalysisTool {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.sdkDecodeIfPresent(.name)
-        version = try container.sdkDecodeIfPresent(.version)
-        guid = try container.sdkDecodeIfPresent(.guid)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.version = try container.sdkDecodeIfPresent(.version)
+        self.guid = try container.sdkDecodeIfPresent(.guid)
     }
 }
 
-public extension CodeScanningAnalysisTool {
-    init(
-        name: CodeScanningAnalysisToolName? = nil,
-        version: CodeScanningAnalysisToolVersion? = nil,
-        guid: CodeScanningAnalysisToolGuid? = nil
-    ) {
+extension CodeScanningAnalysisTool {
+    public init(name: CodeScanningAnalysisToolName? = nil, version: CodeScanningAnalysisToolVersion? = nil, guid: CodeScanningAnalysisToolGuid? = nil) {
         self.init()
         (self.name, self.version) = (name, version)
         self.guid = guid

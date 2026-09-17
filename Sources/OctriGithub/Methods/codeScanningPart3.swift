@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    struct CodeScanningListAlertsForOrgOptions: Codable {
+extension CodeScanningMethods {
+    public struct CodeScanningListAlertsForOrgOptions: Codable {
         public var org: String
         public var toolName: CodeScanningAnalysisToolName?
         public var toolGuid: CodeScanningAnalysisToolGuid?
@@ -26,12 +26,7 @@ public extension CodeScanningMethods {
         }
     }
 
-    /// Lists code scanning alerts for the default branch for all eligible repositories in an organization. Eligible
-    /// repositories are repositories that are owned by organizations that you own or for which you are a security
-    /// manager. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
-    /// The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `security_events` or `repo`s cope to use this endpoint with
-    /// private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+    /// Lists code scanning alerts for the default branch for all eligible repositories in an organization. Eligible repositories are repositories that are owned by organizations that you own or for which you are a security manager. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)." The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `security_events` or `repo`s cope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -71,29 +66,19 @@ public extension CodeScanningMethods {
     /// - assignees: Filter alerts by assignees. Provide a comma-separated list of
     ///   user handles (e.g., `octocat` or `octocat,hubot`). Use `*` to list alerts
     ///   with at least one assignee or `none` to list alerts with no assignees.
-    static func codeScanningListAlertsForOrg(
-        config: ClientConfig,
-        options: CodeScanningListAlertsForOrgOptions
-    ) async throws -> [CodeScanningOrganizationAlertItems] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/code-scanning/alerts"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("tool_name", value: options.toolName),
-                SdkQueryParameter("tool_guid", value: options.toolGuid),
-                SdkQueryParameter("before", value: options.before),
-                SdkQueryParameter("after", value: options.after),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("state", value: options.state),
-                SdkQueryParameter("sort", value: options.sort),
-                SdkQueryParameter("severity", value: options.severity),
-                SdkQueryParameter("assignees", value: options.assignees),
-            ],
-            decoder: .json,
-            operationId: "codeScanningListAlertsForOrg"
-        )).data
+    public static func codeScanningListAlertsForOrg(config: ClientConfig, options: CodeScanningListAlertsForOrgOptions) async throws -> [CodeScanningOrganizationAlertItems] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/code-scanning/alerts"].joined(), config: config, query: [
+            SdkQueryParameter("tool_name", value: options.toolName),
+            SdkQueryParameter("tool_guid", value: options.toolGuid),
+            SdkQueryParameter("before", value: options.before),
+            SdkQueryParameter("after", value: options.after),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("state", value: options.state),
+            SdkQueryParameter("sort", value: options.sort),
+            SdkQueryParameter("severity", value: options.severity),
+            SdkQueryParameter("assignees", value: options.assignees),
+        ], decoder: .json, operationId: "codeScanningListAlertsForOrg")).data
     }
 }

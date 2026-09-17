@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the
-    /// following values: `direct_member`, `admin`, `billing_manager`, or `hiring_manager`. If the invitee is not a
-    /// GitHub member, the `login` field in the return hash will be `null`.
+extension OrgsMethods {
+    /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, or `hiring_manager`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -23,26 +21,12 @@ public extension OrgsMethods {
     ///   -rest-api)."
     /// - role: Filter invitations by their member role.
     /// - invitationSource: Filter invitations by their invitation source.
-    static func orgsListPendingInvitations(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        role: OrgsListPendingInvitationsParameter?,
-        invitationSource: OrgsListPendingInvitationsParameterXd649578f?
-    ) async throws -> [OrganizationInvitation] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/invitations"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("role", value: role),
-                SdkQueryParameter("invitation_source", value: invitationSource),
-            ],
-            decoder: .json,
-            operationId: "orgsListPendingInvitations"
-        )).data
+    public static func orgsListPendingInvitations(config: ClientConfig, org: String, perPage: Int?, page: Int?, role: OrgsListPendingInvitationsParameter?, invitationSource: OrgsListPendingInvitationsParameterXd649578f?) async throws -> [OrganizationInvitation] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/invitations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("role", value: role),
+            SdkQueryParameter("invitation_source", value: invitationSource),
+        ], decoder: .json, operationId: "orgsListPendingInvitations")).data
     }
 }

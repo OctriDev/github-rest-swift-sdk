@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Users with pull access can view deployment statuses for a deployment:
     ///
     /// - Parameters:
@@ -23,32 +23,10 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListDeploymentStatuses(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        deploymentId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [DeploymentStatus] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/deployments/",
-                sdkEncodePathSegment(sdkWireString(deploymentId)),
-                "/statuses",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposListDeploymentStatuses"
-        )).data
+    public static func reposListDeploymentStatuses(config: ClientConfig, owner: String, repo: String, deploymentId: Int, perPage: Int?, page: Int?) async throws -> [DeploymentStatus] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/deployments/", sdkEncodePathSegment(sdkWireString(deploymentId)), "/statuses"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposListDeploymentStatuses")).data
     }
 }

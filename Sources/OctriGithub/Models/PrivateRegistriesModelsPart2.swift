@@ -3,50 +3,31 @@
 
 import Foundation
 
-/// PrivateRegistries domain models
+// PrivateRegistries domain models
 /// The registry type.
-public struct OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let mavenRepository =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "maven_repository")
-    public static let nugetFeed =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "nuget_feed")
-    public static let goproxyServer =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "goproxy_server")
-    public static let npmRegistry =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "npm_registry")
-    public static let rubygemsServer =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "rubygems_server")
-    public static let cargoRegistry =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "cargo_registry")
-    public static let composerRepository =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "composer_repository")
-    public static let dockerRegistry =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "docker_registry")
-    public static let gitSource =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "git_source")
-    public static let helmRegistry =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "helm_registry")
-    public static let hexOrganization =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "hex_organization")
-    public static let hexRepository =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "hex_repository")
-    public static let pubRepository =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "pub_repository")
-    public static let pythonIndex =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "python_index")
-    public static let terraformRegistry =
-        OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "terraform_registry")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let mavenRepository = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "maven_repository")
+    public static let nugetFeed = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "nuget_feed")
+    public static let goproxyServer = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "goproxy_server")
+    public static let npmRegistry = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "npm_registry")
+    public static let rubygemsServer = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "rubygems_server")
+    public static let cargoRegistry = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "cargo_registry")
+    public static let composerRepository = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "composer_repository")
+    public static let dockerRegistry = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "docker_registry")
+    public static let gitSource = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "git_source")
+    public static let helmRegistry = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "helm_registry")
+    public static let hexOrganization = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "hex_organization")
+    public static let hexRepository = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "hex_repository")
+    public static let pubRepository = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "pub_repository")
+    public static let pythonIndex = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "python_index")
+    public static let terraformRegistry = OrgPrivateRegistryConfigurationWithSelectedRepositoriesRegistryType(rawValue: "terraform_registry")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

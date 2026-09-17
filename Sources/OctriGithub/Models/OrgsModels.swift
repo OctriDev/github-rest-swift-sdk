@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Orgs domain models
+// Orgs domain models
 public typealias ApiInsightsRouteStats = [ApiInsightsRouteStatsItem]
 
 public typealias ApiInsightsSubjectStats = [ApiInsightsSubjectStatsItem]
@@ -34,38 +34,25 @@ public struct ApiInsightsRouteStatsItem: Codable {
     }
 
     init() {
-        (httpMethod, apiRoute, totalRequestCount, rateLimitedRequestCount, lastRateLimitedTimestamp) = (
-            nil,
-            nil,
-            nil,
-            nil,
-            nil
-        )
-        lastRequestTimestamp = nil
+        (self.httpMethod, self.apiRoute, self.totalRequestCount, self.rateLimitedRequestCount, self.lastRateLimitedTimestamp) = (nil, nil, nil, nil, nil)
+        self.lastRequestTimestamp = nil
     }
 }
 
-public extension ApiInsightsRouteStatsItem {
-    init(from decoder: Decoder) throws {
+extension ApiInsightsRouteStatsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        httpMethod = try container.sdkDecodeIfPresent(.httpMethod)
-        apiRoute = try container.sdkDecodeIfPresent(.apiRoute)
-        totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
-        rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
-        lastRateLimitedTimestamp = try container.sdkDecodeIfPresent(.lastRateLimitedTimestamp)
-        lastRequestTimestamp = try container.sdkDecodeIfPresent(.lastRequestTimestamp)
+        self.httpMethod = try container.sdkDecodeIfPresent(.httpMethod)
+        self.apiRoute = try container.sdkDecodeIfPresent(.apiRoute)
+        self.totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
+        self.rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
+        self.lastRateLimitedTimestamp = try container.sdkDecodeIfPresent(.lastRateLimitedTimestamp)
+        self.lastRequestTimestamp = try container.sdkDecodeIfPresent(.lastRequestTimestamp)
     }
 }
 
-public extension ApiInsightsRouteStatsItem {
-    init(
-        httpMethod: String? = nil,
-        apiRoute: String? = nil,
-        totalRequestCount: Int? = nil,
-        rateLimitedRequestCount: Int? = nil,
-        lastRateLimitedTimestamp: String? = nil,
-        lastRequestTimestamp: String? = nil
-    ) {
+extension ApiInsightsRouteStatsItem {
+    public init(httpMethod: String? = nil, apiRoute: String? = nil, totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil, lastRateLimitedTimestamp: String? = nil, lastRequestTimestamp: String? = nil) {
         self.init()
         (self.httpMethod, self.apiRoute) = (httpMethod, apiRoute)
         self.totalRequestCount = totalRequestCount
@@ -95,34 +82,26 @@ public struct ApiInsightsSubjectStatsItem: Codable {
     }
 
     init() {
-        (subjectType, subjectName, subjectId, totalRequestCount, rateLimitedRequestCount) = (nil, nil, nil, nil, nil)
-        (lastRateLimitedTimestamp, lastRequestTimestamp) = (nil, nil)
+        (self.subjectType, self.subjectName, self.subjectId, self.totalRequestCount, self.rateLimitedRequestCount) = (nil, nil, nil, nil, nil)
+        (self.lastRateLimitedTimestamp, self.lastRequestTimestamp) = (nil, nil)
     }
 }
 
-public extension ApiInsightsSubjectStatsItem {
-    init(from decoder: Decoder) throws {
+extension ApiInsightsSubjectStatsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        subjectType = try container.sdkDecodeIfPresent(.subjectType)
-        subjectName = try container.sdkDecodeIfPresent(.subjectName)
-        subjectId = try container.sdkDecodeIfPresent(.subjectId)
-        totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
-        rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
-        lastRateLimitedTimestamp = try container.sdkDecodeIfPresent(.lastRateLimitedTimestamp)
-        lastRequestTimestamp = try container.sdkDecodeIfPresent(.lastRequestTimestamp)
+        self.subjectType = try container.sdkDecodeIfPresent(.subjectType)
+        self.subjectName = try container.sdkDecodeIfPresent(.subjectName)
+        self.subjectId = try container.sdkDecodeIfPresent(.subjectId)
+        self.totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
+        self.rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
+        self.lastRateLimitedTimestamp = try container.sdkDecodeIfPresent(.lastRateLimitedTimestamp)
+        self.lastRequestTimestamp = try container.sdkDecodeIfPresent(.lastRequestTimestamp)
     }
 }
 
-public extension ApiInsightsSubjectStatsItem {
-    init(
-        subjectType: String? = nil,
-        subjectName: String? = nil,
-        subjectId: Int? = nil,
-        totalRequestCount: Int? = nil,
-        rateLimitedRequestCount: Int? = nil,
-        lastRateLimitedTimestamp: String? = nil,
-        lastRequestTimestamp: String? = nil
-    ) {
+extension ApiInsightsSubjectStatsItem {
+    public init(subjectType: String? = nil, subjectName: String? = nil, subjectId: Int? = nil, totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil, lastRateLimitedTimestamp: String? = nil, lastRequestTimestamp: String? = nil) {
         self.init()
         (self.subjectType, self.subjectName) = (subjectType, subjectName)
         (self.subjectId, self.totalRequestCount) = (subjectId, totalRequestCount)
@@ -145,20 +124,20 @@ public struct ApiInsightsSummaryStats: Codable {
     }
 
     init() {
-        (totalRequestCount, rateLimitedRequestCount) = (nil, nil)
+        (self.totalRequestCount, self.rateLimitedRequestCount) = (nil, nil)
     }
 }
 
-public extension ApiInsightsSummaryStats {
-    init(from decoder: Decoder) throws {
+extension ApiInsightsSummaryStats {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
-        rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
+        self.totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
+        self.rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
     }
 }
 
-public extension ApiInsightsSummaryStats {
-    init(totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil) {
+extension ApiInsightsSummaryStats {
+    public init(totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil) {
         self.init()
         self.totalRequestCount = totalRequestCount
         self.rateLimitedRequestCount = rateLimitedRequestCount
@@ -177,21 +156,21 @@ public struct ApiInsightsTimeStatsItem: Codable {
     }
 
     init() {
-        (timestamp, totalRequestCount, rateLimitedRequestCount) = (nil, nil, nil)
+        (self.timestamp, self.totalRequestCount, self.rateLimitedRequestCount) = (nil, nil, nil)
     }
 }
 
-public extension ApiInsightsTimeStatsItem {
-    init(from decoder: Decoder) throws {
+extension ApiInsightsTimeStatsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        timestamp = try container.sdkDecodeIfPresent(.timestamp)
-        totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
-        rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
+        self.timestamp = try container.sdkDecodeIfPresent(.timestamp)
+        self.totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
+        self.rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
     }
 }
 
-public extension ApiInsightsTimeStatsItem {
-    init(timestamp: String? = nil, totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil) {
+extension ApiInsightsTimeStatsItem {
+    public init(timestamp: String? = nil, totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil) {
         self.init()
         (self.timestamp, self.totalRequestCount) = (timestamp, totalRequestCount)
         self.rateLimitedRequestCount = rateLimitedRequestCount
@@ -222,43 +201,28 @@ public struct ApiInsightsUserStatsItem: Codable {
     }
 
     init() {
-        (actorType, actorName, actorId, integrationId, oauthApplicationId) = (nil, nil, nil, nil, nil)
-        (totalRequestCount, rateLimitedRequestCount, lastRateLimitedTimestamp, lastRequestTimestamp) = (
-            nil,
-            nil,
-            nil,
-            nil
-        )
+        (self.actorType, self.actorName, self.actorId, self.integrationId, self.oauthApplicationId) = (nil, nil, nil, nil, nil)
+        (self.totalRequestCount, self.rateLimitedRequestCount, self.lastRateLimitedTimestamp, self.lastRequestTimestamp) = (nil, nil, nil, nil)
     }
 }
 
-public extension ApiInsightsUserStatsItem {
-    init(from decoder: Decoder) throws {
+extension ApiInsightsUserStatsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        actorType = try container.sdkDecodeIfPresent(.actorType)
-        actorName = try container.sdkDecodeIfPresent(.actorName)
-        actorId = try container.sdkDecodeIfPresent(.actorId)
-        integrationId = try container.sdkDecodeIfPresent(.integrationId)
-        oauthApplicationId = try container.sdkDecodeIfPresent(.oauthApplicationId)
-        totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
-        rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
-        lastRateLimitedTimestamp = try container.sdkDecodeIfPresent(.lastRateLimitedTimestamp)
-        lastRequestTimestamp = try container.sdkDecodeIfPresent(.lastRequestTimestamp)
+        self.actorType = try container.sdkDecodeIfPresent(.actorType)
+        self.actorName = try container.sdkDecodeIfPresent(.actorName)
+        self.actorId = try container.sdkDecodeIfPresent(.actorId)
+        self.integrationId = try container.sdkDecodeIfPresent(.integrationId)
+        self.oauthApplicationId = try container.sdkDecodeIfPresent(.oauthApplicationId)
+        self.totalRequestCount = try container.sdkDecodeIfPresent(.totalRequestCount)
+        self.rateLimitedRequestCount = try container.sdkDecodeIfPresent(.rateLimitedRequestCount)
+        self.lastRateLimitedTimestamp = try container.sdkDecodeIfPresent(.lastRateLimitedTimestamp)
+        self.lastRequestTimestamp = try container.sdkDecodeIfPresent(.lastRequestTimestamp)
     }
 }
 
-public extension ApiInsightsUserStatsItem {
-    init(
-        actorType: String? = nil,
-        actorName: String? = nil,
-        actorId: Int? = nil,
-        integrationId: Int? = nil,
-        oauthApplicationId: Int? = nil,
-        totalRequestCount: Int? = nil,
-        rateLimitedRequestCount: Int? = nil,
-        lastRateLimitedTimestamp: String? = nil,
-        lastRequestTimestamp: String? = nil
-    ) {
+extension ApiInsightsUserStatsItem {
+    public init(actorType: String? = nil, actorName: String? = nil, actorId: Int? = nil, integrationId: Int? = nil, oauthApplicationId: Int? = nil, totalRequestCount: Int? = nil, rateLimitedRequestCount: Int? = nil, lastRateLimitedTimestamp: String? = nil, lastRequestTimestamp: String? = nil) {
         self.init()
         (self.actorType, self.actorName) = (actorType, actorName)
         (self.actorId, self.integrationId) = (actorId, integrationId)
@@ -309,46 +273,34 @@ public struct ArtifactDeploymentRecord: Codable {
     }
 
     init() {
-        (id, digest, logicalEnvironment, physicalEnvironment, cluster) = (nil, nil, nil, nil, nil)
-        (deploymentName, tags, runtimeRisks, createdAt, updatedAt) = (nil, nil, nil, nil, nil)
-        attestationId = nil
+        (self.id, self.digest, self.logicalEnvironment, self.physicalEnvironment, self.cluster) = (nil, nil, nil, nil, nil)
+        (self.deploymentName, self.tags, self.runtimeRisks, self.createdAt, self.updatedAt) = (nil, nil, nil, nil, nil)
+        self.attestationId = nil
     }
 }
 
-public extension ArtifactDeploymentRecord {
-    init(from decoder: Decoder) throws {
+extension ArtifactDeploymentRecord {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        digest = try container.sdkDecodeIfPresent(.digest)
-        logicalEnvironment = try container.sdkDecodeIfPresent(.logicalEnvironment)
-        physicalEnvironment = try container.sdkDecodeIfPresent(.physicalEnvironment)
-        cluster = try container.sdkDecodeIfPresent(.cluster)
-        deploymentName = try container.sdkDecodeIfPresent(.deploymentName)
-        tags = try container.sdkDecodeIfPresent(.tags)
-        runtimeRisks = try container.sdkDecodeIfPresent(.runtimeRisks)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        attestationId = try container.sdkDecodeIfPresent(.attestationId)
-        if let value = runtimeRisks {
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.digest = try container.sdkDecodeIfPresent(.digest)
+        self.logicalEnvironment = try container.sdkDecodeIfPresent(.logicalEnvironment)
+        self.physicalEnvironment = try container.sdkDecodeIfPresent(.physicalEnvironment)
+        self.cluster = try container.sdkDecodeIfPresent(.cluster)
+        self.deploymentName = try container.sdkDecodeIfPresent(.deploymentName)
+        self.tags = try container.sdkDecodeIfPresent(.tags)
+        self.runtimeRisks = try container.sdkDecodeIfPresent(.runtimeRisks)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.attestationId = try container.sdkDecodeIfPresent(.attestationId)
+        if let value = self.runtimeRisks {
             try validateItems("runtime_risks", value, min: nil, max: 4)
         }
     }
 }
 
-public extension ArtifactDeploymentRecord {
-    init(
-        id: Int? = nil,
-        digest: String? = nil,
-        logicalEnvironment: String? = nil,
-        physicalEnvironment: String? = nil,
-        cluster: String? = nil,
-        deploymentName: String? = nil,
-        tags: [String: String]? = nil,
-        runtimeRisks: [ArtifactDeploymentRecordRuntimeRisksItem]? = nil,
-        createdAt: String? = nil,
-        updatedAt: String? = nil,
-        attestationId: Int? = nil
-    ) throws {
+extension ArtifactDeploymentRecord {
+    public init(id: Int? = nil, digest: String? = nil, logicalEnvironment: String? = nil, physicalEnvironment: String? = nil, cluster: String? = nil, deploymentName: String? = nil, tags: [String: String]? = nil, runtimeRisks: [ArtifactDeploymentRecordRuntimeRisksItem]? = nil, createdAt: String? = nil, updatedAt: String? = nil, attestationId: Int? = nil) throws {
         self.init()
         (self.id, self.digest) = (id, digest)
         (self.logicalEnvironment, self.physicalEnvironment) = (logicalEnvironment, physicalEnvironment)
@@ -401,57 +353,36 @@ public struct CustomProperty: Codable {
         case requireExplicitValues = "require_explicit_values"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CustomProperty {
-    init(from decoder: Decoder) throws {
+extension CustomProperty {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.propertyName) else {
-            throw SdkValidationError(
-                field: "property_name",
-                code: "required",
-                message: "Validation failed for 'property_name': value is required"
-            )
+            throw SdkValidationError(field: "property_name", code: "required", message: "Validation failed for 'property_name': value is required")
         }
         guard container.contains(.valueType) else {
-            throw SdkValidationError(
-                field: "value_type",
-                code: "required",
-                message: "Validation failed for 'value_type': value is required"
-            )
+            throw SdkValidationError(field: "value_type", code: "required", message: "Validation failed for 'value_type': value is required")
         }
-        propertyName = try container.sdkDecodeRequired(.propertyName)
-        valueType = try container.sdkDecodeRequired(.valueType)
-        url = try container.sdkDecodeIfPresent(.url)
-        sourceType = try container.sdkDecodeIfPresent(.sourceType)
-        required = try container.sdkDecodeIfPresent(.required)
-        defaultValue = try container.sdkDecodeIfPresent(.defaultValue)
-        description = try container.sdkDecodeIfPresent(.description)
-        allowedValues = try container.sdkDecodeIfPresent(.allowedValues)
-        valuesEditableBy = try container.sdkDecodeIfPresent(.valuesEditableBy)
-        requireExplicitValues = try container.sdkDecodeIfPresent(.requireExplicitValues)
-        if let value = url {
+        self.propertyName = try container.sdkDecodeRequired(.propertyName)
+        self.valueType = try container.sdkDecodeRequired(.valueType)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.sourceType = try container.sdkDecodeIfPresent(.sourceType)
+        self.required = try container.sdkDecodeIfPresent(.required)
+        self.defaultValue = try container.sdkDecodeIfPresent(.defaultValue)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.allowedValues = try container.sdkDecodeIfPresent(.allowedValues)
+        self.valuesEditableBy = try container.sdkDecodeIfPresent(.valuesEditableBy)
+        self.requireExplicitValues = try container.sdkDecodeIfPresent(.requireExplicitValues)
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
-public extension CustomProperty {
-    init(
-        propertyName: String,
-        valueType: CustomPropertyValueType,
-        url: String? = nil,
-        sourceType: CustomPropertySourceType? = nil,
-        required: Bool? = nil,
-        defaultValue: CustomPropertyDefaultValue? = nil,
-        description: String? = nil,
-        allowedValues: [String]? = nil,
-        valuesEditableBy: CustomPropertyValuesEditableBy? = nil,
-        requireExplicitValues: Bool? = nil
-    ) throws {
+extension CustomProperty {
+    public init(propertyName: String, valueType: CustomPropertyValueType, url: String? = nil, sourceType: CustomPropertySourceType? = nil, required: Bool? = nil, defaultValue: CustomPropertyDefaultValue? = nil, description: String? = nil, allowedValues: [String]? = nil, valuesEditableBy: CustomPropertyValuesEditableBy? = nil, requireExplicitValues: Bool? = nil) throws {
         (self.propertyName, self.valueType) = (propertyName, valueType)
         (self.url, self.sourceType) = (url, sourceType)
         (self.required, self.defaultValue) = (required, defaultValue)
@@ -469,31 +400,21 @@ public enum CustomPropertyDefaultValue {
 }
 
 extension CustomPropertyDefaultValue: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for CustomPropertyDefaultValue"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for CustomPropertyDefaultValue")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode([String].self) {
-            return .stringList(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode([String].self) { return .stringList(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -503,6 +424,7 @@ extension CustomPropertyDefaultValue: Codable {
         case let .stringList(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Custom property set payload
@@ -534,41 +456,27 @@ public struct CustomPropertySetPayload: Codable {
         case requireExplicitValues = "require_explicit_values"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CustomPropertySetPayload {
-    init(from decoder: Decoder) throws {
+extension CustomPropertySetPayload {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.valueType) else {
-            throw SdkValidationError(
-                field: "value_type",
-                code: "required",
-                message: "Validation failed for 'value_type': value is required"
-            )
+            throw SdkValidationError(field: "value_type", code: "required", message: "Validation failed for 'value_type': value is required")
         }
-        valueType = try container.sdkDecodeRequired(.valueType)
-        required = try container.sdkDecodeIfPresent(.required)
-        defaultValue = try container.sdkDecodeIfPresent(.defaultValue)
-        description = try container.sdkDecodeIfPresent(.description)
-        allowedValues = try container.sdkDecodeIfPresent(.allowedValues)
-        valuesEditableBy = try container.sdkDecodeIfPresent(.valuesEditableBy)
-        requireExplicitValues = try container.sdkDecodeIfPresent(.requireExplicitValues)
+        self.valueType = try container.sdkDecodeRequired(.valueType)
+        self.required = try container.sdkDecodeIfPresent(.required)
+        self.defaultValue = try container.sdkDecodeIfPresent(.defaultValue)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.allowedValues = try container.sdkDecodeIfPresent(.allowedValues)
+        self.valuesEditableBy = try container.sdkDecodeIfPresent(.valuesEditableBy)
+        self.requireExplicitValues = try container.sdkDecodeIfPresent(.requireExplicitValues)
     }
 }
 
-public extension CustomPropertySetPayload {
-    init(
-        valueType: CustomPropertySetPayloadValueType,
-        required: Bool? = nil,
-        defaultValue: CustomPropertySetPayloadDefaultValue? = nil,
-        description: String? = nil,
-        allowedValues: [String]? = nil,
-        valuesEditableBy: CustomPropertySetPayloadValuesEditableBy? = nil,
-        requireExplicitValues: Bool? = nil
-    ) {
+extension CustomPropertySetPayload {
+    public init(valueType: CustomPropertySetPayloadValueType, required: Bool? = nil, defaultValue: CustomPropertySetPayloadDefaultValue? = nil, description: String? = nil, allowedValues: [String]? = nil, valuesEditableBy: CustomPropertySetPayloadValuesEditableBy? = nil, requireExplicitValues: Bool? = nil) {
         (self.valueType, self.required) = (valueType, required)
         (self.defaultValue, self.description) = (defaultValue, description)
         (self.allowedValues, self.valuesEditableBy) = (allowedValues, valuesEditableBy)

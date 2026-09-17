@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists the recorded events for a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to
-    /// identify the issue, then use the pagination parameters to retrieve additional event pages. Use `page` and
-    /// `per_page` to paginate the results.
+extension IssuesMethods {
+    /// Lists the recorded events for a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue, then use the pagination parameters to retrieve additional event pages. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists all events for an issue.
     ///
@@ -27,32 +25,10 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListEvents(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueEventForIssue] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/events",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListEvents"
-        )).data
+    public static func issuesListEvents(config: ClientConfig, owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [IssueEventForIssue] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/events"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListEvents")).data
     }
 }

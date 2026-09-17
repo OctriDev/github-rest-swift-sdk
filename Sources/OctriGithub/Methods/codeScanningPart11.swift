@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// Lists all instances of the specified code scanning alert. OAuth app tokens and personal access tokens (classic)
-    /// need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo`
-    /// scope to use this endpoint with only public repositories.
+extension CodeScanningMethods {
+    /// Lists all instances of the specified code scanning alert. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -32,36 +30,12 @@ public extension CodeScanningMethods {
     ///   branch can be formatted either as `refs/heads/<branch name>` or simply
     ///   `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`.
     /// - pr: The number of the pull request for the results you want to list.
-    static func codeScanningListAlertInstances(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber,
-        page: Int?,
-        perPage: Int?,
-        ref: CodeScanningRef?,
-        pr: Int?
-    ) async throws -> [CodeScanningAlertInstanceList] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/alerts/",
-                sdkEncodePathSegment(sdkWireString(alertNumber)),
-                "/instances",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("ref", value: ref),
-                SdkQueryParameter("pr", value: pr),
-            ],
-            decoder: .json,
-            operationId: "codeScanningListAlertInstances"
-        )).data
+    public static func codeScanningListAlertInstances(config: ClientConfig, owner: String, repo: String, alertNumber: AlertNumber, page: Int?, perPage: Int?, ref: CodeScanningRef?, pr: Int?) async throws -> [CodeScanningAlertInstanceList] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/alerts/", sdkEncodePathSegment(sdkWireString(alertNumber)), "/instances"].joined(), config: config, query: [
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("ref", value: ref),
+            SdkQueryParameter("pr", value: pr),
+        ], decoder: .json, operationId: "codeScanningListAlertInstances")).data
     }
 }

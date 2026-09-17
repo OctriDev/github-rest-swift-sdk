@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    struct ApiInsightsGetRouteStatsByActorOptions: Codable {
+extension OrgsMethods {
+    public struct ApiInsightsGetRouteStatsByActorOptions: Codable {
         public var org: String
         public var actorType: ApiInsightsGetRouteStatsByActorParameter
         public var actorId: Int
@@ -19,12 +19,7 @@ public extension OrgsMethods {
         public var sort: [ApiInsightsGetRouteStatsByActorParameterItem]?
         public var apiRouteSubstring: String?
 
-        public init(
-            org: String,
-            actorType: ApiInsightsGetRouteStatsByActorParameter,
-            actorId: Int,
-            minTimestamp: String
-        ) {
+        public init(org: String, actorType: ApiInsightsGetRouteStatsByActorParameter, actorId: Int, minTimestamp: String) {
             self.org = org
             self.actorType = actorType
             self.actorId = actorId
@@ -32,9 +27,7 @@ public extension OrgsMethods {
         }
     }
 
-    /// Get API request count statistics for an actor broken down by route within a specified time frame. Under normal
-    /// conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or
-    /// periods of unusually high volume, it may take longer to show up.
+    /// Get API request count statistics for an actor broken down by route within a specified time frame. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -59,32 +52,15 @@ public extension OrgsMethods {
     /// - sort: The property to sort the results by.
     /// - apiRouteSubstring: Providing a substring will filter results where the API
     ///   route contains the substring. This is a case-insensitive search.
-    static func apiInsightsGetRouteStatsByActor(
-        config: ClientConfig,
-        options: ApiInsightsGetRouteStatsByActorOptions
-    ) async throws -> ApiInsightsRouteStats {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(options.org)),
-                "/insights/api/route-stats/",
-                sdkEncodePathSegment(sdkWireString(options.actorType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.actorId)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("min_timestamp", value: options.minTimestamp),
-                SdkQueryParameter("max_timestamp", value: options.maxTimestamp),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("sort", values: options.sort, style: "form", explode: true),
-                SdkQueryParameter("api_route_substring", value: options.apiRouteSubstring),
-            ],
-            decoder: .json,
-            operationId: "apiInsightsGetRouteStatsByActor"
-        )).data
+    public static func apiInsightsGetRouteStatsByActor(config: ClientConfig, options: ApiInsightsGetRouteStatsByActorOptions) async throws -> ApiInsightsRouteStats {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/insights/api/route-stats/", sdkEncodePathSegment(sdkWireString(options.actorType)), "/", sdkEncodePathSegment(sdkWireString(options.actorId))].joined(), config: config, query: [
+            SdkQueryParameter("min_timestamp", value: options.minTimestamp),
+            SdkQueryParameter("max_timestamp", value: options.maxTimestamp),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("sort", values: options.sort, style: "form", explode: true),
+            SdkQueryParameter("api_route_substring", value: options.apiRouteSubstring),
+        ], decoder: .json, operationId: "apiInsightsGetRouteStatsByActor")).data
     }
 }

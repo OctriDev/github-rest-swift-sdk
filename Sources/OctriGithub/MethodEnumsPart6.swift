@@ -7,27 +7,20 @@ import Foundation
     import FoundationNetworking
 #endif
 /// Machine-readable error code
-public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let missing = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "missing")
-    public static let missingField =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "missing_field")
+    public static let missingField = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "missing_field")
     public static let invalid = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "invalid")
-    public static let alreadyExists =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "already_exists")
-    public static let unprocessable =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "unprocessable")
+    public static let alreadyExists = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "already_exists")
+    public static let unprocessable = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "unprocessable")
     public static let custom = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -37,27 +30,20 @@ public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeX220546a6: RawRepr
 }
 
 /// Machine-readable error code
-public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let missing = AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "missing")
-    public static let missingField =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "missing_field")
+    public static let missingField = AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "missing_field")
     public static let invalid = AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "invalid")
-    public static let alreadyExists =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "already_exists")
-    public static let unprocessable =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "unprocessable")
+    public static let alreadyExists = AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "already_exists")
+    public static let unprocessable = AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "unprocessable")
     public static let custom = AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -67,27 +53,20 @@ public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeXf3fa3beb: RawRepr
 }
 
 /// Machine-readable error code
-public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let missing = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "missing")
-    public static let missingField =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "missing_field")
+    public static let missingField = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "missing_field")
     public static let invalid = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "invalid")
-    public static let alreadyExists =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "already_exists")
-    public static let unprocessable =
-        AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "unprocessable")
+    public static let alreadyExists = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "already_exists")
+    public static let unprocessable = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "unprocessable")
     public static let custom = AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -97,19 +76,15 @@ public struct AgentTasksCreateTaskInRepoResponseErrorsItemCodeX86cf0277: RawRepr
 }
 
 /// Provider namespace
-public struct AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemProvider: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemProvider: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let github = AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemProvider(rawValue: "github")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -119,20 +94,16 @@ public struct AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemProvider:
 }
 
 /// Type of artifact. Available Values: `pull`, `branch`.
-public struct AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pull = AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemType(rawValue: "pull")
     public static let branch = AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemType(rawValue: "branch")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -142,20 +113,16 @@ public struct AgentTasksGetTaskByRepoAndIdResponseVariant0ArtifactsItemType: Raw
 }
 
 /// Type of the task creator
-public struct AgentTasksGetTaskByRepoAndIdResponseVariant0CreatorType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentTasksGetTaskByRepoAndIdResponseVariant0CreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let user = AgentTasksGetTaskByRepoAndIdResponseVariant0CreatorType(rawValue: "user")
     public static let organization = AgentTasksGetTaskByRepoAndIdResponseVariant0CreatorType(rawValue: "organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -165,14 +132,10 @@ public struct AgentTasksGetTaskByRepoAndIdResponseVariant0CreatorType: RawRepres
 }
 
 /// Current state of the task, derived from its most recent session
-public struct AgentTasksGetTaskByRepoAndIdResponseVariant0State: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentTasksGetTaskByRepoAndIdResponseVariant0State: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = AgentTasksGetTaskByRepoAndIdResponseVariant0State(rawValue: "queued")
     public static let inProgress = AgentTasksGetTaskByRepoAndIdResponseVariant0State(rawValue: "in_progress")
     public static let completed = AgentTasksGetTaskByRepoAndIdResponseVariant0State(rawValue: "completed")
@@ -184,7 +147,7 @@ public struct AgentTasksGetTaskByRepoAndIdResponseVariant0State: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -194,28 +157,22 @@ public struct AgentTasksGetTaskByRepoAndIdResponseVariant0State: RawRepresentabl
 }
 
 /// Current state of a session
-public struct AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "queued")
-    public static let inProgress =
-        AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "in_progress")
+    public static let inProgress = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "in_progress")
     public static let completed = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "completed")
     public static let failed = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "failed")
     public static let idle = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "idle")
-    public static let waitingForUser =
-        AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "waiting_for_user")
+    public static let waitingForUser = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "waiting_for_user")
     public static let timedOut = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "timed_out")
     public static let cancelled = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState(rawValue: "cancelled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -226,22 +183,16 @@ public struct AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemState: Raw
 
 /// Billing unit used for this session. New sessions since June 1, 2026 use `ai_credits`, but older sessions use
 /// `premium_requests`.
-public struct AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemUsageType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemUsageType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let aiCredits =
-        AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemUsageType(rawValue: "ai_credits")
-    public static let premiumRequests =
-        AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemUsageType(rawValue: "premium_requests")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let aiCredits = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemUsageType(rawValue: "ai_credits")
+    public static let premiumRequests = AgentTasksGetTaskByRepoAndIdResponseVariant1SessionsItemUsageType(rawValue: "premium_requests")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

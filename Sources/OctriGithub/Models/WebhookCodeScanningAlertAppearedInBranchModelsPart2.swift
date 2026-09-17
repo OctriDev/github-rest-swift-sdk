@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookCodeScanningAlertAppearedInBranch domain models
+// WebhookCodeScanningAlertAppearedInBranch domain models
 /// Required object value serialized in the `rule` wire field.
 public struct WebhookCodeScanningAlertAppearedInBranchAlertRule: Codable {
     /// A short description of the rule used to detect the alert.
@@ -19,43 +19,29 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertRule: Codable {
         case severity
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCodeScanningAlertAppearedInBranchAlertRule {
-    init(from decoder: Decoder) throws {
+extension WebhookCodeScanningAlertAppearedInBranchAlertRule {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.description) else {
-            throw SdkValidationError(
-                field: "description",
-                code: "required",
-                message: "Validation failed for 'description': value is required"
-            )
+            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
         }
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.severity) else {
-            throw SdkValidationError(
-                field: "severity",
-                code: "required",
-                message: "Validation failed for 'severity': value is required"
-            )
+            throw SdkValidationError(field: "severity", code: "required", message: "Validation failed for 'severity': value is required")
         }
-        description = try container.sdkDecodeRequired(.description)
-        id = try container.sdkDecodeRequired(.id)
-        severity = try container.sdkDecodeIfPresent(.severity)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.severity = try container.sdkDecodeIfPresent(.severity)
     }
 }
 
-public extension WebhookCodeScanningAlertAppearedInBranchAlertRule {
-    init(description: String, id: String, severity: WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity?) {
+extension WebhookCodeScanningAlertAppearedInBranchAlertRule {
+    public init(description: String, id: String, severity: WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity?) {
         (self.description, self.id) = (description, id)
         self.severity = severity
     }
@@ -73,56 +59,42 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertTool: Codable {
         case version
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCodeScanningAlertAppearedInBranchAlertTool {
-    init(from decoder: Decoder) throws {
+extension WebhookCodeScanningAlertAppearedInBranchAlertTool {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.version) else {
-            throw SdkValidationError(
-                field: "version",
-                code: "required",
-                message: "Validation failed for 'version': value is required"
-            )
+            throw SdkValidationError(field: "version", code: "required", message: "Validation failed for 'version': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        version = try container.sdkDecodeIfPresent(.version)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.version = try container.sdkDecodeIfPresent(.version)
     }
 }
 
-public extension WebhookCodeScanningAlertAppearedInBranchAlertTool {
-    init(name: String, version: String?) {
+extension WebhookCodeScanningAlertAppearedInBranchAlertTool {
+    public init(name: String, version: String?) {
         (self.name, self.version) = (name, version)
     }
 }
 
 /// State of a code scanning alert. Events for alerts found outside the default branch will return a `null`
 /// value until they are dismissed or fixed.
-public struct WebhookCodeScanningAlertAppearedInBranchAlertState: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertAppearedInBranchAlertState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookCodeScanningAlertAppearedInBranchAlertState(rawValue: "open")
     public static let dismissed = WebhookCodeScanningAlertAppearedInBranchAlertState(rawValue: "dismissed")
     public static let fixed = WebhookCodeScanningAlertAppearedInBranchAlertState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,22 +104,17 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertState: RawRepresentab
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType(rawValue: "Bot")
     public static let user = WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType(rawValue: "User")
-    public static let organization =
-        WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType(rawValue: "Organization")
+    public static let organization = WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -157,22 +124,17 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertDismissedByType: RawR
 }
 
 /// State of a code scanning alert.
-public struct WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceState(rawValue: "open")
-    public static let dismissed =
-        WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceState(rawValue: "dismissed")
+    public static let dismissed = WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceState(rawValue: "dismissed")
     public static let fixed = WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -182,19 +144,15 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertMostRecentInstanceSta
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookCodeScanningAlertAppearedInBranchAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertAppearedInBranchAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let appearedInBranch = WebhookCodeScanningAlertAppearedInBranchAction(rawValue: "appeared_in_branch")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -204,24 +162,18 @@ public struct WebhookCodeScanningAlertAppearedInBranchAction: RawRepresentable, 
 }
 
 /// The reason for dismissing or closing the alert.
-public struct WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let falsePositive =
-        WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason(rawValue: "false positive")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let falsePositive = WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason(rawValue: "false positive")
     public static let wonTFix = WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason(rawValue: "won't fix")
-    public static let usedInTests =
-        WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason(rawValue: "used in tests")
+    public static let usedInTests = WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason(rawValue: "used in tests")
     public static let mitigated = WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason(rawValue: "mitigated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -231,14 +183,10 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertDismissedReason: RawR
 }
 
 /// The severity of the alert.
-public struct WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let none = WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity(rawValue: "none")
     public static let note = WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity(rawValue: "note")
     public static let warning = WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity(rawValue: "warning")
@@ -246,7 +194,7 @@ public struct WebhookCodeScanningAlertAppearedInBranchAlertRuleSeverity: RawRepr
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

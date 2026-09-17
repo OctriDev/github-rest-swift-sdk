@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Generates a configuration that can be passed to the runner application at startup. The authenticated user must
-    /// have admin access to the repository. OAuth tokens and personal access tokens (classic) need the`repo` scope to
-    /// use this endpoint.
+extension ActionsMethods {
+    /// Generates a configuration that can be passed to the runner application at startup. The authenticated user must have admin access to the repository. OAuth tokens and personal access tokens (classic) need the`repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,68 +20,22 @@ public extension ActionsMethods {
     ///   items**: 1. **Maximum items**: 100.
     /// - workFolder: The working directory to be used for job execution, relative
     ///   to the runner install directory.
-    static func actionsGenerateRunnerJitconfigForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        name: String,
-        runnerGroupId: Int,
-        labels: [String],
-        workFolder: String?
-    ) async throws -> ActionsGenerateRunnerJitconfigForOrgResponse {
+    public static func actionsGenerateRunnerJitconfigForRepo(config: ClientConfig, owner: String, repo: String, name: String, runnerGroupId: Int, labels: [String], workFolder: String?) async throws -> ActionsGenerateRunnerJitconfigForOrgResponse {
         try validateItems("labels", labels, min: 1, max: 100)
 
-        let requestBody = ActionsGenerateRunnerJitconfigForRepoRequestBody(
-            name: name,
-            runnerGroupId: runnerGroupId,
-            labels: labels,
-            workFolder: workFolder
-        )
+        let requestBody = ActionsGenerateRunnerJitconfigForRepoRequestBody(name: name, runnerGroupId: runnerGroupId, labels: labels, workFolder: workFolder)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/generate-jitconfig",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsGenerateRunnerJitconfigForRepo"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/generate-jitconfig"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsGenerateRunnerJitconfigForRepo")).data
     }
 
-    /// Returns a token that you can pass to the `config` script. The token expires after one hour. For example, you can
-    /// replace `TOKEN` in the following example with the registration token provided by this endpoint to configure your
-    /// self-hosted runner: ``` ./config.sh --url https://github.com/octo-org --token TOKEN ``` Authenticated users must
-    /// have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need
-    /// the `repo` scope to use this endpoint.
+    /// Returns a token that you can pass to the `config` script. The token expires after one hour. For example, you can replace `TOKEN` in the following example with the registration token provided by this endpoint to configure your self-hosted runner: ``` ./config.sh --url https://github.com/octo-org --token TOKEN ``` Authenticated users must have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsCreateRegistrationTokenForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> AuthenticationToken {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/registration-token",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsCreateRegistrationTokenForRepo"
-        )).data
+    public static func actionsCreateRegistrationTokenForRepo(config: ClientConfig, owner: String, repo: String) async throws -> AuthenticationToken {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/registration-token"].joined(), config: config, decoder: .json, operationId: "actionsCreateRegistrationTokenForRepo")).data
     }
 }

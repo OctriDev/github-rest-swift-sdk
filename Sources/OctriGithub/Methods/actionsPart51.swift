@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Sets GitHub Actions cache retention limit for a repository. This determines how long caches will be retained
-    /// for, if not manually removed or evicted due to size constraints. OAuth tokens and personal access tokens
-    /// (classic) need the `admin:repository` scope to use this endpoint.
+extension ActionsMethods {
+    /// Sets GitHub Actions cache retention limit for a repository. This determines how long caches will be retained for, if not manually removed or evicted due to size constraints. OAuth tokens and personal access tokens (classic) need the `admin:repository` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,57 +16,20 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - maxCacheRetentionDays: The maximum number of days to keep caches in this
     ///   repository.
-    static func actionsSetActionsCacheRetentionLimitForRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        maxCacheRetentionDays: Int?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody =
-            ActionsSetActionsCacheRetentionLimitForRepositoryRequestBody(maxCacheRetentionDays: maxCacheRetentionDays)
+    public static func actionsSetActionsCacheRetentionLimitForRepository(config: ClientConfig, owner: String, repo: String, maxCacheRetentionDays: Int?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetActionsCacheRetentionLimitForRepositoryRequestBody(maxCacheRetentionDays: maxCacheRetentionDays)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/cache/retention-limit",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetActionsCacheRetentionLimitForRepository"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/cache/retention-limit"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetActionsCacheRetentionLimitForRepository")).data
     }
 
-    /// Gets GitHub Actions cache storage limit for a repository. This determines the maximum size of caches that can be
-    /// stored before eviction occurs. OAuth tokens and personal access tokens (classic) need the `admin:repository`
-    /// scope to use this endpoint.
+    /// Gets GitHub Actions cache storage limit for a repository. This determines the maximum size of caches that can be stored before eviction occurs. OAuth tokens and personal access tokens (classic) need the `admin:repository` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsGetActionsCacheStorageLimitForRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActionsCacheStorageLimitForRepository {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/cache/storage-limit",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetActionsCacheStorageLimitForRepository"
-        )).data
+    public static func actionsGetActionsCacheStorageLimitForRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsCacheStorageLimitForRepository {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/cache/storage-limit"].joined(), config: config, decoder: .json, operationId: "actionsGetActionsCacheStorageLimitForRepository")).data
     }
 }

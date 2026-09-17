@@ -6,19 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SearchMethods {
+extension SearchMethods {
     /// Search topics
     ///
-    /// Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per
-    /// page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). See "[Searching
-    /// topics](https://docs.github.com/articles/searching-topics/)" for a detailed list of qualifiers. When searching
-    /// for topics, you can get text match metadata for the topic's **short\_description**, **description**, **name**,
-    /// or **display\_name** field when you pass the `text-match` media type. For more details about how to receive
-    /// highlighted search results, see [Text match
-    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to search
-    /// for topics related to Ruby that are featured on https://github.com/topics. Your query might look like this:
-    /// `q=ruby+is:featured` This query searches for topics with the keyword `ruby` and limits the results to find only
-    /// topics that are featured. The topics that are the best match for the query appear first in the search results.
+    /// Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). See "[Searching topics](https://docs.github.com/articles/searching-topics/)" for a detailed list of qualifiers. When searching for topics, you can get text match metadata for the topic's **short\_description**, **description**, **name**, or **display\_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to search for topics related to Ruby that are featured on https://github.com/topics. Your query might look like this: `q=ruby+is:featured` This query searches for topics with the keyword `ruby` and limits the results to find only topics that are featured. The topics that are the best match for the query appear first in the search results.
     ///
     /// - Parameters:
     /// - q: The query contains one or more search keywords and qualifiers.
@@ -35,13 +26,8 @@ public extension SearchMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func searchTopics(
-        config: ClientConfig,
-        q: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> SearchTopicsResponse {
-        try await (sdkRequest("GET", "/search/topics", config: config, query: [
+    public static func searchTopics(config: ClientConfig, q: String, perPage: Int?, page: Int?) async throws -> SearchTopicsResponse {
+        return try (await sdkRequest("GET", "/search/topics", config: config, query: [
             SdkQueryParameter("q", value: q),
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),

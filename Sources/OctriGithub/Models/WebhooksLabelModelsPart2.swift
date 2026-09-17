@@ -3,20 +3,10 @@
 
 import Foundation
 
-/// WebhooksLabel domain models
-public extension WebhooksLabelUnarchived {
-    init(
-        color: String,
-        default: Bool,
-        description: String?,
-        archivedAt: Date?,
-        archivedBy: WebhooksLabelUnarchivedVariant1ArchivedBy?,
-        id: Int,
-        name: String,
-        nodeId: String,
-        url: String
-    ) throws {
-        (self.color, self.default) = (color, `default`)
+// WebhooksLabel domain models
+extension WebhooksLabelUnarchived {
+    public init(color: String, `default`: Bool, description: String?, archivedAt: Date?, archivedBy: WebhooksLabelUnarchivedVariant1ArchivedBy?, id: Int, name: String, nodeId: String, url: String) throws {
+        (self.color, self.`default`) = (color, `default`)
         (self.description, self.archivedAt) = (description, archivedAt)
         (self.archivedBy, self.id) = (archivedBy, id)
         (self.name, self.nodeId) = (name, nodeId)
@@ -24,7 +14,7 @@ public extension WebhooksLabelUnarchived {
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -40,38 +30,28 @@ public struct WebhooksLabelUnarchivedVariant1: Codable {
         case archivedBy = "archived_by"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksLabelUnarchivedVariant1 {
-    init(from decoder: Decoder) throws {
+extension WebhooksLabelUnarchivedVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.archivedAt) else {
-            throw SdkValidationError(
-                field: "archived_at",
-                code: "required",
-                message: "Validation failed for 'archived_at': value is required"
-            )
+            throw SdkValidationError(field: "archived_at", code: "required", message: "Validation failed for 'archived_at': value is required")
         }
         guard container.contains(.archivedBy) else {
-            throw SdkValidationError(
-                field: "archived_by",
-                code: "required",
-                message: "Validation failed for 'archived_by': value is required"
-            )
+            throw SdkValidationError(field: "archived_by", code: "required", message: "Validation failed for 'archived_by': value is required")
         }
-        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
-        if let value = archivedAt {
+        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        self.archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
+        if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
     }
 }
 
-public extension WebhooksLabelUnarchivedVariant1 {
-    init(archivedAt: Date?, archivedBy: WebhooksLabelUnarchivedVariant1ArchivedBy?) throws {
+extension WebhooksLabelUnarchivedVariant1 {
+    public init(archivedAt: Date?, archivedBy: WebhooksLabelUnarchivedVariant1ArchivedBy?) throws {
         (self.archivedAt, self.archivedBy) = (archivedAt, archivedBy)
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
@@ -170,65 +150,40 @@ public struct WebhooksLabelUnarchivedVariant1ArchivedBy: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksLabelUnarchivedVariant1ArchivedBy {
-    init(from decoder: Decoder) throws {
+extension WebhooksLabelUnarchivedVariant1ArchivedBy {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhooksLabelUnarchivedVariant1ArchivedBy {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarUrl: String,
-        gravatarId: String?,
-        url: String,
-        htmlUrl: String,
-        followersUrl: String,
-        followingUrl: String,
-        gistsUrl: String,
-        starredUrl: String,
-        subscriptionsUrl: String,
-        organizationsUrl: String,
-        reposUrl: String,
-        eventsUrl: String,
-        receivedEventsUrl: String,
-        type: String,
-        siteAdmin: Bool,
-        name: String? = nil,
-        email: String? = nil,
-        starredAt: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhooksLabelUnarchivedVariant1ArchivedBy {
+    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String? = nil, email: String? = nil, starredAt: String? = nil, userViewType: String? = nil) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -246,13 +201,13 @@ public extension WebhooksLabelUnarchivedVariant1ArchivedBy {
 
 extension WebhooksLabelUnarchivedVariant1ArchivedBy {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("followers_url", followersUrl)
-        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
-        try sdkValidateUri("organizations_url", organizationsUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("received_events_url", receivedEventsUrl)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("followers_url", self.followersUrl)
+            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
+            try sdkValidateUri("organizations_url", self.organizationsUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
     }
 }

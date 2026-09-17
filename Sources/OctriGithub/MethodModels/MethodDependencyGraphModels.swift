@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical dependencyGraph operation model declarations
+// Canonical dependencyGraph operation model declarations
 public struct DependencyGraphCreateRepositorySnapshotResponse: Codable {
     /// ID of the created snapshot.
     public var id: Int
@@ -28,51 +28,33 @@ public struct DependencyGraphCreateRepositorySnapshotResponse: Codable {
         case message
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependencyGraphCreateRepositorySnapshotResponse {
-    init(from decoder: Decoder) throws {
+extension DependencyGraphCreateRepositorySnapshotResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.result) else {
-            throw SdkValidationError(
-                field: "result",
-                code: "required",
-                message: "Validation failed for 'result': value is required"
-            )
+            throw SdkValidationError(field: "result", code: "required", message: "Validation failed for 'result': value is required")
         }
         guard container.contains(.message) else {
-            throw SdkValidationError(
-                field: "message",
-                code: "required",
-                message: "Validation failed for 'message': value is required"
-            )
+            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        result = try container.sdkDecodeRequired(.result)
-        message = try container.sdkDecodeRequired(.message)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.result = try container.sdkDecodeRequired(.result)
+        self.message = try container.sdkDecodeRequired(.message)
     }
 }
 
-public extension DependencyGraphCreateRepositorySnapshotResponse {
-    init(id: Int, createdAt: String, result: String, message: String) {
+extension DependencyGraphCreateRepositorySnapshotResponse {
+    public init(id: Int, createdAt: String, result: String, message: String) {
         (self.id, self.createdAt) = (id, createdAt)
         (self.result, self.message) = (result, message)
     }
@@ -87,19 +69,19 @@ public struct DependencyGraphGenerateSbomReportResponse: Codable {
     }
 
     init() {
-        sbomUrl = nil
+        self.sbomUrl = nil
     }
 }
 
-public extension DependencyGraphGenerateSbomReportResponse {
-    init(from decoder: Decoder) throws {
+extension DependencyGraphGenerateSbomReportResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        sbomUrl = try container.sdkDecodeIfPresent(.sbomUrl)
+        self.sbomUrl = try container.sdkDecodeIfPresent(.sbomUrl)
     }
 }
 
-public extension DependencyGraphGenerateSbomReportResponse {
-    init(sbomUrl: String? = nil) {
+extension DependencyGraphGenerateSbomReportResponse {
+    public init(sbomUrl: String? = nil) {
         self.init()
         self.sbomUrl = sbomUrl
     }

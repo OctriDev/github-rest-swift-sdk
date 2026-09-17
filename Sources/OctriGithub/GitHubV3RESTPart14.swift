@@ -3,728 +3,212 @@
 
 import Foundation
 
-public extension IssuesNamespace {
-    /// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
-    func addAssignees(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        assignees: [IssuesAddAssigneesRequestBodyAssigneesItem]?
-    ) async throws -> Issue {
-        try await IssuesMethods.issuesAddAssignees(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            assignees: assignees
-        )
+extension IssuesNamespace {
+/// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
+    public func addAssignees(owner: String, repo: String, issueNumber: Int, assignees: [IssuesAddAssigneesRequestBodyAssigneesItem]?) async throws -> Issue {
+        return try await IssuesMethods.issuesAddAssignees(config: config, owner: owner, repo: repo, issueNumber: issueNumber, assignees: assignees)
     }
 
-    /// Removes one or more assignees from an issue or pull request. Pass the usernames to remove in `assignees`; users
-    /// without push access cannot remove assignees, and those requested changes are silently ignored. The response
-    /// contains the updated issue resource.
+/// Removes one or more assignees from an issue or pull request. Pass the usernames to remove in `assignees`; users without push access cannot remove assignees, and those requested changes are silently ignored. The response contains the updated issue resource.
     ///
     /// Removes one or more assignees from an issue.
-    func removeAssignees(owner: String, repo: String, issueNumber: Int, assignees: [String]?) async throws -> Issue {
-        try await IssuesMethods.issuesRemoveAssignees(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            assignees: assignees
-        )
+    public func removeAssignees(owner: String, repo: String, issueNumber: Int, assignees: [String]?) async throws -> Issue {
+        return try await IssuesMethods.issuesRemoveAssignees(config: config, owner: owner, repo: repo, issueNumber: issueNumber, assignees: assignees)
     }
 
-    /// Verifies whether a user can be assigned to a specific issue or pull request. Supply `owner`, `repo`,
-    /// `issue_number`, and `assignee` to test the assignment permission for that resource. A successful check has no
-    /// response body.
+/// Verifies whether a user can be assigned to a specific issue or pull request. Supply `owner`, `repo`, `issue_number`, and `assignee` to test the assignment permission for that resource. A successful check has no response body.
     ///
-    /// Checks if a user has permission to be assigned to a specific issue. If the `assignee` can be assigned to this
-    /// issue, a `204` status code with no content is returned. Otherwise a `404` status code is returned.
-    func checkUserCanBeAssignedToIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        assignee: String
-    ) async throws -> SdkEmptyResponse {
-        try await IssuesMethods.issuesCheckUserCanBeAssignedToIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            assignee: assignee
-        )
+    /// Checks if a user has permission to be assigned to a specific issue. If the `assignee` can be assigned to this issue, a `204` status code with no content is returned. Otherwise a `404` status code is returned.
+    public func checkUserCanBeAssignedToIssue(owner: String, repo: String, issueNumber: Int, assignee: String) async throws -> SdkEmptyResponse {
+        return try await IssuesMethods.issuesCheckUserCanBeAssignedToIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, assignee: assignee)
     }
 
-    /// Lists comments on an issue or pull request in ascending comment ID order. Use `since` to return comments updated
-    /// after a specified ISO 8601 timestamp, and use `page` and `per_page` to paginate the results. Select a media type
-    /// when you need raw, text, or HTML representations of comment Markdown.
+/// Lists comments on an issue or pull request in ascending comment ID order. Use `since` to return comments updated after a specified ISO 8601 timestamp, and use `page` and `per_page` to paginate the results. Select a media type when you need raw, text, or HTML representations of comment Markdown.
     ///
-    /// You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not
-    /// every issue is a pull request. Issue comments are ordered by ascending ID. This endpoint supports the following
-    /// custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func listComments(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        since: Date?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueComment] {
-        try await IssuesMethods.issuesListComments(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            since: since,
-            perPage: perPage,
-            page: page
-        )
+    /// You can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request. Issue comments are ordered by ascending ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func listComments(owner: String, repo: String, issueNumber: Int, since: Date?, perPage: Int?, page: Int?) async throws -> [IssueComment] {
+        return try await IssuesMethods.issuesListComments(config: config, owner: owner, repo: repo, issueNumber: issueNumber, since: since, perPage: perPage, page: page)
     }
 
-    /// Creates a comment on an issue or pull request in a repository. Provide the Markdown comment text in `body`;
-    /// creating the comment triggers notifications and may be subject to secondary rate limiting. Select a media type
-    /// to control whether the response includes raw, text, or HTML body representations.
+/// Creates a comment on an issue or pull request in a repository. Provide the Markdown comment text in `body`; creating the comment triggers notifications and may be subject to secondary rate limiting. Select a media type to control whether the response includes raw, text, or HTML body representations.
     ///
-    /// You can use the REST API to create comments on issues and pull requests. Every pull request is an issue, but not
-    /// every issue is a pull request. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
-    /// following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func createComment(owner: String, repo: String, issueNumber: Int, body: String) async throws -> IssueComment {
-        try await IssuesMethods.issuesCreateComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            body: body
-        )
+    /// You can use the REST API to create comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func createComment(owner: String, repo: String, issueNumber: Int, body: String) async throws -> IssueComment {
+        return try await IssuesMethods.issuesCreateComment(config: config, owner: owner, repo: repo, issueNumber: issueNumber, body: body)
     }
 
-    /// Lists the issues that block a specified issue from progressing. Use `owner`, `repo`, and `issue_number` to
-    /// identify the issue, then use `page` and `per_page` to paginate the blocking issues. Results use the issue
-    /// representation and support selectable Markdown body formats.
+/// Lists the issues that block a specified issue from progressing. Use `owner`, `repo`, and `issue_number` to identify the issue, then use `page` and `per_page` to paginate the blocking issues. Results use the issue representation and support selectable Markdown body formats.
     ///
-    /// You can use the REST API to list the dependencies an issue is blocked by. This endpoint supports the following
-    /// custom media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the Markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func listDependenciesBlockedBy(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Issue] {
-        try await IssuesMethods.issuesListDependenciesBlockedBy(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page
-        )
+    /// You can use the REST API to list the dependencies an issue is blocked by. This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the Markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func listDependenciesBlockedBy(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [Issue] {
+        return try await IssuesMethods.issuesListDependenciesBlockedBy(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page)
     }
 
-    /// Adds a blocked-by dependency to an issue in a repository. Provide the blocking issue's identifier in `issue_id`
-    /// to create a relationship from the current issue to that issue. Creating dependencies too quickly may trigger
-    /// secondary rate limiting.
+/// Adds a blocked-by dependency to an issue in a repository. Provide the blocking issue's identifier in `issue_id` to create a relationship from the current issue to that issue. Creating dependencies too quickly may trigger secondary rate limiting.
     ///
-    /// You can use the REST API to add a 'blocked by' relationship to an issue. Creating content too quickly using this
-    /// endpoint may result in secondary rate limiting. For more information, see [Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)
-    /// and [Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api). This endpoint supports the
-    /// following custom media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the Markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func addBlockedByDependency(owner: String, repo: String, issueNumber: Int, issueId: Int) async throws -> Issue {
-        try await IssuesMethods.issuesAddBlockedByDependency(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            issueId: issueId
-        )
+    /// You can use the REST API to add a 'blocked by' relationship to an issue. Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see [Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits) and [Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api). This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the Markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func addBlockedByDependency(owner: String, repo: String, issueNumber: Int, issueId: Int) async throws -> Issue {
+        return try await IssuesMethods.issuesAddBlockedByDependency(config: config, owner: owner, repo: repo, issueNumber: issueNumber, issueId: issueId)
     }
 
-    /// Removes a blocking dependency from an issue in a repository. Use `issue_number` to identify the blocked issue
-    /// and `issue_id` to identify the blocking issue whose relationship you want to remove. Removing dependencies too
-    /// quickly may trigger secondary rate limiting.
+/// Removes a blocking dependency from an issue in a repository. Use `issue_number` to identify the blocked issue and `issue_id` to identify the blocking issue whose relationship you want to remove. Removing dependencies too quickly may trigger secondary rate limiting.
     ///
-    /// You can use the REST API to remove a dependency that an issue is blocked by. Removing content too quickly using
-    /// this endpoint may result in secondary rate limiting. For more information, see [Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)
-    /// and [Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api). This endpoint supports the
-    /// following custom media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the
-    /// default if you do not pass a specific media type. - **`application/vnd.github.text+json`**: Returns a text only
-    /// representation of the Markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func removeDependencyBlockedBy(owner: String, repo: String, issueNumber: Int, issueId: Int) async throws -> Issue {
-        try await IssuesMethods.issuesRemoveDependencyBlockedBy(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            issueId: issueId
-        )
+    /// You can use the REST API to remove a dependency that an issue is blocked by. Removing content too quickly using this endpoint may result in secondary rate limiting. For more information, see [Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits) and [Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api). This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the default if you do not pass a specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the Markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func removeDependencyBlockedBy(owner: String, repo: String, issueNumber: Int, issueId: Int) async throws -> Issue {
+        return try await IssuesMethods.issuesRemoveDependencyBlockedBy(config: config, owner: owner, repo: repo, issueNumber: issueNumber, issueId: issueId)
     }
 }
 
-public extension IssuesNamespace {
-    /// Lists the issues that the specified issue is blocking in a repository. Use `owner`, `repo`, and `issue_number`
-    /// to identify the repository and issue, then use pagination parameters to control the result page. Use `page` and
-    /// `per_page` to paginate the results.
+extension IssuesNamespace {
+/// Lists the issues that the specified issue is blocking in a repository. Use `owner`, `repo`, and `issue_number` to identify the repository and issue, then use pagination parameters to control the result page. Use `page` and `per_page` to paginate the results.
     ///
-    /// You can use the REST API to list the dependencies an issue is blocking. This endpoint supports the following
-    /// custom media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the Markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func listDependenciesBlocking(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Issue] {
-        try await IssuesMethods.issuesListDependenciesBlocking(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page
-        )
+    /// You can use the REST API to list the dependencies an issue is blocking. This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the Markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func listDependenciesBlocking(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [Issue] {
+        return try await IssuesMethods.issuesListDependenciesBlocking(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page)
     }
 
-    /// Lists the recorded events for a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to
-    /// identify the issue, then use the pagination parameters to retrieve additional event pages. Use `page` and
-    /// `per_page` to paginate the results.
+/// Lists the recorded events for a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue, then use the pagination parameters to retrieve additional event pages. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists all events for an issue.
-    func listEvents(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueEventForIssue] {
-        try await IssuesMethods.issuesListEvents(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page
-        )
+    public func listEvents(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [IssueEventForIssue] {
+        return try await IssuesMethods.issuesListEvents(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page)
     }
 
-    /// Lists the custom issue field values assigned to a specific issue in a repository. Use `owner`, `repo`, and
-    /// `issue_number` to identify the issue, and use `data_type` in each returned value to interpret its content. Use
-    /// `page` and `per_page` to paginate the results.
+/// Lists the custom issue field values assigned to a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue, and use `data_type` in each returned value to interpret its content. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists all issue field values for an issue.
-    func listIssueFieldValuesForIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueFieldValue] {
-        try await IssuesMethods.issuesListIssueFieldValuesForIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page
-        )
+    public func listIssueFieldValuesForIssue(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [IssueFieldValue] {
+        return try await IssuesMethods.issuesListIssueFieldValuesForIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page)
     }
 
-    /// Add custom field values to an issue. You can set values for organization-level issue fields that have been
-    /// defined for the repository's organization. Adding an empty array will clear all existing field values for the
-    /// issue. This endpoint supports the following field data types: - **`text`**: String values for text fields -
-    /// **`single_select`**: Option names for single-select fields (must match an existing option name) - **`number`**:
-    /// Numeric values for number fields - **`date`**: ISO 8601 date strings for date fields Only users with push access
-    /// to the repository can add issue field values. If you don't have the proper permissions, you'll receive a `403
-    /// Forbidden` response. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    func addIssueFieldValues(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        issueFieldValues: [IssuesAddIssueFieldValuesRequestBodyIssueFieldValuesItem]?
-    ) async throws -> [IssueFieldValue] {
-        try await IssuesMethods.issuesAddIssueFieldValues(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            issueFieldValues: issueFieldValues
-        )
+/// Add custom field values to an issue. You can set values for organization-level issue fields that have been defined for the repository's organization. Adding an empty array will clear all existing field values for the issue. This endpoint supports the following field data types: - **`text`**: String values for text fields - **`single_select`**: Option names for single-select fields (must match an existing option name) - **`number`**: Numeric values for number fields - **`date`**: ISO 8601 date strings for date fields Only users with push access to the repository can add issue field values. If you don't have the proper permissions, you'll receive a `403 Forbidden` response. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    public func addIssueFieldValues(owner: String, repo: String, issueNumber: Int, issueFieldValues: [IssuesAddIssueFieldValuesRequestBodyIssueFieldValuesItem]?) async throws -> [IssueFieldValue] {
+        return try await IssuesMethods.issuesAddIssueFieldValues(config: config, owner: owner, repo: repo, issueNumber: issueNumber, issueFieldValues: issueFieldValues)
     }
 
-    /// Set custom field values for an issue, replacing any existing values. You can set values for organization-level
-    /// issue fields that have been defined for the repository's organization. This endpoint supports the following
-    /// field data types: - **`text`**: String values for text fields - **`single_select`**: Option names for
-    /// single-select fields (must match an existing option name) - **`number`**: Numeric values for number fields -
-    /// **`date`**: ISO 8601 date strings for date fields This operation will replace all existing field values with the
-    /// provided ones. If you want to add field values without replacing existing ones, use the `POST` endpoint instead.
-    /// Only users with push access to the repository can set issue field values. If you don't have the proper
-    /// permissions, you'll receive a `403 Forbidden` response. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    func setIssueFieldValues(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        issueFieldValues: [IssuesSetIssueFieldValuesRequestBodyIssueFieldValuesItem]?
-    ) async throws -> [IssueFieldValue] {
-        try await IssuesMethods.issuesSetIssueFieldValues(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            issueFieldValues: issueFieldValues
-        )
+/// Set custom field values for an issue, replacing any existing values. You can set values for organization-level issue fields that have been defined for the repository's organization. This endpoint supports the following field data types: - **`text`**: String values for text fields - **`single_select`**: Option names for single-select fields (must match an existing option name) - **`number`**: Numeric values for number fields - **`date`**: ISO 8601 date strings for date fields This operation will replace all existing field values with the provided ones. If you want to add field values without replacing existing ones, use the `POST` endpoint instead. Only users with push access to the repository can set issue field values. If you don't have the proper permissions, you'll receive a `403 Forbidden` response. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    public func setIssueFieldValues(owner: String, repo: String, issueNumber: Int, issueFieldValues: [IssuesSetIssueFieldValuesRequestBodyIssueFieldValuesItem]?) async throws -> [IssueFieldValue] {
+        return try await IssuesMethods.issuesSetIssueFieldValues(config: config, owner: owner, repo: repo, issueNumber: issueNumber, issueFieldValues: issueFieldValues)
     }
 
-    /// Remove a specific custom field value from an issue. Only users with push access to the repository can delete
-    /// issue field values. If you don't have the proper permissions, you'll receive a `403 Forbidden` response. If the
-    /// specified field does not have a value set on the issue, this operation will return a `404` error. This endpoint
-    /// triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    func deleteIssueFieldValue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        issueFieldId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await IssuesMethods.issuesDeleteIssueFieldValue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            issueFieldId: issueFieldId
-        )
+/// Remove a specific custom field value from an issue. Only users with push access to the repository can delete issue field values. If you don't have the proper permissions, you'll receive a `403 Forbidden` response. If the specified field does not have a value set on the issue, this operation will return a `404` error. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    public func deleteIssueFieldValue(owner: String, repo: String, issueNumber: Int, issueFieldId: Int) async throws -> SdkEmptyResponse {
+        return try await IssuesMethods.issuesDeleteIssueFieldValue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, issueFieldId: issueFieldId)
     }
 
-    /// Lists the labels assigned to a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to
-    /// identify the issue, then use pagination parameters when the issue has many labels. Use `page` and `per_page` to
-    /// paginate the results.
+/// Lists the labels assigned to a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue, then use pagination parameters when the issue has many labels. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists all labels for an issue.
-    func listLabelsOnIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Label] {
-        try await IssuesMethods.issuesListLabelsOnIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page
-        )
+    public func listLabelsOnIssue(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [Label] {
+        return try await IssuesMethods.issuesListLabelsOnIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page)
     }
 
-    /// Adds one or more labels to an issue while preserving its existing labels. Identify the issue with `owner`,
-    /// `repo`, and `issue_number`, then provide labels as an object, an array of label names, or an array of label
-    /// objects. Label objects can include `rationale`, `suggest`, and `confidence` to describe or defer the label
-    /// decision.
+/// Adds one or more labels to an issue while preserving its existing labels. Identify the issue with `owner`, `repo`, and `issue_number`, then provide labels as an object, an array of label names, or an array of label objects. Label objects can include `rationale`, `suggest`, and `confidence` to describe or defer the label decision.
     ///
     /// Adds labels to an issue.
-    func addLabels(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        body: IssuesAddLabelsRequestBody?
-    ) async throws -> [Label] {
-        try await IssuesMethods.issuesAddLabels(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            body: body
-        )
+    public func addLabels(owner: String, repo: String, issueNumber: Int, body: IssuesAddLabelsRequestBody?) async throws -> [Label] {
+        return try await IssuesMethods.issuesAddLabels(config: config, owner: owner, repo: repo, issueNumber: issueNumber, body: body)
     }
 }
 
-public extension IssuesNamespace {
-    /// Replaces the labels assigned to an issue with the labels in the request. Identify the issue with `owner`,
-    /// `repo`, and `issue_number`, and provide label names through the supported object or array forms. Send an empty
-    /// `labels` array to remove every label from the issue.
+extension IssuesNamespace {
+/// Replaces the labels assigned to an issue with the labels in the request. Identify the issue with `owner`, `repo`, and `issue_number`, and provide label names through the supported object or array forms. Send an empty `labels` array to remove every label from the issue.
     ///
     /// Removes any previous labels and sets the new labels for an issue.
-    func setLabels(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        body: IssuesSetLabelsRequestBody?
-    ) async throws -> [Label] {
-        try await IssuesMethods.issuesSetLabels(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            body: body
-        )
+    public func setLabels(owner: String, repo: String, issueNumber: Int, body: IssuesSetLabelsRequestBody?) async throws -> [Label] {
+        return try await IssuesMethods.issuesSetLabels(config: config, owner: owner, repo: repo, issueNumber: issueNumber, body: body)
     }
 
-    /// Removes every label from a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify
-    /// the issue whose labels should be cleared. The operation returns no response body when the labels are removed
-    /// successfully.
+/// Removes every label from a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue whose labels should be cleared. The operation returns no response body when the labels are removed successfully.
     ///
     /// Removes all labels from an issue.
-    func removeAllLabels(owner: String, repo: String, issueNumber: Int) async throws -> SdkEmptyResponse {
-        try await IssuesMethods.issuesRemoveAllLabels(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber
-        )
+    public func removeAllLabels(owner: String, repo: String, issueNumber: Int) async throws -> SdkEmptyResponse {
+        return try await IssuesMethods.issuesRemoveAllLabels(config: config, owner: owner, repo: repo, issueNumber: issueNumber)
     }
 
-    /// Removes a specified label from an issue and returns the labels that remain attached to it. Supply `owner`,
-    /// `repo`, `issue_number`, and `name` to identify the repository, issue, and label to remove. A 200 response
-    /// returns the updated label collection.
+/// Removes a specified label from an issue and returns the labels that remain attached to it. Supply `owner`, `repo`, `issue_number`, and `name` to identify the repository, issue, and label to remove. A 200 response returns the updated label collection.
     ///
-    /// Removes the specified label from the issue, and returns the remaining labels on the issue. This endpoint returns
-    /// a `404 Not Found` status if the label does not exist.
-    func removeLabel(owner: String, repo: String, issueNumber: Int, name: String) async throws -> [Label] {
-        try await IssuesMethods.issuesRemoveLabel(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            name: name
-        )
+    /// Removes the specified label from the issue, and returns the remaining labels on the issue. This endpoint returns a `404 Not Found` status if the label does not exist.
+    public func removeLabel(owner: String, repo: String, issueNumber: Int, name: String) async throws -> [Label] {
+        return try await IssuesMethods.issuesRemoveLabel(config: config, owner: owner, repo: repo, issueNumber: issueNumber, name: name)
     }
 
-    /// Locks the conversation on an issue or pull request in a repository. Optionally provide `lock_reason` to explain
-    /// why the conversation is locked; if you omit the request body, send a zero `Content-Length` header. Users with
-    /// push access can perform this operation.
+/// Locks the conversation on an issue or pull request in a repository. Optionally provide `lock_reason` to explain why the conversation is locked; if you omit the request body, send a zero `Content-Length` header. Users with push access can perform this operation.
     ///
-    /// Users with push access can lock an issue or pull request's conversation. Note that, if you choose not to pass
-    /// any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more
-    /// information, see "[HTTP
-    /// method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
-    func lock(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        lockReason: IssuesLockRequestBodyLockReason?
-    ) async throws -> SdkEmptyResponse {
-        try await IssuesMethods.issuesLock(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            lockReason: lockReason
-        )
+    /// Users with push access can lock an issue or pull request's conversation. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    public func lock(owner: String, repo: String, issueNumber: Int, lockReason: IssuesLockRequestBodyLockReason?) async throws -> SdkEmptyResponse {
+        return try await IssuesMethods.issuesLock(config: config, owner: owner, repo: repo, issueNumber: issueNumber, lockReason: lockReason)
     }
 
-    /// Users with push access can unlock an issue's conversation.
-    func unlock(owner: String, repo: String, issueNumber: Int) async throws -> SdkEmptyResponse {
-        try await IssuesMethods.issuesUnlock(config: config, owner: owner, repo: repo, issueNumber: issueNumber)
+/// Users with push access can unlock an issue's conversation.
+    public func unlock(owner: String, repo: String, issueNumber: Int) async throws -> SdkEmptyResponse {
+        return try await IssuesMethods.issuesUnlock(config: config, owner: owner, repo: repo, issueNumber: issueNumber)
     }
 
-    /// Retrieves the parent issue associated with a sub-issue in a repository. Supply `owner`, `repo`, and
-    /// `issue_number` to identify the sub-issue, and use an accepted custom media type to control whether the response
-    /// includes raw, text, or rendered HTML body content.
+/// Retrieves the parent issue associated with a sub-issue in a repository. Supply `owner`, `repo`, and `issue_number` to identify the sub-issue, and use an accepted custom media type to control whether the response includes raw, text, or rendered HTML body content.
     ///
-    /// You can use the REST API to get the parent issue of a sub-issue. This endpoint supports the following custom
-    /// media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func getParent(owner: String, repo: String, issueNumber: Int) async throws -> Issue {
-        try await IssuesMethods.issuesGetParent(config: config, owner: owner, repo: repo, issueNumber: issueNumber)
+    /// You can use the REST API to get the parent issue of a sub-issue. This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func getParent(owner: String, repo: String, issueNumber: Int) async throws -> Issue {
+        return try await IssuesMethods.issuesGetParent(config: config, owner: owner, repo: repo, issueNumber: issueNumber)
     }
 
-    /// You can use the REST API to remove a sub-issue from an issue. Removing content too quickly using this endpoint
-    /// may result in secondary rate limiting. For more information, see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
-    /// following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass a specific media type. - **`application/vnd.github.text+json`**: Returns a text only
-    /// representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func removeSubIssue(owner: String, repo: String, issueNumber: Int, subIssueId: Int) async throws -> Issue {
-        try await IssuesMethods.issuesRemoveSubIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            subIssueId: subIssueId
-        )
+/// You can use the REST API to remove a sub-issue from an issue. Removing content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass a specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func removeSubIssue(owner: String, repo: String, issueNumber: Int, subIssueId: Int) async throws -> Issue {
+        return try await IssuesMethods.issuesRemoveSubIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, subIssueId: subIssueId)
     }
 
-    /// Lists the sub-issues associated with an issue in a repository. Supply `owner`, `repo`, and `issue_number` to
-    /// identify the parent issue, then use `page` and `per_page` to paginate the sub-issues. You can select raw, text,
-    /// HTML, or full body representations with the supported custom media types.
+/// Lists the sub-issues associated with an issue in a repository. Supply `owner`, `repo`, and `issue_number` to identify the parent issue, then use `page` and `per_page` to paginate the sub-issues. You can select raw, text, HTML, or full body representations with the supported custom media types.
     ///
-    /// You can use the REST API to list the sub-issues on an issue. This endpoint supports the following custom media
-    /// types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the Markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func issuesListSub(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Issue] {
-        try await IssuesMethods.issuesListSubIssues(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page
-        )
+    /// You can use the REST API to list the sub-issues on an issue. This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the Markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func issuesListSub(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [Issue] {
+        return try await IssuesMethods.issuesListSubIssues(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page)
     }
 }
 
-public extension IssuesNamespace {
-    /// Adds an existing issue as a sub-issue of the specified parent issue. Supply `sub_issue_id` in the request body,
-    /// and set `replace_parent` to true when the sub-issue should be detached from its current parent before being
-    /// added. The sub-issue must belong to the same repository owner as the parent issue.
+extension IssuesNamespace {
+/// Adds an existing issue as a sub-issue of the specified parent issue. Supply `sub_issue_id` in the request body, and set `replace_parent` to true when the sub-issue should be detached from its current parent before being added. The sub-issue must belong to the same repository owner as the parent issue.
     ///
-    /// You can use the REST API to add sub-issues to issues. Creating content too quickly using this endpoint may
-    /// result in secondary rate limiting. For more information, see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
-    /// following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
-    func addSubIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        subIssueId: Int,
-        replaceParent: Bool?
-    ) async throws -> Issue {
-        try await IssuesMethods.issuesAddSubIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            subIssueId: subIssueId,
-            replaceParent: replaceParent
-        )
+    /// You can use the REST API to add sub-issues to issues. Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    public func addSubIssue(owner: String, repo: String, issueNumber: Int, subIssueId: Int, replaceParent: Bool?) async throws -> Issue {
+        return try await IssuesMethods.issuesAddSubIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, subIssueId: subIssueId, replaceParent: replaceParent)
     }
 
-    /// You can use the REST API to reprioritize a sub-issue to a different position in the parent list.
-    func reprioritizeSubIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        subIssueId: Int,
-        afterId: Int?,
-        beforeId: Int?
-    ) async throws -> Issue {
-        try await IssuesMethods.issuesReprioritizeSubIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            subIssueId: subIssueId,
-            afterId: afterId,
-            beforeId: beforeId
-        )
+/// You can use the REST API to reprioritize a sub-issue to a different position in the parent list.
+    public func reprioritizeSubIssue(owner: String, repo: String, issueNumber: Int, subIssueId: Int, afterId: Int?, beforeId: Int?) async throws -> Issue {
+        return try await IssuesMethods.issuesReprioritizeSubIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, subIssueId: subIssueId, afterId: afterId, beforeId: beforeId)
     }
 
-    /// Lists the suggestions on an issue. A suggestion is an agent-proposed change to an issue's type, labels, fields,
-    /// assignees, or closed state that a maintainer can approve or dismiss. By default only pending suggestions are
-    /// returned. Use `state=all` to return suggestions in every state, or `state=<state>` to filter to a single state.
-    /// Use `action=<action>` to return only suggestions for a specific change. This endpoint is only available while
-    /// the issue suggestions feature is enabled for the repository, and only supports issues, not pull requests.
-    /// Requires triage access to the repository.
-    func listSuggestions(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        state: IssuesListSuggestionsParameter?,
-        action: IssuesListSuggestionsParameterXd58506f8?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueSuggestion] {
-        try await IssuesMethods.issuesListSuggestions(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            state: state,
-            action: action,
-            perPage: perPage,
-            page: page
-        )
+/// Lists the suggestions on an issue. A suggestion is an agent-proposed change to an issue's type, labels, fields, assignees, or closed state that a maintainer can approve or dismiss. By default only pending suggestions are returned. Use `state=all` to return suggestions in every state, or `state=<state>` to filter to a single state. Use `action=<action>` to return only suggestions for a specific change. This endpoint is only available while the issue suggestions feature is enabled for the repository, and only supports issues, not pull requests. Requires triage access to the repository.
+    public func listSuggestions(owner: String, repo: String, issueNumber: Int, state: IssuesListSuggestionsParameter?, action: IssuesListSuggestionsParameterXd58506f8?, perPage: Int?, page: Int?) async throws -> [IssueSuggestion] {
+        return try await IssuesMethods.issuesListSuggestions(config: config, owner: owner, repo: repo, issueNumber: issueNumber, state: state, action: action, perPage: perPage, page: page)
     }
 
-    /// Approves a pending suggestion on an issue. Applies the proposed change (creating the corresponding timeline
-    /// event), transitions the suggestion to `approved`, and dismisses any competing pending suggestions for the same
-    /// change. Requires triage access to the repository. Approving a suggestion also requires permission to perform the
-    /// change it applies (for example, setting the issue type, adding a label or assignee, or closing the issue); this
-    /// only affects fine-grained access tokens and GitHub Apps whose permissions are narrower than the triage role.
-    /// This endpoint only supports issues, not pull requests.
-    func approveSuggestion(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        suggestionId: Int
-    ) async throws -> IssueSuggestion {
-        try await IssuesMethods.issuesApproveSuggestion(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            suggestionId: suggestionId
-        )
+/// Approves a pending suggestion on an issue. Applies the proposed change (creating the corresponding timeline event), transitions the suggestion to `approved`, and dismisses any competing pending suggestions for the same change. Requires triage access to the repository. Approving a suggestion also requires permission to perform the change it applies (for example, setting the issue type, adding a label or assignee, or closing the issue); this only affects fine-grained access tokens and GitHub Apps whose permissions are narrower than the triage role. This endpoint only supports issues, not pull requests.
+    public func approveSuggestion(owner: String, repo: String, issueNumber: Int, suggestionId: Int) async throws -> IssueSuggestion {
+        return try await IssuesMethods.issuesApproveSuggestion(config: config, owner: owner, repo: repo, issueNumber: issueNumber, suggestionId: suggestionId)
     }
 
-    /// Dismisses a pending suggestion on an issue. Transitions the suggestion to `dismissed` without applying any
-    /// change or creating a timeline event. Requires triage access to the repository. This endpoint only supports
-    /// issues, not pull requests.
-    func dismissSuggestion(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        suggestionId: Int
-    ) async throws -> IssueSuggestion {
-        try await IssuesMethods.issuesDismissSuggestion(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            suggestionId: suggestionId
-        )
+/// Dismisses a pending suggestion on an issue. Transitions the suggestion to `dismissed` without applying any change or creating a timeline event. Requires triage access to the repository. This endpoint only supports issues, not pull requests.
+    public func dismissSuggestion(owner: String, repo: String, issueNumber: Int, suggestionId: Int) async throws -> IssueSuggestion {
+        return try await IssuesMethods.issuesDismissSuggestion(config: config, owner: owner, repo: repo, issueNumber: issueNumber, suggestionId: suggestionId)
     }
 
-    /// Lists timeline events for a specific issue in a repository. Use `exclude` to omit selected event types, and use
-    /// `page` and `per_page` to paginate the results; `per_page` can be at most 100.
+/// Lists timeline events for a specific issue in a repository. Use `exclude` to omit selected event types, and use `page` and `per_page` to paginate the results; `per_page` can be at most 100.
     ///
     /// List all timeline events for an issue.
-    func listEventsForTimeline(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?,
-        exclude: String?
-    ) async throws -> [TimelineIssueEvents] {
-        try await IssuesMethods.issuesListEventsForTimeline(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            perPage: perPage,
-            page: page,
-            exclude: exclude
-        )
+    public func listEventsForTimeline(owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?, exclude: String?) async throws -> [TimelineIssueEvents] {
+        return try await IssuesMethods.issuesListEventsForTimeline(config: config, owner: owner, repo: repo, issueNumber: issueNumber, perPage: perPage, page: page, exclude: exclude)
     }
 
-    /// Lists all labels configured for a repository. Use `page` and `per_page` to paginate the results; `per_page` can
-    /// be at most 100.
+/// Lists all labels configured for a repository. Use `page` and `per_page` to paginate the results; `per_page` can be at most 100.
     ///
     /// Lists all labels for a repository.
-    func listLabelsForRepo(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Label] {
-        try await IssuesMethods.issuesListLabelsForRepo(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+    public func listLabelsForRepo(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Label] {
+        return try await IssuesMethods.issuesListLabelsForRepo(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Creates a label for the specified repository with the given name and color. The name and color parameters are
-    /// required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
-    func createLabel(
-        owner: String,
-        repo: String,
-        name: String,
-        color: String?,
-        description: String?
-    ) async throws -> Label {
-        try await IssuesMethods.issuesCreateLabel(
-            config: config,
-            owner: owner,
-            repo: repo,
-            name: name,
-            color: color,
-            description: description
-        )
+/// Creates a label for the specified repository with the given name and color. The name and color parameters are required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
+    public func createLabel(owner: String, repo: String, name: String, color: String?, description: String?) async throws -> Label {
+        return try await IssuesMethods.issuesCreateLabel(config: config, owner: owner, repo: repo, name: name, color: color, description: description)
     }
 }

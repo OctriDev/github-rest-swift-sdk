@@ -6,44 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Uninstalls a GitHub App on a user, organization, or enterprise account. If you prefer to temporarily suspend an
-    /// app's access to your account's resources, then we recommend the "[Suspend an app
-    /// installation](https://docs.github.com/rest/apps/apps#suspend-an-app-installation)" endpoint. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+extension AppsMethods {
+    /// Uninstalls a GitHub App on a user, organization, or enterprise account. If you prefer to temporarily suspend an app's access to your account's resources, then we recommend the "[Suspend an app installation](https://docs.github.com/rest/apps/apps#suspend-an-app-installation)" endpoint. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     ///
     /// - Parameters:
     /// - installationId: The unique identifier of the installation.
-    static func appsDeleteInstallation(config: ClientConfig, installationId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "appsDeleteInstallation"
-        )).data
+    public static func appsDeleteInstallation(config: ClientConfig, installationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId))].joined(), config: config, decoder: .empty, operationId: "appsDeleteInstallation")).data
     }
 
-    /// Creates an installation access token that enables a GitHub App to make authenticated API requests for the app's
-    /// installation on an organization or individual account. Installation tokens expire one hour from the time you
-    /// create them. Using an expired token produces a status code of `401 - Unauthorized`, and requires creating a new
-    /// installation token. By default the installation token has access to all repositories that the installation can
-    /// access. > [!NOTE] > Starting April 27, 2026, GitHub began a staged rollout of a stateless format
-    /// (`ghs_APPID_JWT`) to all newly minted GitHub App installation tokens, making them more performant and improving
-    /// the reliability of our API surface. If your application expects or relies on installation tokens being exactly
-    /// 40 characters long, it may not handle this new token format correctly. You can now validate your apps and
-    /// workflows using a temporary request header that lets you enable the token format on demand. For more information
-    /// about the temporary header, see [the GitHub
-    /// blog](https://github.blog/changelog/2026-05-15-github-app-installation-tokens-per-request-override-header).
-    /// Optionally, you can use the `repositories` or `repository_ids` body parameters to specify individual
-    /// repositories that the installation access token can access. If you don't use `repositories` or `repository_ids`
-    /// to grant access to specific repositories, the installation access token will have access to all repositories
-    /// that the installation was granted access to. The installation access token cannot be granted access to
-    /// repositories that the installation was not granted access to. Up to 500 repositories can be listed in this
-    /// manner. Optionally, use the `permissions` body parameter to specify the permissions that the installation access
-    /// token should have. If `permissions` is not specified, the installation access token will have all of the
-    /// permissions that were granted to the app. The installation access token cannot be granted permissions that the
-    /// app…
+    /// Creates an installation access token that enables a GitHub App to make authenticated API requests for the app's installation on an organization or individual account. Installation tokens expire one hour from the time you create them. Using an expired token produces a status code of `401 - Unauthorized`, and requires creating a new installation token. By default the installation token has access to all repositories that the installation can access. > [!NOTE] > Starting April 27, 2026, GitHub began a staged rollout of a stateless format (`ghs_APPID_JWT`) to all newly minted GitHub App installation tokens, making them more performant and improving the reliability of our API surface. If your application expects or relies on installation tokens being exactly 40 characters long, it may not handle this new token format correctly. You can now validate your apps and workflows using a temporary request header that lets you enable the token format on demand. For more information about the temporary header, see [the GitHub blog](https://github.blog/changelog/2026-05-15-github-app-installation-tokens-per-request-override-header). Optionally, you can use the `repositories` or `repository_ids` body parameters to specify individual repositories that the installation access token can access. If you don't use `repositories` or `repository_ids` to grant access to specific repositories, the installation access token will have access to all repositories that the installation was granted access to. The installation access token cannot be granted access to repositories that the installation was not granted access to. Up to 500 repositories can be listed in this manner. Optionally, use the `permissions` body parameter to specify the permissions that the installation access token should have. If `permissions` is not specified, the installation access token will have all of the permissions that were granted to the app. The installation access token cannot be granted permissions that the app…
     ///
     /// - Parameters:
     /// - installationId: The unique identifier of the installation.
@@ -51,43 +23,17 @@ public extension AppsMethods {
     ///   to
     /// - repositoryIds: List of repository IDs that the token should have access to
     /// - permissions: The permissions granted to the fine-grained access token.
-    static func appsCreateInstallationAccessToken(
-        config: ClientConfig,
-        installationId: Int,
-        repositories: [String]?,
-        repositoryIds: [Int]?,
-        permissions: AppPermissions?
-    ) async throws -> InstallationToken {
-        let requestBody = AppsCreateInstallationAccessTokenRequestBody(
-            repositories: repositories,
-            repositoryIds: repositoryIds,
-            permissions: permissions
-        )
+    public static func appsCreateInstallationAccessToken(config: ClientConfig, installationId: Int, repositories: [String]?, repositoryIds: [Int]?, permissions: AppPermissions?) async throws -> InstallationToken {
+        let requestBody = AppsCreateInstallationAccessTokenRequestBody(repositories: repositories, repositoryIds: repositoryIds, permissions: permissions)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/access_tokens"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "appsCreateInstallationAccessToken"
-        )).data
+        return try (await sdkRequest("POST", ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/access_tokens"].joined(), config: config, body: requestBody, decoder: .json, operationId: "appsCreateInstallationAccessToken")).data
     }
 
-    /// Suspends a GitHub App on a user, organization, or enterprise account, which blocks the app from accessing the
-    /// account's resources. When a GitHub App is suspended, the app's access to the GitHub API or webhook events is
-    /// blocked for that account. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+    /// Suspends a GitHub App on a user, organization, or enterprise account, which blocks the app from accessing the account's resources. When a GitHub App is suspended, the app's access to the GitHub API or webhook events is blocked for that account. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     ///
     /// - Parameters:
     /// - installationId: The unique identifier of the installation.
-    static func appsSuspendInstallation(config: ClientConfig, installationId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/suspended"].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "appsSuspendInstallation"
-        )).data
+    public static func appsSuspendInstallation(config: ClientConfig, installationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/suspended"].joined(), config: config, decoder: .empty, operationId: "appsSuspendInstallation")).data
     }
 }

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    /// Lists the devcontainer.json files associated with a specified repository and the authenticated user. These files
-    /// specify launchpoint configurations for codespaces created within the repository. OAuth app tokens and personal
-    /// access tokens (classic) need the `codespace` scope to use this endpoint.
+extension CodespacesMethods {
+    /// Lists the devcontainer.json files associated with a specified repository and the authenticated user. These files specify launchpoint configurations for codespaces created within the repository. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,29 +22,10 @@ public extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func codespacesListDevcontainersInRepositoryForAuthenticatedUser(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> CodespacesListDevcontainersInRepositoryForAuthenticatedUserResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/codespaces/devcontainers",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "codespacesListDevcontainersInRepositoryForAuthenticatedUser"
-        )).data
+    public static func codespacesListDevcontainersInRepositoryForAuthenticatedUser(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> CodespacesListDevcontainersInRepositoryForAuthenticatedUserResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codespaces/devcontainers"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "codespacesListDevcontainersInRepositoryForAuthenticatedUser")).data
     }
 }

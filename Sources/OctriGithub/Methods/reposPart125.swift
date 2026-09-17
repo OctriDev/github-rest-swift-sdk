@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Deletes a release asset from a repository. Use the repository owner, repository name, and asset identifier to
-    /// select the asset to remove. The operation returns no response body when deletion succeeds.
+extension ReposMethods {
+    /// Deletes a release asset from a repository. Use the repository owner, repository name, and asset identifier to select the asset to remove. The operation returns no response body when deletion succeeds.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,25 +15,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - assetId: The unique identifier of the asset.
-    static func reposDeleteReleaseAsset(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        assetId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases/assets/",
-                sdkEncodePathSegment(sdkWireString(assetId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteReleaseAsset"
-        )).data
+    public static func reposDeleteReleaseAsset(config: ClientConfig, owner: String, repo: String, assetId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/assets/", sdkEncodePathSegment(sdkWireString(assetId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteReleaseAsset")).data
     }
 }

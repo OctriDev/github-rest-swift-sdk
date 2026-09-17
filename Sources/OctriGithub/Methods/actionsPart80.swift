@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint with a private repository.
+extension ActionsMethods {
+    /// Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,33 +15,11 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    static func actionsGetReviewsForRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int
-    ) async throws -> [EnvironmentApprovals] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/approvals",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetReviewsForRun"
-        )).data
+    public static func actionsGetReviewsForRun(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> [EnvironmentApprovals] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/approvals"].joined(), config: config, decoder: .json, operationId: "actionsGetReviewsForRun")).data
     }
 
-    /// Approves a workflow run for a pull request from a public fork of a first time contributor. For more information,
-    /// see ["Approving workflow runs from public
-    /// forks](https://docs.github.com/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks)." OAuth
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Approves a workflow run for a pull request from a public fork of a first time contributor. For more information, see ["Approving workflow runs from public forks](https://docs.github.com/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks)." OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -50,26 +27,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    static func actionsApproveWorkflowRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int
-    ) async throws -> EmptyObject {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/approve",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsApproveWorkflowRun"
-        )).data
+    public static func actionsApproveWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> EmptyObject {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/approve"].joined(), config: config, decoder: .json, operationId: "actionsApproveWorkflowRun")).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookPullRequestDequeued domain models
+// WebhookPullRequestDequeued domain models
 /// Optional object value serialized in the `permissions` wire field.
 public struct WebhookPullRequestDequeuedPullRequestBaseRepoPermissions: Codable {
     /// Required `boolean` value serialized in the `admin` wire field.
@@ -25,45 +25,31 @@ public struct WebhookPullRequestDequeuedPullRequestBaseRepoPermissions: Codable 
         case triage
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestDequeuedPullRequestBaseRepoPermissions {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestDequeuedPullRequestBaseRepoPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.admin) else {
-            throw SdkValidationError(
-                field: "admin",
-                code: "required",
-                message: "Validation failed for 'admin': value is required"
-            )
+            throw SdkValidationError(field: "admin", code: "required", message: "Validation failed for 'admin': value is required")
         }
         guard container.contains(.pull) else {
-            throw SdkValidationError(
-                field: "pull",
-                code: "required",
-                message: "Validation failed for 'pull': value is required"
-            )
+            throw SdkValidationError(field: "pull", code: "required", message: "Validation failed for 'pull': value is required")
         }
         guard container.contains(.push) else {
-            throw SdkValidationError(
-                field: "push",
-                code: "required",
-                message: "Validation failed for 'push': value is required"
-            )
+            throw SdkValidationError(field: "push", code: "required", message: "Validation failed for 'push': value is required")
         }
-        admin = try container.sdkDecodeRequired(.admin)
-        pull = try container.sdkDecodeRequired(.pull)
-        push = try container.sdkDecodeRequired(.push)
-        maintain = try container.sdkDecodeIfPresent(.maintain)
-        triage = try container.sdkDecodeIfPresent(.triage)
+        self.admin = try container.sdkDecodeRequired(.admin)
+        self.pull = try container.sdkDecodeRequired(.pull)
+        self.push = try container.sdkDecodeRequired(.push)
+        self.maintain = try container.sdkDecodeIfPresent(.maintain)
+        self.triage = try container.sdkDecodeIfPresent(.triage)
     }
 }
 
-public extension WebhookPullRequestDequeuedPullRequestBaseRepoPermissions {
-    init(admin: Bool, pull: Bool, push: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
+extension WebhookPullRequestDequeuedPullRequestBaseRepoPermissions {
+    public init(admin: Bool, pull: Bool, push: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
         (self.admin, self.pull) = (admin, pull)
         (self.push, self.maintain) = (push, maintain)
         self.triage = triage
@@ -76,31 +62,21 @@ public enum WebhookPullRequestDequeuedPullRequestBaseRepoPushedAt {
 }
 
 extension WebhookPullRequestDequeuedPullRequestBaseRepoPushedAt: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookPullRequestDequeuedPullRequestBaseRepoPushedAt"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookPullRequestDequeuedPullRequestBaseRepoPushedAt")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container.decode(Date.self) {
-            return .date(value)
-        }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(Date.self) { return .date(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -110,6 +86,7 @@ extension WebhookPullRequestDequeuedPullRequestBaseRepoPushedAt: Codable {
         case let .date(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Required object value serialized in the `user` wire field.
@@ -184,79 +161,46 @@ public struct WebhookPullRequestDequeuedPullRequestBaseUser: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestDequeuedPullRequestBaseUser {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestDequeuedPullRequestBaseUser {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookPullRequestDequeuedPullRequestBaseUser {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookPullRequestDequeuedPullRequestBaseUserType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookPullRequestDequeuedPullRequestBaseUser {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookPullRequestDequeuedPullRequestBaseUserType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -274,28 +218,28 @@ public extension WebhookPullRequestDequeuedPullRequestBaseUser {
 
 extension WebhookPullRequestDequeuedPullRequestBaseUser {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -322,65 +266,37 @@ public struct WebhookPullRequestDequeuedPullRequestHead: Codable {
         case user
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestDequeuedPullRequestHead {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestDequeuedPullRequestHead {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.label) else {
-            throw SdkValidationError(
-                field: "label",
-                code: "required",
-                message: "Validation failed for 'label': value is required"
-            )
+            throw SdkValidationError(field: "label", code: "required", message: "Validation failed for 'label': value is required")
         }
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
         guard container.contains(.repo) else {
-            throw SdkValidationError(
-                field: "repo",
-                code: "required",
-                message: "Validation failed for 'repo': value is required"
-            )
+            throw SdkValidationError(field: "repo", code: "required", message: "Validation failed for 'repo': value is required")
         }
         guard container.contains(.sha) else {
-            throw SdkValidationError(
-                field: "sha",
-                code: "required",
-                message: "Validation failed for 'sha': value is required"
-            )
+            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
         }
         guard container.contains(.user) else {
-            throw SdkValidationError(
-                field: "user",
-                code: "required",
-                message: "Validation failed for 'user': value is required"
-            )
+            throw SdkValidationError(field: "user", code: "required", message: "Validation failed for 'user': value is required")
         }
-        label = try container.sdkDecodeRequired(.label)
-        ref = try container.sdkDecodeRequired(.ref)
-        repo = try container.sdkDecodeRequired(.repo)
-        sha = try container.sdkDecodeRequired(.sha)
-        user = try container.sdkDecodeIfPresent(.user)
+        self.label = try container.sdkDecodeRequired(.label)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.repo = try container.sdkDecodeRequired(.repo)
+        self.sha = try container.sdkDecodeRequired(.sha)
+        self.user = try container.sdkDecodeIfPresent(.user)
     }
 }
 
-public extension WebhookPullRequestDequeuedPullRequestHead {
-    init(
-        label: String,
-        ref: String,
-        repo: WebhookPullRequestDequeuedPullRequestHeadRepo,
-        sha: String,
-        user: WebhookPullRequestDequeuedPullRequestHeadUser?
-    ) {
+extension WebhookPullRequestDequeuedPullRequestHead {
+    public init(label: String, ref: String, repo: WebhookPullRequestDequeuedPullRequestHeadRepo, sha: String, user: WebhookPullRequestDequeuedPullRequestHeadUser?) {
         (self.label, self.ref) = (label, ref)
         (self.repo, self.sha) = (repo, sha)
         self.user = user

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookMergeGroupChecksRequested domain models
+// WebhookMergeGroupChecksRequested domain models
 /// Typed representation of the `WebhookMergeGroupChecksRequested` API schema.
 public struct WebhookMergeGroupChecksRequested: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -31,46 +31,29 @@ public struct WebhookMergeGroupChecksRequested: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMergeGroupChecksRequested {
-    init(from decoder: Decoder) throws {
+extension WebhookMergeGroupChecksRequested {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.mergeGroup) else {
-            throw SdkValidationError(
-                field: "merge_group",
-                code: "required",
-                message: "Validation failed for 'merge_group': value is required"
-            )
+            throw SdkValidationError(field: "merge_group", code: "required", message: "Validation failed for 'merge_group': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        mergeGroup = try container.sdkDecodeRequired(.mergeGroup)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.mergeGroup = try container.sdkDecodeRequired(.mergeGroup)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookMergeGroupChecksRequested {
-    init(
-        action: WebhookMergeGroupChecksRequestedAction,
-        mergeGroup: MergeGroup,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: RepositoryWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookMergeGroupChecksRequested {
+    public init(action: WebhookMergeGroupChecksRequestedAction, mergeGroup: MergeGroup, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.mergeGroup) = (action, mergeGroup)
         (self.installation, self.organization) = (installation, organization)
         (self.repository, self.sender) = (repository, sender)
@@ -78,19 +61,15 @@ public extension WebhookMergeGroupChecksRequested {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookMergeGroupChecksRequestedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookMergeGroupChecksRequestedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let checksRequested = WebhookMergeGroupChecksRequestedAction(rawValue: "checks_requested")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

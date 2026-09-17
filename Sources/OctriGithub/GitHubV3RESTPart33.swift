@@ -3,136 +3,80 @@
 
 import Foundation
 
-public extension ReposNamespace {
-    /// Enable vulnerability alerts
+extension ReposNamespace {
+/// Enable vulnerability alerts
     ///
-    /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin
-    /// access to the repository. For more information, see "[About security alerts for vulnerable
-    /// dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
-    func enableVulnerabilityAlerts(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposEnableVulnerabilityAlerts(config: config, owner: owner, repo: repo)
+    /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
+    public func enableVulnerabilityAlerts(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposEnableVulnerabilityAlerts(config: config, owner: owner, repo: repo)
     }
 
-    /// Disable vulnerability alerts
+/// Disable vulnerability alerts
     ///
-    /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin
-    /// access to the repository. For more information, see "[About security alerts for vulnerable
-    /// dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
-    func disableVulnerabilityAlerts(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDisableVulnerabilityAlerts(config: config, owner: owner, repo: repo)
+    /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
+    public func disableVulnerabilityAlerts(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDisableVulnerabilityAlerts(config: config, owner: owner, repo: repo)
     }
 
-    /// Download a repository archive (zip)
+/// Download a repository archive (zip)
     ///
-    /// Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repository’s default
-    /// branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or
-    /// you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories,
-    /// these links are temporary and expire after five minutes. If the repository is empty, you will receive a 404 when
-    /// you follow the redirect.
-    func downloadZipballArchive(owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDownloadZipballArchive(config: config, owner: owner, repo: repo, ref: ref)
+    /// Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repository’s default branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories, these links are temporary and expire after five minutes. If the repository is empty, you will receive a 404 when you follow the redirect.
+    public func downloadZipballArchive(owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDownloadZipballArchive(config: config, owner: owner, repo: repo, ref: ref)
     }
 
-    /// Create a repository using a template
+/// Create a repository using a template
     ///
-    /// Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route
-    /// parameters to specify the repository to use as the template. If the repository is not public, the authenticated
-    /// user must own or be a member of an organization that owns the repository. To check if a repository is available
-    /// to use as a template, get the repository's information using the [Get a
-    /// repository](https://docs.github.com/rest/repos/repos#get-a-repository) endpoint and check that the `is_template`
-    /// key is `true`. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to
-    /// create a public repository, and `repo` scope to create a private repository.
-    func createUsingTemplate(
-        templateOwner: String,
-        templateRepo: String,
-        name: String,
-        owner: String?,
-        description: String?,
-        includeAllBranches: Bool?,
-        private: Bool?
-    ) async throws -> FullRepository {
-        try await ReposMethods.reposCreateUsingTemplate(
-            config: config,
-            templateOwner: templateOwner,
-            templateRepo: templateRepo,
-            name: name,
-            owner: owner,
-            description: description,
-            includeAllBranches: includeAllBranches,
-            private: `private`
-        )
+    /// Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. If the repository is not public, the authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/repos/repos#get-a-repository) endpoint and check that the `is_template` key is `true`. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private repository.
+    public func createUsingTemplate(templateOwner: String, templateRepo: String, name: String, owner: String?, description: String?, includeAllBranches: Bool?, private: Bool?) async throws -> FullRepository {
+        return try await ReposMethods.reposCreateUsingTemplate(config: config, templateOwner: templateOwner, templateRepo: templateRepo, name: name, owner: owner, description: description, includeAllBranches: includeAllBranches, private: `private`)
     }
 
-    /// List public repositories
+/// List public repositories
     ///
-    /// Lists all public repositories in the order that they were created. Note: - For GitHub Enterprise Server, this
-    /// endpoint will only list repositories available to all users on the enterprise. - Pagination is powered
-    /// exclusively by the `since` parameter. Use the [Link
-    /// header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL
-    /// for the next page of repositories.
-    func listPublic(since: Int?) async throws -> [MinimalRepository] {
-        try await ReposMethods.reposListPublic(config: config, since: since)
+    /// Lists all public repositories in the order that they were created. Note: - For GitHub Enterprise Server, this endpoint will only list repositories available to all users on the enterprise. - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL for the next page of repositories.
+    public func listPublic(since: Int?) async throws -> [MinimalRepository] {
+        return try await ReposMethods.reposListPublic(config: config, since: since)
     }
 
-    /// List repositories for the authenticated user
+/// List repositories for the authenticated user
     ///
-    /// Lists repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to
-    /// access. The authenticated user has explicit permission to access repositories they own, repositories where they
-    /// are a collaborator, and repositories that they can access through an organization membership.
-    func listForAuthenticatedUser(options: ReposMethods
-        .ReposListForAuthenticatedUserOptions) async throws -> [Repository] {
-        try await ReposMethods.reposListForAuthenticatedUser(config: config, options: options)
+    /// Lists repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access. The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
+    public func listForAuthenticatedUser(options: ReposMethods.ReposListForAuthenticatedUserOptions) async throws -> [Repository] {
+        return try await ReposMethods.reposListForAuthenticatedUser(config: config, options: options)
     }
 
-    /// Create a repository for the authenticated user
+/// Create a repository for the authenticated user
     ///
-    /// Creates a new repository for the authenticated user. OAuth app tokens and personal access tokens (classic) need
-    /// the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private
-    /// repository.
-    func createForAuthenticatedUser(options: ReposMethods
-        .ReposCreateForAuthenticatedUserOptions) async throws -> FullRepository {
-        try await ReposMethods.reposCreateForAuthenticatedUser(config: config, options: options)
+    /// Creates a new repository for the authenticated user. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private repository.
+    public func createForAuthenticatedUser(options: ReposMethods.ReposCreateForAuthenticatedUserOptions) async throws -> FullRepository {
+        return try await ReposMethods.reposCreateForAuthenticatedUser(config: config, options: options)
     }
 
-    /// List repository invitations for the authenticated user
+/// List repository invitations for the authenticated user
     ///
     /// When authenticating as a user, this endpoint will list all currently open repository invitations for that user.
-    func listInvitationsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [RepositoryInvitation] {
-        try await ReposMethods.reposListInvitationsForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    public func listInvitationsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [RepositoryInvitation] {
+        return try await ReposMethods.reposListInvitationsForAuthenticatedUser(config: config, perPage: perPage, page: page)
     }
 }
 
-public extension ReposNamespace {
-    /// Accept a repository invitation
-    func acceptInvitationForAuthenticatedUser(invitationId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposAcceptInvitationForAuthenticatedUser(config: config, invitationId: invitationId)
+extension ReposNamespace {
+/// Accept a repository invitation
+    public func acceptInvitationForAuthenticatedUser(invitationId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposAcceptInvitationForAuthenticatedUser(config: config, invitationId: invitationId)
     }
 
-    /// Decline a repository invitation
-    func declineInvitationForAuthenticatedUser(invitationId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeclineInvitationForAuthenticatedUser(config: config, invitationId: invitationId)
+/// Decline a repository invitation
+    public func declineInvitationForAuthenticatedUser(invitationId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeclineInvitationForAuthenticatedUser(config: config, invitationId: invitationId)
     }
 
-    /// List repositories for a user
+/// List repositories for a user
     ///
     /// Lists public repositories for the specified user.
-    func listForUser(
-        username: String,
-        type: ReposListForUserParameter?,
-        sort: ReposListForUserParameterX089fad86?,
-        direction: ReposListForUserParameterX6f083e9f?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await ReposMethods.reposListForUser(
-            config: config,
-            username: username,
-            type: type,
-            sort: sort,
-            direction: direction,
-            perPage: perPage,
-            page: page
-        )
+    public func listForUser(username: String, type: ReposListForUserParameter?, sort: ReposListForUserParameterX089fad86?, direction: ReposListForUserParameterX6f083e9f?, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try await ReposMethods.reposListForUser(config: config, username: username, type: type, sort: sort, direction: direction, perPage: perPage, page: page)
     }
 }
 
@@ -142,246 +86,100 @@ public class SecretScanningNamespace {
         self.config = config
     }
 
-    /// Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest. The
-    /// authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    public func listAlertsForOrg(options: SecretScanningMethods
-        .SecretScanningListAlertsForOrgOptions) async throws -> [OrganizationSecretScanningAlert] {
-        try await SecretScanningMethods.secretScanningListAlertsForOrg(config: config, options: options)
+/// Lists secret scanning alerts for eligible repositories in an organization, from newest to oldest. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    public func listAlertsForOrg(options: SecretScanningMethods.SecretScanningListAlertsForOrgOptions) async throws -> [OrganizationSecretScanningAlert] {
+        return try await SecretScanningMethods.secretScanningListAlertsForOrg(config: config, options: options)
     }
 
-    /// Lists secret scanning custom patterns for an organization. Personal access tokens (classic) need the `read:org`
-    /// scope to use this endpoint.
-    public func listOrgCustomPatterns(
-        org: String,
-        state: SecretScanningListOrgCustomPatternsParameterX192aabd9?,
-        pushProtection: SecretScanningListOrgCustomPatternsParameter?,
-        sort: SecretScanningListOrgCustomPatternsParameterX9139ab32?,
-        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
-        before: String?,
-        after: String?
-    ) async throws -> [SecretScanningCustomPattern] {
-        try await SecretScanningMethods.secretScanningListOrgCustomPatterns(
-            config: config,
-            org: org,
-            state: state,
-            pushProtection: pushProtection,
-            sort: sort,
-            direction: direction,
-            before: before,
-            after: after
-        )
+/// Lists secret scanning custom patterns for an organization. Personal access tokens (classic) need the `read:org` scope to use this endpoint.
+    public func listOrgCustomPatterns(org: String, state: SecretScanningListOrgCustomPatternsParameterX192aabd9?, pushProtection: SecretScanningListOrgCustomPatternsParameter?, sort: SecretScanningListOrgCustomPatternsParameterX9139ab32?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, before: String?, after: String?) async throws -> [SecretScanningCustomPattern] {
+        return try await SecretScanningMethods.secretScanningListOrgCustomPatterns(config: config, org: org, state: state, pushProtection: pushProtection, sort: sort, direction: direction, before: before, after: after)
     }
 
-    /// Bulk creates secret scanning custom patterns for an organization. Personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint.
-    public func bulkCreateOrgCustomPatterns(
-        org: String,
-        patterns: [SecretScanningCustomPatternToCreate]
-    ) async throws
-        -> SecretScanningBulkCreateOrgCustomPatternsResponse {
-        try await SecretScanningMethods.secretScanningBulkCreateOrgCustomPatterns(
-            config: config,
-            org: org,
-            patterns: patterns
-        )
+/// Bulk creates secret scanning custom patterns for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    public func bulkCreateOrgCustomPatterns(org: String, patterns: [SecretScanningCustomPatternToCreate]) async throws -> SecretScanningBulkCreateOrgCustomPatternsResponse {
+        return try await SecretScanningMethods.secretScanningBulkCreateOrgCustomPatterns(config: config, org: org, patterns: patterns)
     }
 
-    /// Bulk deletes secret scanning custom patterns for an organization. Personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint.
-    public func bulkDeleteOrgCustomPatterns(
-        org: String,
-        patterns: [SecretScanningCustomPatternToDelete],
-        postDeleteAction: SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction?
-    ) async throws -> SdkEmptyResponse {
-        try await SecretScanningMethods.secretScanningBulkDeleteOrgCustomPatterns(
-            config: config,
-            org: org,
-            patterns: patterns,
-            postDeleteAction: postDeleteAction
-        )
+/// Bulk deletes secret scanning custom patterns for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    public func bulkDeleteOrgCustomPatterns(org: String, patterns: [SecretScanningCustomPatternToDelete], postDeleteAction: SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction?) async throws -> SdkEmptyResponse {
+        return try await SecretScanningMethods.secretScanningBulkDeleteOrgCustomPatterns(config: config, org: org, patterns: patterns, postDeleteAction: postDeleteAction)
     }
 
-    /// Updates a secret scanning custom pattern for an organization. Personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint.
-    public func updateOrgCustomPattern(options: SecretScanningMethods
-        .SecretScanningUpdateOrgCustomPatternOptions) async throws -> SecretScanningCustomPattern {
-        try await SecretScanningMethods.secretScanningUpdateOrgCustomPattern(config: config, options: options)
+/// Updates a secret scanning custom pattern for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    public func updateOrgCustomPattern(options: SecretScanningMethods.SecretScanningUpdateOrgCustomPatternOptions) async throws -> SecretScanningCustomPattern {
+        return try await SecretScanningMethods.secretScanningUpdateOrgCustomPattern(config: config, options: options)
     }
 
-    /// Lists the secret scanning pattern configurations for an organization. Personal access tokens (classic) need the
-    /// `read:org` scope to use this endpoint.
+/// Lists the secret scanning pattern configurations for an organization. Personal access tokens (classic) need the `read:org` scope to use this endpoint.
     public func listOrgPatternConfigs(org: String) async throws -> SecretScanningPatternConfiguration {
-        try await SecretScanningMethods.secretScanningListOrgPatternConfigs(config: config, org: org)
+        return try await SecretScanningMethods.secretScanningListOrgPatternConfigs(config: config, org: org)
     }
 
-    /// Updates the secret scanning pattern configurations for an organization. Personal access tokens (classic) need
-    /// the `write:org` scope to use this endpoint.
-    public func updateOrgPatternConfigs(
-        org: String,
-        patternConfigVersion: SdkOptional<SecretScanningRowVersion>?,
-        providerPatternSettings: SecretScanningUpdateOrgPatternConfigsProviderPatternSettingsList?,
-        customPatternSettings: SecretScanningUpdateOrgPatternConfigsCustomPatternSettingsList?
-    ) async throws -> SecretScanningUpdateOrgPatternConfigsResponse {
-        try await SecretScanningMethods.secretScanningUpdateOrgPatternConfigs(
-            config: config,
-            org: org,
-            patternConfigVersion: patternConfigVersion,
-            providerPatternSettings: providerPatternSettings,
-            customPatternSettings: customPatternSettings
-        )
+/// Updates the secret scanning pattern configurations for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    public func updateOrgPatternConfigs(org: String, patternConfigVersion: SdkOptional<SecretScanningRowVersion>?, providerPatternSettings: SecretScanningUpdateOrgPatternConfigsProviderPatternSettingsList?, customPatternSettings: SecretScanningUpdateOrgPatternConfigsCustomPatternSettingsList?) async throws -> SecretScanningUpdateOrgPatternConfigsResponse {
+        return try await SecretScanningMethods.secretScanningUpdateOrgPatternConfigs(config: config, org: org, patternConfigVersion: patternConfigVersion, providerPatternSettings: providerPatternSettings, customPatternSettings: customPatternSettings)
     }
 
-    /// Lists secret scanning alerts for an eligible repository, from newest to oldest. The authenticated user must be
-    /// an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    public func listAlertsForRepo(options: SecretScanningMethods
-        .SecretScanningListAlertsForRepoOptions) async throws -> [SecretScanningAlert] {
-        try await SecretScanningMethods.secretScanningListAlertsForRepo(config: config, options: options)
+/// Lists secret scanning alerts for an eligible repository, from newest to oldest. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    public func listAlertsForRepo(options: SecretScanningMethods.SecretScanningListAlertsForRepoOptions) async throws -> [SecretScanningAlert] {
+        return try await SecretScanningMethods.secretScanningListAlertsForRepo(config: config, options: options)
     }
 }
 
-public extension SecretScanningNamespace {
-    /// Gets a single secret scanning alert detected in an eligible repository. The authenticated user must be an
-    /// administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    func getAlert(
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber,
-        hideSecret: Bool?
-    ) async throws -> SecretScanningAlertWithMetadata {
-        try await SecretScanningMethods.secretScanningGetAlert(
-            config: config,
-            owner: owner,
-            repo: repo,
-            alertNumber: alertNumber,
-            hideSecret: hideSecret
-        )
+extension SecretScanningNamespace {
+/// Gets a single secret scanning alert detected in an eligible repository. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    public func getAlert(owner: String, repo: String, alertNumber: AlertNumber, hideSecret: Bool?) async throws -> SecretScanningAlertWithMetadata {
+        return try await SecretScanningMethods.secretScanningGetAlert(config: config, owner: owner, repo: repo, alertNumber: alertNumber, hideSecret: hideSecret)
     }
 
-    /// Updates the status of a secret scanning alert in an eligible repository. You can also use this endpoint to
-    /// assign or unassign an alert to a user who has write access to the repository. The authenticated user must be an
-    /// administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    func updateAlert(options: SecretScanningMethods
-        .SecretScanningUpdateAlertOptions) async throws -> SecretScanningAlertWithMetadata {
-        try await SecretScanningMethods.secretScanningUpdateAlert(config: config, options: options)
+/// Updates the status of a secret scanning alert in an eligible repository. You can also use this endpoint to assign or unassign an alert to a user who has write access to the repository. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    public func updateAlert(options: SecretScanningMethods.SecretScanningUpdateAlertOptions) async throws -> SecretScanningAlertWithMetadata {
+        return try await SecretScanningMethods.secretScanningUpdateAlert(config: config, options: options)
     }
 
-    /// Lists all locations for a given secret scanning alert for an eligible repository. The authenticated user must be
-    /// an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    func listLocationsForAlert(
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> [SecretScanningLocation] {
-        try await SecretScanningMethods.secretScanningListLocationsForAlert(
-            config: config,
-            owner: owner,
-            repo: repo,
-            alertNumber: alertNumber,
-            page: page,
-            perPage: perPage
-        )
+/// Lists all locations for a given secret scanning alert for an eligible repository. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    public func listLocationsForAlert(owner: String, repo: String, alertNumber: AlertNumber, page: Int?, perPage: Int?) async throws -> [SecretScanningLocation] {
+        return try await SecretScanningMethods.secretScanningListLocationsForAlert(config: config, owner: owner, repo: repo, alertNumber: alertNumber, page: page, perPage: perPage)
     }
 
-    /// Lists secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic)
-    /// need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token
-    /// can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
-    func listRepoCustomPatterns(options: SecretScanningMethods
-        .SecretScanningListRepoCustomPatternsOptions) async throws -> [SecretScanningCustomPattern] {
-        try await SecretScanningMethods.secretScanningListRepoCustomPatterns(config: config, options: options)
+/// Lists secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
+    public func listRepoCustomPatterns(options: SecretScanningMethods.SecretScanningListRepoCustomPatternsOptions) async throws -> [SecretScanningCustomPattern] {
+        return try await SecretScanningMethods.secretScanningListRepoCustomPatterns(config: config, options: options)
     }
 
-    /// Bulk creates secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories,
-    /// the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
-    func bulkCreateRepoCustomPatterns(
-        owner: String,
-        repo: String,
-        patterns: [SecretScanningCustomPatternToCreate]
-    ) async throws -> SecretScanningBulkCreateRepoCustomPatternsResponse {
-        try await SecretScanningMethods.secretScanningBulkCreateRepoCustomPatterns(
-            config: config,
-            owner: owner,
-            repo: repo,
-            patterns: patterns
-        )
+/// Bulk creates secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
+    public func bulkCreateRepoCustomPatterns(owner: String, repo: String, patterns: [SecretScanningCustomPatternToCreate]) async throws -> SecretScanningBulkCreateRepoCustomPatternsResponse {
+        return try await SecretScanningMethods.secretScanningBulkCreateRepoCustomPatterns(config: config, owner: owner, repo: repo, patterns: patterns)
     }
 
-    /// Bulk delete repository custom patterns
+/// Bulk delete repository custom patterns
     ///
-    /// Bulk deletes secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories,
-    /// the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
-    func bulkDeleteRepoCustomPatterns(
-        owner: String,
-        repo: String,
-        patterns: [SecretScanningCustomPatternToDelete],
-        postDeleteAction: SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction?
-    ) async throws -> SdkEmptyResponse {
-        try await SecretScanningMethods.secretScanningBulkDeleteRepoCustomPatterns(
-            config: config,
-            owner: owner,
-            repo: repo,
-            patterns: patterns,
-            postDeleteAction: postDeleteAction
-        )
+    /// Bulk deletes secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
+    public func bulkDeleteRepoCustomPatterns(owner: String, repo: String, patterns: [SecretScanningCustomPatternToDelete], postDeleteAction: SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction?) async throws -> SdkEmptyResponse {
+        return try await SecretScanningMethods.secretScanningBulkDeleteRepoCustomPatterns(config: config, owner: owner, repo: repo, patterns: patterns, postDeleteAction: postDeleteAction)
     }
 
-    /// Update a repository custom pattern
+/// Update a repository custom pattern
     ///
-    /// Updates a secret scanning custom pattern for a repository. OAuth app tokens and personal access tokens (classic)
-    /// need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token
-    /// can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
-    func updateRepoCustomPattern(options: SecretScanningMethods
-        .SecretScanningUpdateRepoCustomPatternOptions) async throws -> SecretScanningCustomPattern {
-        try await SecretScanningMethods.secretScanningUpdateRepoCustomPattern(config: config, options: options)
+    /// Updates a secret scanning custom pattern for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
+    public func updateRepoCustomPattern(options: SecretScanningMethods.SecretScanningUpdateRepoCustomPatternOptions) async throws -> SecretScanningCustomPattern {
+        return try await SecretScanningMethods.secretScanningUpdateRepoCustomPattern(config: config, options: options)
     }
 
-    /// Create a push protection bypass
+/// Create a push protection bypass
     ///
-    /// Creates a bypass for a previously push protected secret. The authenticated user must be the original author of
-    /// the committed secret. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this
-    /// endpoint.
-    func createPushProtectionBypass(
-        owner: String,
-        repo: String,
-        reason: SecretScanningPushProtectionBypassReason,
-        placeholderId: SecretScanningPushProtectionBypassPlaceholderId
-    ) async throws -> SecretScanningPushProtectionBypass {
-        try await SecretScanningMethods.secretScanningCreatePushProtectionBypass(
-            config: config,
-            owner: owner,
-            repo: repo,
-            reason: reason,
-            placeholderId: placeholderId
-        )
+    /// Creates a bypass for a previously push protected secret. The authenticated user must be the original author of the committed secret. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createPushProtectionBypass(owner: String, repo: String, reason: SecretScanningPushProtectionBypassReason, placeholderId: SecretScanningPushProtectionBypassPlaceholderId) async throws -> SecretScanningPushProtectionBypass {
+        return try await SecretScanningMethods.secretScanningCreatePushProtectionBypass(config: config, owner: owner, repo: repo, reason: reason, placeholderId: placeholderId)
     }
 }
 
-public extension SecretScanningNamespace {
-    /// Get secret scanning scan history for a repository
+extension SecretScanningNamespace {
+/// Get secret scanning scan history for a repository
     ///
-    /// Lists the latest default incremental and backfill scans by type for a repository. > [!NOTE] > This endpoint
-    /// requires [GitHub Advanced
-    /// Security](https://docs.github.com/get-started/learning-about-github/about-github-advanced-security). OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If
-    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
-    func getScanHistory(owner: String, repo: String) async throws -> SecretScanningScanHistory {
-        try await SecretScanningMethods.secretScanningGetScanHistory(config: config, owner: owner, repo: repo)
+    /// Lists the latest default incremental and backfill scans by type for a repository. > [!NOTE] > This endpoint requires [GitHub Advanced Security](https://docs.github.com/get-started/learning-about-github/about-github-advanced-security). OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    public func getScanHistory(owner: String, repo: String) async throws -> SecretScanningScanHistory {
+        return try await SecretScanningMethods.secretScanningGetScanHistory(config: config, owner: owner, repo: repo)
     }
 }

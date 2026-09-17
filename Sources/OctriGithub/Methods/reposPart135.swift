@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposCreateRepoRulesetOptions: Codable {
+extension ReposMethods {
+    public struct ReposCreateRepoRulesetOptions: Codable {
         public var owner: String
         public var repo: String
         public var name: String
@@ -25,9 +25,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Creates a ruleset for a repository. Supply `name` and `enforcement`, and use `target`, `conditions`, `rules`,
-    /// and `bypass_actors` to define when the ruleset applies and who can bypass it. A 201 response returns the created
-    /// repository ruleset.
+    /// Creates a ruleset for a repository. Supply `name` and `enforcement`, and use `target`, `conditions`, `rules`, and `bypass_actors` to define when the ruleset applies and who can bypass it. A 201 response returns the created repository ruleset.
     ///
     /// Create a ruleset for a repository.
     ///
@@ -44,25 +42,9 @@ public extension ReposMethods {
     /// - bypassActors: The actors that can bypass the rules in this ruleset
     /// - conditions: Parameters for a repository ruleset ref name condition
     /// - rules: An array of rules within the ruleset.
-    static func reposCreateRepoRuleset(
-        config: ClientConfig,
-        options: ReposCreateRepoRulesetOptions
-    ) async throws -> RepositoryRuleset {
+    public static func reposCreateRepoRuleset(config: ClientConfig, options: ReposCreateRepoRulesetOptions) async throws -> RepositoryRuleset {
         let requestBody = ReposCreateRepoRulesetRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/rulesets",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateRepoRuleset"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/rulesets"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateRepoRuleset")).data
     }
 }

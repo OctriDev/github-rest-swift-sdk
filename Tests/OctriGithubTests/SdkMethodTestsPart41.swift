@@ -29,8 +29,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposListCustomDeploymentRuleIntegrationsReposListCustomDeploX961bccc655ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposListCustomDeploymentRuleIntegrationsReposListCustomDeploX961bccc655ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -75,8 +74,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposListDeploymentBranchPoliciesReposListDeploymentBranchPoliciesReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposListDeploymentBranchPoliciesReposListDeploymentBranchPoliciesReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -104,10 +102,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposListDeploymentsOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try ReposMethods.ReposListDeploymentsOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.sha = try decoded("\"none\"")
         options.ref = try decoded("\"none\"")
         options.task = try decoded("\"none\"")
@@ -273,8 +268,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposListInvitationsForAuthenticatedUserReposListInvitationsFXe71084f762ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposListInvitationsForAuthenticatedUserReposListInvitationsFXe71084f762ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -375,8 +369,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposListPullRequestsAssociatedWithCommitReposListPullRequestXab6d960ef1ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposListPullRequestsAssociatedWithCommitReposListPullRequestXab6d960ef1ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Lists all organizations, in the order that they were created. > [!NOTE] > Pagination is powered exclusively by
-    /// the `since` parameter. Use the [Link
-    /// header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL
-    /// for the next page of organizations.
+extension OrgsMethods {
+    /// Lists all organizations, in the order that they were created. > [!NOTE] > Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL for the next page of organizations.
     ///
     /// - Parameters:
     /// - since: An organization ID. Only return organizations with an ID greater
@@ -19,31 +16,18 @@ public extension OrgsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func orgsList(config: ClientConfig, since: Int?, perPage: Int?) async throws -> [OrganizationSimple] {
-        try await (sdkRequest("GET", "/organizations", config: config, query: [
+    public static func orgsList(config: ClientConfig, since: Int?, perPage: Int?) async throws -> [OrganizationSimple] {
+        return try (await sdkRequest("GET", "/organizations", config: config, query: [
             SdkQueryParameter("since", value: since),
             SdkQueryParameter("per_page", value: perPage),
         ], decoder: .json, operationId: "orgsList")).data
     }
 
-    /// Gets information about an organization. When the value of `two_factor_requirement_enabled` is `true`, the
-    /// organization requires all members, billing managers, outside collaborators, guest collaborators, repository
-    /// collaborators, or everyone with access to any repository within the organization to enable [two-factor
-    /// authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/). To
-    /// see the full details about an organization, the authenticated user must be an organization owner. OAuth app
-    /// tokens and personal access tokens (classic) need the `admin:org` scope to see the full details about an
-    /// organization. To see information about an organization's GitHub plan, GitHub Apps need the `Organization plan`
-    /// permission.
+    /// Gets information about an organization. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, outside collaborators, guest collaborators, repository collaborators, or everyone with access to any repository within the organization to enable [two-factor authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/). To see the full details about an organization, the authenticated user must be an organization owner. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to see the full details about an organization. To see information about an organization's GitHub plan, GitHub Apps need the `Organization plan` permission.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func orgsGet(config: ClientConfig, org: String) async throws -> OrganizationFull {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsGet"
-        )).data
+    public static func orgsGet(config: ClientConfig, org: String) async throws -> OrganizationFull {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, decoder: .json, operationId: "orgsGet")).data
     }
 }

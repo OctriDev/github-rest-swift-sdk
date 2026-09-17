@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookBranchProtectionConfigurationDisabled domain models
+// WebhookBranchProtectionConfigurationDisabled domain models
 /// Typed representation of the `WebhookBranchProtectionConfigurationDisabled` API schema.
 public struct WebhookBranchProtectionConfigurationDisabled: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -33,53 +33,32 @@ public struct WebhookBranchProtectionConfigurationDisabled: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookBranchProtectionConfigurationDisabled {
-    init(from decoder: Decoder) throws {
+extension WebhookBranchProtectionConfigurationDisabled {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookBranchProtectionConfigurationDisabled {
-    init(
-        action: WebhookBranchProtectionConfigurationDisabledAction,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookBranchProtectionConfigurationDisabled {
+    public init(action: WebhookBranchProtectionConfigurationDisabledAction, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.repository) = (action, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -87,19 +66,15 @@ public extension WebhookBranchProtectionConfigurationDisabled {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookBranchProtectionConfigurationDisabledAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookBranchProtectionConfigurationDisabledAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let disabled = WebhookBranchProtectionConfigurationDisabledAction(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

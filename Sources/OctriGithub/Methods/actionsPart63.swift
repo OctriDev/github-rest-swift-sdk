@@ -6,41 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets the level of access that workflows outside of the repository have to actions and reusable workflows in the
-    /// repository. This endpoint only applies to private repositories. For more information, see "[Allowing access to
-    /// components in a private repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#allowing-access-to-components-in-a-private-repository)."
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Gets the level of access that workflows outside of the repository have to actions and reusable workflows in the repository. This endpoint only applies to private repositories. For more information, see "[Allowing access to components in a private repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#allowing-access-to-components-in-a-private-repository)." OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsGetWorkflowAccessToRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActionsWorkflowAccessToRepository {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions/access",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetWorkflowAccessToRepository"
-        )).data
+    public static func actionsGetWorkflowAccessToRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsWorkflowAccessToRepository {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/access"].joined(), config: config, decoder: .json, operationId: "actionsGetWorkflowAccessToRepository")).data
     }
 
-    /// Sets the level of access that workflows outside of the repository have to actions and reusable workflows in the
-    /// repository. This endpoint only applies to private repositories. For more information, see "[Allowing access to
-    /// components in a private repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#allowing-access-to-components-in-a-private-repository)".
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Sets the level of access that workflows outside of the repository have to actions and reusable workflows in the repository. This endpoint only applies to private repositories. For more information, see "[Allowing access to components in a private repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#allowing-access-to-components-in-a-private-repository)". OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -52,27 +30,9 @@ public extension ActionsMethods {
     ///   `none` means the access is only possible from workflows in this repository.
     ///   `user` level access allows sharing across user owned private repositories
     ///   only. `organization` level access allows sharing across the organization.
-    static func actionsSetWorkflowAccessToRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        accessLevel: ActionsWorkflowAccessToRepositoryAccessLevel
-    ) async throws -> SdkEmptyResponse {
+    public static func actionsSetWorkflowAccessToRepository(config: ClientConfig, owner: String, repo: String, accessLevel: ActionsWorkflowAccessToRepositoryAccessLevel) async throws -> SdkEmptyResponse {
         let requestBody = ActionsSetWorkflowAccessToRepositoryRequestBody(accessLevel: accessLevel)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions/access",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetWorkflowAccessToRepository"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/access"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetWorkflowAccessToRepository")).data
     }
 }

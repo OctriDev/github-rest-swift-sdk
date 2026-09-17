@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Repos domain models
+// Repos domain models
 /// Combined Commit Status
 public struct CombinedCommitStatus: Codable {
     /// Required `string` value serialized in the `state` wire field.
@@ -31,91 +31,53 @@ public struct CombinedCommitStatus: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CombinedCommitStatus {
-    init(from decoder: Decoder) throws {
+extension CombinedCommitStatus {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.state) else {
-            throw SdkValidationError(
-                field: "state",
-                code: "required",
-                message: "Validation failed for 'state': value is required"
-            )
+            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
         }
         guard container.contains(.statuses) else {
-            throw SdkValidationError(
-                field: "statuses",
-                code: "required",
-                message: "Validation failed for 'statuses': value is required"
-            )
+            throw SdkValidationError(field: "statuses", code: "required", message: "Validation failed for 'statuses': value is required")
         }
         guard container.contains(.sha) else {
-            throw SdkValidationError(
-                field: "sha",
-                code: "required",
-                message: "Validation failed for 'sha': value is required"
-            )
+            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
         }
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.commitUrl) else {
-            throw SdkValidationError(
-                field: "commit_url",
-                code: "required",
-                message: "Validation failed for 'commit_url': value is required"
-            )
+            throw SdkValidationError(field: "commit_url", code: "required", message: "Validation failed for 'commit_url': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
-        state = try container.sdkDecodeRequired(.state)
-        statuses = try container.sdkDecodeRequired(.statuses)
-        sha = try container.sdkDecodeRequired(.sha)
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        repository = try container.sdkDecodeRequired(.repository)
-        commitUrl = try container.sdkDecodeRequired(.commitUrl)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("commit_url", commitUrl)
-        try sdkValidateUri("url", url)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.statuses = try container.sdkDecodeRequired(.statuses)
+        self.sha = try container.sdkDecodeRequired(.sha)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.commitUrl = try container.sdkDecodeRequired(.commitUrl)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("commit_url", self.commitUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension CombinedCommitStatus {
-    init(
-        state: String,
-        statuses: [SimpleCommitStatus],
-        sha: String,
-        totalCount: Int,
-        repository: MinimalRepository,
-        commitUrl: String,
-        url: String
-    ) throws {
+extension CombinedCommitStatus {
+    public init(state: String, statuses: [SimpleCommitStatus], sha: String, totalCount: Int, repository: MinimalRepository, commitUrl: String, url: String) throws {
         (self.state, self.statuses) = (state, statuses)
         (self.sha, self.totalCount) = (sha, totalCount)
         (self.repository, self.commitUrl) = (repository, commitUrl)
         self.url = url
-        try sdkValidateUri("commit_url", self.commitUrl)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("commit_url", self.commitUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -148,70 +110,41 @@ public struct CommunityProfile: Codable {
         case contentReportsEnabled = "content_reports_enabled"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CommunityProfile {
-    init(from decoder: Decoder) throws {
+extension CommunityProfile {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.healthPercentage) else {
-            throw SdkValidationError(
-                field: "health_percentage",
-                code: "required",
-                message: "Validation failed for 'health_percentage': value is required"
-            )
+            throw SdkValidationError(field: "health_percentage", code: "required", message: "Validation failed for 'health_percentage': value is required")
         }
         guard container.contains(.description) else {
-            throw SdkValidationError(
-                field: "description",
-                code: "required",
-                message: "Validation failed for 'description': value is required"
-            )
+            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
         }
         guard container.contains(.documentation) else {
-            throw SdkValidationError(
-                field: "documentation",
-                code: "required",
-                message: "Validation failed for 'documentation': value is required"
-            )
+            throw SdkValidationError(field: "documentation", code: "required", message: "Validation failed for 'documentation': value is required")
         }
         guard container.contains(.files) else {
-            throw SdkValidationError(
-                field: "files",
-                code: "required",
-                message: "Validation failed for 'files': value is required"
-            )
+            throw SdkValidationError(field: "files", code: "required", message: "Validation failed for 'files': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
-        healthPercentage = try container.sdkDecodeRequired(.healthPercentage)
-        description = try container.sdkDecodeIfPresent(.description)
-        documentation = try container.sdkDecodeIfPresent(.documentation)
-        files = try container.sdkDecodeRequired(.files)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        contentReportsEnabled = try container.sdkDecodeIfPresent(.contentReportsEnabled)
-        if let value = updatedAt {
+        self.healthPercentage = try container.sdkDecodeRequired(.healthPercentage)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.documentation = try container.sdkDecodeIfPresent(.documentation)
+        self.files = try container.sdkDecodeRequired(.files)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.contentReportsEnabled = try container.sdkDecodeIfPresent(.contentReportsEnabled)
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension CommunityProfile {
-    init(
-        healthPercentage: Int,
-        description: String?,
-        documentation: String?,
-        files: CommunityProfileFiles,
-        updatedAt: Date?,
-        contentReportsEnabled: Bool? = nil
-    ) throws {
+extension CommunityProfile {
+    public init(healthPercentage: Int, description: String?, documentation: String?, files: CommunityProfileFiles, updatedAt: Date?, contentReportsEnabled: Bool? = nil) throws {
         (self.healthPercentage, self.description) = (healthPercentage, description)
         (self.documentation, self.files) = (documentation, files)
         (self.updatedAt, self.contentReportsEnabled) = (updatedAt, contentReportsEnabled)
@@ -248,83 +181,45 @@ public struct CommunityProfileFiles: Codable {
         case pullRequestTemplate = "pull_request_template"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CommunityProfileFiles {
-    init(from decoder: Decoder) throws {
+extension CommunityProfileFiles {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.codeOfConduct) else {
-            throw SdkValidationError(
-                field: "code_of_conduct",
-                code: "required",
-                message: "Validation failed for 'code_of_conduct': value is required"
-            )
+            throw SdkValidationError(field: "code_of_conduct", code: "required", message: "Validation failed for 'code_of_conduct': value is required")
         }
         guard container.contains(.codeOfConductFile) else {
-            throw SdkValidationError(
-                field: "code_of_conduct_file",
-                code: "required",
-                message: "Validation failed for 'code_of_conduct_file': value is required"
-            )
+            throw SdkValidationError(field: "code_of_conduct_file", code: "required", message: "Validation failed for 'code_of_conduct_file': value is required")
         }
         guard container.contains(.license) else {
-            throw SdkValidationError(
-                field: "license",
-                code: "required",
-                message: "Validation failed for 'license': value is required"
-            )
+            throw SdkValidationError(field: "license", code: "required", message: "Validation failed for 'license': value is required")
         }
         guard container.contains(.contributing) else {
-            throw SdkValidationError(
-                field: "contributing",
-                code: "required",
-                message: "Validation failed for 'contributing': value is required"
-            )
+            throw SdkValidationError(field: "contributing", code: "required", message: "Validation failed for 'contributing': value is required")
         }
         guard container.contains(.readme) else {
-            throw SdkValidationError(
-                field: "readme",
-                code: "required",
-                message: "Validation failed for 'readme': value is required"
-            )
+            throw SdkValidationError(field: "readme", code: "required", message: "Validation failed for 'readme': value is required")
         }
         guard container.contains(.issueTemplate) else {
-            throw SdkValidationError(
-                field: "issue_template",
-                code: "required",
-                message: "Validation failed for 'issue_template': value is required"
-            )
+            throw SdkValidationError(field: "issue_template", code: "required", message: "Validation failed for 'issue_template': value is required")
         }
         guard container.contains(.pullRequestTemplate) else {
-            throw SdkValidationError(
-                field: "pull_request_template",
-                code: "required",
-                message: "Validation failed for 'pull_request_template': value is required"
-            )
+            throw SdkValidationError(field: "pull_request_template", code: "required", message: "Validation failed for 'pull_request_template': value is required")
         }
-        codeOfConduct = try container.sdkDecodeIfPresent(.codeOfConduct)
-        codeOfConductFile = try container.sdkDecodeIfPresent(.codeOfConductFile)
-        license = try container.sdkDecodeIfPresent(.license)
-        contributing = try container.sdkDecodeIfPresent(.contributing)
-        readme = try container.sdkDecodeIfPresent(.readme)
-        issueTemplate = try container.sdkDecodeIfPresent(.issueTemplate)
-        pullRequestTemplate = try container.sdkDecodeIfPresent(.pullRequestTemplate)
+        self.codeOfConduct = try container.sdkDecodeIfPresent(.codeOfConduct)
+        self.codeOfConductFile = try container.sdkDecodeIfPresent(.codeOfConductFile)
+        self.license = try container.sdkDecodeIfPresent(.license)
+        self.contributing = try container.sdkDecodeIfPresent(.contributing)
+        self.readme = try container.sdkDecodeIfPresent(.readme)
+        self.issueTemplate = try container.sdkDecodeIfPresent(.issueTemplate)
+        self.pullRequestTemplate = try container.sdkDecodeIfPresent(.pullRequestTemplate)
     }
 }
 
-public extension CommunityProfileFiles {
-    init(
-        codeOfConduct: NullableCodeOfConductSimple?,
-        codeOfConductFile: NullableCommunityHealthFile?,
-        license: NullableLicenseSimple?,
-        contributing: NullableCommunityHealthFile?,
-        readme: NullableCommunityHealthFile?,
-        issueTemplate: NullableCommunityHealthFile?,
-        pullRequestTemplate: NullableCommunityHealthFile?
-    ) {
+extension CommunityProfileFiles {
+    public init(codeOfConduct: NullableCodeOfConductSimple?, codeOfConductFile: NullableCommunityHealthFile?, license: NullableLicenseSimple?, contributing: NullableCommunityHealthFile?, readme: NullableCommunityHealthFile?, issueTemplate: NullableCommunityHealthFile?, pullRequestTemplate: NullableCommunityHealthFile?) {
         (self.codeOfConduct, self.codeOfConductFile) = (codeOfConduct, codeOfConductFile)
         (self.license, self.contributing) = (license, contributing)
         (self.readme, self.issueTemplate) = (readme, issueTemplate)
@@ -354,51 +249,33 @@ public struct CustomDeploymentRuleApp: Codable {
         case nodeId = "node_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CustomDeploymentRuleApp {
-    init(from decoder: Decoder) throws {
+extension CustomDeploymentRuleApp {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.slug) else {
-            throw SdkValidationError(
-                field: "slug",
-                code: "required",
-                message: "Validation failed for 'slug': value is required"
-            )
+            throw SdkValidationError(field: "slug", code: "required", message: "Validation failed for 'slug': value is required")
         }
         guard container.contains(.integrationUrl) else {
-            throw SdkValidationError(
-                field: "integration_url",
-                code: "required",
-                message: "Validation failed for 'integration_url': value is required"
-            )
+            throw SdkValidationError(field: "integration_url", code: "required", message: "Validation failed for 'integration_url': value is required")
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(
-                field: "node_id",
-                code: "required",
-                message: "Validation failed for 'node_id': value is required"
-            )
+            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        slug = try container.sdkDecodeRequired(.slug)
-        integrationUrl = try container.sdkDecodeRequired(.integrationUrl)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.integrationUrl = try container.sdkDecodeRequired(.integrationUrl)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
     }
 }
 
-public extension CustomDeploymentRuleApp {
-    init(id: Int, slug: String, integrationUrl: String, nodeId: String) {
+extension CustomDeploymentRuleApp {
+    public init(id: Int, slug: String, integrationUrl: String, nodeId: String) {
         (self.id, self.slug) = (id, slug)
         (self.integrationUrl, self.nodeId) = (integrationUrl, nodeId)
     }
@@ -440,92 +317,51 @@ public struct DeployKey: Codable {
         case enabled
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DeployKey {
-    init(from decoder: Decoder) throws {
+extension DeployKey {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.key) else {
-            throw SdkValidationError(
-                field: "key",
-                code: "required",
-                message: "Validation failed for 'key': value is required"
-            )
+            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.title) else {
-            throw SdkValidationError(
-                field: "title",
-                code: "required",
-                message: "Validation failed for 'title': value is required"
-            )
+            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
         }
         guard container.contains(.verified) else {
-            throw SdkValidationError(
-                field: "verified",
-                code: "required",
-                message: "Validation failed for 'verified': value is required"
-            )
+            throw SdkValidationError(field: "verified", code: "required", message: "Validation failed for 'verified': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.readOnly) else {
-            throw SdkValidationError(
-                field: "read_only",
-                code: "required",
-                message: "Validation failed for 'read_only': value is required"
-            )
+            throw SdkValidationError(field: "read_only", code: "required", message: "Validation failed for 'read_only': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        key = try container.sdkDecodeRequired(.key)
-        url = try container.sdkDecodeRequired(.url)
-        title = try container.sdkDecodeRequired(.title)
-        verified = try container.sdkDecodeRequired(.verified)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        readOnly = try container.sdkDecodeRequired(.readOnly)
-        addedBy = try container.sdkDecodeIfPresent(.addedBy)
-        lastUsed = try container.sdkDecodeIfPresent(.lastUsed)
-        enabled = try container.sdkDecodeIfPresent(.enabled)
-        if let value = lastUsed {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.key = try container.sdkDecodeRequired(.key)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.title = try container.sdkDecodeRequired(.title)
+        self.verified = try container.sdkDecodeRequired(.verified)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.readOnly = try container.sdkDecodeRequired(.readOnly)
+        self.addedBy = try container.sdkDecodeIfPresent(.addedBy)
+        self.lastUsed = try container.sdkDecodeIfPresent(.lastUsed)
+        self.enabled = try container.sdkDecodeIfPresent(.enabled)
+        if let value = self.lastUsed {
             try sdkValidateDateTime("last_used", sdkWireString(value))
         }
     }
 }
 
-public extension DeployKey {
-    init(
-        id: Int,
-        key: String,
-        url: String,
-        title: String,
-        verified: Bool,
-        createdAt: String,
-        readOnly: Bool,
-        addedBy: String? = nil,
-        lastUsed: Date? = nil,
-        enabled: Bool? = nil
-    ) throws {
+extension DeployKey {
+    public init(id: Int, key: String, url: String, title: String, verified: Bool, createdAt: String, readOnly: Bool, addedBy: String? = nil, lastUsed: Date? = nil, enabled: Bool? = nil) throws {
         (self.id, self.key) = (id, key)
         (self.url, self.title) = (url, title)
         (self.verified, self.createdAt) = (verified, createdAt)
@@ -577,7 +413,5 @@ public struct Environment: Codable {
         case deploymentBranchPolicy = "deployment_branch_policy"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Campaigns domain models
+// Campaigns domain models
 /// The campaign metadata and alert stats.
 public struct CampaignSummary: Codable {
     /// The number of the newly created campaign
@@ -50,58 +50,42 @@ public struct CampaignSummary: Codable {
         case alertStats = "alert_stats"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CampaignSummary {
-    init(from decoder: Decoder) throws {
+extension CampaignSummary {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        number = try container.sdkDecodeRequired(.number)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        description = try container.sdkDecodeRequired(.description)
-        managers = try container.sdkDecodeRequired(.managers)
-        endsAt = try container.sdkDecodeRequired(.endsAt)
-        state = try container.sdkDecodeRequired(.state)
-        contactLink = try container.sdkDecodeIfPresent(.contactLink)
-        name = try container.sdkDecodeIfPresent(.name)
-        teamManagers = try container.sdkDecodeIfPresent(.teamManagers)
-        publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
-        closedAt = try container.sdkDecodeIfPresent(.closedAt)
-        alertStats = try container.sdkDecodeIfPresent(.alertStats)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateDateTime("ends_at", sdkWireString(endsAt))
-        if let value = contactLink {
+        self.number = try container.sdkDecodeRequired(.number)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.managers = try container.sdkDecodeRequired(.managers)
+        self.endsAt = try container.sdkDecodeRequired(.endsAt)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.contactLink = try container.sdkDecodeIfPresent(.contactLink)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.teamManagers = try container.sdkDecodeIfPresent(.teamManagers)
+        self.publishedAt = try container.sdkDecodeIfPresent(.publishedAt)
+        self.closedAt = try container.sdkDecodeIfPresent(.closedAt)
+        self.alertStats = try container.sdkDecodeIfPresent(.alertStats)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("ends_at", sdkWireString(self.endsAt))
+        if let value = self.contactLink {
             try sdkValidateUri("contact_link", value)
         }
-        if let value = publishedAt {
+        if let value = self.publishedAt {
             try sdkValidateDateTime("published_at", sdkWireString(value))
         }
-        if let value = closedAt {
+        if let value = self.closedAt {
             try sdkValidateDateTime("closed_at", sdkWireString(value))
         }
     }
 }
 
-public extension CampaignSummary {
-    init(
-        number: Int,
-        createdAt: Date,
-        updatedAt: Date,
-        description: String,
-        managers: [SimpleUser],
-        endsAt: Date,
-        state: CampaignState,
-        contactLink: String?,
-        name: String? = nil,
-        teamManagers: [Team]? = nil,
-        publishedAt: Date? = nil,
-        closedAt: Date? = nil,
-        alertStats: CampaignSummaryAlertStats? = nil
-    ) throws {
+extension CampaignSummary {
+    public init(number: Int, createdAt: Date, updatedAt: Date, description: String, managers: [SimpleUser], endsAt: Date, state: CampaignState, contactLink: String?, name: String? = nil, teamManagers: [Team]? = nil, publishedAt: Date? = nil, closedAt: Date? = nil, alertStats: CampaignSummaryAlertStats? = nil) throws {
         (self.number, self.createdAt) = (number, createdAt)
         (self.updatedAt, self.description) = (updatedAt, description)
         (self.managers, self.endsAt) = (managers, endsAt)
@@ -109,9 +93,9 @@ public extension CampaignSummary {
         (self.name, self.teamManagers) = (name, teamManagers)
         (self.publishedAt, self.closedAt) = (publishedAt, closedAt)
         self.alertStats = alertStats
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateDateTime("ends_at", sdkWireString(self.endsAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("ends_at", sdkWireString(self.endsAt))
         if let value = self.contactLink {
             try sdkValidateUri("contact_link", value)
         }
@@ -139,43 +123,29 @@ public struct CampaignSummaryAlertStats: Codable {
         case inProgressCount = "in_progress_count"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CampaignSummaryAlertStats {
-    init(from decoder: Decoder) throws {
+extension CampaignSummaryAlertStats {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.openCount) else {
-            throw SdkValidationError(
-                field: "open_count",
-                code: "required",
-                message: "Validation failed for 'open_count': value is required"
-            )
+            throw SdkValidationError(field: "open_count", code: "required", message: "Validation failed for 'open_count': value is required")
         }
         guard container.contains(.closedCount) else {
-            throw SdkValidationError(
-                field: "closed_count",
-                code: "required",
-                message: "Validation failed for 'closed_count': value is required"
-            )
+            throw SdkValidationError(field: "closed_count", code: "required", message: "Validation failed for 'closed_count': value is required")
         }
         guard container.contains(.inProgressCount) else {
-            throw SdkValidationError(
-                field: "in_progress_count",
-                code: "required",
-                message: "Validation failed for 'in_progress_count': value is required"
-            )
+            throw SdkValidationError(field: "in_progress_count", code: "required", message: "Validation failed for 'in_progress_count': value is required")
         }
-        openCount = try container.sdkDecodeRequired(.openCount)
-        closedCount = try container.sdkDecodeRequired(.closedCount)
-        inProgressCount = try container.sdkDecodeRequired(.inProgressCount)
+        self.openCount = try container.sdkDecodeRequired(.openCount)
+        self.closedCount = try container.sdkDecodeRequired(.closedCount)
+        self.inProgressCount = try container.sdkDecodeRequired(.inProgressCount)
     }
 }
 
-public extension CampaignSummaryAlertStats {
-    init(openCount: Int, closedCount: Int, inProgressCount: Int) {
+extension CampaignSummaryAlertStats {
+    public init(openCount: Int, closedCount: Int, inProgressCount: Int) {
         (self.openCount, self.closedCount) = (openCount, closedCount)
         self.inProgressCount = inProgressCount
     }
@@ -185,16 +155,13 @@ public extension CampaignSummaryAlertStats {
 public struct CampaignState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = CampaignState(rawValue: "open")
     public static let closed = CampaignState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists artifacts for a workflow run. Anyone with read access to the repository can use this endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private
-    /// repository.
+extension ActionsMethods {
+    /// Lists artifacts for a workflow run. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,36 +26,12 @@ public extension ActionsMethods {
     /// - name: The name field of an artifact. When specified, only artifacts with
     ///   this name will be returned.
     /// - direction: The direction to sort the results by.
-    static func actionsListWorkflowRunArtifacts(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        perPage: Int?,
-        page: Int?,
-        name: String?,
-        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?
-    ) async throws -> ActionsListWorkflowRunArtifactsResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/artifacts",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("name", value: name),
-                SdkQueryParameter("direction", value: direction),
-            ],
-            decoder: .json,
-            operationId: "actionsListWorkflowRunArtifacts"
-        )).data
+    public static func actionsListWorkflowRunArtifacts(config: ClientConfig, owner: String, repo: String, runId: Int, perPage: Int?, page: Int?, name: String?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?) async throws -> ActionsListWorkflowRunArtifactsResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/artifacts"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("name", value: name),
+            SdkQueryParameter("direction", value: direction),
+        ], decoder: .json, operationId: "actionsListWorkflowRunArtifacts")).data
     }
 }

@@ -6,16 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// > [!WARNING] > This endpoint is in the process of closing down. Refer to "[Actions Get workflow usage and Get
-    /// workflow run usage endpoints closing down](https://github.blog/changelog/2025-02-02-actions-get-workflow-usage-and-get-workflow-run-usage-endpoints-closing-down/)"
-    /// for more information. Gets the number of billable minutes and total run time for a specific workflow run.
-    /// Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed
-    /// for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage.
-    /// The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest
-    /// whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
-    /// Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint with a private repository.
+extension ActionsMethods {
+    /// > [!WARNING] > This endpoint is in the process of closing down. Refer to "[Actions Get workflow usage and Get workflow run usage endpoints closing down](https://github.blog/changelog/2025-02-02-actions-get-workflow-usage-and-get-workflow-run-usage-endpoints-closing-down/)" for more information. Gets the number of billable minutes and total run time for a specific workflow run. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)". Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,26 +15,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    static func actionsGetWorkflowRunUsage(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int
-    ) async throws -> WorkflowRunUsage {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/timing",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetWorkflowRunUsage"
-        )).data
+    public static func actionsGetWorkflowRunUsage(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> WorkflowRunUsage {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/timing"].joined(), config: config, decoder: .json, operationId: "actionsGetWorkflowRunUsage")).data
     }
 }

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists the workflows in a repository. Anyone with read access to the repository can use this endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private
-    /// repository.
+extension ActionsMethods {
+    /// Lists the workflows in a repository. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,29 +22,10 @@ public extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func actionsListRepoWorkflows(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> ActionsListRepoWorkflowsResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/workflows",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "actionsListRepoWorkflows"
-        )).data
+    public static func actionsListRepoWorkflows(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> ActionsListRepoWorkflowsResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/workflows"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "actionsListRepoWorkflows")).data
     }
 }

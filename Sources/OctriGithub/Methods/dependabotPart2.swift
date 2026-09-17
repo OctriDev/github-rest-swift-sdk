@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    struct DependabotListAlertsForEnterpriseOptions: Codable {
+extension DependabotMethods {
+    public struct DependabotListAlertsForEnterpriseOptions: Codable {
         public var enterprise: String
         public var classification: String?
         public var state: String?
@@ -30,12 +30,7 @@ public extension DependabotMethods {
         }
     }
 
-    /// Lists Dependabot alerts for repositories that are owned by the specified enterprise. The authenticated user must
-    /// be a member of the enterprise to use this endpoint. Alerts are only returned for organizations in the enterprise
-    /// for which you are an organization owner or a security manager. For more information about security managers, see
-    /// "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this
-    /// endpoint.
+    /// Lists Dependabot alerts for repositories that are owned by the specified enterprise. The authenticated user must be a member of the enterprise to use this endpoint. Alerts are only returned for organizations in the enterprise for which you are an organization owner or a security manager. For more information about security managers, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)." OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
@@ -94,33 +89,23 @@ public extension DependabotMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func dependabotListAlertsForEnterprise(
-        config: ClientConfig,
-        options: DependabotListAlertsForEnterpriseOptions
-    ) async throws -> [DependabotAlertWithRepository] {
-        try await (sdkRequest(
-            "GET",
-            ["/enterprises/", sdkEncodePathSegment(sdkWireString(options.enterprise)), "/dependabot/alerts"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("classification", value: options.classification),
-                SdkQueryParameter("state", value: options.state),
-                SdkQueryParameter("severity", value: options.severity),
-                SdkQueryParameter("ecosystem", value: options.ecosystem),
-                SdkQueryParameter("package", value: options.package),
-                SdkQueryParameter("epss_percentage", value: options.epssPercentage),
-                SdkQueryParameter("has", value: options.has),
-                SdkQueryParameter("assignee", value: options.assignee),
-                SdkQueryParameter("scope", value: options.scope),
-                SdkQueryParameter("relationship", value: options.relationship),
-                SdkQueryParameter("sort", value: options.sort),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("before", value: options.before),
-                SdkQueryParameter("after", value: options.after),
-                SdkQueryParameter("per_page", value: options.perPage),
-            ],
-            decoder: .json,
-            operationId: "dependabotListAlertsForEnterprise"
-        )).data
+    public static func dependabotListAlertsForEnterprise(config: ClientConfig, options: DependabotListAlertsForEnterpriseOptions) async throws -> [DependabotAlertWithRepository] {
+        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(options.enterprise)), "/dependabot/alerts"].joined(), config: config, query: [
+            SdkQueryParameter("classification", value: options.classification),
+            SdkQueryParameter("state", value: options.state),
+            SdkQueryParameter("severity", value: options.severity),
+            SdkQueryParameter("ecosystem", value: options.ecosystem),
+            SdkQueryParameter("package", value: options.package),
+            SdkQueryParameter("epss_percentage", value: options.epssPercentage),
+            SdkQueryParameter("has", value: options.has),
+            SdkQueryParameter("assignee", value: options.assignee),
+            SdkQueryParameter("scope", value: options.scope),
+            SdkQueryParameter("relationship", value: options.relationship),
+            SdkQueryParameter("sort", value: options.sort),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("before", value: options.before),
+            SdkQueryParameter("after", value: options.after),
+            SdkQueryParameter("per_page", value: options.perPage),
+        ], decoder: .json, operationId: "dependabotListAlertsForEnterprise")).data
     }
 }

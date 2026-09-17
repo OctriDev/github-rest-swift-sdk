@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    /// Deletes a development environment secret in a repository using the secret name. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` scope to use this endpoint. The associated user must be a repository
-    /// admin.
+extension CodespacesMethods {
+    /// Deletes a development environment secret in a repository using the secret name. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. The associated user must be a repository admin.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,25 +15,7 @@ public extension CodespacesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - secretName: The name of the secret.
-    static func codespacesDeleteRepoSecret(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        secretName: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/codespaces/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "codespacesDeleteRepoSecret"
-        )).data
+    public static func codespacesDeleteRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "codespacesDeleteRepoSecret")).data
     }
 }

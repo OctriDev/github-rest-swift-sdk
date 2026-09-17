@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets a specific variable in an environment. Authenticated users must have collaborator access to a repository to
-    /// create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to
-    /// use this endpoint.
+extension ActionsMethods {
+    /// Gets a specific variable in an environment. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,28 +17,7 @@ public extension ActionsMethods {
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - name: The name of the variable.
-    static func actionsGetEnvironmentVariable(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String,
-        name: String
-    ) async throws -> ActionsVariable {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/variables/",
-                sdkEncodePathSegment(sdkWireString(name)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetEnvironmentVariable"
-        )).data
+    public static func actionsGetEnvironmentVariable(config: ClientConfig, owner: String, repo: String, environmentName: String, name: String) async throws -> ActionsVariable {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "actionsGetEnvironmentVariable")).data
     }
 }

@@ -6,13 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PackagesMethods {
+extension PackagesMethods {
     /// Delete a package for the authenticated user
     ///
-    /// Deletes a package owned by the authenticated user. You cannot delete a public package if any version of the
-    /// package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance. OAuth
-    /// app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use
-    /// this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Deletes a package owned by the authenticated user. You cannot delete a public package if any version of the package has more than 5,000 downloads. In this scenario, contact GitHub support for further assistance. OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -22,22 +19,7 @@ public extension PackagesMethods {
     ///   (`docker.pkg.github.com`), even if these have now been migrated to the
     ///   Container registry.
     /// - packageName: The name of the package.
-    static func packagesDeletePackageForAuthenticatedUser(
-        config: ClientConfig,
-        packageType: PackagesDeletePackageForOrgParameter,
-        packageName: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/user/packages/",
-                sdkEncodePathSegment(sdkWireString(packageType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(packageName)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "packagesDeletePackageForAuthenticatedUser"
-        )).data
+    public static func packagesDeletePackageForAuthenticatedUser(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/user/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName))].joined(), config: config, decoder: .empty, operationId: "packagesDeletePackageForAuthenticatedUser")).data
     }
 }

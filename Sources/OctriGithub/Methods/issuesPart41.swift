@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists all labels configured for a repository. Use `page` and `per_page` to paginate the results; `per_page` can
-    /// be at most 100.
+extension IssuesMethods {
+    /// Lists all labels configured for a repository. Use `page` and `per_page` to paginate the results; `per_page` can be at most 100.
     ///
     /// Lists all labels for a repository.
     ///
@@ -25,29 +24,10 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListLabelsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Label] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/labels",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListLabelsForRepo"
-        )).data
+    public static func issuesListLabelsForRepo(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Label] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/labels"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListLabelsForRepo")).data
     }
 }

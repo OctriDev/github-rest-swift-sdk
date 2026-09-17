@@ -6,19 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Removes a collaborator from a repository. To use this endpoint, the authenticated user must either be an
-    /// administrator of the repository or target themselves for removal. This endpoint also: - Cancels any outstanding
-    /// invitations sent by the collaborator - Unassigns the user from any issues - Removes access to organization
-    /// projects if the user is not an organization member and is not a collaborator on any other organization
-    /// repositories. - Unstars the repository - Updates access permissions to packages Removing a user as a
-    /// collaborator has the following effects on forks: - If the user had access to a fork through their membership to
-    /// this repository, the user will also be removed from the fork. - If the user had their own fork of the
-    /// repository, the fork will be deleted. - If the user still has read access to the repository, open pull requests
-    /// by this user from a fork will be denied. > [!NOTE] > A user can still have access to the repository through
-    /// organization permissions like base repository permissions. Although the API responds immediately, the additional
-    /// permission updates might take some extra time to complete in the background. For more information on fork
-    /// permissions, see "[About permissions and visibility of forks](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/about-permissions-and-visibility-of-forks)".
+extension ReposMethods {
+    /// Removes a collaborator from a repository. To use this endpoint, the authenticated user must either be an administrator of the repository or target themselves for removal. This endpoint also: - Cancels any outstanding invitations sent by the collaborator - Unassigns the user from any issues - Removes access to organization projects if the user is not an organization member and is not a collaborator on any other organization repositories. - Unstars the repository - Updates access permissions to packages Removing a user as a collaborator has the following effects on forks: - If the user had access to a fork through their membership to this repository, the user will also be removed from the fork. - If the user had their own fork of the repository, the fork will be deleted. - If the user still has read access to the repository, open pull requests by this user from a fork will be denied. > [!NOTE] > A user can still have access to the repository through organization permissions like base repository permissions. Although the API responds immediately, the additional permission updates might take some extra time to complete in the background. For more information on fork permissions, see "[About permissions and visibility of forks](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/about-permissions-and-visibility-of-forks)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,35 +15,11 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - username: The handle for the GitHub user account.
-    static func reposRemoveCollaborator(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        username: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/collaborators/",
-                sdkEncodePathSegment(sdkWireString(username)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposRemoveCollaborator"
-        )).data
+    public static func reposRemoveCollaborator(config: ClientConfig, owner: String, repo: String, username: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/collaborators/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "reposRemoveCollaborator")).data
     }
 
-    /// Checks the repository permission and role of a collaborator. The `permission` attribute provides the legacy base
-    /// roles of `admin`, `write`, `read`, and `none`, where the `maintain` role is mapped to `write` and the `triage`
-    /// role is mapped to `read`. The `role_name` attribute provides the name of the assigned role, including custom
-    /// roles. The `permission` can also be used to determine which base level of access the collaborator has to the
-    /// repository. The calculated permissions are the highest role assigned to the collaborator after considering all
-    /// sources of grants, including: repo, teams, organization, and enterprise. There is presently not a way to
-    /// differentiate between an organization level grant and a repository level grant from this endpoint response.
+    /// Checks the repository permission and role of a collaborator. The `permission` attribute provides the legacy base roles of `admin`, `write`, `read`, and `none`, where the `maintain` role is mapped to `write` and the `triage` role is mapped to `read`. The `role_name` attribute provides the name of the assigned role, including custom roles. The `permission` can also be used to determine which base level of access the collaborator has to the repository. The calculated permissions are the highest role assigned to the collaborator after considering all sources of grants, including: repo, teams, organization, and enterprise. There is presently not a way to differentiate between an organization level grant and a repository level grant from this endpoint response.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -62,26 +27,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - username: The handle for the GitHub user account.
-    static func reposGetCollaboratorPermissionLevel(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        username: String
-    ) async throws -> RepositoryCollaboratorPermission {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/collaborators/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/permission",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetCollaboratorPermissionLevel"
-        )).data
+    public static func reposGetCollaboratorPermissionLevel(config: ClientConfig, owner: String, repo: String, username: String) async throws -> RepositoryCollaboratorPermission {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/collaborators/", sdkEncodePathSegment(sdkWireString(username)), "/permission"].joined(), config: config, decoder: .json, operationId: "reposGetCollaboratorPermissionLevel")).data
     }
 }

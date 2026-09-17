@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical copilotSpaces operation model declarations
+// Canonical copilotSpaces operation model declarations
 public struct CopilotSpacesListResourcesForOrgResponse: Codable {
     /// The list of resources attached to this Copilot Space.
     public var resources: [CopilotSpaceResource]
@@ -16,27 +16,21 @@ public struct CopilotSpacesListResourcesForOrgResponse: Codable {
         case resources
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSpacesListResourcesForOrgResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesListResourcesForOrgResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.resources) else {
-            throw SdkValidationError(
-                field: "resources",
-                code: "required",
-                message: "Validation failed for 'resources': value is required"
-            )
+            throw SdkValidationError(field: "resources", code: "required", message: "Validation failed for 'resources': value is required")
         }
-        resources = try container.sdkDecodeRequired(.resources)
+        self.resources = try container.sdkDecodeRequired(.resources)
     }
 }
 
-public extension CopilotSpacesListResourcesForOrgResponse {
-    init(resources: [CopilotSpaceResource]) {
+extension CopilotSpacesListResourcesForOrgResponse {
+    public init(resources: [CopilotSpaceResource]) {
         self.resources = resources
     }
 }
@@ -53,23 +47,20 @@ public struct CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem: Codab
     }
 
     init() {
-        (resourceType, metadata) = (nil, nil)
+        (self.resourceType, self.metadata) = (nil, nil)
     }
 }
 
-public extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        resourceType = try container.sdkDecodeIfPresent(.resourceType)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
+        self.resourceType = try container.sdkDecodeIfPresent(.resourceType)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
     }
 }
 
-public extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem {
-    init(
-        resourceType: CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType? = nil,
-        metadata: CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadata? = nil
-    ) {
+extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItem {
+    public init(resourceType: CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemResourceType? = nil, metadata: CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadata? = nil) {
         self.init()
         (self.resourceType, self.metadata) = (resourceType, metadata)
     }
@@ -83,27 +74,21 @@ public struct CopilotSpacesListForOrgResponse: Codable {
         case spaces
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSpacesListForOrgResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesListForOrgResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.spaces) else {
-            throw SdkValidationError(
-                field: "spaces",
-                code: "required",
-                message: "Validation failed for 'spaces': value is required"
-            )
+            throw SdkValidationError(field: "spaces", code: "required", message: "Validation failed for 'spaces': value is required")
         }
-        spaces = try container.sdkDecodeRequired(.spaces)
+        self.spaces = try container.sdkDecodeRequired(.spaces)
     }
 }
 
-public extension CopilotSpacesListForOrgResponse {
-    init(spaces: [CopilotSpace]) {
+extension CopilotSpacesListForOrgResponse {
+    public init(spaces: [CopilotSpace]) {
         self.spaces = spaces
     }
 }
@@ -130,29 +115,23 @@ public struct CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetada
     }
 
     init() {
-        (repositoryId, filePath, text, name, number) = (nil, nil, nil, nil, nil)
+        (self.repositoryId, self.filePath, self.text, self.name, self.number) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetadata {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetadata {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        filePath = try container.sdkDecodeIfPresent(.filePath)
-        text = try container.sdkDecodeIfPresent(.text)
-        name = try container.sdkDecodeIfPresent(.name)
-        number = try container.sdkDecodeIfPresent(.number)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.filePath = try container.sdkDecodeIfPresent(.filePath)
+        self.text = try container.sdkDecodeIfPresent(.text)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.number = try container.sdkDecodeIfPresent(.number)
     }
 }
 
-public extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetadata {
-    init(
-        repositoryId: Int? = nil,
-        filePath: String? = nil,
-        text: String? = nil,
-        name: String? = nil,
-        number: Int? = nil
-    ) {
+extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetadata {
+    public init(repositoryId: Int? = nil, filePath: String? = nil, text: String? = nil, name: String? = nil, number: Int? = nil) {
         self.init()
         (self.repositoryId, self.filePath) = (repositoryId, filePath)
         (self.text, self.name) = (text, name)
@@ -172,23 +151,20 @@ public struct CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem: Coda
     }
 
     init() {
-        (resourceType, metadata) = (nil, nil)
+        (self.resourceType, self.metadata) = (nil, nil)
     }
 }
 
-public extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        resourceType = try container.sdkDecodeIfPresent(.resourceType)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
+        self.resourceType = try container.sdkDecodeIfPresent(.resourceType)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
     }
 }
 
-public extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem {
-    init(
-        resourceType: CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType? = nil,
-        metadata: CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetadata? = nil
-    ) {
+extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem {
+    public init(resourceType: CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType? = nil, metadata: CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetadata? = nil) {
         self.init()
         (self.resourceType, self.metadata) = (resourceType, metadata)
     }
@@ -202,27 +178,21 @@ public struct CopilotSpacesListCollaboratorsForOrgResponse: Codable {
         case collaborators
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSpacesListCollaboratorsForOrgResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesListCollaboratorsForOrgResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.collaborators) else {
-            throw SdkValidationError(
-                field: "collaborators",
-                code: "required",
-                message: "Validation failed for 'collaborators': value is required"
-            )
+            throw SdkValidationError(field: "collaborators", code: "required", message: "Validation failed for 'collaborators': value is required")
         }
-        collaborators = try container.sdkDecodeRequired(.collaborators)
+        self.collaborators = try container.sdkDecodeRequired(.collaborators)
     }
 }
 
-public extension CopilotSpacesListCollaboratorsForOrgResponse {
-    init(collaborators: [CopilotSpaceCollaborator]) {
+extension CopilotSpacesListCollaboratorsForOrgResponse {
+    public init(collaborators: [CopilotSpaceCollaborator]) {
         self.collaborators = collaborators
     }
 }
@@ -249,29 +219,23 @@ public struct CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadat
     }
 
     init() {
-        (repositoryId, filePath, text, name, number) = (nil, nil, nil, nil, nil)
+        (self.repositoryId, self.filePath, self.text, self.name, self.number) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadata {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadata {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        filePath = try container.sdkDecodeIfPresent(.filePath)
-        text = try container.sdkDecodeIfPresent(.text)
-        name = try container.sdkDecodeIfPresent(.name)
-        number = try container.sdkDecodeIfPresent(.number)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.filePath = try container.sdkDecodeIfPresent(.filePath)
+        self.text = try container.sdkDecodeIfPresent(.text)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.number = try container.sdkDecodeIfPresent(.number)
     }
 }
 
-public extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadata {
-    init(
-        repositoryId: Int? = nil,
-        filePath: String? = nil,
-        text: String? = nil,
-        name: String? = nil,
-        number: Int? = nil
-    ) {
+extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadata {
+    public init(repositoryId: Int? = nil, filePath: String? = nil, text: String? = nil, name: String? = nil, number: Int? = nil) {
         self.init()
         (self.repositoryId, self.filePath) = (repositoryId, filePath)
         (self.text, self.name) = (text, name)
@@ -291,23 +255,20 @@ public struct CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItem: Codab
     }
 
     init() {
-        (resourceType, metadata) = (nil, nil)
+        (self.resourceType, self.metadata) = (nil, nil)
     }
 }
 
-public extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItem {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        resourceType = try container.sdkDecodeIfPresent(.resourceType)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
+        self.resourceType = try container.sdkDecodeIfPresent(.resourceType)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
     }
 }
 
-public extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItem {
-    init(
-        resourceType: CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType? = nil,
-        metadata: CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadata? = nil
-    ) {
+extension CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItem {
+    public init(resourceType: CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemResourceType? = nil, metadata: CopilotSpacesUpdateForOrgRequestBodyResourcesAttributesItemMetadata? = nil) {
         self.init()
         (self.resourceType, self.metadata) = (resourceType, metadata)
     }
@@ -335,29 +296,23 @@ public struct CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetada
     }
 
     init() {
-        (repositoryId, filePath, text, name, number) = (nil, nil, nil, nil, nil)
+        (self.repositoryId, self.filePath, self.text, self.name, self.number) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetadata {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetadata {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        filePath = try container.sdkDecodeIfPresent(.filePath)
-        text = try container.sdkDecodeIfPresent(.text)
-        name = try container.sdkDecodeIfPresent(.name)
-        number = try container.sdkDecodeIfPresent(.number)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.filePath = try container.sdkDecodeIfPresent(.filePath)
+        self.text = try container.sdkDecodeIfPresent(.text)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.number = try container.sdkDecodeIfPresent(.number)
     }
 }
 
-public extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetadata {
-    init(
-        repositoryId: Int? = nil,
-        filePath: String? = nil,
-        text: String? = nil,
-        name: String? = nil,
-        number: Int? = nil
-    ) {
+extension CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemMetadata {
+    public init(repositoryId: Int? = nil, filePath: String? = nil, text: String? = nil, name: String? = nil, number: Int? = nil) {
         self.init()
         (self.repositoryId, self.filePath) = (repositoryId, filePath)
         (self.text, self.name) = (text, name)
@@ -387,29 +342,23 @@ public struct CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadat
     }
 
     init() {
-        (repositoryId, filePath, text, name, number) = (nil, nil, nil, nil, nil)
+        (self.repositoryId, self.filePath, self.text, self.name, self.number) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadata {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadata {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        filePath = try container.sdkDecodeIfPresent(.filePath)
-        text = try container.sdkDecodeIfPresent(.text)
-        name = try container.sdkDecodeIfPresent(.name)
-        number = try container.sdkDecodeIfPresent(.number)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.filePath = try container.sdkDecodeIfPresent(.filePath)
+        self.text = try container.sdkDecodeIfPresent(.text)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.number = try container.sdkDecodeIfPresent(.number)
     }
 }
 
-public extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadata {
-    init(
-        repositoryId: Int? = nil,
-        filePath: String? = nil,
-        text: String? = nil,
-        name: String? = nil,
-        number: Int? = nil
-    ) {
+extension CopilotSpacesCreateForOrgRequestBodyResourcesAttributesItemMetadata {
+    public init(repositoryId: Int? = nil, filePath: String? = nil, text: String? = nil, name: String? = nil, number: Int? = nil) {
         self.init()
         (self.repositoryId, self.filePath) = (repositoryId, filePath)
         (self.text, self.name) = (text, name)
@@ -425,27 +374,21 @@ public struct CopilotSpacesListResourcesForUserResponse: Codable {
         case resources
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSpacesListResourcesForUserResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesListResourcesForUserResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.resources) else {
-            throw SdkValidationError(
-                field: "resources",
-                code: "required",
-                message: "Validation failed for 'resources': value is required"
-            )
+            throw SdkValidationError(field: "resources", code: "required", message: "Validation failed for 'resources': value is required")
         }
-        resources = try container.sdkDecodeRequired(.resources)
+        self.resources = try container.sdkDecodeRequired(.resources)
     }
 }
 
-public extension CopilotSpacesListResourcesForUserResponse {
-    init(resources: [CopilotSpaceResource]) {
+extension CopilotSpacesListResourcesForUserResponse {
+    public init(resources: [CopilotSpaceResource]) {
         self.resources = resources
     }
 }
@@ -462,23 +405,20 @@ public struct CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem: Coda
     }
 
     init() {
-        (resourceType, metadata) = (nil, nil)
+        (self.resourceType, self.metadata) = (nil, nil)
     }
 }
 
-public extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        resourceType = try container.sdkDecodeIfPresent(.resourceType)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
+        self.resourceType = try container.sdkDecodeIfPresent(.resourceType)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
     }
 }
 
-public extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem {
-    init(
-        resourceType: CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType? = nil,
-        metadata: CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetadata? = nil
-    ) {
+extension CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem {
+    public init(resourceType: CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType? = nil, metadata: CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemMetadata? = nil) {
         self.init()
         (self.resourceType, self.metadata) = (resourceType, metadata)
     }
@@ -492,27 +432,21 @@ public struct CopilotSpacesListForUserResponse: Codable {
         case spaces
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSpacesListForUserResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesListForUserResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.spaces) else {
-            throw SdkValidationError(
-                field: "spaces",
-                code: "required",
-                message: "Validation failed for 'spaces': value is required"
-            )
+            throw SdkValidationError(field: "spaces", code: "required", message: "Validation failed for 'spaces': value is required")
         }
-        spaces = try container.sdkDecodeRequired(.spaces)
+        self.spaces = try container.sdkDecodeRequired(.spaces)
     }
 }
 
-public extension CopilotSpacesListForUserResponse {
-    init(spaces: [CopilotSpace]) {
+extension CopilotSpacesListForUserResponse {
+    public init(spaces: [CopilotSpace]) {
         self.spaces = spaces
     }
 }
@@ -525,27 +459,21 @@ public struct CopilotSpacesListCollaboratorsForUserResponse: Codable {
         case collaborators
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSpacesListCollaboratorsForUserResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSpacesListCollaboratorsForUserResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.collaborators) else {
-            throw SdkValidationError(
-                field: "collaborators",
-                code: "required",
-                message: "Validation failed for 'collaborators': value is required"
-            )
+            throw SdkValidationError(field: "collaborators", code: "required", message: "Validation failed for 'collaborators': value is required")
         }
-        collaborators = try container.sdkDecodeRequired(.collaborators)
+        self.collaborators = try container.sdkDecodeRequired(.collaborators)
     }
 }
 
-public extension CopilotSpacesListCollaboratorsForUserResponse {
-    init(collaborators: [CopilotSpaceCollaborator]) {
+extension CopilotSpacesListCollaboratorsForUserResponse {
+    public init(collaborators: [CopilotSpaceCollaborator]) {
         self.collaborators = collaborators
     }
 }

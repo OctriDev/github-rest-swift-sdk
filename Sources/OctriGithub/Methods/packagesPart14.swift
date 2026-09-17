@@ -6,16 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PackagesMethods {
+extension PackagesMethods {
     /// Restore a package for the authenticated user
     ///
-    /// Restores a package owned by the authenticated user. You can restore a deleted package under the following
-    /// conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still
-    /// available and not reused for a new package. If the same package namespace is not available, you will not be able
-    /// to restore your package. In this scenario, to restore the deleted package, you must delete the new package that
-    /// uses the deleted package's namespace first. OAuth app tokens and personal access tokens (classic) need the
-    /// `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions
-    /// for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Restores a package owned by the authenticated user. You can restore a deleted package under the following conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first. OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -26,27 +20,9 @@ public extension PackagesMethods {
     ///   Container registry.
     /// - packageName: The name of the package.
     /// - token: package token
-    static func packagesRestorePackageForAuthenticatedUser(
-        config: ClientConfig,
-        packageType: PackagesDeletePackageForOrgParameter,
-        packageName: String,
-        token: String?
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/user/packages/",
-                sdkEncodePathSegment(sdkWireString(packageType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(packageName)),
-                "/restore",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("token", value: token),
-            ],
-            decoder: .empty,
-            operationId: "packagesRestorePackageForAuthenticatedUser"
-        )).data
+    public static func packagesRestorePackageForAuthenticatedUser(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, token: String?) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("POST", ["/user/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName)), "/restore"].joined(), config: config, query: [
+            SdkQueryParameter("token", value: token),
+        ], decoder: .empty, operationId: "packagesRestorePackageForAuthenticatedUser")).data
     }
 }

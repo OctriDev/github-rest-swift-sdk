@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Deletes a deployment branch or tag policy for an environment. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+extension ReposMethods {
+    /// Deletes a deployment branch or tag policy for an environment. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,36 +17,11 @@ public extension ReposMethods {
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - branchPolicyId: The unique identifier of the branch policy.
-    static func reposDeleteDeploymentBranchPolicy(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String,
-        branchPolicyId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/deployment-branch-policies/",
-                sdkEncodePathSegment(sdkWireString(branchPolicyId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteDeploymentBranchPolicy"
-        )).data
+    public static func reposDeleteDeploymentBranchPolicy(config: ClientConfig, owner: String, repo: String, environmentName: String, branchPolicyId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment-branch-policies/", sdkEncodePathSegment(sdkWireString(branchPolicyId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteDeploymentBranchPolicy")).data
     }
 
-    /// Gets all custom deployment protection rules that are enabled for an environment. Anyone with read access to the
-    /// repository can use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
-    /// For more information about the app that is providing this custom deployment rule, see the [documentation for the
-    /// `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app). OAuth app tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+    /// Gets all custom deployment protection rules that are enabled for an environment. Anyone with read access to the repository can use this endpoint. For more information about environments, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)." For more information about the app that is providing this custom deployment rule, see the [documentation for the `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - environmentName: The name of the environment. The name must be URL
@@ -56,26 +30,7 @@ public extension ReposMethods {
     ///   not case sensitive.
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
-    static func reposGetAllDeploymentProtectionRules(
-        config: ClientConfig,
-        environmentName: String,
-        repo: String,
-        owner: String
-    ) async throws -> ReposGetAllDeploymentProtectionRulesResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/deployment_protection_rules",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetAllDeploymentProtectionRules"
-        )).data
+    public static func reposGetAllDeploymentProtectionRules(config: ClientConfig, environmentName: String, repo: String, owner: String) async throws -> ReposGetAllDeploymentProtectionRulesResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment_protection_rules"].joined(), config: config, decoder: .json, operationId: "reposGetAllDeploymentProtectionRules")).data
     }
 }

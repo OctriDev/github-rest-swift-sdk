@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// CodeSecurity domain models
+// CodeSecurity domain models
 public typealias CodeSecurityDefaultConfigurations = [CodeSecurityDefaultConfigurationsItem]
 
 /// Feature options for code scanning default setup
@@ -19,20 +19,20 @@ public struct CodeScanningDefaultSetupOptions: Codable {
     }
 
     init() {
-        (runnerType, runnerLabel) = (nil, nil)
+        (self.runnerType, self.runnerLabel) = (nil, nil)
     }
 }
 
-public extension CodeScanningDefaultSetupOptions {
-    init(from decoder: Decoder) throws {
+extension CodeScanningDefaultSetupOptions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        runnerType = try container.sdkDecodeIfPresent(.runnerType)
-        runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
+        self.runnerType = try container.sdkDecodeIfPresent(.runnerType)
+        self.runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
     }
 }
 
-public extension CodeScanningDefaultSetupOptions {
-    init(runnerType: CodeScanningDefaultSetupOptionsRunnerType? = nil, runnerLabel: String? = nil) {
+extension CodeScanningDefaultSetupOptions {
+    public init(runnerType: CodeScanningDefaultSetupOptionsRunnerType? = nil, runnerLabel: String? = nil) {
         self.init()
         (self.runnerType, self.runnerLabel) = (runnerType, runnerLabel)
     }
@@ -48,19 +48,19 @@ public struct CodeScanningOptions: Codable {
     }
 
     init() {
-        allowAdvanced = nil
+        self.allowAdvanced = nil
     }
 }
 
-public extension CodeScanningOptions {
-    init(from decoder: Decoder) throws {
+extension CodeScanningOptions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        allowAdvanced = try container.sdkDecodeIfPresent(.allowAdvanced)
+        self.allowAdvanced = try container.sdkDecodeIfPresent(.allowAdvanced)
     }
 }
 
-public extension CodeScanningOptions {
-    init(allowAdvanced: Bool? = nil) {
+extension CodeScanningOptions {
+    public init(allowAdvanced: Bool? = nil) {
         self.init()
         self.allowAdvanced = allowAdvanced
     }
@@ -163,94 +163,39 @@ public struct CodeSecurityConfiguration: Codable {
     }
 
     init() {
-        (id, name, targetType, description, advancedSecurity) = (nil, nil, nil, nil, nil)
-        (
-            dependencyGraph,
-            dependencyGraphAutosubmitAction,
-            dependencyGraphAutosubmitActionOptions,
-            dependabotAlerts,
-            dependabotSecurityUpdates
-        ) = (nil, nil, nil, nil, nil)
-        (
-            dependabotDelegatedAlertDismissal,
-            codeScanningOptions,
-            codeScanningDefaultSetup,
-            codeScanningDefaultSetupOptions,
-            codeScanningDelegatedAlertDismissal
-        ) = (nil, nil, nil, nil, nil)
-        (
-            secretScanning,
-            secretScanningPushProtection,
-            secretScanningDelegatedBypass,
-            secretScanningDelegatedBypassOptions,
-            secretScanningValidityChecks
-        ) = (nil, nil, nil, nil, nil)
-        (
-            secretScanningNonProviderPatterns,
-            secretScanningGenericSecrets,
-            secretScanningDelegatedAlertDismissal,
-            secretScanningExtendedMetadata,
-            privateVulnerabilityReporting
-        ) = (nil, nil, nil, nil, nil)
-        (enforcement, url, htmlUrl, createdAt, updatedAt) = (nil, nil, nil, nil, nil)
+        (self.id, self.name, self.targetType, self.description, self.advancedSecurity) = (nil, nil, nil, nil, nil)
+        (self.dependencyGraph, self.dependencyGraphAutosubmitAction, self.dependencyGraphAutosubmitActionOptions, self.dependabotAlerts, self.dependabotSecurityUpdates) = (nil, nil, nil, nil, nil)
+        (self.dependabotDelegatedAlertDismissal, self.codeScanningOptions, self.codeScanningDefaultSetup, self.codeScanningDefaultSetupOptions, self.codeScanningDelegatedAlertDismissal) = (nil, nil, nil, nil, nil)
+        (self.secretScanning, self.secretScanningPushProtection, self.secretScanningDelegatedBypass, self.secretScanningDelegatedBypassOptions, self.secretScanningValidityChecks) = (nil, nil, nil, nil, nil)
+        (self.secretScanningNonProviderPatterns, self.secretScanningGenericSecrets, self.secretScanningDelegatedAlertDismissal, self.secretScanningExtendedMetadata, self.privateVulnerabilityReporting) = (nil, nil, nil, nil, nil)
+        (self.enforcement, self.url, self.htmlUrl, self.createdAt, self.updatedAt) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension CodeSecurityConfiguration {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfiguration {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init()
         try sdkDecodeFieldsPart1(container)
         try sdkDecodeFieldsPart2(container)
         try sdkDecodeFieldsPart3(container)
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = createdAt {
+        if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = updatedAt {
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension CodeSecurityConfiguration {
-    init(
-        id: Int? = nil,
-        name: String? = nil,
-        targetType: CodeSecurityConfigurationTargetType? = nil,
-        description: String? = nil,
-        advancedSecurity: CodeSecurityConfigurationAdvancedSecurity? = nil,
-        dependencyGraph: CodeSecurityConfigurationDependencyGraph? = nil,
-        dependencyGraphAutosubmitAction: CodeSecurityConfigurationDependencyGraphAutosubmitAction? = nil,
-        dependencyGraphAutosubmitActionOptions: CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions? = nil,
-        dependabotAlerts: CodeSecurityConfigurationDependabotAlerts? = nil,
-        dependabotSecurityUpdates: CodeSecurityConfigurationDependabotSecurityUpdates? = nil,
-        dependabotDelegatedAlertDismissal: CodeSecurityConfigurationDependabotDelegatedAlertDismissal? = nil,
-        codeScanningOptions: CodeSecurityConfigurationCodeScanningOptions? = nil,
-        codeScanningDefaultSetup: CodeSecurityConfigurationCodeScanningDefaultSetup? = nil,
-        codeScanningDefaultSetupOptions: CodeSecurityConfigurationCodeScanningDefaultSetupOptions? = nil,
-        codeScanningDelegatedAlertDismissal: CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal? = nil,
-        secretScanning: CodeSecurityConfigurationSecretScanning? = nil,
-        secretScanningPushProtection: CodeSecurityConfigurationSecretScanningPushProtection? = nil,
-        secretScanningDelegatedBypass: CodeSecurityConfigurationSecretScanningDelegatedBypass? = nil,
-        secretScanningDelegatedBypassOptions: CodeSecurityConfigurationSecretScanningDelegatedBypassOptions? = nil,
-        secretScanningValidityChecks: CodeSecurityConfigurationSecretScanningValidityChecks? = nil,
-        secretScanningNonProviderPatterns: CodeSecurityConfigurationSecretScanningNonProviderPatterns? = nil,
-        secretScanningGenericSecrets: CodeSecurityConfigurationSecretScanningGenericSecrets? = nil,
-        secretScanningDelegatedAlertDismissal: CodeSecurityConfigurationSecretScanningDelegatedAlertDismissal? = nil,
-        secretScanningExtendedMetadata: CodeSecurityConfigurationSecretScanningExtendedMetadata? = nil,
-        privateVulnerabilityReporting: CodeSecurityConfigurationPrivateVulnerabilityReporting? = nil,
-        enforcement: CodeSecurityConfigurationEnforcement? = nil,
-        url: String? = nil,
-        htmlUrl: String? = nil,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil
-    ) throws {
+extension CodeSecurityConfiguration {
+    public init(id: Int? = nil, name: String? = nil, targetType: CodeSecurityConfigurationTargetType? = nil, description: String? = nil, advancedSecurity: CodeSecurityConfigurationAdvancedSecurity? = nil, dependencyGraph: CodeSecurityConfigurationDependencyGraph? = nil, dependencyGraphAutosubmitAction: CodeSecurityConfigurationDependencyGraphAutosubmitAction? = nil, dependencyGraphAutosubmitActionOptions: CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions? = nil, dependabotAlerts: CodeSecurityConfigurationDependabotAlerts? = nil, dependabotSecurityUpdates: CodeSecurityConfigurationDependabotSecurityUpdates? = nil, dependabotDelegatedAlertDismissal: CodeSecurityConfigurationDependabotDelegatedAlertDismissal? = nil, codeScanningOptions: CodeSecurityConfigurationCodeScanningOptions? = nil, codeScanningDefaultSetup: CodeSecurityConfigurationCodeScanningDefaultSetup? = nil, codeScanningDefaultSetupOptions: CodeSecurityConfigurationCodeScanningDefaultSetupOptions? = nil, codeScanningDelegatedAlertDismissal: CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal? = nil, secretScanning: CodeSecurityConfigurationSecretScanning? = nil, secretScanningPushProtection: CodeSecurityConfigurationSecretScanningPushProtection? = nil, secretScanningDelegatedBypass: CodeSecurityConfigurationSecretScanningDelegatedBypass? = nil, secretScanningDelegatedBypassOptions: CodeSecurityConfigurationSecretScanningDelegatedBypassOptions? = nil, secretScanningValidityChecks: CodeSecurityConfigurationSecretScanningValidityChecks? = nil, secretScanningNonProviderPatterns: CodeSecurityConfigurationSecretScanningNonProviderPatterns? = nil, secretScanningGenericSecrets: CodeSecurityConfigurationSecretScanningGenericSecrets? = nil, secretScanningDelegatedAlertDismissal: CodeSecurityConfigurationSecretScanningDelegatedAlertDismissal? = nil, secretScanningExtendedMetadata: CodeSecurityConfigurationSecretScanningExtendedMetadata? = nil, privateVulnerabilityReporting: CodeSecurityConfigurationPrivateVulnerabilityReporting? = nil, enforcement: CodeSecurityConfigurationEnforcement? = nil, url: String? = nil, htmlUrl: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil) throws {
         self.init()
         (self.id, self.name) = (id, name)
         (self.targetType, self.description) = (targetType, description)
@@ -294,47 +239,46 @@ public extension CodeSecurityConfiguration {
 
 extension CodeSecurityConfiguration {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        id = try container.sdkDecodeIfPresent(.id)
-        name = try container.sdkDecodeIfPresent(.name)
-        targetType = try container.sdkDecodeIfPresent(.targetType)
-        description = try container.sdkDecodeIfPresent(.description)
-        advancedSecurity = try container.sdkDecodeIfPresent(.advancedSecurity)
-        dependencyGraph = try container.sdkDecodeIfPresent(.dependencyGraph)
-        dependencyGraphAutosubmitAction = try container.sdkDecodeIfPresent(.dependencyGraphAutosubmitAction)
-        dependencyGraphAutosubmitActionOptions = try container
-            .sdkDecodeIfPresent(.dependencyGraphAutosubmitActionOptions)
-        dependabotAlerts = try container.sdkDecodeIfPresent(.dependabotAlerts)
-        dependabotSecurityUpdates = try container.sdkDecodeIfPresent(.dependabotSecurityUpdates)
-        dependabotDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.dependabotDelegatedAlertDismissal)
-        codeScanningOptions = try container.sdkDecodeIfPresent(.codeScanningOptions)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.targetType = try container.sdkDecodeIfPresent(.targetType)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.advancedSecurity = try container.sdkDecodeIfPresent(.advancedSecurity)
+        self.dependencyGraph = try container.sdkDecodeIfPresent(.dependencyGraph)
+        self.dependencyGraphAutosubmitAction = try container.sdkDecodeIfPresent(.dependencyGraphAutosubmitAction)
+        self.dependencyGraphAutosubmitActionOptions = try container.sdkDecodeIfPresent(.dependencyGraphAutosubmitActionOptions)
+        self.dependabotAlerts = try container.sdkDecodeIfPresent(.dependabotAlerts)
+        self.dependabotSecurityUpdates = try container.sdkDecodeIfPresent(.dependabotSecurityUpdates)
+        self.dependabotDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.dependabotDelegatedAlertDismissal)
+        self.codeScanningOptions = try container.sdkDecodeIfPresent(.codeScanningOptions)
     }
 }
 
 extension CodeSecurityConfiguration {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        codeScanningDefaultSetup = try container.sdkDecodeIfPresent(.codeScanningDefaultSetup)
-        codeScanningDefaultSetupOptions = try container.sdkDecodeIfPresent(.codeScanningDefaultSetupOptions)
-        codeScanningDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.codeScanningDelegatedAlertDismissal)
-        secretScanning = try container.sdkDecodeIfPresent(.secretScanning)
-        secretScanningPushProtection = try container.sdkDecodeIfPresent(.secretScanningPushProtection)
-        secretScanningDelegatedBypass = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypass)
-        secretScanningDelegatedBypassOptions = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypassOptions)
-        secretScanningValidityChecks = try container.sdkDecodeIfPresent(.secretScanningValidityChecks)
-        secretScanningNonProviderPatterns = try container.sdkDecodeIfPresent(.secretScanningNonProviderPatterns)
-        secretScanningGenericSecrets = try container.sdkDecodeIfPresent(.secretScanningGenericSecrets)
-        secretScanningDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.secretScanningDelegatedAlertDismissal)
-        secretScanningExtendedMetadata = try container.sdkDecodeIfPresent(.secretScanningExtendedMetadata)
+        self.codeScanningDefaultSetup = try container.sdkDecodeIfPresent(.codeScanningDefaultSetup)
+        self.codeScanningDefaultSetupOptions = try container.sdkDecodeIfPresent(.codeScanningDefaultSetupOptions)
+        self.codeScanningDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.codeScanningDelegatedAlertDismissal)
+        self.secretScanning = try container.sdkDecodeIfPresent(.secretScanning)
+        self.secretScanningPushProtection = try container.sdkDecodeIfPresent(.secretScanningPushProtection)
+        self.secretScanningDelegatedBypass = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypass)
+        self.secretScanningDelegatedBypassOptions = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypassOptions)
+        self.secretScanningValidityChecks = try container.sdkDecodeIfPresent(.secretScanningValidityChecks)
+        self.secretScanningNonProviderPatterns = try container.sdkDecodeIfPresent(.secretScanningNonProviderPatterns)
+        self.secretScanningGenericSecrets = try container.sdkDecodeIfPresent(.secretScanningGenericSecrets)
+        self.secretScanningDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.secretScanningDelegatedAlertDismissal)
+        self.secretScanningExtendedMetadata = try container.sdkDecodeIfPresent(.secretScanningExtendedMetadata)
     }
 }
 
 extension CodeSecurityConfiguration {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        privateVulnerabilityReporting = try container.sdkDecodeIfPresent(.privateVulnerabilityReporting)
-        enforcement = try container.sdkDecodeIfPresent(.enforcement)
-        url = try container.sdkDecodeIfPresent(.url)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.privateVulnerabilityReporting = try container.sdkDecodeIfPresent(.privateVulnerabilityReporting)
+        self.enforcement = try container.sdkDecodeIfPresent(.enforcement)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
     }
 }
 
@@ -351,23 +295,20 @@ public struct CodeSecurityConfigurationCodeScanningDefaultSetupOptions: Codable 
     }
 
     init() {
-        (runnerType, runnerLabel) = (nil, nil)
+        (self.runnerType, self.runnerLabel) = (nil, nil)
     }
 }
 
-public extension CodeSecurityConfigurationCodeScanningDefaultSetupOptions {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationCodeScanningDefaultSetupOptions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        runnerType = try container.sdkDecodeIfPresent(.runnerType)
-        runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
+        self.runnerType = try container.sdkDecodeIfPresent(.runnerType)
+        self.runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
     }
 }
 
-public extension CodeSecurityConfigurationCodeScanningDefaultSetupOptions {
-    init(
-        runnerType: CodeSecurityConfigurationCodeScanningDefaultSetupOptionsRunnerType? = nil,
-        runnerLabel: String? = nil
-    ) {
+extension CodeSecurityConfigurationCodeScanningDefaultSetupOptions {
+    public init(runnerType: CodeSecurityConfigurationCodeScanningDefaultSetupOptionsRunnerType? = nil, runnerLabel: String? = nil) {
         self.init()
         (self.runnerType, self.runnerLabel) = (runnerType, runnerLabel)
     }
@@ -383,19 +324,19 @@ public struct CodeSecurityConfigurationCodeScanningOptions: Codable {
     }
 
     init() {
-        allowAdvanced = nil
+        self.allowAdvanced = nil
     }
 }
 
-public extension CodeSecurityConfigurationCodeScanningOptions {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationCodeScanningOptions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        allowAdvanced = try container.sdkDecodeIfPresent(.allowAdvanced)
+        self.allowAdvanced = try container.sdkDecodeIfPresent(.allowAdvanced)
     }
 }
 
-public extension CodeSecurityConfigurationCodeScanningOptions {
-    init(allowAdvanced: Bool? = nil) {
+extension CodeSecurityConfigurationCodeScanningOptions {
+    public init(allowAdvanced: Bool? = nil) {
         self.init()
         self.allowAdvanced = allowAdvanced
     }
@@ -411,26 +352,25 @@ public struct CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions: C
     }
 
     init() {
-        labeledRunners = nil
+        self.labeledRunners = nil
     }
 }
 
-public extension CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
+        self.labeledRunners = try container.sdkDecodeIfPresent(.labeledRunners)
     }
 }
 
-public extension CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions {
-    init(labeledRunners: Bool? = nil) {
+extension CodeSecurityConfigurationDependencyGraphAutosubmitActionOptions {
+    public init(labeledRunners: Bool? = nil) {
         self.init()
         self.labeledRunners = labeledRunners
     }
 }
 
-public typealias CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsXd8fece0443 =
-    [CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX30443c4ec8]
+public typealias CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsXd8fece0443 = [CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX30443c4ec8]
 
 /// Feature options for secret scanning delegated bypass
 public struct CodeSecurityConfigurationSecretScanningDelegatedBypassOptions: Codable {
@@ -442,19 +382,19 @@ public struct CodeSecurityConfigurationSecretScanningDelegatedBypassOptions: Cod
     }
 
     init() {
-        reviewers = nil
+        self.reviewers = nil
     }
 }
 
-public extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptions {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        reviewers = try container.sdkDecodeIfPresent(.reviewers)
+        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
     }
 }
 
-public extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptions {
-    init(reviewers: CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsXd8fece0443? = nil) {
+extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptions {
+    public init(reviewers: CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsXd8fece0443? = nil) {
         self.init()
         self.reviewers = reviewers
     }
@@ -478,42 +418,27 @@ public struct CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX3044
         case securityConfigurationId = "security_configuration_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX30443c4ec8 {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX30443c4ec8 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.reviewerId) else {
-            throw SdkValidationError(
-                field: "reviewer_id",
-                code: "required",
-                message: "Validation failed for 'reviewer_id': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_id", code: "required", message: "Validation failed for 'reviewer_id': value is required")
         }
         guard container.contains(.reviewerType) else {
-            throw SdkValidationError(
-                field: "reviewer_type",
-                code: "required",
-                message: "Validation failed for 'reviewer_type': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_type", code: "required", message: "Validation failed for 'reviewer_type': value is required")
         }
-        reviewerId = try container.sdkDecodeRequired(.reviewerId)
-        reviewerType = try container.sdkDecodeRequired(.reviewerType)
-        mode = try container.sdkDecodeIfPresent(.mode)
-        securityConfigurationId = try container.sdkDecodeIfPresent(.securityConfigurationId)
+        self.reviewerId = try container.sdkDecodeRequired(.reviewerId)
+        self.reviewerType = try container.sdkDecodeRequired(.reviewerType)
+        self.mode = try container.sdkDecodeIfPresent(.mode)
+        self.securityConfigurationId = try container.sdkDecodeIfPresent(.securityConfigurationId)
     }
 }
 
-public extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX30443c4ec8 {
-    init(
-        reviewerId: Int,
-        reviewerType: CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX3255ac35ec,
-        mode: CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsXf8ee57ead4? = nil,
-        securityConfigurationId: Int? = nil
-    ) {
+extension CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX30443c4ec8 {
+    public init(reviewerId: Int, reviewerType: CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsX3255ac35ec, mode: CodeSecurityConfigurationSecretScanningDelegatedBypassOptionsXf8ee57ead4? = nil, securityConfigurationId: Int? = nil) {
         (self.reviewerId, self.reviewerType) = (reviewerId, reviewerType)
         (self.mode, self.securityConfigurationId) = (mode, securityConfigurationId)
     }
@@ -532,20 +457,20 @@ public struct CodeSecurityConfigurationForRepository: Codable {
     }
 
     init() {
-        (status, configuration) = (nil, nil)
+        (self.status, self.configuration) = (nil, nil)
     }
 }
 
-public extension CodeSecurityConfigurationForRepository {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationForRepository {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.sdkDecodeIfPresent(.status)
-        configuration = try container.sdkDecodeIfPresent(.configuration)
+        self.status = try container.sdkDecodeIfPresent(.status)
+        self.configuration = try container.sdkDecodeIfPresent(.configuration)
     }
 }
 
-public extension CodeSecurityConfigurationForRepository {
-    init(status: CodeSecurityConfigurationForRepositoryStatus? = nil, configuration: CodeSecurityConfiguration? = nil) {
+extension CodeSecurityConfigurationForRepository {
+    public init(status: CodeSecurityConfigurationForRepositoryStatus? = nil, configuration: CodeSecurityConfiguration? = nil) {
         self.init()
         (self.status, self.configuration) = (status, configuration)
     }
@@ -564,20 +489,20 @@ public struct CodeSecurityConfigurationRepositories: Codable {
     }
 
     init() {
-        (status, repository) = (nil, nil)
+        (self.status, self.repository) = (nil, nil)
     }
 }
 
-public extension CodeSecurityConfigurationRepositories {
-    init(from decoder: Decoder) throws {
+extension CodeSecurityConfigurationRepositories {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.sdkDecodeIfPresent(.status)
-        repository = try container.sdkDecodeIfPresent(.repository)
+        self.status = try container.sdkDecodeIfPresent(.status)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
     }
 }
 
-public extension CodeSecurityConfigurationRepositories {
-    init(status: CodeSecurityConfigurationRepositoriesStatus? = nil, repository: SimpleRepository? = nil) {
+extension CodeSecurityConfigurationRepositories {
+    public init(status: CodeSecurityConfigurationRepositoriesStatus? = nil, repository: SimpleRepository? = nil) {
         self.init()
         (self.status, self.repository) = (status, repository)
     }

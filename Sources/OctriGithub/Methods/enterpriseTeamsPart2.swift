@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension EnterpriseTeamsMethods {
+extension EnterpriseTeamsMethods {
     /// List all teams in the enterprise for the authenticated user
     ///
     /// - Parameters:
@@ -19,22 +19,10 @@ public extension EnterpriseTeamsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func enterpriseTeamsList(
-        config: ClientConfig,
-        enterprise: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [EnterpriseTeam] {
-        try await (sdkRequest(
-            "GET",
-            ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "enterpriseTeamsList"
-        )).data
+    public static func enterpriseTeamsList(config: ClientConfig, enterprise: String, perPage: Int?, page: Int?) async throws -> [EnterpriseTeam] {
+        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "enterpriseTeamsList")).data
     }
 }

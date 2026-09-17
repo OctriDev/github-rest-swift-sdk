@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. OAuth app tokens
-    /// and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+extension ActionsMethods {
+    /// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,35 +17,13 @@ public extension ActionsMethods {
     /// - runId: The unique identifier of the workflow run.
     /// - excludePullRequests: If `true` pull requests are omitted from the response
     ///   (empty array).
-    static func actionsGetWorkflowRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        excludePullRequests: Bool?
-    ) async throws -> WorkflowRun {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("exclude_pull_requests", value: excludePullRequests),
-            ],
-            decoder: .json,
-            operationId: "actionsGetWorkflowRun"
-        )).data
+    public static func actionsGetWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int, excludePullRequests: Bool?) async throws -> WorkflowRun {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId))].joined(), config: config, query: [
+            SdkQueryParameter("exclude_pull_requests", value: excludePullRequests),
+        ], decoder: .json, operationId: "actionsGetWorkflowRun")).data
     }
 
-    /// Deletes a specific workflow run. Anyone with write access to the repository can use this endpoint. If the
-    /// repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
-    /// endpoint.
+    /// Deletes a specific workflow run. Anyone with write access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -54,25 +31,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    static func actionsDeleteWorkflowRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsDeleteWorkflowRun"
-        )).data
+    public static func actionsDeleteWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteWorkflowRun")).data
     }
 }

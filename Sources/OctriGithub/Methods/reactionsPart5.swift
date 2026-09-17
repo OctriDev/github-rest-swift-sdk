@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReactionsMethods {
-    /// Create a reaction to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment). A
-    /// response with an HTTP `200` status means that you already added the reaction type to this issue comment.
+extension ReactionsMethods {
+    /// Create a reaction to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment). A response with an HTTP `200` status means that you already added the reaction type to this issue comment.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,36 +18,13 @@ public extension ReactionsMethods {
     /// - content: The [reaction
     ///   type](https://docs.github.com/rest/reactions/reactions#about-reactions) to
     ///   add to the issue comment.
-    static func reactionsCreateForIssueComment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsCreateForIssueCommentRequestBodyContent
-    ) async throws -> Reaction {
+    public static func reactionsCreateForIssueComment(config: ClientConfig, owner: String, repo: String, commentId: Int, content: ReactionsCreateForIssueCommentRequestBodyContent) async throws -> Reaction {
         let requestBody = ReactionsCreateForIssueCommentRequestBody(content: content)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/comments/",
-                sdkEncodePathSegment(sdkWireString(commentId)),
-                "/reactions",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reactionsCreateForIssueComment"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reactionsCreateForIssueComment")).data
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete
-    /// /repositories/:repository_id/issues/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to an [issue
-    /// comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment).
+    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete /repositories/:repository_id/issues/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -57,28 +33,7 @@ public extension ReactionsMethods {
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
     /// - reactionId: The unique identifier of the reaction.
-    static func reactionsDeleteForIssueComment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        commentId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/comments/",
-                sdkEncodePathSegment(sdkWireString(commentId)),
-                "/reactions/",
-                sdkEncodePathSegment(sdkWireString(reactionId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reactionsDeleteForIssueComment"
-        )).data
+    public static func reactionsDeleteForIssueComment(config: ClientConfig, owner: String, repo: String, commentId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions/", sdkEncodePathSegment(sdkWireString(reactionId))].joined(), config: config, decoder: .empty, operationId: "reactionsDeleteForIssueComment")).data
     }
 }

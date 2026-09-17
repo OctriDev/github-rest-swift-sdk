@@ -6,96 +6,35 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotMethods {
-    /// Replaces an organization's Copilot content exclusion path rules. Use `org` to identify the organization and
-    /// submit an object whose values are arrays of supported exclusion entries; the authenticated user must be an
-    /// organization owner using an OAuth app token or classic personal access token with the `copilot` scope. Existing
-    /// comments are deleted, and duplicate keys overwrite earlier entries so only the final value is saved.
+extension CopilotMethods {
+    /// Replaces an organization's Copilot content exclusion path rules. Use `org` to identify the organization and submit an object whose values are arrays of supported exclusion entries; the authenticated user must be an organization owner using an OAuth app token or classic personal access token with the `copilot` scope. Existing comments are deleted, and duplicate keys overwrite earlier entries so only the final value is saved.
     ///
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Sets Copilot content exclusion path
-    /// rules for an organization. To configure these settings, go to the organization's settings on GitHub. For more
-    /// information, see "[Excluding content from GitHub Copilot](https://docs.github.com/copilot/managing-copilot/configuring-and-auditing-content-exclusion/excluding-content-from-github-copilot#configuring-content-exclusions-for-your-organization)."
-    /// Organization owners can set Copilot content exclusion rules for the organization. OAuth app tokens and personal
-    /// access tokens (classic) need the `copilot` scope to use this endpoint. > [!CAUTION] > * At this time, the API
-    /// does not support comments. When using this endpoint, any existing comments in your rules will be deleted. > * At
-    /// this time, the API does not support duplicate keys. If you submit content exclusions through the API with
-    /// duplicate keys, only the last occurrence will be saved. Earlier entries with the same key will be overwritten.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Sets Copilot content exclusion path rules for an organization. To configure these settings, go to the organization's settings on GitHub. For more information, see "[Excluding content from GitHub Copilot](https://docs.github.com/copilot/managing-copilot/configuring-and-auditing-content-exclusion/excluding-content-from-github-copilot#configuring-content-exclusions-for-your-organization)." Organization owners can set Copilot content exclusion rules for the organization. OAuth app tokens and personal access tokens (classic) need the `copilot` scope to use this endpoint. > [!CAUTION] > * At this time, the API does not support comments. When using this endpoint, any existing comments in your rules will be deleted. > * At this time, the API does not support duplicate keys. If you submit content exclusions through the API with duplicate keys, only the last occurrence will be saved. Earlier entries with the same key will be overwritten.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func copilotSetCopilotContentExclusionForOrganization(
-        config: ClientConfig,
-        org: String,
-        body: [String: [CopilotSetCopilotContentExclusionForOrganizationRequestBodyValueItem]]
-    ) async throws -> CopilotSetCopilotContentExclusionForOrganizationResponse {
-        try await (sdkRequest(
-            "PUT",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/content_exclusion"].joined(),
-            config: config,
-            rawBody: sdkJsonEncoder().encode(body),
-            decoder: .json,
-            operationId: "copilotSetCopilotContentExclusionForOrganization"
-        )).data
+    public static func copilotSetCopilotContentExclusionForOrganization(config: ClientConfig, org: String, body: [String: [CopilotSetCopilotContentExclusionForOrganizationRequestBodyValueItem]]) async throws -> CopilotSetCopilotContentExclusionForOrganizationResponse {
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/content_exclusion"].joined(), config: config, rawBody: (try sdkJsonEncoder().encode(body)), decoder: .json, operationId: "copilotSetCopilotContentExclusionForOrganization")).data
     }
 
-    /// Use this endpoint to retrieve download links for the Copilot organization usage metrics report for a specific
-    /// day. The report provides comprehensive usage data for Copilot features across the organization. The report
-    /// contains aggregated metrics for the specified day, including usage statistics for various Copilot features, user
-    /// engagement data, and feature adoption metrics. Reports are generated daily and made available for download
-    /// through signed URLs with a limited expiration time. The response includes download links to the report files,
-    /// along with the specific date of the report. The report covers a complete day for which data has been processed.
-    /// Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can
-    /// retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic)
-    /// need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see
-    /// [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    /// Use this endpoint to retrieve download links for the Copilot organization usage metrics report for a specific day. The report provides comprehensive usage data for Copilot features across the organization. The report contains aggregated metrics for the specified day, including usage statistics for various Copilot features, user engagement data, and feature adoption metrics. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date of the report. The report covers a complete day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - day: The day to request data for, in `YYYY-MM-DD` format.
-    static func copilotCopilotOrganizationOneDayUsageMetrics(
-        config: ClientConfig,
-        org: String,
-        day: String
-    ) async throws -> CopilotUsageMetrics1DayReport {
+    public static func copilotCopilotOrganizationOneDayUsageMetrics(config: ClientConfig, org: String, day: String) async throws -> CopilotUsageMetrics1DayReport {
         try sdkValidateDate("day", day)
 
-        return try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/metrics/reports/organization-1-day"]
-                .joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("day", value: day),
-            ],
-            decoder: .json,
-            operationId: "copilotCopilotOrganizationOneDayUsageMetrics"
-        )).data
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/metrics/reports/organization-1-day"].joined(), config: config, query: [
+            SdkQueryParameter("day", value: day),
+        ], decoder: .json, operationId: "copilotCopilotOrganizationOneDayUsageMetrics")).data
     }
 
-    /// Use this endpoint to retrieve download links for the latest 28-day organization Copilot usage metrics report.
-    /// The report provides comprehensive usage data for Copilot features across the organization. The report contains
-    /// aggregated metrics for the previous 28 days, including usage statistics for various Copilot features, user
-    /// engagement data, and feature adoption metrics. Reports are generated daily and made available for download
-    /// through signed URLs with a limited expiration time. The response includes download links to the report files,
-    /// along with the specific date range covered by the report. The report covers a complete 28-day period ending on
-    /// the most recent day for which data has been processed. Organization owners and authorized users with
-    /// fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the
-    /// organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this
-    /// endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+    /// Use this endpoint to retrieve download links for the latest 28-day organization Copilot usage metrics report. The report provides comprehensive usage data for Copilot features across the organization. The report contains aggregated metrics for the previous 28 days, including usage statistics for various Copilot features, user engagement data, and feature adoption metrics. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date range covered by the report. The report covers a complete 28-day period ending on the most recent day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func copilotCopilotOrganizationUsageMetrics(
-        config: ClientConfig,
-        org: String
-    ) async throws -> CopilotUsageMetrics28DayReport {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/metrics/reports/organization-28-day/latest"]
-                .joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotCopilotOrganizationUsageMetrics"
-        )).data
+    public static func copilotCopilotOrganizationUsageMetrics(config: ClientConfig, org: String) async throws -> CopilotUsageMetrics28DayReport {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/metrics/reports/organization-28-day/latest"].joined(), config: config, decoder: .json, operationId: "copilotCopilotOrganizationUsageMetrics")).data
     }
 }

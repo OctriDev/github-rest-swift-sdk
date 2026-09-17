@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookRepositoryTransferred domain models
+// WebhookRepositoryTransferred domain models
 /// Typed representation of the `WebhookRepositoryTransferred` API schema.
 public struct WebhookRepositoryTransferred: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,62 +36,36 @@ public struct WebhookRepositoryTransferred: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryTransferred {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryTransferred {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookRepositoryTransferred {
-    init(
-        action: WebhookRepositoryTransferredAction,
-        changes: WebhookRepositoryTransferredChanges,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookRepositoryTransferred {
+    public init(action: WebhookRepositoryTransferredAction, changes: WebhookRepositoryTransferredChanges, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.repository, self.sender) = (repository, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -108,27 +82,21 @@ public struct WebhookRepositoryTransferredChanges: Codable {
         case owner
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryTransferredChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryTransferredChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.owner) else {
-            throw SdkValidationError(
-                field: "owner",
-                code: "required",
-                message: "Validation failed for 'owner': value is required"
-            )
+            throw SdkValidationError(field: "owner", code: "required", message: "Validation failed for 'owner': value is required")
         }
-        owner = try container.sdkDecodeRequired(.owner)
+        self.owner = try container.sdkDecodeRequired(.owner)
     }
 }
 
-public extension WebhookRepositoryTransferredChanges {
-    init(owner: WebhookRepositoryTransferredChangesOwner) {
+extension WebhookRepositoryTransferredChanges {
+    public init(owner: WebhookRepositoryTransferredChangesOwner) {
         self.owner = owner
     }
 }
@@ -142,27 +110,21 @@ public struct WebhookRepositoryTransferredChangesOwner: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryTransferredChangesOwner {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryTransferredChangesOwner {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookRepositoryTransferredChangesOwner {
-    init(from: WebhookRepositoryTransferredChangesOwnerFrom) {
+extension WebhookRepositoryTransferredChangesOwner {
+    public init(from: WebhookRepositoryTransferredChangesOwnerFrom) {
         self.from = from
     }
 }
@@ -180,23 +142,20 @@ public struct WebhookRepositoryTransferredChangesOwnerFrom: Codable {
     }
 
     init() {
-        (organization, user) = (nil, nil)
+        (self.organization, self.user) = (nil, nil)
     }
 }
 
-public extension WebhookRepositoryTransferredChangesOwnerFrom {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryTransferredChangesOwnerFrom {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        user = try container.sdkDecodeIfPresent(.user)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.user = try container.sdkDecodeIfPresent(.user)
     }
 }
 
-public extension WebhookRepositoryTransferredChangesOwnerFrom {
-    init(
-        organization: WebhookRepositoryTransferredChangesOwnerFromOrganization? = nil,
-        user: WebhookRepositoryTransferredChangesOwnerFromUser? = nil
-    ) {
+extension WebhookRepositoryTransferredChangesOwnerFrom {
+    public init(organization: WebhookRepositoryTransferredChangesOwnerFromOrganization? = nil, user: WebhookRepositoryTransferredChangesOwnerFromUser? = nil) {
         self.init()
         (self.organization, self.user) = (organization, user)
     }
@@ -247,47 +206,31 @@ public struct WebhookRepositoryTransferredChangesOwnerFromOrganization: Codable 
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryTransferredChangesOwnerFromOrganization {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryTransferredChangesOwnerFromOrganization {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        description = try container.sdkDecodeIfPresent(.description)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
-        id = try container.sdkDecodeRequired(.id)
-        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        login = try container.sdkDecodeRequired(.login)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookRepositoryTransferredChangesOwnerFromOrganization {
-    init(
-        avatarUrl: String,
-        description: String?,
-        eventsUrl: String,
-        hooksUrl: String,
-        id: Int,
-        issuesUrl: String,
-        login: String,
-        membersUrl: String,
-        nodeId: String,
-        publicMembersUrl: String,
-        reposUrl: String,
-        url: String,
-        htmlUrl: String? = nil
-    ) throws {
+extension WebhookRepositoryTransferredChangesOwnerFromOrganization {
+    public init(avatarUrl: String, description: String?, eventsUrl: String, hooksUrl: String, id: Int, issuesUrl: String, login: String, membersUrl: String, nodeId: String, publicMembersUrl: String, reposUrl: String, url: String, htmlUrl: String? = nil) throws {
         (self.avatarUrl, self.description) = (avatarUrl, description)
         (self.eventsUrl, self.hooksUrl) = (eventsUrl, hooksUrl)
         (self.id, self.issuesUrl) = (id, issuesUrl)
@@ -301,13 +244,13 @@ public extension WebhookRepositoryTransferredChangesOwnerFromOrganization {
 
 extension WebhookRepositoryTransferredChangesOwnerFromOrganization {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("events_url", eventsUrl)
-        try sdkValidateUri("hooks_url", hooksUrl)
-        try sdkValidateUri("issues_url", issuesUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("url", url)
-        if let value = htmlUrl {
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
+            try sdkValidateUri("hooks_url", self.hooksUrl)
+            try sdkValidateUri("issues_url", self.issuesUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("url", self.url)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
@@ -385,79 +328,46 @@ public struct WebhookRepositoryTransferredChangesOwnerFromUser: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryTransferredChangesOwnerFromUser {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryTransferredChangesOwnerFromUser {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookRepositoryTransferredChangesOwnerFromUser {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookRepositoryTransferredChangesOwnerFromUserType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookRepositoryTransferredChangesOwnerFromUser {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookRepositoryTransferredChangesOwnerFromUserType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -475,28 +385,28 @@ public extension WebhookRepositoryTransferredChangesOwnerFromUser {
 
 extension WebhookRepositoryTransferredChangesOwnerFromUser {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -506,15 +416,12 @@ extension WebhookRepositoryTransferredChangesOwnerFromUser {
 public struct WebhookRepositoryTransferredAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let transferred = WebhookRepositoryTransferredAction(rawValue: "transferred")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -524,21 +431,17 @@ public struct WebhookRepositoryTransferredAction: RawRepresentable, Hashable, Co
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookRepositoryTransferredChangesOwnerFromUserType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookRepositoryTransferredChangesOwnerFromUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookRepositoryTransferredChangesOwnerFromUserType(rawValue: "Bot")
     public static let user = WebhookRepositoryTransferredChangesOwnerFromUserType(rawValue: "User")
     public static let organization = WebhookRepositoryTransferredChangesOwnerFromUserType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical repos operation model declarations
+// Canonical repos operation model declarations
 public struct ReposUpdateStatusCheckProtectionRequestBodyChecksItem: Codable {
     /// The name of the required check
     public var context: String
@@ -21,28 +21,22 @@ public struct ReposUpdateStatusCheckProtectionRequestBodyChecksItem: Codable {
         case appId = "app_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposUpdateStatusCheckProtectionRequestBodyChecksItem {
-    init(from decoder: Decoder) throws {
+extension ReposUpdateStatusCheckProtectionRequestBodyChecksItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.context) else {
-            throw SdkValidationError(
-                field: "context",
-                code: "required",
-                message: "Validation failed for 'context': value is required"
-            )
+            throw SdkValidationError(field: "context", code: "required", message: "Validation failed for 'context': value is required")
         }
-        context = try container.sdkDecodeRequired(.context)
-        appId = try container.sdkDecodeIfPresent(.appId)
+        self.context = try container.sdkDecodeRequired(.context)
+        self.appId = try container.sdkDecodeIfPresent(.appId)
     }
 }
 
-public extension ReposUpdateStatusCheckProtectionRequestBodyChecksItem {
-    init(context: String, appId: Int? = nil) {
+extension ReposUpdateStatusCheckProtectionRequestBodyChecksItem {
+    public init(context: String, appId: Int? = nil) {
         (self.context, self.appId) = (context, appId)
     }
 }
@@ -58,19 +52,19 @@ public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningAiDetection
     }
 
     init() {
-        status = nil
+        self.status = nil
     }
 }
 
-public extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningAiDetection {
-    init(from decoder: Decoder) throws {
+extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningAiDetection {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.sdkDecodeIfPresent(.status)
+        self.status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-public extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningAiDetection {
-    init(status: String? = nil) {
+extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningAiDetection {
+    public init(status: String? = nil) {
         self.init()
         self.status = status
     }
@@ -89,20 +83,20 @@ public struct ReposDeleteFileRequestBodyAuthor: Codable {
     }
 
     init() {
-        (name, email) = (nil, nil)
+        (self.name, self.email) = (nil, nil)
     }
 }
 
-public extension ReposDeleteFileRequestBodyAuthor {
-    init(from decoder: Decoder) throws {
+extension ReposDeleteFileRequestBodyAuthor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
     }
 }
 
-public extension ReposDeleteFileRequestBodyAuthor {
-    init(name: String? = nil, email: String? = nil) {
+extension ReposDeleteFileRequestBodyAuthor {
+    public init(name: String? = nil, email: String? = nil) {
         self.init()
         (self.name, self.email) = (name, email)
     }
@@ -114,31 +108,21 @@ public enum ReposGetPagesDeploymentParameter {
 }
 
 extension ReposGetPagesDeploymentParameter: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for ReposGetPagesDeploymentParameter"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for ReposGetPagesDeploymentParameter")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -148,6 +132,7 @@ extension ReposGetPagesDeploymentParameter: Codable {
         case let .stringValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 public struct ReposGetAllDeploymentProtectionRulesResponse: Codable {
@@ -162,20 +147,20 @@ public struct ReposGetAllDeploymentProtectionRulesResponse: Codable {
     }
 
     init() {
-        (totalCount, customDeploymentProtectionRules) = (nil, nil)
+        (self.totalCount, self.customDeploymentProtectionRules) = (nil, nil)
     }
 }
 
-public extension ReposGetAllDeploymentProtectionRulesResponse {
-    init(from decoder: Decoder) throws {
+extension ReposGetAllDeploymentProtectionRulesResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        totalCount = try container.sdkDecodeIfPresent(.totalCount)
-        customDeploymentProtectionRules = try container.sdkDecodeIfPresent(.customDeploymentProtectionRules)
+        self.totalCount = try container.sdkDecodeIfPresent(.totalCount)
+        self.customDeploymentProtectionRules = try container.sdkDecodeIfPresent(.customDeploymentProtectionRules)
     }
 }
 
-public extension ReposGetAllDeploymentProtectionRulesResponse {
-    init(totalCount: Int? = nil, customDeploymentProtectionRules: [DeploymentProtectionRule]? = nil) {
+extension ReposGetAllDeploymentProtectionRulesResponse {
+    public init(totalCount: Int? = nil, customDeploymentProtectionRules: [DeploymentProtectionRule]? = nil) {
         self.init()
         self.totalCount = totalCount
         self.customDeploymentProtectionRules = customDeploymentProtectionRules
@@ -190,27 +175,21 @@ public struct ReposRemoveTeamAccessRestrictionsRequestBodyVariant0: Codable {
         case teams
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposRemoveTeamAccessRestrictionsRequestBodyVariant0 {
-    init(from decoder: Decoder) throws {
+extension ReposRemoveTeamAccessRestrictionsRequestBodyVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.teams) else {
-            throw SdkValidationError(
-                field: "teams",
-                code: "required",
-                message: "Validation failed for 'teams': value is required"
-            )
+            throw SdkValidationError(field: "teams", code: "required", message: "Validation failed for 'teams': value is required")
         }
-        teams = try container.sdkDecodeRequired(.teams)
+        self.teams = try container.sdkDecodeRequired(.teams)
     }
 }
 
-public extension ReposRemoveTeamAccessRestrictionsRequestBodyVariant0 {
-    init(teams: [String]) {
+extension ReposRemoveTeamAccessRestrictionsRequestBodyVariant0 {
+    public init(teams: [String]) {
         self.teams = teams
     }
 }
@@ -223,27 +202,21 @@ public struct ReposAddStatusCheckContextsRequestBodyVariant0: Codable {
         case contexts
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposAddStatusCheckContextsRequestBodyVariant0 {
-    init(from decoder: Decoder) throws {
+extension ReposAddStatusCheckContextsRequestBodyVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.contexts) else {
-            throw SdkValidationError(
-                field: "contexts",
-                code: "required",
-                message: "Validation failed for 'contexts': value is required"
-            )
+            throw SdkValidationError(field: "contexts", code: "required", message: "Validation failed for 'contexts': value is required")
         }
-        contexts = try container.sdkDecodeRequired(.contexts)
+        self.contexts = try container.sdkDecodeRequired(.contexts)
     }
 }
 
-public extension ReposAddStatusCheckContextsRequestBodyVariant0 {
-    init(contexts: [String]) {
+extension ReposAddStatusCheckContextsRequestBodyVariant0 {
+    public init(contexts: [String]) {
         self.contexts = contexts
     }
 }
@@ -262,40 +235,26 @@ public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956
         case mode
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956b891d7 {
-    init(from decoder: Decoder) throws {
+extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956b891d7 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.reviewerId) else {
-            throw SdkValidationError(
-                field: "reviewer_id",
-                code: "required",
-                message: "Validation failed for 'reviewer_id': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_id", code: "required", message: "Validation failed for 'reviewer_id': value is required")
         }
         guard container.contains(.reviewerType) else {
-            throw SdkValidationError(
-                field: "reviewer_type",
-                code: "required",
-                message: "Validation failed for 'reviewer_type': value is required"
-            )
+            throw SdkValidationError(field: "reviewer_type", code: "required", message: "Validation failed for 'reviewer_type': value is required")
         }
-        reviewerId = try container.sdkDecodeRequired(.reviewerId)
-        reviewerType = try container.sdkDecodeRequired(.reviewerType)
-        mode = try container.sdkDecodeIfPresent(.mode)
+        self.reviewerId = try container.sdkDecodeRequired(.reviewerId)
+        self.reviewerType = try container.sdkDecodeRequired(.reviewerType)
+        self.mode = try container.sdkDecodeIfPresent(.mode)
     }
 }
 
-public extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956b891d7 {
-    init(
-        reviewerId: Int,
-        reviewerType: ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c890b5a38,
-        mode: ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d? = nil
-    ) {
+extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956b891d7 {
+    public init(reviewerId: Int, reviewerType: ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c890b5a38, mode: ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d? = nil) {
         (self.reviewerId, self.reviewerType) = (reviewerId, reviewerType)
         self.mode = mode
     }
@@ -309,27 +268,21 @@ public struct ReposCheckPrivateVulnerabilityReportingResponse: Codable {
         case enabled
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposCheckPrivateVulnerabilityReportingResponse {
-    init(from decoder: Decoder) throws {
+extension ReposCheckPrivateVulnerabilityReportingResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.enabled) else {
-            throw SdkValidationError(
-                field: "enabled",
-                code: "required",
-                message: "Validation failed for 'enabled': value is required"
-            )
+            throw SdkValidationError(field: "enabled", code: "required", message: "Validation failed for 'enabled': value is required")
         }
-        enabled = try container.sdkDecodeRequired(.enabled)
+        self.enabled = try container.sdkDecodeRequired(.enabled)
     }
 }
 
-public extension ReposCheckPrivateVulnerabilityReportingResponse {
-    init(enabled: Bool) {
+extension ReposCheckPrivateVulnerabilityReportingResponse {
+    public init(enabled: Bool) {
         self.enabled = enabled
     }
 }
@@ -345,35 +298,25 @@ public struct ReposListDeploymentBranchPoliciesResponse: Codable {
         case branchPolicies = "branch_policies"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposListDeploymentBranchPoliciesResponse {
-    init(from decoder: Decoder) throws {
+extension ReposListDeploymentBranchPoliciesResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.branchPolicies) else {
-            throw SdkValidationError(
-                field: "branch_policies",
-                code: "required",
-                message: "Validation failed for 'branch_policies': value is required"
-            )
+            throw SdkValidationError(field: "branch_policies", code: "required", message: "Validation failed for 'branch_policies': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        branchPolicies = try container.sdkDecodeRequired(.branchPolicies)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.branchPolicies = try container.sdkDecodeRequired(.branchPolicies)
     }
 }
 
-public extension ReposListDeploymentBranchPoliciesResponse {
-    init(totalCount: Int, branchPolicies: [DeploymentBranchPolicy]) {
+extension ReposListDeploymentBranchPoliciesResponse {
+    public init(totalCount: Int, branchPolicies: [DeploymentBranchPolicy]) {
         (self.totalCount, self.branchPolicies) = (totalCount, branchPolicies)
     }
 }
@@ -387,32 +330,32 @@ public struct ReposCreateAttestationResponse: Codable {
     }
 
     init() {
-        id = nil
+        self.id = nil
     }
 }
 
-public extension ReposCreateAttestationResponse {
-    init(from decoder: Decoder) throws {
+extension ReposCreateAttestationResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
+        self.id = try container.sdkDecodeIfPresent(.id)
     }
 }
 
-public extension ReposCreateAttestationResponse {
-    init(id: Int? = nil) {
+extension ReposCreateAttestationResponse {
+    public init(id: Int? = nil) {
         self.init()
         self.id = id
     }
 }
 
 public struct ReposListAttestationsResponseAttestationsItemBundleVerificationMaterial: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposListAttestationsResponseAttestationsItemBundleVerificationMaterial {
-    init() {}
+extension ReposListAttestationsResponseAttestationsItemBundleVerificationMaterial {
+    public init() {
+    }
 }
 
 public struct ReposSetTeamAccessRestrictionsRequestBodyVariant0: Codable {
@@ -423,27 +366,21 @@ public struct ReposSetTeamAccessRestrictionsRequestBodyVariant0: Codable {
         case teams
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposSetTeamAccessRestrictionsRequestBodyVariant0 {
-    init(from decoder: Decoder) throws {
+extension ReposSetTeamAccessRestrictionsRequestBodyVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.teams) else {
-            throw SdkValidationError(
-                field: "teams",
-                code: "required",
-                message: "Validation failed for 'teams': value is required"
-            )
+            throw SdkValidationError(field: "teams", code: "required", message: "Validation failed for 'teams': value is required")
         }
-        teams = try container.sdkDecodeRequired(.teams)
+        self.teams = try container.sdkDecodeRequired(.teams)
     }
 }
 
-public extension ReposSetTeamAccessRestrictionsRequestBodyVariant0 {
-    init(teams: [String]) {
+extension ReposSetTeamAccessRestrictionsRequestBodyVariant0 {
+    public init(teams: [String]) {
         self.teams = teams
     }
 }
@@ -458,20 +395,20 @@ public struct ReposDeleteResponse: Codable {
     }
 
     init() {
-        (message, documentationUrl) = (nil, nil)
+        (self.message, self.documentationUrl) = (nil, nil)
     }
 }
 
-public extension ReposDeleteResponse {
-    init(from decoder: Decoder) throws {
+extension ReposDeleteResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        message = try container.sdkDecodeIfPresent(.message)
-        documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
+        self.message = try container.sdkDecodeIfPresent(.message)
+        self.documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
     }
 }
 
-public extension ReposDeleteResponse {
-    init(message: String? = nil, documentationUrl: String? = nil) {
+extension ReposDeleteResponse {
+    public init(message: String? = nil, documentationUrl: String? = nil) {
         self.init()
         (self.message, self.documentationUrl) = (message, documentationUrl)
     }
@@ -489,20 +426,20 @@ public struct ReposGetAllEnvironmentsResponse: Codable {
     }
 
     init() {
-        (totalCount, environments) = (nil, nil)
+        (self.totalCount, self.environments) = (nil, nil)
     }
 }
 
-public extension ReposGetAllEnvironmentsResponse {
-    init(from decoder: Decoder) throws {
+extension ReposGetAllEnvironmentsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        totalCount = try container.sdkDecodeIfPresent(.totalCount)
-        environments = try container.sdkDecodeIfPresent(.environments)
+        self.totalCount = try container.sdkDecodeIfPresent(.totalCount)
+        self.environments = try container.sdkDecodeIfPresent(.environments)
     }
 }
 
-public extension ReposGetAllEnvironmentsResponse {
-    init(totalCount: Int? = nil, environments: [Environment]? = nil) {
+extension ReposGetAllEnvironmentsResponse {
+    public init(totalCount: Int? = nil, environments: [Environment]? = nil) {
         self.init()
         (self.totalCount, self.environments) = (totalCount, environments)
     }
@@ -524,43 +461,32 @@ public struct ReposUpdateBranchProtectionRequestBodyRestrictions: Codable {
         case apps
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposUpdateBranchProtectionRequestBodyRestrictions {
-    init(from decoder: Decoder) throws {
+extension ReposUpdateBranchProtectionRequestBodyRestrictions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.users) else {
-            throw SdkValidationError(
-                field: "users",
-                code: "required",
-                message: "Validation failed for 'users': value is required"
-            )
+            throw SdkValidationError(field: "users", code: "required", message: "Validation failed for 'users': value is required")
         }
         guard container.contains(.teams) else {
-            throw SdkValidationError(
-                field: "teams",
-                code: "required",
-                message: "Validation failed for 'teams': value is required"
-            )
+            throw SdkValidationError(field: "teams", code: "required", message: "Validation failed for 'teams': value is required")
         }
-        users = try container.sdkDecodeRequired(.users)
-        teams = try container.sdkDecodeRequired(.teams)
-        apps = try container.sdkDecodeIfPresent(.apps)
+        self.users = try container.sdkDecodeRequired(.users)
+        self.teams = try container.sdkDecodeRequired(.teams)
+        self.apps = try container.sdkDecodeIfPresent(.apps)
     }
 }
 
-public extension ReposUpdateBranchProtectionRequestBodyRestrictions {
-    init(users: [String], teams: [String], apps: [String]? = nil) {
+extension ReposUpdateBranchProtectionRequestBodyRestrictions {
+    public init(users: [String], teams: [String], apps: [String]? = nil) {
         (self.users, self.teams) = (users, teams)
         self.apps = apps
     }
 }
 
-public typealias ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6bcbdeac6b =
-    [ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956b891d7]
+public typealias ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6bcbdeac6b = [ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6956b891d7]
 
 /// Feature options for secret scanning delegated bypass. This object is only honored when
 /// `security_and_analysis.secret_scanning_delegated_bypass.status` is set to `enabled`. You can send this object in
@@ -575,19 +501,19 @@ public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX7a69
     }
 
     init() {
-        reviewers = nil
+        self.reviewers = nil
     }
 }
 
-public extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX7a6907f880 {
-    init(from decoder: Decoder) throws {
+extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX7a6907f880 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        reviewers = try container.sdkDecodeIfPresent(.reviewers)
+        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
     }
 }
 
-public extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX7a6907f880 {
-    init(reviewers: ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6bcbdeac6b? = nil) {
+extension ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX7a6907f880 {
+    public init(reviewers: ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX6bcbdeac6b? = nil) {
         self.init()
         self.reviewers = reviewers
     }
@@ -606,35 +532,25 @@ public struct ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1: Cod
         case path
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1 {
-    init(from decoder: Decoder) throws {
+extension ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.branch) else {
-            throw SdkValidationError(
-                field: "branch",
-                code: "required",
-                message: "Validation failed for 'branch': value is required"
-            )
+            throw SdkValidationError(field: "branch", code: "required", message: "Validation failed for 'branch': value is required")
         }
         guard container.contains(.path) else {
-            throw SdkValidationError(
-                field: "path",
-                code: "required",
-                message: "Validation failed for 'path': value is required"
-            )
+            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
         }
-        branch = try container.sdkDecodeRequired(.branch)
-        path = try container.sdkDecodeRequired(.path)
+        self.branch = try container.sdkDecodeRequired(.branch)
+        self.path = try container.sdkDecodeRequired(.path)
     }
 }
 
-public extension ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1 {
-    init(branch: String, path: ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1Path) {
+extension ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1 {
+    public init(branch: String, path: ReposUpdateInformationAboutPagesSiteRequestBodySourceVariant1Path) {
         (self.branch, self.path) = (branch, path)
     }
 }

@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Forces the removal of a self-hosted runner from a repository. You can use this endpoint to completely remove the
-    /// runner when the machine you were using no longer exists. Authenticated users must have admin access to the
-    /// repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use
-    /// this endpoint.
+extension ActionsMethods {
+    /// Forces the removal of a self-hosted runner from a repository. You can use this endpoint to completely remove the runner when the machine you were using no longer exists. Authenticated users must have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,31 +15,11 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
-    static func actionsDeleteSelfHostedRunnerFromRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runnerId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/",
-                sdkEncodePathSegment(sdkWireString(runnerId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsDeleteSelfHostedRunnerFromRepo"
-        )).data
+    public static func actionsDeleteSelfHostedRunnerFromRepo(config: ClientConfig, owner: String, repo: String, runnerId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteSelfHostedRunnerFromRepo")).data
     }
 
-    /// Lists all labels for a self-hosted runner configured in a repository. Authenticated users must have admin access
-    /// to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo`
-    /// scope to use this endpoint.
+    /// Lists all labels for a self-hosted runner configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -50,26 +27,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
-    static func actionsListLabelsForSelfHostedRunnerForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runnerId: Int
-    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/",
-                sdkEncodePathSegment(sdkWireString(runnerId)),
-                "/labels",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsListLabelsForSelfHostedRunnerForRepo"
-        )).data
+    public static func actionsListLabelsForSelfHostedRunnerForRepo(config: ClientConfig, owner: String, repo: String, runnerId: Int) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId)), "/labels"].joined(), config: config, decoder: .json, operationId: "actionsListLabelsForSelfHostedRunnerForRepo")).data
     }
 }

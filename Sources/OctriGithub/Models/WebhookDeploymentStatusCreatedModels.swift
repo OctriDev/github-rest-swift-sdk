@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookDeploymentStatusCreated domain models
+// WebhookDeploymentStatusCreated domain models
 /// Typed representation of the `WebhookDeploymentStatusCreated` API schema.
 public struct WebhookDeploymentStatusCreated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -48,77 +48,43 @@ public struct WebhookDeploymentStatusCreated: Codable {
         case workflowRun = "workflow_run"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDeploymentStatusCreated {
-    init(from decoder: Decoder) throws {
+extension WebhookDeploymentStatusCreated {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.deployment) else {
-            throw SdkValidationError(
-                field: "deployment",
-                code: "required",
-                message: "Validation failed for 'deployment': value is required"
-            )
+            throw SdkValidationError(field: "deployment", code: "required", message: "Validation failed for 'deployment': value is required")
         }
         guard container.contains(.deploymentStatus) else {
-            throw SdkValidationError(
-                field: "deployment_status",
-                code: "required",
-                message: "Validation failed for 'deployment_status': value is required"
-            )
+            throw SdkValidationError(field: "deployment_status", code: "required", message: "Validation failed for 'deployment_status': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        deployment = try container.sdkDecodeRequired(.deployment)
-        deploymentStatus = try container.sdkDecodeRequired(.deploymentStatus)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        checkRun = try container.sdkDecodeIfPresent(.checkRun)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        workflow = try container.sdkDecodeIfPresent(.workflow)
-        workflowRun = try container.sdkDecodeIfPresent(.workflowRun)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.deployment = try container.sdkDecodeRequired(.deployment)
+        self.deploymentStatus = try container.sdkDecodeRequired(.deploymentStatus)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.checkRun = try container.sdkDecodeIfPresent(.checkRun)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.workflow = try container.sdkDecodeIfPresent(.workflow)
+        self.workflowRun = try container.sdkDecodeIfPresent(.workflowRun)
     }
 }
 
-public extension WebhookDeploymentStatusCreated {
-    init(
-        action: WebhookDeploymentStatusCreatedAction,
-        deployment: WebhookDeploymentStatusCreatedDeployment,
-        deploymentStatus: WebhookDeploymentStatusCreatedDeploymentStatus,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        checkRun: WebhookDeploymentStatusCreatedCheckRun? = nil,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        workflow: WebhooksWorkflow? = nil,
-        workflowRun: WebhookDeploymentStatusCreatedWorkflowRun? = nil
-    ) {
+extension WebhookDeploymentStatusCreated {
+    public init(action: WebhookDeploymentStatusCreatedAction, deployment: WebhookDeploymentStatusCreatedDeployment, deploymentStatus: WebhookDeploymentStatusCreatedDeploymentStatus, repository: RepositoryWebhooks, sender: SimpleUser, checkRun: WebhookDeploymentStatusCreatedCheckRun? = nil, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, workflow: WebhooksWorkflow? = nil, workflowRun: WebhookDeploymentStatusCreatedWorkflowRun? = nil) {
         (self.action, self.deployment) = (action, deployment)
         (self.deploymentStatus, self.repository) = (deploymentStatus, repository)
         (self.sender, self.checkRun) = (sender, checkRun)
@@ -170,51 +136,36 @@ public struct WebhookDeploymentStatusCreatedCheckRun: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDeploymentStatusCreatedCheckRun {
-    init(from decoder: Decoder) throws {
+extension WebhookDeploymentStatusCreatedCheckRun {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        detailsUrl = try container.sdkDecodeRequired(.detailsUrl)
-        externalId = try container.sdkDecodeRequired(.externalId)
-        headSha = try container.sdkDecodeRequired(.headSha)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        startedAt = try container.sdkDecodeRequired(.startedAt)
-        status = try container.sdkDecodeRequired(.status)
-        url = try container.sdkDecodeRequired(.url)
-        if let value = completedAt {
+        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        self.detailsUrl = try container.sdkDecodeRequired(.detailsUrl)
+        self.externalId = try container.sdkDecodeRequired(.externalId)
+        self.headSha = try container.sdkDecodeRequired(.headSha)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.startedAt = try container.sdkDecodeRequired(.startedAt)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.url = try container.sdkDecodeRequired(.url)
+        if let value = self.completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }
-        try sdkValidateUri("details_url", detailsUrl)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateDateTime("started_at", sdkWireString(startedAt))
-        try sdkValidateUri("url", url)
+            try sdkValidateUri("details_url", self.detailsUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookDeploymentStatusCreatedCheckRun {
-    init(
-        completedAt: Date?,
-        conclusion: WebhookDeploymentStatusCreatedCheckRunConclusion?,
-        detailsUrl: String,
-        externalId: String,
-        headSha: String,
-        htmlUrl: String,
-        id: Int,
-        name: String,
-        nodeId: String,
-        startedAt: Date,
-        status: WebhookDeploymentStatusCreatedCheckRunStatus,
-        url: String
-    ) throws {
+extension WebhookDeploymentStatusCreatedCheckRun {
+    public init(completedAt: Date?, conclusion: WebhookDeploymentStatusCreatedCheckRunConclusion?, detailsUrl: String, externalId: String, headSha: String, htmlUrl: String, id: Int, name: String, nodeId: String, startedAt: Date, status: WebhookDeploymentStatusCreatedCheckRunStatus, url: String) throws {
         (self.completedAt, self.conclusion) = (completedAt, conclusion)
         (self.detailsUrl, self.externalId) = (detailsUrl, externalId)
         (self.headSha, self.htmlUrl) = (headSha, htmlUrl)
@@ -224,10 +175,10 @@ public extension WebhookDeploymentStatusCreatedCheckRun {
         if let value = self.completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }
-        try sdkValidateUri("details_url", self.detailsUrl)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("details_url", self.detailsUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -293,59 +244,38 @@ public struct WebhookDeploymentStatusCreatedDeployment: Codable {
         case transientEnvironment = "transient_environment"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDeploymentStatusCreatedDeployment {
-    init(from decoder: Decoder) throws {
+extension WebhookDeploymentStatusCreatedDeployment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        creator = try container.sdkDecodeIfPresent(.creator)
-        description = try container.sdkDecodeIfPresent(.description)
-        environment = try container.sdkDecodeRequired(.environment)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        originalEnvironment = try container.sdkDecodeRequired(.originalEnvironment)
-        payload = try container.sdkDecodeIfPresent(.payload)
-        ref = try container.sdkDecodeRequired(.ref)
-        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-        sha = try container.sdkDecodeRequired(.sha)
-        statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
-        task = try container.sdkDecodeRequired(.task)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        url = try container.sdkDecodeRequired(.url)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        productionEnvironment = try container.sdkDecodeIfPresent(.productionEnvironment)
-        transientEnvironment = try container.sdkDecodeIfPresent(.transientEnvironment)
-        try sdkValidateUri("repository_url", repositoryUrl)
-        try sdkValidateUri("statuses_url", statusesUrl)
-        try sdkValidateUri("url", url)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.creator = try container.sdkDecodeIfPresent(.creator)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.environment = try container.sdkDecodeRequired(.environment)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.originalEnvironment = try container.sdkDecodeRequired(.originalEnvironment)
+        self.payload = try container.sdkDecodeIfPresent(.payload)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        self.sha = try container.sdkDecodeRequired(.sha)
+        self.statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
+        self.task = try container.sdkDecodeRequired(.task)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.productionEnvironment = try container.sdkDecodeIfPresent(.productionEnvironment)
+        self.transientEnvironment = try container.sdkDecodeIfPresent(.transientEnvironment)
+            try sdkValidateUri("repository_url", self.repositoryUrl)
+            try sdkValidateUri("statuses_url", self.statusesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookDeploymentStatusCreatedDeployment {
-    init(
-        createdAt: String,
-        creator: WebhookDeploymentStatusCreatedDeploymentCreator?,
-        description: String?,
-        environment: String,
-        id: Int,
-        nodeId: String,
-        originalEnvironment: String,
-        payload: WebhookDeploymentStatusCreatedDeploymentPayload?,
-        ref: String,
-        repositoryUrl: String,
-        sha: String,
-        statusesUrl: String,
-        task: String,
-        updatedAt: String,
-        url: String,
-        performedViaGithubApp: WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubApp? = nil,
-        productionEnvironment: Bool? = nil,
-        transientEnvironment: Bool? = nil
-    ) throws {
+extension WebhookDeploymentStatusCreatedDeployment {
+    public init(createdAt: String, creator: WebhookDeploymentStatusCreatedDeploymentCreator?, description: String?, environment: String, id: Int, nodeId: String, originalEnvironment: String, payload: WebhookDeploymentStatusCreatedDeploymentPayload?, ref: String, repositoryUrl: String, sha: String, statusesUrl: String, task: String, updatedAt: String, url: String, performedViaGithubApp: WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubApp? = nil, productionEnvironment: Bool? = nil, transientEnvironment: Bool? = nil) throws {
         (self.createdAt, self.creator) = (createdAt, creator)
         (self.description, self.environment) = (description, environment)
         (self.id, self.nodeId) = (id, nodeId)
@@ -356,9 +286,9 @@ public extension WebhookDeploymentStatusCreatedDeployment {
         (self.url, self.performedViaGithubApp) = (url, performedViaGithubApp)
         self.productionEnvironment = productionEnvironment
         self.transientEnvironment = transientEnvironment
-        try sdkValidateUri("repository_url", self.repositoryUrl)
-        try sdkValidateUri("statuses_url", self.statusesUrl)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("repository_url", self.repositoryUrl)
+            try sdkValidateUri("statuses_url", self.statusesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -434,79 +364,46 @@ public struct WebhookDeploymentStatusCreatedDeploymentCreator: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDeploymentStatusCreatedDeploymentCreator {
-    init(from decoder: Decoder) throws {
+extension WebhookDeploymentStatusCreatedDeploymentCreator {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookDeploymentStatusCreatedDeploymentCreator {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookDeploymentStatusCreatedDeploymentCreatorType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookDeploymentStatusCreatedDeploymentCreator {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookDeploymentStatusCreatedDeploymentCreatorType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -524,28 +421,28 @@ public extension WebhookDeploymentStatusCreatedDeploymentCreator {
 
 extension WebhookDeploymentStatusCreatedDeploymentCreator {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -557,31 +454,21 @@ public enum WebhookDeploymentStatusCreatedDeploymentPayload {
 }
 
 extension WebhookDeploymentStatusCreatedDeploymentPayload: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookDeploymentStatusCreatedDeploymentPayload"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookDeploymentStatusCreatedDeploymentPayload")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode([String: JSONValue].self) {
-            return .jsonValue(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode([String: JSONValue].self) { return .jsonValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -591,18 +478,18 @@ extension WebhookDeploymentStatusCreatedDeploymentPayload: Codable {
         case let .jsonValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Required object value serialized in the `payload` wire field.
 public struct WebhookDeploymentStatusCreatedDeploymentPayloadVariant1: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
+
+    private init(sdkCopy value: Self) { self = value }
+}
+
+extension WebhookDeploymentStatusCreatedDeploymentPayloadVariant1 {
+    public init() {
     }
 }
 
-public extension WebhookDeploymentStatusCreatedDeploymentPayloadVariant1 {
-    init() {}
-}
-
-public typealias WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppEventsList =
-    [WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppEventsItem]
+public typealias WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppEventsList = [WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppEventsItem]

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SharedDeployment domain models
+// SharedDeployment domain models
 /// A request for a specific ref(branch,sha,tag) to be deployed
 public struct Deployment: Codable {
     /// Required `uri`-formatted value serialized in the `url` wire field.
@@ -81,61 +81,40 @@ public struct Deployment: Codable {
         case performedViaGithubApp = "performed_via_github_app"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Deployment {
-    init(from decoder: Decoder) throws {
+extension Deployment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.sdkDecodeRequired(.url)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        sha = try container.sdkDecodeRequired(.sha)
-        ref = try container.sdkDecodeRequired(.ref)
-        task = try container.sdkDecodeRequired(.task)
-        payload = try container.sdkDecodeRequired(.payload)
-        environment = try container.sdkDecodeRequired(.environment)
-        description = try container.sdkDecodeIfPresent(.description)
-        creator = try container.sdkDecodeIfPresent(.creator)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
-        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-        originalEnvironment = try container.sdkDecodeIfPresent(.originalEnvironment)
-        transientEnvironment = try container.sdkDecodeIfPresent(.transientEnvironment)
-        productionEnvironment = try container.sdkDecodeIfPresent(.productionEnvironment)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        try sdkValidateUri("url", url)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("statuses_url", statusesUrl)
-        try sdkValidateUri("repository_url", repositoryUrl)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.sha = try container.sdkDecodeRequired(.sha)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.task = try container.sdkDecodeRequired(.task)
+        self.payload = try container.sdkDecodeRequired(.payload)
+        self.environment = try container.sdkDecodeRequired(.environment)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.creator = try container.sdkDecodeIfPresent(.creator)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
+        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        self.originalEnvironment = try container.sdkDecodeIfPresent(.originalEnvironment)
+        self.transientEnvironment = try container.sdkDecodeIfPresent(.transientEnvironment)
+        self.productionEnvironment = try container.sdkDecodeIfPresent(.productionEnvironment)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("statuses_url", self.statusesUrl)
+            try sdkValidateUri("repository_url", self.repositoryUrl)
     }
 }
 
-public extension Deployment {
-    init(
-        url: String,
-        id: Int,
-        nodeId: String,
-        sha: String,
-        ref: String,
-        task: String,
-        payload: DeploymentPayload,
-        environment: String,
-        description: String?,
-        creator: NullableSimpleUser?,
-        createdAt: Date,
-        updatedAt: Date,
-        statusesUrl: String,
-        repositoryUrl: String,
-        originalEnvironment: String? = nil,
-        transientEnvironment: Bool? = nil,
-        productionEnvironment: Bool? = nil,
-        performedViaGithubApp: NullableIntegration? = nil
-    ) throws {
+extension Deployment {
+    public init(url: String, id: Int, nodeId: String, sha: String, ref: String, task: String, payload: DeploymentPayload, environment: String, description: String?, creator: NullableSimpleUser?, createdAt: Date, updatedAt: Date, statusesUrl: String, repositoryUrl: String, originalEnvironment: String? = nil, transientEnvironment: Bool? = nil, productionEnvironment: Bool? = nil, performedViaGithubApp: NullableIntegration? = nil) throws {
         (self.url, self.id) = (url, id)
         (self.nodeId, self.sha) = (nodeId, sha)
         (self.ref, self.task) = (ref, task)
@@ -146,11 +125,11 @@ public extension Deployment {
         (self.originalEnvironment, self.transientEnvironment) = (originalEnvironment, transientEnvironment)
         self.productionEnvironment = productionEnvironment
         self.performedViaGithubApp = performedViaGithubApp
-        try sdkValidateUri("url", self.url)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateUri("statuses_url", self.statusesUrl)
-        try sdkValidateUri("repository_url", self.repositoryUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("statuses_url", self.statusesUrl)
+            try sdkValidateUri("repository_url", self.repositoryUrl)
     }
 }
 
@@ -160,31 +139,21 @@ public enum DeploymentPayload {
 }
 
 extension DeploymentPayload: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for DeploymentPayload"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for DeploymentPayload")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode([String: JSONValue].self) {
-            return .jsonValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
+        if let value = try? container.decode([String: JSONValue].self) { return .jsonValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -194,22 +163,20 @@ extension DeploymentPayload: Codable {
         case let .stringValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// The type of reviewer.
 public struct DeploymentReviewerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let user = DeploymentReviewerType(rawValue: "User")
     public static let team = DeploymentReviewerType(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

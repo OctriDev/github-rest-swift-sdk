@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension EnterpriseTeamMembershipsMethods {
-    /// Lists the members of an enterprise team. Use `enterprise` and `enterprise-team` to identify the enterprise and
-    /// team, and use `page` and `per_page` to paginate the results.
+extension EnterpriseTeamMembershipsMethods {
+    /// Lists the members of an enterprise team. Use `enterprise` and `enterprise-team` to identify the enterprise and team, and use `page` and `per_page` to paginate the results.
     ///
     /// Lists all team members in an enterprise team.
     ///
@@ -24,29 +23,10 @@ public extension EnterpriseTeamMembershipsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func enterpriseTeamMembershipsList(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [SimpleUser] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/memberships",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "enterpriseTeamMembershipsList"
-        )).data
+    public static func enterpriseTeamMembershipsList(config: ClientConfig, enterprise: String, enterpriseTeam: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/memberships"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "enterpriseTeamMembershipsList")).data
     }
 }

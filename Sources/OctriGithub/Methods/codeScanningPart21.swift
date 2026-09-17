@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    struct CodeScanningUploadSarifOptions: Codable {
+extension CodeScanningMethods {
+    public struct CodeScanningUploadSarifOptions: Codable {
         public var owner: String
         public var repo: String
         public var commitSha: CodeScanningAnalysisCommitSha
@@ -18,13 +18,7 @@ public extension CodeScanningMethods {
         public var toolName: String?
         public var validate: Bool?
 
-        public init(
-            owner: String,
-            repo: String,
-            commitSha: CodeScanningAnalysisCommitSha,
-            ref: CodeScanningRefFull,
-            sarif: CodeScanningAnalysisSarifFile
-        ) {
+        public init(owner: String, repo: String, commitSha: CodeScanningAnalysisCommitSha, ref: CodeScanningRefFull, sarif: CodeScanningAnalysisSarifFile) {
             self.owner = owner
             self.repo = repo
             self.commitSha = commitSha
@@ -33,25 +27,7 @@ public extension CodeScanningMethods {
         }
     }
 
-    /// Uploads SARIF data containing the results of a code scanning analysis to make the results available in a
-    /// repository. For troubleshooting information, see "[Troubleshooting SARIF
-    /// uploads](https://docs.github.com/code-security/code-scanning/troubleshooting-sarif)." There are two places where
-    /// you can upload code scanning results. - If you upload to a pull request, for example `--ref refs/pull/42/merge`
-    /// or `--ref refs/pull/42/head`, then the results appear as alerts in a pull request check. For more information,
-    /// see "Triaging code scanning alerts in pull requests." - If you upload to a branch, for example `--ref
-    /// refs/heads/my-branch`, then the results appear in the **Security** tab for your repository. For more
-    /// information, see "Managing code scanning alerts for your repository." You must compress the SARIF-formatted
-    /// analysis data that you want to upload, using `gzip`, and then encode it as a Base64 format string. For example:
-    /// ``` gzip -c analysis-data.sarif | base64 -w0 ``` SARIF upload supports a maximum number of entries per the
-    /// following data objects, and an analysis will be rejected if any of these objects is above its maximum value. For
-    /// some objects, there are additional values over which the entries will be ignored while keeping the most
-    /// important entries whenever applicable. To get the most out of your analysis when it includes data above the
-    /// supported limits, try to optimize the analysis configuration. For example, for the CodeQL tool, identify and
-    /// remove the most noisy queries. For more information, see "[SARIF results exceed one or more
-    /// limits](https://docs.github.com/code-security/code-scanning/troubleshooting-sarif/results-exceed-limit)." |
-    /// **SARIF data** | **Maximum values** | **Additional limits** | |----------------------------------|:------------------:|----------------------------------------------------------------------------------|
-    /// | Runs per file | 20 | | | Results per run | 25,000 | Only the top 5,000 results will be included, prioritized
-    /// by…
+    /// Uploads SARIF data containing the results of a code scanning analysis to make the results available in a repository. For troubleshooting information, see "[Troubleshooting SARIF uploads](https://docs.github.com/code-security/code-scanning/troubleshooting-sarif)." There are two places where you can upload code scanning results. - If you upload to a pull request, for example `--ref refs/pull/42/merge` or `--ref refs/pull/42/head`, then the results appear as alerts in a pull request check. For more information, see "Triaging code scanning alerts in pull requests." - If you upload to a branch, for example `--ref refs/heads/my-branch`, then the results appear in the **Security** tab for your repository. For more information, see "Managing code scanning alerts for your repository." You must compress the SARIF-formatted analysis data that you want to upload, using `gzip`, and then encode it as a Base64 format string. For example: ``` gzip -c analysis-data.sarif | base64 -w0 ``` SARIF upload supports a maximum number of entries per the following data objects, and an analysis will be rejected if any of these objects is above its maximum value. For some objects, there are additional values over which the entries will be ignored while keeping the most important entries whenever applicable. To get the most out of your analysis when it includes data above the supported limits, try to optimize the analysis configuration. For example, for the CodeQL tool, identify and remove the most noisy queries. For more information, see "[SARIF results exceed one or more limits](https://docs.github.com/code-security/code-scanning/troubleshooting-sarif/results-exceed-limit)." | **SARIF data** | **Maximum values** | **Additional limits** | |----------------------------------|:------------------:|----------------------------------------------------------------------------------| | Runs per file | 20 | | | Results per run | 25,000 | Only the top 5,000 results will be included, prioritized by…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -85,10 +61,7 @@ public extension CodeScanningMethods {
     ///   scanning specifications. This parameter is intended to help integrators
     ///   ensure that the uploaded SARIF files are correctly rendered by code
     ///   scanning.
-    static func codeScanningUploadSarif(
-        config: ClientConfig,
-        options: CodeScanningUploadSarifOptions
-    ) async throws -> CodeScanningSarifsReceipt {
+    public static func codeScanningUploadSarif(config: ClientConfig, options: CodeScanningUploadSarifOptions) async throws -> CodeScanningSarifsReceipt {
         try validateLength("commit_sha", options.commitSha, min: 40, max: 64)
         try sdkValidatePattern("commit_sha", options.commitSha, sdkPatternbefac02b7dfd)
 
@@ -104,19 +77,6 @@ public extension CodeScanningMethods {
 
         let requestBody = CodeScanningUploadSarifRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/code-scanning/sarifs",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeScanningUploadSarif"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/code-scanning/sarifs"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningUploadSarif")).data
     }
 }

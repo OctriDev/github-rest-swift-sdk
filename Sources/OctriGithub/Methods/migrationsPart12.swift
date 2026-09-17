@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
+extension MigrationsMethods {
     /// List user migrations
     ///
     /// Lists all migrations a user has started.
@@ -20,12 +20,8 @@ public extension MigrationsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func migrationsListForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Migration] {
-        try await (sdkRequest("GET", "/user/migrations", config: config, query: [
+    public static func migrationsListForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [Migration] {
+        return try (await sdkRequest("GET", "/user/migrations", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "migrationsListForAuthenticatedUser")).data

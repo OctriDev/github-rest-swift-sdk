@@ -6,21 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public struct IssuesUpdateResponseVariant1SuggestionsTypeItemConfidence: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct IssuesUpdateResponseVariant1SuggestionsTypeItemConfidence: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let low = IssuesUpdateResponseVariant1SuggestionsTypeItemConfidence(rawValue: "low")
     public static let medium = IssuesUpdateResponseVariant1SuggestionsTypeItemConfidence(rawValue: "medium")
     public static let high = IssuesUpdateResponseVariant1SuggestionsTypeItemConfidence(rawValue: "high")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,22 +25,16 @@ public struct IssuesUpdateResponseVariant1SuggestionsTypeItemConfidence: RawRepr
     }
 }
 
-public struct IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let alreadyApplied =
-        IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason(rawValue: "already_applied")
-    public static let issueAlreadyClosed =
-        IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason(rawValue: "issue_already_closed")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let alreadyApplied = IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason(rawValue: "already_applied")
+    public static let issueAlreadyClosed = IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason(rawValue: "issue_already_closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,21 +44,17 @@ public struct IssuesUpdateResponseVariant1SuggestionsTypeItemIgnoredReason: RawR
 }
 
 /// The confidence level for this assignee choice.
-public struct IssuesAddAssigneesRequestBodyAssigneesItemVariant1Confidence: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct IssuesAddAssigneesRequestBodyAssigneesItemVariant1Confidence: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let low = IssuesAddAssigneesRequestBodyAssigneesItemVariant1Confidence(rawValue: "low")
     public static let medium = IssuesAddAssigneesRequestBodyAssigneesItemVariant1Confidence(rawValue: "medium")
     public static let high = IssuesAddAssigneesRequestBodyAssigneesItemVariant1Confidence(rawValue: "high")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -78,21 +64,17 @@ public struct IssuesAddAssigneesRequestBodyAssigneesItemVariant1Confidence: RawR
 }
 
 /// The confidence level for this label choice.
-public struct IssuesAddLabelsRequestBodyVariant0LabelsItemVariant1Confidence: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct IssuesAddLabelsRequestBodyVariant0LabelsItemVariant1Confidence: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let low = IssuesAddLabelsRequestBodyVariant0LabelsItemVariant1Confidence(rawValue: "low")
     public static let medium = IssuesAddLabelsRequestBodyVariant0LabelsItemVariant1Confidence(rawValue: "medium")
     public static let high = IssuesAddLabelsRequestBodyVariant0LabelsItemVariant1Confidence(rawValue: "high")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -102,21 +84,17 @@ public struct IssuesAddLabelsRequestBodyVariant0LabelsItemVariant1Confidence: Ra
 }
 
 /// The confidence level for this label choice.
-public struct IssuesAddLabelsRequestBodyVariant2ItemConfidence: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct IssuesAddLabelsRequestBodyVariant2ItemConfidence: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let low = IssuesAddLabelsRequestBodyVariant2ItemConfidence(rawValue: "low")
     public static let medium = IssuesAddLabelsRequestBodyVariant2ItemConfidence(rawValue: "medium")
     public static let high = IssuesAddLabelsRequestBodyVariant2ItemConfidence(rawValue: "high")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -130,10 +108,7 @@ public struct IssuesAddLabelsRequestBodyVariant2ItemConfidence: RawRepresentable
 public struct IssuesLockRequestBodyLockReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let offTopic = IssuesLockRequestBodyLockReason(rawValue: "off-topic")
     public static let tooHeated = IssuesLockRequestBodyLockReason(rawValue: "too heated")
     public static let resolved = IssuesLockRequestBodyLockReason(rawValue: "resolved")
@@ -141,7 +116,7 @@ public struct IssuesLockRequestBodyLockReason: RawRepresentable, Hashable, Codab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -153,10 +128,7 @@ public struct IssuesLockRequestBodyLockReason: RawRepresentable, Hashable, Codab
 public struct ReactionsListForIssueParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let plus1 = ReactionsListForIssueParameter(rawValue: "+1")
     public static let minus1 = ReactionsListForIssueParameter(rawValue: "-1")
     public static let laugh = ReactionsListForIssueParameter(rawValue: "laugh")
@@ -168,7 +140,7 @@ public struct ReactionsListForIssueParameter: RawRepresentable, Hashable, Codabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -178,14 +150,10 @@ public struct ReactionsListForIssueParameter: RawRepresentable, Hashable, Codabl
 }
 
 /// The reaction type to add to the issue.
-public struct ReactionsCreateForIssueRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReactionsCreateForIssueRequestBodyContent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let plus1 = ReactionsCreateForIssueRequestBodyContent(rawValue: "+1")
     public static let minus1 = ReactionsCreateForIssueRequestBodyContent(rawValue: "-1")
     public static let laugh = ReactionsCreateForIssueRequestBodyContent(rawValue: "laugh")
@@ -197,7 +165,7 @@ public struct ReactionsCreateForIssueRequestBodyContent: RawRepresentable, Hasha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -209,10 +177,7 @@ public struct ReactionsCreateForIssueRequestBodyContent: RawRepresentable, Hasha
 public struct IssuesListSuggestionsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pending = IssuesListSuggestionsParameter(rawValue: "pending")
     public static let applied = IssuesListSuggestionsParameter(rawValue: "applied")
     public static let approved = IssuesListSuggestionsParameter(rawValue: "approved")
@@ -223,7 +188,7 @@ public struct IssuesListSuggestionsParameter: RawRepresentable, Hashable, Codabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -232,14 +197,10 @@ public struct IssuesListSuggestionsParameter: RawRepresentable, Hashable, Codabl
     }
 }
 
-public struct IssuesListSuggestionsParameterXd58506f8: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct IssuesListSuggestionsParameterXd58506f8: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let setType = IssuesListSuggestionsParameterXd58506f8(rawValue: "set_type")
     public static let addLabel = IssuesListSuggestionsParameterXd58506f8(rawValue: "add_label")
     public static let addField = IssuesListSuggestionsParameterXd58506f8(rawValue: "add_field")
@@ -248,7 +209,7 @@ public struct IssuesListSuggestionsParameterXd58506f8: RawRepresentable, Hashabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

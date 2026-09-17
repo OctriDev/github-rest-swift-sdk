@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
-    /// Lists a team's repositories visible to the authenticated user. OAuth app tokens and personal access tokens
-    /// (classic) need the `read:org` or `repo` scope to use this endpoint. > [!NOTE] > You can also specify a team by
-    /// `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`.
+extension TeamsMethods {
+    /// Lists a team's repositories visible to the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:org` or `repo` scope to use this endpoint. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -22,29 +20,10 @@ public extension TeamsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func teamsListReposInOrg(
-        config: ClientConfig,
-        org: String,
-        teamSlug: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamSlug)),
-                "/repos",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "teamsListReposInOrg"
-        )).data
+    public static func teamsListReposInOrg(config: ClientConfig, org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug)), "/repos"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "teamsListReposInOrg")).data
     }
 }

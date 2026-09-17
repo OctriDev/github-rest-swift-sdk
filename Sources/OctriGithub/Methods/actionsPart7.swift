@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    struct ActionsCreateHostedRunnerForOrgOptions: Codable {
+extension ActionsMethods {
+    public struct ActionsCreateHostedRunnerForOrgOptions: Codable {
         public var org: String
         public var name: String
         public var image: ActionsCreateHostedRunnerForOrgRequestBodyImage
@@ -17,13 +17,7 @@ public extension ActionsMethods {
         public var enableStaticIp: Bool?
         public var imageGen: Bool?
 
-        public init(
-            org: String,
-            name: String,
-            image: ActionsCreateHostedRunnerForOrgRequestBodyImage,
-            size: String,
-            runnerGroupId: Int
-        ) {
+        public init(org: String, name: String, image: ActionsCreateHostedRunnerForOrgRequestBodyImage, size: String, runnerGroupId: Int) {
             self.org = org
             self.name = name
             self.image = image
@@ -32,8 +26,7 @@ public extension ActionsMethods {
         }
     }
 
-    /// Creates a GitHub-hosted runner for an organization. OAuth tokens and personal access tokens (classic) need the
-    /// `manage_runners:org` scope to use this endpoint.
+    /// Creates a GitHub-hosted runner for an organization. OAuth tokens and personal access tokens (classic) need the `manage_runners:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -51,19 +44,9 @@ public extension ActionsMethods {
     ///   IP. Note limit on account. To list limits on account, use `GET
     ///   actions/hosted-runners/limits`
     /// - imageGen: Whether this runner should be used to generate custom images.
-    static func actionsCreateHostedRunnerForOrg(
-        config: ClientConfig,
-        options: ActionsCreateHostedRunnerForOrgOptions
-    ) async throws -> ActionsHostedRunner {
+    public static func actionsCreateHostedRunnerForOrg(config: ClientConfig, options: ActionsCreateHostedRunnerForOrgOptions) async throws -> ActionsHostedRunner {
         let requestBody = ActionsCreateHostedRunnerForOrgRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/actions/hosted-runners"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsCreateHostedRunnerForOrg"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/actions/hosted-runners"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateHostedRunnerForOrg")).data
     }
 }

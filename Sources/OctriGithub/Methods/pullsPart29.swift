@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PullsMethods {
+extension PullsMethods {
     /// Remove pull requests from a pull request stack
     ///
-    /// Removes the unmerged pull requests from a stack. Pull requests that cannot be unstacked (for example, those that
-    /// are queued for merge) are left in place. When pull requests remain in the stack, the updated stack is returned
-    /// with a `200`. When no pull requests remain, the stack is dissolved and a `204` is returned.
+    /// Removes the unmerged pull requests from a stack. Pull requests that cannot be unstacked (for example, those that are queued for merge) are left in place. When pull requests remain in the stack, the updated stack is returned with a `200`. When no pull requests remain, the stack is dissolved and a `204` is returned.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,26 +17,7 @@ public extension PullsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - stackNumber: The number that identifies the pull request stack.
-    static func pullRequestStacksUnstack(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        stackNumber: Int
-    ) async throws -> PullRequestStacksUnstackResponse {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/stacks/",
-                sdkEncodePathSegment(sdkWireString(stackNumber)),
-                "/unstack",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "pullRequestStacksUnstack"
-        )).data
+    public static func pullRequestStacksUnstack(config: ClientConfig, owner: String, repo: String, stackNumber: Int) async throws -> PullRequestStacksUnstackResponse {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stacks/", sdkEncodePathSegment(sdkWireString(stackNumber)), "/unstack"].joined(), config: config, decoder: .json, operationId: "pullRequestStacksUnstack")).data
     }
 }

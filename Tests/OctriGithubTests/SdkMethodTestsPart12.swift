@@ -6,8 +6,7 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testAppsRemoveRepoFromInstallationForAuthenticatedUserAppsRemoveRX93b12ebad7ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsRemoveRepoFromInstallationForAuthenticatedUserAppsRemoveRX93b12ebad7ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -39,8 +38,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsRevokeInstallationAccessTokenAppsRevokeInstallationAccessTokenReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsRevokeInstallationAccessTokenAppsRevokeInstallationAccessTokenReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -210,8 +208,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingAiCreditUsageReportOrgBillingGetGithubX3f159dc50dReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingAiCreditUsageReportOrgBillingGetGithubX3f159dc50dReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -236,8 +233,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingAiCreditUsageReportUserBillingGetGithuXfe4ac35b1fReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingAiCreditUsageReportUserBillingGetGithuXfe4ac35b1fReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -261,8 +257,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingPremiumRequestUsageReportOrgBillingGetXc8e62b7eb4ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingPremiumRequestUsageReportOrgBillingGetXc8e62b7eb4ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -287,8 +282,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingPremiumRequestUsageReportUserBillingGeX56ee32da1dReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingPremiumRequestUsageReportUserBillingGeX56ee32da1dReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -312,8 +306,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingUsageReportOrgBillingGetGithubBillingUXdb1f75481cReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingUsageReportOrgBillingGetGithubBillingUXdb1f75481cReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -335,8 +328,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingUsageReportUserBillingGetGithubBillingXb5246615d0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingUsageReportUserBillingGetGithubBillingXb5246615d0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -358,8 +350,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingUsageSummaryReportOrgBillingGetGithubBXf6f6b645f5ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingUsageSummaryReportOrgBillingGetGithubBXf6f6b645f5ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -384,8 +375,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testBillingGetGithubBillingUsageSummaryReportUserBillingGetGithubX5eb8bb63ceReachesMockAndDecodesResponse(
-    ) async throws {
+    func testBillingGetGithubBillingUsageSummaryReportUserBillingGetGithubX5eb8bb63ceReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -415,10 +405,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try BillingMethods.BillingUpdateBudgetOrgOptions(
-            org: decoded("\"org\""),
-            budgetId: decoded("\"budget_-1\"")
-        )
+        var options = try BillingMethods.BillingUpdateBudgetOrgOptions(org: decoded("\"org\""), budgetId: decoded("\"budget_-1\""))
         options.budgetAmount = try decoded("10")
         options.preventFurtherUsage = try decoded("false")
         options.budgetAlerting = try decoded("{\"will_alert\":false,\"alert_recipients\":[]}")
@@ -447,12 +434,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CampaignsMethods.CampaignsCreateCampaignOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"Critical CodeQL alerts\""),
-            description: decoded(sdkMethodFixture314Value1),
-            endsAt: decoded("\"2024-03-14T00:00:00Z\"")
-        )
+        var options = try CampaignsMethods.CampaignsCreateCampaignOptions(org: decoded("\"org\""), name: decoded("\"Critical CodeQL alerts\""), description: decoded(sdkMethodFixture314Value1), endsAt: decoded("\"2024-03-14T00:00:00Z\""))
         options.managers = try decoded("[\"octocat\"]")
         options.teamManagers = try decoded("null")
         options.contactLink = try decoded("null")
@@ -533,10 +515,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CampaignsMethods.CampaignsUpdateCampaignOptions(
-            org: decoded("\"org\""),
-            campaignNumber: decoded("1")
-        )
+        var options = try CampaignsMethods.CampaignsUpdateCampaignOptions(org: decoded("\"org\""), campaignNumber: decoded("1"))
         options.name = try decoded("\"Critical CodeQL alerts\"")
         options.description = try decoded("null")
         options.managers = try decoded("null")

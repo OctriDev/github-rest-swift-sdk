@@ -6,56 +6,24 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension HostedComputeMethods {
-    /// Deletes a hosted compute network configuration from an organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `write:network_configurations` scope to use this endpoint.
+extension HostedComputeMethods {
+    /// Deletes a hosted compute network configuration from an organization. OAuth app tokens and personal access tokens (classic) need the `write:network_configurations` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - networkConfigurationId: Unique identifier of the hosted compute network
     ///   configuration.
-    static func hostedComputeDeleteNetworkConfigurationFromOrg(
-        config: ClientConfig,
-        org: String,
-        networkConfigurationId: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/settings/network-configurations/",
-                sdkEncodePathSegment(sdkWireString(networkConfigurationId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "hostedComputeDeleteNetworkConfigurationFromOrg"
-        )).data
+    public static func hostedComputeDeleteNetworkConfigurationFromOrg(config: ClientConfig, org: String, networkConfigurationId: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-configurations/", sdkEncodePathSegment(sdkWireString(networkConfigurationId))].joined(), config: config, decoder: .empty, operationId: "hostedComputeDeleteNetworkConfigurationFromOrg")).data
     }
 
-    /// Gets a hosted compute network settings resource configured for an organization. OAuth app tokens and personal
-    /// access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
+    /// Gets a hosted compute network settings resource configured for an organization. OAuth app tokens and personal access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - networkSettingsId: Unique identifier of the hosted compute network
     ///   settings.
-    static func hostedComputeGetNetworkSettingsForOrg(
-        config: ClientConfig,
-        org: String,
-        networkSettingsId: String
-    ) async throws -> NetworkSettings {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/settings/network-settings/",
-                sdkEncodePathSegment(sdkWireString(networkSettingsId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "hostedComputeGetNetworkSettingsForOrg"
-        )).data
+    public static func hostedComputeGetNetworkSettingsForOrg(config: ClientConfig, org: String, networkSettingsId: String) async throws -> NetworkSettings {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-settings/", sdkEncodePathSegment(sdkWireString(networkSettingsId))].joined(), config: config, decoder: .json, operationId: "hostedComputeGetNetworkSettingsForOrg")).data
     }
 }

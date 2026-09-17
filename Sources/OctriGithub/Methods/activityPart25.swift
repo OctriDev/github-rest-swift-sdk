@@ -6,11 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// List public events received by a user
     ///
-    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can
-    /// be anywhere from 30s to 6h.
+    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -22,22 +21,10 @@ public extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func activityListReceivedPublicEventsForUser(
-        config: ClientConfig,
-        username: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Event] {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/received_events/public"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "activityListReceivedPublicEventsForUser"
-        )).data
+    public static func activityListReceivedPublicEventsForUser(config: ClientConfig, username: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/received_events/public"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "activityListReceivedPublicEventsForUser")).data
     }
 }

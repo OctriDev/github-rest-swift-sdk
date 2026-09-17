@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
+extension TeamsMethods {
     /// List child teams (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
-    /// the Teams API. We recommend migrating your existing code to use the new [`List child
-    /// teams`](https://docs.github.com/rest/teams/teams#list-child-teams) endpoint.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/teams/teams#list-child-teams) endpoint.
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
@@ -25,22 +23,10 @@ public extension TeamsMethods {
     ///   -rest-api)."
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func teamsListChildLegacy(
-        config: ClientConfig,
-        teamId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Team] {
-        try await (sdkRequest(
-            "GET",
-            ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/teams"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "teamsListChildLegacy"
-        )).data
+    public static func teamsListChildLegacy(config: ClientConfig, teamId: Int, perPage: Int?, page: Int?) async throws -> [Team] {
+        return try (await sdkRequest("GET", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/teams"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "teamsListChildLegacy")).data
     }
 }

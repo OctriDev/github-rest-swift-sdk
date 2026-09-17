@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// IssuesTimeline domain models
+// IssuesTimeline domain models
 /// Timeline Reviewed Event
 public struct TimelineReviewedEvent: Codable {
     /// Required `string` value serialized in the `event` wire field.
@@ -63,58 +63,40 @@ public struct TimelineReviewedEvent: Codable {
         case bodyText = "body_text"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TimelineReviewedEvent {
-    init(from decoder: Decoder) throws {
+extension TimelineReviewedEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        event = try container.sdkDecodeRequired(.event)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        user = try container.sdkDecodeRequired(.user)
-        body = try container.sdkDecodeIfPresent(.body)
-        state = try container.sdkDecodeRequired(.state)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        pullRequestUrl = try container.sdkDecodeRequired(.pullRequestUrl)
-        links = try container.sdkDecodeRequired(.links)
-        commitId = try container.sdkDecodeRequired(.commitId)
-        authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
-        submittedAt = try container.sdkDecodeIfPresent(.submittedAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("pull_request_url", pullRequestUrl)
-        if let value = submittedAt {
+        self.event = try container.sdkDecodeRequired(.event)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.user = try container.sdkDecodeRequired(.user)
+        self.body = try container.sdkDecodeIfPresent(.body)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.pullRequestUrl = try container.sdkDecodeRequired(.pullRequestUrl)
+        self.links = try container.sdkDecodeRequired(.links)
+        self.commitId = try container.sdkDecodeRequired(.commitId)
+        self.authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
+        self.submittedAt = try container.sdkDecodeIfPresent(.submittedAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
+        if let value = self.submittedAt {
             try sdkValidateDateTime("submitted_at", sdkWireString(value))
         }
-        if let value = updatedAt {
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension TimelineReviewedEvent {
-    init(
-        event: String,
-        id: Int,
-        nodeId: String,
-        user: SimpleUser,
-        body: String?,
-        state: String,
-        htmlUrl: String,
-        pullRequestUrl: String,
-        links: TimelineReviewedEventLinks,
-        commitId: String,
-        authorAssociation: AuthorAssociation,
-        submittedAt: Date? = nil,
-        updatedAt: Date? = nil,
-        bodyHtml: String? = nil,
-        bodyText: String? = nil
-    ) throws {
+extension TimelineReviewedEvent {
+    public init(event: String, id: Int, nodeId: String, user: SimpleUser, body: String?, state: String, htmlUrl: String, pullRequestUrl: String, links: TimelineReviewedEventLinks, commitId: String, authorAssociation: AuthorAssociation, submittedAt: Date? = nil, updatedAt: Date? = nil, bodyHtml: String? = nil, bodyText: String? = nil) throws {
         (self.event, self.id) = (event, id)
         (self.nodeId, self.user) = (nodeId, user)
         (self.body, self.state) = (body, state)
@@ -123,8 +105,8 @@ public extension TimelineReviewedEvent {
         (self.authorAssociation, self.submittedAt) = (authorAssociation, submittedAt)
         (self.updatedAt, self.bodyHtml) = (updatedAt, bodyHtml)
         self.bodyText = bodyText
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("pull_request_url", self.pullRequestUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
         if let value = self.submittedAt {
             try sdkValidateDateTime("submitted_at", sdkWireString(value))
         }
@@ -146,35 +128,25 @@ public struct TimelineReviewedEventLinks: Codable {
         case pullRequest = "pull_request"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TimelineReviewedEventLinks {
-    init(from decoder: Decoder) throws {
+extension TimelineReviewedEventLinks {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.html) else {
-            throw SdkValidationError(
-                field: "html",
-                code: "required",
-                message: "Validation failed for 'html': value is required"
-            )
+            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(
-                field: "pull_request",
-                code: "required",
-                message: "Validation failed for 'pull_request': value is required"
-            )
+            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
         }
-        html = try container.sdkDecodeRequired(.html)
-        pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        self.html = try container.sdkDecodeRequired(.html)
+        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
     }
 }
 
-public extension TimelineReviewedEventLinks {
-    init(html: TimelineReviewedEventLinksHtml, pullRequest: TimelineReviewedEventLinksPullRequest) {
+extension TimelineReviewedEventLinks {
+    public init(html: TimelineReviewedEventLinksHtml, pullRequest: TimelineReviewedEventLinksPullRequest) {
         (self.html, self.pullRequest) = (html, pullRequest)
     }
 }
@@ -188,27 +160,21 @@ public struct TimelineReviewedEventLinksHtml: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TimelineReviewedEventLinksHtml {
-    init(from decoder: Decoder) throws {
+extension TimelineReviewedEventLinksHtml {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension TimelineReviewedEventLinksHtml {
-    init(href: String) {
+extension TimelineReviewedEventLinksHtml {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -222,27 +188,21 @@ public struct TimelineReviewedEventLinksPullRequest: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TimelineReviewedEventLinksPullRequest {
-    init(from decoder: Decoder) throws {
+extension TimelineReviewedEventLinksPullRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension TimelineReviewedEventLinksPullRequest {
-    init(href: String) {
+extension TimelineReviewedEventLinksPullRequest {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -285,40 +245,27 @@ public struct TimelineUnassignedIssueEvent: Codable {
         case assignee
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TimelineUnassignedIssueEvent {
-    init(from decoder: Decoder) throws {
+extension TimelineUnassignedIssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeRequired(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        assignee = try container.sdkDecodeRequired(.assignee)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.assignee = try container.sdkDecodeRequired(.assignee)
     }
 }
 
-public extension TimelineUnassignedIssueEvent {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        actor: SimpleUser,
-        event: String,
-        commitId: String?,
-        commitUrl: String?,
-        createdAt: String,
-        performedViaGithubApp: NullableIntegration?,
-        assignee: SimpleUser
-    ) {
+extension TimelineUnassignedIssueEvent {
+    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, assignee: SimpleUser) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)

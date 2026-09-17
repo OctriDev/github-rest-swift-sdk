@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical checks operation model declarations
+// Canonical checks operation model declarations
 public struct ChecksUpdateRequestBodyActionsItem: Codable {
     /// The text to be displayed on a button in the web UI. The maximum size is 20 characters.
     public var label: String
@@ -22,51 +22,37 @@ public struct ChecksUpdateRequestBodyActionsItem: Codable {
         case identifier
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksUpdateRequestBodyActionsItem {
-    init(from decoder: Decoder) throws {
+extension ChecksUpdateRequestBodyActionsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.label) else {
-            throw SdkValidationError(
-                field: "label",
-                code: "required",
-                message: "Validation failed for 'label': value is required"
-            )
+            throw SdkValidationError(field: "label", code: "required", message: "Validation failed for 'label': value is required")
         }
         guard container.contains(.description) else {
-            throw SdkValidationError(
-                field: "description",
-                code: "required",
-                message: "Validation failed for 'description': value is required"
-            )
+            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
         }
         guard container.contains(.identifier) else {
-            throw SdkValidationError(
-                field: "identifier",
-                code: "required",
-                message: "Validation failed for 'identifier': value is required"
-            )
+            throw SdkValidationError(field: "identifier", code: "required", message: "Validation failed for 'identifier': value is required")
         }
-        label = try container.sdkDecodeRequired(.label)
-        description = try container.sdkDecodeRequired(.description)
-        identifier = try container.sdkDecodeRequired(.identifier)
-        try validateLength("label", label, min: nil, max: 20)
-        try validateLength("description", description, min: nil, max: 40)
-        try validateLength("identifier", identifier, min: nil, max: 20)
+        self.label = try container.sdkDecodeRequired(.label)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.identifier = try container.sdkDecodeRequired(.identifier)
+            try validateLength("label", self.label, min: nil, max: 20)
+            try validateLength("description", self.description, min: nil, max: 40)
+            try validateLength("identifier", self.identifier, min: nil, max: 20)
     }
 }
 
-public extension ChecksUpdateRequestBodyActionsItem {
-    init(label: String, description: String, identifier: String) throws {
+extension ChecksUpdateRequestBodyActionsItem {
+    public init(label: String, description: String, identifier: String) throws {
         (self.label, self.description) = (label, description)
         self.identifier = identifier
-        try validateLength("label", self.label, min: nil, max: 20)
-        try validateLength("description", self.description, min: nil, max: 40)
-        try validateLength("identifier", self.identifier, min: nil, max: 20)
+            try validateLength("label", self.label, min: nil, max: 20)
+            try validateLength("description", self.description, min: nil, max: 40)
+            try validateLength("identifier", self.identifier, min: nil, max: 20)
     }
 }
 
@@ -78,19 +64,19 @@ public struct ChecksUpdateRequestBodyVariant1: Codable {
     }
 
     init() {
-        status = nil
+        self.status = nil
     }
 }
 
-public extension ChecksUpdateRequestBodyVariant1 {
-    init(from decoder: Decoder) throws {
+extension ChecksUpdateRequestBodyVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.sdkDecodeIfPresent(.status)
+        self.status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-public extension ChecksUpdateRequestBodyVariant1 {
-    init(status: JSONValue? = nil) {
+extension ChecksUpdateRequestBodyVariant1 {
+    public init(status: JSONValue? = nil) {
         self.init()
         self.status = status
     }
@@ -110,36 +96,26 @@ public struct ChecksCreateRequestBodyOutputImagesItem: Codable {
         case caption
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksCreateRequestBodyOutputImagesItem {
-    init(from decoder: Decoder) throws {
+extension ChecksCreateRequestBodyOutputImagesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.alt) else {
-            throw SdkValidationError(
-                field: "alt",
-                code: "required",
-                message: "Validation failed for 'alt': value is required"
-            )
+            throw SdkValidationError(field: "alt", code: "required", message: "Validation failed for 'alt': value is required")
         }
         guard container.contains(.imageUrl) else {
-            throw SdkValidationError(
-                field: "image_url",
-                code: "required",
-                message: "Validation failed for 'image_url': value is required"
-            )
+            throw SdkValidationError(field: "image_url", code: "required", message: "Validation failed for 'image_url': value is required")
         }
-        alt = try container.sdkDecodeRequired(.alt)
-        imageUrl = try container.sdkDecodeRequired(.imageUrl)
-        caption = try container.sdkDecodeIfPresent(.caption)
+        self.alt = try container.sdkDecodeRequired(.alt)
+        self.imageUrl = try container.sdkDecodeRequired(.imageUrl)
+        self.caption = try container.sdkDecodeIfPresent(.caption)
     }
 }
 
-public extension ChecksCreateRequestBodyOutputImagesItem {
-    init(alt: String, imageUrl: String, caption: String? = nil) {
+extension ChecksCreateRequestBodyOutputImagesItem {
+    public init(alt: String, imageUrl: String, caption: String? = nil) {
         (self.alt, self.imageUrl) = (alt, imageUrl)
         self.caption = caption
     }
@@ -154,35 +130,25 @@ public struct ChecksListForRefResponse: Codable {
         case checkRuns = "check_runs"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksListForRefResponse {
-    init(from decoder: Decoder) throws {
+extension ChecksListForRefResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.checkRuns) else {
-            throw SdkValidationError(
-                field: "check_runs",
-                code: "required",
-                message: "Validation failed for 'check_runs': value is required"
-            )
+            throw SdkValidationError(field: "check_runs", code: "required", message: "Validation failed for 'check_runs': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        checkRuns = try container.sdkDecodeRequired(.checkRuns)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.checkRuns = try container.sdkDecodeRequired(.checkRuns)
     }
 }
 
-public extension ChecksListForRefResponse {
-    init(totalCount: Int, checkRuns: [CheckRun]) {
+extension ChecksListForRefResponse {
+    public init(totalCount: Int, checkRuns: [CheckRun]) {
         (self.totalCount, self.checkRuns) = (totalCount, checkRuns)
     }
 }
@@ -201,36 +167,26 @@ public struct ChecksUpdateRequestBodyOutputImagesItem: Codable {
         case caption
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksUpdateRequestBodyOutputImagesItem {
-    init(from decoder: Decoder) throws {
+extension ChecksUpdateRequestBodyOutputImagesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.alt) else {
-            throw SdkValidationError(
-                field: "alt",
-                code: "required",
-                message: "Validation failed for 'alt': value is required"
-            )
+            throw SdkValidationError(field: "alt", code: "required", message: "Validation failed for 'alt': value is required")
         }
         guard container.contains(.imageUrl) else {
-            throw SdkValidationError(
-                field: "image_url",
-                code: "required",
-                message: "Validation failed for 'image_url': value is required"
-            )
+            throw SdkValidationError(field: "image_url", code: "required", message: "Validation failed for 'image_url': value is required")
         }
-        alt = try container.sdkDecodeRequired(.alt)
-        imageUrl = try container.sdkDecodeRequired(.imageUrl)
-        caption = try container.sdkDecodeIfPresent(.caption)
+        self.alt = try container.sdkDecodeRequired(.alt)
+        self.imageUrl = try container.sdkDecodeRequired(.imageUrl)
+        self.caption = try container.sdkDecodeIfPresent(.caption)
     }
 }
 
-public extension ChecksUpdateRequestBodyOutputImagesItem {
-    init(alt: String, imageUrl: String, caption: String? = nil) {
+extension ChecksUpdateRequestBodyOutputImagesItem {
+    public init(alt: String, imageUrl: String, caption: String? = nil) {
         (self.alt, self.imageUrl) = (alt, imageUrl)
         self.caption = caption
     }
@@ -262,55 +218,39 @@ public struct ChecksCreateRequestBodyOutput: Codable {
         case images
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksCreateRequestBodyOutput {
-    init(from decoder: Decoder) throws {
+extension ChecksCreateRequestBodyOutput {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.title) else {
-            throw SdkValidationError(
-                field: "title",
-                code: "required",
-                message: "Validation failed for 'title': value is required"
-            )
+            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
         }
         guard container.contains(.summary) else {
-            throw SdkValidationError(
-                field: "summary",
-                code: "required",
-                message: "Validation failed for 'summary': value is required"
-            )
+            throw SdkValidationError(field: "summary", code: "required", message: "Validation failed for 'summary': value is required")
         }
-        title = try container.sdkDecodeRequired(.title)
-        summary = try container.sdkDecodeRequired(.summary)
-        text = try container.sdkDecodeIfPresent(.text)
-        annotations = try container.sdkDecodeIfPresent(.annotations)
-        images = try container.sdkDecodeIfPresent(.images)
-        try validateLength("summary", summary, min: nil, max: 65535)
-        if let value = text {
+        self.title = try container.sdkDecodeRequired(.title)
+        self.summary = try container.sdkDecodeRequired(.summary)
+        self.text = try container.sdkDecodeIfPresent(.text)
+        self.annotations = try container.sdkDecodeIfPresent(.annotations)
+        self.images = try container.sdkDecodeIfPresent(.images)
+            try validateLength("summary", self.summary, min: nil, max: 65535)
+        if let value = self.text {
             try validateLength("text", value, min: nil, max: 65535)
         }
-        if let value = annotations {
+        if let value = self.annotations {
             try validateItems("annotations", value, min: nil, max: 50)
         }
     }
 }
 
-public extension ChecksCreateRequestBodyOutput {
-    init(
-        title: String,
-        summary: String,
-        text: String? = nil,
-        annotations: [ChecksCreateRequestBodyOutputAnnotationsItem]? = nil,
-        images: [ChecksCreateRequestBodyOutputImagesItem]? = nil
-    ) throws {
+extension ChecksCreateRequestBodyOutput {
+    public init(title: String, summary: String, text: String? = nil, annotations: [ChecksCreateRequestBodyOutputAnnotationsItem]? = nil, images: [ChecksCreateRequestBodyOutputImagesItem]? = nil) throws {
         (self.title, self.summary) = (title, summary)
         (self.text, self.annotations) = (text, annotations)
         self.images = images
-        try validateLength("summary", self.summary, min: nil, max: 65535)
+            try validateLength("summary", self.summary, min: nil, max: 65535)
         if let value = self.text {
             try validateLength("text", value, min: nil, max: 65535)
         }
@@ -332,35 +272,25 @@ public struct ChecksSetSuitesPreferencesRequestBodyAutoTriggerChecksItem: Codabl
         case setting
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksSetSuitesPreferencesRequestBodyAutoTriggerChecksItem {
-    init(from decoder: Decoder) throws {
+extension ChecksSetSuitesPreferencesRequestBodyAutoTriggerChecksItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.appId) else {
-            throw SdkValidationError(
-                field: "app_id",
-                code: "required",
-                message: "Validation failed for 'app_id': value is required"
-            )
+            throw SdkValidationError(field: "app_id", code: "required", message: "Validation failed for 'app_id': value is required")
         }
         guard container.contains(.setting) else {
-            throw SdkValidationError(
-                field: "setting",
-                code: "required",
-                message: "Validation failed for 'setting': value is required"
-            )
+            throw SdkValidationError(field: "setting", code: "required", message: "Validation failed for 'setting': value is required")
         }
-        appId = try container.sdkDecodeRequired(.appId)
-        setting = try container.sdkDecodeRequired(.setting)
+        self.appId = try container.sdkDecodeRequired(.appId)
+        self.setting = try container.sdkDecodeRequired(.setting)
     }
 }
 
-public extension ChecksSetSuitesPreferencesRequestBodyAutoTriggerChecksItem {
-    init(appId: Int, setting: Bool) {
+extension ChecksSetSuitesPreferencesRequestBodyAutoTriggerChecksItem {
+    public init(appId: Int, setting: Bool) {
         (self.appId, self.setting) = (appId, setting)
     }
 }
@@ -373,19 +303,19 @@ public struct ChecksUpdateRequestBodyVariant0: Codable {
     }
 
     init() {
-        status = nil
+        self.status = nil
     }
 }
 
-public extension ChecksUpdateRequestBodyVariant0 {
-    init(from decoder: Decoder) throws {
+extension ChecksUpdateRequestBodyVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.sdkDecodeIfPresent(.status)
+        self.status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-public extension ChecksUpdateRequestBodyVariant0 {
-    init(status: JSONValue? = nil) {
+extension ChecksUpdateRequestBodyVariant0 {
+    public init(status: JSONValue? = nil) {
         self.init()
         self.status = status
     }
@@ -400,35 +330,25 @@ public struct ChecksListForSuiteResponse: Codable {
         case checkRuns = "check_runs"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksListForSuiteResponse {
-    init(from decoder: Decoder) throws {
+extension ChecksListForSuiteResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.checkRuns) else {
-            throw SdkValidationError(
-                field: "check_runs",
-                code: "required",
-                message: "Validation failed for 'check_runs': value is required"
-            )
+            throw SdkValidationError(field: "check_runs", code: "required", message: "Validation failed for 'check_runs': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        checkRuns = try container.sdkDecodeRequired(.checkRuns)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.checkRuns = try container.sdkDecodeRequired(.checkRuns)
     }
 }
 
-public extension ChecksListForSuiteResponse {
-    init(totalCount: Int, checkRuns: [CheckRun]) {
+extension ChecksListForSuiteResponse {
+    public init(totalCount: Int, checkRuns: [CheckRun]) {
         (self.totalCount, self.checkRuns) = (totalCount, checkRuns)
     }
 }
@@ -459,48 +379,36 @@ public struct ChecksUpdateRequestBodyOutput: Codable {
         case images
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksUpdateRequestBodyOutput {
-    init(from decoder: Decoder) throws {
+extension ChecksUpdateRequestBodyOutput {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.summary) else {
-            throw SdkValidationError(
-                field: "summary",
-                code: "required",
-                message: "Validation failed for 'summary': value is required"
-            )
+            throw SdkValidationError(field: "summary", code: "required", message: "Validation failed for 'summary': value is required")
         }
-        summary = try container.sdkDecodeRequired(.summary)
-        title = try container.sdkDecodeIfPresent(.title)
-        text = try container.sdkDecodeIfPresent(.text)
-        annotations = try container.sdkDecodeIfPresent(.annotations)
-        images = try container.sdkDecodeIfPresent(.images)
-        try validateLength("summary", summary, min: nil, max: 65535)
-        if let value = text {
+        self.summary = try container.sdkDecodeRequired(.summary)
+        self.title = try container.sdkDecodeIfPresent(.title)
+        self.text = try container.sdkDecodeIfPresent(.text)
+        self.annotations = try container.sdkDecodeIfPresent(.annotations)
+        self.images = try container.sdkDecodeIfPresent(.images)
+            try validateLength("summary", self.summary, min: nil, max: 65535)
+        if let value = self.text {
             try validateLength("text", value, min: nil, max: 65535)
         }
-        if let value = annotations {
+        if let value = self.annotations {
             try validateItems("annotations", value, min: nil, max: 50)
         }
     }
 }
 
-public extension ChecksUpdateRequestBodyOutput {
-    init(
-        summary: String,
-        title: String? = nil,
-        text: String? = nil,
-        annotations: [ChecksUpdateRequestBodyOutputAnnotationsItem]? = nil,
-        images: [ChecksUpdateRequestBodyOutputImagesItem]? = nil
-    ) throws {
+extension ChecksUpdateRequestBodyOutput {
+    public init(summary: String, title: String? = nil, text: String? = nil, annotations: [ChecksUpdateRequestBodyOutputAnnotationsItem]? = nil, images: [ChecksUpdateRequestBodyOutputImagesItem]? = nil) throws {
         (self.summary, self.title) = (summary, title)
         (self.text, self.annotations) = (text, annotations)
         self.images = images
-        try validateLength("summary", self.summary, min: nil, max: 65535)
+            try validateLength("summary", self.summary, min: nil, max: 65535)
         if let value = self.text {
             try validateLength("text", value, min: nil, max: 65535)
         }
@@ -524,51 +432,37 @@ public struct ChecksCreateRequestBodyActionsItem: Codable {
         case identifier
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ChecksCreateRequestBodyActionsItem {
-    init(from decoder: Decoder) throws {
+extension ChecksCreateRequestBodyActionsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.label) else {
-            throw SdkValidationError(
-                field: "label",
-                code: "required",
-                message: "Validation failed for 'label': value is required"
-            )
+            throw SdkValidationError(field: "label", code: "required", message: "Validation failed for 'label': value is required")
         }
         guard container.contains(.description) else {
-            throw SdkValidationError(
-                field: "description",
-                code: "required",
-                message: "Validation failed for 'description': value is required"
-            )
+            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
         }
         guard container.contains(.identifier) else {
-            throw SdkValidationError(
-                field: "identifier",
-                code: "required",
-                message: "Validation failed for 'identifier': value is required"
-            )
+            throw SdkValidationError(field: "identifier", code: "required", message: "Validation failed for 'identifier': value is required")
         }
-        label = try container.sdkDecodeRequired(.label)
-        description = try container.sdkDecodeRequired(.description)
-        identifier = try container.sdkDecodeRequired(.identifier)
-        try validateLength("label", label, min: nil, max: 20)
-        try validateLength("description", description, min: nil, max: 40)
-        try validateLength("identifier", identifier, min: nil, max: 20)
+        self.label = try container.sdkDecodeRequired(.label)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.identifier = try container.sdkDecodeRequired(.identifier)
+            try validateLength("label", self.label, min: nil, max: 20)
+            try validateLength("description", self.description, min: nil, max: 40)
+            try validateLength("identifier", self.identifier, min: nil, max: 20)
     }
 }
 
-public extension ChecksCreateRequestBodyActionsItem {
-    init(label: String, description: String, identifier: String) throws {
+extension ChecksCreateRequestBodyActionsItem {
+    public init(label: String, description: String, identifier: String) throws {
         (self.label, self.description) = (label, description)
         self.identifier = identifier
-        try validateLength("label", self.label, min: nil, max: 20)
-        try validateLength("description", self.description, min: nil, max: 40)
-        try validateLength("identifier", self.identifier, min: nil, max: 20)
+            try validateLength("label", self.label, min: nil, max: 20)
+            try validateLength("description", self.description, min: nil, max: 40)
+            try validateLength("identifier", self.identifier, min: nil, max: 20)
     }
 }
 
@@ -580,19 +474,19 @@ public struct ChecksCreateRequestBodyVariant1: Codable {
     }
 
     init() {
-        status = nil
+        self.status = nil
     }
 }
 
-public extension ChecksCreateRequestBodyVariant1 {
-    init(from decoder: Decoder) throws {
+extension ChecksCreateRequestBodyVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.sdkDecodeIfPresent(.status)
+        self.status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-public extension ChecksCreateRequestBodyVariant1 {
-    init(status: JSONValue? = nil) {
+extension ChecksCreateRequestBodyVariant1 {
+    public init(status: JSONValue? = nil) {
         self.init()
         self.status = status
     }
@@ -632,7 +526,5 @@ public struct ChecksUpdateRequestBodyOutputAnnotationsItem: Codable {
         case rawDetails = "raw_details"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

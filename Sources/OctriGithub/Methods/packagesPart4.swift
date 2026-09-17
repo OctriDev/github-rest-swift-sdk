@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PackagesMethods {
-    /// Gets a specific package in an organization. OAuth app tokens and personal access tokens (classic) need the
-    /// `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+extension PackagesMethods {
+    /// Gets a specific package in an organization. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -19,25 +18,7 @@ public extension PackagesMethods {
     ///   Container registry.
     /// - packageName: The name of the package.
     /// - org: The organization name. The name is not case sensitive.
-    static func packagesGetPackageForOrganization(
-        config: ClientConfig,
-        packageType: PackagesDeletePackageForOrgParameter,
-        packageName: String,
-        org: String
-    ) async throws -> Package {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/packages/",
-                sdkEncodePathSegment(sdkWireString(packageType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(packageName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "packagesGetPackageForOrganization"
-        )).data
+    public static func packagesGetPackageForOrganization(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String) async throws -> Package {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName))].joined(), config: config, decoder: .json, operationId: "packagesGetPackageForOrganization")).data
     }
 }

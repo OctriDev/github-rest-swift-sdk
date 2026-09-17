@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
-    struct TeamsUpdateLegacyOptions: Codable {
+extension TeamsMethods {
+    public struct TeamsUpdateLegacyOptions: Codable {
         public var teamId: Int
         public var name: String
         public var description: String?
@@ -25,11 +25,7 @@ public extension TeamsMethods {
 
     /// Update a team (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
-    /// the Teams API. We recommend migrating your existing code to use the new [Update a
-    /// team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint. To edit a team, the authenticated user
-    /// must either be an organization owner or a team maintainer. > [!NOTE] > With nested teams, the `privacy` for
-    /// parent teams cannot be `secret`.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint. To edit a team, the authenticated user must either be an organization owner or a team maintainer. > [!NOTE] > With nested teams, the `privacy` for parent teams cannot be `secret`.
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
@@ -53,16 +49,9 @@ public extension TeamsMethods {
     ///   `parent_team_id` is also provided.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func teamsUpdateLegacy(config: ClientConfig, options: TeamsUpdateLegacyOptions) async throws -> TeamFull {
+    public static func teamsUpdateLegacy(config: ClientConfig, options: TeamsUpdateLegacyOptions) async throws -> TeamFull {
         let requestBody = TeamsUpdateLegacyRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/teams/", sdkEncodePathSegment(sdkWireString(options.teamId))].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "teamsUpdateLegacy"
-        )).data
+        return try (await sdkRequest("PATCH", ["/teams/", sdkEncodePathSegment(sdkWireString(options.teamId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "teamsUpdateLegacy")).data
     }
 }

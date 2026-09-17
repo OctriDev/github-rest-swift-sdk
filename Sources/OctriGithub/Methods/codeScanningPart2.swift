@@ -6,33 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the AI Scan setting stored on an
-    /// organization. The response reports the value stored on the organization. Organization respects enterprise
-    /// policy. The authenticated user must be an owner or security manager for the organization to use this endpoint.
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org`, `repo`, or `write:org` scope to use
-    /// this endpoint. Organization owners can use `admin:org` or `repo`; security managers need `write:org`.
+extension CodeScanningMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the AI Scan setting stored on an organization. The response reports the value stored on the organization. Organization respects enterprise policy. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`, `repo`, or `write:org` scope to use this endpoint. Organization owners can use `admin:org` or `repo`; security managers need `write:org`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func codeScanningGetAiScanEnablementForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> CodeScanningAiScanOrgSettings {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-scanning/ai-scan"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codeScanningGetAiScanEnablementForOrg"
-        )).data
+    public static func codeScanningGetAiScanEnablementForOrg(config: ClientConfig, org: String) async throws -> CodeScanningAiScanOrgSettings {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-scanning/ai-scan"].joined(), config: config, decoder: .json, operationId: "codeScanningGetAiScanEnablementForOrg")).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Updates the AI Scan setting stored on
-    /// an organization. The organization respects the enterprise policy, so enabling is rejected when the enterprise
-    /// disallows AI Scan. OAuth app tokens and personal access tokens (classic) need the `admin:org`, `repo`, or
-    /// `write:org` scope to use this endpoint. Organization owners can use `admin:org` or `repo`; security managers
-    /// need `write:org`.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Updates the AI Scan setting stored on an organization. The organization respects the enterprise policy, so enabling is rejected when the enterprise disallows AI Scan. OAuth app tokens and personal access tokens (classic) need the `admin:org`, `repo`, or `write:org` scope to use this endpoint. Organization owners can use `admin:org` or `repo`; security managers need `write:org`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -40,20 +23,9 @@ public extension CodeScanningMethods {
     ///   respects enterprise policy. Disabled organizations prevent repositories from
     ///   enabling AI Scan. Enabled organizations enable AI Scan for their
     ///   repositories, but individual repositories can opt out.
-    static func codeScanningUpdateAiScanEnablementForOrg(
-        config: ClientConfig,
-        org: String,
-        prScan: CodeScanningAiScanOrgEnablementUpdatePrScan?
-    ) async throws -> CodeScanningAiScanOrgSettings {
+    public static func codeScanningUpdateAiScanEnablementForOrg(config: ClientConfig, org: String, prScan: CodeScanningAiScanOrgEnablementUpdatePrScan?) async throws -> CodeScanningAiScanOrgSettings {
         let requestBody = CodeScanningUpdateAiScanEnablementForOrgRequestBody(prScan: prScan)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-scanning/ai-scan"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeScanningUpdateAiScanEnablementForOrg"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-scanning/ai-scan"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningUpdateAiScanEnablementForOrg")).data
     }
 }

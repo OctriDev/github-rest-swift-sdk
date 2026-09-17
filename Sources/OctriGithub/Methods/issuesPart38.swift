@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists the suggestions on an issue. A suggestion is an agent-proposed change to an issue's type, labels, fields,
-    /// assignees, or closed state that a maintainer can approve or dismiss. By default only pending suggestions are
-    /// returned. Use `state=all` to return suggestions in every state, or `state=<state>` to filter to a single state.
-    /// Use `action=<action>` to return only suggestions for a specific change. This endpoint is only available while
-    /// the issue suggestions feature is enabled for the repository, and only supports issues, not pull requests.
-    /// Requires triage access to the repository.
+extension IssuesMethods {
+    /// Lists the suggestions on an issue. A suggestion is an agent-proposed change to an issue's type, labels, fields, assignees, or closed state that a maintainer can approve or dismiss. By default only pending suggestions are returned. Use `state=all` to return suggestions in every state, or `state=<state>` to filter to a single state. Use `action=<action>` to return only suggestions for a specific change. This endpoint is only available while the issue suggestions feature is enabled for the repository, and only supports issues, not pull requests. Requires triage access to the repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,36 +25,12 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListSuggestions(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        state: IssuesListSuggestionsParameter?,
-        action: IssuesListSuggestionsParameterXd58506f8?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueSuggestion] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/suggestions",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("state", value: state),
-                SdkQueryParameter("action", value: action),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListSuggestions"
-        )).data
+    public static func issuesListSuggestions(config: ClientConfig, owner: String, repo: String, issueNumber: Int, state: IssuesListSuggestionsParameter?, action: IssuesListSuggestionsParameterXd58506f8?, perPage: Int?, page: Int?) async throws -> [IssueSuggestion] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/suggestions"].joined(), config: config, query: [
+            SdkQueryParameter("state", value: state),
+            SdkQueryParameter("action", value: action),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListSuggestions")).data
     }
 }

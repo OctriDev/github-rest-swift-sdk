@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Sets the actions and reusable workflows that are allowed in an organization. To use this endpoint, the
-    /// organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see
-    /// "Set GitHub Actions permissions for an organization." OAuth app tokens and personal access tokens (classic) need
-    /// the `admin:org` scope to use this endpoint.
+extension ActionsMethods {
+    /// Sets the actions and reusable workflows that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -24,44 +21,17 @@ public extension ActionsMethods {
     ///   allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`,
     ///   `monalisa/*`. > [!NOTE] > The `patterns_allowed` setting only applies to
     ///   public repositories.
-    static func actionsSetAllowedActionsOrganization(
-        config: ClientConfig,
-        org: String,
-        githubOwnedAllowed: Bool?,
-        verifiedAllowed: Bool?,
-        patternsAllowed: [String]?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetAllowedActionsOrganizationRequestBody(
-            githubOwnedAllowed: githubOwnedAllowed,
-            verifiedAllowed: verifiedAllowed,
-            patternsAllowed: patternsAllowed
-        )
+    public static func actionsSetAllowedActionsOrganization(config: ClientConfig, org: String, githubOwnedAllowed: Bool?, verifiedAllowed: Bool?, patternsAllowed: [String]?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetAllowedActionsOrganizationRequestBody(githubOwnedAllowed: githubOwnedAllowed, verifiedAllowed: verifiedAllowed, patternsAllowed: patternsAllowed)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/selected-actions"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetAllowedActionsOrganization"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/selected-actions"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetAllowedActionsOrganization")).data
     }
 
-    /// Gets the settings for self-hosted runners for an organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
+    /// Gets the settings for self-hosted runners for an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetSelfHostedRunnersPermissionsOrganization(
-        config: ClientConfig,
-        org: String
-    ) async throws -> SelfHostedRunnersSettings {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetSelfHostedRunnersPermissionsOrganization"
-        )).data
+    public static func actionsGetSelfHostedRunnersPermissionsOrganization(config: ClientConfig, org: String) async throws -> SelfHostedRunnersSettings {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners"].joined(), config: config, decoder: .json, operationId: "actionsGetSelfHostedRunnersPermissionsOrganization")).data
     }
 }

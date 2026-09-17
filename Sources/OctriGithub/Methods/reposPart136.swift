@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposGetRepoRuleSuitesOptions: Codable {
+extension ReposMethods {
+    public struct ReposGetRepoRuleSuitesOptions: Codable {
         public var owner: String
         public var repo: String
         public var ref: String?
@@ -56,31 +56,15 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposGetRepoRuleSuites(
-        config: ClientConfig,
-        options: ReposGetRepoRuleSuitesOptions
-    ) async throws -> RuleSuites {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/rulesets/rule-suites",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("ref", value: options.ref),
-                SdkQueryParameter("time_period", value: options.timePeriod),
-                SdkQueryParameter("actor_name", value: options.actorName),
-                SdkQueryParameter("rule_suite_result", value: options.ruleSuiteResult),
-                SdkQueryParameter("evaluate_status", value: options.evaluateStatus),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("page", value: options.page),
-            ],
-            decoder: .json,
-            operationId: "reposGetRepoRuleSuites"
-        )).data
+    public static func reposGetRepoRuleSuites(config: ClientConfig, options: ReposGetRepoRuleSuitesOptions) async throws -> RuleSuites {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/rulesets/rule-suites"].joined(), config: config, query: [
+            SdkQueryParameter("ref", value: options.ref),
+            SdkQueryParameter("time_period", value: options.timePeriod),
+            SdkQueryParameter("actor_name", value: options.actorName),
+            SdkQueryParameter("rule_suite_result", value: options.ruleSuiteResult),
+            SdkQueryParameter("evaluate_status", value: options.evaluateStatus),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("page", value: options.page),
+        ], decoder: .json, operationId: "reposGetRepoRuleSuites")).data
     }
 }

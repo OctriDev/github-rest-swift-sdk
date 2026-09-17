@@ -6,73 +6,36 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
+extension ActionsMethods {
     /// Get the list of GitHub-owned images available for GitHub-hosted runners for an organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetHostedRunnersGithubOwnedImagesForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsGetHostedRunnersGithubOwnedImagesForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/github-owned"]
-                .joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetHostedRunnersGithubOwnedImagesForOrg"
-        )).data
+    public static func actionsGetHostedRunnersGithubOwnedImagesForOrg(config: ClientConfig, org: String) async throws -> ActionsGetHostedRunnersGithubOwnedImagesForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/github-owned"].joined(), config: config, decoder: .json, operationId: "actionsGetHostedRunnersGithubOwnedImagesForOrg")).data
     }
 
     /// Get the list of partner images available for GitHub-hosted runners for an organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetHostedRunnersPartnerImagesForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsGetHostedRunnersPartnerImagesForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/partner"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetHostedRunnersPartnerImagesForOrg"
-        )).data
+    public static func actionsGetHostedRunnersPartnerImagesForOrg(config: ClientConfig, org: String) async throws -> ActionsGetHostedRunnersPartnerImagesForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/partner"].joined(), config: config, decoder: .json, operationId: "actionsGetHostedRunnersPartnerImagesForOrg")).data
     }
 
     /// Get the GitHub-hosted runners limits for an organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetHostedRunnersLimitsForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsHostedRunnerLimits {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/limits"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetHostedRunnersLimitsForOrg"
-        )).data
+    public static func actionsGetHostedRunnersLimitsForOrg(config: ClientConfig, org: String) async throws -> ActionsHostedRunnerLimits {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/limits"].joined(), config: config, decoder: .json, operationId: "actionsGetHostedRunnersLimitsForOrg")).data
     }
 
     /// Get the list of machine specs available for GitHub-hosted runners for an organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetHostedRunnersMachineSpecsForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsGetHostedRunnersMachineSpecsForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/machine-sizes"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetHostedRunnersMachineSpecsForOrg"
-        )).data
+    public static func actionsGetHostedRunnersMachineSpecsForOrg(config: ClientConfig, org: String) async throws -> ActionsGetHostedRunnersMachineSpecsForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/machine-sizes"].joined(), config: config, decoder: .json, operationId: "actionsGetHostedRunnersMachineSpecsForOrg")).data
     }
 }

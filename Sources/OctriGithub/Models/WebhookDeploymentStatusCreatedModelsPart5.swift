@@ -3,75 +3,44 @@
 
 import Foundation
 
-/// WebhookDeploymentStatusCreated domain models
-public extension WebhookDeploymentStatusCreatedWorkflowRunActor {
-    init(from decoder: Decoder) throws {
+// WebhookDeploymentStatusCreated domain models
+extension WebhookDeploymentStatusCreatedWorkflowRunActor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookDeploymentStatusCreatedWorkflowRunActor {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookDeploymentStatusCreatedWorkflowRunActorType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookDeploymentStatusCreatedWorkflowRunActor {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookDeploymentStatusCreatedWorkflowRunActorType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -89,28 +58,28 @@ public extension WebhookDeploymentStatusCreatedWorkflowRunActor {
 
 extension WebhookDeploymentStatusCreatedWorkflowRunActor {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -265,8 +234,8 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
     }
 }
 
-public extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    init(from decoder: Decoder) throws {
+extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init(sdkDefaults: ())
         try sdkDecodeFieldsPart1(container)
@@ -276,55 +245,8 @@ public extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
     }
 }
 
-public extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    init(
-        archiveUrl: String? = nil,
-        assigneesUrl: String? = nil,
-        blobsUrl: String? = nil,
-        branchesUrl: String? = nil,
-        collaboratorsUrl: String? = nil,
-        commentsUrl: String? = nil,
-        commitsUrl: String? = nil,
-        compareUrl: String? = nil,
-        contentsUrl: String? = nil,
-        contributorsUrl: String? = nil,
-        deploymentsUrl: String? = nil,
-        description: JSONValue? = nil,
-        downloadsUrl: String? = nil,
-        eventsUrl: String? = nil,
-        fork: Bool? = nil,
-        forksUrl: String? = nil,
-        fullName: String? = nil,
-        gitCommitsUrl: String? = nil,
-        gitRefsUrl: String? = nil,
-        gitTagsUrl: String? = nil,
-        hooksUrl: String? = nil,
-        htmlUrl: String? = nil,
-        id: Int? = nil,
-        issueCommentUrl: String? = nil,
-        issueEventsUrl: String? = nil,
-        issuesUrl: String? = nil,
-        keysUrl: String? = nil,
-        labelsUrl: String? = nil,
-        languagesUrl: String? = nil,
-        mergesUrl: String? = nil,
-        milestonesUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        notificationsUrl: String? = nil,
-        owner: WebhookDeploymentStatusCreatedWorkflowRunHeadRepositoryOwner? = nil,
-        private: Bool? = nil,
-        pullsUrl: String? = nil,
-        releasesUrl: String? = nil,
-        stargazersUrl: String? = nil,
-        statusesUrl: String? = nil,
-        subscribersUrl: String? = nil,
-        subscriptionUrl: String? = nil,
-        tagsUrl: String? = nil,
-        teamsUrl: String? = nil,
-        treesUrl: String? = nil,
-        url: String? = nil
-    ) {
+extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
+    public init(archiveUrl: String? = nil, assigneesUrl: String? = nil, blobsUrl: String? = nil, branchesUrl: String? = nil, collaboratorsUrl: String? = nil, commentsUrl: String? = nil, commitsUrl: String? = nil, compareUrl: String? = nil, contentsUrl: String? = nil, contributorsUrl: String? = nil, deploymentsUrl: String? = nil, description: JSONValue? = nil, downloadsUrl: String? = nil, eventsUrl: String? = nil, fork: Bool? = nil, forksUrl: String? = nil, fullName: String? = nil, gitCommitsUrl: String? = nil, gitRefsUrl: String? = nil, gitTagsUrl: String? = nil, hooksUrl: String? = nil, htmlUrl: String? = nil, id: Int? = nil, issueCommentUrl: String? = nil, issueEventsUrl: String? = nil, issuesUrl: String? = nil, keysUrl: String? = nil, labelsUrl: String? = nil, languagesUrl: String? = nil, mergesUrl: String? = nil, milestonesUrl: String? = nil, name: String? = nil, nodeId: String? = nil, notificationsUrl: String? = nil, owner: WebhookDeploymentStatusCreatedWorkflowRunHeadRepositoryOwner? = nil, `private`: Bool? = nil, pullsUrl: String? = nil, releasesUrl: String? = nil, stargazersUrl: String? = nil, statusesUrl: String? = nil, subscribersUrl: String? = nil, subscriptionUrl: String? = nil, tagsUrl: String? = nil, teamsUrl: String? = nil, treesUrl: String? = nil, url: String? = nil) {
         self.init(sdkDefaults: ())
         sdkSet1(archiveUrl, assigneesUrl, blobsUrl, branchesUrl, collaboratorsUrl)
         sdkSet2(commentsUrl, commitsUrl, compareUrl, contentsUrl, contributorsUrl)
@@ -340,13 +262,7 @@ public extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet1(
-        _ archiveUrl: String?,
-        _ assigneesUrl: String?,
-        _ blobsUrl: String?,
-        _ branchesUrl: String?,
-        _ collaboratorsUrl: String?
-    ) {
+    mutating func sdkSet1(_ archiveUrl: String?, _ assigneesUrl: String?, _ blobsUrl: String?, _ branchesUrl: String?, _ collaboratorsUrl: String?) {
         self.archiveUrl = archiveUrl
         self.assigneesUrl = assigneesUrl
         self.blobsUrl = blobsUrl
@@ -356,13 +272,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet2(
-        _ commentsUrl: String?,
-        _ commitsUrl: String?,
-        _ compareUrl: String?,
-        _ contentsUrl: String?,
-        _ contributorsUrl: String?
-    ) {
+    mutating func sdkSet2(_ commentsUrl: String?, _ commitsUrl: String?, _ compareUrl: String?, _ contentsUrl: String?, _ contributorsUrl: String?) {
         self.commentsUrl = commentsUrl
         self.commitsUrl = commitsUrl
         self.compareUrl = compareUrl
@@ -372,13 +282,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet3(
-        _ deploymentsUrl: String?,
-        _ description: JSONValue?,
-        _ downloadsUrl: String?,
-        _ eventsUrl: String?,
-        _ fork: Bool?
-    ) {
+    mutating func sdkSet3(_ deploymentsUrl: String?, _ description: JSONValue?, _ downloadsUrl: String?, _ eventsUrl: String?, _ fork: Bool?) {
         self.deploymentsUrl = deploymentsUrl
         self.description = description
         self.downloadsUrl = downloadsUrl
@@ -388,13 +292,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet4(
-        _ forksUrl: String?,
-        _ fullName: String?,
-        _ gitCommitsUrl: String?,
-        _ gitRefsUrl: String?,
-        _ gitTagsUrl: String?
-    ) {
+    mutating func sdkSet4(_ forksUrl: String?, _ fullName: String?, _ gitCommitsUrl: String?, _ gitRefsUrl: String?, _ gitTagsUrl: String?) {
         self.forksUrl = forksUrl
         self.fullName = fullName
         self.gitCommitsUrl = gitCommitsUrl
@@ -404,13 +302,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet5(
-        _ hooksUrl: String?,
-        _ htmlUrl: String?,
-        _ id: Int?,
-        _ issueCommentUrl: String?,
-        _ issueEventsUrl: String?
-    ) {
+    mutating func sdkSet5(_ hooksUrl: String?, _ htmlUrl: String?, _ id: Int?, _ issueCommentUrl: String?, _ issueEventsUrl: String?) {
         self.hooksUrl = hooksUrl
         self.htmlUrl = htmlUrl
         self.id = id
@@ -420,13 +312,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet6(
-        _ issuesUrl: String?,
-        _ keysUrl: String?,
-        _ labelsUrl: String?,
-        _ languagesUrl: String?,
-        _ mergesUrl: String?
-    ) {
+    mutating func sdkSet6(_ issuesUrl: String?, _ keysUrl: String?, _ labelsUrl: String?, _ languagesUrl: String?, _ mergesUrl: String?) {
         self.issuesUrl = issuesUrl
         self.keysUrl = keysUrl
         self.labelsUrl = labelsUrl
@@ -436,13 +322,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet7(
-        _ milestonesUrl: String?,
-        _ name: String?,
-        _ nodeId: String?,
-        _ notificationsUrl: String?,
-        _ owner: WebhookDeploymentStatusCreatedWorkflowRunHeadRepositoryOwner?
-    ) {
+    mutating func sdkSet7(_ milestonesUrl: String?, _ name: String?, _ nodeId: String?, _ notificationsUrl: String?, _ owner: WebhookDeploymentStatusCreatedWorkflowRunHeadRepositoryOwner?) {
         self.milestonesUrl = milestonesUrl
         self.name = name
         self.nodeId = nodeId
@@ -452,14 +332,8 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet8(
-        _ private: Bool?,
-        _ pullsUrl: String?,
-        _ releasesUrl: String?,
-        _ stargazersUrl: String?,
-        _ statusesUrl: String?
-    ) {
-        self.private = `private`
+    mutating func sdkSet8(_ `private`: Bool?, _ pullsUrl: String?, _ releasesUrl: String?, _ stargazersUrl: String?, _ statusesUrl: String?) {
+        self.`private` = `private`
         self.pullsUrl = pullsUrl
         self.releasesUrl = releasesUrl
         self.stargazersUrl = stargazersUrl
@@ -468,13 +342,7 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
-    mutating func sdkSet9(
-        _ subscribersUrl: String?,
-        _ subscriptionUrl: String?,
-        _ tagsUrl: String?,
-        _ teamsUrl: String?,
-        _ treesUrl: String?
-    ) {
+    mutating func sdkSet9(_ subscribersUrl: String?, _ subscriptionUrl: String?, _ tagsUrl: String?, _ teamsUrl: String?, _ treesUrl: String?) {
         self.subscribersUrl = subscribersUrl
         self.subscriptionUrl = subscriptionUrl
         self.tagsUrl = tagsUrl
@@ -491,66 +359,66 @@ extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
-        assigneesUrl = try container.sdkDecodeIfPresent(.assigneesUrl)
-        blobsUrl = try container.sdkDecodeIfPresent(.blobsUrl)
-        branchesUrl = try container.sdkDecodeIfPresent(.branchesUrl)
-        collaboratorsUrl = try container.sdkDecodeIfPresent(.collaboratorsUrl)
-        commentsUrl = try container.sdkDecodeIfPresent(.commentsUrl)
-        commitsUrl = try container.sdkDecodeIfPresent(.commitsUrl)
-        compareUrl = try container.sdkDecodeIfPresent(.compareUrl)
-        contentsUrl = try container.sdkDecodeIfPresent(.contentsUrl)
-        contributorsUrl = try container.sdkDecodeIfPresent(.contributorsUrl)
-        deploymentsUrl = try container.sdkDecodeIfPresent(.deploymentsUrl)
-        description = try container.sdkDecodeIfPresent(.description)
+        self.archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
+        self.assigneesUrl = try container.sdkDecodeIfPresent(.assigneesUrl)
+        self.blobsUrl = try container.sdkDecodeIfPresent(.blobsUrl)
+        self.branchesUrl = try container.sdkDecodeIfPresent(.branchesUrl)
+        self.collaboratorsUrl = try container.sdkDecodeIfPresent(.collaboratorsUrl)
+        self.commentsUrl = try container.sdkDecodeIfPresent(.commentsUrl)
+        self.commitsUrl = try container.sdkDecodeIfPresent(.commitsUrl)
+        self.compareUrl = try container.sdkDecodeIfPresent(.compareUrl)
+        self.contentsUrl = try container.sdkDecodeIfPresent(.contentsUrl)
+        self.contributorsUrl = try container.sdkDecodeIfPresent(.contributorsUrl)
+        self.deploymentsUrl = try container.sdkDecodeIfPresent(.deploymentsUrl)
+        self.description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        downloadsUrl = try container.sdkDecodeIfPresent(.downloadsUrl)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        fork = try container.sdkDecodeIfPresent(.fork)
-        forksUrl = try container.sdkDecodeIfPresent(.forksUrl)
-        fullName = try container.sdkDecodeIfPresent(.fullName)
-        gitCommitsUrl = try container.sdkDecodeIfPresent(.gitCommitsUrl)
-        gitRefsUrl = try container.sdkDecodeIfPresent(.gitRefsUrl)
-        gitTagsUrl = try container.sdkDecodeIfPresent(.gitTagsUrl)
-        hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        id = try container.sdkDecodeIfPresent(.id)
-        issueCommentUrl = try container.sdkDecodeIfPresent(.issueCommentUrl)
+        self.downloadsUrl = try container.sdkDecodeIfPresent(.downloadsUrl)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.fork = try container.sdkDecodeIfPresent(.fork)
+        self.forksUrl = try container.sdkDecodeIfPresent(.forksUrl)
+        self.fullName = try container.sdkDecodeIfPresent(.fullName)
+        self.gitCommitsUrl = try container.sdkDecodeIfPresent(.gitCommitsUrl)
+        self.gitRefsUrl = try container.sdkDecodeIfPresent(.gitRefsUrl)
+        self.gitTagsUrl = try container.sdkDecodeIfPresent(.gitTagsUrl)
+        self.hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.issueCommentUrl = try container.sdkDecodeIfPresent(.issueCommentUrl)
     }
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        issueEventsUrl = try container.sdkDecodeIfPresent(.issueEventsUrl)
-        issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
-        keysUrl = try container.sdkDecodeIfPresent(.keysUrl)
-        labelsUrl = try container.sdkDecodeIfPresent(.labelsUrl)
-        languagesUrl = try container.sdkDecodeIfPresent(.languagesUrl)
-        mergesUrl = try container.sdkDecodeIfPresent(.mergesUrl)
-        milestonesUrl = try container.sdkDecodeIfPresent(.milestonesUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        notificationsUrl = try container.sdkDecodeIfPresent(.notificationsUrl)
-        owner = try container.sdkDecodeIfPresent(.owner)
-        self.private = try container.sdkDecodeIfPresent(.private)
+        self.issueEventsUrl = try container.sdkDecodeIfPresent(.issueEventsUrl)
+        self.issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
+        self.keysUrl = try container.sdkDecodeIfPresent(.keysUrl)
+        self.labelsUrl = try container.sdkDecodeIfPresent(.labelsUrl)
+        self.languagesUrl = try container.sdkDecodeIfPresent(.languagesUrl)
+        self.mergesUrl = try container.sdkDecodeIfPresent(.mergesUrl)
+        self.milestonesUrl = try container.sdkDecodeIfPresent(.milestonesUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.notificationsUrl = try container.sdkDecodeIfPresent(.notificationsUrl)
+        self.owner = try container.sdkDecodeIfPresent(.owner)
+        self.`private` = try container.sdkDecodeIfPresent(.`private`)
     }
 }
 
 extension WebhookDeploymentStatusCreatedWorkflowRunHeadRepository {
     mutating func sdkDecodeFieldsPart4(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
-        releasesUrl = try container.sdkDecodeIfPresent(.releasesUrl)
-        stargazersUrl = try container.sdkDecodeIfPresent(.stargazersUrl)
-        statusesUrl = try container.sdkDecodeIfPresent(.statusesUrl)
-        subscribersUrl = try container.sdkDecodeIfPresent(.subscribersUrl)
-        subscriptionUrl = try container.sdkDecodeIfPresent(.subscriptionUrl)
-        tagsUrl = try container.sdkDecodeIfPresent(.tagsUrl)
-        teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
-        treesUrl = try container.sdkDecodeIfPresent(.treesUrl)
-        url = try container.sdkDecodeIfPresent(.url)
+        self.pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
+        self.releasesUrl = try container.sdkDecodeIfPresent(.releasesUrl)
+        self.stargazersUrl = try container.sdkDecodeIfPresent(.stargazersUrl)
+        self.statusesUrl = try container.sdkDecodeIfPresent(.statusesUrl)
+        self.subscribersUrl = try container.sdkDecodeIfPresent(.subscribersUrl)
+        self.subscriptionUrl = try container.sdkDecodeIfPresent(.subscriptionUrl)
+        self.tagsUrl = try container.sdkDecodeIfPresent(.tagsUrl)
+        self.teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
+        self.treesUrl = try container.sdkDecodeIfPresent(.treesUrl)
+        self.url = try container.sdkDecodeIfPresent(.url)
     }
 }

@@ -3,8 +3,12 @@
 
 import Foundation
 
-/// ReposRule domain models
+// ReposRule domain models
 public typealias RuleSuites = [RuleSuitesItem]
+
+
+
+
 
 /// Response
 public struct RuleSuite: Codable {
@@ -52,48 +56,35 @@ public struct RuleSuite: Codable {
     }
 
     init() {
-        (id, actorId, actorName, beforeSha, afterSha) = (nil, nil, nil, nil, nil)
-        (ref, repositoryId, repositoryName, pushedAt, result) = (nil, nil, nil, nil, nil)
-        (evaluationResult, ruleEvaluations) = (nil, nil)
+        (self.id, self.actorId, self.actorName, self.beforeSha, self.afterSha) = (nil, nil, nil, nil, nil)
+        (self.ref, self.repositoryId, self.repositoryName, self.pushedAt, self.result) = (nil, nil, nil, nil, nil)
+        (self.evaluationResult, self.ruleEvaluations) = (nil, nil)
     }
 }
 
-public extension RuleSuite {
-    init(from decoder: Decoder) throws {
+extension RuleSuite {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        actorId = try container.sdkDecodeIfPresent(.actorId)
-        actorName = try container.sdkDecodeIfPresent(.actorName)
-        beforeSha = try container.sdkDecodeIfPresent(.beforeSha)
-        afterSha = try container.sdkDecodeIfPresent(.afterSha)
-        ref = try container.sdkDecodeIfPresent(.ref)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        repositoryName = try container.sdkDecodeIfPresent(.repositoryName)
-        pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
-        result = try container.sdkDecodeIfPresent(.result)
-        evaluationResult = try container.sdkDecodeIfPresent(.evaluationResult)
-        ruleEvaluations = try container.sdkDecodeIfPresent(.ruleEvaluations)
-        if let value = pushedAt {
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.actorId = try container.sdkDecodeIfPresent(.actorId)
+        self.actorName = try container.sdkDecodeIfPresent(.actorName)
+        self.beforeSha = try container.sdkDecodeIfPresent(.beforeSha)
+        self.afterSha = try container.sdkDecodeIfPresent(.afterSha)
+        self.ref = try container.sdkDecodeIfPresent(.ref)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.repositoryName = try container.sdkDecodeIfPresent(.repositoryName)
+        self.pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
+        self.result = try container.sdkDecodeIfPresent(.result)
+        self.evaluationResult = try container.sdkDecodeIfPresent(.evaluationResult)
+        self.ruleEvaluations = try container.sdkDecodeIfPresent(.ruleEvaluations)
+        if let value = self.pushedAt {
             try sdkValidateDateTime("pushed_at", sdkWireString(value))
         }
     }
 }
 
-public extension RuleSuite {
-    init(
-        id: Int? = nil,
-        actorId: Int? = nil,
-        actorName: String? = nil,
-        beforeSha: String? = nil,
-        afterSha: String? = nil,
-        ref: String? = nil,
-        repositoryId: Int? = nil,
-        repositoryName: String? = nil,
-        pushedAt: Date? = nil,
-        result: RuleSuiteResult? = nil,
-        evaluationResult: RuleSuiteEvaluationResult? = nil,
-        ruleEvaluations: [RuleSuiteRuleEvaluationsItem]? = nil
-    ) throws {
+extension RuleSuite {
+    public init(id: Int? = nil, actorId: Int? = nil, actorName: String? = nil, beforeSha: String? = nil, afterSha: String? = nil, ref: String? = nil, repositoryId: Int? = nil, repositoryName: String? = nil, pushedAt: Date? = nil, result: RuleSuiteResult? = nil, evaluationResult: RuleSuiteEvaluationResult? = nil, ruleEvaluations: [RuleSuiteRuleEvaluationsItem]? = nil) throws {
         self.init()
         (self.id, self.actorId) = (id, actorId)
         (self.actorName, self.beforeSha) = (actorName, beforeSha)
@@ -106,6 +97,10 @@ public extension RuleSuite {
         }
     }
 }
+
+
+
+
 
 /// Required object value serialized in the `rule_evaluations[]` wire field.
 public struct RuleSuiteRuleEvaluationsItem: Codable {
@@ -129,29 +124,23 @@ public struct RuleSuiteRuleEvaluationsItem: Codable {
     }
 
     init() {
-        (ruleSource, enforcement, result, ruleType, details) = (nil, nil, nil, nil, nil)
+        (self.ruleSource, self.enforcement, self.result, self.ruleType, self.details) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension RuleSuiteRuleEvaluationsItem {
-    init(from decoder: Decoder) throws {
+extension RuleSuiteRuleEvaluationsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        ruleSource = try container.sdkDecodeIfPresent(.ruleSource)
-        enforcement = try container.sdkDecodeIfPresent(.enforcement)
-        result = try container.sdkDecodeIfPresent(.result)
-        ruleType = try container.sdkDecodeIfPresent(.ruleType)
-        details = try container.sdkDecodeIfPresent(.details)
+        self.ruleSource = try container.sdkDecodeIfPresent(.ruleSource)
+        self.enforcement = try container.sdkDecodeIfPresent(.enforcement)
+        self.result = try container.sdkDecodeIfPresent(.result)
+        self.ruleType = try container.sdkDecodeIfPresent(.ruleType)
+        self.details = try container.sdkDecodeIfPresent(.details)
     }
 }
 
-public extension RuleSuiteRuleEvaluationsItem {
-    init(
-        ruleSource: RuleSuiteRuleEvaluationsItemRuleSource? = nil,
-        enforcement: RuleSuiteRuleEvaluationsItemEnforcement? = nil,
-        result: RuleSuiteRuleEvaluationsItemResult? = nil,
-        ruleType: String? = nil,
-        details: String? = nil
-    ) {
+extension RuleSuiteRuleEvaluationsItem {
+    public init(ruleSource: RuleSuiteRuleEvaluationsItemRuleSource? = nil, enforcement: RuleSuiteRuleEvaluationsItemEnforcement? = nil, result: RuleSuiteRuleEvaluationsItemResult? = nil, ruleType: String? = nil, details: String? = nil) {
         self.init()
         (self.ruleSource, self.enforcement) = (ruleSource, enforcement)
         (self.result, self.ruleType) = (result, ruleType)
@@ -175,26 +164,30 @@ public struct RuleSuiteRuleEvaluationsItemRuleSource: Codable {
     }
 
     init() {
-        (type, id, name) = (nil, nil, nil)
+        (self.type, self.id, self.name) = (nil, nil, nil)
     }
 }
 
-public extension RuleSuiteRuleEvaluationsItemRuleSource {
-    init(from decoder: Decoder) throws {
+extension RuleSuiteRuleEvaluationsItemRuleSource {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.sdkDecodeIfPresent(.type)
-        id = try container.sdkDecodeIfPresent(.id)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension RuleSuiteRuleEvaluationsItemRuleSource {
-    init(type: String? = nil, id: Int? = nil, name: String? = nil) {
+extension RuleSuiteRuleEvaluationsItemRuleSource {
+    public init(type: String? = nil, id: Int? = nil, name: String? = nil) {
         self.init()
         (self.type, self.id) = (type, id)
         self.name = name
     }
 }
+
+
+
+
 
 public struct RuleSuitesItem: Codable {
     /// The unique identifier of the rule insight.
@@ -236,46 +229,34 @@ public struct RuleSuitesItem: Codable {
     }
 
     init() {
-        (id, actorId, actorName, beforeSha, afterSha) = (nil, nil, nil, nil, nil)
-        (ref, repositoryId, repositoryName, pushedAt, result) = (nil, nil, nil, nil, nil)
-        evaluationResult = nil
+        (self.id, self.actorId, self.actorName, self.beforeSha, self.afterSha) = (nil, nil, nil, nil, nil)
+        (self.ref, self.repositoryId, self.repositoryName, self.pushedAt, self.result) = (nil, nil, nil, nil, nil)
+        self.evaluationResult = nil
     }
 }
 
-public extension RuleSuitesItem {
-    init(from decoder: Decoder) throws {
+extension RuleSuitesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        actorId = try container.sdkDecodeIfPresent(.actorId)
-        actorName = try container.sdkDecodeIfPresent(.actorName)
-        beforeSha = try container.sdkDecodeIfPresent(.beforeSha)
-        afterSha = try container.sdkDecodeIfPresent(.afterSha)
-        ref = try container.sdkDecodeIfPresent(.ref)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        repositoryName = try container.sdkDecodeIfPresent(.repositoryName)
-        pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
-        result = try container.sdkDecodeIfPresent(.result)
-        evaluationResult = try container.sdkDecodeIfPresent(.evaluationResult)
-        if let value = pushedAt {
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.actorId = try container.sdkDecodeIfPresent(.actorId)
+        self.actorName = try container.sdkDecodeIfPresent(.actorName)
+        self.beforeSha = try container.sdkDecodeIfPresent(.beforeSha)
+        self.afterSha = try container.sdkDecodeIfPresent(.afterSha)
+        self.ref = try container.sdkDecodeIfPresent(.ref)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.repositoryName = try container.sdkDecodeIfPresent(.repositoryName)
+        self.pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
+        self.result = try container.sdkDecodeIfPresent(.result)
+        self.evaluationResult = try container.sdkDecodeIfPresent(.evaluationResult)
+        if let value = self.pushedAt {
             try sdkValidateDateTime("pushed_at", sdkWireString(value))
         }
     }
 }
 
-public extension RuleSuitesItem {
-    init(
-        id: Int? = nil,
-        actorId: Int? = nil,
-        actorName: String? = nil,
-        beforeSha: String? = nil,
-        afterSha: String? = nil,
-        ref: String? = nil,
-        repositoryId: Int? = nil,
-        repositoryName: String? = nil,
-        pushedAt: Date? = nil,
-        result: RuleSuitesItemResult? = nil,
-        evaluationResult: RuleSuitesItemEvaluationResult? = nil
-    ) throws {
+extension RuleSuitesItem {
+    public init(id: Int? = nil, actorId: Int? = nil, actorName: String? = nil, beforeSha: String? = nil, afterSha: String? = nil, ref: String? = nil, repositoryId: Int? = nil, repositoryName: String? = nil, pushedAt: Date? = nil, result: RuleSuitesItemResult? = nil, evaluationResult: RuleSuitesItemEvaluationResult? = nil) throws {
         self.init()
         (self.id, self.actorId) = (id, actorId)
         (self.actorName, self.beforeSha) = (actorName, beforeSha)
@@ -293,17 +274,14 @@ public extension RuleSuitesItem {
 public struct RuleSuitesItemResult: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pass = RuleSuitesItemResult(rawValue: "pass")
     public static let fail = RuleSuitesItemResult(rawValue: "fail")
     public static let bypass = RuleSuitesItemResult(rawValue: "bypass")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -316,17 +294,14 @@ public struct RuleSuitesItemResult: RawRepresentable, Hashable, Codable, Sendabl
 public struct RuleSuiteResult: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pass = RuleSuiteResult(rawValue: "pass")
     public static let fail = RuleSuiteResult(rawValue: "fail")
     public static let bypass = RuleSuiteResult(rawValue: "bypass")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -339,16 +314,13 @@ public struct RuleSuiteResult: RawRepresentable, Hashable, Codable, Sendable, Sd
 public struct RuleSuiteRuleEvaluationsItemResult: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pass = RuleSuiteRuleEvaluationsItemResult(rawValue: "pass")
     public static let fail = RuleSuiteRuleEvaluationsItemResult(rawValue: "fail")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -362,17 +334,14 @@ public struct RuleSuiteRuleEvaluationsItemResult: RawRepresentable, Hashable, Co
 public struct RuleSuitesItemEvaluationResult: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pass = RuleSuitesItemEvaluationResult(rawValue: "pass")
     public static let fail = RuleSuitesItemEvaluationResult(rawValue: "fail")
     public static let bypass = RuleSuitesItemEvaluationResult(rawValue: "bypass")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -387,17 +356,14 @@ public struct RuleSuitesItemEvaluationResult: RawRepresentable, Hashable, Codabl
 public struct RuleSuiteEvaluationResult: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pass = RuleSuiteEvaluationResult(rawValue: "pass")
     public static let fail = RuleSuiteEvaluationResult(rawValue: "fail")
     public static let bypass = RuleSuiteEvaluationResult(rawValue: "bypass")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -407,21 +373,17 @@ public struct RuleSuiteEvaluationResult: RawRepresentable, Hashable, Codable, Se
 }
 
 /// The enforcement level of this rule source.
-public struct RuleSuiteRuleEvaluationsItemEnforcement: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct RuleSuiteRuleEvaluationsItemEnforcement: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let active = RuleSuiteRuleEvaluationsItemEnforcement(rawValue: "active")
     public static let evaluate = RuleSuiteRuleEvaluationsItemEnforcement(rawValue: "evaluate")
     public static let deletedRuleset = RuleSuiteRuleEvaluationsItemEnforcement(rawValue: "deleted ruleset")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

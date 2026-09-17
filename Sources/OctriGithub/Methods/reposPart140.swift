@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Deletes a repository ruleset identified by its repository and ruleset ID. Use this operation when you no longer
-    /// want the ruleset and its associated protections applied to the repository. A successful response contains no
-    /// response body.
+extension ReposMethods {
+    /// Deletes a repository ruleset identified by its repository and ruleset ID. Use this operation when you no longer want the ruleset and its associated protections applied to the repository. A successful response contains no response body.
     ///
     /// Delete a ruleset for a repository.
     ///
@@ -19,25 +17,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - rulesetId: The ID of the ruleset.
-    static func reposDeleteRepoRuleset(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        rulesetId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/rulesets/",
-                sdkEncodePathSegment(sdkWireString(rulesetId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteRepoRuleset"
-        )).data
+    public static func reposDeleteRepoRuleset(config: ClientConfig, owner: String, repo: String, rulesetId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteRepoRuleset")).data
     }
 }

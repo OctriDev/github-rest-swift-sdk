@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ReposContributor domain models
+// ReposContributor domain models
 /// Contributor
 public struct Contributor: Codable {
     /// Required `string` value serialized in the `type` wire field.
@@ -76,79 +76,46 @@ public struct Contributor: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Contributor {
-    init(from decoder: Decoder) throws {
+extension Contributor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.type) else {
-            throw SdkValidationError(
-                field: "type",
-                code: "required",
-                message: "Validation failed for 'type': value is required"
-            )
+            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
         }
         guard container.contains(.contributions) else {
-            throw SdkValidationError(
-                field: "contributions",
-                code: "required",
-                message: "Validation failed for 'contributions': value is required"
-            )
+            throw SdkValidationError(field: "contributions", code: "required", message: "Validation failed for 'contributions': value is required")
         }
-        type = try container.sdkDecodeRequired(.type)
-        contributions = try container.sdkDecodeRequired(.contributions)
-        login = try container.sdkDecodeIfPresent(.login)
-        id = try container.sdkDecodeIfPresent(.id)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeIfPresent(.url)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        email = try container.sdkDecodeIfPresent(.email)
-        name = try container.sdkDecodeIfPresent(.name)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.contributions = try container.sdkDecodeRequired(.contributions)
+        self.login = try container.sdkDecodeIfPresent(.login)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension Contributor {
-    init(
-        type: String,
-        contributions: Int,
-        login: String? = nil,
-        id: Int? = nil,
-        nodeId: String? = nil,
-        avatarUrl: String? = nil,
-        gravatarId: String? = nil,
-        url: String? = nil,
-        htmlUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        organizationsUrl: String? = nil,
-        reposUrl: String? = nil,
-        eventsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        email: String? = nil,
-        name: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension Contributor {
+    public init(type: String, contributions: Int, login: String? = nil, id: Int? = nil, nodeId: String? = nil, avatarUrl: String? = nil, gravatarId: String? = nil, url: String? = nil, htmlUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, organizationsUrl: String? = nil, reposUrl: String? = nil, eventsUrl: String? = nil, receivedEventsUrl: String? = nil, siteAdmin: Bool? = nil, email: String? = nil, name: String? = nil, userViewType: String? = nil) throws {
         (self.type, self.contributions) = (type, contributions)
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
@@ -166,28 +133,28 @@ public extension Contributor {
 
 extension Contributor {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
     }
@@ -210,43 +177,29 @@ public struct ContributorActivity: Codable {
         case weeks
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ContributorActivity {
-    init(from decoder: Decoder) throws {
+extension ContributorActivity {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.author) else {
-            throw SdkValidationError(
-                field: "author",
-                code: "required",
-                message: "Validation failed for 'author': value is required"
-            )
+            throw SdkValidationError(field: "author", code: "required", message: "Validation failed for 'author': value is required")
         }
         guard container.contains(.total) else {
-            throw SdkValidationError(
-                field: "total",
-                code: "required",
-                message: "Validation failed for 'total': value is required"
-            )
+            throw SdkValidationError(field: "total", code: "required", message: "Validation failed for 'total': value is required")
         }
         guard container.contains(.weeks) else {
-            throw SdkValidationError(
-                field: "weeks",
-                code: "required",
-                message: "Validation failed for 'weeks': value is required"
-            )
+            throw SdkValidationError(field: "weeks", code: "required", message: "Validation failed for 'weeks': value is required")
         }
-        author = try container.sdkDecodeIfPresent(.author)
-        total = try container.sdkDecodeRequired(.total)
-        weeks = try container.sdkDecodeRequired(.weeks)
+        self.author = try container.sdkDecodeIfPresent(.author)
+        self.total = try container.sdkDecodeRequired(.total)
+        self.weeks = try container.sdkDecodeRequired(.weeks)
     }
 }
 
-public extension ContributorActivity {
-    init(author: NullableSimpleUser?, total: Int, weeks: [ContributorActivityWeeksItem]) {
+extension ContributorActivity {
+    public init(author: NullableSimpleUser?, total: Int, weeks: [ContributorActivityWeeksItem]) {
         (self.author, self.total) = (author, total)
         self.weeks = weeks
     }
@@ -271,22 +224,22 @@ public struct ContributorActivityWeeksItem: Codable {
     }
 
     init() {
-        (w, a, d, c) = (nil, nil, nil, nil)
+        (self.w, self.a, self.d, self.c) = (nil, nil, nil, nil)
     }
 }
 
-public extension ContributorActivityWeeksItem {
-    init(from decoder: Decoder) throws {
+extension ContributorActivityWeeksItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        w = try container.sdkDecodeIfPresent(.w)
-        a = try container.sdkDecodeIfPresent(.a)
-        d = try container.sdkDecodeIfPresent(.d)
-        c = try container.sdkDecodeIfPresent(.c)
+        self.w = try container.sdkDecodeIfPresent(.w)
+        self.a = try container.sdkDecodeIfPresent(.a)
+        self.d = try container.sdkDecodeIfPresent(.d)
+        self.c = try container.sdkDecodeIfPresent(.c)
     }
 }
 
-public extension ContributorActivityWeeksItem {
-    init(w: Int? = nil, a: Int? = nil, d: Int? = nil, c: Int? = nil) {
+extension ContributorActivityWeeksItem {
+    public init(w: Int? = nil, a: Int? = nil, d: Int? = nil, c: Int? = nil) {
         self.init()
         (self.w, self.a) = (w, a)
         (self.d, self.c) = (d, c)

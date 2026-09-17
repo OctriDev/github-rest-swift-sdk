@@ -6,24 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension BillingMethods {
+extension BillingMethods {
     /// Gets a budget by ID. The authenticated user must be an organization admin or billing manager.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - budgetId: The ID corresponding to the budget.
-    static func billingGetBudgetOrg(config: ClientConfig, org: String, budgetId: String) async throws -> GetBudget {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/organizations/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/settings/billing/budgets/",
-                sdkEncodePathSegment(sdkWireString(budgetId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "billingGetBudgetOrg"
-        )).data
+    public static func billingGetBudgetOrg(config: ClientConfig, org: String, budgetId: String) async throws -> GetBudget {
+        return try (await sdkRequest("GET", ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/budgets/", sdkEncodePathSegment(sdkWireString(budgetId))].joined(), config: config, decoder: .json, operationId: "billingGetBudgetOrg")).data
     }
 }

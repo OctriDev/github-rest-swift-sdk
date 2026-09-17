@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation
-    /// failed and the reason for the failure.
+extension OrgsMethods {
+    /// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation failed and the reason for the failure.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,22 +19,10 @@ public extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func orgsListFailedInvitations(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [OrganizationInvitation] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/failed_invitations"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "orgsListFailedInvitations"
-        )).data
+    public static func orgsListFailedInvitations(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/failed_invitations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "orgsListFailedInvitations")).data
     }
 }

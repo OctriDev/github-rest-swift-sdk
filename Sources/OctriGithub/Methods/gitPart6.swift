@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension GitMethods {
-    /// Updates the provided reference to point to a new SHA. For more information, see "[Git
-    /// References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
+extension GitMethods {
+    /// Updates the provided reference to point to a new SHA. For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,30 +21,9 @@ public extension GitMethods {
     /// - force: Indicates whether to force the update or to make sure the update is
     ///   a fast-forward update. Leaving this out or setting it to `false` will make
     ///   sure you're not overwriting work.
-    static func gitUpdateRef(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        ref: String,
-        sha: String,
-        force: Bool?
-    ) async throws -> GitRef {
+    public static func gitUpdateRef(config: ClientConfig, owner: String, repo: String, ref: String, sha: String, force: Bool?) async throws -> GitRef {
         let requestBody = GitUpdateRefRequestBody(sha: sha, force: force)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/git/refs/",
-                sdkEncodePathSegment(sdkWireString(ref)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "gitUpdateRef"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/refs/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, body: requestBody, decoder: .json, operationId: "gitUpdateRef")).data
     }
 }

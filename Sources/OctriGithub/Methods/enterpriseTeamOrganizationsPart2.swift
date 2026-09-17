@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension EnterpriseTeamOrganizationsMethods {
+extension EnterpriseTeamOrganizationsMethods {
     /// Get all organizations assigned to an enterprise team
     ///
     /// - Parameters:
@@ -21,30 +21,11 @@ public extension EnterpriseTeamOrganizationsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func enterpriseTeamOrganizationsGetAssignments(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [OrganizationSimple] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/organizations",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "enterpriseTeamOrganizationsGetAssignments"
-        )).data
+    public static func enterpriseTeamOrganizationsGetAssignments(config: ClientConfig, enterprise: String, enterpriseTeam: String, perPage: Int?, page: Int?) async throws -> [OrganizationSimple] {
+        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/organizations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "enterpriseTeamOrganizationsGetAssignments")).data
     }
 
     /// Assign an enterprise team to multiple organizations.
@@ -54,27 +35,9 @@ public extension EnterpriseTeamOrganizationsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - organizationSlugs: Organization slug to assign the team to.
-    static func enterpriseTeamOrganizationsBulkAdd(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        organizationSlugs: [String]
-    ) async throws -> [OrganizationSimple] {
+    public static func enterpriseTeamOrganizationsBulkAdd(config: ClientConfig, enterprise: String, enterpriseTeam: String, organizationSlugs: [String]) async throws -> [OrganizationSimple] {
         let requestBody = EnterpriseTeamOrganizationsBulkAddRequestBody(organizationSlugs: organizationSlugs)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/organizations/add",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "enterpriseTeamOrganizationsBulkAdd"
-        )).data
+        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/organizations/add"].joined(), config: config, body: requestBody, decoder: .json, operationId: "enterpriseTeamOrganizationsBulkAdd")).data
     }
 }

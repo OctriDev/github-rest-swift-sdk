@@ -6,18 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Submits an approval or rejection for a custom deployment protection rule associated with a workflow run. Provide
-    /// `environment_name` and either a `comment` or a `state` of `approved` or `rejected`, depending on the review form
-    /// you use. GitHub Apps can review only their own custom deployment protection rules; use POST
-    /// /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments for reviews assigned to a person or team.
+extension ActionsMethods {
+    /// Submits an approval or rejection for a custom deployment protection rule associated with a workflow run. Provide `environment_name` and either a `comment` or a `state` of `approved` or `rejected`, depending on the review form you use. GitHub Apps can review only their own custom deployment protection rules; use POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments for reviews assigned to a person or team.
     ///
-    /// Approve or reject custom deployment protection rules provided by a GitHub App for a workflow run. For more
-    /// information, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
-    /// > [!NOTE] > GitHub Apps can only review their own custom deployment protection rules. To approve or reject
-    /// pending deployments that are waiting for review from a specific person or team, see `POST
-    /// /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint with a private repository.
+    /// Approve or reject custom deployment protection rules provided by a GitHub App for a workflow run. For more information, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)." > [!NOTE] > GitHub Apps can only review their own custom deployment protection rules. To approve or reject pending deployments that are waiting for review from a specific person or team, see `POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,35 +17,11 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    static func actionsReviewCustomGatesForRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        body: ActionsReviewCustomGatesForRunRequestBody
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/deployment_protection_rule",
-            ].joined(),
-            config: config,
-            rawBody: sdkJsonEncoder().encode(body),
-            decoder: .empty,
-            operationId: "actionsReviewCustomGatesForRun"
-        )).data
+    public static func actionsReviewCustomGatesForRun(config: ClientConfig, owner: String, repo: String, runId: Int, body: ActionsReviewCustomGatesForRunRequestBody) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/deployment_protection_rule"].joined(), config: config, rawBody: (try sdkJsonEncoder().encode(body)), decoder: .empty, operationId: "actionsReviewCustomGatesForRun")).data
     }
 
-    /// Cancels a workflow run and bypasses conditions that would otherwise cause a workflow execution to continue, such
-    /// as an `always()` condition on a job. You should only use this endpoint to cancel a workflow run when the
-    /// workflow run is not responding to `POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel`. OAuth tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Cancels a workflow run and bypasses conditions that would otherwise cause a workflow execution to continue, such as an `always()` condition on a job. You should only use this endpoint to cancel a workflow run when the workflow run is not responding to `POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel`. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -61,26 +29,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    static func actionsForceCancelWorkflowRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int
-    ) async throws -> EmptyObject {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/force-cancel",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsForceCancelWorkflowRun"
-        )).data
+    public static func actionsForceCancelWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> EmptyObject {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/force-cancel"].joined(), config: config, decoder: .json, operationId: "actionsForceCancelWorkflowRun")).data
     }
 }

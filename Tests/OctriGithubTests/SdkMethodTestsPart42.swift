@@ -62,8 +62,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposRemoveAppAccessRestrictionsReposRemoveAppAccessRestrictionsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposRemoveAppAccessRestrictionsReposRemoveAppAccessRestrictionsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -120,8 +119,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposRemoveStatusCheckProtectionReposRemoveStatusCheckProtectionReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposRemoveStatusCheckProtectionReposRemoveStatusCheckProtectionReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -134,8 +132,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposRemoveTeamAccessRestrictionsReposRemoveTeamAccessRestrictionsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposRemoveTeamAccessRestrictionsReposRemoveTeamAccessRestrictionsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -157,8 +154,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposRemoveUserAccessRestrictionsReposRemoveUserAccessRestrictionsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposRemoveUserAccessRestrictionsReposRemoveUserAccessRestrictionsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -439,15 +435,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposUpdateBranchProtectionOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            branch: decoded("\"branch\""),
-            requiredStatusChecks: decoded("{\"strict\":true,\"contexts\":[\"continuous-integration/travis-ci\"]}"),
-            enforceAdmins: decoded("true"),
-            requiredPullRequestReviews: decoded(sdkMethodFixture1090Value1),
-            restrictions: decoded(sdkMethodFixture1090Value2)
-        )
+        var options = try ReposMethods.ReposUpdateBranchProtectionOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), branch: decoded("\"branch\""), requiredStatusChecks: decoded("{\"strict\":true,\"contexts\":[\"continuous-integration/travis-ci\"]}"), enforceAdmins: decoded("true"), requiredPullRequestReviews: decoded(sdkMethodFixture1090Value1), restrictions: decoded(sdkMethodFixture1090Value2))
         options.requiredLinearHistory = try decoded("true")
         options.allowForcePushes = try decoded("true")
         options.allowDeletions = try decoded("true")
@@ -491,8 +479,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposUpdateDeploymentBranchPolicyReposUpdateDeploymentBranchPolicyReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposUpdateDeploymentBranchPolicyReposUpdateDeploymentBranchPolicyReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -515,8 +502,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposUpdateInformationAboutPagesSiteReposUpdateInformationAboutPagesSiteReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposUpdateInformationAboutPagesSiteReposUpdateInformationAboutPagesSiteReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -527,7 +513,7 @@ extension SdkMethodTests {
             cname: decoded("\"octocatblog.com\""),
             httpsEnforced: decoded("null"),
             buildType: decoded("null"),
-            source: decoded("\"gh-pages\"")
+            source: decoded("{\"branch\":\"main\",\"path\":\"/\"}")
         )
         XCTAssertTrue(true)
     }

@@ -3,32 +3,25 @@
 
 import Foundation
 
-/// ReposRepositoryRuleset domain models
-public extension RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryProperty {
-    init(
-        include: [RepositoryRulesetConditionsRepositoryPropertySpec]? = nil,
-        exclude: [RepositoryRulesetConditionsRepositoryPropertySpec]? = nil
-    ) {
+// ReposRepositoryRuleset domain models
+extension RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryProperty {
+    public init(include: [RepositoryRulesetConditionsRepositoryPropertySpec]? = nil, exclude: [RepositoryRulesetConditionsRepositoryPropertySpec]? = nil) {
         self.init()
         (self.include, self.exclude) = (include, exclude)
     }
 }
 
 /// The source of the repository property. Defaults to 'custom' if not specified.
-public struct RepositoryRulesetConditionsRepositoryPropertySpecSource: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct RepositoryRulesetConditionsRepositoryPropertySpecSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let custom = RepositoryRulesetConditionsRepositoryPropertySpecSource(rawValue: "custom")
     public static let system = RepositoryRulesetConditionsRepositoryPropertySpecSource(rawValue: "system")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -41,21 +34,17 @@ public struct RepositoryRulesetConditionsRepositoryPropertySpecSource: RawRepres
 /// pull requests. `pull_request` is not applicable for the `DeployKey` actor type. Also, `pull_request` is only
 /// applicable to branch rulesets. When `bypass_mode` is `exempt`, rules will not be run for that actor and a
 /// bypass audit entry will not be created.
-public struct RepositoryRulesetBypassActorBypassMode: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct RepositoryRulesetBypassActorBypassMode: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let always = RepositoryRulesetBypassActorBypassMode(rawValue: "always")
     public static let pullRequest = RepositoryRulesetBypassActorBypassMode(rawValue: "pull_request")
     public static let exempt = RepositoryRulesetBypassActorBypassMode(rawValue: "exempt")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -68,10 +57,7 @@ public struct RepositoryRulesetBypassActorBypassMode: RawRepresentable, Hashable
 public struct RepositoryRulesetTarget: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let branch = RepositoryRulesetTarget(rawValue: "branch")
     public static let tag = RepositoryRulesetTarget(rawValue: "tag")
     public static let push = RepositoryRulesetTarget(rawValue: "push")
@@ -79,7 +65,7 @@ public struct RepositoryRulesetTarget: RawRepresentable, Hashable, Codable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -93,10 +79,7 @@ public struct RepositoryRulesetTarget: RawRepresentable, Hashable, Codable, Send
 public struct RepositoryRulesetCurrentUserCanBypass: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let always = RepositoryRulesetCurrentUserCanBypass(rawValue: "always")
     public static let pullRequestsOnly = RepositoryRulesetCurrentUserCanBypass(rawValue: "pull_requests_only")
     public static let never = RepositoryRulesetCurrentUserCanBypass(rawValue: "never")
@@ -104,7 +87,7 @@ public struct RepositoryRulesetCurrentUserCanBypass: RawRepresentable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -117,10 +100,7 @@ public struct RepositoryRulesetCurrentUserCanBypass: RawRepresentable, Hashable,
 public struct RepositoryRulesetBypassActorActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let integration = RepositoryRulesetBypassActorActorType(rawValue: "Integration")
     public static let organizationAdmin = RepositoryRulesetBypassActorActorType(rawValue: "OrganizationAdmin")
     public static let repositoryRole = RepositoryRulesetBypassActorActorType(rawValue: "RepositoryRole")
@@ -130,7 +110,7 @@ public struct RepositoryRulesetBypassActorActorType: RawRepresentable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -143,17 +123,14 @@ public struct RepositoryRulesetBypassActorActorType: RawRepresentable, Hashable,
 public struct RepositoryRulesetSourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let repository = RepositoryRulesetSourceType(rawValue: "Repository")
     public static let organization = RepositoryRulesetSourceType(rawValue: "Organization")
     public static let enterprise = RepositoryRulesetSourceType(rawValue: "Enterprise")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeSecurityMethods {
-    /// Lists the repositories associated with an enterprise code security configuration in an organization. The
-    /// authenticated user must be an administrator of the enterprise in order to use this endpoint. OAuth app tokens
-    /// and personal access tokens (classic) need the `read:enterprise` scope to use this endpoint.
+extension CodeSecurityMethods {
+    /// Lists the repositories associated with an enterprise code security configuration in an organization. The authenticated user must be an administrator of the enterprise in order to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `read:enterprise` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
@@ -34,33 +32,12 @@ public extension CodeSecurityMethods {
     ///   repositories with these attachment statuses will be returned. Can be: `all`,
     ///   `attached`, `attaching`, `removed`, `enforced`, `failed`, `updating`,
     ///   `removed_by_enterprise`
-    static func codeSecurityGetRepositoriesForEnterpriseConfiguration(
-        config: ClientConfig,
-        enterprise: String,
-        configurationId: Int,
-        perPage: Int?,
-        before: String?,
-        after: String?,
-        status: String?
-    ) async throws -> [CodeSecurityConfigurationRepositories] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/code-security/configurations/",
-                sdkEncodePathSegment(sdkWireString(configurationId)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("before", value: before),
-                SdkQueryParameter("after", value: after),
-                SdkQueryParameter("status", value: status),
-            ],
-            decoder: .json,
-            operationId: "codeSecurityGetRepositoriesForEnterpriseConfiguration"
-        )).data
+    public static func codeSecurityGetRepositoriesForEnterpriseConfiguration(config: ClientConfig, enterprise: String, configurationId: Int, perPage: Int?, before: String?, after: String?, status: String?) async throws -> [CodeSecurityConfigurationRepositories] {
+        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId)), "/repositories"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("before", value: before),
+            SdkQueryParameter("after", value: after),
+            SdkQueryParameter("status", value: status),
+        ], decoder: .json, operationId: "codeSecurityGetRepositoriesForEnterpriseConfiguration")).data
     }
 }

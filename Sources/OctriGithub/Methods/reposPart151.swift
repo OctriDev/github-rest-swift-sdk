@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Get top referral paths
     ///
     /// Get the top 10 popular contents over the last 14 days.
@@ -16,20 +16,8 @@ public extension ReposMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposGetTopPaths(config: ClientConfig, owner: String, repo: String) async throws -> [ContentTraffic] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/traffic/popular/paths",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetTopPaths"
-        )).data
+    public static func reposGetTopPaths(config: ClientConfig, owner: String, repo: String) async throws -> [ContentTraffic] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/traffic/popular/paths"].joined(), config: config, decoder: .json, operationId: "reposGetTopPaths")).data
     }
 
     /// Get top referral sources
@@ -41,23 +29,7 @@ public extension ReposMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposGetTopReferrers(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> [ReferrerTraffic] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/traffic/popular/referrers",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetTopReferrers"
-        )).data
+    public static func reposGetTopReferrers(config: ClientConfig, owner: String, repo: String) async throws -> [ReferrerTraffic] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/traffic/popular/referrers"].joined(), config: config, decoder: .json, operationId: "reposGetTopReferrers")).data
     }
 }

@@ -6,60 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Enables private vulnerability reporting for a repository. The authenticated user must have admin access to the
-    /// repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)."
+extension ReposMethods {
+    /// Enables private vulnerability reporting for a repository. The authenticated user must have admin access to the repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposEnablePrivateVulnerabilityReporting(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/private-vulnerability-reporting",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposEnablePrivateVulnerabilityReporting"
-        )).data
+    public static func reposEnablePrivateVulnerabilityReporting(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/private-vulnerability-reporting"].joined(), config: config, decoder: .empty, operationId: "reposEnablePrivateVulnerabilityReporting")).data
     }
 
-    /// Disables private vulnerability reporting for a repository. The authenticated user must have admin access to the
-    /// repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)".
+    /// Disables private vulnerability reporting for a repository. The authenticated user must have admin access to the repository. For more information, see "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposDisablePrivateVulnerabilityReporting(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/private-vulnerability-reporting",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDisablePrivateVulnerabilityReporting"
-        )).data
+    public static func reposDisablePrivateVulnerabilityReporting(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/private-vulnerability-reporting"].joined(), config: config, decoder: .empty, operationId: "reposDisablePrivateVulnerabilityReporting")).data
     }
 }

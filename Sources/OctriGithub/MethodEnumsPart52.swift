@@ -6,46 +6,6 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-struct ActionsUpdateEnvironmentVariableRequestBody: Encodable {
-    var name2: String?
-    var value: String?
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name2, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(value, forKey: SdkCodingKey("value"))
-    }
-}
-
-struct OidcCreateOidcCustomPropertyInclusionForEnterpriseRequestBody: Encodable {
-    let customPropertyName: String
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(customPropertyName, forKey: SdkCodingKey("custom_property_name"))
-    }
-}
-
-struct OidcCreateOidcCustomPropertyInclusionForOrgRequestBody: Encodable {
-    let customPropertyName: String
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(customPropertyName, forKey: SdkCodingKey("custom_property_name"))
-    }
-}
-
-struct OidcUpdateOidcCustomSubTemplateForOrgRequestBody: Encodable {
-    var includeClaimKeys: [String]?
-    var useImmutableSubject: Bool?
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(includeClaimKeys, forKey: SdkCodingKey("include_claim_keys"))
-        try keyedContainer.encodeIfPresent(useImmutableSubject, forKey: SdkCodingKey("use_immutable_subject"))
-    }
-}
-
 struct CodeSecurityCreateConfigurationForEnterpriseRequestBody: Encodable {
     let name: String
     var description: String?
@@ -73,94 +33,55 @@ struct CodeSecurityCreateConfigurationForEnterpriseRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(advancedSecurity, forKey: SdkCodingKey("advanced_security"))
-        try keyedContainer.encodeIfPresent(codeSecurity, forKey: SdkCodingKey("code_security"))
-        try keyedContainer.encodeIfPresent(dependencyGraph, forKey: SdkCodingKey("dependency_graph"))
-        try keyedContainer.encodeIfPresent(
-            dependencyGraphAutosubmitAction,
-            forKey: SdkCodingKey("dependency_graph_autosubmit_action")
-        )
-        try keyedContainer.encodeIfPresent(
-            dependencyGraphAutosubmitActionOptions,
-            forKey: SdkCodingKey("dependency_graph_autosubmit_action_options")
-        )
-        try keyedContainer.encodeIfPresent(dependabotAlerts, forKey: SdkCodingKey("dependabot_alerts"))
-        try keyedContainer.encodeIfPresent(
-            dependabotSecurityUpdates,
-            forKey: SdkCodingKey("dependabot_security_updates")
-        )
-        try keyedContainer.encodeIfPresent(codeScanningOptions, forKey: SdkCodingKey("code_scanning_options"))
-        try keyedContainer.encodeIfPresent(
-            codeScanningDefaultSetup,
-            forKey: SdkCodingKey("code_scanning_default_setup")
-        )
-        try keyedContainer.encodeIfPresent(
-            codeScanningDefaultSetupOptions,
-            forKey: SdkCodingKey("code_scanning_default_setup_options")
-        )
-        try keyedContainer.encodeIfPresent(
-            codeScanningDelegatedAlertDismissal,
-            forKey: SdkCodingKey("code_scanning_delegated_alert_dismissal")
-        )
-        try keyedContainer.encodeIfPresent(secretProtection, forKey: SdkCodingKey("secret_protection"))
-        try keyedContainer.encodeIfPresent(secretScanning, forKey: SdkCodingKey("secret_scanning"))
-        try keyedContainer.encodeIfPresent(
-            secretScanningPushProtection,
-            forKey: SdkCodingKey("secret_scanning_push_protection")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningValidityChecks,
-            forKey: SdkCodingKey("secret_scanning_validity_checks")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningNonProviderPatterns,
-            forKey: SdkCodingKey("secret_scanning_non_provider_patterns")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningGenericSecrets,
-            forKey: SdkCodingKey("secret_scanning_generic_secrets")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningDelegatedAlertDismissal,
-            forKey: SdkCodingKey("secret_scanning_delegated_alert_dismissal")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningExtendedMetadata,
-            forKey: SdkCodingKey("secret_scanning_extended_metadata")
-        )
-        try keyedContainer.encodeIfPresent(
-            privateVulnerabilityReporting,
-            forKey: SdkCodingKey("private_vulnerability_reporting")
-        )
-        try keyedContainer.encodeIfPresent(enforcement, forKey: SdkCodingKey("enforcement"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.advancedSecurity, forKey: SdkCodingKey("advanced_security"))
+        try keyedContainer.encodeIfPresent(self.codeSecurity, forKey: SdkCodingKey("code_security"))
+        try keyedContainer.encodeIfPresent(self.dependencyGraph, forKey: SdkCodingKey("dependency_graph"))
+        try keyedContainer.encodeIfPresent(self.dependencyGraphAutosubmitAction, forKey: SdkCodingKey("dependency_graph_autosubmit_action"))
+        try keyedContainer.encodeIfPresent(self.dependencyGraphAutosubmitActionOptions, forKey: SdkCodingKey("dependency_graph_autosubmit_action_options"))
+        try keyedContainer.encodeIfPresent(self.dependabotAlerts, forKey: SdkCodingKey("dependabot_alerts"))
+        try keyedContainer.encodeIfPresent(self.dependabotSecurityUpdates, forKey: SdkCodingKey("dependabot_security_updates"))
+        try keyedContainer.encodeIfPresent(self.codeScanningOptions, forKey: SdkCodingKey("code_scanning_options"))
+        try keyedContainer.encodeIfPresent(self.codeScanningDefaultSetup, forKey: SdkCodingKey("code_scanning_default_setup"))
+        try keyedContainer.encodeIfPresent(self.codeScanningDefaultSetupOptions, forKey: SdkCodingKey("code_scanning_default_setup_options"))
+        try keyedContainer.encodeIfPresent(self.codeScanningDelegatedAlertDismissal, forKey: SdkCodingKey("code_scanning_delegated_alert_dismissal"))
+        try keyedContainer.encodeIfPresent(self.secretProtection, forKey: SdkCodingKey("secret_protection"))
+        try keyedContainer.encodeIfPresent(self.secretScanning, forKey: SdkCodingKey("secret_scanning"))
+        try keyedContainer.encodeIfPresent(self.secretScanningPushProtection, forKey: SdkCodingKey("secret_scanning_push_protection"))
+        try keyedContainer.encodeIfPresent(self.secretScanningValidityChecks, forKey: SdkCodingKey("secret_scanning_validity_checks"))
+        try keyedContainer.encodeIfPresent(self.secretScanningNonProviderPatterns, forKey: SdkCodingKey("secret_scanning_non_provider_patterns"))
+        try keyedContainer.encodeIfPresent(self.secretScanningGenericSecrets, forKey: SdkCodingKey("secret_scanning_generic_secrets"))
+        try keyedContainer.encodeIfPresent(self.secretScanningDelegatedAlertDismissal, forKey: SdkCodingKey("secret_scanning_delegated_alert_dismissal"))
+        try keyedContainer.encodeIfPresent(self.secretScanningExtendedMetadata, forKey: SdkCodingKey("secret_scanning_extended_metadata"))
+        try keyedContainer.encodeIfPresent(self.privateVulnerabilityReporting, forKey: SdkCodingKey("private_vulnerability_reporting"))
+        try keyedContainer.encodeIfPresent(self.enforcement, forKey: SdkCodingKey("enforcement"))
     }
 
     init(options: CodeSecurityMethods.CodeSecurityCreateConfigurationForEnterpriseOptions) {
-        name = options.name
-        description = options.description
-        advancedSecurity = options.advancedSecurity
-        codeSecurity = options.codeSecurity
-        dependencyGraph = options.dependencyGraph
-        dependencyGraphAutosubmitAction = options.dependencyGraphAutosubmitAction
-        dependencyGraphAutosubmitActionOptions = options.dependencyGraphAutosubmitActionOptions
-        dependabotAlerts = options.dependabotAlerts
-        dependabotSecurityUpdates = options.dependabotSecurityUpdates
-        codeScanningOptions = options.codeScanningOptions
-        codeScanningDefaultSetup = options.codeScanningDefaultSetup
-        codeScanningDefaultSetupOptions = options.codeScanningDefaultSetupOptions
-        codeScanningDelegatedAlertDismissal = options.codeScanningDelegatedAlertDismissal
-        secretProtection = options.secretProtection
-        secretScanning = options.secretScanning
-        secretScanningPushProtection = options.secretScanningPushProtection
-        secretScanningValidityChecks = options.secretScanningValidityChecks
-        secretScanningNonProviderPatterns = options.secretScanningNonProviderPatterns
-        secretScanningGenericSecrets = options.secretScanningGenericSecrets
-        secretScanningDelegatedAlertDismissal = options.secretScanningDelegatedAlertDismissal
-        secretScanningExtendedMetadata = options.secretScanningExtendedMetadata
-        privateVulnerabilityReporting = options.privateVulnerabilityReporting
-        enforcement = options.enforcement
+        self.name = options.name
+        self.description = options.description
+        self.advancedSecurity = options.advancedSecurity
+        self.codeSecurity = options.codeSecurity
+        self.dependencyGraph = options.dependencyGraph
+        self.dependencyGraphAutosubmitAction = options.dependencyGraphAutosubmitAction
+        self.dependencyGraphAutosubmitActionOptions = options.dependencyGraphAutosubmitActionOptions
+        self.dependabotAlerts = options.dependabotAlerts
+        self.dependabotSecurityUpdates = options.dependabotSecurityUpdates
+        self.codeScanningOptions = options.codeScanningOptions
+        self.codeScanningDefaultSetup = options.codeScanningDefaultSetup
+        self.codeScanningDefaultSetupOptions = options.codeScanningDefaultSetupOptions
+        self.codeScanningDelegatedAlertDismissal = options.codeScanningDelegatedAlertDismissal
+        self.secretProtection = options.secretProtection
+        self.secretScanning = options.secretScanning
+        self.secretScanningPushProtection = options.secretScanningPushProtection
+        self.secretScanningValidityChecks = options.secretScanningValidityChecks
+        self.secretScanningNonProviderPatterns = options.secretScanningNonProviderPatterns
+        self.secretScanningGenericSecrets = options.secretScanningGenericSecrets
+        self.secretScanningDelegatedAlertDismissal = options.secretScanningDelegatedAlertDismissal
+        self.secretScanningExtendedMetadata = options.secretScanningExtendedMetadata
+        self.privateVulnerabilityReporting = options.privateVulnerabilityReporting
+        self.enforcement = options.enforcement
     }
 }
 
@@ -191,94 +112,55 @@ struct CodeSecurityUpdateEnterpriseConfigurationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(advancedSecurity, forKey: SdkCodingKey("advanced_security"))
-        try keyedContainer.encodeIfPresent(codeSecurity, forKey: SdkCodingKey("code_security"))
-        try keyedContainer.encodeIfPresent(dependencyGraph, forKey: SdkCodingKey("dependency_graph"))
-        try keyedContainer.encodeIfPresent(
-            dependencyGraphAutosubmitAction,
-            forKey: SdkCodingKey("dependency_graph_autosubmit_action")
-        )
-        try keyedContainer.encodeIfPresent(
-            dependencyGraphAutosubmitActionOptions,
-            forKey: SdkCodingKey("dependency_graph_autosubmit_action_options")
-        )
-        try keyedContainer.encodeIfPresent(dependabotAlerts, forKey: SdkCodingKey("dependabot_alerts"))
-        try keyedContainer.encodeIfPresent(
-            dependabotSecurityUpdates,
-            forKey: SdkCodingKey("dependabot_security_updates")
-        )
-        try keyedContainer.encodeIfPresent(
-            codeScanningDefaultSetup,
-            forKey: SdkCodingKey("code_scanning_default_setup")
-        )
-        try keyedContainer.encodeIfPresent(
-            codeScanningDefaultSetupOptions,
-            forKey: SdkCodingKey("code_scanning_default_setup_options")
-        )
-        try keyedContainer.encodeIfPresent(codeScanningOptions, forKey: SdkCodingKey("code_scanning_options"))
-        try keyedContainer.encodeIfPresent(
-            codeScanningDelegatedAlertDismissal,
-            forKey: SdkCodingKey("code_scanning_delegated_alert_dismissal")
-        )
-        try keyedContainer.encodeIfPresent(secretProtection, forKey: SdkCodingKey("secret_protection"))
-        try keyedContainer.encodeIfPresent(secretScanning, forKey: SdkCodingKey("secret_scanning"))
-        try keyedContainer.encodeIfPresent(
-            secretScanningPushProtection,
-            forKey: SdkCodingKey("secret_scanning_push_protection")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningValidityChecks,
-            forKey: SdkCodingKey("secret_scanning_validity_checks")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningNonProviderPatterns,
-            forKey: SdkCodingKey("secret_scanning_non_provider_patterns")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningGenericSecrets,
-            forKey: SdkCodingKey("secret_scanning_generic_secrets")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningDelegatedAlertDismissal,
-            forKey: SdkCodingKey("secret_scanning_delegated_alert_dismissal")
-        )
-        try keyedContainer.encodeIfPresent(
-            secretScanningExtendedMetadata,
-            forKey: SdkCodingKey("secret_scanning_extended_metadata")
-        )
-        try keyedContainer.encodeIfPresent(
-            privateVulnerabilityReporting,
-            forKey: SdkCodingKey("private_vulnerability_reporting")
-        )
-        try keyedContainer.encodeIfPresent(enforcement, forKey: SdkCodingKey("enforcement"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.advancedSecurity, forKey: SdkCodingKey("advanced_security"))
+        try keyedContainer.encodeIfPresent(self.codeSecurity, forKey: SdkCodingKey("code_security"))
+        try keyedContainer.encodeIfPresent(self.dependencyGraph, forKey: SdkCodingKey("dependency_graph"))
+        try keyedContainer.encodeIfPresent(self.dependencyGraphAutosubmitAction, forKey: SdkCodingKey("dependency_graph_autosubmit_action"))
+        try keyedContainer.encodeIfPresent(self.dependencyGraphAutosubmitActionOptions, forKey: SdkCodingKey("dependency_graph_autosubmit_action_options"))
+        try keyedContainer.encodeIfPresent(self.dependabotAlerts, forKey: SdkCodingKey("dependabot_alerts"))
+        try keyedContainer.encodeIfPresent(self.dependabotSecurityUpdates, forKey: SdkCodingKey("dependabot_security_updates"))
+        try keyedContainer.encodeIfPresent(self.codeScanningDefaultSetup, forKey: SdkCodingKey("code_scanning_default_setup"))
+        try keyedContainer.encodeIfPresent(self.codeScanningDefaultSetupOptions, forKey: SdkCodingKey("code_scanning_default_setup_options"))
+        try keyedContainer.encodeIfPresent(self.codeScanningOptions, forKey: SdkCodingKey("code_scanning_options"))
+        try keyedContainer.encodeIfPresent(self.codeScanningDelegatedAlertDismissal, forKey: SdkCodingKey("code_scanning_delegated_alert_dismissal"))
+        try keyedContainer.encodeIfPresent(self.secretProtection, forKey: SdkCodingKey("secret_protection"))
+        try keyedContainer.encodeIfPresent(self.secretScanning, forKey: SdkCodingKey("secret_scanning"))
+        try keyedContainer.encodeIfPresent(self.secretScanningPushProtection, forKey: SdkCodingKey("secret_scanning_push_protection"))
+        try keyedContainer.encodeIfPresent(self.secretScanningValidityChecks, forKey: SdkCodingKey("secret_scanning_validity_checks"))
+        try keyedContainer.encodeIfPresent(self.secretScanningNonProviderPatterns, forKey: SdkCodingKey("secret_scanning_non_provider_patterns"))
+        try keyedContainer.encodeIfPresent(self.secretScanningGenericSecrets, forKey: SdkCodingKey("secret_scanning_generic_secrets"))
+        try keyedContainer.encodeIfPresent(self.secretScanningDelegatedAlertDismissal, forKey: SdkCodingKey("secret_scanning_delegated_alert_dismissal"))
+        try keyedContainer.encodeIfPresent(self.secretScanningExtendedMetadata, forKey: SdkCodingKey("secret_scanning_extended_metadata"))
+        try keyedContainer.encodeIfPresent(self.privateVulnerabilityReporting, forKey: SdkCodingKey("private_vulnerability_reporting"))
+        try keyedContainer.encodeIfPresent(self.enforcement, forKey: SdkCodingKey("enforcement"))
     }
 
     init(options: CodeSecurityMethods.CodeSecurityUpdateEnterpriseConfigurationOptions) {
-        name = options.name
-        description = options.description
-        advancedSecurity = options.advancedSecurity
-        codeSecurity = options.codeSecurity
-        dependencyGraph = options.dependencyGraph
-        dependencyGraphAutosubmitAction = options.dependencyGraphAutosubmitAction
-        dependencyGraphAutosubmitActionOptions = options.dependencyGraphAutosubmitActionOptions
-        dependabotAlerts = options.dependabotAlerts
-        dependabotSecurityUpdates = options.dependabotSecurityUpdates
-        codeScanningDefaultSetup = options.codeScanningDefaultSetup
-        codeScanningDefaultSetupOptions = options.codeScanningDefaultSetupOptions
-        codeScanningOptions = options.codeScanningOptions
-        codeScanningDelegatedAlertDismissal = options.codeScanningDelegatedAlertDismissal
-        secretProtection = options.secretProtection
-        secretScanning = options.secretScanning
-        secretScanningPushProtection = options.secretScanningPushProtection
-        secretScanningValidityChecks = options.secretScanningValidityChecks
-        secretScanningNonProviderPatterns = options.secretScanningNonProviderPatterns
-        secretScanningGenericSecrets = options.secretScanningGenericSecrets
-        secretScanningDelegatedAlertDismissal = options.secretScanningDelegatedAlertDismissal
-        secretScanningExtendedMetadata = options.secretScanningExtendedMetadata
-        privateVulnerabilityReporting = options.privateVulnerabilityReporting
-        enforcement = options.enforcement
+        self.name = options.name
+        self.description = options.description
+        self.advancedSecurity = options.advancedSecurity
+        self.codeSecurity = options.codeSecurity
+        self.dependencyGraph = options.dependencyGraph
+        self.dependencyGraphAutosubmitAction = options.dependencyGraphAutosubmitAction
+        self.dependencyGraphAutosubmitActionOptions = options.dependencyGraphAutosubmitActionOptions
+        self.dependabotAlerts = options.dependabotAlerts
+        self.dependabotSecurityUpdates = options.dependabotSecurityUpdates
+        self.codeScanningDefaultSetup = options.codeScanningDefaultSetup
+        self.codeScanningDefaultSetupOptions = options.codeScanningDefaultSetupOptions
+        self.codeScanningOptions = options.codeScanningOptions
+        self.codeScanningDelegatedAlertDismissal = options.codeScanningDelegatedAlertDismissal
+        self.secretProtection = options.secretProtection
+        self.secretScanning = options.secretScanning
+        self.secretScanningPushProtection = options.secretScanningPushProtection
+        self.secretScanningValidityChecks = options.secretScanningValidityChecks
+        self.secretScanningNonProviderPatterns = options.secretScanningNonProviderPatterns
+        self.secretScanningGenericSecrets = options.secretScanningGenericSecrets
+        self.secretScanningDelegatedAlertDismissal = options.secretScanningDelegatedAlertDismissal
+        self.secretScanningExtendedMetadata = options.secretScanningExtendedMetadata
+        self.privateVulnerabilityReporting = options.privateVulnerabilityReporting
+        self.enforcement = options.enforcement
     }
 }
 
@@ -287,6 +169,15 @@ struct CodeSecurityAttachEnterpriseConfigurationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(scope, forKey: SdkCodingKey("scope"))
+        try keyedContainer.encode(self.scope, forKey: SdkCodingKey("scope"))
+    }
+}
+
+struct CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody: Encodable {
+    var defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodyXd7696bf466?
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encodeIfPresent(self.defaultForNewRepos, forKey: SdkCodingKey("default_for_new_repos"))
     }
 }

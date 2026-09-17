@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Removes every label from a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify
-    /// the issue whose labels should be cleared. The operation returns no response body when the labels are removed
-    /// successfully.
+extension IssuesMethods {
+    /// Removes every label from a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue whose labels should be cleared. The operation returns no response body when the labels are removed successfully.
     ///
     /// Removes all labels from an issue.
     ///
@@ -19,35 +17,13 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    static func issuesRemoveAllLabels(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/labels",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "issuesRemoveAllLabels"
-        )).data
+    public static func issuesRemoveAllLabels(config: ClientConfig, owner: String, repo: String, issueNumber: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/labels"].joined(), config: config, decoder: .empty, operationId: "issuesRemoveAllLabels")).data
     }
 
-    /// Removes a specified label from an issue and returns the labels that remain attached to it. Supply `owner`,
-    /// `repo`, `issue_number`, and `name` to identify the repository, issue, and label to remove. A 200 response
-    /// returns the updated label collection.
+    /// Removes a specified label from an issue and returns the labels that remain attached to it. Supply `owner`, `repo`, `issue_number`, and `name` to identify the repository, issue, and label to remove. A 200 response returns the updated label collection.
     ///
-    /// Removes the specified label from the issue, and returns the remaining labels on the issue. This endpoint returns
-    /// a `404 Not Found` status if the label does not exist.
+    /// Removes the specified label from the issue, and returns the remaining labels on the issue. This endpoint returns a `404 Not Found` status if the label does not exist.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -55,28 +31,7 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    static func issuesRemoveLabel(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        name: String
-    ) async throws -> [Label] {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/labels/",
-                sdkEncodePathSegment(sdkWireString(name)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "issuesRemoveLabel"
-        )).data
+    public static func issuesRemoveLabel(config: ClientConfig, owner: String, repo: String, issueNumber: Int, name: String) async throws -> [Label] {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/labels/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "issuesRemoveLabel")).data
     }
 }

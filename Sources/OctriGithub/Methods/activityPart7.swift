@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
-    /// This checks to see if the current user is subscribed to a thread. You can also [get a repository
-    /// subscription](https://docs.github.com/rest/activity/watching#get-a-repository-subscription). Note that
-    /// subscriptions are only generated if a user is participating in a conversation--for example, they've replied to
-    /// the thread, were **@mentioned**, or manually subscribe to a thread.
+extension ActivityMethods {
+    /// This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/activity/watching#get-a-repository-subscription). Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
     ///
     /// - Parameters:
     /// - threadId: The unique identifier of the notification thread. This
@@ -18,25 +15,11 @@ public extension ActivityMethods {
     ///   notifications (for example with the [`GET /notifications`
     ///   operation](https://docs.github.com/rest/activity/notifications#list-notifica
     ///   tions-for-the-authenticated-user)).
-    static func activityGetThreadSubscriptionForAuthenticatedUser(
-        config: ClientConfig,
-        threadId: Int
-    ) async throws -> ThreadSubscription {
-        try await (sdkRequest(
-            "GET",
-            ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId)), "/subscription"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "activityGetThreadSubscriptionForAuthenticatedUser"
-        )).data
+    public static func activityGetThreadSubscriptionForAuthenticatedUser(config: ClientConfig, threadId: Int) async throws -> ThreadSubscription {
+        return try (await sdkRequest("GET", ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId)), "/subscription"].joined(), config: config, decoder: .json, operationId: "activityGetThreadSubscriptionForAuthenticatedUser")).data
     }
 
-    /// If you are watching a repository, you receive notifications for all threads by default. Use this endpoint to
-    /// ignore future notifications for threads until you comment on the thread or get an **@mention**. You can also use
-    /// this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to
-    /// threads that you have previously ignored. Unsubscribing from a conversation in a repository that you are not
-    /// watching is functionally equivalent to the [Delete a thread
-    /// subscription](https://docs.github.com/rest/activity/notifications#delete-a-thread-subscription) endpoint.
+    /// If you are watching a repository, you receive notifications for all threads by default. Use this endpoint to ignore future notifications for threads until you comment on the thread or get an **@mention**. You can also use this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to threads that you have previously ignored. Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/activity/notifications#delete-a-thread-subscription) endpoint.
     ///
     /// - Parameters:
     /// - threadId: The unique identifier of the notification thread. This
@@ -45,20 +28,9 @@ public extension ActivityMethods {
     ///   operation](https://docs.github.com/rest/activity/notifications#list-notifica
     ///   tions-for-the-authenticated-user)).
     /// - ignored: Whether to block all notifications from a thread.
-    static func activitySetThreadSubscription(
-        config: ClientConfig,
-        threadId: Int,
-        ignored: Bool?
-    ) async throws -> ThreadSubscription {
+    public static func activitySetThreadSubscription(config: ClientConfig, threadId: Int, ignored: Bool?) async throws -> ThreadSubscription {
         let requestBody = ActivitySetThreadSubscriptionRequestBody(ignored: ignored)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId)), "/subscription"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "activitySetThreadSubscription"
-        )).data
+        return try (await sdkRequest("PUT", ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId)), "/subscription"].joined(), config: config, body: requestBody, decoder: .json, operationId: "activitySetThreadSubscription")).data
     }
 }

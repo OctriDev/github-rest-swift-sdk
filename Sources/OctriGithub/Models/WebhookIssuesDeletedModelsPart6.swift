@@ -3,23 +3,18 @@
 
 import Foundation
 
-/// WebhookIssuesDeleted domain models
+// WebhookIssuesDeleted domain models
 /// Optional enumerated value serialized in the `content_references` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsContXd5c8af3ce1: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsContXd5c8af3ce1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsContXd5c8af3ce1(rawValue: "read")
-    public static let write =
-        WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsContXd5c8af3ce1(rawValue: "write")
+    public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsContXd5c8af3ce1(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,20 +24,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsContXd5c8
 }
 
 /// Optional enumerated value serialized in the `secrets` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsSecrets: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsSecrets: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsSecrets(rawValue: "read")
     public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsSecrets(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,20 +43,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsSecrets: 
 }
 
 /// Optional enumerated value serialized in the `members` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsMembers: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsMembers: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsMembers(rawValue: "read")
     public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsMembers(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -75,20 +62,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsMembers: 
 }
 
 /// Optional enumerated value serialized in the `statuses` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsStatuses: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsStatuses: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsStatuses(rawValue: "read")
     public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsStatuses(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -98,21 +81,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsStatuses:
 }
 
 /// Optional enumerated value serialized in the `repository_projects` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsRepoXbc420b7212: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsRepoXbc420b7212: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsRepoXbc420b7212(rawValue: "read")
-    public static let write =
-        WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsRepoXbc420b7212(rawValue: "write")
+    public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsRepoXbc420b7212(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -122,21 +100,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsRepoXbc42
 }
 
 /// Optional enumerated value serialized in the `organization_administration` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXbaca39b798: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXbaca39b798: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXbaca39b798(rawValue: "read")
-    public static let write =
-        WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXbaca39b798(rawValue: "write")
+    public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXbaca39b798(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -146,21 +119,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXbaca
 }
 
 /// Optional enumerated value serialized in the `organization_user_blocking` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXb9b6c98ea0: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXb9b6c98ea0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXb9b6c98ea0(rawValue: "read")
-    public static let write =
-        WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXb9b6c98ea0(rawValue: "write")
+    public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXb9b6c98ea0(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -170,20 +138,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXb9b6
 }
 
 /// Optional enumerated value serialized in the `issues` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsIssues: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsIssues: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsIssues(rawValue: "read")
     public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsIssues(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -193,21 +157,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsIssues: R
 }
 
 /// Optional enumerated value serialized in the `organization_hooks` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaX0fc214f990: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaX0fc214f990: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaX0fc214f990(rawValue: "read")
-    public static let write =
-        WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaX0fc214f990(rawValue: "write")
+    public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaX0fc214f990(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -217,21 +176,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaX0fc2
 }
 
 /// Optional enumerated value serialized in the `environments` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsEnvironments: RawRepresentable, Hashable,
-    Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsEnvironments: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsEnvironments(rawValue: "read")
     public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsEnvironments(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -241,21 +195,16 @@ public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsEnvironme
 }
 
 /// Optional enumerated value serialized in the `organization_plan` wire field.
-public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXede27de751: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXede27de751: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXede27de751(rawValue: "read")
-    public static let write =
-        WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXede27de751(rawValue: "write")
+    public static let write = WebhookIssuesDeletedIssuePerformedViaGithubAppPermissionsOrgaXede27de751(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

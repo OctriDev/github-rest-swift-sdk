@@ -3,21 +3,18 @@
 
 import Foundation
 
-/// CodeQuality domain models
+// CodeQuality domain models
 /// Runner type to be used.
 public struct CodeQualitySetupRunnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let standard = CodeQualitySetupRunnerType(rawValue: "standard")
     public static let labeled = CodeQualitySetupRunnerType(rawValue: "labeled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,16 +27,13 @@ public struct CodeQualitySetupRunnerType: RawRepresentable, Hashable, Codable, S
 public struct CodeQualitySetupAiFindingsOption: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let disabled = CodeQualitySetupAiFindingsOption(rawValue: "disabled")
     public static let onPush = CodeQualitySetupAiFindingsOption(rawValue: "on_push")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,17 +46,14 @@ public struct CodeQualitySetupAiFindingsOption: RawRepresentable, Hashable, Coda
 public struct CodeQualityFindingRuleCategory: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let none = CodeQualityFindingRuleCategory(rawValue: "none")
     public static let maintainability = CodeQualityFindingRuleCategory(rawValue: "maintainability")
     public static let reliability = CodeQualityFindingRuleCategory(rawValue: "reliability")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -75,10 +66,7 @@ public struct CodeQualityFindingRuleCategory: RawRepresentable, Hashable, Codabl
 public struct CodeQualitySetupUpdateLanguagesItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let csharp = CodeQualitySetupUpdateLanguagesItem(rawValue: "csharp")
     public static let go = CodeQualitySetupUpdateLanguagesItem(rawValue: "go")
     public static let javaKotlin = CodeQualitySetupUpdateLanguagesItem(rawValue: "java-kotlin")
@@ -88,7 +76,7 @@ public struct CodeQualitySetupUpdateLanguagesItem: RawRepresentable, Hashable, C
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

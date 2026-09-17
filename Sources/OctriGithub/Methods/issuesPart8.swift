@@ -6,17 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// You can use the REST API to list comments on issues and pull requests for a repository. Every pull request is an
-    /// issue, but not every issue is a pull request. By default, issue comments are ordered by ascending ID. This
-    /// endpoint supports the following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
+extension IssuesMethods {
+    /// You can use the REST API to list comments on issues and pull requests for a repository. Every pull request is an issue, but not every issue is a pull request. By default, issue comments are ordered by ascending ID. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -36,39 +27,17 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListCommentsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        sort: AppsListAccountsForPlanParameter?,
-        direction: IssuesListCommentsForRepoParameter?,
-        since: Date?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueComment] {
-        if let since {
+    public static func issuesListCommentsForRepo(config: ClientConfig, owner: String, repo: String, sort: AppsListAccountsForPlanParameter?, direction: IssuesListCommentsForRepoParameter?, since: Date?, perPage: Int?, page: Int?) async throws -> [IssueComment] {
+        if let since = since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/comments",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("sort", value: sort),
-                SdkQueryParameter("direction", value: direction),
-                SdkQueryParameter("since", value: since),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListCommentsForRepo"
-        )).data
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/comments"].joined(), config: config, query: [
+            SdkQueryParameter("sort", value: sort),
+            SdkQueryParameter("direction", value: direction),
+            SdkQueryParameter("since", value: since),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListCommentsForRepo")).data
     }
 }

@@ -12,8 +12,8 @@ struct ReposCreatePagesSiteRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(buildType, forKey: SdkCodingKey("build_type"))
-        try keyedContainer.encodeIfPresent(source, forKey: SdkCodingKey("source"))
+        try keyedContainer.encodeIfPresent(self.buildType, forKey: SdkCodingKey("build_type"))
+        try keyedContainer.encodeIfPresent(self.source, forKey: SdkCodingKey("source"))
     }
 }
 
@@ -25,10 +25,10 @@ struct ReposUpdateInformationAboutPagesSiteRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(cname, forKey: SdkCodingKey("cname"))
-        try keyedContainer.encodeIfPresent(httpsEnforced, forKey: SdkCodingKey("https_enforced"))
-        try keyedContainer.encodeIfPresent(buildType, forKey: SdkCodingKey("build_type"))
-        try keyedContainer.encodeIfPresent(source, forKey: SdkCodingKey("source"))
+        try keyedContainer.encodeIfPresent(self.cname, forKey: SdkCodingKey("cname"))
+        try keyedContainer.encodeIfPresent(self.httpsEnforced, forKey: SdkCodingKey("https_enforced"))
+        try keyedContainer.encodeIfPresent(self.buildType, forKey: SdkCodingKey("build_type"))
+        try keyedContainer.encodeIfPresent(self.source, forKey: SdkCodingKey("source"))
     }
 }
 
@@ -41,11 +41,11 @@ struct ReposCreatePagesDeploymentRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(pagesBuildVersion, forKey: SdkCodingKey("pages_build_version"))
-        try keyedContainer.encode(oidcToken, forKey: SdkCodingKey("oidc_token"))
-        try keyedContainer.encodeIfPresent(artifactId, forKey: SdkCodingKey("artifact_id"))
-        try keyedContainer.encodeIfPresent(artifactUrl, forKey: SdkCodingKey("artifact_url"))
-        try keyedContainer.encodeIfPresent(environment, forKey: SdkCodingKey("environment"))
+        try keyedContainer.encode(self.pagesBuildVersion, forKey: SdkCodingKey("pages_build_version"))
+        try keyedContainer.encode(self.oidcToken, forKey: SdkCodingKey("oidc_token"))
+        try keyedContainer.encodeIfPresent(self.artifactId, forKey: SdkCodingKey("artifact_id"))
+        try keyedContainer.encodeIfPresent(self.artifactUrl, forKey: SdkCodingKey("artifact_url"))
+        try keyedContainer.encodeIfPresent(self.environment, forKey: SdkCodingKey("environment"))
     }
 }
 
@@ -54,7 +54,7 @@ struct ReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesRequestBody: E
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(properties, forKey: SdkCodingKey("properties"))
+        try keyedContainer.encode(self.properties, forKey: SdkCodingKey("properties"))
     }
 }
 
@@ -71,27 +71,27 @@ struct ReposCreateReleaseRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(tagName, forKey: SdkCodingKey("tag_name"))
-        try keyedContainer.encodeIfPresent(targetCommitish, forKey: SdkCodingKey("target_commitish"))
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
-        try keyedContainer.encodeIfPresent(draft, forKey: SdkCodingKey("draft"))
-        try keyedContainer.encodeIfPresent(prerelease, forKey: SdkCodingKey("prerelease"))
-        try keyedContainer.encodeIfPresent(discussionCategoryName, forKey: SdkCodingKey("discussion_category_name"))
-        try keyedContainer.encodeIfPresent(generateReleaseNotes, forKey: SdkCodingKey("generate_release_notes"))
-        try keyedContainer.encodeIfPresent(makeLatest, forKey: SdkCodingKey("make_latest"))
+        try keyedContainer.encode(self.tagName, forKey: SdkCodingKey("tag_name"))
+        try keyedContainer.encodeIfPresent(self.targetCommitish, forKey: SdkCodingKey("target_commitish"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encodeIfPresent(self.draft, forKey: SdkCodingKey("draft"))
+        try keyedContainer.encodeIfPresent(self.prerelease, forKey: SdkCodingKey("prerelease"))
+        try keyedContainer.encodeIfPresent(self.discussionCategoryName, forKey: SdkCodingKey("discussion_category_name"))
+        try keyedContainer.encodeIfPresent(self.generateReleaseNotes, forKey: SdkCodingKey("generate_release_notes"))
+        try keyedContainer.encodeIfPresent(self.makeLatest, forKey: SdkCodingKey("make_latest"))
     }
 
     init(options: ReposMethods.ReposCreateReleaseOptions) {
-        tagName = options.tagName
-        targetCommitish = options.targetCommitish
-        name = options.name
-        body = options.body
-        draft = options.draft
-        prerelease = options.prerelease
-        discussionCategoryName = options.discussionCategoryName
-        generateReleaseNotes = options.generateReleaseNotes
-        makeLatest = options.makeLatest
+        self.tagName = options.tagName
+        self.targetCommitish = options.targetCommitish
+        self.name = options.name
+        self.body = options.body
+        self.draft = options.draft
+        self.prerelease = options.prerelease
+        self.discussionCategoryName = options.discussionCategoryName
+        self.generateReleaseNotes = options.generateReleaseNotes
+        self.makeLatest = options.makeLatest
     }
 }
 
@@ -102,9 +102,9 @@ struct ReposUpdateReleaseAssetRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(label, forKey: SdkCodingKey("label"))
-        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.label, forKey: SdkCodingKey("label"))
+        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
     }
 }
 
@@ -116,10 +116,10 @@ struct ReposGenerateReleaseNotesRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(tagName, forKey: SdkCodingKey("tag_name"))
-        try keyedContainer.encodeIfPresent(targetCommitish, forKey: SdkCodingKey("target_commitish"))
-        try keyedContainer.encodeIfPresent(previousTagName, forKey: SdkCodingKey("previous_tag_name"))
-        try keyedContainer.encodeIfPresent(configurationFilePath, forKey: SdkCodingKey("configuration_file_path"))
+        try keyedContainer.encode(self.tagName, forKey: SdkCodingKey("tag_name"))
+        try keyedContainer.encodeIfPresent(self.targetCommitish, forKey: SdkCodingKey("target_commitish"))
+        try keyedContainer.encodeIfPresent(self.previousTagName, forKey: SdkCodingKey("previous_tag_name"))
+        try keyedContainer.encodeIfPresent(self.configurationFilePath, forKey: SdkCodingKey("configuration_file_path"))
     }
 }
 
@@ -135,25 +135,25 @@ struct ReposUpdateReleaseRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(tagName, forKey: SdkCodingKey("tag_name"))
-        try keyedContainer.encodeIfPresent(targetCommitish, forKey: SdkCodingKey("target_commitish"))
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
-        try keyedContainer.encodeIfPresent(draft, forKey: SdkCodingKey("draft"))
-        try keyedContainer.encodeIfPresent(prerelease, forKey: SdkCodingKey("prerelease"))
-        try keyedContainer.encodeIfPresent(makeLatest, forKey: SdkCodingKey("make_latest"))
-        try keyedContainer.encodeIfPresent(discussionCategoryName, forKey: SdkCodingKey("discussion_category_name"))
+        try keyedContainer.encodeIfPresent(self.tagName, forKey: SdkCodingKey("tag_name"))
+        try keyedContainer.encodeIfPresent(self.targetCommitish, forKey: SdkCodingKey("target_commitish"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encodeIfPresent(self.draft, forKey: SdkCodingKey("draft"))
+        try keyedContainer.encodeIfPresent(self.prerelease, forKey: SdkCodingKey("prerelease"))
+        try keyedContainer.encodeIfPresent(self.makeLatest, forKey: SdkCodingKey("make_latest"))
+        try keyedContainer.encodeIfPresent(self.discussionCategoryName, forKey: SdkCodingKey("discussion_category_name"))
     }
 
     init(options: ReposMethods.ReposUpdateReleaseOptions) {
-        tagName = options.tagName
-        targetCommitish = options.targetCommitish
-        name = options.name
-        body = options.body
-        draft = options.draft
-        prerelease = options.prerelease
-        makeLatest = options.makeLatest
-        discussionCategoryName = options.discussionCategoryName
+        self.tagName = options.tagName
+        self.targetCommitish = options.targetCommitish
+        self.name = options.name
+        self.body = options.body
+        self.draft = options.draft
+        self.prerelease = options.prerelease
+        self.makeLatest = options.makeLatest
+        self.discussionCategoryName = options.discussionCategoryName
     }
 }
 
@@ -167,21 +167,21 @@ struct ReposCreateRepoRulesetRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(enforcement, forKey: SdkCodingKey("enforcement"))
-        try keyedContainer.encodeIfPresent(target, forKey: SdkCodingKey("target"))
-        try keyedContainer.encodeIfPresent(bypassActors, forKey: SdkCodingKey("bypass_actors"))
-        try keyedContainer.encodeIfPresent(conditions, forKey: SdkCodingKey("conditions"))
-        try keyedContainer.encodeIfPresent(rules, forKey: SdkCodingKey("rules"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(self.enforcement, forKey: SdkCodingKey("enforcement"))
+        try keyedContainer.encodeIfPresent(self.target, forKey: SdkCodingKey("target"))
+        try keyedContainer.encodeIfPresent(self.bypassActors, forKey: SdkCodingKey("bypass_actors"))
+        try keyedContainer.encodeIfPresent(self.conditions, forKey: SdkCodingKey("conditions"))
+        try keyedContainer.encodeIfPresent(self.rules, forKey: SdkCodingKey("rules"))
     }
 
     init(options: ReposMethods.ReposCreateRepoRulesetOptions) {
-        name = options.name
-        enforcement = options.enforcement
-        target = options.target
-        bypassActors = options.bypassActors
-        conditions = options.conditions
-        rules = options.rules
+        self.name = options.name
+        self.enforcement = options.enforcement
+        self.target = options.target
+        self.bypassActors = options.bypassActors
+        self.conditions = options.conditions
+        self.rules = options.rules
     }
 }
 
@@ -195,20 +195,20 @@ struct ReposUpdateRepoRulesetRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(target, forKey: SdkCodingKey("target"))
-        try keyedContainer.encodeIfPresent(enforcement, forKey: SdkCodingKey("enforcement"))
-        try keyedContainer.encodeIfPresent(bypassActors, forKey: SdkCodingKey("bypass_actors"))
-        try keyedContainer.encodeIfPresent(conditions, forKey: SdkCodingKey("conditions"))
-        try keyedContainer.encodeIfPresent(rules, forKey: SdkCodingKey("rules"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.target, forKey: SdkCodingKey("target"))
+        try keyedContainer.encodeIfPresent(self.enforcement, forKey: SdkCodingKey("enforcement"))
+        try keyedContainer.encodeIfPresent(self.bypassActors, forKey: SdkCodingKey("bypass_actors"))
+        try keyedContainer.encodeIfPresent(self.conditions, forKey: SdkCodingKey("conditions"))
+        try keyedContainer.encodeIfPresent(self.rules, forKey: SdkCodingKey("rules"))
     }
 
     init(options: ReposMethods.ReposUpdateRepoRulesetOptions) {
-        name = options.name
-        target = options.target
-        enforcement = options.enforcement
-        bypassActors = options.bypassActors
-        conditions = options.conditions
-        rules = options.rules
+        self.name = options.name
+        self.target = options.target
+        self.enforcement = options.enforcement
+        self.bypassActors = options.bypassActors
+        self.conditions = options.conditions
+        self.rules = options.rules
     }
 }

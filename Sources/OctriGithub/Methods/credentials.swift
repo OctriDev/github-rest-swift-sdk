@@ -7,34 +7,15 @@ import Foundation
     import FoundationNetworking
 #endif
 public enum CredentialsMethods {
-    /// Submit a list of credentials to be revoked. This endpoint is intended to revoke credentials the caller does not
-    /// own and may have found exposed on GitHub.com or elsewhere. It can also be used for credentials associated with
-    /// an old user account that you no longer have access to. Credential owners will be notified of the revocation.
-    /// This endpoint currently accepts the following credential types: - Personal access tokens (classic) (`ghp_`) -
-    /// Fine-grained personal access tokens (`github_pat_`) - OAuth app access tokens (`gho_`) - User-to-server tokens
-    /// from GitHub Apps (`ghu_`) - Refresh tokens from GitHub Apps (`ghr_`) Revoked credentials may impact users on
-    /// GitHub Free, Pro, & Team and GitHub Enterprise Cloud, and GitHub Enterprise Cloud with Enterprise Managed Users.
-    /// GitHub cannot reactivate any credentials that have been revoked; new credentials will need to be generated. To
-    /// prevent abuse, this API is limited to only 60 unauthenticated requests per hour and a max of 1000 tokens per API
-    /// request. > [!NOTE] > Any authenticated requests will return a 403.
+    /// Submit a list of credentials to be revoked. This endpoint is intended to revoke credentials the caller does not own and may have found exposed on GitHub.com or elsewhere. It can also be used for credentials associated with an old user account that you no longer have access to. Credential owners will be notified of the revocation. This endpoint currently accepts the following credential types: - Personal access tokens (classic) (`ghp_`) - Fine-grained personal access tokens (`github_pat_`) - OAuth app access tokens (`gho_`) - User-to-server tokens from GitHub Apps (`ghu_`) - Refresh tokens from GitHub Apps (`ghr_`) Revoked credentials may impact users on GitHub Free, Pro, & Team and GitHub Enterprise Cloud, and GitHub Enterprise Cloud with Enterprise Managed Users. GitHub cannot reactivate any credentials that have been revoked; new credentials will need to be generated. To prevent abuse, this API is limited to only 60 unauthenticated requests per hour and a max of 1000 tokens per API request. > [!NOTE] > Any authenticated requests will return a 403.
     ///
     /// - Parameters:
     /// - credentials: A list of credentials to be revoked, up to 1000 per request.
-    public static func credentialsRevoke(
-        config: ClientConfig,
-        credentials: [String]
-    ) async throws -> [String: JSONValue] {
+    public static func credentialsRevoke(config: ClientConfig, credentials: [String]) async throws -> [String: JSONValue] {
         try validateItems("credentials", credentials, min: 1, max: 1000)
 
         let requestBody = CredentialsRevokeRequestBody(credentials: credentials)
 
-        return try await (sdkRequest(
-            "POST",
-            "/credentials/revoke",
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "credentialsRevoke"
-        )).data
+        return try (await sdkRequest("POST", "/credentials/revoke", config: config, body: requestBody, decoder: .json, operationId: "credentialsRevoke")).data
     }
 }

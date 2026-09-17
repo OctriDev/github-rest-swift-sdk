@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookRepositoryRulesetDeleted domain models
+// WebhookRepositoryRulesetDeleted domain models
 /// Typed representation of the `WebhookRepositoryRulesetDeleted` API schema.
 public struct WebhookRepositoryRulesetDeleted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,55 +36,33 @@ public struct WebhookRepositoryRulesetDeleted: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryRulesetDeleted {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryRulesetDeleted {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.repositoryRuleset) else {
-            throw SdkValidationError(
-                field: "repository_ruleset",
-                code: "required",
-                message: "Validation failed for 'repository_ruleset': value is required"
-            )
+            throw SdkValidationError(field: "repository_ruleset", code: "required", message: "Validation failed for 'repository_ruleset': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        repositoryRuleset = try container.sdkDecodeRequired(.repositoryRuleset)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.repositoryRuleset = try container.sdkDecodeRequired(.repositoryRuleset)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
     }
 }
 
-public extension WebhookRepositoryRulesetDeleted {
-    init(
-        action: WebhookRepositoryRulesetDeletedAction,
-        repositoryRuleset: RepositoryRuleset,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: RepositoryWebhooks? = nil
-    ) {
+extension WebhookRepositoryRulesetDeleted {
+    public init(action: WebhookRepositoryRulesetDeletedAction, repositoryRuleset: RepositoryRuleset, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
         (self.action, self.repositoryRuleset) = (action, repositoryRuleset)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -96,15 +74,12 @@ public extension WebhookRepositoryRulesetDeleted {
 public struct WebhookRepositoryRulesetDeletedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let deleted = WebhookRepositoryRulesetDeletedAction(rawValue: "deleted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

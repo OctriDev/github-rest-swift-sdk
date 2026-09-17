@@ -6,15 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    /// An import can be updated with credentials or a project choice by passing in the appropriate parameters in this
-    /// API request. If no parameters are provided, the import will be restarted. Some servers (e.g. TFS servers) can
-    /// have several projects at a single URL. In those cases the import progress will have the status
-    /// `detection_found_multiple` and the Import Progress response will include a `project_choices` array. You can
-    /// select the project to import by providing one of the objects in the `project_choices` array in the update
-    /// request. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available
-    /// alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024.
-    /// For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
+extension MigrationsMethods {
+    /// An import can be updated with credentials or a project choice by passing in the appropriate parameters in this API request. If no parameters are provided, the import will be restarted. Some servers (e.g. TFS servers) can have several projects at a single URL. In those cases the import progress will have the status `detection_found_multiple` and the Import Progress response will include a `project_choices` array. You can select the project to import by providing one of the objects in the `project_choices` array in the update request. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,35 +21,9 @@ public extension MigrationsMethods {
     ///   imported.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func migrationsUpdateImport(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        vcsUsername: String?,
-        vcsPassword: String?,
-        vcs: MigrationsUpdateImportRequestBodyVcs?,
-        tfvcProject: String?
-    ) async throws -> Import {
-        let requestBody = MigrationsUpdateImportRequestBody(
-            vcsUsername: vcsUsername,
-            vcsPassword: vcsPassword,
-            vcs: vcs,
-            tfvcProject: tfvcProject
-        )
+    public static func migrationsUpdateImport(config: ClientConfig, owner: String, repo: String, vcsUsername: String?, vcsPassword: String?, vcs: MigrationsUpdateImportRequestBodyVcs?, tfvcProject: String?) async throws -> Import {
+        let requestBody = MigrationsUpdateImportRequestBody(vcsUsername: vcsUsername, vcsPassword: vcsPassword, vcs: vcs, tfvcProject: tfvcProject)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/import",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "migrationsUpdateImport"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import"].joined(), config: config, body: requestBody, decoder: .json, operationId: "migrationsUpdateImport")).data
     }
 }

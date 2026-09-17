@@ -6,11 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// List email addresses for the authenticated user
     ///
-    /// Lists all of your email addresses, and specifies which one is visible to the public. OAuth app tokens and
-    /// personal access tokens (classic) need the `user:email` scope to use this endpoint.
+    /// Lists all of your email addresses, and specifies which one is visible to the public. OAuth app tokens and personal access tokens (classic) need the `user:email` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -21,12 +20,8 @@ public extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func usersListEmailsForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Email] {
-        try await (sdkRequest("GET", "/user/emails", config: config, query: [
+    public static func usersListEmailsForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [Email] {
+        return try (await sdkRequest("GET", "/user/emails", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListEmailsForAuthenticatedUser")).data
@@ -35,34 +30,14 @@ public extension UsersMethods {
     /// Add an email address for the authenticated user
     ///
     /// OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    static func usersAddEmailForAuthenticatedUser(
-        config: ClientConfig,
-        body: UsersAddEmailForAuthenticatedUserRequestBody?
-    ) async throws -> [Email] {
-        try await (sdkRequest(
-            "POST",
-            "/user/emails",
-            config: config,
-            rawBody: (body.map { try sdkJsonEncoder().encode($0) }),
-            decoder: .json,
-            operationId: "usersAddEmailForAuthenticatedUser"
-        )).data
+    public static func usersAddEmailForAuthenticatedUser(config: ClientConfig, body: UsersAddEmailForAuthenticatedUserRequestBody?) async throws -> [Email] {
+        return try (await sdkRequest("POST", "/user/emails", config: config, rawBody: (try body.map { try sdkJsonEncoder().encode($0) }), decoder: .json, operationId: "usersAddEmailForAuthenticatedUser")).data
     }
 
     /// Delete an email address for the authenticated user
     ///
     /// OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
-    static func usersDeleteEmailForAuthenticatedUser(
-        config: ClientConfig,
-        body: UsersDeleteEmailForAuthenticatedUserRequestBody?
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            "/user/emails",
-            config: config,
-            rawBody: (body.map { try sdkJsonEncoder().encode($0) }),
-            decoder: .empty,
-            operationId: "usersDeleteEmailForAuthenticatedUser"
-        )).data
+    public static func usersDeleteEmailForAuthenticatedUser(config: ClientConfig, body: UsersDeleteEmailForAuthenticatedUserRequestBody?) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", "/user/emails", config: config, rawBody: (try body.map { try sdkJsonEncoder().encode($0) }), decoder: .empty, operationId: "usersDeleteEmailForAuthenticatedUser")).data
     }
 }

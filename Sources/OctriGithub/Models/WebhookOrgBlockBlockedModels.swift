@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookOrgBlockBlocked domain models
+// WebhookOrgBlockBlocked domain models
 /// Typed representation of the `WebhookOrgBlockBlocked` API schema.
 public struct WebhookOrgBlockBlocked: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,62 +36,36 @@ public struct WebhookOrgBlockBlocked: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookOrgBlockBlocked {
-    init(from decoder: Decoder) throws {
+extension WebhookOrgBlockBlocked {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.blockedUser) else {
-            throw SdkValidationError(
-                field: "blocked_user",
-                code: "required",
-                message: "Validation failed for 'blocked_user': value is required"
-            )
+            throw SdkValidationError(field: "blocked_user", code: "required", message: "Validation failed for 'blocked_user': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        blockedUser = try container.sdkDecodeIfPresent(.blockedUser)
-        organization = try container.sdkDecodeRequired(.organization)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        repository = try container.sdkDecodeIfPresent(.repository)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.blockedUser = try container.sdkDecodeIfPresent(.blockedUser)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
     }
 }
 
-public extension WebhookOrgBlockBlocked {
-    init(
-        action: WebhookOrgBlockBlockedAction,
-        blockedUser: WebhooksUser?,
-        organization: OrganizationSimpleWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        repository: RepositoryWebhooks? = nil
-    ) {
+extension WebhookOrgBlockBlocked {
+    public init(action: WebhookOrgBlockBlockedAction, blockedUser: WebhooksUser?, organization: OrganizationSimpleWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, repository: RepositoryWebhooks? = nil) {
         (self.action, self.blockedUser) = (action, blockedUser)
         (self.organization, self.sender) = (organization, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -103,15 +77,12 @@ public extension WebhookOrgBlockBlocked {
 public struct WebhookOrgBlockBlockedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let blocked = WebhookOrgBlockBlockedAction(rawValue: "blocked")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Generate a name and body describing a [release](https://docs.github.com/rest/releases/releases#get-a-release).
-    /// The body content will be markdown formatted and contain information like the changes since last release and
-    /// users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and
-    /// used when creating a new release.
+extension ReposMethods {
+    /// Generate a name and body describing a [release](https://docs.github.com/rest/releases/releases#get-a-release). The body content will be markdown formatted and contain information like the changes since last release and users who contributed. The generated release notes are not saved anywhere. They are intended to be generated and used when creating a new release.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,35 +27,9 @@ public extension ReposMethods {
     ///   unspecified, the configuration file located in the repository at
     ///   '.github/release.yml' or '.github/release.yaml' will be used. If that is not
     ///   present, the default configuration will be used.
-    static func reposGenerateReleaseNotes(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        tagName: String,
-        targetCommitish: String?,
-        previousTagName: String?,
-        configurationFilePath: String?
-    ) async throws -> ReleaseNotesContent {
-        let requestBody = ReposGenerateReleaseNotesRequestBody(
-            tagName: tagName,
-            targetCommitish: targetCommitish,
-            previousTagName: previousTagName,
-            configurationFilePath: configurationFilePath
-        )
+    public static func reposGenerateReleaseNotes(config: ClientConfig, owner: String, repo: String, tagName: String, targetCommitish: String?, previousTagName: String?, configurationFilePath: String?) async throws -> ReleaseNotesContent {
+        let requestBody = ReposGenerateReleaseNotesRequestBody(tagName: tagName, targetCommitish: targetCommitish, previousTagName: previousTagName, configurationFilePath: configurationFilePath)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases/generate-notes",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposGenerateReleaseNotes"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/generate-notes"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposGenerateReleaseNotes")).data
     }
 }

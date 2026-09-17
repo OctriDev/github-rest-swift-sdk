@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Sets the settings for whether workflows from fork pull requests can run on a private repository. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Sets the settings for whether workflows from fork pull requests can run on a private repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,35 +23,9 @@ public extension ActionsMethods {
     ///   to workflows triggered by pull requests from forks.
     /// - requireApprovalForForkPrWorkflows: Whether workflows triggered by pull
     ///   requests from forks require approval from a repository administrator to run.
-    static func actionsSetPrivateRepoForkPrWorkflowsSettingsRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runWorkflowsFromForkPullRequests: Bool,
-        sendWriteTokensToWorkflows: Bool?,
-        sendSecretsAndVariables: Bool?,
-        requireApprovalForForkPrWorkflows: Bool?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryRequestBody(
-            runWorkflowsFromForkPullRequests: runWorkflowsFromForkPullRequests,
-            sendWriteTokensToWorkflows: sendWriteTokensToWorkflows,
-            sendSecretsAndVariables: sendSecretsAndVariables,
-            requireApprovalForForkPrWorkflows: requireApprovalForForkPrWorkflows
-        )
+    public static func actionsSetPrivateRepoForkPrWorkflowsSettingsRepository(config: ClientConfig, owner: String, repo: String, runWorkflowsFromForkPullRequests: Bool, sendWriteTokensToWorkflows: Bool?, sendSecretsAndVariables: Bool?, requireApprovalForForkPrWorkflows: Bool?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetPrivateRepoForkPrWorkflowsSettingsRepositoryRequestBody(runWorkflowsFromForkPullRequests: runWorkflowsFromForkPullRequests, sendWriteTokensToWorkflows: sendWriteTokensToWorkflows, sendSecretsAndVariables: sendSecretsAndVariables, requireApprovalForForkPrWorkflows: requireApprovalForForkPrWorkflows)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions/fork-pr-workflows-private-repos",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetPrivateRepoForkPrWorkflowsSettingsRepository"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/fork-pr-workflows-private-repos"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetPrivateRepoForkPrWorkflowsSettingsRepository")).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookOrganizationMemberAdded domain models
+// WebhookOrganizationMemberAdded domain models
 /// Typed representation of the `WebhookOrganizationMemberAdded` API schema.
 public struct WebhookOrganizationMemberAdded: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,62 +36,36 @@ public struct WebhookOrganizationMemberAdded: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookOrganizationMemberAdded {
-    init(from decoder: Decoder) throws {
+extension WebhookOrganizationMemberAdded {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.membership) else {
-            throw SdkValidationError(
-                field: "membership",
-                code: "required",
-                message: "Validation failed for 'membership': value is required"
-            )
+            throw SdkValidationError(field: "membership", code: "required", message: "Validation failed for 'membership': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        membership = try container.sdkDecodeRequired(.membership)
-        organization = try container.sdkDecodeRequired(.organization)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        repository = try container.sdkDecodeIfPresent(.repository)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.membership = try container.sdkDecodeRequired(.membership)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
     }
 }
 
-public extension WebhookOrganizationMemberAdded {
-    init(
-        action: WebhookOrganizationMemberAddedAction,
-        membership: WebhooksMembership,
-        organization: OrganizationSimpleWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        repository: RepositoryWebhooks? = nil
-    ) {
+extension WebhookOrganizationMemberAdded {
+    public init(action: WebhookOrganizationMemberAddedAction, membership: WebhooksMembership, organization: OrganizationSimpleWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, repository: RepositoryWebhooks? = nil) {
         (self.action, self.membership) = (action, membership)
         (self.organization, self.sender) = (organization, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -103,15 +77,12 @@ public extension WebhookOrganizationMemberAdded {
 public struct WebhookOrganizationMemberAddedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let memberAdded = WebhookOrganizationMemberAddedAction(rawValue: "member_added")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

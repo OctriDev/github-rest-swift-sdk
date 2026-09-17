@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Issues domain models
+// Issues domain models
 /// Added to Project Issue Event
 public struct AddedToProjectIssueEvent: Codable {
     /// Required `integer` value serialized in the `id` wire field.
@@ -42,40 +42,27 @@ public struct AddedToProjectIssueEvent: Codable {
         case projectCard = "project_card"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AddedToProjectIssueEvent {
-    init(from decoder: Decoder) throws {
+extension AddedToProjectIssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeRequired(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        projectCard = try container.sdkDecodeIfPresent(.projectCard)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.projectCard = try container.sdkDecodeIfPresent(.projectCard)
     }
 }
 
-public extension AddedToProjectIssueEvent {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        actor: SimpleUser,
-        event: String,
-        commitId: String?,
-        commitUrl: String?,
-        createdAt: String,
-        performedViaGithubApp: NullableIntegration?,
-        projectCard: AddedToProjectIssueEventProjectCard? = nil
-    ) {
+extension AddedToProjectIssueEvent {
+    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, projectCard: AddedToProjectIssueEventProjectCard? = nil) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -108,74 +95,45 @@ public struct AddedToProjectIssueEventProjectCard: Codable {
         case previousColumnName = "previous_column_name"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AddedToProjectIssueEventProjectCard {
-    init(from decoder: Decoder) throws {
+extension AddedToProjectIssueEventProjectCard {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.projectId) else {
-            throw SdkValidationError(
-                field: "project_id",
-                code: "required",
-                message: "Validation failed for 'project_id': value is required"
-            )
+            throw SdkValidationError(field: "project_id", code: "required", message: "Validation failed for 'project_id': value is required")
         }
         guard container.contains(.projectUrl) else {
-            throw SdkValidationError(
-                field: "project_url",
-                code: "required",
-                message: "Validation failed for 'project_url': value is required"
-            )
+            throw SdkValidationError(field: "project_url", code: "required", message: "Validation failed for 'project_url': value is required")
         }
         guard container.contains(.columnName) else {
-            throw SdkValidationError(
-                field: "column_name",
-                code: "required",
-                message: "Validation failed for 'column_name': value is required"
-            )
+            throw SdkValidationError(field: "column_name", code: "required", message: "Validation failed for 'column_name': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        url = try container.sdkDecodeRequired(.url)
-        projectId = try container.sdkDecodeRequired(.projectId)
-        projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        columnName = try container.sdkDecodeRequired(.columnName)
-        previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("project_url", projectUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.projectId = try container.sdkDecodeRequired(.projectId)
+        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        self.columnName = try container.sdkDecodeRequired(.columnName)
+        self.previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
-public extension AddedToProjectIssueEventProjectCard {
-    init(
-        id: Int,
-        url: String,
-        projectId: Int,
-        projectUrl: String,
-        columnName: String,
-        previousColumnName: String? = nil
-    ) throws {
+extension AddedToProjectIssueEventProjectCard {
+    public init(id: Int, url: String, projectId: Int, projectUrl: String, columnName: String, previousColumnName: String? = nil) throws {
         (self.id, self.url) = (id, url)
         (self.projectId, self.projectUrl) = (projectId, projectUrl)
         (self.columnName, self.previousColumnName) = (columnName, previousColumnName)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
@@ -226,44 +184,29 @@ public struct AssignedIssueEvent: Codable {
         case intent
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AssignedIssueEvent {
-    init(from decoder: Decoder) throws {
+extension AssignedIssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeRequired(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        assignee = try container.sdkDecodeRequired(.assignee)
-        assigner = try container.sdkDecodeRequired(.assigner)
-        intent = try container.sdkDecodeIfPresent(.intent)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.assignee = try container.sdkDecodeRequired(.assignee)
+        self.assigner = try container.sdkDecodeRequired(.assigner)
+        self.intent = try container.sdkDecodeIfPresent(.intent)
     }
 }
 
-public extension AssignedIssueEvent {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        actor: SimpleUser,
-        event: String,
-        commitId: String?,
-        commitUrl: String?,
-        createdAt: String,
-        performedViaGithubApp: Integration?,
-        assignee: SimpleUser,
-        assigner: SimpleUser,
-        intent: NullableIssueEventIntent? = nil
-    ) {
+extension AssignedIssueEvent {
+    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: Integration?, assignee: SimpleUser, assigner: SimpleUser, intent: NullableIssueEventIntent? = nil) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -311,40 +254,27 @@ public struct ConvertedNoteToIssueIssueEvent: Codable {
         case projectCard = "project_card"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ConvertedNoteToIssueIssueEvent {
-    init(from decoder: Decoder) throws {
+extension ConvertedNoteToIssueIssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeRequired(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        projectCard = try container.sdkDecodeIfPresent(.projectCard)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.projectCard = try container.sdkDecodeIfPresent(.projectCard)
     }
 }
 
-public extension ConvertedNoteToIssueIssueEvent {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        actor: SimpleUser,
-        event: String,
-        commitId: String?,
-        commitUrl: String?,
-        createdAt: String,
-        performedViaGithubApp: Integration?,
-        projectCard: ConvertedNoteToIssueIssueEventProjectCard? = nil
-    ) {
+extension ConvertedNoteToIssueIssueEvent {
+    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: Integration?, projectCard: ConvertedNoteToIssueIssueEventProjectCard? = nil) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -377,74 +307,45 @@ public struct ConvertedNoteToIssueIssueEventProjectCard: Codable {
         case previousColumnName = "previous_column_name"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ConvertedNoteToIssueIssueEventProjectCard {
-    init(from decoder: Decoder) throws {
+extension ConvertedNoteToIssueIssueEventProjectCard {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.projectId) else {
-            throw SdkValidationError(
-                field: "project_id",
-                code: "required",
-                message: "Validation failed for 'project_id': value is required"
-            )
+            throw SdkValidationError(field: "project_id", code: "required", message: "Validation failed for 'project_id': value is required")
         }
         guard container.contains(.projectUrl) else {
-            throw SdkValidationError(
-                field: "project_url",
-                code: "required",
-                message: "Validation failed for 'project_url': value is required"
-            )
+            throw SdkValidationError(field: "project_url", code: "required", message: "Validation failed for 'project_url': value is required")
         }
         guard container.contains(.columnName) else {
-            throw SdkValidationError(
-                field: "column_name",
-                code: "required",
-                message: "Validation failed for 'column_name': value is required"
-            )
+            throw SdkValidationError(field: "column_name", code: "required", message: "Validation failed for 'column_name': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        url = try container.sdkDecodeRequired(.url)
-        projectId = try container.sdkDecodeRequired(.projectId)
-        projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        columnName = try container.sdkDecodeRequired(.columnName)
-        previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("project_url", projectUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.projectId = try container.sdkDecodeRequired(.projectId)
+        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        self.columnName = try container.sdkDecodeRequired(.columnName)
+        self.previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
-public extension ConvertedNoteToIssueIssueEventProjectCard {
-    init(
-        id: Int,
-        url: String,
-        projectId: Int,
-        projectUrl: String,
-        columnName: String,
-        previousColumnName: String? = nil
-    ) throws {
+extension ConvertedNoteToIssueIssueEventProjectCard {
+    public init(id: Int, url: String, projectId: Int, projectUrl: String, columnName: String, previousColumnName: String? = nil) throws {
         (self.id, self.url) = (id, url)
         (self.projectId, self.projectUrl) = (projectId, projectUrl)
         (self.columnName, self.previousColumnName) = (columnName, previousColumnName)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
@@ -486,40 +387,27 @@ public struct DemilestonedIssueEvent: Codable {
         case milestone
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DemilestonedIssueEvent {
-    init(from decoder: Decoder) throws {
+extension DemilestonedIssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeRequired(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        milestone = try container.sdkDecodeRequired(.milestone)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.milestone = try container.sdkDecodeRequired(.milestone)
     }
 }
 
-public extension DemilestonedIssueEvent {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        actor: SimpleUser,
-        event: String,
-        commitId: String?,
-        commitUrl: String?,
-        createdAt: String,
-        performedViaGithubApp: NullableIntegration?,
-        milestone: DemilestonedIssueEventMilestone
-    ) {
+extension DemilestonedIssueEvent {
+    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, milestone: DemilestonedIssueEventMilestone) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -537,27 +425,21 @@ public struct DemilestonedIssueEventMilestone: Codable {
         case title
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DemilestonedIssueEventMilestone {
-    init(from decoder: Decoder) throws {
+extension DemilestonedIssueEventMilestone {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.title) else {
-            throw SdkValidationError(
-                field: "title",
-                code: "required",
-                message: "Validation failed for 'title': value is required"
-            )
+            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
         }
-        title = try container.sdkDecodeRequired(.title)
+        self.title = try container.sdkDecodeRequired(.title)
     }
 }
 
-public extension DemilestonedIssueEventMilestone {
-    init(title: String) {
+extension DemilestonedIssueEventMilestone {
+    public init(title: String) {
         self.title = title
     }
 }
@@ -606,24 +488,22 @@ public struct LabeledIssueEvent: Codable {
         case intent
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LabeledIssueEvent {
-    init(from decoder: Decoder) throws {
+extension LabeledIssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeRequired(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        label = try container.sdkDecodeRequired(.label)
-        intent = try container.sdkDecodeIfPresent(.intent)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.label = try container.sdkDecodeRequired(.label)
+        self.intent = try container.sdkDecodeIfPresent(.intent)
     }
 }

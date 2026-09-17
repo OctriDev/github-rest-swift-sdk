@@ -6,39 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeSecurityMethods {
-    /// Deletes the desired code security configuration from an organization. Repositories attached to the configuration
-    /// will retain their settings but will no longer be associated with the configuration. The authenticated user must
-    /// be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal
-    /// access tokens (classic) need the `write:org` scope to use this endpoint.
+extension CodeSecurityMethods {
+    /// Deletes the desired code security configuration from an organization. Repositories attached to the configuration will retain their settings but will no longer be associated with the configuration. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - configurationId: The unique identifier of the code security configuration.
-    static func codeSecurityDeleteConfiguration(
-        config: ClientConfig,
-        org: String,
-        configurationId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/code-security/configurations/",
-                sdkEncodePathSegment(sdkWireString(configurationId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "codeSecurityDeleteConfiguration"
-        )).data
+    public static func codeSecurityDeleteConfiguration(config: ClientConfig, org: String, configurationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId))].joined(), config: config, decoder: .empty, operationId: "codeSecurityDeleteConfiguration")).data
     }
 
-    /// Attach a code security configuration to a set of repositories. If the repositories specified are already
-    /// attached to a configuration, they will be re-attached to the provided configuration. If insufficient GHAS
-    /// licenses are available to attach the configuration to a repository, only free features will be enabled. The
-    /// authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    /// Attach a code security configuration to a set of repositories. If the repositories specified are already attached to a configuration, they will be re-attached to the provided configuration. If insufficient GHAS licenses are available to attach the configuration to a repository, only free features will be enabled. The authenticated user must be an administrator or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -49,31 +27,9 @@ public extension CodeSecurityMethods {
     /// - selectedRepositoryIds: An array of repository IDs to attach the
     ///   configuration to. You can only provide a list of repository ids when the
     ///   `scope` is set to `selected`.
-    static func codeSecurityAttachConfiguration(
-        config: ClientConfig,
-        org: String,
-        configurationId: Int,
-        scope: CodeSecurityAttachConfigurationRequestBodyScope,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> [String: JSONValue] {
-        let requestBody = CodeSecurityAttachConfigurationRequestBody(
-            scope: scope,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+    public static func codeSecurityAttachConfiguration(config: ClientConfig, org: String, configurationId: Int, scope: CodeSecurityAttachConfigurationRequestBodyScope, selectedRepositoryIds: [Int]?) async throws -> [String: JSONValue] {
+        let requestBody = CodeSecurityAttachConfigurationRequestBody(scope: scope, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/code-security/configurations/",
-                sdkEncodePathSegment(sdkWireString(configurationId)),
-                "/attach",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeSecurityAttachConfiguration"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId)), "/attach"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeSecurityAttachConfiguration")).data
     }
 }

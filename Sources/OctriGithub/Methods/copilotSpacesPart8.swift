@@ -6,73 +6,27 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
-    /// Gets a specific resource attached to a Copilot Space owned by an organization. The authenticated user must have
-    /// appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the
-    /// `read:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been
-    /// granted access to the organization that owns the space. They must also have been granted access to every
-    /// repository referenced by resources in the space.
+extension CopilotSpacesMethods {
+    /// Gets a specific resource attached to a Copilot Space owned by an organization. The authenticated user must have appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - spaceNumber: The unique identifier of the Copilot Space.
     /// - spaceResourceId: The unique identifier of the resource.
-    static func copilotSpacesGetResourceForOrg(
-        config: ClientConfig,
-        org: String,
-        spaceNumber: Int,
-        spaceResourceId: Int
-    ) async throws -> CopilotSpaceResource {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/resources/",
-                sdkEncodePathSegment(sdkWireString(spaceResourceId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotSpacesGetResourceForOrg"
-        )).data
+    public static func copilotSpacesGetResourceForOrg(config: ClientConfig, org: String, spaceNumber: Int, spaceResourceId: Int) async throws -> CopilotSpaceResource {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/resources/", sdkEncodePathSegment(sdkWireString(spaceResourceId))].joined(), config: config, decoder: .json, operationId: "copilotSpacesGetResourceForOrg")).data
     }
 
-    /// Updates the metadata of a resource in a specific Copilot Space owned by an organization. The authenticated user
-    /// must have write permissions on the space. OAuth app tokens and personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been
-    /// granted access to the organization that owns the space. They must also have been granted access to every
-    /// repository referenced by resources in the space, including the resource being updated.
+    /// Updates the metadata of a resource in a specific Copilot Space owned by an organization. The authenticated user must have write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space, including the resource being updated.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - spaceNumber: The unique identifier of the Copilot Space.
     /// - spaceResourceId: The unique identifier of the resource.
     /// - metadata: Updated resource-specific metadata.
-    static func copilotSpacesUpdateResourceForOrg(
-        config: ClientConfig,
-        org: String,
-        spaceNumber: Int,
-        spaceResourceId: Int,
-        metadata: [String: JSONValue]?
-    ) async throws -> CopilotSpaceResource {
+    public static func copilotSpacesUpdateResourceForOrg(config: ClientConfig, org: String, spaceNumber: Int, spaceResourceId: Int, metadata: [String: JSONValue]?) async throws -> CopilotSpaceResource {
         let requestBody = CopilotSpacesUpdateResourceForOrgRequestBody(metadata: metadata)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/resources/",
-                sdkEncodePathSegment(sdkWireString(spaceResourceId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesUpdateResourceForOrg"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/resources/", sdkEncodePathSegment(sdkWireString(spaceResourceId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesUpdateResourceForOrg")).data
     }
 }

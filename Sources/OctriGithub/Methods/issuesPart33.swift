@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
+extension IssuesMethods {
     /// Users with push access can unlock an issue's conversation.
     ///
     /// - Parameters:
@@ -15,42 +15,13 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    static func issuesUnlock(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/lock",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "issuesUnlock"
-        )).data
+    public static func issuesUnlock(config: ClientConfig, owner: String, repo: String, issueNumber: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/lock"].joined(), config: config, decoder: .empty, operationId: "issuesUnlock")).data
     }
 
-    /// Retrieves the parent issue associated with a sub-issue in a repository. Supply `owner`, `repo`, and
-    /// `issue_number` to identify the sub-issue, and use an accepted custom media type to control whether the response
-    /// includes raw, text, or rendered HTML body content.
+    /// Retrieves the parent issue associated with a sub-issue in a repository. Supply `owner`, `repo`, and `issue_number` to identify the sub-issue, and use an accepted custom media type to control whether the response includes raw, text, or rendered HTML body content.
     ///
-    /// You can use the REST API to get the parent issue of a sub-issue. This endpoint supports the following custom
-    /// media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
+    /// You can use the REST API to get the parent issue of a sub-issue. This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -58,26 +29,7 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    static func issuesGetParent(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int
-    ) async throws -> Issue {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/parent",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "issuesGetParent"
-        )).data
+    public static func issuesGetParent(config: ClientConfig, owner: String, repo: String, issueNumber: Int) async throws -> Issue {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/parent"].joined(), config: config, decoder: .json, operationId: "issuesGetParent")).data
     }
 }

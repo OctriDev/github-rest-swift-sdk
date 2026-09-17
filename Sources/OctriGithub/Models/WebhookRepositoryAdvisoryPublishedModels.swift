@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookRepositoryAdvisoryPublished domain models
+// WebhookRepositoryAdvisoryPublished domain models
 /// Typed representation of the `WebhookRepositoryAdvisoryPublished` API schema.
 public struct WebhookRepositoryAdvisoryPublished: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,55 +36,33 @@ public struct WebhookRepositoryAdvisoryPublished: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookRepositoryAdvisoryPublished {
-    init(from decoder: Decoder) throws {
+extension WebhookRepositoryAdvisoryPublished {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.repositoryAdvisory) else {
-            throw SdkValidationError(
-                field: "repository_advisory",
-                code: "required",
-                message: "Validation failed for 'repository_advisory': value is required"
-            )
+            throw SdkValidationError(field: "repository_advisory", code: "required", message: "Validation failed for 'repository_advisory': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        repository = try container.sdkDecodeRequired(.repository)
-        repositoryAdvisory = try container.sdkDecodeRequired(.repositoryAdvisory)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.repositoryAdvisory = try container.sdkDecodeRequired(.repositoryAdvisory)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookRepositoryAdvisoryPublished {
-    init(
-        action: WebhookRepositoryAdvisoryPublishedAction,
-        repository: RepositoryWebhooks,
-        repositoryAdvisory: RepositoryAdvisory,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookRepositoryAdvisoryPublished {
+    public init(action: WebhookRepositoryAdvisoryPublishedAction, repository: RepositoryWebhooks, repositoryAdvisory: RepositoryAdvisory, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.repository) = (action, repository)
         (self.repositoryAdvisory, self.enterprise) = (repositoryAdvisory, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -93,19 +71,15 @@ public extension WebhookRepositoryAdvisoryPublished {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookRepositoryAdvisoryPublishedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookRepositoryAdvisoryPublishedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let published = WebhookRepositoryAdvisoryPublishedAction(rawValue: "published")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

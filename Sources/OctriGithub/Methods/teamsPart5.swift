@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
-    struct TeamsUpdateInOrgOptions: Codable {
+extension TeamsMethods {
+    public struct TeamsUpdateInOrgOptions: Codable {
         public var org: String
         public var teamSlug: String
         public var name: String?
@@ -24,9 +24,7 @@ public extension TeamsMethods {
         }
     }
 
-    /// To edit a team, the authenticated user must either be an organization owner or a team maintainer. > [!NOTE] >
-    /// You can also specify a team by `org_id` and `team_id` using the route `PATCH
-    /// /organizations/{org_id}/team/{team_id}`.
+    /// To edit a team, the authenticated user must either be an organization owner or a team maintainer. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -50,21 +48,9 @@ public extension TeamsMethods {
     /// - parentTeamId: The ID of a team to set as the parent team.
     /// - parentTeamSlug: The slug of a team to set as the parent team. Ignored when
     ///   `parent_team_id` is also provided.
-    static func teamsUpdateInOrg(config: ClientConfig, options: TeamsUpdateInOrgOptions) async throws -> TeamFull {
+    public static func teamsUpdateInOrg(config: ClientConfig, options: TeamsUpdateInOrgOptions) async throws -> TeamFull {
         let requestBody = TeamsUpdateInOrgRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(options.org)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(options.teamSlug)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "teamsUpdateInOrg"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/teams/", sdkEncodePathSegment(sdkWireString(options.teamSlug))].joined(), config: config, body: requestBody, decoder: .json, operationId: "teamsUpdateInOrg")).data
     }
 }

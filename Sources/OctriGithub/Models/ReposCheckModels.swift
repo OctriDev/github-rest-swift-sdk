@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ReposCheck domain models
+// ReposCheck domain models
 /// Check Dependabot security updates
 public struct CheckAutomatedSecurityFixes: Codable {
     /// Whether Dependabot security updates are enabled for the repository.
@@ -17,35 +17,25 @@ public struct CheckAutomatedSecurityFixes: Codable {
         case paused
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CheckAutomatedSecurityFixes {
-    init(from decoder: Decoder) throws {
+extension CheckAutomatedSecurityFixes {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.enabled) else {
-            throw SdkValidationError(
-                field: "enabled",
-                code: "required",
-                message: "Validation failed for 'enabled': value is required"
-            )
+            throw SdkValidationError(field: "enabled", code: "required", message: "Validation failed for 'enabled': value is required")
         }
         guard container.contains(.paused) else {
-            throw SdkValidationError(
-                field: "paused",
-                code: "required",
-                message: "Validation failed for 'paused': value is required"
-            )
+            throw SdkValidationError(field: "paused", code: "required", message: "Validation failed for 'paused': value is required")
         }
-        enabled = try container.sdkDecodeRequired(.enabled)
-        paused = try container.sdkDecodeRequired(.paused)
+        self.enabled = try container.sdkDecodeRequired(.enabled)
+        self.paused = try container.sdkDecodeRequired(.paused)
     }
 }
 
-public extension CheckAutomatedSecurityFixes {
-    init(enabled: Bool, paused: Bool) {
+extension CheckAutomatedSecurityFixes {
+    public init(enabled: Bool, paused: Bool) {
         (self.enabled, self.paused) = (enabled, paused)
     }
 }
@@ -63,35 +53,25 @@ public struct CheckImmutableReleases: Codable {
         case enforcedByOwner = "enforced_by_owner"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CheckImmutableReleases {
-    init(from decoder: Decoder) throws {
+extension CheckImmutableReleases {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.enabled) else {
-            throw SdkValidationError(
-                field: "enabled",
-                code: "required",
-                message: "Validation failed for 'enabled': value is required"
-            )
+            throw SdkValidationError(field: "enabled", code: "required", message: "Validation failed for 'enabled': value is required")
         }
         guard container.contains(.enforcedByOwner) else {
-            throw SdkValidationError(
-                field: "enforced_by_owner",
-                code: "required",
-                message: "Validation failed for 'enforced_by_owner': value is required"
-            )
+            throw SdkValidationError(field: "enforced_by_owner", code: "required", message: "Validation failed for 'enforced_by_owner': value is required")
         }
-        enabled = try container.sdkDecodeRequired(.enabled)
-        enforcedByOwner = try container.sdkDecodeRequired(.enforcedByOwner)
+        self.enabled = try container.sdkDecodeRequired(.enabled)
+        self.enforcedByOwner = try container.sdkDecodeRequired(.enforcedByOwner)
     }
 }
 
-public extension CheckImmutableReleases {
-    init(enabled: Bool, enforcedByOwner: Bool) {
+extension CheckImmutableReleases {
+    public init(enabled: Bool, enforcedByOwner: Bool) {
         (self.enabled, self.enforcedByOwner) = (enabled, enforcedByOwner)
     }
 }

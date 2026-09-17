@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical campaigns operation model declarations
+// Canonical campaigns operation model declarations
 public struct CampaignsCreateCampaignRequestBodyCodeScanningAlertsItem: Codable {
     /// The repository id
     public var repositoryId: Int
@@ -19,37 +19,27 @@ public struct CampaignsCreateCampaignRequestBodyCodeScanningAlertsItem: Codable 
         case alertNumbers = "alert_numbers"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CampaignsCreateCampaignRequestBodyCodeScanningAlertsItem {
-    init(from decoder: Decoder) throws {
+extension CampaignsCreateCampaignRequestBodyCodeScanningAlertsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryId) else {
-            throw SdkValidationError(
-                field: "repository_id",
-                code: "required",
-                message: "Validation failed for 'repository_id': value is required"
-            )
+            throw SdkValidationError(field: "repository_id", code: "required", message: "Validation failed for 'repository_id': value is required")
         }
         guard container.contains(.alertNumbers) else {
-            throw SdkValidationError(
-                field: "alert_numbers",
-                code: "required",
-                message: "Validation failed for 'alert_numbers': value is required"
-            )
+            throw SdkValidationError(field: "alert_numbers", code: "required", message: "Validation failed for 'alert_numbers': value is required")
         }
-        repositoryId = try container.sdkDecodeRequired(.repositoryId)
-        alertNumbers = try container.sdkDecodeRequired(.alertNumbers)
-        try validateItems("alert_numbers", alertNumbers, min: 1, max: nil)
+        self.repositoryId = try container.sdkDecodeRequired(.repositoryId)
+        self.alertNumbers = try container.sdkDecodeRequired(.alertNumbers)
+            try validateItems("alert_numbers", self.alertNumbers, min: 1, max: nil)
     }
 }
 
-public extension CampaignsCreateCampaignRequestBodyCodeScanningAlertsItem {
-    init(repositoryId: Int, alertNumbers: [Int]) throws {
+extension CampaignsCreateCampaignRequestBodyCodeScanningAlertsItem {
+    public init(repositoryId: Int, alertNumbers: [Int]) throws {
         (self.repositoryId, self.alertNumbers) = (repositoryId, alertNumbers)
-        try validateItems("alert_numbers", self.alertNumbers, min: 1, max: nil)
+            try validateItems("alert_numbers", self.alertNumbers, min: 1, max: nil)
     }
 }

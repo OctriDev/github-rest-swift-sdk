@@ -3,16 +3,12 @@
 
 import Foundation
 
-/// WebhookCodeScanningAlertReopened domain models
+// WebhookCodeScanningAlertReopened domain models
 /// The severity of the alert.
-public struct WebhookCodeScanningAlertReopenedAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let none = WebhookCodeScanningAlertReopenedAlertRuleSeverity(rawValue: "none")
     public static let note = WebhookCodeScanningAlertReopenedAlertRuleSeverity(rawValue: "note")
     public static let warning = WebhookCodeScanningAlertReopenedAlertRuleSeverity(rawValue: "warning")
@@ -20,7 +16,7 @@ public struct WebhookCodeScanningAlertReopenedAlertRuleSeverity: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,21 +27,17 @@ public struct WebhookCodeScanningAlertReopenedAlertRuleSeverity: RawRepresentabl
 
 /// State of a code scanning alert. Events for alerts found outside the default branch will return a `null`
 /// value until they are dismissed or fixed.
-public struct WebhookCodeScanningAlertReopenedAlertState: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedAlertState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookCodeScanningAlertReopenedAlertState(rawValue: "open")
     public static let dismissed = WebhookCodeScanningAlertReopenedAlertState(rawValue: "dismissed")
     public static let fixed = WebhookCodeScanningAlertReopenedAlertState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -55,21 +47,17 @@ public struct WebhookCodeScanningAlertReopenedAlertState: RawRepresentable, Hash
 }
 
 /// State of a code scanning alert.
-public struct WebhookCodeScanningAlertReopenedAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookCodeScanningAlertReopenedAlertMostRecentInstanceState(rawValue: "open")
     public static let dismissed = WebhookCodeScanningAlertReopenedAlertMostRecentInstanceState(rawValue: "dismissed")
     public static let fixed = WebhookCodeScanningAlertReopenedAlertMostRecentInstanceState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

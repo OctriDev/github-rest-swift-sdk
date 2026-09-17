@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookIssuesAssigned domain models
+// WebhookIssuesAssigned domain models
 /// Typed representation of the `WebhookIssuesAssigned` API schema.
 public struct WebhookIssuesAssigned: Codable {
     /// The action that was performed.
@@ -39,64 +39,37 @@ public struct WebhookIssuesAssigned: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookIssuesAssigned {
-    init(from decoder: Decoder) throws {
+extension WebhookIssuesAssigned {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.issue) else {
-            throw SdkValidationError(
-                field: "issue",
-                code: "required",
-                message: "Validation failed for 'issue': value is required"
-            )
+            throw SdkValidationError(field: "issue", code: "required", message: "Validation failed for 'issue': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        issue = try container.sdkDecodeRequired(.issue)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        assignee = try container.sdkDecodeIfPresent(.assignee)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.issue = try container.sdkDecodeRequired(.issue)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.assignee = try container.sdkDecodeIfPresent(.assignee)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookIssuesAssigned {
-    init(
-        action: WebhookIssuesAssignedAction,
-        issue: WebhooksIssue,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        assignee: WebhooksUser? = nil,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookIssuesAssigned {
+    public init(action: WebhookIssuesAssignedAction, issue: WebhooksIssue, repository: RepositoryWebhooks, sender: SimpleUser, assignee: WebhooksUser? = nil, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.issue) = (action, issue)
         (self.repository, self.sender) = (repository, sender)
         (self.assignee, self.enterprise) = (assignee, enterprise)
@@ -108,15 +81,12 @@ public extension WebhookIssuesAssigned {
 public struct WebhookIssuesAssignedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let assigned = WebhookIssuesAssignedAction(rawValue: "assigned")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

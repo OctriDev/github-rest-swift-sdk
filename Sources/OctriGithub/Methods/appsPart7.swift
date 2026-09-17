@@ -6,70 +6,35 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Removes a GitHub App installation suspension. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+extension AppsMethods {
+    /// Removes a GitHub App installation suspension. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     ///
     /// - Parameters:
     /// - installationId: The unique identifier of the installation.
-    static func appsUnsuspendInstallation(config: ClientConfig, installationId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/suspended"].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "appsUnsuspendInstallation"
-        )).data
+    public static func appsUnsuspendInstallation(config: ClientConfig, installationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/app/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/suspended"].joined(), config: config, decoder: .empty, operationId: "appsUnsuspendInstallation")).data
     }
 
-    /// OAuth and GitHub application owners can revoke a grant for their application and a specific user. You must
-    /// provide a valid OAuth `access_token` as an input parameter and the grant for the token's owner will be deleted.
-    /// Deleting an application's grant will also delete all OAuth tokens associated with the application for the user.
-    /// Once deleted, the application will have no access to the user's account and will no longer be listed on [the
-    /// application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
+    /// OAuth and GitHub application owners can revoke a grant for their application and a specific user. You must provide a valid OAuth `access_token` as an input parameter and the grant for the token's owner will be deleted. Deleting an application's grant will also delete all OAuth tokens associated with the application for the user. Once deleted, the application will have no access to the user's account and will no longer be listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
     ///
     /// - Parameters:
     /// - clientId: The client ID of the GitHub app.
     /// - accessToken: The OAuth access token used to authenticate to the GitHub
     ///   API.
-    static func appsDeleteAuthorization(
-        config: ClientConfig,
-        clientId: String,
-        accessToken: String
-    ) async throws -> SdkEmptyResponse {
+    public static func appsDeleteAuthorization(config: ClientConfig, clientId: String, accessToken: String) async throws -> SdkEmptyResponse {
         let requestBody = AppsDeleteAuthorizationRequestBody(accessToken: accessToken)
 
-        return try await (sdkRequest(
-            "DELETE",
-            ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/grant"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "appsDeleteAuthorization"
-        )).data
+        return try (await sdkRequest("DELETE", ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/grant"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "appsDeleteAuthorization")).data
     }
 
-    /// OAuth applications and GitHub applications with OAuth authorizations can use this API method for checking OAuth
-    /// token validity without exceeding the normal rate limits for failed login attempts. Authentication works
-    /// differently with this particular endpoint. Invalid tokens will return `404 NOT FOUND`.
+    /// OAuth applications and GitHub applications with OAuth authorizations can use this API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. Invalid tokens will return `404 NOT FOUND`.
     ///
     /// - Parameters:
     /// - clientId: The client ID of the GitHub app.
     /// - accessToken: The access_token of the OAuth or GitHub application.
-    static func appsCheckToken(
-        config: ClientConfig,
-        clientId: String,
-        accessToken: String
-    ) async throws -> Authorization {
+    public static func appsCheckToken(config: ClientConfig, clientId: String, accessToken: String) async throws -> Authorization {
         let requestBody = AppsCheckTokenRequestBody(accessToken: accessToken)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "appsCheckToken"
-        )).data
+        return try (await sdkRequest("POST", ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token"].joined(), config: config, body: requestBody, decoder: .json, operationId: "appsCheckToken")).data
     }
 }

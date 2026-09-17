@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Get the public key for an environment, which you need to encrypt environment secrets. You need to encrypt a
-    /// secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint.
-    /// If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use
-    /// this endpoint.
+extension ActionsMethods {
+    /// Get the public key for an environment, which you need to encrypt environment secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,32 +16,11 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
-    static func actionsGetEnvironmentPublicKey(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String
-    ) async throws -> ActionsPublicKey {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/secrets/public-key",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetEnvironmentPublicKey"
-        )).data
+    public static func actionsGetEnvironmentPublicKey(config: ClientConfig, owner: String, repo: String, environmentName: String) async throws -> ActionsPublicKey {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "actionsGetEnvironmentPublicKey")).data
     }
 
-    /// Gets a single environment secret without revealing its encrypted value. Authenticated users must have
-    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+    /// Gets a single environment secret without revealing its encrypted value. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -54,28 +30,7 @@ public extension ActionsMethods {
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - secretName: The name of the secret.
-    static func actionsGetEnvironmentSecret(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String,
-        secretName: String
-    ) async throws -> ActionsSecret {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetEnvironmentSecret"
-        )).data
+    public static func actionsGetEnvironmentSecret(config: ClientConfig, owner: String, repo: String, environmentName: String, secretName: String) async throws -> ActionsSecret {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "actionsGetEnvironmentSecret")).data
     }
 }

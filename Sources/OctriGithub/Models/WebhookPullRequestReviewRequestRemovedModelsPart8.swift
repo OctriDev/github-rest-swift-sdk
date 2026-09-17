@@ -3,32 +3,9 @@
 
 import Foundation
 
-/// WebhookPullRequestReviewRequestRemoved domain models
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestMileXc5ab24bec0 {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookPullRequestReviewRequestRemovedVariant0PullRequestMileX06ea1cf1e2? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+// WebhookPullRequestReviewRequestRemoved domain models
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestMileXc5ab24bec0 {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookPullRequestReviewRequestRemovedVariant0PullRequestMileX06ea1cf1e2? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -46,28 +23,28 @@ public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestMileXc
 
 extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestMileXc5ab24bec0 {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -83,46 +60,39 @@ public enum WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX95ad25
 }
 
 extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX95ad25ebc8: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX95ad25ebc8"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX95ad25ebc8")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
         if let value = try? container.decode(
             WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16.self
         ) {
-            return .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16(value)
+            return             .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16(value)
         }
         if let value = try? container.decode(
             WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47.self
         ) {
-            return .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47(value)
+            return             .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47(value)
         }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
         var container = encoder.singleValueContainer()
         switch self {
-        case let .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16(value): try container
-            .encode(value); return true
-        case let .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47(value): try container
-            .encode(value); return true
+        case let .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16(value): try container.encode(value); return true
+        case let .webhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47(value): try container.encode(value); return true
         }
     }
+
 }
 
 public struct WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16: Codable {
@@ -174,79 +144,46 @@ public struct WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7d
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16 {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16 {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequXf3171b58c3? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16 {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequXf3171b58c3? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -264,28 +201,28 @@ public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5
 
 extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5b7dbd2b16 {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -328,49 +265,33 @@ public struct WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX0247
         case parent
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47 {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        description = try container.sdkDecodeIfPresent(.description)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        permission = try container.sdkDecodeRequired(.permission)
-        privacy = try container.sdkDecodeRequired(.privacy)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        slug = try container.sdkDecodeRequired(.slug)
-        url = try container.sdkDecodeRequired(.url)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        parent = try container.sdkDecodeIfPresent(.parent)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
-        try sdkValidateUri("url", url)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.privacy = try container.sdkDecodeRequired(.privacy)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.parent = try container.sdkDecodeIfPresent(.parent)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47 {
-    init(
-        description: String?,
-        htmlUrl: String,
-        id: Int,
-        membersUrl: String,
-        name: String,
-        nodeId: String,
-        permission: String,
-        privacy: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX0556677514,
-        repositoriesUrl: String,
-        slug: String,
-        url: String,
-        deleted: Bool? = nil,
-        parent: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee61e7af4? = nil
-    ) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX02474f1c47 {
+    public init(description: String?, htmlUrl: String, id: Int, membersUrl: String, name: String, nodeId: String, permission: String, privacy: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX0556677514, repositoriesUrl: String, slug: String, url: String, deleted: Bool? = nil, parent: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee61e7af4? = nil) throws {
         (self.description, self.htmlUrl) = (description, htmlUrl)
         (self.id, self.membersUrl) = (id, membersUrl)
         (self.name, self.nodeId) = (name, nodeId)
@@ -378,9 +299,9 @@ public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX0
         (self.repositoriesUrl, self.slug) = (repositoriesUrl, slug)
         (self.url, self.deleted) = (url, deleted)
         self.parent = parent
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -416,54 +337,40 @@ public struct WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee6
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee61e7af4 {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee61e7af4 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        description = try container.sdkDecodeIfPresent(.description)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        permission = try container.sdkDecodeRequired(.permission)
-        privacy = try container.sdkDecodeRequired(.privacy)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        slug = try container.sdkDecodeRequired(.slug)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
-        try sdkValidateUri("url", url)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.privacy = try container.sdkDecodeRequired(.privacy)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee61e7af4 {
-    init(
-        description: String?,
-        htmlUrl: String,
-        id: Int,
-        membersUrl: String,
-        name: String,
-        nodeId: String,
-        permission: String,
-        privacy: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5c6137f1a4,
-        repositoriesUrl: String,
-        slug: String,
-        url: String
-    ) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX1ee61e7af4 {
+    public init(description: String?, htmlUrl: String, id: Int, membersUrl: String, name: String, nodeId: String, permission: String, privacy: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX5c6137f1a4, repositoriesUrl: String, slug: String, url: String) throws {
         (self.description, self.htmlUrl) = (description, htmlUrl)
         (self.id, self.membersUrl) = (id, membersUrl)
         (self.name, self.nodeId) = (name, nodeId)
         (self.permission, self.privacy) = (permission, privacy)
         (self.repositoriesUrl, self.slug) = (repositoriesUrl, slug)
         self.url = url
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -504,49 +411,33 @@ public struct WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX36fa
         case parent
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX36fa3bd019 {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX36fa3bd019 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        description = try container.sdkDecodeIfPresent(.description)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        permission = try container.sdkDecodeRequired(.permission)
-        privacy = try container.sdkDecodeRequired(.privacy)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        slug = try container.sdkDecodeRequired(.slug)
-        url = try container.sdkDecodeRequired(.url)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        parent = try container.sdkDecodeIfPresent(.parent)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
-        try sdkValidateUri("url", url)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.privacy = try container.sdkDecodeRequired(.privacy)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.parent = try container.sdkDecodeIfPresent(.parent)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX36fa3bd019 {
-    init(
-        description: String?,
-        htmlUrl: String,
-        id: Int,
-        membersUrl: String,
-        name: String,
-        nodeId: String,
-        permission: String,
-        privacy: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX997378c27f,
-        repositoriesUrl: String,
-        slug: String,
-        url: String,
-        deleted: Bool? = nil,
-        parent: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX6d5ba9d0cf? = nil
-    ) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX36fa3bd019 {
+    public init(description: String?, htmlUrl: String, id: Int, membersUrl: String, name: String, nodeId: String, permission: String, privacy: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX997378c27f, repositoriesUrl: String, slug: String, url: String, deleted: Bool? = nil, parent: WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX6d5ba9d0cf? = nil) throws {
         (self.description, self.htmlUrl) = (description, htmlUrl)
         (self.id, self.membersUrl) = (id, membersUrl)
         (self.name, self.nodeId) = (name, nodeId)
@@ -554,9 +445,9 @@ public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX3
         (self.repositoriesUrl, self.slug) = (repositoriesUrl, slug)
         (self.url, self.deleted) = (url, deleted)
         self.parent = parent
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -592,27 +483,25 @@ public struct WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX6d5b
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX6d5ba9d0cf {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestRemovedVariant0PullRequestRequX6d5ba9d0cf {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        description = try container.sdkDecodeIfPresent(.description)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        permission = try container.sdkDecodeRequired(.permission)
-        privacy = try container.sdkDecodeRequired(.privacy)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        slug = try container.sdkDecodeRequired(.slug)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
-        try sdkValidateUri("url", url)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.privacy = try container.sdkDecodeRequired(.privacy)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
     }
 }

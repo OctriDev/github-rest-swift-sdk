@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Codespaces domain models
+// Codespaces domain models
 /// A codespace.
 public struct CodespaceWithFullRepository: Codable {
     /// Required `int64`-formatted value serialized in the `id` wire field.
@@ -118,83 +118,49 @@ public struct CodespaceWithFullRepository: Codable {
         case retentionExpiresAt = "retention_expires_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodespaceWithFullRepository {
-    init(from decoder: Decoder) throws {
+extension CodespaceWithFullRepository {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        environmentId = try container.sdkDecodeIfPresent(.environmentId)
-        owner = try container.sdkDecodeRequired(.owner)
-        billableOwner = try container.sdkDecodeRequired(.billableOwner)
-        repository = try container.sdkDecodeRequired(.repository)
-        machine = try container.sdkDecodeIfPresent(.machine)
-        prebuild = try container.sdkDecodeIfPresent(.prebuild)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        lastUsedAt = try container.sdkDecodeRequired(.lastUsedAt)
-        state = try container.sdkDecodeRequired(.state)
-        url = try container.sdkDecodeRequired(.url)
-        gitStatus = try container.sdkDecodeRequired(.gitStatus)
-        location = try container.sdkDecodeRequired(.location)
-        idleTimeoutMinutes = try container.sdkDecodeIfPresent(.idleTimeoutMinutes)
-        webUrl = try container.sdkDecodeRequired(.webUrl)
-        machinesUrl = try container.sdkDecodeRequired(.machinesUrl)
-        startUrl = try container.sdkDecodeRequired(.startUrl)
-        stopUrl = try container.sdkDecodeRequired(.stopUrl)
-        pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
-        recentFolders = try container.sdkDecodeRequired(.recentFolders)
-        displayName = try container.sdkDecodeIfPresent(.displayName)
-        devcontainerPath = try container.sdkDecodeIfPresent(.devcontainerPath)
-        publishUrl = try container.sdkDecodeIfPresent(.publishUrl)
-        runtimeConstraints = try container.sdkDecodeIfPresent(.runtimeConstraints)
-        pendingOperation = try container.sdkDecodeIfPresent(.pendingOperation)
-        pendingOperationDisabledReason = try container.sdkDecodeIfPresent(.pendingOperationDisabledReason)
-        idleTimeoutNotice = try container.sdkDecodeIfPresent(.idleTimeoutNotice)
-        retentionPeriodMinutes = try container.sdkDecodeIfPresent(.retentionPeriodMinutes)
-        retentionExpiresAt = try container.sdkDecodeIfPresent(.retentionExpiresAt)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.environmentId = try container.sdkDecodeIfPresent(.environmentId)
+        self.owner = try container.sdkDecodeRequired(.owner)
+        self.billableOwner = try container.sdkDecodeRequired(.billableOwner)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.machine = try container.sdkDecodeIfPresent(.machine)
+        self.prebuild = try container.sdkDecodeIfPresent(.prebuild)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.lastUsedAt = try container.sdkDecodeRequired(.lastUsedAt)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.gitStatus = try container.sdkDecodeRequired(.gitStatus)
+        self.location = try container.sdkDecodeRequired(.location)
+        self.idleTimeoutMinutes = try container.sdkDecodeIfPresent(.idleTimeoutMinutes)
+        self.webUrl = try container.sdkDecodeRequired(.webUrl)
+        self.machinesUrl = try container.sdkDecodeRequired(.machinesUrl)
+        self.startUrl = try container.sdkDecodeRequired(.startUrl)
+        self.stopUrl = try container.sdkDecodeRequired(.stopUrl)
+        self.pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
+        self.recentFolders = try container.sdkDecodeRequired(.recentFolders)
+        self.displayName = try container.sdkDecodeIfPresent(.displayName)
+        self.devcontainerPath = try container.sdkDecodeIfPresent(.devcontainerPath)
+        self.publishUrl = try container.sdkDecodeIfPresent(.publishUrl)
+        self.runtimeConstraints = try container.sdkDecodeIfPresent(.runtimeConstraints)
+        self.pendingOperation = try container.sdkDecodeIfPresent(.pendingOperation)
+        self.pendingOperationDisabledReason = try container.sdkDecodeIfPresent(.pendingOperationDisabledReason)
+        self.idleTimeoutNotice = try container.sdkDecodeIfPresent(.idleTimeoutNotice)
+        self.retentionPeriodMinutes = try container.sdkDecodeIfPresent(.retentionPeriodMinutes)
+        self.retentionExpiresAt = try container.sdkDecodeIfPresent(.retentionExpiresAt)
         try sdkValidateConstraints()
     }
 }
 
-public extension CodespaceWithFullRepository {
-    init(
-        id: Int,
-        name: String,
-        environmentId: String?,
-        owner: SimpleUser,
-        billableOwner: SimpleUser,
-        repository: FullRepository,
-        machine: NullableCodespaceMachine?,
-        prebuild: Bool?,
-        createdAt: Date,
-        updatedAt: Date,
-        lastUsedAt: Date,
-        state: CodespaceWithFullRepositoryState,
-        url: String,
-        gitStatus: CodespaceWithFullRepositoryGitStatus,
-        location: CodespaceWithFullRepositoryLocation,
-        idleTimeoutMinutes: Int?,
-        webUrl: String,
-        machinesUrl: String,
-        startUrl: String,
-        stopUrl: String,
-        pullsUrl: String?,
-        recentFolders: [String],
-        displayName: String? = nil,
-        devcontainerPath: String? = nil,
-        publishUrl: String? = nil,
-        runtimeConstraints: CodespaceWithFullRepositoryRuntimeConstraints? = nil,
-        pendingOperation: Bool? = nil,
-        pendingOperationDisabledReason: String? = nil,
-        idleTimeoutNotice: String? = nil,
-        retentionPeriodMinutes: Int? = nil,
-        retentionExpiresAt: Date? = nil
-    ) throws {
+extension CodespaceWithFullRepository {
+    public init(id: Int, name: String, environmentId: String?, owner: SimpleUser, billableOwner: SimpleUser, repository: FullRepository, machine: NullableCodespaceMachine?, prebuild: Bool?, createdAt: Date, updatedAt: Date, lastUsedAt: Date, state: CodespaceWithFullRepositoryState, url: String, gitStatus: CodespaceWithFullRepositoryGitStatus, location: CodespaceWithFullRepositoryLocation, idleTimeoutMinutes: Int?, webUrl: String, machinesUrl: String, startUrl: String, stopUrl: String, pullsUrl: String?, recentFolders: [String], displayName: String? = nil, devcontainerPath: String? = nil, publishUrl: String? = nil, runtimeConstraints: CodespaceWithFullRepositoryRuntimeConstraints? = nil, pendingOperation: Bool? = nil, pendingOperationDisabledReason: String? = nil, idleTimeoutNotice: String? = nil, retentionPeriodMinutes: Int? = nil, retentionExpiresAt: Date? = nil) throws {
         (self.id, self.name) = (id, name)
         (self.environmentId, self.owner) = (environmentId, owner)
         (self.billableOwner, self.repository) = (billableOwner, repository)
@@ -218,21 +184,21 @@ public extension CodespaceWithFullRepository {
 
 extension CodespaceWithFullRepository {
     func sdkValidateConstraints() throws {
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateDateTime("last_used_at", sdkWireString(lastUsedAt))
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("web_url", webUrl)
-        try sdkValidateUri("machines_url", machinesUrl)
-        try sdkValidateUri("start_url", startUrl)
-        try sdkValidateUri("stop_url", stopUrl)
-        if let value = pullsUrl {
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("last_used_at", sdkWireString(self.lastUsedAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("web_url", self.webUrl)
+            try sdkValidateUri("machines_url", self.machinesUrl)
+            try sdkValidateUri("start_url", self.startUrl)
+            try sdkValidateUri("stop_url", self.stopUrl)
+        if let value = self.pullsUrl {
             try sdkValidateUri("pulls_url", value)
         }
-        if let value = publishUrl {
+        if let value = self.publishUrl {
             try sdkValidateUri("publish_url", value)
         }
-        if let value = retentionExpiresAt {
+        if let value = self.retentionExpiresAt {
             try sdkValidateDateTime("retention_expires_at", sdkWireString(value))
         }
     }
@@ -261,29 +227,23 @@ public struct CodespaceWithFullRepositoryGitStatus: Codable {
     }
 
     init() {
-        (ahead, behind, hasUnpushedChanges, hasUncommittedChanges, ref) = (nil, nil, nil, nil, nil)
+        (self.ahead, self.behind, self.hasUnpushedChanges, self.hasUncommittedChanges, self.ref) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension CodespaceWithFullRepositoryGitStatus {
-    init(from decoder: Decoder) throws {
+extension CodespaceWithFullRepositoryGitStatus {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        ahead = try container.sdkDecodeIfPresent(.ahead)
-        behind = try container.sdkDecodeIfPresent(.behind)
-        hasUnpushedChanges = try container.sdkDecodeIfPresent(.hasUnpushedChanges)
-        hasUncommittedChanges = try container.sdkDecodeIfPresent(.hasUncommittedChanges)
-        ref = try container.sdkDecodeIfPresent(.ref)
+        self.ahead = try container.sdkDecodeIfPresent(.ahead)
+        self.behind = try container.sdkDecodeIfPresent(.behind)
+        self.hasUnpushedChanges = try container.sdkDecodeIfPresent(.hasUnpushedChanges)
+        self.hasUncommittedChanges = try container.sdkDecodeIfPresent(.hasUncommittedChanges)
+        self.ref = try container.sdkDecodeIfPresent(.ref)
     }
 }
 
-public extension CodespaceWithFullRepositoryGitStatus {
-    init(
-        ahead: Int? = nil,
-        behind: Int? = nil,
-        hasUnpushedChanges: Bool? = nil,
-        hasUncommittedChanges: Bool? = nil,
-        ref: String? = nil
-    ) {
+extension CodespaceWithFullRepositoryGitStatus {
+    public init(ahead: Int? = nil, behind: Int? = nil, hasUnpushedChanges: Bool? = nil, hasUncommittedChanges: Bool? = nil, ref: String? = nil) {
         self.init()
         (self.ahead, self.behind) = (ahead, behind)
         (self.hasUnpushedChanges, self.hasUncommittedChanges) = (hasUnpushedChanges, hasUncommittedChanges)
@@ -301,19 +261,19 @@ public struct CodespaceWithFullRepositoryRuntimeConstraints: Codable {
     }
 
     init() {
-        allowedPortPrivacySettings = nil
+        self.allowedPortPrivacySettings = nil
     }
 }
 
-public extension CodespaceWithFullRepositoryRuntimeConstraints {
-    init(from decoder: Decoder) throws {
+extension CodespaceWithFullRepositoryRuntimeConstraints {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        allowedPortPrivacySettings = try container.sdkDecodeIfPresent(.allowedPortPrivacySettings)
+        self.allowedPortPrivacySettings = try container.sdkDecodeIfPresent(.allowedPortPrivacySettings)
     }
 }
 
-public extension CodespaceWithFullRepositoryRuntimeConstraints {
-    init(allowedPortPrivacySettings: [String]? = nil) {
+extension CodespaceWithFullRepositoryRuntimeConstraints {
+    public init(allowedPortPrivacySettings: [String]? = nil) {
         self.init()
         self.allowedPortPrivacySettings = allowedPortPrivacySettings
     }
@@ -342,68 +302,44 @@ public struct CodespacesOrgSecret: Codable {
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodespacesOrgSecret {
-    init(from decoder: Decoder) throws {
+extension CodespacesOrgSecret {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
         guard container.contains(.visibility) else {
-            throw SdkValidationError(
-                field: "visibility",
-                code: "required",
-                message: "Validation failed for 'visibility': value is required"
-            )
+            throw SdkValidationError(field: "visibility", code: "required", message: "Validation failed for 'visibility': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        visibility = try container.sdkDecodeRequired(.visibility)
-        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = selectedRepositoriesUrl {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.visibility = try container.sdkDecodeRequired(.visibility)
+        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
     }
 }
 
-public extension CodespacesOrgSecret {
-    init(
-        name: String,
-        createdAt: Date,
-        updatedAt: Date,
-        visibility: CodespacesOrgSecretVisibility,
-        selectedRepositoriesUrl: String? = nil
-    ) throws {
+extension CodespacesOrgSecret {
+    public init(name: String, createdAt: Date, updatedAt: Date, visibility: CodespacesOrgSecretVisibility, selectedRepositoriesUrl: String? = nil) throws {
         (self.name, self.createdAt) = (name, createdAt)
         (self.updatedAt, self.visibility) = (updatedAt, visibility)
         self.selectedRepositoriesUrl = selectedRepositoriesUrl
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
@@ -420,27 +356,21 @@ public struct CodespacesPermissionsCheckForDevcontainer: Codable {
         case accepted
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodespacesPermissionsCheckForDevcontainer {
-    init(from decoder: Decoder) throws {
+extension CodespacesPermissionsCheckForDevcontainer {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.accepted) else {
-            throw SdkValidationError(
-                field: "accepted",
-                code: "required",
-                message: "Validation failed for 'accepted': value is required"
-            )
+            throw SdkValidationError(field: "accepted", code: "required", message: "Validation failed for 'accepted': value is required")
         }
-        accepted = try container.sdkDecodeRequired(.accepted)
+        self.accepted = try container.sdkDecodeRequired(.accepted)
     }
 }
 
-public extension CodespacesPermissionsCheckForDevcontainer {
-    init(accepted: Bool) {
+extension CodespacesPermissionsCheckForDevcontainer {
+    public init(accepted: Bool) {
         self.accepted = accepted
     }
 }
@@ -475,46 +405,29 @@ public struct CodespacesPublicKey: Codable {
         case createdAt = "created_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodespacesPublicKey {
-    init(from decoder: Decoder) throws {
+extension CodespacesPublicKey {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.keyId) else {
-            throw SdkValidationError(
-                field: "key_id",
-                code: "required",
-                message: "Validation failed for 'key_id': value is required"
-            )
+            throw SdkValidationError(field: "key_id", code: "required", message: "Validation failed for 'key_id': value is required")
         }
         guard container.contains(.key) else {
-            throw SdkValidationError(
-                field: "key",
-                code: "required",
-                message: "Validation failed for 'key': value is required"
-            )
+            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
         }
-        keyId = try container.sdkDecodeRequired(.keyId)
-        key = try container.sdkDecodeRequired(.key)
-        id = try container.sdkDecodeIfPresent(.id)
-        url = try container.sdkDecodeIfPresent(.url)
-        title = try container.sdkDecodeIfPresent(.title)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.keyId = try container.sdkDecodeRequired(.keyId)
+        self.key = try container.sdkDecodeRequired(.key)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.title = try container.sdkDecodeIfPresent(.title)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
     }
 }
 
-public extension CodespacesPublicKey {
-    init(
-        keyId: String,
-        key: String,
-        id: Int? = nil,
-        url: String? = nil,
-        title: String? = nil,
-        createdAt: String? = nil
-    ) {
+extension CodespacesPublicKey {
+    public init(keyId: String, key: String, id: Int? = nil, url: String? = nil, title: String? = nil, createdAt: String? = nil) {
         (self.keyId, self.key) = (keyId, key)
         (self.id, self.url) = (id, url)
         (self.title, self.createdAt) = (title, createdAt)
@@ -544,73 +457,45 @@ public struct CodespacesSecret: Codable {
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodespacesSecret {
-    init(from decoder: Decoder) throws {
+extension CodespacesSecret {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
         guard container.contains(.visibility) else {
-            throw SdkValidationError(
-                field: "visibility",
-                code: "required",
-                message: "Validation failed for 'visibility': value is required"
-            )
+            throw SdkValidationError(field: "visibility", code: "required", message: "Validation failed for 'visibility': value is required")
         }
         guard container.contains(.selectedRepositoriesUrl) else {
-            throw SdkValidationError(
-                field: "selected_repositories_url",
-                code: "required",
-                message: "Validation failed for 'selected_repositories_url': value is required"
-            )
+            throw SdkValidationError(field: "selected_repositories_url", code: "required", message: "Validation failed for 'selected_repositories_url': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        visibility = try container.sdkDecodeRequired(.visibility)
-        selectedRepositoriesUrl = try container.sdkDecodeRequired(.selectedRepositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("selected_repositories_url", selectedRepositoriesUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.visibility = try container.sdkDecodeRequired(.visibility)
+        self.selectedRepositoriesUrl = try container.sdkDecodeRequired(.selectedRepositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("selected_repositories_url", self.selectedRepositoriesUrl)
     }
 }
 
-public extension CodespacesSecret {
-    init(
-        name: String,
-        createdAt: Date,
-        updatedAt: Date,
-        visibility: CodespacesSecretVisibility,
-        selectedRepositoriesUrl: String
-    ) throws {
+extension CodespacesSecret {
+    public init(name: String, createdAt: Date, updatedAt: Date, visibility: CodespacesSecretVisibility, selectedRepositoriesUrl: String) throws {
         (self.name, self.createdAt) = (name, createdAt)
         (self.updatedAt, self.visibility) = (updatedAt, visibility)
         self.selectedRepositoriesUrl = selectedRepositoriesUrl
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateUri("selected_repositories_url", self.selectedRepositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("selected_repositories_url", self.selectedRepositoriesUrl)
     }
 }

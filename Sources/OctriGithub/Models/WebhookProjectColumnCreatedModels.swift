@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookProjectColumnCreated domain models
+// WebhookProjectColumnCreated domain models
 /// Typed representation of the `WebhookProjectColumnCreated` API schema.
 public struct WebhookProjectColumnCreated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,48 +36,30 @@ public struct WebhookProjectColumnCreated: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectColumnCreated {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectColumnCreated {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.projectColumn) else {
-            throw SdkValidationError(
-                field: "project_column",
-                code: "required",
-                message: "Validation failed for 'project_column': value is required"
-            )
+            throw SdkValidationError(field: "project_column", code: "required", message: "Validation failed for 'project_column': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        projectColumn = try container.sdkDecodeRequired(.projectColumn)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.projectColumn = try container.sdkDecodeRequired(.projectColumn)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookProjectColumnCreated {
-    init(
-        action: WebhookProjectColumnCreatedAction,
-        projectColumn: WebhooksProjectColumn,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: RepositoryWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookProjectColumnCreated {
+    public init(action: WebhookProjectColumnCreatedAction, projectColumn: WebhooksProjectColumn, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.projectColumn) = (action, projectColumn)
         (self.enterprise, self.installation) = (enterprise, installation)
         (self.organization, self.repository) = (organization, repository)
@@ -89,15 +71,12 @@ public extension WebhookProjectColumnCreated {
 public struct WebhookProjectColumnCreatedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let created = WebhookProjectColumnCreatedAction(rawValue: "created")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

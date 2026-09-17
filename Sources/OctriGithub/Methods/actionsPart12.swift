@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    struct ActionsUpdateHostedRunnerForOrgOptions: Codable {
+extension ActionsMethods {
+    public struct ActionsUpdateHostedRunnerForOrgOptions: Codable {
         public var org: String
         public var hostedRunnerId: Int
         public var name: String?
@@ -26,8 +26,7 @@ public extension ActionsMethods {
         }
     }
 
-    /// Updates a GitHub-hosted runner for an organization. OAuth app tokens and personal access tokens (classic) need
-    /// the `manage_runners:org` scope to use this endpoint.
+    /// Updates a GitHub-hosted runner for an organization. OAuth app tokens and personal access tokens (classic) need the `manage_runners:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -53,24 +52,9 @@ public extension ActionsMethods {
     ///   only for runners using custom images.
     /// - imageGen: Whether to enable image generation for this runner pool. When
     ///   enabled, the runner pool is used to build and publish custom runner images.
-    static func actionsUpdateHostedRunnerForOrg(
-        config: ClientConfig,
-        options: ActionsUpdateHostedRunnerForOrgOptions
-    ) async throws -> ActionsHostedRunner {
+    public static func actionsUpdateHostedRunnerForOrg(config: ClientConfig, options: ActionsUpdateHostedRunnerForOrgOptions) async throws -> ActionsHostedRunner {
         let requestBody = ActionsUpdateHostedRunnerForOrgRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(options.org)),
-                "/actions/hosted-runners/",
-                sdkEncodePathSegment(sdkWireString(options.hostedRunnerId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsUpdateHostedRunnerForOrg"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/actions/hosted-runners/", sdkEncodePathSegment(sdkWireString(options.hostedRunnerId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsUpdateHostedRunnerForOrg")).data
     }
 }

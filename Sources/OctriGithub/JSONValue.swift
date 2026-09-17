@@ -76,7 +76,7 @@ extension KeyedDecodingContainer {
     /// Decodes a required model field while letting the assignment target infer
     /// its concrete type. The compact call site keeps large generated model
     /// initializers within the same quality bounds as handwritten code.
-    func sdkDecodeRequired<T: Decodable>(_ key: Key) throws -> T {
+    func sdkDecodeRequired<T>(_ key: Key) throws -> T where T: Decodable {
         guard contains(key) else {
             throw SdkValidationError(
                 field: key.stringValue,
@@ -89,7 +89,7 @@ extension KeyedDecodingContainer {
 
     /// Decodes an optional or nullable model field with target-driven type
     /// inference, avoiding a repeated long `T.self` expression at every field.
-    func sdkDecodeIfPresent<T: Decodable>(_ key: Key) throws -> T? {
+    func sdkDecodeIfPresent<T>(_ key: Key) throws -> T? where T: Decodable {
         try decodeIfPresent(T.self, forKey: key)
     }
 }

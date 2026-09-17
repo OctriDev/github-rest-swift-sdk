@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookInstallationNewPermissionsAccepted domain models
+// WebhookInstallationNewPermissionsAccepted domain models
 /// Typed representation of the `WebhookInstallationNewPermissionsAccepted` API schema.
 public struct WebhookInstallationNewPermissionsAccepted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -38,57 +38,34 @@ public struct WebhookInstallationNewPermissionsAccepted: Codable {
         case requester
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookInstallationNewPermissionsAccepted {
-    init(from decoder: Decoder) throws {
+extension WebhookInstallationNewPermissionsAccepted {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.installation) else {
-            throw SdkValidationError(
-                field: "installation",
-                code: "required",
-                message: "Validation failed for 'installation': value is required"
-            )
+            throw SdkValidationError(field: "installation", code: "required", message: "Validation failed for 'installation': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        installation = try container.sdkDecodeRequired(.installation)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repositories = try container.sdkDecodeIfPresent(.repositories)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        requester = try container.sdkDecodeIfPresent(.requester)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.installation = try container.sdkDecodeRequired(.installation)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repositories = try container.sdkDecodeIfPresent(.repositories)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.requester = try container.sdkDecodeIfPresent(.requester)
     }
 }
 
-public extension WebhookInstallationNewPermissionsAccepted {
-    init(
-        action: WebhookInstallationNewPermissionsAcceptedAction,
-        installation: Installation,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repositories: WebhooksRepositories? = nil,
-        repository: RepositoryWebhooks? = nil,
-        requester: JSONValue? = nil
-    ) {
+extension WebhookInstallationNewPermissionsAccepted {
+    public init(action: WebhookInstallationNewPermissionsAcceptedAction, installation: Installation, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil, repositories: WebhooksRepositories? = nil, repository: RepositoryWebhooks? = nil, requester: JSONValue? = nil) {
         (self.action, self.installation) = (action, installation)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.organization, self.repositories) = (organization, repositories)
@@ -97,20 +74,15 @@ public extension WebhookInstallationNewPermissionsAccepted {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookInstallationNewPermissionsAcceptedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookInstallationNewPermissionsAcceptedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let newPermissionsAccepted =
-        WebhookInstallationNewPermissionsAcceptedAction(rawValue: "new_permissions_accepted")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let newPermissionsAccepted = WebhookInstallationNewPermissionsAcceptedAction(rawValue: "new_permissions_accepted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

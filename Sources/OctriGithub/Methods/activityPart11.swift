@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
-    /// Marks all notifications in a repository as "read" for the current user. If the number of notifications is too
-    /// large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous
-    /// process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the
-    /// [List repository notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-repository-notifications-for-the-authenticated-user)
-    /// endpoint and pass the query parameter `all=false`.
+extension ActivityMethods {
+    /// Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,31 +19,13 @@ public extension ActivityMethods {
     ///   this parameter, all notifications are marked as read. This is a timestamp in
     ///   [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
     ///   `YYYY-MM-DDTHH:MM:SSZ`. Default: The current timestamp.
-    static func activityMarkRepoNotificationsAsRead(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        lastReadAt: Date?
-    ) async throws -> ActivityMarkRepoNotificationsAsReadResponse {
-        if let lastReadAt {
+    public static func activityMarkRepoNotificationsAsRead(config: ClientConfig, owner: String, repo: String, lastReadAt: Date?) async throws -> ActivityMarkRepoNotificationsAsReadResponse {
+        if let lastReadAt = lastReadAt {
             try sdkValidateDateTime("last_read_at", lastReadAt)
         }
 
         let requestBody = ActivityMarkRepoNotificationsAsReadRequestBody(lastReadAt: lastReadAt)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/notifications",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "activityMarkRepoNotificationsAsRead"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/notifications"].joined(), config: config, body: requestBody, decoder: .json, operationId: "activityMarkRepoNotificationsAsRead")).data
     }
 }

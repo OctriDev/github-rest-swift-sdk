@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ProjectsMethods {
+extension ProjectsMethods {
     /// List projects for user
     ///
     /// List all projects owned by a specific user accessible by the authenticated user.
@@ -30,26 +30,12 @@ public extension ProjectsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func projectsListForUser(
-        config: ClientConfig,
-        username: String,
-        q: String?,
-        before: String?,
-        after: String?,
-        perPage: Int?
-    ) async throws -> [ProjectsV2] {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("q", value: q),
-                SdkQueryParameter("before", value: before),
-                SdkQueryParameter("after", value: after),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "projectsListForUser"
-        )).data
+    public static func projectsListForUser(config: ClientConfig, username: String, q: String?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2] {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2"].joined(), config: config, query: [
+            SdkQueryParameter("q", value: q),
+            SdkQueryParameter("before", value: before),
+            SdkQueryParameter("after", value: after),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "projectsListForUser")).data
     }
 }

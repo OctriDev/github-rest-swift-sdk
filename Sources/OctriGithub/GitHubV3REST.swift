@@ -9,42 +9,35 @@ public class MetaNamespace {
         self.config = config
     }
 
-    /// Get Hypermedia links to resources accessible in GitHub's REST API
+/// Get Hypermedia links to resources accessible in GitHub's REST API
     public func root() async throws -> Root {
-        try await MetaMethods.metaRoot(config: config)
+        return try await MetaMethods.metaRoot(config: config)
     }
 
-    /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see
-    /// "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)." The API's
-    /// response also includes a list of GitHub's domain names, and the public keys used by GitHub to sign commits made
-    /// through the web UI. The values shown in the documentation's response are example values. You must always query
-    /// the API directly to get the latest values. > [!NOTE] > This endpoint returns both IPv4 and IPv6 addresses.
-    /// However, not all features support IPv6. You should refer to the specific documentation for each feature to
-    /// determine if IPv6 is supported.
+/// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)." The API's response also includes a list of GitHub's domain names, and the public keys used by GitHub to sign commits made through the web UI. The values shown in the documentation's response are example values. You must always query the API directly to get the latest values. > [!NOTE] > This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
     public func get() async throws -> ApiOverview {
-        try await MetaMethods.metaGet(config: config)
+        return try await MetaMethods.metaGet(config: config)
     }
 
-    /// Returns Octocat ASCII art, optionally including custom words in its speech bubble. Use `s` to specify the words
-    /// to display, or omit it to request the default Octocat artwork.
+/// Returns Octocat ASCII art, optionally including custom words in its speech bubble. Use `s` to specify the words to display, or omit it to request the default Octocat artwork.
     ///
     /// Get the octocat as ASCII art
     public func getOctocat(s: String?) async throws -> String {
-        try await MetaMethods.metaGetOctocat(config: config, s: s)
+        return try await MetaMethods.metaGetOctocat(config: config, s: s)
     }
 
-    /// Get all API versions
+/// Get all API versions
     ///
     /// Get all supported GitHub API versions.
     public func getAllVersions() async throws -> [String] {
-        try await MetaMethods.metaGetAllVersions(config: config)
+        return try await MetaMethods.metaGetAllVersions(config: config)
     }
 
-    /// Get the Zen of GitHub
+/// Get the Zen of GitHub
     ///
     /// Get a random sentence from the Zen of GitHub
     public func getZen() async throws -> String {
-        try await MetaMethods.metaGetZen(config: config)
+        return try await MetaMethods.metaGetZen(config: config)
     }
 }
 
@@ -54,143 +47,70 @@ public class SecurityAdvisoriesNamespace {
         self.config = config
     }
 
-    /// Lists all global security advisories that match the specified parameters. If no other parameters are defined,
-    /// the request will return only GitHub-reviewed advisories that are not malware. By default, all responses will
-    /// exclude advisories for malware, because malware are not standard vulnerabilities. To list advisories for
-    /// malware, you must include the `type` parameter in your request, with the value `malware`. For more information
-    /// about the different types of security advisories, see "[About the GitHub Advisory database](https://docs.github.com/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-types-of-security-advisories)."
-    public func listGlobalAdvisories(options: SecurityAdvisoriesMethods
-        .SecurityAdvisoriesListGlobalAdvisoriesOptions) async throws -> [GlobalAdvisory] {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesListGlobalAdvisories(config: config, options: options)
+/// Lists all global security advisories that match the specified parameters. If no other parameters are defined, the request will return only GitHub-reviewed advisories that are not malware. By default, all responses will exclude advisories for malware, because malware are not standard vulnerabilities. To list advisories for malware, you must include the `type` parameter in your request, with the value `malware`. For more information about the different types of security advisories, see "[About the GitHub Advisory database](https://docs.github.com/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-types-of-security-advisories)."
+    public func listGlobalAdvisories(options: SecurityAdvisoriesMethods.SecurityAdvisoriesListGlobalAdvisoriesOptions) async throws -> [GlobalAdvisory] {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesListGlobalAdvisories(config: config, options: options)
     }
 
-    /// Gets a global security advisory using its GitHub Security Advisory (GHSA) identifier.
+/// Gets a global security advisory using its GitHub Security Advisory (GHSA) identifier.
     public func getGlobalAdvisory(ghsaId: String) async throws -> GlobalAdvisory {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesGetGlobalAdvisory(config: config, ghsaId: ghsaId)
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesGetGlobalAdvisory(config: config, ghsaId: ghsaId)
     }
 
-    /// Lists repository security advisories for an organization. The authenticated user must be an owner or security
-    /// manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need
-    /// the `repo` or `repository_advisories:write` scope to use this endpoint.
-    public func listOrgRepositoryAdvisories(
-        org: String,
-        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
-        sort: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter?,
-        before: String?,
-        after: String?,
-        perPage: Int?,
-        state: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc?
-    ) async throws -> [RepositoryAdvisory] {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesListOrgRepositoryAdvisories(
-            config: config,
-            org: org,
-            direction: direction,
-            sort: sort,
-            before: before,
-            after: after,
-            perPage: perPage,
-            state: state
-        )
+/// Lists repository security advisories for an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+    public func listOrgRepositoryAdvisories(org: String, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, sort: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter?, before: String?, after: String?, perPage: Int?, state: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc?) async throws -> [RepositoryAdvisory] {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesListOrgRepositoryAdvisories(config: config, org: org, direction: direction, sort: sort, before: before, after: after, perPage: perPage, state: state)
     }
 
-    /// List repository security advisories
+/// List repository security advisories
     ///
-    /// Lists security advisories in a repository. The authenticated user can access unpublished security advisories
-    /// from a repository if they are a security manager or administrator of that repository, or if they are a
-    /// collaborator on any security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or
-    /// `repository_advisories:read` scope to to get a published security advisory in a private repository, or any
-    /// unpublished security advisory that the authenticated user has access to.
-    public func listRepositoryAdvisories(options: SecurityAdvisoriesMethods
-        .SecurityAdvisoriesListRepositoryAdvisoriesOptions) async throws -> [RepositoryAdvisory] {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesListRepositoryAdvisories(config: config, options: options)
+    /// Lists security advisories in a repository. The authenticated user can access unpublished security advisories from a repository if they are a security manager or administrator of that repository, or if they are a collaborator on any security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:read` scope to to get a published security advisory in a private repository, or any unpublished security advisory that the authenticated user has access to.
+    public func listRepositoryAdvisories(options: SecurityAdvisoriesMethods.SecurityAdvisoriesListRepositoryAdvisoriesOptions) async throws -> [RepositoryAdvisory] {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesListRepositoryAdvisories(config: config, options: options)
     }
 
-    /// Create a repository security advisory
+/// Create a repository security advisory
     ///
-    /// Creates a new repository security advisory. In order to create a draft repository security advisory, the
-    /// authenticated user must be a security manager or administrator of that repository. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
-    public func createRepositoryAdvisory(options: SecurityAdvisoriesMethods
-        .SecurityAdvisoriesCreateRepositoryAdvisoryOptions) async throws -> RepositoryAdvisory {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesCreateRepositoryAdvisory(config: config, options: options)
+    /// Creates a new repository security advisory. In order to create a draft repository security advisory, the authenticated user must be a security manager or administrator of that repository. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+    public func createRepositoryAdvisory(options: SecurityAdvisoriesMethods.SecurityAdvisoriesCreateRepositoryAdvisoryOptions) async throws -> RepositoryAdvisory {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesCreateRepositoryAdvisory(config: config, options: options)
     }
 
-    /// Privately report a security vulnerability
+/// Privately report a security vulnerability
     ///
-    /// Report a security vulnerability to the maintainers of the repository. See "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)"
-    /// for more information about private vulnerability reporting.
-    public func createPrivateVulnerabilityReport(options: SecurityAdvisoriesMethods
-        .SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions) async throws -> RepositoryAdvisory {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesCreatePrivateVulnerabilityReport(
-            config: config,
-            options: options
-        )
+    /// Report a security vulnerability to the maintainers of the repository. See "[Privately reporting a security vulnerability](https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)" for more information about private vulnerability reporting.
+    public func createPrivateVulnerabilityReport(options: SecurityAdvisoriesMethods.SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions) async throws -> RepositoryAdvisory {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesCreatePrivateVulnerabilityReport(config: config, options: options)
     }
 
-    /// Get a repository security advisory
+/// Get a repository security advisory
     ///
-    /// Get a repository security advisory using its GitHub Security Advisory (GHSA) identifier. Anyone can access any
-    /// published security advisory on a public repository. The authenticated user can access an unpublished security
-    /// advisory from a repository if they are a security manager or administrator of that repository, or if they are a
-    /// collaborator on the security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or
-    /// `repository_advisories:read` scope to to get a published security advisory in a private repository, or any
-    /// unpublished security advisory that the authenticated user has access to.
+    /// Get a repository security advisory using its GitHub Security Advisory (GHSA) identifier. Anyone can access any published security advisory on a public repository. The authenticated user can access an unpublished security advisory from a repository if they are a security manager or administrator of that repository, or if they are a collaborator on the security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:read` scope to to get a published security advisory in a private repository, or any unpublished security advisory that the authenticated user has access to.
     public func getRepositoryAdvisory(owner: String, repo: String, ghsaId: String) async throws -> RepositoryAdvisory {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesGetRepositoryAdvisory(
-            config: config,
-            owner: owner,
-            repo: repo,
-            ghsaId: ghsaId
-        )
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesGetRepositoryAdvisory(config: config, owner: owner, repo: repo, ghsaId: ghsaId)
     }
 
-    /// Update a repository security advisory
+/// Update a repository security advisory
     ///
-    /// Update a repository security advisory using its GitHub Security Advisory (GHSA) identifier. In order to update
-    /// any security advisory, the authenticated user must be a security manager or administrator of that repository, or
-    /// a collaborator on the repository security advisory. OAuth app tokens and personal access tokens (classic) need
-    /// the `repo` or `repository_advisories:write` scope to use this endpoint.
-    public func updateRepositoryAdvisory(options: SecurityAdvisoriesMethods
-        .SecurityAdvisoriesUpdateRepositoryAdvisoryOptions) async throws -> RepositoryAdvisory {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesUpdateRepositoryAdvisory(config: config, options: options)
+    /// Update a repository security advisory using its GitHub Security Advisory (GHSA) identifier. In order to update any security advisory, the authenticated user must be a security manager or administrator of that repository, or a collaborator on the repository security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+    public func updateRepositoryAdvisory(options: SecurityAdvisoriesMethods.SecurityAdvisoriesUpdateRepositoryAdvisoryOptions) async throws -> RepositoryAdvisory {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesUpdateRepositoryAdvisory(config: config, options: options)
     }
 }
 
-public extension SecurityAdvisoriesNamespace {
-    /// Request a CVE for a repository security advisory
+extension SecurityAdvisoriesNamespace {
+/// Request a CVE for a repository security advisory
     ///
-    /// If you want a CVE identification number for the security vulnerability in your project, and don't already have
-    /// one, you can request a CVE identification number from GitHub. For more information see "[Requesting a CVE
-    /// identification number](https://docs.github.com/code-security/security-advisories/repository-security-advisories/publishing-a-repository-security-advisory#requesting-a-cve-identification-number-optional)."
-    /// You may request a CVE for public repositories, but cannot do so for private repositories. In order to request a
-    /// CVE for a repository security advisory, the authenticated user must be a security manager or administrator of
-    /// that repository. OAuth app tokens and personal access tokens (classic) need the `repo` or
-    /// `repository_advisories:write` scope to use this endpoint.
-    func createRepositoryAdvisoryCveRequest(
-        owner: String,
-        repo: String,
-        ghsaId: String
-    ) async throws -> [String: JSONValue] {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
-            config: config,
-            owner: owner,
-            repo: repo,
-            ghsaId: ghsaId
-        )
+    /// If you want a CVE identification number for the security vulnerability in your project, and don't already have one, you can request a CVE identification number from GitHub. For more information see "[Requesting a CVE identification number](https://docs.github.com/code-security/security-advisories/repository-security-advisories/publishing-a-repository-security-advisory#requesting-a-cve-identification-number-optional)." You may request a CVE for public repositories, but cannot do so for private repositories. In order to request a CVE for a repository security advisory, the authenticated user must be a security manager or administrator of that repository. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+    public func createRepositoryAdvisoryCveRequest(owner: String, repo: String, ghsaId: String) async throws -> [String: JSONValue] {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesCreateRepositoryAdvisoryCveRequest(config: config, owner: owner, repo: repo, ghsaId: ghsaId)
     }
 
-    /// Create a temporary private fork
+/// Create a temporary private fork
     ///
-    /// Create a temporary private fork to collaborate on fixing a security vulnerability in your repository. > [!NOTE]
-    /// > Forking a repository happens asynchronously. You may have to wait up to 5 minutes before you can access the
-    /// fork.
-    func createFork(owner: String, repo: String, ghsaId: String) async throws -> FullRepository {
-        try await SecurityAdvisoriesMethods.securityAdvisoriesCreateFork(
-            config: config,
-            owner: owner,
-            repo: repo,
-            ghsaId: ghsaId
-        )
+    /// Create a temporary private fork to collaborate on fixing a security vulnerability in your repository. > [!NOTE] > Forking a repository happens asynchronously. You may have to wait up to 5 minutes before you can access the fork.
+    public func createFork(owner: String, repo: String, ghsaId: String) async throws -> FullRepository {
+        return try await SecurityAdvisoriesMethods.securityAdvisoriesCreateFork(config: config, owner: owner, repo: repo, ghsaId: ghsaId)
     }
 }
 
@@ -200,83 +120,29 @@ public class AgentTasksNamespace {
         self.config = config
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for a specific
-    /// repository **Fine-grained access tokens for "List tasks for repository"** This endpoint works with the following
-    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
-    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
-    /// GitHub App installation access tokens are not supported for this endpoint.
-    public func listTasksForRepo(options: AgentTasksMethods
-        .AgentTasksListTasksForRepoOptions) async throws -> AgentTasksListTasksForRepoResponse {
-        try await AgentTasksMethods.agentTasksListTasksForRepo(config: config, options: options)
+/// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for a specific repository **Fine-grained access tokens for "List tasks for repository"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+    public func listTasksForRepo(options: AgentTasksMethods.AgentTasksListTasksForRepoOptions) async throws -> AgentTasksListTasksForRepoResponse {
+        return try await AgentTasksMethods.agentTasksListTasksForRepo(config: config, options: options)
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Starts a new Copilot cloud agent task
-    /// for a repository. This endpoint is only available to users with a Copilot Business or Copilot Enterprise
-    /// subscription. **Fine-grained access tokens for "Start a task"** This endpoint works with the following
-    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
-    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read and
-    /// write) GitHub App installation access tokens are not supported for this endpoint.
-    public func createTaskInRepo(options: AgentTasksMethods
-        .AgentTasksCreateTaskInRepoOptions) async throws -> AgentTasksCreateTaskInRepoResponse {
-        try await AgentTasksMethods.agentTasksCreateTaskInRepo(config: config, options: options)
+/// > [!NOTE] > This endpoint is in public preview and is subject to change. Starts a new Copilot cloud agent task for a repository. This endpoint is only available to users with a Copilot Business or Copilot Enterprise subscription. **Fine-grained access tokens for "Start a task"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read and write) GitHub App installation access tokens are not supported for this endpoint.
+    public func createTaskInRepo(options: AgentTasksMethods.AgentTasksCreateTaskInRepoOptions) async throws -> AgentTasksCreateTaskInRepoResponse {
+        return try await AgentTasksMethods.agentTasksCreateTaskInRepo(config: config, options: options)
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID scoped to an
-    /// owner/repo path **Fine-grained access tokens for "Get a task by repo"** This endpoint works with the following
-    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
-    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
-    /// GitHub App installation access tokens are not supported for this endpoint.
-    public func getTaskByRepoAndId(
-        owner: String,
-        repo: String,
-        taskId: String
-    ) async throws -> AgentTasksGetTaskByRepoAndIdResponse {
-        try await AgentTasksMethods.agentTasksGetTaskByRepoAndId(
-            config: config,
-            owner: owner,
-            repo: repo,
-            taskId: taskId
-        )
+/// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID scoped to an owner/repo path **Fine-grained access tokens for "Get a task by repo"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+    public func getTaskByRepoAndId(owner: String, repo: String, taskId: String) async throws -> AgentTasksGetTaskByRepoAndIdResponse {
+        return try await AgentTasksMethods.agentTasksGetTaskByRepoAndId(config: config, owner: owner, repo: repo, taskId: taskId)
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for the
-    /// authenticated user **Fine-grained access tokens for "List tasks"** This endpoint works with the following
-    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
-    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
-    /// GitHub App installation access tokens are not supported for this endpoint.
-    public func listTasks(
-        perPage: Int?,
-        page: Int?,
-        sort: AgentTasksListTasksParameter?,
-        direction: AgentTasksListTasksParameterX8d1144b0?,
-        state: String?,
-        isArchived: Bool?,
-        since: Date?
-    ) async throws -> AgentTasksListTasksResponse {
-        try await AgentTasksMethods.agentTasksListTasks(
-            config: config,
-            perPage: perPage,
-            page: page,
-            sort: sort,
-            direction: direction,
-            state: state,
-            isArchived: isArchived,
-            since: since
-        )
+/// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for the authenticated user **Fine-grained access tokens for "List tasks"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+    public func listTasks(perPage: Int?, page: Int?, sort: AgentTasksListTasksParameter?, direction: AgentTasksListTasksParameterX8d1144b0?, state: String?, isArchived: Bool?, since: Date?) async throws -> AgentTasksListTasksResponse {
+        return try await AgentTasksMethods.agentTasksListTasks(config: config, perPage: perPage, page: page, sort: sort, direction: direction, state: state, isArchived: isArchived, since: since)
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID with its
-    /// associated sessions **Fine-grained access tokens for "Get a task by ID"** This endpoint works with the following
-    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
-    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
-    /// GitHub App installation access tokens are not supported for this endpoint.
+/// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID with its associated sessions **Fine-grained access tokens for "Get a task by ID"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
     public func getTaskById(taskId: String) async throws -> AgentTasksGetTaskByIdResponse {
-        try await AgentTasksMethods.agentTasksGetTaskById(config: config, taskId: taskId)
+        return try await AgentTasksMethods.agentTasksGetTaskById(config: config, taskId: taskId)
     }
 }
 
@@ -286,98 +152,51 @@ public class AppsNamespace {
         self.config = config
     }
 
-    /// Returns the GitHub App associated with the authentication credentials used. To see how many app installations
-    /// are associated with this GitHub App, see the `installations_count` in the response. For more details about your
-    /// app's installations, see the "[List installations for the authenticated
-    /// app](https://docs.github.com/rest/apps/apps#list-installations-for-the-authenticated-app)" endpoint. You must
-    /// use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+/// Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/apps/apps#list-installations-for-the-authenticated-app)" endpoint. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     public func getAuthenticated() async throws -> Integration {
-        try await AppsMethods.appsGetAuthenticated(config: config)
+        return try await AppsMethods.appsGetAuthenticated(config: config)
     }
 
-    /// Creates a GitHub App from a temporary manifest-flow code. Use `code` to complete the manifest handshake and
-    /// retrieve the app's identifiers, credentials, private key, and webhook secret. A 201 response returns the created
-    /// GitHub App and its generated credentials.
+/// Creates a GitHub App from a temporary manifest-flow code. Use `code` to complete the manifest handshake and retrieve the app's identifiers, credentials, private key, and webhook secret. A 201 response returns the created GitHub App and its generated credentials.
     ///
-    /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest
-    /// flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create
-    /// a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`,
-    /// `pem` (private key), and `webhook_secret`.
+    /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`, `pem` (private key), and `webhook_secret`.
     public func createFromManifest(code: String) async throws -> AppsCreateFromManifestResponse {
-        try await AppsMethods.appsCreateFromManifest(config: config, code: code)
+        return try await AppsMethods.appsCreateFromManifest(config: config, code: code)
     }
 
-    /// Returns the webhook configuration for a GitHub App. For more information about configuring a webhook for your
-    /// app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+/// Returns the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     public func getWebhookConfigForApp() async throws -> WebhookConfig {
-        try await AppsMethods.appsGetWebhookConfigForApp(config: config)
+        return try await AppsMethods.appsGetWebhookConfigForApp(config: config)
     }
 
-    /// Updates the webhook configuration for a GitHub App. Supply the delivery `url` and optionally set the payload
-    /// `content_type`, signing `secret`, or SSL verification behaviour with `insecure_ssl`.
+/// Updates the webhook configuration for a GitHub App. Supply the delivery `url` and optionally set the payload `content_type`, signing `secret`, or SSL verification behaviour with `insecure_ssl`.
     ///
-    /// Updates the webhook configuration for a GitHub App. For more information about configuring a webhook for your
-    /// app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
-    public func updateWebhookConfigForApp(
-        url: WebhookConfigUrl?,
-        contentType: WebhookConfigContentType?,
-        secret: WebhookConfigSecret?,
-        insecureSsl: WebhookConfigInsecureSsl?
-    ) async throws -> WebhookConfig {
-        try await AppsMethods.appsUpdateWebhookConfigForApp(
-            config: config,
-            url: url,
-            contentType: contentType,
-            secret: secret,
-            insecureSsl: insecureSsl
-        )
+    /// Updates the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+    public func updateWebhookConfigForApp(url: WebhookConfigUrl?, contentType: WebhookConfigContentType?, secret: WebhookConfigSecret?, insecureSsl: WebhookConfigInsecureSsl?) async throws -> WebhookConfig {
+        return try await AppsMethods.appsUpdateWebhookConfigForApp(config: config, url: url, contentType: contentType, secret: secret, insecureSsl: insecureSsl)
     }
 
-    /// Returns a list of webhook deliveries for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
-    public func listWebhookDeliveries(
-        perPage: Int?,
-        cursor: String?,
-        status: AppsListWebhookDeliveriesParameter?
-    ) async throws -> [HookDeliveryItem] {
-        try await AppsMethods.appsListWebhookDeliveries(
-            config: config,
-            perPage: perPage,
-            cursor: cursor,
-            status: status
-        )
+/// Returns a list of webhook deliveries for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+    public func listWebhookDeliveries(perPage: Int?, cursor: String?, status: AppsListWebhookDeliveriesParameter?) async throws -> [HookDeliveryItem] {
+        return try await AppsMethods.appsListWebhookDeliveries(config: config, perPage: perPage, cursor: cursor, status: status)
     }
 
-    /// Retrieves a delivery made by a webhook configured for a GitHub App. Use `delivery_id` to identify the delivery
-    /// and inspect its event, delivery status, request, and response details.
+/// Retrieves a delivery made by a webhook configured for a GitHub App. Use `delivery_id` to identify the delivery and inspect its event, delivery status, request, and response details.
     ///
-    /// Returns a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+    /// Returns a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     public func getWebhookDelivery(deliveryId: Int) async throws -> HookDelivery {
-        try await AppsMethods.appsGetWebhookDelivery(config: config, deliveryId: deliveryId)
+        return try await AppsMethods.appsGetWebhookDelivery(config: config, deliveryId: deliveryId)
     }
 
-    /// Triggers a redelivery attempt for a webhook delivery configured for a GitHub App. Supply `delivery_id` to
-    /// identify the delivery, and use the accepted response to confirm that the redelivery request was queued.
+/// Triggers a redelivery attempt for a webhook delivery configured for a GitHub App. Supply `delivery_id` to identify the delivery, and use the accepted response to confirm that the redelivery request was queued.
     ///
-    /// Redeliver a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+    /// Redeliver a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     public func redeliverWebhookDelivery(deliveryId: Int) async throws -> [String: JSONValue] {
-        try await AppsMethods.appsRedeliverWebhookDelivery(config: config, deliveryId: deliveryId)
+        return try await AppsMethods.appsRedeliverWebhookDelivery(config: config, deliveryId: deliveryId)
     }
 
-    /// Lists all the pending installation requests for the authenticated GitHub App.
-    public func listInstallationRequestsForAuthenticatedApp(
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IntegrationInstallationRequest] {
-        try await AppsMethods.appsListInstallationRequestsForAuthenticatedApp(
-            config: config,
-            perPage: perPage,
-            page: page
-        )
+/// Lists all the pending installation requests for the authenticated GitHub App.
+    public func listInstallationRequestsForAuthenticatedApp(perPage: Int?, page: Int?) async throws -> [IntegrationInstallationRequest] {
+        return try await AppsMethods.appsListInstallationRequestsForAuthenticatedApp(config: config, perPage: perPage, page: page)
     }
 }

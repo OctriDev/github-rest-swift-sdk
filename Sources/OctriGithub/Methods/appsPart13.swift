@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Lists all plans that are part of your GitHub Marketplace listing. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication)
-    /// with their client ID and client secret to access this endpoint.
+extension AppsMethods {
+    /// Lists all plans that are part of your GitHub Marketplace listing. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication) with their client ID and client secret to access this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -20,12 +18,8 @@ public extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func appsListPlansStubbed(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MarketplaceListingPlan] {
-        try await (sdkRequest("GET", "/marketplace_listing/stubbed/plans", config: config, query: [
+    public static func appsListPlansStubbed(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [MarketplaceListingPlan] {
+        return try (await sdkRequest("GET", "/marketplace_listing/stubbed/plans", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "appsListPlansStubbed")).data

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Retrieves a status for a specific deployment in a repository. Use `owner`, `repo`, `deployment_id`, and
-    /// `status_id` to identify the deployment status. The response includes the status state, associated environment,
-    /// URLs, creator, and timestamps.
+extension ReposMethods {
+    /// Retrieves a status for a specific deployment in a repository. Use `owner`, `repo`, `deployment_id`, and `status_id` to identify the deployment status. The response includes the status state, associated environment, URLs, creator, and timestamps.
     ///
     /// Users with pull access can view a deployment status for a deployment:
     ///
@@ -19,28 +17,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - deploymentId: deployment_id parameter
-    static func reposGetDeploymentStatus(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        deploymentId: Int,
-        statusId: Int
-    ) async throws -> DeploymentStatus {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/deployments/",
-                sdkEncodePathSegment(sdkWireString(deploymentId)),
-                "/statuses/",
-                sdkEncodePathSegment(sdkWireString(statusId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetDeploymentStatus"
-        )).data
+    public static func reposGetDeploymentStatus(config: ClientConfig, owner: String, repo: String, deploymentId: Int, statusId: Int) async throws -> DeploymentStatus {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/deployments/", sdkEncodePathSegment(sdkWireString(deploymentId)), "/statuses/", sdkEncodePathSegment(sdkWireString(statusId))].joined(), config: config, decoder: .json, operationId: "reposGetDeploymentStatus")).data
     }
 }

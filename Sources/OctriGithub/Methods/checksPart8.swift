@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ChecksMethods {
-    struct ChecksListForSuiteOptions: Codable {
+extension ChecksMethods {
+    public struct ChecksListForSuiteOptions: Codable {
         public var owner: String
         public var repo: String
         public var checkSuiteId: Int
@@ -24,10 +24,7 @@ public extension ChecksMethods {
         }
     }
 
-    /// Lists check runs for a check suite using its `id`. > [!NOTE] > The endpoints to manage checks only look for
-    /// pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked
-    /// repository are not detected and return an empty `pull_requests` array. OAuth app tokens and personal access
-    /// tokens (classic) need the `repo` scope to use this endpoint on a private repository.
+    /// Lists check runs for a check suite using its `id`. > [!NOTE] > The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -47,31 +44,13 @@ public extension ChecksMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func checksListForSuite(
-        config: ClientConfig,
-        options: ChecksListForSuiteOptions
-    ) async throws -> ChecksListForSuiteResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/check-suites/",
-                sdkEncodePathSegment(sdkWireString(options.checkSuiteId)),
-                "/check-runs",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("check_name", value: options.checkName),
-                SdkQueryParameter("status", value: options.status),
-                SdkQueryParameter("filter", value: options.filter),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("page", value: options.page),
-            ],
-            decoder: .json,
-            operationId: "checksListForSuite"
-        )).data
+    public static func checksListForSuite(config: ClientConfig, options: ChecksListForSuiteOptions) async throws -> ChecksListForSuiteResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/check-suites/", sdkEncodePathSegment(sdkWireString(options.checkSuiteId)), "/check-runs"].joined(), config: config, query: [
+            SdkQueryParameter("check_name", value: options.checkName),
+            SdkQueryParameter("status", value: options.status),
+            SdkQueryParameter("filter", value: options.filter),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("page", value: options.page),
+        ], decoder: .json, operationId: "checksListForSuite")).data
     }
 }

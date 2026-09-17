@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ActionsNullable domain models
+// ActionsNullable domain models
 /// Provides details of a hosted runner image
 public struct NullableActionsHostedRunnerPoolImage: Codable {
     /// The ID of the image. Use this ID for the `image` parameter when creating a new larger runner.
@@ -29,58 +29,34 @@ public struct NullableActionsHostedRunnerPoolImage: Codable {
         case version
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NullableActionsHostedRunnerPoolImage {
-    init(from decoder: Decoder) throws {
+extension NullableActionsHostedRunnerPoolImage {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.sizeGb) else {
-            throw SdkValidationError(
-                field: "size_gb",
-                code: "required",
-                message: "Validation failed for 'size_gb': value is required"
-            )
+            throw SdkValidationError(field: "size_gb", code: "required", message: "Validation failed for 'size_gb': value is required")
         }
         guard container.contains(.displayName) else {
-            throw SdkValidationError(
-                field: "display_name",
-                code: "required",
-                message: "Validation failed for 'display_name': value is required"
-            )
+            throw SdkValidationError(field: "display_name", code: "required", message: "Validation failed for 'display_name': value is required")
         }
         guard container.contains(.source) else {
-            throw SdkValidationError(
-                field: "source",
-                code: "required",
-                message: "Validation failed for 'source': value is required"
-            )
+            throw SdkValidationError(field: "source", code: "required", message: "Validation failed for 'source': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        sizeGb = try container.sdkDecodeRequired(.sizeGb)
-        displayName = try container.sdkDecodeRequired(.displayName)
-        source = try container.sdkDecodeRequired(.source)
-        version = try container.sdkDecodeIfPresent(.version)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.sizeGb = try container.sdkDecodeRequired(.sizeGb)
+        self.displayName = try container.sdkDecodeRequired(.displayName)
+        self.source = try container.sdkDecodeRequired(.source)
+        self.version = try container.sdkDecodeIfPresent(.version)
     }
 }
 
-public extension NullableActionsHostedRunnerPoolImage {
-    init(
-        id: String,
-        sizeGb: Int,
-        displayName: String,
-        source: NullableActionsHostedRunnerPoolImageSource,
-        version: String? = nil
-    ) {
+extension NullableActionsHostedRunnerPoolImage {
+    public init(id: String, sizeGb: Int, displayName: String, source: NullableActionsHostedRunnerPoolImageSource, version: String? = nil) {
         (self.id, self.sizeGb) = (id, sizeGb)
         (self.displayName, self.source) = (displayName, source)
         self.version = version
@@ -114,79 +90,46 @@ public struct NullableSimpleCommit: Codable {
         case committer
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NullableSimpleCommit {
-    init(from decoder: Decoder) throws {
+extension NullableSimpleCommit {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.treeId) else {
-            throw SdkValidationError(
-                field: "tree_id",
-                code: "required",
-                message: "Validation failed for 'tree_id': value is required"
-            )
+            throw SdkValidationError(field: "tree_id", code: "required", message: "Validation failed for 'tree_id': value is required")
         }
         guard container.contains(.message) else {
-            throw SdkValidationError(
-                field: "message",
-                code: "required",
-                message: "Validation failed for 'message': value is required"
-            )
+            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
         }
         guard container.contains(.timestamp) else {
-            throw SdkValidationError(
-                field: "timestamp",
-                code: "required",
-                message: "Validation failed for 'timestamp': value is required"
-            )
+            throw SdkValidationError(field: "timestamp", code: "required", message: "Validation failed for 'timestamp': value is required")
         }
         guard container.contains(.author) else {
-            throw SdkValidationError(
-                field: "author",
-                code: "required",
-                message: "Validation failed for 'author': value is required"
-            )
+            throw SdkValidationError(field: "author", code: "required", message: "Validation failed for 'author': value is required")
         }
         guard container.contains(.committer) else {
-            throw SdkValidationError(
-                field: "committer",
-                code: "required",
-                message: "Validation failed for 'committer': value is required"
-            )
+            throw SdkValidationError(field: "committer", code: "required", message: "Validation failed for 'committer': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        treeId = try container.sdkDecodeRequired(.treeId)
-        message = try container.sdkDecodeRequired(.message)
-        timestamp = try container.sdkDecodeRequired(.timestamp)
-        author = try container.sdkDecodeIfPresent(.author)
-        committer = try container.sdkDecodeIfPresent(.committer)
-        try sdkValidateDateTime("timestamp", sdkWireString(timestamp))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.treeId = try container.sdkDecodeRequired(.treeId)
+        self.message = try container.sdkDecodeRequired(.message)
+        self.timestamp = try container.sdkDecodeRequired(.timestamp)
+        self.author = try container.sdkDecodeIfPresent(.author)
+        self.committer = try container.sdkDecodeIfPresent(.committer)
+            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
     }
 }
 
-public extension NullableSimpleCommit {
-    init(
-        id: String,
-        treeId: String,
-        message: String,
-        timestamp: Date,
-        author: NullableSimpleCommitAuthor?,
-        committer: NullableSimpleCommitCommitter?
-    ) throws {
+extension NullableSimpleCommit {
+    public init(id: String, treeId: String, message: String, timestamp: Date, author: NullableSimpleCommitAuthor?, committer: NullableSimpleCommitCommitter?) throws {
         (self.id, self.treeId) = (id, treeId)
         (self.message, self.timestamp) = (message, timestamp)
         (self.author, self.committer) = (author, committer)
-        try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
+            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
     }
 }
 
@@ -204,38 +147,28 @@ public struct NullableSimpleCommitAuthor: Codable {
         case email
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NullableSimpleCommitAuthor {
-    init(from decoder: Decoder) throws {
+extension NullableSimpleCommitAuthor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        email = try container.sdkDecodeRequired(.email)
-        try sdkValidateEmail("email", email)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.email = try container.sdkDecodeRequired(.email)
+            try sdkValidateEmail("email", self.email)
     }
 }
 
-public extension NullableSimpleCommitAuthor {
-    init(name: String, email: String) throws {
+extension NullableSimpleCommitAuthor {
+    public init(name: String, email: String) throws {
         (self.name, self.email) = (name, email)
-        try sdkValidateEmail("email", self.email)
+            try sdkValidateEmail("email", self.email)
     }
 }
 
@@ -253,57 +186,43 @@ public struct NullableSimpleCommitCommitter: Codable {
         case email
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NullableSimpleCommitCommitter {
-    init(from decoder: Decoder) throws {
+extension NullableSimpleCommitCommitter {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        email = try container.sdkDecodeRequired(.email)
-        try sdkValidateEmail("email", email)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.email = try container.sdkDecodeRequired(.email)
+            try sdkValidateEmail("email", self.email)
     }
 }
 
-public extension NullableSimpleCommitCommitter {
-    init(name: String, email: String) throws {
+extension NullableSimpleCommitCommitter {
+    public init(name: String, email: String) throws {
         (self.name, self.email) = (name, email)
-        try sdkValidateEmail("email", self.email)
+            try sdkValidateEmail("email", self.email)
     }
 }
 
 /// The image provider.
-public struct NullableActionsHostedRunnerPoolImageSource: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableActionsHostedRunnerPoolImageSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let github = NullableActionsHostedRunnerPoolImageSource(rawValue: "github")
     public static let partner = NullableActionsHostedRunnerPoolImageSource(rawValue: "partner")
     public static let custom = NullableActionsHostedRunnerPoolImageSource(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

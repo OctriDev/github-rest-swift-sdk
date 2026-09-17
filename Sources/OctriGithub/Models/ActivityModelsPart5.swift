@@ -3,15 +3,9 @@
 
 import Foundation
 
-/// Activity domain models
+// Activity domain models
 extension ForkEventForkee {
-    mutating func sdkSet15(
-        _ openIssuesCount: Int?,
-        _ license: NullableLicenseSimple?,
-        _ allowForking: Bool?,
-        _ isTemplate: Bool?,
-        _ webCommitSignoffRequired: Bool?
-    ) {
+    mutating func sdkSet15(_ openIssuesCount: Int?, _ license: NullableLicenseSimple?, _ allowForking: Bool?, _ isTemplate: Bool?, _ webCommitSignoffRequired: Bool?) {
         self.openIssuesCount = openIssuesCount
         self.license = license
         self.allowForking = allowForking
@@ -21,13 +15,7 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet16(
-        _ topics: [String]?,
-        _ visibility: String?,
-        _ forks: Int?,
-        _ openIssues: Int?,
-        _ watchers: Int?
-    ) {
+    mutating func sdkSet16(_ topics: [String]?, _ visibility: String?, _ forks: Int?, _ openIssues: Int?, _ watchers: Int?) {
         self.topics = topics
         self.visibility = visibility
         self.forks = forks
@@ -37,126 +25,126 @@ extension ForkEventForkee {
 }
 
 extension ForkEventForkee {
-    mutating func sdkSet17(_ defaultBranch: String?, _ public: Bool?) {
+    mutating func sdkSet17(_ defaultBranch: String?, _ `public`: Bool?) {
         self.defaultBranch = defaultBranch
-        self.public = `public`
+        self.`public` = `public`
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        id = try container.sdkDecodeIfPresent(.id)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        name = try container.sdkDecodeIfPresent(.name)
-        fullName = try container.sdkDecodeIfPresent(.fullName)
-        self.private = try container.sdkDecodeIfPresent(.private)
-        owner = try container.sdkDecodeIfPresent(.owner)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        description = try container.sdkDecodeIfPresent(.description)
-        fork = try container.sdkDecodeIfPresent(.fork)
-        url = try container.sdkDecodeIfPresent(.url)
-        forksUrl = try container.sdkDecodeIfPresent(.forksUrl)
-        keysUrl = try container.sdkDecodeIfPresent(.keysUrl)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.fullName = try container.sdkDecodeIfPresent(.fullName)
+        self.`private` = try container.sdkDecodeIfPresent(.`private`)
+        self.owner = try container.sdkDecodeIfPresent(.owner)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.fork = try container.sdkDecodeIfPresent(.fork)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.forksUrl = try container.sdkDecodeIfPresent(.forksUrl)
+        self.keysUrl = try container.sdkDecodeIfPresent(.keysUrl)
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        collaboratorsUrl = try container.sdkDecodeIfPresent(.collaboratorsUrl)
-        teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
-        hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
-        issueEventsUrl = try container.sdkDecodeIfPresent(.issueEventsUrl)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        assigneesUrl = try container.sdkDecodeIfPresent(.assigneesUrl)
-        branchesUrl = try container.sdkDecodeIfPresent(.branchesUrl)
-        tagsUrl = try container.sdkDecodeIfPresent(.tagsUrl)
-        blobsUrl = try container.sdkDecodeIfPresent(.blobsUrl)
-        gitTagsUrl = try container.sdkDecodeIfPresent(.gitTagsUrl)
-        gitRefsUrl = try container.sdkDecodeIfPresent(.gitRefsUrl)
-        treesUrl = try container.sdkDecodeIfPresent(.treesUrl)
+        self.collaboratorsUrl = try container.sdkDecodeIfPresent(.collaboratorsUrl)
+        self.teamsUrl = try container.sdkDecodeIfPresent(.teamsUrl)
+        self.hooksUrl = try container.sdkDecodeIfPresent(.hooksUrl)
+        self.issueEventsUrl = try container.sdkDecodeIfPresent(.issueEventsUrl)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.assigneesUrl = try container.sdkDecodeIfPresent(.assigneesUrl)
+        self.branchesUrl = try container.sdkDecodeIfPresent(.branchesUrl)
+        self.tagsUrl = try container.sdkDecodeIfPresent(.tagsUrl)
+        self.blobsUrl = try container.sdkDecodeIfPresent(.blobsUrl)
+        self.gitTagsUrl = try container.sdkDecodeIfPresent(.gitTagsUrl)
+        self.gitRefsUrl = try container.sdkDecodeIfPresent(.gitRefsUrl)
+        self.treesUrl = try container.sdkDecodeIfPresent(.treesUrl)
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        statusesUrl = try container.sdkDecodeIfPresent(.statusesUrl)
-        languagesUrl = try container.sdkDecodeIfPresent(.languagesUrl)
-        stargazersUrl = try container.sdkDecodeIfPresent(.stargazersUrl)
-        contributorsUrl = try container.sdkDecodeIfPresent(.contributorsUrl)
-        subscribersUrl = try container.sdkDecodeIfPresent(.subscribersUrl)
-        subscriptionUrl = try container.sdkDecodeIfPresent(.subscriptionUrl)
-        commitsUrl = try container.sdkDecodeIfPresent(.commitsUrl)
-        gitCommitsUrl = try container.sdkDecodeIfPresent(.gitCommitsUrl)
-        commentsUrl = try container.sdkDecodeIfPresent(.commentsUrl)
-        issueCommentUrl = try container.sdkDecodeIfPresent(.issueCommentUrl)
-        contentsUrl = try container.sdkDecodeIfPresent(.contentsUrl)
-        compareUrl = try container.sdkDecodeIfPresent(.compareUrl)
+        self.statusesUrl = try container.sdkDecodeIfPresent(.statusesUrl)
+        self.languagesUrl = try container.sdkDecodeIfPresent(.languagesUrl)
+        self.stargazersUrl = try container.sdkDecodeIfPresent(.stargazersUrl)
+        self.contributorsUrl = try container.sdkDecodeIfPresent(.contributorsUrl)
+        self.subscribersUrl = try container.sdkDecodeIfPresent(.subscribersUrl)
+        self.subscriptionUrl = try container.sdkDecodeIfPresent(.subscriptionUrl)
+        self.commitsUrl = try container.sdkDecodeIfPresent(.commitsUrl)
+        self.gitCommitsUrl = try container.sdkDecodeIfPresent(.gitCommitsUrl)
+        self.commentsUrl = try container.sdkDecodeIfPresent(.commentsUrl)
+        self.issueCommentUrl = try container.sdkDecodeIfPresent(.issueCommentUrl)
+        self.contentsUrl = try container.sdkDecodeIfPresent(.contentsUrl)
+        self.compareUrl = try container.sdkDecodeIfPresent(.compareUrl)
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart4(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        mergesUrl = try container.sdkDecodeIfPresent(.mergesUrl)
-        archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
-        downloadsUrl = try container.sdkDecodeIfPresent(.downloadsUrl)
-        issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
-        pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
-        milestonesUrl = try container.sdkDecodeIfPresent(.milestonesUrl)
-        notificationsUrl = try container.sdkDecodeIfPresent(.notificationsUrl)
-        labelsUrl = try container.sdkDecodeIfPresent(.labelsUrl)
-        releasesUrl = try container.sdkDecodeIfPresent(.releasesUrl)
-        deploymentsUrl = try container.sdkDecodeIfPresent(.deploymentsUrl)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.mergesUrl = try container.sdkDecodeIfPresent(.mergesUrl)
+        self.archiveUrl = try container.sdkDecodeIfPresent(.archiveUrl)
+        self.downloadsUrl = try container.sdkDecodeIfPresent(.downloadsUrl)
+        self.issuesUrl = try container.sdkDecodeIfPresent(.issuesUrl)
+        self.pullsUrl = try container.sdkDecodeIfPresent(.pullsUrl)
+        self.milestonesUrl = try container.sdkDecodeIfPresent(.milestonesUrl)
+        self.notificationsUrl = try container.sdkDecodeIfPresent(.notificationsUrl)
+        self.labelsUrl = try container.sdkDecodeIfPresent(.labelsUrl)
+        self.releasesUrl = try container.sdkDecodeIfPresent(.releasesUrl)
+        self.deploymentsUrl = try container.sdkDecodeIfPresent(.deploymentsUrl)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart5(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
-        gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
-        sshUrl = try container.sdkDecodeIfPresent(.sshUrl)
-        cloneUrl = try container.sdkDecodeIfPresent(.cloneUrl)
-        svnUrl = try container.sdkDecodeIfPresent(.svnUrl)
-        homepage = try container.sdkDecodeIfPresent(.homepage)
-        size = try container.sdkDecodeIfPresent(.size)
-        stargazersCount = try container.sdkDecodeIfPresent(.stargazersCount)
-        watchersCount = try container.sdkDecodeIfPresent(.watchersCount)
-        language = try container.sdkDecodeIfPresent(.language)
-        hasIssues = try container.sdkDecodeIfPresent(.hasIssues)
-        hasProjects = try container.sdkDecodeIfPresent(.hasProjects)
+        self.pushedAt = try container.sdkDecodeIfPresent(.pushedAt)
+        self.gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
+        self.sshUrl = try container.sdkDecodeIfPresent(.sshUrl)
+        self.cloneUrl = try container.sdkDecodeIfPresent(.cloneUrl)
+        self.svnUrl = try container.sdkDecodeIfPresent(.svnUrl)
+        self.homepage = try container.sdkDecodeIfPresent(.homepage)
+        self.size = try container.sdkDecodeIfPresent(.size)
+        self.stargazersCount = try container.sdkDecodeIfPresent(.stargazersCount)
+        self.watchersCount = try container.sdkDecodeIfPresent(.watchersCount)
+        self.language = try container.sdkDecodeIfPresent(.language)
+        self.hasIssues = try container.sdkDecodeIfPresent(.hasIssues)
+        self.hasProjects = try container.sdkDecodeIfPresent(.hasProjects)
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart6(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        hasDownloads = try container.sdkDecodeIfPresent(.hasDownloads)
-        hasWiki = try container.sdkDecodeIfPresent(.hasWiki)
-        hasPages = try container.sdkDecodeIfPresent(.hasPages)
-        hasDiscussions = try container.sdkDecodeIfPresent(.hasDiscussions)
-        hasPullRequests = try container.sdkDecodeIfPresent(.hasPullRequests)
-        pullRequestCreationPolicy = try container.sdkDecodeIfPresent(.pullRequestCreationPolicy)
-        forksCount = try container.sdkDecodeIfPresent(.forksCount)
-        mirrorUrl = try container.sdkDecodeIfPresent(.mirrorUrl)
-        archived = try container.sdkDecodeIfPresent(.archived)
-        disabled = try container.sdkDecodeIfPresent(.disabled)
-        openIssuesCount = try container.sdkDecodeIfPresent(.openIssuesCount)
-        license = try container.sdkDecodeIfPresent(.license)
+        self.hasDownloads = try container.sdkDecodeIfPresent(.hasDownloads)
+        self.hasWiki = try container.sdkDecodeIfPresent(.hasWiki)
+        self.hasPages = try container.sdkDecodeIfPresent(.hasPages)
+        self.hasDiscussions = try container.sdkDecodeIfPresent(.hasDiscussions)
+        self.hasPullRequests = try container.sdkDecodeIfPresent(.hasPullRequests)
+        self.pullRequestCreationPolicy = try container.sdkDecodeIfPresent(.pullRequestCreationPolicy)
+        self.forksCount = try container.sdkDecodeIfPresent(.forksCount)
+        self.mirrorUrl = try container.sdkDecodeIfPresent(.mirrorUrl)
+        self.archived = try container.sdkDecodeIfPresent(.archived)
+        self.disabled = try container.sdkDecodeIfPresent(.disabled)
+        self.openIssuesCount = try container.sdkDecodeIfPresent(.openIssuesCount)
+        self.license = try container.sdkDecodeIfPresent(.license)
     }
 }
 
 extension ForkEventForkee {
     mutating func sdkDecodeFieldsPart7(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        allowForking = try container.sdkDecodeIfPresent(.allowForking)
-        isTemplate = try container.sdkDecodeIfPresent(.isTemplate)
-        webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
-        topics = try container.sdkDecodeIfPresent(.topics)
-        visibility = try container.sdkDecodeIfPresent(.visibility)
-        forks = try container.sdkDecodeIfPresent(.forks)
-        openIssues = try container.sdkDecodeIfPresent(.openIssues)
-        watchers = try container.sdkDecodeIfPresent(.watchers)
-        defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
-        self.public = try container.sdkDecodeIfPresent(.public)
+        self.allowForking = try container.sdkDecodeIfPresent(.allowForking)
+        self.isTemplate = try container.sdkDecodeIfPresent(.isTemplate)
+        self.webCommitSignoffRequired = try container.sdkDecodeIfPresent(.webCommitSignoffRequired)
+        self.topics = try container.sdkDecodeIfPresent(.topics)
+        self.visibility = try container.sdkDecodeIfPresent(.visibility)
+        self.forks = try container.sdkDecodeIfPresent(.forks)
+        self.openIssues = try container.sdkDecodeIfPresent(.openIssues)
+        self.watchers = try container.sdkDecodeIfPresent(.watchers)
+        self.defaultBranch = try container.sdkDecodeIfPresent(.defaultBranch)
+        self.`public` = try container.sdkDecodeIfPresent(.`public`)
     }
 }
 
@@ -169,27 +157,21 @@ public struct GollumEvent: Codable {
         case pages
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension GollumEvent {
-    init(from decoder: Decoder) throws {
+extension GollumEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.pages) else {
-            throw SdkValidationError(
-                field: "pages",
-                code: "required",
-                message: "Validation failed for 'pages': value is required"
-            )
+            throw SdkValidationError(field: "pages", code: "required", message: "Validation failed for 'pages': value is required")
         }
-        pages = try container.sdkDecodeRequired(.pages)
+        self.pages = try container.sdkDecodeRequired(.pages)
     }
 }
 
-public extension GollumEvent {
-    init(pages: [GollumEventPagesItem]) {
+extension GollumEvent {
+    public init(pages: [GollumEventPagesItem]) {
         self.pages = pages
     }
 }
@@ -219,32 +201,25 @@ public struct GollumEventPagesItem: Codable {
     }
 
     init() {
-        (pageName, title, summary, action, sha) = (nil, nil, nil, nil, nil)
-        htmlUrl = nil
+        (self.pageName, self.title, self.summary, self.action, self.sha) = (nil, nil, nil, nil, nil)
+        self.htmlUrl = nil
     }
 }
 
-public extension GollumEventPagesItem {
-    init(from decoder: Decoder) throws {
+extension GollumEventPagesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        pageName = try container.sdkDecodeIfPresent(.pageName)
-        title = try container.sdkDecodeIfPresent(.title)
-        summary = try container.sdkDecodeIfPresent(.summary)
-        action = try container.sdkDecodeIfPresent(.action)
-        sha = try container.sdkDecodeIfPresent(.sha)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.pageName = try container.sdkDecodeIfPresent(.pageName)
+        self.title = try container.sdkDecodeIfPresent(.title)
+        self.summary = try container.sdkDecodeIfPresent(.summary)
+        self.action = try container.sdkDecodeIfPresent(.action)
+        self.sha = try container.sdkDecodeIfPresent(.sha)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
     }
 }
 
-public extension GollumEventPagesItem {
-    init(
-        pageName: String? = nil,
-        title: String? = nil,
-        summary: String? = nil,
-        action: String? = nil,
-        sha: String? = nil,
-        htmlUrl: String? = nil
-    ) {
+extension GollumEventPagesItem {
+    public init(pageName: String? = nil, title: String? = nil, summary: String? = nil, action: String? = nil, sha: String? = nil, htmlUrl: String? = nil) {
         self.init()
         (self.pageName, self.title) = (pageName, title)
         (self.summary, self.action) = (summary, action)
@@ -267,43 +242,29 @@ public struct IssueCommentEvent: Codable {
         case comment
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueCommentEvent {
-    init(from decoder: Decoder) throws {
+extension IssueCommentEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.issue) else {
-            throw SdkValidationError(
-                field: "issue",
-                code: "required",
-                message: "Validation failed for 'issue': value is required"
-            )
+            throw SdkValidationError(field: "issue", code: "required", message: "Validation failed for 'issue': value is required")
         }
         guard container.contains(.comment) else {
-            throw SdkValidationError(
-                field: "comment",
-                code: "required",
-                message: "Validation failed for 'comment': value is required"
-            )
+            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        issue = try container.sdkDecodeRequired(.issue)
-        comment = try container.sdkDecodeRequired(.comment)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.issue = try container.sdkDecodeRequired(.issue)
+        self.comment = try container.sdkDecodeRequired(.comment)
     }
 }
 
-public extension IssueCommentEvent {
-    init(action: String, issue: Issue, comment: IssueComment) {
+extension IssueCommentEvent {
+    public init(action: String, issue: Issue, comment: IssueComment) {
         (self.action, self.issue) = (action, issue)
         self.comment = comment
     }
@@ -333,46 +294,29 @@ public struct IssuesEvent: Codable {
         case labels
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssuesEvent {
-    init(from decoder: Decoder) throws {
+extension IssuesEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.issue) else {
-            throw SdkValidationError(
-                field: "issue",
-                code: "required",
-                message: "Validation failed for 'issue': value is required"
-            )
+            throw SdkValidationError(field: "issue", code: "required", message: "Validation failed for 'issue': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        issue = try container.sdkDecodeRequired(.issue)
-        assignee = try container.sdkDecodeIfPresent(.assignee)
-        assignees = try container.sdkDecodeIfPresent(.assignees)
-        label = try container.sdkDecodeIfPresent(.label)
-        labels = try container.sdkDecodeIfPresent(.labels)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.issue = try container.sdkDecodeRequired(.issue)
+        self.assignee = try container.sdkDecodeIfPresent(.assignee)
+        self.assignees = try container.sdkDecodeIfPresent(.assignees)
+        self.label = try container.sdkDecodeIfPresent(.label)
+        self.labels = try container.sdkDecodeIfPresent(.labels)
     }
 }
 
-public extension IssuesEvent {
-    init(
-        action: String,
-        issue: Issue,
-        assignee: SimpleUser? = nil,
-        assignees: [SimpleUser]? = nil,
-        label: Label? = nil,
-        labels: [Label]? = nil
-    ) {
+extension IssuesEvent {
+    public init(action: String, issue: Issue, assignee: SimpleUser? = nil, assignees: [SimpleUser]? = nil, label: Label? = nil, labels: [Label]? = nil) {
         (self.action, self.issue) = (action, issue)
         (self.assignee, self.assignees) = (assignee, assignees)
         (self.label, self.labels) = (label, labels)
@@ -391,35 +335,25 @@ public struct LinkWithType: Codable {
         case type
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LinkWithType {
-    init(from decoder: Decoder) throws {
+extension LinkWithType {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
         guard container.contains(.type) else {
-            throw SdkValidationError(
-                field: "type",
-                code: "required",
-                message: "Validation failed for 'type': value is required"
-            )
+            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
-        type = try container.sdkDecodeRequired(.type)
+        self.href = try container.sdkDecodeRequired(.href)
+        self.type = try container.sdkDecodeRequired(.type)
     }
 }
 
-public extension LinkWithType {
-    init(href: String, type: String) {
+extension LinkWithType {
+    public init(href: String, type: String) {
         (self.href, self.type) = (href, type)
     }
 }
@@ -436,48 +370,38 @@ public struct MemberEvent: Codable {
         case member
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension MemberEvent {
-    init(from decoder: Decoder) throws {
+extension MemberEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.member) else {
-            throw SdkValidationError(
-                field: "member",
-                code: "required",
-                message: "Validation failed for 'member': value is required"
-            )
+            throw SdkValidationError(field: "member", code: "required", message: "Validation failed for 'member': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        member = try container.sdkDecodeRequired(.member)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.member = try container.sdkDecodeRequired(.member)
     }
 }
 
-public extension MemberEvent {
-    init(action: String, member: SimpleUser) {
+extension MemberEvent {
+    public init(action: String, member: SimpleUser) {
         (self.action, self.member) = (action, member)
     }
 }
 
 /// Typed representation of the `PublicEvent` API schema.
 public struct PublicEvent: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PublicEvent {
-    init() {}
+extension PublicEvent {
+    public init() {
+    }
 }
 
 /// Typed representation of the `PullRequestEvent` API schema.
@@ -507,55 +431,33 @@ public struct PullRequestEvent: Codable {
         case labels
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestEvent {
-    init(from decoder: Decoder) throws {
+extension PullRequestEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.number) else {
-            throw SdkValidationError(
-                field: "number",
-                code: "required",
-                message: "Validation failed for 'number': value is required"
-            )
+            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(
-                field: "pull_request",
-                code: "required",
-                message: "Validation failed for 'pull_request': value is required"
-            )
+            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        number = try container.sdkDecodeRequired(.number)
-        pullRequest = try container.sdkDecodeRequired(.pullRequest)
-        assignee = try container.sdkDecodeIfPresent(.assignee)
-        assignees = try container.sdkDecodeIfPresent(.assignees)
-        label = try container.sdkDecodeIfPresent(.label)
-        labels = try container.sdkDecodeIfPresent(.labels)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        self.assignee = try container.sdkDecodeIfPresent(.assignee)
+        self.assignees = try container.sdkDecodeIfPresent(.assignees)
+        self.label = try container.sdkDecodeIfPresent(.label)
+        self.labels = try container.sdkDecodeIfPresent(.labels)
     }
 }
 
-public extension PullRequestEvent {
-    init(
-        action: String,
-        number: Int,
-        pullRequest: PullRequestMinimal,
-        assignee: SimpleUser? = nil,
-        assignees: [SimpleUser]? = nil,
-        label: Label? = nil,
-        labels: [Label]? = nil
-    ) {
+extension PullRequestEvent {
+    public init(action: String, number: Int, pullRequest: PullRequestMinimal, assignee: SimpleUser? = nil, assignees: [SimpleUser]? = nil, label: Label? = nil, labels: [Label]? = nil) {
         (self.action, self.number) = (action, number)
         (self.pullRequest, self.assignee) = (pullRequest, assignee)
         (self.assignees, self.label) = (assignees, label)
@@ -578,43 +480,29 @@ public struct PullRequestReviewCommentEvent: Codable {
         case comment
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestReviewCommentEvent {
-    init(from decoder: Decoder) throws {
+extension PullRequestReviewCommentEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(
-                field: "pull_request",
-                code: "required",
-                message: "Validation failed for 'pull_request': value is required"
-            )
+            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
         }
         guard container.contains(.comment) else {
-            throw SdkValidationError(
-                field: "comment",
-                code: "required",
-                message: "Validation failed for 'comment': value is required"
-            )
+            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        pullRequest = try container.sdkDecodeRequired(.pullRequest)
-        comment = try container.sdkDecodeRequired(.comment)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        self.comment = try container.sdkDecodeRequired(.comment)
     }
 }
 
-public extension PullRequestReviewCommentEvent {
-    init(action: String, pullRequest: PullRequestMinimal, comment: PullRequestReviewCommentEventComment) {
+extension PullRequestReviewCommentEvent {
+    public init(action: String, pullRequest: PullRequestMinimal, comment: PullRequestReviewCommentEventComment) {
         (self.action, self.pullRequest) = (action, pullRequest)
         self.comment = comment
     }

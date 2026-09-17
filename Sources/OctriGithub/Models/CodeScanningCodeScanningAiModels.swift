@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// CodeScanningCodeScanningAi domain models
+// CodeScanningCodeScanningAi domain models
 /// AI Scan enablement for a repository.
 public struct CodeScanningAiScanEnablement: Codable {
     /// Whether AI Scan is enabled for the repository.
@@ -13,27 +13,21 @@ public struct CodeScanningAiScanEnablement: Codable {
         case prScan = "pr_scan"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningAiScanEnablement {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAiScanEnablement {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.prScan) else {
-            throw SdkValidationError(
-                field: "pr_scan",
-                code: "required",
-                message: "Validation failed for 'pr_scan': value is required"
-            )
+            throw SdkValidationError(field: "pr_scan", code: "required", message: "Validation failed for 'pr_scan': value is required")
         }
-        prScan = try container.sdkDecodeRequired(.prScan)
+        self.prScan = try container.sdkDecodeRequired(.prScan)
     }
 }
 
-public extension CodeScanningAiScanEnablement {
-    init(prScan: CodeScanningAiScanEnablementPrScan) {
+extension CodeScanningAiScanEnablement {
+    public init(prScan: CodeScanningAiScanEnablementPrScan) {
         self.prScan = prScan
     }
 }
@@ -48,19 +42,19 @@ public struct CodeScanningAiScanEnablementUpdate: Codable {
     }
 
     init() {
-        prScan = nil
+        self.prScan = nil
     }
 }
 
-public extension CodeScanningAiScanEnablementUpdate {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAiScanEnablementUpdate {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        prScan = try container.sdkDecodeIfPresent(.prScan)
+        self.prScan = try container.sdkDecodeIfPresent(.prScan)
     }
 }
 
-public extension CodeScanningAiScanEnablementUpdate {
-    init(prScan: CodeScanningAiScanEnablementUpdatePrScan? = nil) {
+extension CodeScanningAiScanEnablementUpdate {
+    public init(prScan: CodeScanningAiScanEnablementUpdatePrScan? = nil) {
         self.init()
         self.prScan = prScan
     }
@@ -79,19 +73,19 @@ public struct CodeScanningAiScanOrgEnablementUpdate: Codable {
     }
 
     init() {
-        prScan = nil
+        self.prScan = nil
     }
 }
 
-public extension CodeScanningAiScanOrgEnablementUpdate {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAiScanOrgEnablementUpdate {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        prScan = try container.sdkDecodeIfPresent(.prScan)
+        self.prScan = try container.sdkDecodeIfPresent(.prScan)
     }
 }
 
-public extension CodeScanningAiScanOrgEnablementUpdate {
-    init(prScan: CodeScanningAiScanOrgEnablementUpdatePrScan? = nil) {
+extension CodeScanningAiScanOrgEnablementUpdate {
+    public init(prScan: CodeScanningAiScanOrgEnablementUpdatePrScan? = nil) {
         self.init()
         self.prScan = prScan
     }
@@ -109,27 +103,21 @@ public struct CodeScanningAiScanOrgSettings: Codable {
         case prScan = "pr_scan"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningAiScanOrgSettings {
-    init(from decoder: Decoder) throws {
+extension CodeScanningAiScanOrgSettings {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.prScan) else {
-            throw SdkValidationError(
-                field: "pr_scan",
-                code: "required",
-                message: "Validation failed for 'pr_scan': value is required"
-            )
+            throw SdkValidationError(field: "pr_scan", code: "required", message: "Validation failed for 'pr_scan': value is required")
         }
-        prScan = try container.sdkDecodeRequired(.prScan)
+        self.prScan = try container.sdkDecodeRequired(.prScan)
     }
 }
 
-public extension CodeScanningAiScanOrgSettings {
-    init(prScan: CodeScanningAiScanOrgSettingsPrScan) {
+extension CodeScanningAiScanOrgSettings {
+    public init(prScan: CodeScanningAiScanOrgSettingsPrScan) {
         self.prScan = prScan
     }
 }
@@ -140,16 +128,13 @@ public extension CodeScanningAiScanOrgSettings {
 public struct CodeScanningAiScanOrgSettingsPrScan: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeScanningAiScanOrgSettingsPrScan(rawValue: "enabled")
     public static let disabled = CodeScanningAiScanOrgSettingsPrScan(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -159,20 +144,16 @@ public struct CodeScanningAiScanOrgSettingsPrScan: RawRepresentable, Hashable, C
 }
 
 /// Whether to enable or disable AI Scan for the repository.
-public struct CodeScanningAiScanEnablementUpdatePrScan: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningAiScanEnablementUpdatePrScan: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeScanningAiScanEnablementUpdatePrScan(rawValue: "enabled")
     public static let disabled = CodeScanningAiScanEnablementUpdatePrScan(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -185,16 +166,13 @@ public struct CodeScanningAiScanEnablementUpdatePrScan: RawRepresentable, Hashab
 public struct CodeScanningAiScanEnablementPrScan: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeScanningAiScanEnablementPrScan(rawValue: "enabled")
     public static let disabled = CodeScanningAiScanEnablementPrScan(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -206,20 +184,16 @@ public struct CodeScanningAiScanEnablementPrScan: RawRepresentable, Hashable, Co
 /// Whether AI Scan is enabled for the organization. Organization respects enterprise policy. Disabled
 /// organizations prevent repositories from enabling AI Scan. Enabled organizations enable AI Scan for their
 /// repositories, but individual repositories can opt out.
-public struct CodeScanningAiScanOrgEnablementUpdatePrScan: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningAiScanOrgEnablementUpdatePrScan: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeScanningAiScanOrgEnablementUpdatePrScan(rawValue: "enabled")
     public static let disabled = CodeScanningAiScanOrgEnablementUpdatePrScan(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

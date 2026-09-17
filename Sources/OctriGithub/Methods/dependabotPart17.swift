@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    /// Gets a single repository secret without revealing its encrypted value. OAuth app tokens and personal access
-    /// tokens (classic) need the `repo` scope to use this endpoint.
+extension DependabotMethods {
+    /// Gets a single repository secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,25 +15,7 @@ public extension DependabotMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - secretName: The name of the secret.
-    static func dependabotGetRepoSecret(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        secretName: String
-    ) async throws -> DependabotSecret {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/dependabot/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "dependabotGetRepoSecret"
-        )).data
+    public static func dependabotGetRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String) async throws -> DependabotSecret {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dependabot/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "dependabotGetRepoSecret")).data
     }
 }

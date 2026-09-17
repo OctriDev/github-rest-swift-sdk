@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension HostedComputeMethods {
-    /// Lists all hosted compute network configurations configured in an organization. OAuth app tokens and personal
-    /// access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
+extension HostedComputeMethods {
+    /// Lists all hosted compute network configurations configured in an organization. OAuth app tokens and personal access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,22 +19,10 @@ public extension HostedComputeMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func hostedComputeListNetworkConfigurationsForOrg(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> HostedComputeListNetworkConfigurationsForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-configurations"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "hostedComputeListNetworkConfigurationsForOrg"
-        )).data
+    public static func hostedComputeListNetworkConfigurationsForOrg(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> HostedComputeListNetworkConfigurationsForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-configurations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "hostedComputeListNetworkConfigurationsForOrg")).data
     }
 }

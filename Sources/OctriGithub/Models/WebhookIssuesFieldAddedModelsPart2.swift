@@ -3,16 +3,12 @@
 
 import Foundation
 
-/// WebhookIssuesFieldAdded domain models
+// WebhookIssuesFieldAdded domain models
 /// The data type of the issue field.
-public struct WebhookIssuesFieldAddedIssueFieldFieldType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookIssuesFieldAddedIssueFieldFieldType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let text = WebhookIssuesFieldAddedIssueFieldFieldType(rawValue: "text")
     public static let date = WebhookIssuesFieldAddedIssueFieldFieldType(rawValue: "date")
     public static let singleSelect = WebhookIssuesFieldAddedIssueFieldFieldType(rawValue: "single_select")
@@ -21,7 +17,7 @@ public struct WebhookIssuesFieldAddedIssueFieldFieldType: RawRepresentable, Hash
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

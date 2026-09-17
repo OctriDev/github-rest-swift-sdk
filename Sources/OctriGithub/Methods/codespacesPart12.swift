@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    struct CodespacesCreateWithRepoForAuthenticatedUserOptions: Codable {
+extension CodespacesMethods {
+    public struct CodespacesCreateWithRepoForAuthenticatedUserOptions: Codable {
         public var owner: String
         public var repo: String
         public var ref: String?
@@ -28,8 +28,7 @@ public extension CodespacesMethods {
         }
     }
 
-    /// Creates a codespace owned by the authenticated user in the specified repository. OAuth app tokens and personal
-    /// access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// Creates a codespace owned by the authenticated user in the specified repository. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -53,25 +52,9 @@ public extension CodespacesMethods {
     /// - retentionPeriodMinutes: Duration in minutes after codespace has gone idle
     ///   in which it will be deleted. Must be integer minutes between 0 and 43200 (30
     ///   days).
-    static func codespacesCreateWithRepoForAuthenticatedUser(
-        config: ClientConfig,
-        options: CodespacesCreateWithRepoForAuthenticatedUserOptions
-    ) async throws -> Codespace {
+    public static func codespacesCreateWithRepoForAuthenticatedUser(config: ClientConfig, options: CodespacesCreateWithRepoForAuthenticatedUserOptions) async throws -> Codespace {
         let requestBody = CodespacesCreateWithRepoForAuthenticatedUserRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/codespaces",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codespacesCreateWithRepoForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/codespaces"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codespacesCreateWithRepoForAuthenticatedUser")).data
     }
 }

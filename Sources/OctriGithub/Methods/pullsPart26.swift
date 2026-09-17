@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PullsMethods {
+extension PullsMethods {
     /// List pull request stacks
     ///
     /// Lists pull request stacks in a repository.
@@ -26,31 +26,11 @@ public extension PullsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func pullRequestStacksList(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        pullRequest: Int?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [PullRequestStackMinimal] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/stacks",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("pull_request", value: pullRequest),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "pullRequestStacksList"
-        )).data
+    public static func pullRequestStacksList(config: ClientConfig, owner: String, repo: String, pullRequest: Int?, perPage: Int?, page: Int?) async throws -> [PullRequestStackMinimal] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stacks"].joined(), config: config, query: [
+            SdkQueryParameter("pull_request", value: pullRequest),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "pullRequestStacksList")).data
     }
 }

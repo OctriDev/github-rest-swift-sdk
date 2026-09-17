@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookCustomPropertyValuesUpdated domain models
+// WebhookCustomPropertyValuesUpdated domain models
 /// Typed representation of the `WebhookCustomPropertyValuesUpdated` API schema.
 public struct WebhookCustomPropertyValuesUpdated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,71 +39,40 @@ public struct WebhookCustomPropertyValuesUpdated: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCustomPropertyValuesUpdated {
-    init(from decoder: Decoder) throws {
+extension WebhookCustomPropertyValuesUpdated {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.newPropertyValues) else {
-            throw SdkValidationError(
-                field: "new_property_values",
-                code: "required",
-                message: "Validation failed for 'new_property_values': value is required"
-            )
+            throw SdkValidationError(field: "new_property_values", code: "required", message: "Validation failed for 'new_property_values': value is required")
         }
         guard container.contains(.oldPropertyValues) else {
-            throw SdkValidationError(
-                field: "old_property_values",
-                code: "required",
-                message: "Validation failed for 'old_property_values': value is required"
-            )
+            throw SdkValidationError(field: "old_property_values", code: "required", message: "Validation failed for 'old_property_values': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        repository = try container.sdkDecodeRequired(.repository)
-        organization = try container.sdkDecodeRequired(.organization)
-        newPropertyValues = try container.sdkDecodeRequired(.newPropertyValues)
-        oldPropertyValues = try container.sdkDecodeRequired(.oldPropertyValues)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.newPropertyValues = try container.sdkDecodeRequired(.newPropertyValues)
+        self.oldPropertyValues = try container.sdkDecodeRequired(.oldPropertyValues)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookCustomPropertyValuesUpdated {
-    init(
-        action: WebhookCustomPropertyValuesUpdatedAction,
-        repository: RepositoryWebhooks,
-        organization: OrganizationSimpleWebhooks,
-        newPropertyValues: [CustomPropertyValue],
-        oldPropertyValues: [CustomPropertyValue],
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookCustomPropertyValuesUpdated {
+    public init(action: WebhookCustomPropertyValuesUpdatedAction, repository: RepositoryWebhooks, organization: OrganizationSimpleWebhooks, newPropertyValues: [CustomPropertyValue], oldPropertyValues: [CustomPropertyValue], enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, sender: SimpleUser? = nil) {
         (self.action, self.repository) = (action, repository)
         (self.organization, self.newPropertyValues) = (organization, newPropertyValues)
         (self.oldPropertyValues, self.enterprise) = (oldPropertyValues, enterprise)
@@ -112,19 +81,15 @@ public extension WebhookCustomPropertyValuesUpdated {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookCustomPropertyValuesUpdatedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCustomPropertyValuesUpdatedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let updated = WebhookCustomPropertyValuesUpdatedAction(rawValue: "updated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

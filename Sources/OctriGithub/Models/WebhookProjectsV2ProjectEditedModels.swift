@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookProjectsV2ProjectEdited domain models
+// WebhookProjectsV2ProjectEdited domain models
 /// Typed representation of the `WebhookProjectsV2ProjectEdited` API schema.
 public struct WebhookProjectsV2ProjectEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -30,67 +30,38 @@ public struct WebhookProjectsV2ProjectEdited: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectsV2ProjectEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ProjectEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.projectsV2) else {
-            throw SdkValidationError(
-                field: "projects_v2",
-                code: "required",
-                message: "Validation failed for 'projects_v2': value is required"
-            )
+            throw SdkValidationError(field: "projects_v2", code: "required", message: "Validation failed for 'projects_v2': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        organization = try container.sdkDecodeRequired(.organization)
-        projectsV2 = try container.sdkDecodeRequired(.projectsV2)
-        sender = try container.sdkDecodeRequired(.sender)
-        installation = try container.sdkDecodeIfPresent(.installation)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.projectsV2 = try container.sdkDecodeRequired(.projectsV2)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
     }
 }
 
-public extension WebhookProjectsV2ProjectEdited {
-    init(
-        action: WebhookProjectsV2ProjectEditedAction,
-        changes: WebhookProjectsV2ProjectEditedChanges,
-        organization: OrganizationSimpleWebhooks,
-        projectsV2: ProjectsV2,
-        sender: SimpleUser,
-        installation: SimpleInstallation? = nil
-    ) {
+extension WebhookProjectsV2ProjectEdited {
+    public init(action: WebhookProjectsV2ProjectEditedAction, changes: WebhookProjectsV2ProjectEditedChanges, organization: OrganizationSimpleWebhooks, projectsV2: ProjectsV2, sender: SimpleUser, installation: SimpleInstallation? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.organization, self.projectsV2) = (organization, projectsV2)
         (self.sender, self.installation) = (sender, installation)
@@ -116,29 +87,24 @@ public struct WebhookProjectsV2ProjectEditedChanges: Codable {
     }
 
     init() {
-        (description, self.public, shortDescription, title) = (nil, nil, nil, nil)
+        (self.description, self.`public`, self.shortDescription, self.title) = (nil, nil, nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ProjectEditedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        description = try container.sdkDecodeIfPresent(.description)
-        self.public = try container.sdkDecodeIfPresent(.public)
-        shortDescription = try container.sdkDecodeIfPresent(.shortDescription)
-        title = try container.sdkDecodeIfPresent(.title)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.`public` = try container.sdkDecodeIfPresent(.`public`)
+        self.shortDescription = try container.sdkDecodeIfPresent(.shortDescription)
+        self.title = try container.sdkDecodeIfPresent(.title)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChanges {
-    init(
-        description: WebhookProjectsV2ProjectEditedChangesDescription? = nil,
-        public: WebhookProjectsV2ProjectEditedChangesPublic? = nil,
-        shortDescription: WebhookProjectsV2ProjectEditedChangesShortDescription? = nil,
-        title: WebhookProjectsV2ProjectEditedChangesTitle? = nil
-    ) {
+extension WebhookProjectsV2ProjectEditedChanges {
+    public init(description: WebhookProjectsV2ProjectEditedChangesDescription? = nil, `public`: WebhookProjectsV2ProjectEditedChangesPublic? = nil, shortDescription: WebhookProjectsV2ProjectEditedChangesShortDescription? = nil, title: WebhookProjectsV2ProjectEditedChangesTitle? = nil) {
         self.init()
-        (self.description, self.public) = (description, `public`)
+        (self.description, self.`public`) = (description, `public`)
         (self.shortDescription, self.title) = (shortDescription, title)
     }
 }
@@ -156,20 +122,20 @@ public struct WebhookProjectsV2ProjectEditedChangesDescription: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesDescription {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ProjectEditedChangesDescription {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesDescription {
-    init(from: String? = nil, to: String? = nil) {
+extension WebhookProjectsV2ProjectEditedChangesDescription {
+    public init(from: String? = nil, to: String? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -188,20 +154,20 @@ public struct WebhookProjectsV2ProjectEditedChangesPublic: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesPublic {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ProjectEditedChangesPublic {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesPublic {
-    init(from: Bool? = nil, to: Bool? = nil) {
+extension WebhookProjectsV2ProjectEditedChangesPublic {
+    public init(from: Bool? = nil, to: Bool? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -220,20 +186,20 @@ public struct WebhookProjectsV2ProjectEditedChangesShortDescription: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesShortDescription {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ProjectEditedChangesShortDescription {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesShortDescription {
-    init(from: String? = nil, to: String? = nil) {
+extension WebhookProjectsV2ProjectEditedChangesShortDescription {
+    public init(from: String? = nil, to: String? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -252,20 +218,20 @@ public struct WebhookProjectsV2ProjectEditedChangesTitle: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesTitle {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ProjectEditedChangesTitle {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ProjectEditedChangesTitle {
-    init(from: String? = nil, to: String? = nil) {
+extension WebhookProjectsV2ProjectEditedChangesTitle {
+    public init(from: String? = nil, to: String? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -275,15 +241,12 @@ public extension WebhookProjectsV2ProjectEditedChangesTitle {
 public struct WebhookProjectsV2ProjectEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookProjectsV2ProjectEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

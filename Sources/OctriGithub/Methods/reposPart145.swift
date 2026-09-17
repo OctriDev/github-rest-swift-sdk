@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Create a commit status
     ///
-    /// Users with push access in a repository can create commit statuses for a given SHA. Note: there is a limit of
-    /// 1000 statuses per `sha` and `context` within a repository. Attempts to create more than 1000 statuses will
-    /// result in a validation error.
+    /// Users with push access in a repository can create commit statuses for a given SHA. Note: there is a limit of 1000 statuses per `sha` and `context` within a repository. Attempts to create more than 1000 statuses will result in a validation error.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,37 +25,9 @@ public extension ReposMethods {
     /// - description: A short description of the status.
     /// - context: A string label to differentiate this status from the status of
     ///   other systems. This field is case-insensitive.
-    static func reposCreateCommitStatus(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        sha: String,
-        state: ReposCreateCommitStatusRequestBodyState,
-        targetUrl: SdkOptional<String>?,
-        description: SdkOptional<String>?,
-        context: String?
-    ) async throws -> Status {
-        let requestBody = ReposCreateCommitStatusRequestBody(
-            state: state,
-            targetUrl: targetUrl,
-            description: description,
-            context: context
-        )
+    public static func reposCreateCommitStatus(config: ClientConfig, owner: String, repo: String, sha: String, state: ReposCreateCommitStatusRequestBodyState, targetUrl: SdkOptional<String>?, description: SdkOptional<String>?, context: String?) async throws -> Status {
+        let requestBody = ReposCreateCommitStatusRequestBody(state: state, targetUrl: targetUrl, description: description, context: context)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/statuses/",
-                sdkEncodePathSegment(sdkWireString(sha)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateCommitStatus"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/statuses/", sdkEncodePathSegment(sdkWireString(sha))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateCommitStatus")).data
     }
 }

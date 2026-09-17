@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
+extension CodespacesMethods {
     /// List secrets for the authenticated user
     ///
-    /// Lists all development environment secrets available for a user's codespaces without revealing their encrypted
-    /// values. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal
-    /// access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// Lists all development environment secrets available for a user's codespaces without revealing their encrypted values. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -22,12 +20,8 @@ public extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func codespacesListSecretsForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> CodespacesListSecretsForAuthenticatedUserResponse {
-        try await (sdkRequest("GET", "/user/codespaces/secrets", config: config, query: [
+    public static func codespacesListSecretsForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> CodespacesListSecretsForAuthenticatedUserResponse {
+        return try (await sdkRequest("GET", "/user/codespaces/secrets", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "codespacesListSecretsForAuthenticatedUser")).data
@@ -35,38 +29,18 @@ public extension CodespacesMethods {
 
     /// Get public key for the authenticated user
     ///
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
-    static func codespacesGetPublicKeyForAuthenticatedUser(config: ClientConfig) async throws
-        -> CodespacesUserPublicKey {
-        try await (sdkRequest(
-            "GET",
-            "/user/codespaces/secrets/public-key",
-            config: config,
-            decoder: .json,
-            operationId: "codespacesGetPublicKeyForAuthenticatedUser"
-        )).data
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    public static func codespacesGetPublicKeyForAuthenticatedUser(config: ClientConfig) async throws -> CodespacesUserPublicKey {
+        return try (await sdkRequest("GET", "/user/codespaces/secrets/public-key", config: config, decoder: .json, operationId: "codespacesGetPublicKeyForAuthenticatedUser")).data
     }
 
     /// Get a secret for the authenticated user
     ///
-    /// Gets a development environment secret available to a user's codespaces without revealing its encrypted value.
-    /// The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access
-    /// tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// Gets a development environment secret available to a user's codespaces without revealing its encrypted value. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - secretName: The name of the secret.
-    static func codespacesGetSecretForAuthenticatedUser(
-        config: ClientConfig,
-        secretName: String
-    ) async throws -> CodespacesSecret {
-        try await (sdkRequest(
-            "GET",
-            ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codespacesGetSecretForAuthenticatedUser"
-        )).data
+    public static func codespacesGetSecretForAuthenticatedUser(config: ClientConfig, secretName: String) async throws -> CodespacesSecret {
+        return try (await sdkRequest("GET", ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "codespacesGetSecretForAuthenticatedUser")).data
     }
 }

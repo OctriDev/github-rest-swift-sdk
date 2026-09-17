@@ -3,23 +3,19 @@
 
 import Foundation
 
-/// Actions domain models
+// Actions domain models
 /// The policy that controls whether self-hosted runners can be used by repositories in the organization
-public struct SelfHostedRunnersSettingsEnabledRepositories: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct SelfHostedRunnersSettingsEnabledRepositories: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = SelfHostedRunnersSettingsEnabledRepositories(rawValue: "all")
     public static let selected = SelfHostedRunnersSettingsEnabledRepositories(rawValue: "selected")
     public static let none = SelfHostedRunnersSettingsEnabledRepositories(rawValue: "none")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,17 +28,14 @@ public struct SelfHostedRunnersSettingsEnabledRepositories: RawRepresentable, Ha
 public struct JobStepsItemStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = JobStepsItemStatus(rawValue: "queued")
     public static let inProgress = JobStepsItemStatus(rawValue: "in_progress")
     public static let completed = JobStepsItemStatus(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,20 +45,16 @@ public struct JobStepsItemStatus: RawRepresentable, Hashable, Codable, Sendable,
 }
 
 /// Describe whether all repositories have been selected or there's a selection involved
-public struct AuthenticationTokenRepositorySelection: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AuthenticationTokenRepositorySelection: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = AuthenticationTokenRepositorySelection(rawValue: "all")
     public static let selected = AuthenticationTokenRepositorySelection(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

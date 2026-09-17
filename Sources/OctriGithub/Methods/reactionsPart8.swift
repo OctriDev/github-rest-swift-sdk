@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReactionsMethods {
-    /// List the reactions to a [pull request review
-    /// comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
+extension ReactionsMethods {
+    /// List the reactions to a [pull request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,34 +26,11 @@ public extension ReactionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reactionsListForPullRequestReviewComment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsListForPullRequestReviewCommentParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pulls/comments/",
-                sdkEncodePathSegment(sdkWireString(commentId)),
-                "/reactions",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("content", value: content),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reactionsListForPullRequestReviewComment"
-        )).data
+    public static func reactionsListForPullRequestReviewComment(config: ClientConfig, owner: String, repo: String, commentId: Int, content: ReactionsListForPullRequestReviewCommentParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions"].joined(), config: config, query: [
+            SdkQueryParameter("content", value: content),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reactionsListForPullRequestReviewComment")).data
     }
 }

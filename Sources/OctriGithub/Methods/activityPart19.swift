@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// Check if a repository is starred by the authenticated user
     ///
     /// Whether the authenticated user has starred the repository.
@@ -16,51 +16,20 @@ public extension ActivityMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func activityCheckRepoIsStarredByAuthenticatedUser(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/user/starred/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "activityCheckRepoIsStarredByAuthenticatedUser"
-        )).data
+    public static func activityCheckRepoIsStarredByAuthenticatedUser(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("GET", ["/user/starred/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, decoder: .empty, operationId: "activityCheckRepoIsStarredByAuthenticatedUser")).data
     }
 
     /// Star a repository for the authenticated user
     ///
-    /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information,
-    /// see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func activityStarRepoForAuthenticatedUser(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/user/starred/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "activityStarRepoForAuthenticatedUser"
-        )).data
+    public static func activityStarRepoForAuthenticatedUser(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/user/starred/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, decoder: .empty, operationId: "activityStarRepoForAuthenticatedUser")).data
     }
 }

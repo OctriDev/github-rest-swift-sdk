@@ -7,21 +7,17 @@ import Foundation
     import FoundationNetworking
 #endif
 /// The role to grant to the collaborator.
-public struct CopilotSpacesAddCollaboratorForOrgRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CopilotSpacesAddCollaboratorForOrgRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let reader = CopilotSpacesAddCollaboratorForOrgRequestBodyRole(rawValue: "reader")
     public static let writer = CopilotSpacesAddCollaboratorForOrgRequestBodyRole(rawValue: "writer")
     public static let admin = CopilotSpacesAddCollaboratorForOrgRequestBodyRole(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,20 +26,16 @@ public struct CopilotSpacesAddCollaboratorForOrgRequestBodyRole: RawRepresentabl
     }
 }
 
-public struct CopilotSpacesRemoveCollaboratorForOrgParameter: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CopilotSpacesRemoveCollaboratorForOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let user = CopilotSpacesRemoveCollaboratorForOrgParameter(rawValue: "User")
     public static let team = CopilotSpacesRemoveCollaboratorForOrgParameter(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,20 +44,16 @@ public struct CopilotSpacesRemoveCollaboratorForOrgParameter: RawRepresentable, 
     }
 }
 
-public struct CopilotSpacesUpdateCollaboratorForOrgParameter: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CopilotSpacesUpdateCollaboratorForOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let user = CopilotSpacesUpdateCollaboratorForOrgParameter(rawValue: "User")
     public static let team = CopilotSpacesUpdateCollaboratorForOrgParameter(rawValue: "Team")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -75,14 +63,10 @@ public struct CopilotSpacesUpdateCollaboratorForOrgParameter: RawRepresentable, 
 }
 
 /// The new role to grant to the collaborator. Use `no_access` to remove the collaborator.
-public struct CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let reader = CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole(rawValue: "reader")
     public static let writer = CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole(rawValue: "writer")
     public static let admin = CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole(rawValue: "admin")
@@ -90,7 +74,7 @@ public struct CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole: RawRepresent
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -100,24 +84,19 @@ public struct CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole: RawRepresent
 }
 
 /// The type of resource to create.
-public struct CopilotSpacesCreateResourceForOrgRequestBodyResourceType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CopilotSpacesCreateResourceForOrgRequestBodyResourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let repository = CopilotSpacesCreateResourceForOrgRequestBodyResourceType(rawValue: "repository")
     public static let githubFile = CopilotSpacesCreateResourceForOrgRequestBodyResourceType(rawValue: "github_file")
     public static let freeText = CopilotSpacesCreateResourceForOrgRequestBodyResourceType(rawValue: "free_text")
     public static let githubIssue = CopilotSpacesCreateResourceForOrgRequestBodyResourceType(rawValue: "github_issue")
-    public static let githubPullRequest =
-        CopilotSpacesCreateResourceForOrgRequestBodyResourceType(rawValue: "github_pull_request")
+    public static let githubPullRequest = CopilotSpacesCreateResourceForOrgRequestBodyResourceType(rawValue: "github_pull_request")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -127,22 +106,17 @@ public struct CopilotSpacesCreateResourceForOrgRequestBodyResourceType: RawRepre
 }
 
 /// The policy for which repositories can use Copilot cloud agent. Can be one of `all`, `selected`, or `none`.
-public struct CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1(rawValue: "all")
-    public static let selected =
-        CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1(rawValue: "selected")
+    public static let selected = CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1(rawValue: "selected")
     public static let none = CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1(rawValue: "none")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -152,22 +126,17 @@ public struct CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894
 }
 
 /// The policy for which repositories can use Copilot cloud agent. Can be one of `all`, `selected`, or `none`.
-public struct CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41(rawValue: "all")
-    public static let selected =
-        CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41(rawValue: "selected")
+    public static let selected = CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41(rawValue: "selected")
     public static let none = CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41(rawValue: "none")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -177,21 +146,16 @@ public struct CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a1
 }
 
 /// The default repository access level for Dependabot updates.
-public struct DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `public` = DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel(rawValue: "public")
-    public static let `internal` =
-        DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel(rawValue: "internal")
+    public static let `internal` = DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel(rawValue: "internal")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -202,21 +166,17 @@ public struct DependabotSetRepositoryAccessDefaultLevelRequestBodyDefaultLevel: 
 
 /// Which type of organization repositories have access to the organization secret. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the secret.
-public struct DependabotCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = DependabotCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "all")
     public static let `private` = DependabotCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "private")
     public static let selected = DependabotCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -228,10 +188,7 @@ public struct DependabotCreateOrUpdateOrgSecretRequestBodyVisibility: RawReprese
 public struct OrgsListPendingInvitationsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = OrgsListPendingInvitationsParameter(rawValue: "all")
     public static let admin = OrgsListPendingInvitationsParameter(rawValue: "admin")
     public static let directMember = OrgsListPendingInvitationsParameter(rawValue: "direct_member")
@@ -240,7 +197,7 @@ public struct OrgsListPendingInvitationsParameter: RawRepresentable, Hashable, C
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

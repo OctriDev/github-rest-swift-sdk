@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// This returns a list of releases, which does not include regular Git tags that have not been associated with a
-    /// release. To get a list of Git tags, use the [Repository Tags
-    /// API](https://docs.github.com/rest/repos/repos#list-repository-tags). Information about published releases are
-    /// available to everyone. Only users with push access will receive listings for draft releases.
+extension ReposMethods {
+    /// This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/repos/repos#list-repository-tags). Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,29 +22,10 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListReleases(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Release] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposListReleases"
-        )).data
+    public static func reposListReleases(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Release] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposListReleases")).data
     }
 }

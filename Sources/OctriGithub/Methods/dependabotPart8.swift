@@ -6,45 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
-    /// endpoint.
+extension DependabotMethods {
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func dependabotGetOrgPublicKey(config: ClientConfig, org: String) async throws -> DependabotPublicKey {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/secrets/public-key"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "dependabotGetOrgPublicKey"
-        )).data
+    public static func dependabotGetOrgPublicKey(config: ClientConfig, org: String) async throws -> DependabotPublicKey {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "dependabotGetOrgPublicKey")).data
     }
 
-    /// Gets a single organization secret without revealing its encrypted value. OAuth app tokens and personal access
-    /// tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Gets a single organization secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    static func dependabotGetOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String
-    ) async throws -> OrganizationDependabotSecret {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/dependabot/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "dependabotGetOrgSecret"
-        )).data
+    public static func dependabotGetOrgSecret(config: ClientConfig, org: String, secretName: String) async throws -> OrganizationDependabotSecret {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "dependabotGetOrgSecret")).data
     }
 }

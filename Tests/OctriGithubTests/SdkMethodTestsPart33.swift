@@ -473,12 +473,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try PullsMethods.PullsCreateOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            head: decoded("\"octocat:new-feature\""),
-            base: decoded("\"master\"")
-        )
+        var options = try PullsMethods.PullsCreateOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), head: decoded("\"octocat:new-feature\""), base: decoded("\"master\""))
         options.title = try decoded("\"Amazing new feature\"")
         options.headRepo = try decoded("null")
         options.body = try decoded("\"sample\"")
@@ -499,8 +494,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testPullsCreateReplyForReviewCommentPullsCreateReplyForReviewCommentReachesMockAndDecodesResponse(
-    ) async throws {
+    func testPullsCreateReplyForReviewCommentPullsCreateReplyForReviewCommentReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

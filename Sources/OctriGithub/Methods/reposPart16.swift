@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Users with admin access to the repository can create an autolink.
     ///
     /// - Parameters:
@@ -23,33 +23,9 @@ public extension ReposMethods {
     ///   characters. If true, the `<num>` parameter of the `url_template` matches
     ///   alphanumeric characters `A-Z` (case insensitive), `0-9`, and `-`. If false,
     ///   this autolink reference only matches numeric characters.
-    static func reposCreateAutolink(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        keyPrefix: String,
-        urlTemplate: String,
-        isAlphanumeric: Bool?
-    ) async throws -> Autolink {
-        let requestBody = ReposCreateAutolinkRequestBody(
-            keyPrefix: keyPrefix,
-            urlTemplate: urlTemplate,
-            isAlphanumeric: isAlphanumeric
-        )
+    public static func reposCreateAutolink(config: ClientConfig, owner: String, repo: String, keyPrefix: String, urlTemplate: String, isAlphanumeric: Bool?) async throws -> Autolink {
+        let requestBody = ReposCreateAutolinkRequestBody(keyPrefix: keyPrefix, urlTemplate: urlTemplate, isAlphanumeric: isAlphanumeric)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/autolinks",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateAutolink"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/autolinks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateAutolink")).data
     }
 }

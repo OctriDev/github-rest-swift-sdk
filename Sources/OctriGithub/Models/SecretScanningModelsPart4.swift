@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SecretScanning domain models
+// SecretScanning domain models
 /// A custom pattern to delete in a bulk operation.
 public struct SecretScanningCustomPatternToDelete: Codable {
     /// The ID of the custom pattern to delete.
@@ -17,28 +17,22 @@ public struct SecretScanningCustomPatternToDelete: Codable {
         case customPatternVersion = "custom_pattern_version"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningCustomPatternToDelete {
-    init(from decoder: Decoder) throws {
+extension SecretScanningCustomPatternToDelete {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.patternId) else {
-            throw SdkValidationError(
-                field: "pattern_id",
-                code: "required",
-                message: "Validation failed for 'pattern_id': value is required"
-            )
+            throw SdkValidationError(field: "pattern_id", code: "required", message: "Validation failed for 'pattern_id': value is required")
         }
-        patternId = try container.sdkDecodeRequired(.patternId)
-        customPatternVersion = try container.sdkDecodeIfPresent(.customPatternVersion)
+        self.patternId = try container.sdkDecodeRequired(.patternId)
+        self.customPatternVersion = try container.sdkDecodeIfPresent(.customPatternVersion)
     }
 }
 
-public extension SecretScanningCustomPatternToDelete {
-    init(patternId: Int, customPatternVersion: SecretScanningRowVersion? = nil) {
+extension SecretScanningCustomPatternToDelete {
+    public init(patternId: Int, customPatternVersion: SecretScanningRowVersion? = nil) {
         (self.patternId, self.customPatternVersion) = (patternId, customPatternVersion)
     }
 }
@@ -56,20 +50,20 @@ public struct SecretScanningCustomPatternValidationError: Codable {
     }
 
     init() {
-        (code, message) = (nil, nil)
+        (self.code, self.message) = (nil, nil)
     }
 }
 
-public extension SecretScanningCustomPatternValidationError {
-    init(from decoder: Decoder) throws {
+extension SecretScanningCustomPatternValidationError {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        code = try container.sdkDecodeIfPresent(.code)
-        message = try container.sdkDecodeIfPresent(.message)
+        self.code = try container.sdkDecodeIfPresent(.code)
+        self.message = try container.sdkDecodeIfPresent(.message)
     }
 }
 
-public extension SecretScanningCustomPatternValidationError {
-    init(code: SecretScanningCustomPatternValidationErrorCode? = nil, message: String? = nil) {
+extension SecretScanningCustomPatternValidationError {
+    public init(code: SecretScanningCustomPatternValidationErrorCode? = nil, message: String? = nil) {
         self.init()
         (self.code, self.message) = (code, message)
     }
@@ -90,20 +84,20 @@ public struct SecretScanningLocation: Codable {
     }
 
     init() {
-        (type, details) = (nil, nil)
+        (self.type, self.details) = (nil, nil)
     }
 }
 
-public extension SecretScanningLocation {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocation {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.sdkDecodeIfPresent(.type)
-        details = try container.sdkDecodeIfPresent(.details)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.details = try container.sdkDecodeIfPresent(.details)
     }
 }
 
-public extension SecretScanningLocation {
-    init(type: SecretScanningLocationType? = nil, details: SecretScanningLocationDetails? = nil) {
+extension SecretScanningLocation {
+    public init(type: SecretScanningLocationType? = nil, details: SecretScanningLocationDetails? = nil) {
         self.init()
         (self.type, self.details) = (type, details)
     }
@@ -126,75 +120,54 @@ public enum SecretScanningLocationDetails {
 }
 
 extension SecretScanningLocationDetails: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        if let value = Self.decodeGroup2(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for SecretScanningLocationDetails"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        if let value = Self.decodeGroup2(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for SecretScanningLocationDetails")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container
-            .decode(SecretScanningLocationCommit.self) {
-            return .secretScanningLocationCommit(value)
-        }
-        if let value = try? container
-            .decode(SecretScanningLocationWikiCommit.self) {
-            return .secretScanningLocationWikiCommit(value)
-        }
-        if let value = try? container
-            .decode(SecretScanningLocationIssueTitle.self) {
-            return .secretScanningLocationIssueTitle(value)
-        }
-        if let value = try? container
-            .decode(SecretScanningLocationIssueBody.self) {
-            return .secretScanningLocationIssueBody(value)
-        }
-        if let value = try? container
-            .decode(SecretScanningLocationIssueComment.self) {
-            return .secretScanningLocationIssueComment(value)
-        }
+        if let value = try? container.decode(SecretScanningLocationCommit.self) { return .secretScanningLocationCommit(value) }
+        if let value = try? container.decode(SecretScanningLocationWikiCommit.self) { return .secretScanningLocationWikiCommit(value) }
+        if let value = try? container.decode(SecretScanningLocationIssueTitle.self) { return .secretScanningLocationIssueTitle(value) }
+        if let value = try? container.decode(SecretScanningLocationIssueBody.self) { return .secretScanningLocationIssueBody(value) }
+        if let value = try? container.decode(SecretScanningLocationIssueComment.self) { return .secretScanningLocationIssueComment(value) }
         if let value = try? container.decode(
             SecretScanningLocationDiscussionTitle.self
         ) {
-            return .secretScanningLocationDiscussionTitle(value)
+            return             .secretScanningLocationDiscussionTitle(value)
         }
         if let value = try? container.decode(
             SecretScanningLocationDiscussionBody.self
         ) {
-            return .secretScanningLocationDiscussionBody(value)
+            return             .secretScanningLocationDiscussionBody(value)
         }
         if let value = try? container.decode(
             SecretScanningLocationDiscussionComment.self
         ) {
-            return .secretScanningLocationDiscussionComment(value)
+            return             .secretScanningLocationDiscussionComment(value)
         }
         if let value = try? container.decode(
             SecretScanningLocationPullRequestTitle.self
         ) {
-            return .secretScanningLocationPullRequestTitle(value)
+            return             .secretScanningLocationPullRequestTitle(value)
         }
         if let value = try? container.decode(
             SecretScanningLocationPullRequestBody.self
         ) {
-            return .secretScanningLocationPullRequestBody(value)
+            return             .secretScanningLocationPullRequestBody(value)
         }
         if let value = try? container.decode(
             SecretScanningLocationPullRequestComment.self
         ) {
-            return .secretScanningLocationPullRequestComment(value)
+            return             .secretScanningLocationPullRequestComment(value)
         }
         if let value = try? container.decode(
             SecretScanningLocationPullRequestReview.self
         ) {
-            return .secretScanningLocationPullRequestReview(value)
+            return             .secretScanningLocationPullRequestReview(value)
         }
         return nil
     }
@@ -203,18 +176,14 @@ extension SecretScanningLocationDetails: Codable {
         if let value = try? container.decode(
             SecretScanningLocationPullRequestReviewComment.self
         ) {
-            return .secretScanningLocationPullRequestReviewComment(value)
+            return             .secretScanningLocationPullRequestReviewComment(value)
         }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
-        if try encodeGroup2(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup2(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -243,6 +212,7 @@ extension SecretScanningLocationDetails: Codable {
         default: return false
         }
     }
+
 }
 
 /// Represents a 'commit' secret scanning location type. This location type shows that a secret was detected inside
@@ -286,43 +256,30 @@ public struct SecretScanningLocationCommit: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationCommit {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationCommit {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        path = try container.sdkDecodeRequired(.path)
-        startLine = try container.sdkDecodeRequired(.startLine)
-        endLine = try container.sdkDecodeRequired(.endLine)
-        startColumn = try container.sdkDecodeRequired(.startColumn)
-        endColumn = try container.sdkDecodeRequired(.endColumn)
-        blobSha = try container.sdkDecodeRequired(.blobSha)
-        blobUrl = try container.sdkDecodeRequired(.blobUrl)
-        commitSha = try container.sdkDecodeRequired(.commitSha)
-        commitUrl = try container.sdkDecodeRequired(.commitUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        if let value = htmlUrl {
+        self.path = try container.sdkDecodeRequired(.path)
+        self.startLine = try container.sdkDecodeRequired(.startLine)
+        self.endLine = try container.sdkDecodeRequired(.endLine)
+        self.startColumn = try container.sdkDecodeRequired(.startColumn)
+        self.endColumn = try container.sdkDecodeRequired(.endColumn)
+        self.blobSha = try container.sdkDecodeRequired(.blobSha)
+        self.blobUrl = try container.sdkDecodeRequired(.blobUrl)
+        self.commitSha = try container.sdkDecodeRequired(.commitSha)
+        self.commitUrl = try container.sdkDecodeRequired(.commitUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension SecretScanningLocationCommit {
-    init(
-        path: String,
-        startLine: Double,
-        endLine: Double,
-        startColumn: Double,
-        endColumn: Double,
-        blobSha: String,
-        blobUrl: String,
-        commitSha: String,
-        commitUrl: String,
-        htmlUrl: String? = nil
-    ) throws {
+extension SecretScanningLocationCommit {
+    public init(path: String, startLine: Double, endLine: Double, startColumn: Double, endColumn: Double, blobSha: String, blobUrl: String, commitSha: String, commitUrl: String, htmlUrl: String? = nil) throws {
         (self.path, self.startLine) = (path, startLine)
         (self.endLine, self.startColumn) = (endLine, startColumn)
         (self.endColumn, self.blobSha) = (endColumn, blobSha)
@@ -345,30 +302,24 @@ public struct SecretScanningLocationDiscussionBody: Codable {
         case discussionBodyUrl = "discussion_body_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationDiscussionBody {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationDiscussionBody {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.discussionBodyUrl) else {
-            throw SdkValidationError(
-                field: "discussion_body_url",
-                code: "required",
-                message: "Validation failed for 'discussion_body_url': value is required"
-            )
+            throw SdkValidationError(field: "discussion_body_url", code: "required", message: "Validation failed for 'discussion_body_url': value is required")
         }
-        discussionBodyUrl = try container.sdkDecodeRequired(.discussionBodyUrl)
-        try sdkValidateUri("discussion_body_url", discussionBodyUrl)
+        self.discussionBodyUrl = try container.sdkDecodeRequired(.discussionBodyUrl)
+            try sdkValidateUri("discussion_body_url", self.discussionBodyUrl)
     }
 }
 
-public extension SecretScanningLocationDiscussionBody {
-    init(discussionBodyUrl: String) throws {
+extension SecretScanningLocationDiscussionBody {
+    public init(discussionBodyUrl: String) throws {
         self.discussionBodyUrl = discussionBodyUrl
-        try sdkValidateUri("discussion_body_url", self.discussionBodyUrl)
+            try sdkValidateUri("discussion_body_url", self.discussionBodyUrl)
     }
 }
 
@@ -383,30 +334,24 @@ public struct SecretScanningLocationDiscussionComment: Codable {
         case discussionCommentUrl = "discussion_comment_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationDiscussionComment {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationDiscussionComment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.discussionCommentUrl) else {
-            throw SdkValidationError(
-                field: "discussion_comment_url",
-                code: "required",
-                message: "Validation failed for 'discussion_comment_url': value is required"
-            )
+            throw SdkValidationError(field: "discussion_comment_url", code: "required", message: "Validation failed for 'discussion_comment_url': value is required")
         }
-        discussionCommentUrl = try container.sdkDecodeRequired(.discussionCommentUrl)
-        try sdkValidateUri("discussion_comment_url", discussionCommentUrl)
+        self.discussionCommentUrl = try container.sdkDecodeRequired(.discussionCommentUrl)
+            try sdkValidateUri("discussion_comment_url", self.discussionCommentUrl)
     }
 }
 
-public extension SecretScanningLocationDiscussionComment {
-    init(discussionCommentUrl: String) throws {
+extension SecretScanningLocationDiscussionComment {
+    public init(discussionCommentUrl: String) throws {
         self.discussionCommentUrl = discussionCommentUrl
-        try sdkValidateUri("discussion_comment_url", self.discussionCommentUrl)
+            try sdkValidateUri("discussion_comment_url", self.discussionCommentUrl)
     }
 }
 
@@ -421,30 +366,24 @@ public struct SecretScanningLocationDiscussionTitle: Codable {
         case discussionTitleUrl = "discussion_title_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationDiscussionTitle {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationDiscussionTitle {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.discussionTitleUrl) else {
-            throw SdkValidationError(
-                field: "discussion_title_url",
-                code: "required",
-                message: "Validation failed for 'discussion_title_url': value is required"
-            )
+            throw SdkValidationError(field: "discussion_title_url", code: "required", message: "Validation failed for 'discussion_title_url': value is required")
         }
-        discussionTitleUrl = try container.sdkDecodeRequired(.discussionTitleUrl)
-        try sdkValidateUri("discussion_title_url", discussionTitleUrl)
+        self.discussionTitleUrl = try container.sdkDecodeRequired(.discussionTitleUrl)
+            try sdkValidateUri("discussion_title_url", self.discussionTitleUrl)
     }
 }
 
-public extension SecretScanningLocationDiscussionTitle {
-    init(discussionTitleUrl: String) throws {
+extension SecretScanningLocationDiscussionTitle {
+    public init(discussionTitleUrl: String) throws {
         self.discussionTitleUrl = discussionTitleUrl
-        try sdkValidateUri("discussion_title_url", self.discussionTitleUrl)
+            try sdkValidateUri("discussion_title_url", self.discussionTitleUrl)
     }
 }
 
@@ -463,34 +402,28 @@ public struct SecretScanningLocationIssueBody: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationIssueBody {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationIssueBody {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.issueBodyUrl) else {
-            throw SdkValidationError(
-                field: "issue_body_url",
-                code: "required",
-                message: "Validation failed for 'issue_body_url': value is required"
-            )
+            throw SdkValidationError(field: "issue_body_url", code: "required", message: "Validation failed for 'issue_body_url': value is required")
         }
-        issueBodyUrl = try container.sdkDecodeRequired(.issueBodyUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        try sdkValidateUri("issue_body_url", issueBodyUrl)
-        if let value = htmlUrl {
+        self.issueBodyUrl = try container.sdkDecodeRequired(.issueBodyUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+            try sdkValidateUri("issue_body_url", self.issueBodyUrl)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension SecretScanningLocationIssueBody {
-    init(issueBodyUrl: String, htmlUrl: String? = nil) throws {
+extension SecretScanningLocationIssueBody {
+    public init(issueBodyUrl: String, htmlUrl: String? = nil) throws {
         (self.issueBodyUrl, self.htmlUrl) = (issueBodyUrl, htmlUrl)
-        try sdkValidateUri("issue_body_url", self.issueBodyUrl)
+            try sdkValidateUri("issue_body_url", self.issueBodyUrl)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
@@ -512,34 +445,28 @@ public struct SecretScanningLocationIssueComment: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationIssueComment {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationIssueComment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.issueCommentUrl) else {
-            throw SdkValidationError(
-                field: "issue_comment_url",
-                code: "required",
-                message: "Validation failed for 'issue_comment_url': value is required"
-            )
+            throw SdkValidationError(field: "issue_comment_url", code: "required", message: "Validation failed for 'issue_comment_url': value is required")
         }
-        issueCommentUrl = try container.sdkDecodeRequired(.issueCommentUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        try sdkValidateUri("issue_comment_url", issueCommentUrl)
-        if let value = htmlUrl {
+        self.issueCommentUrl = try container.sdkDecodeRequired(.issueCommentUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+            try sdkValidateUri("issue_comment_url", self.issueCommentUrl)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension SecretScanningLocationIssueComment {
-    init(issueCommentUrl: String, htmlUrl: String? = nil) throws {
+extension SecretScanningLocationIssueComment {
+    public init(issueCommentUrl: String, htmlUrl: String? = nil) throws {
         (self.issueCommentUrl, self.htmlUrl) = (issueCommentUrl, htmlUrl)
-        try sdkValidateUri("issue_comment_url", self.issueCommentUrl)
+            try sdkValidateUri("issue_comment_url", self.issueCommentUrl)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
@@ -561,34 +488,28 @@ public struct SecretScanningLocationIssueTitle: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationIssueTitle {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationIssueTitle {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.issueTitleUrl) else {
-            throw SdkValidationError(
-                field: "issue_title_url",
-                code: "required",
-                message: "Validation failed for 'issue_title_url': value is required"
-            )
+            throw SdkValidationError(field: "issue_title_url", code: "required", message: "Validation failed for 'issue_title_url': value is required")
         }
-        issueTitleUrl = try container.sdkDecodeRequired(.issueTitleUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        try sdkValidateUri("issue_title_url", issueTitleUrl)
-        if let value = htmlUrl {
+        self.issueTitleUrl = try container.sdkDecodeRequired(.issueTitleUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+            try sdkValidateUri("issue_title_url", self.issueTitleUrl)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension SecretScanningLocationIssueTitle {
-    init(issueTitleUrl: String, htmlUrl: String? = nil) throws {
+extension SecretScanningLocationIssueTitle {
+    public init(issueTitleUrl: String, htmlUrl: String? = nil) throws {
         (self.issueTitleUrl, self.htmlUrl) = (issueTitleUrl, htmlUrl)
-        try sdkValidateUri("issue_title_url", self.issueTitleUrl)
+            try sdkValidateUri("issue_title_url", self.issueTitleUrl)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
@@ -610,34 +531,28 @@ public struct SecretScanningLocationPullRequestBody: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension SecretScanningLocationPullRequestBody {
-    init(from decoder: Decoder) throws {
+extension SecretScanningLocationPullRequestBody {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.pullRequestBodyUrl) else {
-            throw SdkValidationError(
-                field: "pull_request_body_url",
-                code: "required",
-                message: "Validation failed for 'pull_request_body_url': value is required"
-            )
+            throw SdkValidationError(field: "pull_request_body_url", code: "required", message: "Validation failed for 'pull_request_body_url': value is required")
         }
-        pullRequestBodyUrl = try container.sdkDecodeRequired(.pullRequestBodyUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        try sdkValidateUri("pull_request_body_url", pullRequestBodyUrl)
-        if let value = htmlUrl {
+        self.pullRequestBodyUrl = try container.sdkDecodeRequired(.pullRequestBodyUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+            try sdkValidateUri("pull_request_body_url", self.pullRequestBodyUrl)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension SecretScanningLocationPullRequestBody {
-    init(pullRequestBodyUrl: String, htmlUrl: String? = nil) throws {
+extension SecretScanningLocationPullRequestBody {
+    public init(pullRequestBodyUrl: String, htmlUrl: String? = nil) throws {
         (self.pullRequestBodyUrl, self.htmlUrl) = (pullRequestBodyUrl, htmlUrl)
-        try sdkValidateUri("pull_request_body_url", self.pullRequestBodyUrl)
+            try sdkValidateUri("pull_request_body_url", self.pullRequestBodyUrl)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }

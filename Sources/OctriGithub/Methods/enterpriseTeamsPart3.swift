@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension EnterpriseTeamsMethods {
+extension EnterpriseTeamsMethods {
     /// To create an enterprise team, the authenticated user must be an owner of the enterprise.
     ///
     /// - Parameters:
@@ -32,32 +32,9 @@ public extension EnterpriseTeamsMethods {
     ///   options are: * `notifications_enabled` - team members receive notifications
     ///   when the team is @mentioned. * `notifications_disabled` - no one receives
     ///   notifications. Default: `notifications_enabled`
-    static func enterpriseTeamsCreate(
-        config: ClientConfig,
-        enterprise: String,
-        name: String,
-        description: SdkOptional<String>?,
-        syncToOrganizations: EnterpriseTeamsCreateRequestBodySyncToOrganizations?,
-        organizationSelectionType: EnterpriseTeamsCreateRequestBodyOrganizationSelectionType?,
-        groupId: SdkOptional<String>?,
-        notificationSetting: EnterpriseTeamsCreateRequestBodyNotificationSetting?
-    ) async throws -> EnterpriseTeam {
-        let requestBody = EnterpriseTeamsCreateRequestBody(
-            name: name,
-            description: description,
-            syncToOrganizations: syncToOrganizations,
-            organizationSelectionType: organizationSelectionType,
-            groupId: groupId,
-            notificationSetting: notificationSetting
-        )
+    public static func enterpriseTeamsCreate(config: ClientConfig, enterprise: String, name: String, description: SdkOptional<String>?, syncToOrganizations: EnterpriseTeamsCreateRequestBodySyncToOrganizations?, organizationSelectionType: EnterpriseTeamsCreateRequestBodyOrganizationSelectionType?, groupId: SdkOptional<String>?, notificationSetting: EnterpriseTeamsCreateRequestBodyNotificationSetting?) async throws -> EnterpriseTeam {
+        let requestBody = EnterpriseTeamsCreateRequestBody(name: name, description: description, syncToOrganizations: syncToOrganizations, organizationSelectionType: organizationSelectionType, groupId: groupId, notificationSetting: notificationSetting)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "enterpriseTeamsCreate"
-        )).data
+        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams"].joined(), config: config, body: requestBody, decoder: .json, operationId: "enterpriseTeamsCreate")).data
     }
 }

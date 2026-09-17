@@ -6,17 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SearchMethods {
+extension SearchMethods {
     /// Search labels
     ///
-    /// Find labels in a repository with names or descriptions that match search keywords. Returns up to 100 results
-    /// [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for labels, you
-    /// can get text match metadata for the label **name** and **description** fields when you pass the `text-match`
-    /// media type. For more details about how to receive highlighted search results, see [Text match
-    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to find
-    /// labels in the `linguist` repository that match `bug`, `defect`, or `enhancement`. Your query might look like
-    /// this: `q=bug+defect+enhancement&repository_id=64778136` The labels that best match the query appear first in the
-    /// search results.
+    /// Find labels in a repository with names or descriptions that match search keywords. Returns up to 100 results [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for labels, you can get text match metadata for the label **name** and **description** fields when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to find labels in the `linguist` repository that match `bug`, `defect`, or `enhancement`. Your query might look like this: `q=bug+defect+enhancement&repository_id=64778136` The labels that best match the query appear first in the search results.
     ///
     /// - Parameters:
     /// - repositoryId: The id of the repository.
@@ -39,16 +32,8 @@ public extension SearchMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func searchLabels(
-        config: ClientConfig,
-        repositoryId: Int,
-        q: String,
-        sort: SearchLabelsParameter?,
-        order: SearchCommitsParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> SearchLabelsResponse {
-        try await (sdkRequest("GET", "/search/labels", config: config, query: [
+    public static func searchLabels(config: ClientConfig, repositoryId: Int, q: String, sort: SearchLabelsParameter?, order: SearchCommitsParameter?, perPage: Int?, page: Int?) async throws -> SearchLabelsResponse {
+        return try (await sdkRequest("GET", "/search/labels", config: config, query: [
             SdkQueryParameter("repository_id", value: repositoryId),
             SdkQueryParameter("q", value: q),
             SdkQueryParameter("sort", value: sort),

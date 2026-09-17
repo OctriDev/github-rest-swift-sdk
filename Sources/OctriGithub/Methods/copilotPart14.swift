@@ -6,94 +6,32 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotMethods {
-    /// Use this endpoint to retrieve download links for the latest 28-day organization users Copilot usage metrics
-    /// report. The report provides detailed user-level usage data and engagement metrics for Copilot features across
-    /// the organization. The report contains user-specific metrics for the previous 28 days, including individual user
-    /// engagement statistics, feature usage patterns, and adoption metrics broken down by user. This report allows
-    /// authorized users to analyze Copilot usage at the user level to understand adoption patterns and identify
-    /// opportunities for increased engagement. Reports are generated daily and made available for download through
-    /// signed URLs with a limited expiration time. The response includes download links to the report files, along with
-    /// the specific date range covered by the report. The report covers a complete 28-day period ending on the most
-    /// recent day for which data has been processed. Organization owners and authorized users with fine-grained "View
-    /// Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app
-    /// tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information
-    /// about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
+extension CopilotMethods {
+    /// Use this endpoint to retrieve download links for the latest 28-day organization users Copilot usage metrics report. The report provides detailed user-level usage data and engagement metrics for Copilot features across the organization. The report contains user-specific metrics for the previous 28 days, including individual user engagement statistics, feature usage patterns, and adoption metrics broken down by user. This report allows authorized users to analyze Copilot usage at the user level to understand adoption patterns and identify opportunities for increased engagement. Reports are generated daily and made available for download through signed URLs with a limited expiration time. The response includes download links to the report files, along with the specific date range covered by the report. The report covers a complete 28-day period ending on the most recent day for which data has been processed. Organization owners and authorized users with fine-grained "View Organization Copilot Metrics" permission can retrieve Copilot metrics reports for the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. For more information about organization metrics attribution, see [How are metrics attributed across organizations](https://docs.github.com/copilot/concepts/copilot-metrics#how-are-metrics-attributed-across-organizations).
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func copilotCopilotOrganizationUsersUsageMetrics(
-        config: ClientConfig,
-        org: String
-    ) async throws -> CopilotUsageMetrics28DayReport {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/metrics/reports/users-28-day/latest"]
-                .joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotCopilotOrganizationUsersUsageMetrics"
-        )).data
+    public static func copilotCopilotOrganizationUsersUsageMetrics(config: ClientConfig, org: String) async throws -> CopilotUsageMetrics28DayReport {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/metrics/reports/users-28-day/latest"].joined(), config: config, decoder: .json, operationId: "copilotCopilotOrganizationUsersUsageMetrics")).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the GitHub Copilot seat details
-    /// for a member of an organization who currently has access to GitHub Copilot. The seat object contains information
-    /// about the user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the
-    /// IDE activity to be reflected in `last_activity_at`. For more information about activity data, see [Metrics data
-    /// properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data). Only organization owners
-    /// can view Copilot seat assignment details for members of their organization. OAuth app tokens and personal access
-    /// tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the GitHub Copilot seat details for a member of an organization who currently has access to GitHub Copilot. The seat object contains information about the user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the IDE activity to be reflected in `last_activity_at`. For more information about activity data, see [Metrics data properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data). Only organization owners can view Copilot seat assignment details for members of their organization. OAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    static func copilotGetCopilotSeatDetailsForUser(
-        config: ClientConfig,
-        org: String,
-        username: String
-    ) async throws -> CopilotSeatDetails {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/members/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotGetCopilotSeatDetailsForUser"
-        )).data
+    public static func copilotGetCopilotSeatDetailsForUser(config: ClientConfig, org: String, username: String) async throws -> CopilotSeatDetails {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members/", sdkEncodePathSegment(sdkWireString(username)), "/copilot"].joined(), config: config, decoder: .json, operationId: "copilotGetCopilotSeatDetailsForUser")).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the Copilot cloud agent
-    /// configuration for a repository, including MCP server configuration, enabled review tools, Actions workflow
-    /// approval settings, and firewall configuration. OAuth app tokens and personal access tokens (classic) need the
-    /// `repo` scope to use this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets the Copilot cloud agent configuration for a repository, including MCP server configuration, enabled review tools, Actions workflow approval settings, and firewall configuration. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func copilotGetCopilotCloudAgentConfiguration(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> CopilotGetCopilotCloudAgentConfigurationResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/copilot/cloud-agent/configuration",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotGetCopilotCloudAgentConfiguration"
-        )).data
+    public static func copilotGetCopilotCloudAgentConfiguration(config: ClientConfig, owner: String, repo: String) async throws -> CopilotGetCopilotCloudAgentConfigurationResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/copilot/cloud-agent/configuration"].joined(), config: config, decoder: .json, operationId: "copilotGetCopilotCloudAgentConfiguration")).data
     }
 }

@@ -6,37 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets the fork PR contributor approval policy for a repository. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Gets the fork PR contributor approval policy for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsGetForkPrContributorApprovalPermissionsRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActionsForkPrContributorApproval {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions/fork-pr-contributor-approval",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetForkPrContributorApprovalPermissionsRepository"
-        )).data
+    public static func actionsGetForkPrContributorApprovalPermissionsRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsForkPrContributorApproval {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/fork-pr-contributor-approval"].joined(), config: config, decoder: .json, operationId: "actionsGetForkPrContributorApprovalPermissionsRepository")).data
     }
 
-    /// Sets the fork PR contributor approval policy for a repository. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+    /// Sets the fork PR contributor approval policy for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -45,28 +27,9 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - approvalPolicy: The policy that controls when fork PR workflows require
     ///   approval from a maintainer.
-    static func actionsSetForkPrContributorApprovalPermissionsRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        approvalPolicy: ActionsForkPrContributorApprovalApprovalPolicy
-    ) async throws -> SdkEmptyResponse {
-        let requestBody =
-            ActionsSetForkPrContributorApprovalPermissionsRepositoryRequestBody(approvalPolicy: approvalPolicy)
+    public static func actionsSetForkPrContributorApprovalPermissionsRepository(config: ClientConfig, owner: String, repo: String, approvalPolicy: ActionsForkPrContributorApprovalApprovalPolicy) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetForkPrContributorApprovalPermissionsRepositoryRequestBody(approvalPolicy: approvalPolicy)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions/fork-pr-contributor-approval",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetForkPrContributorApprovalPermissionsRepository"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/fork-pr-contributor-approval"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetForkPrContributorApprovalPermissionsRepository")).data
     }
 }

@@ -3,97 +3,56 @@
 
 import Foundation
 
-/// Search domain models
-public extension IssueSearchResultItem {
-    init(from decoder: Decoder) throws {
+// Search domain models
+extension IssueSearchResultItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.sdkDecodeRequired(.url)
-        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-        labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
-        commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        number = try container.sdkDecodeRequired(.number)
-        title = try container.sdkDecodeRequired(.title)
-        locked = try container.sdkDecodeRequired(.locked)
-        user = try container.sdkDecodeIfPresent(.user)
-        labels = try container.sdkDecodeRequired(.labels)
-        state = try container.sdkDecodeRequired(.state)
-        assignee = try container.sdkDecodeIfPresent(.assignee)
-        milestone = try container.sdkDecodeIfPresent(.milestone)
-        comments = try container.sdkDecodeRequired(.comments)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        closedAt = try container.sdkDecodeIfPresent(.closedAt)
-        score = try container.sdkDecodeRequired(.score)
-        authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
-        activeLockReason = try container.sdkDecodeIfPresent(.activeLockReason)
-        assignees = try container.sdkDecodeIfPresent(.assignees)
-        subIssuesSummary = try container.sdkDecodeIfPresent(.subIssuesSummary)
-        issueDependenciesSummary = try container.sdkDecodeIfPresent(.issueDependenciesSummary)
-        issueFieldValues = try container.sdkDecodeIfPresent(.issueFieldValues)
-        stateReason = try container.sdkDecodeIfPresent(.stateReason)
-        textMatches = try container.sdkDecodeIfPresent(.textMatches)
-        pullRequest = try container.sdkDecodeIfPresent(.pullRequest)
-        body = try container.sdkDecodeIfPresent(.body)
-        draft = try container.sdkDecodeIfPresent(.draft)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
-        bodyText = try container.sdkDecodeIfPresent(.bodyText)
-        timelineUrl = try container.sdkDecodeIfPresent(.timelineUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        pinnedComment = try container.sdkDecodeIfPresent(.pinnedComment)
-        reactions = try container.sdkDecodeIfPresent(.reactions)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        self.labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
+        self.commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.title = try container.sdkDecodeRequired(.title)
+        self.locked = try container.sdkDecodeRequired(.locked)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        self.labels = try container.sdkDecodeRequired(.labels)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.assignee = try container.sdkDecodeIfPresent(.assignee)
+        self.milestone = try container.sdkDecodeIfPresent(.milestone)
+        self.comments = try container.sdkDecodeRequired(.comments)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.closedAt = try container.sdkDecodeIfPresent(.closedAt)
+        self.score = try container.sdkDecodeRequired(.score)
+        self.authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
+        self.activeLockReason = try container.sdkDecodeIfPresent(.activeLockReason)
+        self.assignees = try container.sdkDecodeIfPresent(.assignees)
+        self.subIssuesSummary = try container.sdkDecodeIfPresent(.subIssuesSummary)
+        self.issueDependenciesSummary = try container.sdkDecodeIfPresent(.issueDependenciesSummary)
+        self.issueFieldValues = try container.sdkDecodeIfPresent(.issueFieldValues)
+        self.stateReason = try container.sdkDecodeIfPresent(.stateReason)
+        self.textMatches = try container.sdkDecodeIfPresent(.textMatches)
+        self.pullRequest = try container.sdkDecodeIfPresent(.pullRequest)
+        self.body = try container.sdkDecodeIfPresent(.body)
+        self.draft = try container.sdkDecodeIfPresent(.draft)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.bodyHtml = try container.sdkDecodeIfPresent(.bodyHtml)
+        self.bodyText = try container.sdkDecodeIfPresent(.bodyText)
+        self.timelineUrl = try container.sdkDecodeIfPresent(.timelineUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        self.pinnedComment = try container.sdkDecodeIfPresent(.pinnedComment)
+        self.reactions = try container.sdkDecodeIfPresent(.reactions)
         try sdkValidateConstraints()
     }
 }
 
-public extension IssueSearchResultItem {
-    init(
-        url: String,
-        repositoryUrl: String,
-        labelsUrl: String,
-        commentsUrl: String,
-        eventsUrl: String,
-        htmlUrl: String,
-        id: Int,
-        nodeId: String,
-        number: Int,
-        title: String,
-        locked: Bool,
-        user: NullableSimpleUser?,
-        labels: [IssueSearchResultItemLabelsItem],
-        state: String,
-        assignee: NullableSimpleUser?,
-        milestone: NullableMilestone?,
-        comments: Int,
-        createdAt: Date,
-        updatedAt: Date,
-        closedAt: Date?,
-        score: Double,
-        authorAssociation: AuthorAssociation,
-        activeLockReason: String? = nil,
-        assignees: [SimpleUser]? = nil,
-        subIssuesSummary: SubIssuesSummary? = nil,
-        issueDependenciesSummary: IssueDependenciesSummary? = nil,
-        issueFieldValues: [IssueFieldValue]? = nil,
-        stateReason: String? = nil,
-        textMatches: SearchResultTextMatches? = nil,
-        pullRequest: IssueSearchResultItemPullRequest? = nil,
-        body: String? = nil,
-        draft: Bool? = nil,
-        repository: Repository? = nil,
-        bodyHtml: String? = nil,
-        bodyText: String? = nil,
-        timelineUrl: String? = nil,
-        type: IssueType? = nil,
-        performedViaGithubApp: NullableIntegration? = nil,
-        pinnedComment: NullableIssueComment? = nil,
-        reactions: ReactionRollup? = nil
-    ) throws {
+extension IssueSearchResultItem {
+    public init(url: String, repositoryUrl: String, labelsUrl: String, commentsUrl: String, eventsUrl: String, htmlUrl: String, id: Int, nodeId: String, number: Int, title: String, locked: Bool, user: NullableSimpleUser?, labels: [IssueSearchResultItemLabelsItem], state: String, assignee: NullableSimpleUser?, milestone: NullableMilestone?, comments: Int, createdAt: Date, updatedAt: Date, closedAt: Date?, score: Double, authorAssociation: AuthorAssociation, activeLockReason: String? = nil, assignees: [SimpleUser]? = nil, subIssuesSummary: SubIssuesSummary? = nil, issueDependenciesSummary: IssueDependenciesSummary? = nil, issueFieldValues: [IssueFieldValue]? = nil, stateReason: String? = nil, textMatches: SearchResultTextMatches? = nil, pullRequest: IssueSearchResultItemPullRequest? = nil, body: String? = nil, draft: Bool? = nil, repository: Repository? = nil, bodyHtml: String? = nil, bodyText: String? = nil, timelineUrl: String? = nil, type: IssueType? = nil, performedViaGithubApp: NullableIntegration? = nil, pinnedComment: NullableIssueComment? = nil, reactions: ReactionRollup? = nil) throws {
         (self.url, self.repositoryUrl) = (url, repositoryUrl)
         (self.labelsUrl, self.commentsUrl) = (labelsUrl, commentsUrl)
         (self.eventsUrl, self.htmlUrl) = (eventsUrl, htmlUrl)
@@ -121,17 +80,17 @@ public extension IssueSearchResultItem {
 
 extension IssueSearchResultItem {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("repository_url", repositoryUrl)
-        try sdkValidateUri("comments_url", commentsUrl)
-        try sdkValidateUri("events_url", eventsUrl)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = closedAt {
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("repository_url", self.repositoryUrl)
+            try sdkValidateUri("comments_url", self.commentsUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.closedAt {
             try sdkValidateDateTime("closed_at", sdkWireString(value))
         }
-        if let value = timelineUrl {
+        if let value = self.timelineUrl {
             try sdkValidateUri("timeline_url", value)
         }
     }
@@ -171,45 +130,35 @@ public struct IssueSearchResultItemLabelsItem: Codable {
     }
 
     init() {
-        (id, nodeId, url, name, color) = (nil, nil, nil, nil, nil)
-        (self.default, description, archivedAt, archivedBy) = (nil, nil, nil, nil)
+        (self.id, self.nodeId, self.url, self.name, self.color) = (nil, nil, nil, nil, nil)
+        (self.`default`, self.description, self.archivedAt, self.archivedBy) = (nil, nil, nil, nil)
     }
 }
 
-public extension IssueSearchResultItemLabelsItem {
-    init(from decoder: Decoder) throws {
+extension IssueSearchResultItemLabelsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        url = try container.sdkDecodeIfPresent(.url)
-        name = try container.sdkDecodeIfPresent(.name)
-        color = try container.sdkDecodeIfPresent(.color)
-        self.default = try container.sdkDecodeIfPresent(.default)
-        description = try container.sdkDecodeIfPresent(.description)
-        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
-        if let value = archivedAt {
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.color = try container.sdkDecodeIfPresent(.color)
+        self.`default` = try container.sdkDecodeIfPresent(.`default`)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        self.archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
+        if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
     }
 }
 
-public extension IssueSearchResultItemLabelsItem {
-    init(
-        id: Int? = nil,
-        nodeId: String? = nil,
-        url: String? = nil,
-        name: String? = nil,
-        color: String? = nil,
-        default: Bool? = nil,
-        description: String? = nil,
-        archivedAt: Date? = nil,
-        archivedBy: IssueSearchResultItemLabelsItemArchivedBy? = nil
-    ) throws {
+extension IssueSearchResultItemLabelsItem {
+    public init(id: Int? = nil, nodeId: String? = nil, url: String? = nil, name: String? = nil, color: String? = nil, `default`: Bool? = nil, description: String? = nil, archivedAt: Date? = nil, archivedBy: IssueSearchResultItemLabelsItemArchivedBy? = nil) throws {
         self.init()
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.name) = (url, name)
-        (self.color, self.default) = (color, `default`)
+        (self.color, self.`default`) = (color, `default`)
         (self.description, self.archivedAt) = (description, archivedAt)
         self.archivedBy = archivedBy
         if let value = self.archivedAt {
@@ -309,65 +258,40 @@ public struct IssueSearchResultItemLabelsItemArchivedBy: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueSearchResultItemLabelsItemArchivedBy {
-    init(from decoder: Decoder) throws {
+extension IssueSearchResultItemLabelsItemArchivedBy {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension IssueSearchResultItemLabelsItemArchivedBy {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarUrl: String,
-        gravatarId: String?,
-        url: String,
-        htmlUrl: String,
-        followersUrl: String,
-        followingUrl: String,
-        gistsUrl: String,
-        starredUrl: String,
-        subscriptionsUrl: String,
-        organizationsUrl: String,
-        reposUrl: String,
-        eventsUrl: String,
-        receivedEventsUrl: String,
-        type: String,
-        siteAdmin: Bool,
-        name: String? = nil,
-        email: String? = nil,
-        starredAt: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension IssueSearchResultItemLabelsItemArchivedBy {
+    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String? = nil, email: String? = nil, starredAt: String? = nil, userViewType: String? = nil) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -385,14 +309,14 @@ public extension IssueSearchResultItemLabelsItemArchivedBy {
 
 extension IssueSearchResultItemLabelsItemArchivedBy {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("followers_url", followersUrl)
-        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
-        try sdkValidateUri("organizations_url", organizationsUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("received_events_url", receivedEventsUrl)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("followers_url", self.followersUrl)
+            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
+            try sdkValidateUri("organizations_url", self.organizationsUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
     }
 }
 
@@ -417,67 +341,49 @@ public struct IssueSearchResultItemPullRequest: Codable {
         case mergedAt = "merged_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueSearchResultItemPullRequest {
-    init(from decoder: Decoder) throws {
+extension IssueSearchResultItemPullRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.diffUrl) else {
-            throw SdkValidationError(
-                field: "diff_url",
-                code: "required",
-                message: "Validation failed for 'diff_url': value is required"
-            )
+            throw SdkValidationError(field: "diff_url", code: "required", message: "Validation failed for 'diff_url': value is required")
         }
         guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(
-                field: "html_url",
-                code: "required",
-                message: "Validation failed for 'html_url': value is required"
-            )
+            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
         }
         guard container.contains(.patchUrl) else {
-            throw SdkValidationError(
-                field: "patch_url",
-                code: "required",
-                message: "Validation failed for 'patch_url': value is required"
-            )
+            throw SdkValidationError(field: "patch_url", code: "required", message: "Validation failed for 'patch_url': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
-        diffUrl = try container.sdkDecodeIfPresent(.diffUrl)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        patchUrl = try container.sdkDecodeIfPresent(.patchUrl)
-        url = try container.sdkDecodeIfPresent(.url)
-        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        if let value = diffUrl {
+        self.diffUrl = try container.sdkDecodeIfPresent(.diffUrl)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.patchUrl = try container.sdkDecodeIfPresent(.patchUrl)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        if let value = self.diffUrl {
             try sdkValidateUri("diff_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = patchUrl {
+        if let value = self.patchUrl {
             try sdkValidateUri("patch_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        if let value = mergedAt {
+        if let value = self.mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
     }
 }
 
-public extension IssueSearchResultItemPullRequest {
-    init(diffUrl: String?, htmlUrl: String?, patchUrl: String?, url: String?, mergedAt: Date? = nil) throws {
+extension IssueSearchResultItemPullRequest {
+    public init(diffUrl: String?, htmlUrl: String?, patchUrl: String?, url: String?, mergedAt: Date? = nil) throws {
         (self.diffUrl, self.htmlUrl) = (diffUrl, htmlUrl)
         (self.patchUrl, self.url) = (patchUrl, url)
         self.mergedAt = mergedAt
@@ -538,53 +444,39 @@ public struct LabelSearchResultItem: Codable {
         case textMatches = "text_matches"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LabelSearchResultItem {
-    init(from decoder: Decoder) throws {
+extension LabelSearchResultItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        name = try container.sdkDecodeRequired(.name)
-        color = try container.sdkDecodeRequired(.color)
-        self.default = try container.sdkDecodeRequired(.default)
-        description = try container.sdkDecodeIfPresent(.description)
-        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
-        score = try container.sdkDecodeRequired(.score)
-        textMatches = try container.sdkDecodeIfPresent(.textMatches)
-        try sdkValidateUri("url", url)
-        if let value = archivedAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.color = try container.sdkDecodeRequired(.color)
+        self.`default` = try container.sdkDecodeRequired(.`default`)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        self.archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
+        self.score = try container.sdkDecodeRequired(.score)
+        self.textMatches = try container.sdkDecodeIfPresent(.textMatches)
+            try sdkValidateUri("url", self.url)
+        if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
     }
 }
 
-public extension LabelSearchResultItem {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        name: String,
-        color: String,
-        default: Bool,
-        description: String?,
-        archivedAt: Date?,
-        archivedBy: LabelSearchResultItemArchivedBy?,
-        score: Double,
-        textMatches: SearchResultTextMatches? = nil
-    ) throws {
+extension LabelSearchResultItem {
+    public init(id: Int, nodeId: String, url: String, name: String, color: String, `default`: Bool, description: String?, archivedAt: Date?, archivedBy: LabelSearchResultItemArchivedBy?, score: Double, textMatches: SearchResultTextMatches? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.name) = (url, name)
-        (self.color, self.default) = (color, `default`)
+        (self.color, self.`default`) = (color, `default`)
         (self.description, self.archivedAt) = (description, archivedAt)
         (self.archivedBy, self.score) = (archivedBy, score)
         self.textMatches = textMatches
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }

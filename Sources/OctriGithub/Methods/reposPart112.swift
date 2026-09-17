@@ -6,38 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Deletes a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated user must be a
-    /// repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens
-    /// and personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ReposMethods {
+    /// Deletes a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposDeletePagesSite(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pages",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeletePagesSite"
-        )).data
+    public static func reposDeletePagesSite(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages"].joined(), config: config, decoder: .empty, operationId: "reposDeletePagesSite")).data
     }
 
-    /// Lists builts of a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope
-    /// to use this endpoint.
+    /// Lists builts of a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -52,29 +33,10 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListPagesBuilds(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [PageBuild] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pages/builds",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposListPagesBuilds"
-        )).data
+    public static func reposListPagesBuilds(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [PageBuild] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages/builds"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposListPagesBuilds")).data
     }
 }

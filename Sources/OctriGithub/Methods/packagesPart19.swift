@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PackagesMethods {
+extension PackagesMethods {
     /// List packages for a user
     ///
-    /// Lists all packages in a user's namespace for which the requesting user has access. OAuth app tokens and personal
-    /// access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
-    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Lists all packages in a user's namespace for which the requesting user has access. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -38,26 +36,12 @@ public extension PackagesMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func packagesListPackagesForUser(
-        config: ClientConfig,
-        username: String,
-        packageType: PackagesListPackagesForUserParameter,
-        visibility: PackagesListPackagesForOrganizationParameter?,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> [Package] {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/packages"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("package_type", value: packageType),
-                SdkQueryParameter("visibility", value: visibility),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "packagesListPackagesForUser"
-        )).data
+    public static func packagesListPackagesForUser(config: ClientConfig, username: String, packageType: PackagesListPackagesForUserParameter, visibility: PackagesListPackagesForOrganizationParameter?, page: Int?, perPage: Int?) async throws -> [Package] {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/packages"].joined(), config: config, query: [
+            SdkQueryParameter("package_type", value: packageType),
+            SdkQueryParameter("visibility", value: visibility),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "packagesListPackagesForUser")).data
     }
 }

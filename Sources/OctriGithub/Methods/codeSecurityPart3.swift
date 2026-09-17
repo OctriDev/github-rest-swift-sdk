@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeSecurityMethods {
-    struct CodeSecurityCreateConfigurationForEnterpriseOptions: Codable {
+extension CodeSecurityMethods {
+    public struct CodeSecurityCreateConfigurationForEnterpriseOptions: Codable {
         public var enterprise: String
         public var name: String
         public var description: String?
@@ -39,9 +39,7 @@ public extension CodeSecurityMethods {
         }
     }
 
-    /// Creates a code security configuration in an enterprise. The authenticated user must be an administrator of the
-    /// enterprise in order to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `admin:enterprise` scope to use this endpoint.
+    /// Creates a code security configuration in an enterprise. The authenticated user must be an administrator of the enterprise in order to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
@@ -88,24 +86,13 @@ public extension CodeSecurityMethods {
     /// - privateVulnerabilityReporting: The enablement status of private
     ///   vulnerability reporting
     /// - enforcement: The enforcement status for a security configuration
-    static func codeSecurityCreateConfigurationForEnterprise(
-        config: ClientConfig,
-        options: CodeSecurityCreateConfigurationForEnterpriseOptions
-    ) async throws -> CodeSecurityConfiguration {
+    public static func codeSecurityCreateConfigurationForEnterprise(config: ClientConfig, options: CodeSecurityCreateConfigurationForEnterpriseOptions) async throws -> CodeSecurityConfiguration {
         if let description = options.description {
             try validateLength("description", description, max: 255)
         }
 
         let requestBody = CodeSecurityCreateConfigurationForEnterpriseRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/enterprises/", sdkEncodePathSegment(sdkWireString(options.enterprise)), "/code-security/configurations"]
-                .joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeSecurityCreateConfigurationForEnterprise"
-        )).data
+        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(options.enterprise)), "/code-security/configurations"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeSecurityCreateConfigurationForEnterprise")).data
     }
 }

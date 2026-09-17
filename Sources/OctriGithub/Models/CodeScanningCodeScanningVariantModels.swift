@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// CodeScanningCodeScanningVariant domain models
+// CodeScanningCodeScanningVariant domain models
 /// A run of a CodeQL query against one or more repositories.
 public struct CodeScanningVariantAnalysis: Codable {
     /// The ID of the variant analysis.
@@ -53,97 +53,57 @@ public struct CodeScanningVariantAnalysis: Codable {
         case skippedRepositories = "skipped_repositories"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysis {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysis {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.controllerRepo) else {
-            throw SdkValidationError(
-                field: "controller_repo",
-                code: "required",
-                message: "Validation failed for 'controller_repo': value is required"
-            )
+            throw SdkValidationError(field: "controller_repo", code: "required", message: "Validation failed for 'controller_repo': value is required")
         }
         guard container.contains(.actor) else {
-            throw SdkValidationError(
-                field: "actor",
-                code: "required",
-                message: "Validation failed for 'actor': value is required"
-            )
+            throw SdkValidationError(field: "actor", code: "required", message: "Validation failed for 'actor': value is required")
         }
         guard container.contains(.queryLanguage) else {
-            throw SdkValidationError(
-                field: "query_language",
-                code: "required",
-                message: "Validation failed for 'query_language': value is required"
-            )
+            throw SdkValidationError(field: "query_language", code: "required", message: "Validation failed for 'query_language': value is required")
         }
         guard container.contains(.queryPackUrl) else {
-            throw SdkValidationError(
-                field: "query_pack_url",
-                code: "required",
-                message: "Validation failed for 'query_pack_url': value is required"
-            )
+            throw SdkValidationError(field: "query_pack_url", code: "required", message: "Validation failed for 'query_pack_url': value is required")
         }
         guard container.contains(.status) else {
-            throw SdkValidationError(
-                field: "status",
-                code: "required",
-                message: "Validation failed for 'status': value is required"
-            )
+            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        controllerRepo = try container.sdkDecodeRequired(.controllerRepo)
-        actor = try container.sdkDecodeRequired(.actor)
-        queryLanguage = try container.sdkDecodeRequired(.queryLanguage)
-        queryPackUrl = try container.sdkDecodeRequired(.queryPackUrl)
-        status = try container.sdkDecodeRequired(.status)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        actionsWorkflowRunId = try container.sdkDecodeIfPresent(.actionsWorkflowRunId)
-        failureReason = try container.sdkDecodeIfPresent(.failureReason)
-        scannedRepositories = try container.sdkDecodeIfPresent(.scannedRepositories)
-        skippedRepositories = try container.sdkDecodeIfPresent(.skippedRepositories)
-        if let value = createdAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.controllerRepo = try container.sdkDecodeRequired(.controllerRepo)
+        self.actor = try container.sdkDecodeRequired(.actor)
+        self.queryLanguage = try container.sdkDecodeRequired(.queryLanguage)
+        self.queryPackUrl = try container.sdkDecodeRequired(.queryPackUrl)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        self.actionsWorkflowRunId = try container.sdkDecodeIfPresent(.actionsWorkflowRunId)
+        self.failureReason = try container.sdkDecodeIfPresent(.failureReason)
+        self.scannedRepositories = try container.sdkDecodeIfPresent(.scannedRepositories)
+        self.skippedRepositories = try container.sdkDecodeIfPresent(.skippedRepositories)
+        if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = updatedAt {
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = completedAt {
+        if let value = self.completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }
     }
 }
 
-public extension CodeScanningVariantAnalysis {
-    init(
-        id: Int,
-        controllerRepo: SimpleRepository,
-        actor: SimpleUser,
-        queryLanguage: CodeScanningVariantAnalysisLanguage,
-        queryPackUrl: String,
-        status: CodeScanningVariantAnalysisStatusX8924a723,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil,
-        completedAt: Date? = nil,
-        actionsWorkflowRunId: Int? = nil,
-        failureReason: CodeScanningVariantAnalysisFailureReason? = nil,
-        scannedRepositories: [CodeScanningVariantAnalysisScannedRepositoriesItem]? = nil,
-        skippedRepositories: CodeScanningVariantAnalysisSkippedRepositories? = nil
-    ) throws {
+extension CodeScanningVariantAnalysis {
+    public init(id: Int, controllerRepo: SimpleRepository, actor: SimpleUser, queryLanguage: CodeScanningVariantAnalysisLanguage, queryPackUrl: String, status: CodeScanningVariantAnalysisStatusX8924a723, createdAt: Date? = nil, updatedAt: Date? = nil, completedAt: Date? = nil, actionsWorkflowRunId: Int? = nil, failureReason: CodeScanningVariantAnalysisFailureReason? = nil, scannedRepositories: [CodeScanningVariantAnalysisScannedRepositoriesItem]? = nil, skippedRepositories: CodeScanningVariantAnalysisSkippedRepositories? = nil) throws {
         (self.id, self.controllerRepo) = (id, controllerRepo)
         (self.actor, self.queryLanguage) = (actor, queryLanguage)
         (self.queryPackUrl, self.status) = (queryPackUrl, status)
@@ -184,44 +144,28 @@ public struct CodeScanningVariantAnalysisScannedRepositoriesItem: Codable {
         case failureMessage = "failure_message"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysisScannedRepositoriesItem {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysisScannedRepositoriesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.analysisStatus) else {
-            throw SdkValidationError(
-                field: "analysis_status",
-                code: "required",
-                message: "Validation failed for 'analysis_status': value is required"
-            )
+            throw SdkValidationError(field: "analysis_status", code: "required", message: "Validation failed for 'analysis_status': value is required")
         }
-        repository = try container.sdkDecodeRequired(.repository)
-        analysisStatus = try container.sdkDecodeRequired(.analysisStatus)
-        resultCount = try container.sdkDecodeIfPresent(.resultCount)
-        artifactSizeInBytes = try container.sdkDecodeIfPresent(.artifactSizeInBytes)
-        failureMessage = try container.sdkDecodeIfPresent(.failureMessage)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.analysisStatus = try container.sdkDecodeRequired(.analysisStatus)
+        self.resultCount = try container.sdkDecodeIfPresent(.resultCount)
+        self.artifactSizeInBytes = try container.sdkDecodeIfPresent(.artifactSizeInBytes)
+        self.failureMessage = try container.sdkDecodeIfPresent(.failureMessage)
     }
 }
 
-public extension CodeScanningVariantAnalysisScannedRepositoriesItem {
-    init(
-        repository: CodeScanningVariantAnalysisRepository,
-        analysisStatus: CodeScanningVariantAnalysisStatus,
-        resultCount: Int? = nil,
-        artifactSizeInBytes: Int? = nil,
-        failureMessage: String? = nil
-    ) {
+extension CodeScanningVariantAnalysisScannedRepositoriesItem {
+    public init(repository: CodeScanningVariantAnalysisRepository, analysisStatus: CodeScanningVariantAnalysisStatus, resultCount: Int? = nil, artifactSizeInBytes: Int? = nil, failureMessage: String? = nil) {
         (self.repository, self.analysisStatus) = (repository, analysisStatus)
         (self.resultCount, self.artifactSizeInBytes) = (resultCount, artifactSizeInBytes)
         self.failureMessage = failureMessage
@@ -247,56 +191,33 @@ public struct CodeScanningVariantAnalysisSkippedRepositories: Codable {
         case overLimitRepos = "over_limit_repos"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysisSkippedRepositories {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysisSkippedRepositories {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.accessMismatchRepos) else {
-            throw SdkValidationError(
-                field: "access_mismatch_repos",
-                code: "required",
-                message: "Validation failed for 'access_mismatch_repos': value is required"
-            )
+            throw SdkValidationError(field: "access_mismatch_repos", code: "required", message: "Validation failed for 'access_mismatch_repos': value is required")
         }
         guard container.contains(.notFoundRepos) else {
-            throw SdkValidationError(
-                field: "not_found_repos",
-                code: "required",
-                message: "Validation failed for 'not_found_repos': value is required"
-            )
+            throw SdkValidationError(field: "not_found_repos", code: "required", message: "Validation failed for 'not_found_repos': value is required")
         }
         guard container.contains(.noCodeqlDbRepos) else {
-            throw SdkValidationError(
-                field: "no_codeql_db_repos",
-                code: "required",
-                message: "Validation failed for 'no_codeql_db_repos': value is required"
-            )
+            throw SdkValidationError(field: "no_codeql_db_repos", code: "required", message: "Validation failed for 'no_codeql_db_repos': value is required")
         }
         guard container.contains(.overLimitRepos) else {
-            throw SdkValidationError(
-                field: "over_limit_repos",
-                code: "required",
-                message: "Validation failed for 'over_limit_repos': value is required"
-            )
+            throw SdkValidationError(field: "over_limit_repos", code: "required", message: "Validation failed for 'over_limit_repos': value is required")
         }
-        accessMismatchRepos = try container.sdkDecodeRequired(.accessMismatchRepos)
-        notFoundRepos = try container.sdkDecodeRequired(.notFoundRepos)
-        noCodeqlDbRepos = try container.sdkDecodeRequired(.noCodeqlDbRepos)
-        overLimitRepos = try container.sdkDecodeRequired(.overLimitRepos)
+        self.accessMismatchRepos = try container.sdkDecodeRequired(.accessMismatchRepos)
+        self.notFoundRepos = try container.sdkDecodeRequired(.notFoundRepos)
+        self.noCodeqlDbRepos = try container.sdkDecodeRequired(.noCodeqlDbRepos)
+        self.overLimitRepos = try container.sdkDecodeRequired(.overLimitRepos)
     }
 }
 
-public extension CodeScanningVariantAnalysisSkippedRepositories {
-    init(
-        accessMismatchRepos: CodeScanningVariantAnalysisSkippedRepoGroup,
-        notFoundRepos: CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos,
-        noCodeqlDbRepos: CodeScanningVariantAnalysisSkippedRepoGroup,
-        overLimitRepos: CodeScanningVariantAnalysisSkippedRepoGroup
-    ) {
+extension CodeScanningVariantAnalysisSkippedRepositories {
+    public init(accessMismatchRepos: CodeScanningVariantAnalysisSkippedRepoGroup, notFoundRepos: CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos, noCodeqlDbRepos: CodeScanningVariantAnalysisSkippedRepoGroup, overLimitRepos: CodeScanningVariantAnalysisSkippedRepoGroup) {
         (self.accessMismatchRepos, self.notFoundRepos) = (accessMismatchRepos, notFoundRepos)
         (self.noCodeqlDbRepos, self.overLimitRepos) = (noCodeqlDbRepos, overLimitRepos)
     }
@@ -316,35 +237,25 @@ public struct CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos: Codab
         case repositoryFullNames = "repository_full_names"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryCount) else {
-            throw SdkValidationError(
-                field: "repository_count",
-                code: "required",
-                message: "Validation failed for 'repository_count': value is required"
-            )
+            throw SdkValidationError(field: "repository_count", code: "required", message: "Validation failed for 'repository_count': value is required")
         }
         guard container.contains(.repositoryFullNames) else {
-            throw SdkValidationError(
-                field: "repository_full_names",
-                code: "required",
-                message: "Validation failed for 'repository_full_names': value is required"
-            )
+            throw SdkValidationError(field: "repository_full_names", code: "required", message: "Validation failed for 'repository_full_names': value is required")
         }
-        repositoryCount = try container.sdkDecodeRequired(.repositoryCount)
-        repositoryFullNames = try container.sdkDecodeRequired(.repositoryFullNames)
+        self.repositoryCount = try container.sdkDecodeRequired(.repositoryCount)
+        self.repositoryFullNames = try container.sdkDecodeRequired(.repositoryFullNames)
     }
 }
 
-public extension CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos {
-    init(repositoryCount: Int, repositoryFullNames: [String]) {
+extension CodeScanningVariantAnalysisSkippedRepositoriesNotFoundRepos {
+    public init(repositoryCount: Int, repositoryFullNames: [String]) {
         (self.repositoryCount, self.repositoryFullNames) = (repositoryCount, repositoryFullNames)
     }
 }
@@ -379,50 +290,31 @@ public struct CodeScanningVariantAnalysisRepoTask: Codable {
         case artifactUrl = "artifact_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysisRepoTask {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysisRepoTask {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.analysisStatus) else {
-            throw SdkValidationError(
-                field: "analysis_status",
-                code: "required",
-                message: "Validation failed for 'analysis_status': value is required"
-            )
+            throw SdkValidationError(field: "analysis_status", code: "required", message: "Validation failed for 'analysis_status': value is required")
         }
-        repository = try container.sdkDecodeRequired(.repository)
-        analysisStatus = try container.sdkDecodeRequired(.analysisStatus)
-        artifactSizeInBytes = try container.sdkDecodeIfPresent(.artifactSizeInBytes)
-        resultCount = try container.sdkDecodeIfPresent(.resultCount)
-        failureMessage = try container.sdkDecodeIfPresent(.failureMessage)
-        databaseCommitSha = try container.sdkDecodeIfPresent(.databaseCommitSha)
-        sourceLocationPrefix = try container.sdkDecodeIfPresent(.sourceLocationPrefix)
-        artifactUrl = try container.sdkDecodeIfPresent(.artifactUrl)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.analysisStatus = try container.sdkDecodeRequired(.analysisStatus)
+        self.artifactSizeInBytes = try container.sdkDecodeIfPresent(.artifactSizeInBytes)
+        self.resultCount = try container.sdkDecodeIfPresent(.resultCount)
+        self.failureMessage = try container.sdkDecodeIfPresent(.failureMessage)
+        self.databaseCommitSha = try container.sdkDecodeIfPresent(.databaseCommitSha)
+        self.sourceLocationPrefix = try container.sdkDecodeIfPresent(.sourceLocationPrefix)
+        self.artifactUrl = try container.sdkDecodeIfPresent(.artifactUrl)
     }
 }
 
-public extension CodeScanningVariantAnalysisRepoTask {
-    init(
-        repository: SimpleRepository,
-        analysisStatus: CodeScanningVariantAnalysisStatus,
-        artifactSizeInBytes: Int? = nil,
-        resultCount: Int? = nil,
-        failureMessage: String? = nil,
-        databaseCommitSha: String? = nil,
-        sourceLocationPrefix: String? = nil,
-        artifactUrl: String? = nil
-    ) {
+extension CodeScanningVariantAnalysisRepoTask {
+    public init(repository: SimpleRepository, analysisStatus: CodeScanningVariantAnalysisStatus, artifactSizeInBytes: Int? = nil, resultCount: Int? = nil, failureMessage: String? = nil, databaseCommitSha: String? = nil, sourceLocationPrefix: String? = nil, artifactUrl: String? = nil) {
         (self.repository, self.analysisStatus) = (repository, analysisStatus)
         (self.artifactSizeInBytes, self.resultCount) = (artifactSizeInBytes, resultCount)
         (self.failureMessage, self.databaseCommitSha) = (failureMessage, databaseCommitSha)
@@ -459,72 +351,46 @@ public struct CodeScanningVariantAnalysisRepository: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysisRepository {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysisRepository {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.fullName) else {
-            throw SdkValidationError(
-                field: "full_name",
-                code: "required",
-                message: "Validation failed for 'full_name': value is required"
-            )
+            throw SdkValidationError(field: "full_name", code: "required", message: "Validation failed for 'full_name': value is required")
         }
-        guard container.contains(.private) else {
-            throw SdkValidationError(
-                field: "private",
-                code: "required",
-                message: "Validation failed for 'private': value is required"
-            )
+        guard container.contains(.`private`) else {
+            throw SdkValidationError(field: "private", code: "required", message: "Validation failed for 'private': value is required")
         }
         guard container.contains(.stargazersCount) else {
-            throw SdkValidationError(
-                field: "stargazers_count",
-                code: "required",
-                message: "Validation failed for 'stargazers_count': value is required"
-            )
+            throw SdkValidationError(field: "stargazers_count", code: "required", message: "Validation failed for 'stargazers_count': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        fullName = try container.sdkDecodeRequired(.fullName)
-        self.private = try container.sdkDecodeRequired(.private)
-        stargazersCount = try container.sdkDecodeRequired(.stargazersCount)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        if let value = updatedAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.fullName = try container.sdkDecodeRequired(.fullName)
+        self.`private` = try container.sdkDecodeRequired(.`private`)
+        self.stargazersCount = try container.sdkDecodeRequired(.stargazersCount)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension CodeScanningVariantAnalysisRepository {
-    init(id: Int, name: String, fullName: String, private: Bool, stargazersCount: Int, updatedAt: Date?) throws {
+extension CodeScanningVariantAnalysisRepository {
+    public init(id: Int, name: String, fullName: String, `private`: Bool, stargazersCount: Int, updatedAt: Date?) throws {
         (self.id, self.name) = (id, name)
-        (self.fullName, self.private) = (fullName, `private`)
+        (self.fullName, self.`private`) = (fullName, `private`)
         (self.stargazersCount, self.updatedAt) = (stargazersCount, updatedAt)
         if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
@@ -546,48 +412,34 @@ public struct CodeScanningVariantAnalysisSkippedRepoGroup: Codable {
         case repositories
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CodeScanningVariantAnalysisSkippedRepoGroup {
-    init(from decoder: Decoder) throws {
+extension CodeScanningVariantAnalysisSkippedRepoGroup {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryCount) else {
-            throw SdkValidationError(
-                field: "repository_count",
-                code: "required",
-                message: "Validation failed for 'repository_count': value is required"
-            )
+            throw SdkValidationError(field: "repository_count", code: "required", message: "Validation failed for 'repository_count': value is required")
         }
         guard container.contains(.repositories) else {
-            throw SdkValidationError(
-                field: "repositories",
-                code: "required",
-                message: "Validation failed for 'repositories': value is required"
-            )
+            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
         }
-        repositoryCount = try container.sdkDecodeRequired(.repositoryCount)
-        repositories = try container.sdkDecodeRequired(.repositories)
+        self.repositoryCount = try container.sdkDecodeRequired(.repositoryCount)
+        self.repositories = try container.sdkDecodeRequired(.repositories)
     }
 }
 
-public extension CodeScanningVariantAnalysisSkippedRepoGroup {
-    init(repositoryCount: Int, repositories: [CodeScanningVariantAnalysisRepository]) {
+extension CodeScanningVariantAnalysisSkippedRepoGroup {
+    public init(repositoryCount: Int, repositories: [CodeScanningVariantAnalysisRepository]) {
         (self.repositoryCount, self.repositories) = (repositoryCount, repositories)
     }
 }
 
 /// Required enumerated value serialized in the `status` wire field.
-public struct CodeScanningVariantAnalysisStatusX8924a723: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningVariantAnalysisStatusX8924a723: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let inProgress = CodeScanningVariantAnalysisStatusX8924a723(rawValue: "in_progress")
     public static let succeeded = CodeScanningVariantAnalysisStatusX8924a723(rawValue: "succeeded")
     public static let failed = CodeScanningVariantAnalysisStatusX8924a723(rawValue: "failed")
@@ -595,7 +447,7 @@ public struct CodeScanningVariantAnalysisStatusX8924a723: RawRepresentable, Hash
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

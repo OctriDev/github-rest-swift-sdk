@@ -9,286 +9,83 @@ public class ReactionsNamespace {
         self.config = config
     }
 
-    /// List the reactions to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment).
-    public func listForCommitComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsListForCommitCommentParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await ReactionsMethods.reactionsListForCommitComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            content: content,
-            perPage: perPage,
-            page: page
-        )
+/// List the reactions to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment).
+    public func listForCommitComment(owner: String, repo: String, commentId: Int, content: ReactionsListForCommitCommentParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try await ReactionsMethods.reactionsListForCommitComment(config: config, owner: owner, repo: repo, commentId: commentId, content: content, perPage: perPage, page: page)
     }
 
-    /// Create a reaction to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment). A
-    /// response with an HTTP `200` status means that you already added the reaction type to this commit comment.
-    public func createForCommitComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsCreateForCommitCommentRequestBodyContent
-    ) async throws -> Reaction {
-        try await ReactionsMethods.reactionsCreateForCommitComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            content: content
-        )
+/// Create a reaction to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment). A response with an HTTP `200` status means that you already added the reaction type to this commit comment.
+    public func createForCommitComment(owner: String, repo: String, commentId: Int, content: ReactionsCreateForCommitCommentRequestBodyContent) async throws -> Reaction {
+        return try await ReactionsMethods.reactionsCreateForCommitComment(config: config, owner: owner, repo: repo, commentId: commentId, content: content)
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE
-    /// /repositories/:repository_id/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to a [commit
-    /// comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment).
-    public func deleteForCommitComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await ReactionsMethods.reactionsDeleteForCommitComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            reactionId: reactionId
-        )
+/// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment).
+    public func deleteForCommitComment(owner: String, repo: String, commentId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try await ReactionsMethods.reactionsDeleteForCommitComment(config: config, owner: owner, repo: repo, commentId: commentId, reactionId: reactionId)
     }
 
-    /// List the reactions to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment).
-    public func listForIssueComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsListForIssueCommentParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await ReactionsMethods.reactionsListForIssueComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            content: content,
-            perPage: perPage,
-            page: page
-        )
+/// List the reactions to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment).
+    public func listForIssueComment(owner: String, repo: String, commentId: Int, content: ReactionsListForIssueCommentParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try await ReactionsMethods.reactionsListForIssueComment(config: config, owner: owner, repo: repo, commentId: commentId, content: content, perPage: perPage, page: page)
     }
 
-    /// Create a reaction to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment). A
-    /// response with an HTTP `200` status means that you already added the reaction type to this issue comment.
-    public func createForIssueComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsCreateForIssueCommentRequestBodyContent
-    ) async throws -> Reaction {
-        try await ReactionsMethods.reactionsCreateForIssueComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            content: content
-        )
+/// Create a reaction to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment). A response with an HTTP `200` status means that you already added the reaction type to this issue comment.
+    public func createForIssueComment(owner: String, repo: String, commentId: Int, content: ReactionsCreateForIssueCommentRequestBodyContent) async throws -> Reaction {
+        return try await ReactionsMethods.reactionsCreateForIssueComment(config: config, owner: owner, repo: repo, commentId: commentId, content: content)
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete
-    /// /repositories/:repository_id/issues/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to an [issue
-    /// comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment).
-    public func deleteForIssueComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await ReactionsMethods.reactionsDeleteForIssueComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            reactionId: reactionId
-        )
+/// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete /repositories/:repository_id/issues/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to an [issue comment](https://docs.github.com/rest/issues/comments#get-an-issue-comment).
+    public func deleteForIssueComment(owner: String, repo: String, commentId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try await ReactionsMethods.reactionsDeleteForIssueComment(config: config, owner: owner, repo: repo, commentId: commentId, reactionId: reactionId)
     }
 
-    /// Lists the reactions attached to an issue in a repository. Use `content` to filter the results to one reaction
-    /// type, or omit it to return all reactions, and use `page` and `per_page` to paginate the results.
+/// Lists the reactions attached to an issue in a repository. Use `content` to filter the results to one reaction type, or omit it to return all reactions, and use `page` and `per_page` to paginate the results.
     ///
     /// List the reactions to an [issue](https://docs.github.com/rest/issues/issues#get-an-issue).
-    public func listForIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        content: ReactionsListForIssueParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await ReactionsMethods.reactionsListForIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            content: content,
-            perPage: perPage,
-            page: page
-        )
+    public func listForIssue(owner: String, repo: String, issueNumber: Int, content: ReactionsListForIssueParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try await ReactionsMethods.reactionsListForIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, content: content, perPage: perPage, page: page)
     }
 
-    /// Create a reaction to an [issue](https://docs.github.com/rest/issues/issues#get-an-issue). A response with an
-    /// HTTP `200` status means that you already added the reaction type to this issue.
-    public func createForIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        content: ReactionsCreateForIssueRequestBodyContent
-    ) async throws -> Reaction {
-        try await ReactionsMethods.reactionsCreateForIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            content: content
-        )
+/// Create a reaction to an [issue](https://docs.github.com/rest/issues/issues#get-an-issue). A response with an HTTP `200` status means that you already added the reaction type to this issue.
+    public func createForIssue(owner: String, repo: String, issueNumber: Int, content: ReactionsCreateForIssueRequestBodyContent) async throws -> Reaction {
+        return try await ReactionsMethods.reactionsCreateForIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, content: content)
     }
 }
 
-public extension ReactionsNamespace {
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE
-    /// /repositories/:repository_id/issues/:issue_number/reactions/:reaction_id`. Delete a reaction to an
-    /// [issue](https://docs.github.com/rest/issues/issues#get-an-issue).
-    func deleteForIssue(
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await ReactionsMethods.reactionsDeleteForIssue(
-            config: config,
-            owner: owner,
-            repo: repo,
-            issueNumber: issueNumber,
-            reactionId: reactionId
-        )
+extension ReactionsNamespace {
+/// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/issues/:issue_number/reactions/:reaction_id`. Delete a reaction to an [issue](https://docs.github.com/rest/issues/issues#get-an-issue).
+    public func deleteForIssue(owner: String, repo: String, issueNumber: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try await ReactionsMethods.reactionsDeleteForIssue(config: config, owner: owner, repo: repo, issueNumber: issueNumber, reactionId: reactionId)
     }
 
-    /// List the reactions to a [pull request review
-    /// comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
-    func listForPullRequestReviewComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsListForPullRequestReviewCommentParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await ReactionsMethods.reactionsListForPullRequestReviewComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            content: content,
-            perPage: perPage,
-            page: page
-        )
+/// List the reactions to a [pull request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
+    public func listForPullRequestReviewComment(owner: String, repo: String, commentId: Int, content: ReactionsListForPullRequestReviewCommentParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try await ReactionsMethods.reactionsListForPullRequestReviewComment(config: config, owner: owner, repo: repo, commentId: commentId, content: content, perPage: perPage, page: page)
     }
 
-    /// Create a reaction to a [pull request review
-    /// comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request). A response with
-    /// an HTTP `200` status means that you already added the reaction type to this pull request review comment.
-    func createForPullRequestReviewComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsCreateForPullRequestReviewCommentRequestBodyContent
-    ) async throws -> Reaction {
-        try await ReactionsMethods.reactionsCreateForPullRequestReviewComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            content: content
-        )
+/// Create a reaction to a [pull request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request). A response with an HTTP `200` status means that you already added the reaction type to this pull request review comment.
+    public func createForPullRequestReviewComment(owner: String, repo: String, commentId: Int, content: ReactionsCreateForPullRequestReviewCommentRequestBodyContent) async throws -> Reaction {
+        return try await ReactionsMethods.reactionsCreateForPullRequestReviewComment(config: config, owner: owner, repo: repo, commentId: commentId, content: content)
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE
-    /// /repositories/:repository_id/pulls/comments/:comment_id/reactions/:reaction_id.` Delete a reaction to a [pull
-    /// request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
-    func deleteForPullRequestComment(
-        owner: String,
-        repo: String,
-        commentId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await ReactionsMethods.reactionsDeleteForPullRequestComment(
-            config: config,
-            owner: owner,
-            repo: repo,
-            commentId: commentId,
-            reactionId: reactionId
-        )
+/// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/pulls/comments/:comment_id/reactions/:reaction_id.` Delete a reaction to a [pull request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
+    public func deleteForPullRequestComment(owner: String, repo: String, commentId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try await ReactionsMethods.reactionsDeleteForPullRequestComment(config: config, owner: owner, repo: repo, commentId: commentId, reactionId: reactionId)
     }
 
-    /// List the reactions to a [release](https://docs.github.com/rest/releases/releases#get-a-release).
-    func listForRelease(
-        owner: String,
-        repo: String,
-        releaseId: Int,
-        content: ReactionsListForReleaseParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await ReactionsMethods.reactionsListForRelease(
-            config: config,
-            owner: owner,
-            repo: repo,
-            releaseId: releaseId,
-            content: content,
-            perPage: perPage,
-            page: page
-        )
+/// List the reactions to a [release](https://docs.github.com/rest/releases/releases#get-a-release).
+    public func listForRelease(owner: String, repo: String, releaseId: Int, content: ReactionsListForReleaseParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try await ReactionsMethods.reactionsListForRelease(config: config, owner: owner, repo: repo, releaseId: releaseId, content: content, perPage: perPage, page: page)
     }
 
-    /// Create a reaction to a [release](https://docs.github.com/rest/releases/releases#get-a-release). A response with
-    /// a `Status: 200 OK` means that you already added the reaction type to this release.
-    func createForRelease(
-        owner: String,
-        repo: String,
-        releaseId: Int,
-        content: ReactionsCreateForReleaseRequestBodyContent
-    ) async throws -> Reaction {
-        try await ReactionsMethods.reactionsCreateForRelease(
-            config: config,
-            owner: owner,
-            repo: repo,
-            releaseId: releaseId,
-            content: content
-        )
+/// Create a reaction to a [release](https://docs.github.com/rest/releases/releases#get-a-release). A response with a `Status: 200 OK` means that you already added the reaction type to this release.
+    public func createForRelease(owner: String, repo: String, releaseId: Int, content: ReactionsCreateForReleaseRequestBodyContent) async throws -> Reaction {
+        return try await ReactionsMethods.reactionsCreateForRelease(config: config, owner: owner, repo: repo, releaseId: releaseId, content: content)
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete
-    /// /repositories/:repository_id/releases/:release_id/reactions/:reaction_id`. Delete a reaction to a
-    /// [release](https://docs.github.com/rest/releases/releases#get-a-release).
-    func deleteForRelease(
-        owner: String,
-        repo: String,
-        releaseId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await ReactionsMethods.reactionsDeleteForRelease(
-            config: config,
-            owner: owner,
-            repo: repo,
-            releaseId: releaseId,
-            reactionId: reactionId
-        )
+/// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete /repositories/:repository_id/releases/:release_id/reactions/:reaction_id`. Delete a reaction to a [release](https://docs.github.com/rest/releases/releases#get-a-release).
+    public func deleteForRelease(owner: String, repo: String, releaseId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try await ReactionsMethods.reactionsDeleteForRelease(config: config, owner: owner, repo: repo, releaseId: releaseId, reactionId: reactionId)
     }
 }
 
@@ -298,67 +95,33 @@ public class DependencyGraphNamespace {
         self.config = config
     }
 
-    /// Gets the diff of the dependency changes between two commits of a repository, based on the changes to the
-    /// dependency manifests made in those commits.
-    public func diffRange(
-        owner: String,
-        repo: String,
-        basehead: String,
-        name: String?
-    ) async throws -> DependencyGraphDiff {
-        try await DependencyGraphMethods.dependencyGraphDiffRange(
-            config: config,
-            owner: owner,
-            repo: repo,
-            basehead: basehead,
-            name: name
-        )
+/// Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.
+    public func diffRange(owner: String, repo: String, basehead: String, name: String?) async throws -> DependencyGraphDiff {
+        return try await DependencyGraphMethods.dependencyGraphDiffRange(config: config, owner: owner, repo: repo, basehead: basehead, name: name)
     }
 
-    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will not be accessible after November
-    /// 13, 2026. Please migrate to the asynchronous flow. Use "[Request generation of a software bill of materials
-    /// (SBOM) for a repository](https://docs.github.com/rest/dependency-graph/sboms#request-generation-of-a-software-bill-of-materials-sbom-for-a-repository)"
-    /// to trigger the report, then "[Fetch a software bill of materials (SBOM) for a repository](https://docs.github.com/rest/dependency-graph/sboms#fetch-a-software-bill-of-materials-sbom-for-a-repository)"
-    /// to retrieve it. For more information, see the
-    /// [changelog](https://github.blog/changelog/2026-05-12-synchronous-sbom-api-deprecated/). Exports the software
-    /// bill of materials (SBOM) for a repository in SPDX JSON format.
+/// > [!WARNING] > **Closing down notice:** This operation is closing down and will not be accessible after November 13, 2026. Please migrate to the asynchronous flow. Use "[Request generation of a software bill of materials (SBOM) for a repository](https://docs.github.com/rest/dependency-graph/sboms#request-generation-of-a-software-bill-of-materials-sbom-for-a-repository)" to trigger the report, then "[Fetch a software bill of materials (SBOM) for a repository](https://docs.github.com/rest/dependency-graph/sboms#fetch-a-software-bill-of-materials-sbom-for-a-repository)" to retrieve it. For more information, see the [changelog](https://github.blog/changelog/2026-05-12-synchronous-sbom-api-deprecated/). Exports the software bill of materials (SBOM) for a repository in SPDX JSON format.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
     public func exportSbom(owner: String, repo: String) async throws -> DependencyGraphSpdxSbom {
-        try await DependencyGraphMethods.dependencyGraphExportSbom(config: config, owner: owner, repo: repo)
+        return try await DependencyGraphMethods.dependencyGraphExportSbom(config: config, owner: owner, repo: repo)
     }
 
-    /// Fetches a previously generated software bill of materials (SBOM) for a repository. When the SBOM is ready, the
-    /// response is a 302 redirect to a temporary download URL for the SBOM in SPDX JSON format. The generated SBOM
-    /// report may be retained for up to one week from the original request. The temporary download URL returned by this
-    /// endpoint expires separately, and its expiry is set when the fetch request is made.
+/// Fetches a previously generated software bill of materials (SBOM) for a repository. When the SBOM is ready, the response is a 302 redirect to a temporary download URL for the SBOM in SPDX JSON format. The generated SBOM report may be retained for up to one week from the original request. The temporary download URL returned by this endpoint expires separately, and its expiry is set when the fetch request is made.
     public func fetchSbomReport(owner: String, repo: String, sbomUuid: String) async throws -> SdkEmptyResponse {
-        try await DependencyGraphMethods.dependencyGraphFetchSbomReport(
-            config: config,
-            owner: owner,
-            repo: repo,
-            sbomUuid: sbomUuid
-        )
+        return try await DependencyGraphMethods.dependencyGraphFetchSbomReport(config: config, owner: owner, repo: repo, sbomUuid: sbomUuid)
     }
 
-    /// Triggers a job to generate a software bill of materials (SBOM) for a repository in SPDX JSON format.
-    public func generateSbomReport(
-        owner: String,
-        repo: String
-    ) async throws -> DependencyGraphGenerateSbomReportResponse {
-        try await DependencyGraphMethods.dependencyGraphGenerateSbomReport(config: config, owner: owner, repo: repo)
+/// Triggers a job to generate a software bill of materials (SBOM) for a repository in SPDX JSON format.
+    public func generateSbomReport(owner: String, repo: String) async throws -> DependencyGraphGenerateSbomReportResponse {
+        return try await DependencyGraphMethods.dependencyGraphGenerateSbomReport(config: config, owner: owner, repo: repo)
     }
 
-    /// Creates a dependency snapshot for a repository. Supply repository identity through `owner` and `repo`, and
-    /// include detector, job, commit, reference, and scan-time details in the request body. The created snapshot
-    /// reports whether the repository dependencies were updated or accepted without an update.
+/// Creates a dependency snapshot for a repository. Supply repository identity through `owner` and `repo`, and include detector, job, commit, reference, and scan-time details in the request body. The created snapshot reports whether the repository dependencies were updated or accepted without an update.
     ///
-    /// Create a new snapshot of a repository's dependencies. The authenticated user must have access to the repository.
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createRepositorySnapshot(options: DependencyGraphMethods
-        .DependencyGraphCreateRepositorySnapshotOptions) async throws
-        -> DependencyGraphCreateRepositorySnapshotResponse {
-        try await DependencyGraphMethods.dependencyGraphCreateRepositorySnapshot(config: config, options: options)
+    /// Create a new snapshot of a repository's dependencies. The authenticated user must have access to the repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createRepositorySnapshot(options: DependencyGraphMethods.DependencyGraphCreateRepositorySnapshotOptions) async throws -> DependencyGraphCreateRepositorySnapshotResponse {
+        return try await DependencyGraphMethods.dependencyGraphCreateRepositorySnapshot(config: config, options: options)
     }
 }
 
@@ -368,219 +131,76 @@ public class GitNamespace {
         self.config = config
     }
 
-    /// Creates a Git blob in a specified repository. Supply the blob `content` and optionally choose `encoding`; the
-    /// returned object provides the new blob's URL and SHA identifier.
+/// Creates a Git blob in a specified repository. Supply the blob `content` and optionally choose `encoding`; the returned object provides the new blob's URL and SHA identifier.
     public func createBlob(owner: String, repo: String, content: String, encoding: String?) async throws -> ShortBlob {
-        try await GitMethods.gitCreateBlob(
-            config: config,
-            owner: owner,
-            repo: repo,
-            content: content,
-            encoding: encoding
-        )
+        return try await GitMethods.gitCreateBlob(config: config, owner: owner, repo: repo, content: content, encoding: encoding)
     }
 
-    /// Retrieves a Git blob from a specified repository by its file SHA. The default JSON representation contains
-    /// Base64-encoded `content`, while the raw media type returns the blob data directly; blobs can be up to 100
-    /// megabytes.
+/// Retrieves a Git blob from a specified repository by its file SHA. The default JSON representation contains Base64-encoded `content`, while the raw media type returns the blob data directly; blobs can be up to 100 megabytes.
     ///
-    /// The `content` in the response will always be Base64 encoded. This endpoint supports the following custom media
-    /// types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw blob data. - **`application/vnd.github+json`**: Returns a
-    /// JSON representation of the blob with `content` as a base64 encoded string. This is the default if no media type
-    /// is specified. **Note** This endpoint supports blobs up to 100 megabytes in size.
+    /// The `content` in the response will always be Base64 encoded. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw blob data. - **`application/vnd.github+json`**: Returns a JSON representation of the blob with `content` as a base64 encoded string. This is the default if no media type is specified. **Note** This endpoint supports blobs up to 100 megabytes in size.
     public func getBlob(owner: String, repo: String, fileSha: String) async throws -> Blob {
-        try await GitMethods.gitGetBlob(config: config, owner: owner, repo: repo, fileSha: fileSha)
+        return try await GitMethods.gitGetBlob(config: config, owner: owner, repo: repo, fileSha: fileSha)
     }
 
-    /// Creates a new Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects). **Signature
-    /// verification object** The response will include a `verification` object that describes the result of verifying
-    /// the commit's signature. The following fields are included in the `verification` object: | Name | Type |
-    /// Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the
-    /// signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible
-    /// values and their meanings are enumerated in the table below. | | `signature` | `string` | The signature that was
-    /// extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` |
-    /// The date the signature was verified by GitHub. | These are the possible values for `reason` in the
-    /// `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the
-    /// signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key
-    /// that made the signature. | | `gpgverify_error` | There was an error communicating with the signature
-    /// verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable.
-    /// | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was
-    /// found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. |
-    /// | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email
-    /// address is not verified on their account. | | `bad_email` | The `committer` email address in the commit is not
-    /// included in the identities of the PGP key that made the signature. | | `unknown_key` | The key that made the
-    /// signature has not been registered with any user's account. | | `malformed_signature` | There was an error
-    /// parsing the signature. | | `invalid` | The…
+/// Creates a new Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects). **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in the table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable. | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on their account. | | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. | | `unknown_key` | The key that made the signature has not been registered with any user's account. | | `malformed_signature` | There was an error parsing the signature. | | `invalid` | The…
     public func createCommit(options: GitMethods.GitCreateCommitOptions) async throws -> GitCommit {
-        try await GitMethods.gitCreateCommit(config: config, options: options)
+        return try await GitMethods.gitCreateCommit(config: config, options: options)
     }
 
-    /// Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects). To get the contents of a
-    /// commit, see "Get a commit." **Signature verification object** The response will include a `verification` object
-    /// that describes the result of verifying the commit's signature. The following fields are included in the
-    /// `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` |
-    /// Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The
-    /// reason for verified value. Possible values and their meanings are enumerated in the table below. | | `signature`
-    /// | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was
-    /// signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible
-    /// values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | |
-    /// `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not
-    /// among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error
-    /// communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification
-    /// service is currently unavailable. | | `unsigned` | The object does not include a signature. | |
-    /// `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated
-    /// with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the
-    /// commit was associated with a user, but the email address is not verified on their account. | | `bad_email` | The
-    /// `committer` email address in the commit is not included in the identities of the PGP key that made the
-    /// signature. | | `unknown_key` | The key that made the signature has not been registered with any user's account.
-    /// | | `malformed_signature` | There was an…
+/// Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects). To get the contents of a commit, see "Get a commit." **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in the table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable. | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on their account. | | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. | | `unknown_key` | The key that made the signature has not been registered with any user's account. | | `malformed_signature` | There was an…
     public func getCommit(owner: String, repo: String, commitSha: String) async throws -> GitCommit {
-        try await GitMethods.gitGetCommit(config: config, owner: owner, repo: repo, commitSha: commitSha)
+        return try await GitMethods.gitGetCommit(config: config, owner: owner, repo: repo, commitSha: commitSha)
     }
 
-    /// Returns an array of references from your Git database that match the supplied name. The `:ref` in the URL must
-    /// be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't exist
-    /// in the repository, but existing refs start with `:ref`, they will be returned as an array. When you use this
-    /// endpoint without providing a `:ref`, it will return an array of all the references from your Git database,
-    /// including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads`
-    /// and `tags`. > [!NOTE] > You need to explicitly [request a pull
-    /// request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which
-    /// checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
-    /// If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the
-    /// response can still include other matching head refs that start with the word `feature`, such as `featureA` and
-    /// `featureB`.
+/// Returns an array of references from your Git database that match the supplied name. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't exist in the repository, but existing refs start with `:ref`, they will be returned as an array. When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`. > [!NOTE] > You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)". If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
     public func listMatchingRefs(owner: String, repo: String, ref: String) async throws -> [GitRef] {
-        try await GitMethods.gitListMatchingRefs(config: config, owner: owner, repo: repo, ref: ref)
+        return try await GitMethods.gitListMatchingRefs(config: config, owner: owner, repo: repo, ref: ref)
     }
 
-    /// Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch
-    /// name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is
-    /// returned. > [!NOTE] > You need to explicitly [request a pull
-    /// request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which
-    /// checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+/// Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned. > [!NOTE] > You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
     public func getRef(owner: String, repo: String, ref: String) async throws -> GitRef {
-        try await GitMethods.gitGetRef(config: config, owner: owner, repo: repo, ref: ref)
+        return try await GitMethods.gitGetRef(config: config, owner: owner, repo: repo, ref: ref)
     }
 
-    /// Creates a reference for your repository. You are unable to create new references for empty repositories, even if
-    /// the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
+/// Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
     public func createRef(owner: String, repo: String, ref: String, sha: String) async throws -> GitRef {
-        try await GitMethods.gitCreateRef(config: config, owner: owner, repo: repo, ref: ref, sha: sha)
+        return try await GitMethods.gitCreateRef(config: config, owner: owner, repo: repo, ref: ref, sha: sha)
     }
 
-    /// Updates the provided reference to point to a new SHA. For more information, see "[Git
-    /// References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
+/// Updates the provided reference to point to a new SHA. For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation.
     public func updateRef(owner: String, repo: String, ref: String, sha: String, force: Bool?) async throws -> GitRef {
-        try await GitMethods.gitUpdateRef(config: config, owner: owner, repo: repo, ref: ref, sha: sha, force: force)
+        return try await GitMethods.gitUpdateRef(config: config, owner: owner, repo: repo, ref: ref, sha: sha, force: force)
     }
 }
 
-public extension GitNamespace {
-    /// Deletes a Git reference from a repository. Supply `owner`, `repo`, and `ref` to identify the repository and
-    /// reference, but do not target the repository's default branch. A successful 204 response contains no response
-    /// body.
+extension GitNamespace {
+/// Deletes a Git reference from a repository. Supply `owner`, `repo`, and `ref` to identify the repository and reference, but do not target the repository's default branch. A successful 204 response contains no response body.
     ///
     /// Deletes the provided reference.
-    func deleteRef(owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
-        try await GitMethods.gitDeleteRef(config: config, owner: owner, repo: repo, ref: ref)
+    public func deleteRef(owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
+        return try await GitMethods.gitDeleteRef(config: config, owner: owner, repo: repo, ref: ref)
     }
 
-    /// Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an
-    /// annotated tag in Git, you have to do this call to create the tag object, and then
-    /// [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want
-    /// to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference)
-    /// the tag reference - this call would be unnecessary. **Signature verification object** The response will include
-    /// a `verification` object that describes the result of verifying the commit's signature. The following fields are
-    /// included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified`
-    /// | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` |
-    /// `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. | |
-    /// `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value
-    /// that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the
-    /// possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | |
-    /// `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not
-    /// among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error
-    /// communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification
-    /// service is currently unavailable. | | `unsigned` | The object does not include a signature. | |
-    /// `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated
-    /// with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the
-    /// commit was associated with a user, but the…
-    func createTag(
-        owner: String,
-        repo: String,
-        tag: String,
-        message: String,
-        object: String,
-        type: GitCreateTagRequestBodyType,
-        tagger: GitCreateTagRequestBodyTagger?
-    ) async throws -> GitTag {
-        try await GitMethods.gitCreateTag(
-            config: config,
-            owner: owner,
-            repo: repo,
-            tag: tag,
-            message: message,
-            object: object,
-            type: type,
-            tagger: tagger
-        )
+/// Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference) the tag reference - this call would be unnecessary. **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable. | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the commit was associated with a user, but the…
+    public func createTag(owner: String, repo: String, tag: String, message: String, object: String, type: GitCreateTagRequestBodyType, tagger: GitCreateTagRequestBodyTagger?) async throws -> GitTag {
+        return try await GitMethods.gitCreateTag(config: config, owner: owner, repo: repo, tag: tag, message: message, object: object, type: type, tagger: tagger)
     }
 
-    /// Retrieves metadata for a Git tag identified by its object SHA. Supply `owner`, `repo`, and `tag_sha` to locate
-    /// the tag in the repository. The response includes tagger and referenced-object metadata together with signature
-    /// verification details and the verification reason.
+/// Retrieves metadata for a Git tag identified by its object SHA. Supply `owner`, `repo`, and `tag_sha` to locate the tag in the repository. The response includes tagger and referenced-object metadata together with signature verification details and the verification reason.
     ///
-    /// **Signature verification object** The response will include a `verification` object that describes the result of
-    /// verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type
-    /// | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the
-    /// signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible
-    /// values and their meanings are enumerated in table below. | | `signature` | `string` | The signature that was
-    /// extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` |
-    /// The date the signature was verified by GitHub. | These are the possible values for `reason` in the
-    /// `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the
-    /// signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key
-    /// that made the signature. | | `gpgverify_error` | There was an error communicating with the signature
-    /// verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable.
-    /// | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was
-    /// found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. |
-    /// | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email
-    /// address is not verified on their account. | | `bad_email` | The `committer` email address in the commit is not
-    /// included in the identities of the PGP key that made the signature. | | `unknown_key` | The key that made the
-    /// signature has not been registered with any user's account. | | `malformed_signature` | There was an error
-    /// parsing the signature. | | `invalid` | The signature could not be cryptographically verified using the key whose
-    /// key-id was found in the…
-    func getTag(owner: String, repo: String, tagSha: String) async throws -> GitTag {
-        try await GitMethods.gitGetTag(config: config, owner: owner, repo: repo, tagSha: tagSha)
+    /// **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable. | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on their account. | | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. | | `unknown_key` | The key that made the signature has not been registered with any user's account. | | `malformed_signature` | There was an error parsing the signature. | | `invalid` | The signature could not be cryptographically verified using the key whose key-id was found in the…
+    public func getTag(owner: String, repo: String, tagSha: String) async throws -> GitTag {
+        return try await GitMethods.gitGetTag(config: config, owner: owner, repo: repo, tagSha: tagSha)
     }
 
-    /// The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree,
-    /// this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree
-    /// structure. If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to
-    /// commit the tree and then update a branch to point to the commit. For more information see "[Create a
-    /// commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a
-    /// reference](https://docs.github.com/rest/git/refs#update-a-reference)." Returns an error if you try to delete a
-    /// file that does not exist.
-    func createTree(
-        owner: String,
-        repo: String,
-        tree: [GitCreateTreeRequestBodyTreeItem],
-        baseTree: String?
-    ) async throws -> GitTree {
-        try await GitMethods.gitCreateTree(config: config, owner: owner, repo: repo, tree: tree, baseTree: baseTree)
+/// The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure. If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/git/refs#update-a-reference)." Returns an error if you try to delete a file that does not exist.
+    public func createTree(owner: String, repo: String, tree: [GitCreateTreeRequestBodyTreeItem], baseTree: String?) async throws -> GitTree {
+        return try await GitMethods.gitCreateTree(config: config, owner: owner, repo: repo, tree: tree, baseTree: baseTree)
     }
 
-    /// Returns a single tree using the SHA1 value or ref name for that tree. If `truncated` is `true` in the response
-    /// then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use
-    /// the non-recursive method of fetching trees, and fetch one sub-tree at a time. > [!NOTE] > The limit for the
-    /// `tree` array is 100,000 entries with a maximum size of 7 MB when using the `recursive` parameter.
-    func getTree(owner: String, repo: String, treeSha: String, recursive: String?) async throws -> GitTree {
-        try await GitMethods.gitGetTree(
-            config: config,
-            owner: owner,
-            repo: repo,
-            treeSha: treeSha,
-            recursive: recursive
-        )
+/// Returns a single tree using the SHA1 value or ref name for that tree. If `truncated` is `true` in the response then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use the non-recursive method of fetching trees, and fetch one sub-tree at a time. > [!NOTE] > The limit for the `tree` array is 100,000 entries with a maximum size of 7 MB when using the `recursive` parameter.
+    public func getTree(owner: String, repo: String, treeSha: String, recursive: String?) async throws -> GitTree {
+        return try await GitMethods.gitGetTree(config: config, owner: owner, repo: repo, treeSha: treeSha, recursive: recursive)
     }
 }

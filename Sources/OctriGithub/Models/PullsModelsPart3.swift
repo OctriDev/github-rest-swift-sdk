@@ -3,23 +3,9 @@
 
 import Foundation
 
-/// Pulls domain models
-public extension PullRequestReview {
-    init(
-        id: Int,
-        nodeId: String,
-        user: NullableSimpleUser?,
-        body: String,
-        state: String,
-        htmlUrl: String,
-        pullRequestUrl: String,
-        links: PullRequestReviewLinks,
-        commitId: String?,
-        authorAssociation: AuthorAssociation,
-        submittedAt: Date? = nil,
-        bodyHtml: String? = nil,
-        bodyText: String? = nil
-    ) throws {
+// Pulls domain models
+extension PullRequestReview {
+    public init(id: Int, nodeId: String, user: NullableSimpleUser?, body: String, state: String, htmlUrl: String, pullRequestUrl: String, links: PullRequestReviewLinks, commitId: String?, authorAssociation: AuthorAssociation, submittedAt: Date? = nil, bodyHtml: String? = nil, bodyText: String? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.user, self.body) = (user, body)
         (self.state, self.htmlUrl) = (state, htmlUrl)
@@ -27,8 +13,8 @@ public extension PullRequestReview {
         (self.commitId, self.authorAssociation) = (commitId, authorAssociation)
         (self.submittedAt, self.bodyHtml) = (submittedAt, bodyHtml)
         self.bodyText = bodyText
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("pull_request_url", self.pullRequestUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("pull_request_url", self.pullRequestUrl)
         if let value = self.submittedAt {
             try sdkValidateDateTime("submitted_at", sdkWireString(value))
         }
@@ -47,35 +33,25 @@ public struct PullRequestReviewLinks: Codable {
         case pullRequest = "pull_request"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestReviewLinks {
-    init(from decoder: Decoder) throws {
+extension PullRequestReviewLinks {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.html) else {
-            throw SdkValidationError(
-                field: "html",
-                code: "required",
-                message: "Validation failed for 'html': value is required"
-            )
+            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(
-                field: "pull_request",
-                code: "required",
-                message: "Validation failed for 'pull_request': value is required"
-            )
+            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
         }
-        html = try container.sdkDecodeRequired(.html)
-        pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        self.html = try container.sdkDecodeRequired(.html)
+        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
     }
 }
 
-public extension PullRequestReviewLinks {
-    init(html: PullRequestReviewLinksHtml, pullRequest: PullRequestReviewLinksPullRequest) {
+extension PullRequestReviewLinks {
+    public init(html: PullRequestReviewLinksHtml, pullRequest: PullRequestReviewLinksPullRequest) {
         (self.html, self.pullRequest) = (html, pullRequest)
     }
 }
@@ -89,27 +65,21 @@ public struct PullRequestReviewLinksHtml: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestReviewLinksHtml {
-    init(from decoder: Decoder) throws {
+extension PullRequestReviewLinksHtml {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension PullRequestReviewLinksHtml {
-    init(href: String) {
+extension PullRequestReviewLinksHtml {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -123,27 +93,21 @@ public struct PullRequestReviewLinksPullRequest: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestReviewLinksPullRequest {
-    init(from decoder: Decoder) throws {
+extension PullRequestReviewLinksPullRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension PullRequestReviewLinksPullRequest {
-    init(href: String) {
+extension PullRequestReviewLinksPullRequest {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -160,35 +124,25 @@ public struct PullRequestReviewRequest: Codable {
         case teams
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestReviewRequest {
-    init(from decoder: Decoder) throws {
+extension PullRequestReviewRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.users) else {
-            throw SdkValidationError(
-                field: "users",
-                code: "required",
-                message: "Validation failed for 'users': value is required"
-            )
+            throw SdkValidationError(field: "users", code: "required", message: "Validation failed for 'users': value is required")
         }
         guard container.contains(.teams) else {
-            throw SdkValidationError(
-                field: "teams",
-                code: "required",
-                message: "Validation failed for 'teams': value is required"
-            )
+            throw SdkValidationError(field: "teams", code: "required", message: "Validation failed for 'teams': value is required")
         }
-        users = try container.sdkDecodeRequired(.users)
-        teams = try container.sdkDecodeRequired(.teams)
+        self.users = try container.sdkDecodeRequired(.users)
+        self.teams = try container.sdkDecodeRequired(.teams)
     }
 }
 
-public extension PullRequestReviewRequest {
-    init(users: [SimpleUser], teams: [Team]) {
+extension PullRequestReviewRequest {
+    public init(users: [SimpleUser], teams: [Team]) {
         (self.users, self.teams) = (users, teams)
     }
 }
@@ -223,44 +177,33 @@ public struct PullRequestStackMinimal: Codable {
         case pullRequests = "pull_requests"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackMinimal {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackMinimal {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        number = try container.sdkDecodeRequired(.number)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        base = try container.sdkDecodeRequired(.base)
-        open = try container.sdkDecodeRequired(.open)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        pullRequests = try container.sdkDecodeRequired(.pullRequests)
-        try sdkValidateUri("url", url)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.base = try container.sdkDecodeRequired(.base)
+        self.open = try container.sdkDecodeRequired(.open)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.pullRequests = try container.sdkDecodeRequired(.pullRequests)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
-public extension PullRequestStackMinimal {
-    init(
-        id: Int,
-        number: Int,
-        nodeId: String,
-        url: String,
-        base: PullRequestStackMinimalBase,
-        open: Bool,
-        createdAt: Date,
-        pullRequests: [PullRequestStackMinimalPullRequestsItem]
-    ) throws {
+extension PullRequestStackMinimal {
+    public init(id: Int, number: Int, nodeId: String, url: String, base: PullRequestStackMinimalBase, open: Bool, createdAt: Date, pullRequests: [PullRequestStackMinimalPullRequestsItem]) throws {
         (self.id, self.number) = (id, number)
         (self.nodeId, self.url) = (nodeId, url)
         (self.base, self.open) = (base, open)
         (self.createdAt, self.pullRequests) = (createdAt, pullRequests)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
@@ -273,27 +216,21 @@ public struct PullRequestStackMinimalBase: Codable {
         case ref
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackMinimalBase {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackMinimalBase {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
-        ref = try container.sdkDecodeRequired(.ref)
+        self.ref = try container.sdkDecodeRequired(.ref)
     }
 }
 
-public extension PullRequestStackMinimalBase {
-    init(ref: String) {
+extension PullRequestStackMinimalBase {
+    public init(ref: String) {
         self.ref = ref
     }
 }
@@ -319,68 +256,40 @@ public struct PullRequestStackMinimalPullRequestsItem: Codable {
         case head
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackMinimalPullRequestsItem {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackMinimalPullRequestsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.number) else {
-            throw SdkValidationError(
-                field: "number",
-                code: "required",
-                message: "Validation failed for 'number': value is required"
-            )
+            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
         }
         guard container.contains(.state) else {
-            throw SdkValidationError(
-                field: "state",
-                code: "required",
-                message: "Validation failed for 'state': value is required"
-            )
+            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
         }
         guard container.contains(.draft) else {
-            throw SdkValidationError(
-                field: "draft",
-                code: "required",
-                message: "Validation failed for 'draft': value is required"
-            )
+            throw SdkValidationError(field: "draft", code: "required", message: "Validation failed for 'draft': value is required")
         }
         guard container.contains(.mergedAt) else {
-            throw SdkValidationError(
-                field: "merged_at",
-                code: "required",
-                message: "Validation failed for 'merged_at': value is required"
-            )
+            throw SdkValidationError(field: "merged_at", code: "required", message: "Validation failed for 'merged_at': value is required")
         }
         guard container.contains(.head) else {
-            throw SdkValidationError(
-                field: "head",
-                code: "required",
-                message: "Validation failed for 'head': value is required"
-            )
+            throw SdkValidationError(field: "head", code: "required", message: "Validation failed for 'head': value is required")
         }
-        number = try container.sdkDecodeRequired(.number)
-        state = try container.sdkDecodeRequired(.state)
-        draft = try container.sdkDecodeRequired(.draft)
-        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        head = try container.sdkDecodeRequired(.head)
-        if let value = mergedAt {
+        self.number = try container.sdkDecodeRequired(.number)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.draft = try container.sdkDecodeRequired(.draft)
+        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        self.head = try container.sdkDecodeRequired(.head)
+        if let value = self.mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
     }
 }
 
-public extension PullRequestStackMinimalPullRequestsItem {
-    init(
-        number: Int,
-        state: PullRequestStackMinimalPullRequestsItemState,
-        draft: Bool,
-        mergedAt: Date?,
-        head: PullRequestStackMinimalPullRequestsItemHead
-    ) throws {
+extension PullRequestStackMinimalPullRequestsItem {
+    public init(number: Int, state: PullRequestStackMinimalPullRequestsItemState, draft: Bool, mergedAt: Date?, head: PullRequestStackMinimalPullRequestsItemHead) throws {
         (self.number, self.state) = (number, state)
         (self.draft, self.mergedAt) = (draft, mergedAt)
         self.head = head
@@ -402,35 +311,25 @@ public struct PullRequestStackMinimalPullRequestsItemHead: Codable {
         case sha
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackMinimalPullRequestsItemHead {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackMinimalPullRequestsItemHead {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
         guard container.contains(.sha) else {
-            throw SdkValidationError(
-                field: "sha",
-                code: "required",
-                message: "Validation failed for 'sha': value is required"
-            )
+            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
         }
-        ref = try container.sdkDecodeRequired(.ref)
-        sha = try container.sdkDecodeRequired(.sha)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.sha = try container.sdkDecodeRequired(.sha)
     }
 }
 
-public extension PullRequestStackMinimalPullRequestsItemHead {
-    init(ref: String, sha: String) {
+extension PullRequestStackMinimalPullRequestsItemHead {
+    public init(ref: String, sha: String) {
         (self.ref, self.sha) = (ref, sha)
     }
 }
@@ -471,48 +370,33 @@ public struct PullRequestStackPullRequest: Codable {
         case user
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackPullRequest {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackPullRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        number = try container.sdkDecodeRequired(.number)
-        url = try container.sdkDecodeRequired(.url)
-        head = try container.sdkDecodeRequired(.head)
-        base = try container.sdkDecodeRequired(.base)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        title = try container.sdkDecodeRequired(.title)
-        state = try container.sdkDecodeRequired(.state)
-        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        draft = try container.sdkDecodeRequired(.draft)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        user = try container.sdkDecodeIfPresent(.user)
-        if let value = mergedAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.head = try container.sdkDecodeRequired(.head)
+        self.base = try container.sdkDecodeRequired(.base)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.title = try container.sdkDecodeRequired(.title)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        self.draft = try container.sdkDecodeRequired(.draft)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        if let value = self.mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
-        try sdkValidateUri("html_url", htmlUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
-public extension PullRequestStackPullRequest {
-    init(
-        id: Int,
-        number: Int,
-        url: String,
-        head: PullRequestMinimalHead,
-        base: PullRequestMinimalBase,
-        nodeId: String,
-        title: String,
-        state: PullRequestStackPullRequestVariant1State,
-        mergedAt: Date?,
-        draft: Bool,
-        htmlUrl: String,
-        user: NullableSimpleUser?
-    ) throws {
+extension PullRequestStackPullRequest {
+    public init(id: Int, number: Int, url: String, head: PullRequestMinimalHead, base: PullRequestMinimalBase, nodeId: String, title: String, state: PullRequestStackPullRequestVariant1State, mergedAt: Date?, draft: Bool, htmlUrl: String, user: NullableSimpleUser?) throws {
         (self.id, self.number) = (id, number)
         (self.url, self.head) = (url, head)
         (self.base, self.nodeId) = (base, nodeId)
@@ -522,7 +406,7 @@ public extension PullRequestStackPullRequest {
         if let value = self.mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
-        try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
@@ -546,87 +430,49 @@ public struct PullRequestStackPullRequestVariant1: Codable {
         case user
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackPullRequestVariant1 {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackPullRequestVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(
-                field: "node_id",
-                code: "required",
-                message: "Validation failed for 'node_id': value is required"
-            )
+            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
         }
         guard container.contains(.title) else {
-            throw SdkValidationError(
-                field: "title",
-                code: "required",
-                message: "Validation failed for 'title': value is required"
-            )
+            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
         }
         guard container.contains(.state) else {
-            throw SdkValidationError(
-                field: "state",
-                code: "required",
-                message: "Validation failed for 'state': value is required"
-            )
+            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
         }
         guard container.contains(.mergedAt) else {
-            throw SdkValidationError(
-                field: "merged_at",
-                code: "required",
-                message: "Validation failed for 'merged_at': value is required"
-            )
+            throw SdkValidationError(field: "merged_at", code: "required", message: "Validation failed for 'merged_at': value is required")
         }
         guard container.contains(.draft) else {
-            throw SdkValidationError(
-                field: "draft",
-                code: "required",
-                message: "Validation failed for 'draft': value is required"
-            )
+            throw SdkValidationError(field: "draft", code: "required", message: "Validation failed for 'draft': value is required")
         }
         guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(
-                field: "html_url",
-                code: "required",
-                message: "Validation failed for 'html_url': value is required"
-            )
+            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
         }
         guard container.contains(.user) else {
-            throw SdkValidationError(
-                field: "user",
-                code: "required",
-                message: "Validation failed for 'user': value is required"
-            )
+            throw SdkValidationError(field: "user", code: "required", message: "Validation failed for 'user': value is required")
         }
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        title = try container.sdkDecodeRequired(.title)
-        state = try container.sdkDecodeRequired(.state)
-        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        draft = try container.sdkDecodeRequired(.draft)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        user = try container.sdkDecodeIfPresent(.user)
-        if let value = mergedAt {
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.title = try container.sdkDecodeRequired(.title)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        self.draft = try container.sdkDecodeRequired(.draft)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        if let value = self.mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
-        try sdkValidateUri("html_url", htmlUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
-public extension PullRequestStackPullRequestVariant1 {
-    init(
-        nodeId: String,
-        title: String,
-        state: PullRequestStackPullRequestVariant1State,
-        mergedAt: Date?,
-        draft: Bool,
-        htmlUrl: String,
-        user: NullableSimpleUser?
-    ) throws {
+extension PullRequestStackPullRequestVariant1 {
+    public init(nodeId: String, title: String, state: PullRequestStackPullRequestVariant1State, mergedAt: Date?, draft: Bool, htmlUrl: String, user: NullableSimpleUser?) throws {
         (self.nodeId, self.title) = (nodeId, title)
         (self.state, self.mergedAt) = (state, mergedAt)
         (self.draft, self.htmlUrl) = (draft, htmlUrl)
@@ -634,6 +480,6 @@ public extension PullRequestStackPullRequestVariant1 {
         if let value = self.mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
-        try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
     }
 }

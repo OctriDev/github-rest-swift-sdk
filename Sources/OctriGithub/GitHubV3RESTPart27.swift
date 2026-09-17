@@ -9,372 +9,175 @@ public class ReposNamespace {
         self.config = config
     }
 
-    /// Lists repositories for the specified organization. > [!NOTE] > In order to see the `security_and_analysis` block
-    /// for a repository you must have admin permissions for the repository or be an owner or security manager for the
-    /// organization that owns the repository. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
-    public func listForOrg(
-        org: String,
-        type: ReposListForOrgParameter?,
-        sort: ReposListForOrgParameterX0727468a?,
-        direction: ReposListForOrgParameterX03d095bc?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await ReposMethods.reposListForOrg(
-            config: config,
-            org: org,
-            type: type,
-            sort: sort,
-            direction: direction,
-            perPage: perPage,
-            page: page
-        )
+/// Lists repositories for the specified organization. > [!NOTE] > In order to see the `security_and_analysis` block for a repository you must have admin permissions for the repository or be an owner or security manager for the organization that owns the repository. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
+    public func listForOrg(org: String, type: ReposListForOrgParameter?, sort: ReposListForOrgParameterX0727468a?, direction: ReposListForOrgParameterX03d095bc?, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try await ReposMethods.reposListForOrg(config: config, org: org, type: type, sort: sort, direction: direction, perPage: perPage, page: page)
     }
 
-    /// Creates a new repository in the specified organization. The authenticated user must be a member of the
-    /// organization. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to
-    /// create a public repository, and `repo` scope to create a private repository.
+/// Creates a new repository in the specified organization. The authenticated user must be a member of the organization. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private repository.
     public func createInOrg(options: ReposMethods.ReposCreateInOrgOptions) async throws -> FullRepository {
-        try await ReposMethods.reposCreateInOrg(config: config, options: options)
+        return try await ReposMethods.reposCreateInOrg(config: config, options: options)
     }
 
-    /// Get all the repository rulesets for an organization.
-    public func getOrgRulesets(
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        targets: String?
-    ) async throws -> [RepositoryRuleset] {
-        try await ReposMethods.reposGetOrgRulesets(
-            config: config,
-            org: org,
-            perPage: perPage,
-            page: page,
-            targets: targets
-        )
+/// Get all the repository rulesets for an organization.
+    public func getOrgRulesets(org: String, perPage: Int?, page: Int?, targets: String?) async throws -> [RepositoryRuleset] {
+        return try await ReposMethods.reposGetOrgRulesets(config: config, org: org, perPage: perPage, page: page, targets: targets)
     }
 
-    /// Creates a repository ruleset for an organization. Supply `name` and `enforcement`, and use `target`,
-    /// `bypass_actors`, `conditions`, and `rules` to define where and how the ruleset applies. A 201 response returns
-    /// the created organization repository ruleset with its identifier, source, conditions, rules, and timestamps.
+/// Creates a repository ruleset for an organization. Supply `name` and `enforcement`, and use `target`, `bypass_actors`, `conditions`, and `rules` to define where and how the ruleset applies. A 201 response returns the created organization repository ruleset with its identifier, source, conditions, rules, and timestamps.
     ///
     /// Create a repository ruleset for an organization.
-    public func createOrgRuleset(
-        org: String,
-        name: String,
-        enforcement: RepositoryRuleEnforcement,
-        target: ReposCreateOrgRulesetRequestBodyTarget?,
-        bypassActors: [RepositoryRulesetBypassActor]?,
-        conditions: OrgRulesetConditions?,
-        rules: [OrgRules]?
-    ) async throws -> RepositoryRuleset {
-        try await ReposMethods.reposCreateOrgRuleset(
-            config: config,
-            org: org,
-            name: name,
-            enforcement: enforcement,
-            target: target,
-            bypassActors: bypassActors,
-            conditions: conditions,
-            rules: rules
-        )
+    public func createOrgRuleset(org: String, name: String, enforcement: RepositoryRuleEnforcement, target: ReposCreateOrgRulesetRequestBodyTarget?, bypassActors: [RepositoryRulesetBypassActor]?, conditions: OrgRulesetConditions?, rules: [OrgRules]?) async throws -> RepositoryRuleset {
+        return try await ReposMethods.reposCreateOrgRuleset(config: config, org: org, name: name, enforcement: enforcement, target: target, bypassActors: bypassActors, conditions: conditions, rules: rules)
     }
 
-    /// Lists suites of rule evaluations at the organization level. For more information, see "[Managing rulesets for
-    /// repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
+/// Lists suites of rule evaluations at the organization level. For more information, see "[Managing rulesets for repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
     public func getOrgRuleSuites(options: ReposMethods.ReposGetOrgRuleSuitesOptions) async throws -> RuleSuites {
-        try await ReposMethods.reposGetOrgRuleSuites(config: config, options: options)
+        return try await ReposMethods.reposGetOrgRuleSuites(config: config, options: options)
     }
 
-    /// Gets information about a suite of rule evaluations from within an organization. For more information, see
-    /// "[Managing rulesets for repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
+/// Gets information about a suite of rule evaluations from within an organization. For more information, see "[Managing rulesets for repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
     public func getOrgRuleSuite(org: String, ruleSuiteId: Int) async throws -> RuleSuite {
-        try await ReposMethods.reposGetOrgRuleSuite(config: config, org: org, ruleSuiteId: ruleSuiteId)
+        return try await ReposMethods.reposGetOrgRuleSuite(config: config, org: org, ruleSuiteId: ruleSuiteId)
     }
 
-    /// Get a repository ruleset for an organization. **Note:** To prevent leaking sensitive information, the
-    /// `bypass_actors` property is only returned if the user making the API request has write access to the ruleset.
+/// Get a repository ruleset for an organization. **Note:** To prevent leaking sensitive information, the `bypass_actors` property is only returned if the user making the API request has write access to the ruleset.
     public func getOrgRuleset(org: String, rulesetId: Int) async throws -> RepositoryRuleset {
-        try await ReposMethods.reposGetOrgRuleset(config: config, org: org, rulesetId: rulesetId)
+        return try await ReposMethods.reposGetOrgRuleset(config: config, org: org, rulesetId: rulesetId)
     }
 
-    /// Updates an organization repository ruleset. Supply the fields you want to change, including `name`, `target`,
-    /// `enforcement`, `bypass_actors`, `conditions`, or `rules`; the request body itself may be omitted. A 200 response
-    /// returns the updated ruleset and its current configuration.
+/// Updates an organization repository ruleset. Supply the fields you want to change, including `name`, `target`, `enforcement`, `bypass_actors`, `conditions`, or `rules`; the request body itself may be omitted. A 200 response returns the updated ruleset and its current configuration.
     ///
     /// Update a ruleset for an organization.
     public func updateOrgRuleset(options: ReposMethods.ReposUpdateOrgRulesetOptions) async throws -> RepositoryRuleset {
-        try await ReposMethods.reposUpdateOrgRuleset(config: config, options: options)
+        return try await ReposMethods.reposUpdateOrgRuleset(config: config, options: options)
     }
 }
 
-public extension ReposNamespace {
-    /// Deletes an organization repository ruleset. Provide the organization name and the integer `ruleset_id`
-    /// identifying the ruleset to remove. A successful response contains no response body.
+extension ReposNamespace {
+/// Deletes an organization repository ruleset. Provide the organization name and the integer `ruleset_id` identifying the ruleset to remove. A successful response contains no response body.
     ///
     /// Delete a ruleset for an organization.
-    func deleteOrgRuleset(org: String, rulesetId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteOrgRuleset(config: config, org: org, rulesetId: rulesetId)
+    public func deleteOrgRuleset(org: String, rulesetId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteOrgRuleset(config: config, org: org, rulesetId: rulesetId)
     }
 
-    /// The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this
-    /// repository was forked from, `source` is the ultimate source for the network. > [!NOTE] > - In order to see the
-    /// `security_and_analysis` block for a repository you must have admin permissions for the repository or be an owner
-    /// or security manager for the organization that owns the repository. For more information, see "[Managing security
-    /// managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
-    /// > - To view merge-related settings, you must have the `contents:read` and `contents:write` permissions.
-    func get(owner: String, repo: String) async throws -> FullRepository {
-        try await ReposMethods.reposGet(config: config, owner: owner, repo: repo)
+/// The `parent` and `source` objects are present when the repository is a fork. `parent` is the repository this repository was forked from, `source` is the ultimate source for the network. > [!NOTE] > - In order to see the `security_and_analysis` block for a repository you must have admin permissions for the repository or be an owner or security manager for the organization that owns the repository. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)." > - To view merge-related settings, you must have the `contents:read` and `contents:write` permissions.
+    public func get(owner: String, repo: String) async throws -> FullRepository {
+        return try await ReposMethods.reposGet(config: config, owner: owner, repo: repo)
     }
 
-    /// **Note**: To edit a repository's topics, use the [Replace all repository
-    /// topics](https://docs.github.com/rest/repos/repos#replace-all-repository-topics) endpoint.
-    func update(options: ReposMethods.ReposUpdateOptions) async throws -> FullRepository {
-        try await ReposMethods.reposUpdate(config: config, options: options)
+/// **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/repos/repos#replace-all-repository-topics) endpoint.
+    public func update(options: ReposMethods.ReposUpdateOptions) async throws -> FullRepository {
+        return try await ReposMethods.reposUpdate(config: config, options: options)
     }
 
-    /// Deleting a repository requires admin access. If an organization owner has configured the organization to prevent
-    /// members from deleting organization-owned repositories, you will get a `403 Forbidden` response. OAuth app tokens
-    /// and personal access tokens (classic) need the `delete_repo` scope to use this endpoint.
-    func delete(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDelete(config: config, owner: owner, repo: repo)
+/// Deleting a repository requires admin access. If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, you will get a `403 Forbidden` response. OAuth app tokens and personal access tokens (classic) need the `delete_repo` scope to use this endpoint.
+    public func delete(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDelete(config: config, owner: owner, repo: repo)
     }
 
-    /// Lists a detailed history of changes to a repository, such as pushes, merges, force pushes, and branch changes,
-    /// and associates these changes with commits and users. For more information about viewing repository activity, see
-    /// "[Viewing activity and data for your
-    /// repository](https://docs.github.com/repositories/viewing-activity-and-data-for-your-repository)."
-    func listActivities(options: ReposMethods.ReposListActivitiesOptions) async throws -> [Activity] {
-        try await ReposMethods.reposListActivities(config: config, options: options)
+/// Lists a detailed history of changes to a repository, such as pushes, merges, force pushes, and branch changes, and associates these changes with commits and users. For more information about viewing repository activity, see "[Viewing activity and data for your repository](https://docs.github.com/repositories/viewing-activity-and-data-for-your-repository)."
+    public func listActivities(options: ReposMethods.ReposListActivitiesOptions) async throws -> [Activity] {
+        return try await ReposMethods.reposListActivities(config: config, options: options)
     }
 
-    /// Store an artifact attestation and associate it with a repository. The authenticated user must have write
-    /// permission to the repository and, if using a fine-grained access token, the `attestations:write` permission is
-    /// required. Artifact attestations are meant to be created using the [attest
-    /// action](https://github.com/actions/attest). For more information, see our guide on [using artifact attestations
-    /// to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
-    func createAttestation(
-        owner: String,
-        repo: String,
-        bundle: ReposCreateAttestationRequestBodyBundle
-    ) async throws -> ReposCreateAttestationResponse {
-        try await ReposMethods.reposCreateAttestation(config: config, owner: owner, repo: repo, bundle: bundle)
+/// Store an artifact attestation and associate it with a repository. The authenticated user must have write permission to the repository and, if using a fine-grained access token, the `attestations:write` permission is required. Artifact attestations are meant to be created using the [attest action](https://github.com/actions/attest). For more information, see our guide on [using artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    public func createAttestation(owner: String, repo: String, bundle: ReposCreateAttestationRequestBodyBundle) async throws -> ReposCreateAttestationResponse {
+        return try await ReposMethods.reposCreateAttestation(config: config, owner: owner, repo: repo, bundle: bundle)
     }
 
-    /// List a collection of artifact attestations with a given subject digest that are associated with a repository.
-    /// The authenticated user making the request must have read access to the repository. In addition, when using a
-    /// fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer
-    /// meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified,
-    /// and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub
-    /// CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information,
-    /// see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
-    func listAttestations(
-        owner: String,
-        repo: String,
-        subjectDigest: String,
-        perPage: Int?,
-        before: String?,
-        after: String?,
-        predicateType: String?
-    ) async throws -> ReposListAttestationsResponse {
-        try await ReposMethods.reposListAttestations(
-            config: config,
-            owner: owner,
-            repo: repo,
-            subjectDigest: subjectDigest,
-            perPage: perPage,
-            before: before,
-            after: after,
-            predicateType: predicateType
-        )
+/// List a collection of artifact attestations with a given subject digest that are associated with a repository. The authenticated user making the request must have read access to the repository. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    public func listAttestations(owner: String, repo: String, subjectDigest: String, perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> ReposListAttestationsResponse {
+        return try await ReposMethods.reposListAttestations(config: config, owner: owner, repo: repo, subjectDigest: subjectDigest, perPage: perPage, before: before, after: after, predicateType: predicateType)
     }
 
-    /// Gets all autolinks that are configured for a repository. Information about autolinks are only available to
-    /// repository administrators.
-    func listAutolinks(owner: String, repo: String) async throws -> [Autolink] {
-        try await ReposMethods.reposListAutolinks(config: config, owner: owner, repo: repo)
+/// Gets all autolinks that are configured for a repository. Information about autolinks are only available to repository administrators.
+    public func listAutolinks(owner: String, repo: String) async throws -> [Autolink] {
+        return try await ReposMethods.reposListAutolinks(config: config, owner: owner, repo: repo)
     }
 }
 
-public extension ReposNamespace {
-    /// Users with admin access to the repository can create an autolink.
-    func createAutolink(
-        owner: String,
-        repo: String,
-        keyPrefix: String,
-        urlTemplate: String,
-        isAlphanumeric: Bool?
-    ) async throws -> Autolink {
-        try await ReposMethods.reposCreateAutolink(
-            config: config,
-            owner: owner,
-            repo: repo,
-            keyPrefix: keyPrefix,
-            urlTemplate: urlTemplate,
-            isAlphanumeric: isAlphanumeric
-        )
+extension ReposNamespace {
+/// Users with admin access to the repository can create an autolink.
+    public func createAutolink(owner: String, repo: String, keyPrefix: String, urlTemplate: String, isAlphanumeric: Bool?) async throws -> Autolink {
+        return try await ReposMethods.reposCreateAutolink(config: config, owner: owner, repo: repo, keyPrefix: keyPrefix, urlTemplate: urlTemplate, isAlphanumeric: isAlphanumeric)
     }
 
-    /// This returns a single autolink reference by ID that was configured for the given repository. Information about
-    /// autolinks are only available to repository administrators.
-    func getAutolink(owner: String, repo: String, autolinkId: Int) async throws -> Autolink {
-        try await ReposMethods.reposGetAutolink(config: config, owner: owner, repo: repo, autolinkId: autolinkId)
+/// This returns a single autolink reference by ID that was configured for the given repository. Information about autolinks are only available to repository administrators.
+    public func getAutolink(owner: String, repo: String, autolinkId: Int) async throws -> Autolink {
+        return try await ReposMethods.reposGetAutolink(config: config, owner: owner, repo: repo, autolinkId: autolinkId)
     }
 
-    /// This deletes a single autolink reference by ID that was configured for the given repository. Information about
-    /// autolinks are only available to repository administrators.
-    func deleteAutolink(owner: String, repo: String, autolinkId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteAutolink(config: config, owner: owner, repo: repo, autolinkId: autolinkId)
+/// This deletes a single autolink reference by ID that was configured for the given repository. Information about autolinks are only available to repository administrators.
+    public func deleteAutolink(owner: String, repo: String, autolinkId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteAutolink(config: config, owner: owner, repo: repo, autolinkId: autolinkId)
     }
 
-    /// Shows whether Dependabot security updates are enabled, disabled or paused for a repository. The authenticated
-    /// user must have admin read access to the repository. For more information, see "[Configuring Dependabot security
-    /// updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
-    func checkAutomatedSecurityFixes(owner: String, repo: String) async throws -> CheckAutomatedSecurityFixes {
-        try await ReposMethods.reposCheckAutomatedSecurityFixes(config: config, owner: owner, repo: repo)
+/// Shows whether Dependabot security updates are enabled, disabled or paused for a repository. The authenticated user must have admin read access to the repository. For more information, see "[Configuring Dependabot security updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
+    public func checkAutomatedSecurityFixes(owner: String, repo: String) async throws -> CheckAutomatedSecurityFixes {
+        return try await ReposMethods.reposCheckAutomatedSecurityFixes(config: config, owner: owner, repo: repo)
     }
 
-    /// Enables Dependabot security updates for a repository. The authenticated user must have admin access to the
-    /// repository. For more information, see "[Configuring Dependabot security
-    /// updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
-    func enableAutomatedSecurityFixes(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposEnableAutomatedSecurityFixes(config: config, owner: owner, repo: repo)
+/// Enables Dependabot security updates for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring Dependabot security updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
+    public func enableAutomatedSecurityFixes(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposEnableAutomatedSecurityFixes(config: config, owner: owner, repo: repo)
     }
 
-    /// Disables Dependabot security updates for a repository. The authenticated user must have admin access to the
-    /// repository. For more information, see "[Configuring Dependabot security
-    /// updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
-    func disableAutomatedSecurityFixes(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDisableAutomatedSecurityFixes(config: config, owner: owner, repo: repo)
+/// Disables Dependabot security updates for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring Dependabot security updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
+    public func disableAutomatedSecurityFixes(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDisableAutomatedSecurityFixes(config: config, owner: owner, repo: repo)
     }
 
-    /// Lists branches for a repository, including each branch's commit, protection status, and protection details. Use
-    /// `protected` to filter by branch protection status, and use `page` and `per_page` to paginate the results.
-    func listBranches(
-        owner: String,
-        repo: String,
-        protected: Bool?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [ShortBranch] {
-        try await ReposMethods.reposListBranches(
-            config: config,
-            owner: owner,
-            repo: repo,
-            protected: protected,
-            perPage: perPage,
-            page: page
-        )
+/// Lists branches for a repository, including each branch's commit, protection status, and protection details. Use `protected` to filter by branch protection status, and use `page` and `per_page` to paginate the results.
+    public func listBranches(owner: String, repo: String, protected: Bool?, perPage: Int?, page: Int?) async throws -> [ShortBranch] {
+        return try await ReposMethods.reposListBranches(config: config, owner: owner, repo: repo, protected: protected, perPage: perPage, page: page)
     }
 
-    /// Retrieves a specific branch from a repository, including its latest commit, links, and protection configuration.
-    /// Supply `branch` as the branch name without wildcard characters; use the GraphQL API when you need wildcard
-    /// matching.
-    func getBranch(owner: String, repo: String, branch: String) async throws -> BranchWithProtection {
-        try await ReposMethods.reposGetBranch(config: config, owner: owner, repo: repo, branch: branch)
+/// Retrieves a specific branch from a repository, including its latest commit, links, and protection configuration. Supply `branch` as the branch name without wildcard characters; use the GraphQL API when you need wildcard matching.
+    public func getBranch(owner: String, repo: String, branch: String) async throws -> BranchWithProtection {
+        return try await ReposMethods.reposGetBranch(config: config, owner: owner, repo: repo, branch: branch)
     }
 }
 
-public extension ReposNamespace {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation.
-    func getBranchProtection(owner: String, repo: String, branch: String) async throws -> BranchProtection {
-        try await ReposMethods.reposGetBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
+extension ReposNamespace {
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    public func getBranchProtection(owner: String, repo: String, branch: String) async throws -> BranchProtection {
+        return try await ReposMethods.reposGetBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Protecting a branch requires admin or owner permissions to the repository. > [!NOTE] > Passing
-    /// new arrays of `users` and `teams` replaces their previous values. > [!NOTE] > The list of users, apps, and teams
-    /// in total is limited to 100 items.
-    func updateBranchProtection(options: ReposMethods
-        .ReposUpdateBranchProtectionOptions) async throws -> ProtectedBranch {
-        try await ReposMethods.reposUpdateBranchProtection(config: config, options: options)
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Protecting a branch requires admin or owner permissions to the repository. > [!NOTE] > Passing new arrays of `users` and `teams` replaces their previous values. > [!NOTE] > The list of users, apps, and teams in total is limited to 100 items.
+    public func updateBranchProtection(options: ReposMethods.ReposUpdateBranchProtectionOptions) async throws -> ProtectedBranch {
+        return try await ReposMethods.reposUpdateBranchProtection(config: config, options: options)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation.
-    func deleteBranchProtection(owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    public func deleteBranchProtection(owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation.
-    func getAdminBranchProtection(
-        owner: String,
-        repo: String,
-        branch: String
-    ) async throws -> ProtectedBranchAdminEnforced {
-        try await ReposMethods.reposGetAdminBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    public func getAdminBranchProtection(owner: String, repo: String, branch: String) async throws -> ProtectedBranchAdminEnforced {
+        return try await ReposMethods.reposGetAdminBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Adding admin enforcement requires admin or owner permissions to the repository and branch
-    /// protection to be enabled.
-    func setAdminBranchProtection(
-        owner: String,
-        repo: String,
-        branch: String
-    ) async throws -> ProtectedBranchAdminEnforced {
-        try await ReposMethods.reposSetAdminBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Adding admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
+    public func setAdminBranchProtection(owner: String, repo: String, branch: String) async throws -> ProtectedBranchAdminEnforced {
+        return try await ReposMethods.reposSetAdminBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Removing admin enforcement requires admin or owner permissions to the repository and branch
-    /// protection to be enabled.
-    func deleteAdminBranchProtection(owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteAdminBranchProtection(
-            config: config,
-            owner: owner,
-            repo: repo,
-            branch: branch
-        )
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Removing admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
+    public func deleteAdminBranchProtection(owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteAdminBranchProtection(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation.
-    func getPullRequestReviewProtection(
-        owner: String,
-        repo: String,
-        branch: String
-    ) async throws -> ProtectedBranchPullRequestReview {
-        try await ReposMethods.reposGetPullRequestReviewProtection(
-            config: config,
-            owner: owner,
-            repo: repo,
-            branch: branch
-        )
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    public func getPullRequestReviewProtection(owner: String, repo: String, branch: String) async throws -> ProtectedBranchPullRequestReview {
+        return try await ReposMethods.reposGetPullRequestReviewProtection(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Updating pull request review enforcement requires admin or owner permissions to the repository
-    /// and branch protection to be enabled. > [!NOTE] > Passing new arrays of `users` and `teams` replaces their
-    /// previous values.
-    func updatePullRequestReviewProtection(options: ReposMethods
-        .ReposUpdatePullRequestReviewProtectionOptions) async throws -> ProtectedBranchPullRequestReview {
-        try await ReposMethods.reposUpdatePullRequestReviewProtection(config: config, options: options)
+/// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Updating pull request review enforcement requires admin or owner permissions to the repository and branch protection to be enabled. > [!NOTE] > Passing new arrays of `users` and `teams` replaces their previous values.
+    public func updatePullRequestReviewProtection(options: ReposMethods.ReposUpdatePullRequestReviewProtectionOptions) async throws -> ProtectedBranchPullRequestReview {
+        return try await ReposMethods.reposUpdatePullRequestReviewProtection(config: config, options: options)
     }
 }

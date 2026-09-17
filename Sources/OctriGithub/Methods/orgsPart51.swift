@@ -6,40 +6,18 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// When an organization member is converted to an outside collaborator, they'll only have access to the
-    /// repositories that their current team membership allows. The user will no longer be a member of the organization.
-    /// For more information, see "[Converting an organization member to an outside
-    /// collaborator](https://docs.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
-    /// Converting an organization member to an outside collaborator may be restricted by enterprise administrators. For
-    /// more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)."
+extension OrgsMethods {
+    /// When an organization member is converted to an outside collaborator, they'll only have access to the repositories that their current team membership allows. The user will no longer be a member of the organization. For more information, see "[Converting an organization member to an outside collaborator](https://docs.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)". Converting an organization member to an outside collaborator may be restricted by enterprise administrators. For more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)."
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
     /// - async: When set to `true`, the request will be performed asynchronously.
     ///   Returns a 202 status code when the job is successfully queued.
-    static func orgsConvertMemberToOutsideCollaborator(
-        config: ClientConfig,
-        org: String,
-        username: String,
-        async: Bool?
-    ) async throws -> OrgsConvertMemberToOutsideCollaboratorResponse {
+    public static func orgsConvertMemberToOutsideCollaborator(config: ClientConfig, org: String, username: String, async: Bool?) async throws -> OrgsConvertMemberToOutsideCollaboratorResponse {
         let requestBody = OrgsConvertMemberToOutsideCollaboratorRequestBody(async: async)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/outside_collaborators/",
-                sdkEncodePathSegment(sdkWireString(username)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsConvertMemberToOutsideCollaborator"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/outside_collaborators/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsConvertMemberToOutsideCollaborator")).data
     }
 
     /// Removing a user from this list will remove them from all the organization's repositories.
@@ -47,22 +25,7 @@ public extension OrgsMethods {
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    static func orgsRemoveOutsideCollaborator(
-        config: ClientConfig,
-        org: String,
-        username: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/outside_collaborators/",
-                sdkEncodePathSegment(sdkWireString(username)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "orgsRemoveOutsideCollaborator"
-        )).data
+    public static func orgsRemoveOutsideCollaborator(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/outside_collaborators/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsRemoveOutsideCollaborator")).data
     }
 }

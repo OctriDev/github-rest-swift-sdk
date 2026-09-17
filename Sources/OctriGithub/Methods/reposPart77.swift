@@ -6,18 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// You can use this endpoint to trigger a webhook event called `repository_dispatch` when you want activity that
-    /// happens outside of GitHub to trigger a GitHub Actions workflow or GitHub App webhook. You must configure your
-    /// GitHub Actions workflow or GitHub App to run when the `repository_dispatch` event occurs. For an example
-    /// `repository_dispatch` webhook payload, see
-    /// "[RepositoryDispatchEvent](https://docs.github.com/webhooks/event-payloads/#repository_dispatch)." The
-    /// `client_payload` parameter is available for any extra information that your workflow might need. This parameter
-    /// is a JSON payload that will be passed on when the webhook event is dispatched. For example, the `client_payload`
-    /// can include a message that a user would like to send using a GitHub Actions workflow. Or the `client_payload`
-    /// can be used as a test to debug your workflow. This input example shows how you can use the `client_payload` as a
-    /// test to debug your workflow. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use
-    /// this endpoint.
+extension ReposMethods {
+    /// You can use this endpoint to trigger a webhook event called `repository_dispatch` when you want activity that happens outside of GitHub to trigger a GitHub Actions workflow or GitHub App webhook. You must configure your GitHub Actions workflow or GitHub App to run when the `repository_dispatch` event occurs. For an example `repository_dispatch` webhook payload, see "[RepositoryDispatchEvent](https://docs.github.com/webhooks/event-payloads/#repository_dispatch)." The `client_payload` parameter is available for any extra information that your workflow might need. This parameter is a JSON payload that will be passed on when the webhook event is dispatched. For example, the `client_payload` can include a message that a user would like to send using a GitHub Actions workflow. Or the `client_payload` can be used as a test to debug your workflow. This input example shows how you can use the `client_payload` as a test to debug your workflow. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,30 +18,11 @@ public extension ReposMethods {
     /// - clientPayload: JSON payload with extra information about the webhook event
     ///   that your action or workflow may use. The maximum number of top-level
     ///   properties is 10. The total size of the JSON payload must be less than 64KB.
-    static func reposCreateDispatchEvent(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        eventType: String,
-        clientPayload: [String: JSONValue]?
-    ) async throws -> SdkEmptyResponse {
+    public static func reposCreateDispatchEvent(config: ClientConfig, owner: String, repo: String, eventType: String, clientPayload: [String: JSONValue]?) async throws -> SdkEmptyResponse {
         try validateLength("event_type", eventType, min: 1, max: 100)
 
         let requestBody = ReposCreateDispatchEventRequestBody(eventType: eventType, clientPayload: clientPayload)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/dispatches",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "reposCreateDispatchEvent"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dispatches"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "reposCreateDispatchEvent")).data
     }
 }

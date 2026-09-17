@@ -6,41 +6,24 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
+extension OrgsMethods {
     /// Update an organization membership for the authenticated user
     ///
-    /// Converts the authenticated user to an active member of the organization, if that user has a pending invitation
-    /// from the organization.
+    /// Converts the authenticated user to an active member of the organization, if that user has a pending invitation from the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - state: The state that the membership should be in. Only `"active"` will be
     ///   accepted.
-    static func orgsUpdateMembershipForAuthenticatedUser(
-        config: ClientConfig,
-        org: String,
-        state: OrgsUpdateMembershipForAuthenticatedUserRequestBodyState
-    ) async throws -> OrgMembership {
+    public static func orgsUpdateMembershipForAuthenticatedUser(config: ClientConfig, org: String, state: OrgsUpdateMembershipForAuthenticatedUserRequestBodyState) async throws -> OrgMembership {
         let requestBody = OrgsUpdateMembershipForAuthenticatedUserRequestBody(state: state)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/user/memberships/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsUpdateMembershipForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("PATCH", ["/user/memberships/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdateMembershipForAuthenticatedUser")).data
     }
 
     /// List organizations for the authenticated user
     ///
-    /// List organizations for the authenticated user. For OAuth app tokens and personal access tokens (classic), this
-    /// endpoint only lists organizations that your authorization allows you to operate on in some way (e.g., you can
-    /// list teams with `read:org` scope, you can publicize your organization membership with `user` scope, etc.).
-    /// Therefore, this API requires at least `user` or `read:org` scope for OAuth app tokens and personal access tokens
-    /// (classic). Requests with insufficient scope will receive a `403 Forbidden` response. > [!NOTE] > Requests using
-    /// a fine-grained access token will receive a `200 Success` response with an empty list.
+    /// List organizations for the authenticated user. For OAuth app tokens and personal access tokens (classic), this endpoint only lists organizations that your authorization allows you to operate on in some way (e.g., you can list teams with `read:org` scope, you can publicize your organization membership with `user` scope, etc.). Therefore, this API requires at least `user` or `read:org` scope for OAuth app tokens and personal access tokens (classic). Requests with insufficient scope will receive a `403 Forbidden` response. > [!NOTE] > Requests using a fine-grained access token will receive a `200 Success` response with an empty list.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -51,12 +34,8 @@ public extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func orgsListForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [OrganizationSimple] {
-        try await (sdkRequest("GET", "/user/orgs", config: config, query: [
+    public static func orgsListForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [OrganizationSimple] {
+        return try (await sdkRequest("GET", "/user/orgs", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "orgsListForAuthenticatedUser")).data

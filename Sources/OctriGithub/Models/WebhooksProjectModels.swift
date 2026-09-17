@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhooksProject domain models
+// WebhooksProject domain models
 /// Typed representation of the `WebhooksProject` API schema.
 public struct WebhooksProject: Codable {
     /// Body of the project
@@ -49,52 +49,36 @@ public struct WebhooksProject: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksProject {
-    init(from decoder: Decoder) throws {
+extension WebhooksProject {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        body = try container.sdkDecodeIfPresent(.body)
-        columnsUrl = try container.sdkDecodeRequired(.columnsUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        creator = try container.sdkDecodeIfPresent(.creator)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        number = try container.sdkDecodeRequired(.number)
-        ownerUrl = try container.sdkDecodeRequired(.ownerUrl)
-        state = try container.sdkDecodeRequired(.state)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("columns_url", columnsUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("owner_url", ownerUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("url", url)
+        self.body = try container.sdkDecodeIfPresent(.body)
+        self.columnsUrl = try container.sdkDecodeRequired(.columnsUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.creator = try container.sdkDecodeIfPresent(.creator)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.ownerUrl = try container.sdkDecodeRequired(.ownerUrl)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("columns_url", self.columnsUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("owner_url", self.ownerUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhooksProject {
-    init(
-        body: String?,
-        columnsUrl: String,
-        createdAt: Date,
-        creator: WebhooksProjectCreator?,
-        htmlUrl: String,
-        id: Int,
-        name: String,
-        nodeId: String,
-        number: Int,
-        ownerUrl: String,
-        state: WebhooksProjectState,
-        updatedAt: Date,
-        url: String
-    ) throws {
+extension WebhooksProject {
+    public init(body: String?, columnsUrl: String, createdAt: Date, creator: WebhooksProjectCreator?, htmlUrl: String, id: Int, name: String, nodeId: String, number: Int, ownerUrl: String, state: WebhooksProjectState, updatedAt: Date, url: String) throws {
         (self.body, self.columnsUrl) = (body, columnsUrl)
         (self.createdAt, self.creator) = (createdAt, creator)
         (self.htmlUrl, self.id) = (htmlUrl, id)
@@ -102,12 +86,12 @@ public extension WebhooksProject {
         (self.number, self.ownerUrl) = (number, ownerUrl)
         (self.state, self.updatedAt) = (state, updatedAt)
         self.url = url
-        try sdkValidateUri("columns_url", self.columnsUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("owner_url", self.ownerUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("columns_url", self.columnsUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("owner_url", self.ownerUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -183,79 +167,46 @@ public struct WebhooksProjectCreator: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksProjectCreator {
-    init(from decoder: Decoder) throws {
+extension WebhooksProjectCreator {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhooksProjectCreator {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhooksProjectCreatorType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhooksProjectCreator {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhooksProjectCreatorType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -273,28 +224,28 @@ public extension WebhooksProjectCreator {
 
 extension WebhooksProjectCreator {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -345,54 +296,38 @@ public struct WebhooksProjectCard: Codable {
         case contentUrl = "content_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksProjectCard {
-    init(from decoder: Decoder) throws {
+extension WebhooksProjectCard {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        archived = try container.sdkDecodeRequired(.archived)
-        columnId = try container.sdkDecodeRequired(.columnId)
-        columnUrl = try container.sdkDecodeRequired(.columnUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        creator = try container.sdkDecodeIfPresent(.creator)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        note = try container.sdkDecodeIfPresent(.note)
-        projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        url = try container.sdkDecodeRequired(.url)
-        afterId = try container.sdkDecodeIfPresent(.afterId)
-        contentUrl = try container.sdkDecodeIfPresent(.contentUrl)
-        try sdkValidateUri("column_url", columnUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateUri("project_url", projectUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("url", url)
-        if let value = contentUrl {
+        self.archived = try container.sdkDecodeRequired(.archived)
+        self.columnId = try container.sdkDecodeRequired(.columnId)
+        self.columnUrl = try container.sdkDecodeRequired(.columnUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.creator = try container.sdkDecodeIfPresent(.creator)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.note = try container.sdkDecodeIfPresent(.note)
+        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.afterId = try container.sdkDecodeIfPresent(.afterId)
+        self.contentUrl = try container.sdkDecodeIfPresent(.contentUrl)
+            try sdkValidateUri("column_url", self.columnUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
+        if let value = self.contentUrl {
             try sdkValidateUri("content_url", value)
         }
     }
 }
 
-public extension WebhooksProjectCard {
-    init(
-        archived: Bool,
-        columnId: Int,
-        columnUrl: String,
-        createdAt: Date,
-        creator: WebhooksProjectCardCreator?,
-        id: Int,
-        nodeId: String,
-        note: String?,
-        projectUrl: String,
-        updatedAt: Date,
-        url: String,
-        afterId: Int? = nil,
-        contentUrl: String? = nil
-    ) throws {
+extension WebhooksProjectCard {
+    public init(archived: Bool, columnId: Int, columnUrl: String, createdAt: Date, creator: WebhooksProjectCardCreator?, id: Int, nodeId: String, note: String?, projectUrl: String, updatedAt: Date, url: String, afterId: Int? = nil, contentUrl: String? = nil) throws {
         (self.archived, self.columnId) = (archived, columnId)
         (self.columnUrl, self.createdAt) = (columnUrl, createdAt)
         (self.creator, self.id) = (creator, id)
@@ -400,11 +335,11 @@ public extension WebhooksProjectCard {
         (self.projectUrl, self.updatedAt) = (projectUrl, updatedAt)
         (self.url, self.afterId) = (url, afterId)
         self.contentUrl = contentUrl
-        try sdkValidateUri("column_url", self.columnUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateUri("project_url", self.projectUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("column_url", self.columnUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
         if let value = self.contentUrl {
             try sdkValidateUri("content_url", value)
         }
@@ -483,79 +418,46 @@ public struct WebhooksProjectCardCreator: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksProjectCardCreator {
-    init(from decoder: Decoder) throws {
+extension WebhooksProjectCardCreator {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhooksProjectCardCreator {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhooksProjectCardCreatorType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhooksProjectCardCreator {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhooksProjectCardCreatorType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -573,28 +475,28 @@ public extension WebhooksProjectCardCreator {
 
 extension WebhooksProjectCardCreator {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -610,19 +512,19 @@ public struct WebhooksProjectChanges: Codable {
     }
 
     init() {
-        archivedAt = nil
+        self.archivedAt = nil
     }
 }
 
-public extension WebhooksProjectChanges {
-    init(from decoder: Decoder) throws {
+extension WebhooksProjectChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
     }
 }
 
-public extension WebhooksProjectChanges {
-    init(archivedAt: WebhooksProjectChangesArchivedAt? = nil) {
+extension WebhooksProjectChanges {
+    public init(archivedAt: WebhooksProjectChangesArchivedAt? = nil) {
         self.init()
         self.archivedAt = archivedAt
     }

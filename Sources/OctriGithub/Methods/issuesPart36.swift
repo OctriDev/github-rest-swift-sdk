@@ -6,24 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Adds an existing issue as a sub-issue of the specified parent issue. Supply `sub_issue_id` in the request body,
-    /// and set `replace_parent` to true when the sub-issue should be detached from its current parent before being
-    /// added. The sub-issue must belong to the same repository owner as the parent issue.
+extension IssuesMethods {
+    /// Adds an existing issue as a sub-issue of the specified parent issue. Supply `sub_issue_id` in the request body, and set `replace_parent` to true when the sub-issue should be detached from its current parent before being added. The sub-issue must belong to the same repository owner as the parent issue.
     ///
-    /// You can use the REST API to add sub-issues to issues. Creating content too quickly using this endpoint may
-    /// result in secondary rate limiting. For more information, see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the
-    /// following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
+    /// You can use the REST API to add sub-issues to issues. Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -35,31 +21,9 @@ public extension IssuesMethods {
     ///   the same repository owner as the parent issue
     /// - replaceParent: Option that, when true, instructs the operation to replace
     ///   the sub-issues current parent issue
-    static func issuesAddSubIssue(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        subIssueId: Int,
-        replaceParent: Bool?
-    ) async throws -> Issue {
+    public static func issuesAddSubIssue(config: ClientConfig, owner: String, repo: String, issueNumber: Int, subIssueId: Int, replaceParent: Bool?) async throws -> Issue {
         let requestBody = IssuesAddSubIssueRequestBody(subIssueId: subIssueId, replaceParent: replaceParent)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/sub_issues",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "issuesAddSubIssue"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/sub_issues"].joined(), config: config, body: requestBody, decoder: .json, operationId: "issuesAddSubIssue")).data
     }
 }

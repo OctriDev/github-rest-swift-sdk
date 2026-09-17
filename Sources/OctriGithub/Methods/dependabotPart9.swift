@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
-    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal
-    /// access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension DependabotMethods {
+    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -37,38 +33,13 @@ public extension DependabotMethods {
     ///   organization
     ///   secret](https://docs.github.com/rest/dependabot/secrets#remove-selected-repo
     ///   sitory-from-an-organization-secret) endpoints.
-    static func dependabotCreateOrUpdateOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String,
-        visibility: DependabotCreateOrUpdateOrgSecretRequestBodyVisibility,
-        encryptedValue: String?,
-        keyId: String?,
-        selectedRepositoryIds: [DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem]?
-    ) async throws -> EmptyObject {
-        if let encryptedValue {
+    public static func dependabotCreateOrUpdateOrgSecret(config: ClientConfig, org: String, secretName: String, visibility: DependabotCreateOrUpdateOrgSecretRequestBodyVisibility, encryptedValue: String?, keyId: String?, selectedRepositoryIds: [DependabotCreateOrUpdateOrgSecretRequestBodySelectedRepositoryIdsItem]?) async throws -> EmptyObject {
+        if let encryptedValue = encryptedValue {
             try sdkValidatePattern("encrypted_value", encryptedValue, sdkPattern21db07621cc5)
         }
 
-        let requestBody = DependabotCreateOrUpdateOrgSecretRequestBody(
-            visibility: visibility,
-            encryptedValue: encryptedValue,
-            keyId: keyId,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+        let requestBody = DependabotCreateOrUpdateOrgSecretRequestBody(visibility: visibility, encryptedValue: encryptedValue, keyId: keyId, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/dependabot/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "dependabotCreateOrUpdateOrgSecret"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "dependabotCreateOrUpdateOrgSecret")).data
     }
 }

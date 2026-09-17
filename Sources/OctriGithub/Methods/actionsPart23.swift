@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists all self-hosted runner groups configured in an organization and inherited from an enterprise. OAuth app
-    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension ActionsMethods {
+    /// Lists all self-hosted runner groups configured in an organization and inherited from an enterprise. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -22,24 +21,11 @@ public extension ActionsMethods {
     ///   -rest-api)."
     /// - visibleToRepository: Only return runner groups that are allowed to be used
     ///   by this repository.
-    static func actionsListSelfHostedRunnerGroupsForOrg(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        visibleToRepository: String?
-    ) async throws -> ActionsListSelfHostedRunnerGroupsForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("visible_to_repository", value: visibleToRepository),
-            ],
-            decoder: .json,
-            operationId: "actionsListSelfHostedRunnerGroupsForOrg"
-        )).data
+    public static func actionsListSelfHostedRunnerGroupsForOrg(config: ClientConfig, org: String, perPage: Int?, page: Int?, visibleToRepository: String?) async throws -> ActionsListSelfHostedRunnerGroupsForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("visible_to_repository", value: visibleToRepository),
+        ], decoder: .json, operationId: "actionsListSelfHostedRunnerGroupsForOrg")).data
     }
 }

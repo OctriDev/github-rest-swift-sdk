@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Gets a public release with the specified release ID. > [!NOTE] > This returns an `upload_url` key corresponding
-    /// to the endpoint for uploading release assets. This key is a hypermedia resource. For more information, see
-    /// "[Getting started with the REST
-    /// API](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#hypermedia)."
+extension ReposMethods {
+    /// Gets a public release with the specified release ID. > [!NOTE] > This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a hypermedia resource. For more information, see "[Getting started with the REST API](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#hypermedia)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,25 +15,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - releaseId: The unique identifier of the release.
-    static func reposGetRelease(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        releaseId: Int
-    ) async throws -> Release {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases/",
-                sdkEncodePathSegment(sdkWireString(releaseId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetRelease"
-        )).data
+    public static func reposGetRelease(config: ClientConfig, owner: String, repo: String, releaseId: Int) async throws -> Release {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/", sdkEncodePathSegment(sdkWireString(releaseId))].joined(), config: config, decoder: .json, operationId: "reposGetRelease")).data
     }
 }

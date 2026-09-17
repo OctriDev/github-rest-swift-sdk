@@ -6,31 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Removes a repository from the list of selected repositories that are enforced for immutable releases in an
-    /// organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must
-    /// be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use
-    /// this endpoint.
+extension OrgsMethods {
+    /// Removes a repository from the list of selected repositories that are enforced for immutable releases in an organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryId: The unique identifier of the repository.
-    static func orgsDisableSelectedRepositoryImmutableReleasesOrganization(
-        config: ClientConfig,
-        org: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/settings/immutable-releases/repositories/",
-                sdkEncodePathSegment(sdkWireString(repositoryId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "orgsDisableSelectedRepositoryImmutableReleasesOrganization"
-        )).data
+    public static func orgsDisableSelectedRepositoryImmutableReleasesOrganization(config: ClientConfig, org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/immutable-releases/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "orgsDisableSelectedRepositoryImmutableReleasesOrganization")).data
     }
 }

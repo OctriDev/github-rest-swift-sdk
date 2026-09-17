@@ -6,8 +6,7 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testDependabotCreateOrUpdateRepoSecretDependabotCreateOrUpdateRepoSecretReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotCreateOrUpdateRepoSecretDependabotCreateOrUpdateRepoSecretReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -156,14 +155,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotListAlertsForEnterpriseDependabotListAlertsForEnterpriseReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotListAlertsForEnterpriseDependabotListAlertsForEnterpriseReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try DependabotMethods
-            .DependabotListAlertsForEnterpriseOptions(enterprise: decoded("\"enterprise\""))
+        var options = try DependabotMethods.DependabotListAlertsForEnterpriseOptions(enterprise: decoded("\"enterprise\""))
         options.classification = try decoded("\"classification\"")
         options.state = try decoded("\"state\"")
         options.severity = try decoded("\"severity\"")
@@ -236,10 +233,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try DependabotMethods.DependabotListAlertsForRepoOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try DependabotMethods.DependabotListAlertsForRepoOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.classification = try decoded("\"classification\"")
         options.state = try decoded("\"state\"")
         options.severity = try decoded("\"severity\"")
@@ -313,8 +307,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotListSelectedReposForOrgSecretDependabotListSelectedX91aad6ca0fReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotListSelectedReposForOrgSecretDependabotListSelectedX91aad6ca0fReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -336,8 +329,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotRemoveSelectedRepoFromOrgSecretDependabotRemoveSeleX12af682b82ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotRemoveSelectedRepoFromOrgSecretDependabotRemoveSeleX12af682b82ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -350,8 +342,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependabotRepositoryAccessForEnterpriseDependabotRepositoryAcXa6f34ed044ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotRepositoryAccessForEnterpriseDependabotRepositoryAcXa6f34ed044ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -372,8 +363,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotRepositoryAccessForOrgDependabotRepositoryAccessForOrgReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotRepositoryAccessForOrgDependabotRepositoryAccessForOrgReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -394,8 +384,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotSetRepositoryAccessDefaultLevelDependabotSetRepositX4784336337ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotSetRepositoryAccessDefaultLevelDependabotSetRepositX4784336337ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -407,8 +396,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependabotSetRepositoryAccessDefaultLevelForEnterpriseDependaX8e6cf8f080ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotSetRepositoryAccessDefaultLevelForEnterpriseDependaX8e6cf8f080ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -420,8 +408,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependabotSetSelectedReposForOrgSecretDependabotSetSelectedReX5277be0fc7ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotSetSelectedReposForOrgSecretDependabotSetSelectedReX5277be0fc7ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -439,11 +426,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try DependabotMethods.DependabotUpdateAlertOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            alertNumber: decoded("1")
-        )
+        var options = try DependabotMethods.DependabotUpdateAlertOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), alertNumber: decoded("1"))
         options.state = try decoded("\"dismissed\"")
         options.dismissedReason = try decoded("\"tolerable_risk\"")
         options.dismissedComment = try decoded("\"This alert is accurate but we use a sanitizer.\"")
@@ -463,8 +446,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotUpdateRepositoryAccessForEnterpriseDependabotUpdateX1d6e3dcbf8ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotUpdateRepositoryAccessForEnterpriseDependabotUpdateX1d6e3dcbf8ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -477,8 +459,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependabotUpdateRepositoryAccessForOrgDependabotUpdateRepositX4330294b86ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependabotUpdateRepositoryAccessForOrgDependabotUpdateRepositX4330294b86ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -491,22 +472,13 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependencyGraphCreateRepositorySnapshotDependencyGraphCreateRX24259b9c68ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testDependencyGraphCreateRepositorySnapshotDependencyGraphCreateRX24259b9c68ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
         let actual = try await client.dependencyGraph.createRepositorySnapshot(
-            options: DependencyGraphMethods.DependencyGraphCreateRepositorySnapshotOptions(
-                owner: decoded("\"owner\""),
-                repo: decoded("\"repo\""),
-                version: decoded("0"),
-                job: decoded(sdkMethodFixture515Value1),
-                sha: decoded("\"ce587453ced02b1526dfb4cb910479d431683101\""),
-                ref: decoded("\"refs/heads/main\""),
-                detector: decoded(sdkMethodFixture515Value2)
-            )
+            options: DependencyGraphMethods.DependencyGraphCreateRepositorySnapshotOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), version: decoded("0"), job: decoded(sdkMethodFixture515Value1), sha: decoded("\"ce587453ced02b1526dfb4cb910479d431683101\""), ref: decoded("\"refs/heads/main\""), detector: decoded(sdkMethodFixture515Value2))
         )
         let expected = try JSONSerialization.jsonObject(
             with: Data(sdkMethodFixture515Expected.utf8),

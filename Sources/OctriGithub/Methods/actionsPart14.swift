@@ -6,66 +6,31 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets artifact and log retention settings for an organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
+extension ActionsMethods {
+    /// Gets artifact and log retention settings for an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetArtifactAndLogRetentionSettingsOrganization(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsArtifactAndLogRetentionResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/artifact-and-log-retention"]
-                .joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetArtifactAndLogRetentionSettingsOrganization"
-        )).data
+    public static func actionsGetArtifactAndLogRetentionSettingsOrganization(config: ClientConfig, org: String) async throws -> ActionsArtifactAndLogRetentionResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/artifact-and-log-retention"].joined(), config: config, decoder: .json, operationId: "actionsGetArtifactAndLogRetentionSettingsOrganization")).data
     }
 
-    /// Sets artifact and log retention settings for an organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
+    /// Sets artifact and log retention settings for an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - days: The number of days to retain artifacts and logs
-    static func actionsSetArtifactAndLogRetentionSettingsOrganization(
-        config: ClientConfig,
-        org: String,
-        days: Int
-    ) async throws -> SdkEmptyResponse {
+    public static func actionsSetArtifactAndLogRetentionSettingsOrganization(config: ClientConfig, org: String, days: Int) async throws -> SdkEmptyResponse {
         let requestBody = ActionsSetArtifactAndLogRetentionSettingsOrganizationRequestBody(days: days)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/artifact-and-log-retention"]
-                .joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetArtifactAndLogRetentionSettingsOrganization"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/artifact-and-log-retention"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetArtifactAndLogRetentionSettingsOrganization")).data
     }
 
-    /// Gets the fork PR contributor approval policy for an organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
+    /// Gets the fork PR contributor approval policy for an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetForkPrContributorApprovalPermissionsOrganization(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsForkPrContributorApproval {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/fork-pr-contributor-approval"]
-                .joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetForkPrContributorApprovalPermissionsOrganization"
-        )).data
+    public static func actionsGetForkPrContributorApprovalPermissionsOrganization(config: ClientConfig, org: String) async throws -> ActionsForkPrContributorApproval {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/fork-pr-contributor-approval"].joined(), config: config, decoder: .json, operationId: "actionsGetForkPrContributorApprovalPermissionsOrganization")).data
     }
 }

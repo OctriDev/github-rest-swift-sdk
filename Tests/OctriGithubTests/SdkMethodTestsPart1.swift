@@ -6,8 +6,7 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testActionsAddCustomLabelsToSelfHostedRunnerForOrgActionsAddCustoXae7d1ea3c3ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsAddCustomLabelsToSelfHostedRunnerForOrgActionsAddCustoXae7d1ea3c3ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -28,8 +27,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsAddCustomLabelsToSelfHostedRunnerForRepoActionsAddCustX6c47d47df6ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsAddCustomLabelsToSelfHostedRunnerForRepoActionsAddCustX6c47d47df6ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -51,8 +49,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsAddRepoAccessToSelfHostedRunnerGroupInOrgActionsAddRepX9f98fcf216ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsAddRepoAccessToSelfHostedRunnerGroupInOrgActionsAddRepX9f98fcf216ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -65,8 +62,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsAddSelectedRepoToOrgSecretActionsAddSelectedRepoToOrgSecretReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsAddSelectedRepoToOrgSecretActionsAddSelectedRepoToOrgSecretReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -79,8 +75,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsAddSelectedRepoToOrgVariableActionsAddSelectedRepoToOrgVariableReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsAddSelectedRepoToOrgVariableActionsAddSelectedRepoToOrgVariableReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -93,8 +88,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsAddSelfHostedRunnerToGroupForOrgActionsAddSelfHostedRuX8a79570ec9ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsAddSelfHostedRunnerToGroupForOrgActionsAddSelfHostedRuX8a79570ec9ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -149,8 +143,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsCreateEnvironmentVariableActionsCreateEnvironmentVariableReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsCreateEnvironmentVariableActionsCreateEnvironmentVariableReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -178,13 +171,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ActionsMethods.ActionsCreateHostedRunnerForOrgOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"My Hosted runner\""),
-            image: decoded("{\"id\":\"ubuntu-latest\",\"source\":\"github\"}"),
-            size: decoded("\"4-core\""),
-            runnerGroupId: decoded("1")
-        )
+        var options = try ActionsMethods.ActionsCreateHostedRunnerForOrgOptions(org: decoded("\"org\""), name: decoded("\"My Hosted runner\""), image: decoded("{\"id\":\"ubuntu-latest\",\"source\":\"github\"}"), size: decoded("\"4-core\""), runnerGroupId: decoded("1"))
         options.maximumRunners = try decoded("50")
         options.enableStaticIp = try decoded("false")
         options.imageGen = try decoded("null")
@@ -225,8 +212,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsCreateOrUpdateEnvironmentSecretActionsCreateOrUpdateEnX1886c777b6ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsCreateOrUpdateEnvironmentSecretActionsCreateOrUpdateEnX1886c777b6ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -297,8 +283,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsCreateRegistrationTokenForOrgActionsCreateRegistrationTokenForOrgReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsCreateRegistrationTokenForOrgActionsCreateRegistrationTokenForOrgReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -317,8 +302,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsCreateRegistrationTokenForRepoActionsCreateRegistratioXf461b50917ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsCreateRegistrationTokenForRepoActionsCreateRegistratioXf461b50917ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -399,16 +383,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testActionsCreateSelfHostedRunnerGroupForOrgActionsCreateSelfHostX0a8ceacbebReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsCreateSelfHostedRunnerGroupForOrgActionsCreateSelfHostX0a8ceacbebReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try ActionsMethods.ActionsCreateSelfHostedRunnerGroupForOrgOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"Expensive hardware runners\"")
-        )
+        var options = try ActionsMethods.ActionsCreateSelfHostedRunnerGroupForOrgOptions(org: decoded("\"org\""), name: decoded("\"Expensive hardware runners\""))
         options.visibility = try decoded("\"selected\"")
         options.selectedRepositoryIds = try decoded("[32,91]")
         options.runners = try decoded("[9,2]")
@@ -514,8 +494,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActionsDeleteCustomImageVersionFromOrgActionsDeleteCustomImagXa02698b087ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testActionsDeleteCustomImageVersionFromOrgActionsDeleteCustomImagXa02698b087ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

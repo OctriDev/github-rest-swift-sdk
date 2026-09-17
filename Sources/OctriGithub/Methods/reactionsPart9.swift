@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReactionsMethods {
-    /// Create a reaction to a [pull request review
-    /// comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request). A response with
-    /// an HTTP `200` status means that you already added the reaction type to this pull request review comment.
+extension ReactionsMethods {
+    /// Create a reaction to a [pull request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request). A response with an HTTP `200` status means that you already added the reaction type to this pull request review comment.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,36 +18,13 @@ public extension ReactionsMethods {
     /// - content: The [reaction
     ///   type](https://docs.github.com/rest/reactions/reactions#about-reactions) to
     ///   add to the pull request review comment.
-    static func reactionsCreateForPullRequestReviewComment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        commentId: Int,
-        content: ReactionsCreateForPullRequestReviewCommentRequestBodyContent
-    ) async throws -> Reaction {
+    public static func reactionsCreateForPullRequestReviewComment(config: ClientConfig, owner: String, repo: String, commentId: Int, content: ReactionsCreateForPullRequestReviewCommentRequestBodyContent) async throws -> Reaction {
         let requestBody = ReactionsCreateForPullRequestReviewCommentRequestBody(content: content)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pulls/comments/",
-                sdkEncodePathSegment(sdkWireString(commentId)),
-                "/reactions",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reactionsCreateForPullRequestReviewComment"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reactionsCreateForPullRequestReviewComment")).data
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE
-    /// /repositories/:repository_id/pulls/comments/:comment_id/reactions/:reaction_id.` Delete a reaction to a [pull
-    /// request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
+    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/pulls/comments/:comment_id/reactions/:reaction_id.` Delete a reaction to a [pull request review comment](https://docs.github.com/rest/pulls/comments#get-a-review-comment-for-a-pull-request).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -58,28 +33,7 @@ public extension ReactionsMethods {
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
     /// - reactionId: The unique identifier of the reaction.
-    static func reactionsDeleteForPullRequestComment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        commentId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pulls/comments/",
-                sdkEncodePathSegment(sdkWireString(commentId)),
-                "/reactions/",
-                sdkEncodePathSegment(sdkWireString(reactionId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reactionsDeleteForPullRequestComment"
-        )).data
+    public static func reactionsDeleteForPullRequestComment(config: ClientConfig, owner: String, repo: String, commentId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions/", sdkEncodePathSegment(sdkWireString(reactionId))].joined(), config: config, decoder: .empty, operationId: "reactionsDeleteForPullRequestComment")).data
     }
 }

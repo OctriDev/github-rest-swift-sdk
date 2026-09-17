@@ -6,11 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MetaMethods {
+extension MetaMethods {
     /// Get the Zen of GitHub
     ///
     /// Get a random sentence from the Zen of GitHub
-    static func metaGetZen(config: ClientConfig) async throws -> String {
-        try await (sdkRequest("GET", "/zen", config: config, decoder: .text, operationId: "metaGetZen")).data
+    public static func metaGetZen(config: ClientConfig) async throws -> String {
+        return try (await sdkRequest("GET", "/zen", config: config, decoder: .text, operationId: "metaGetZen")).data
     }
 }

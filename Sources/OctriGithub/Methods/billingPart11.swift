@@ -6,11 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension BillingMethods {
+extension BillingMethods {
     /// Get billing premium request usage report for a user
     ///
-    /// Gets a report of premium request usage for a user. **Note:** Only data from the past 24 months is accessible via
-    /// this endpoint.
+    /// Gets a report of premium request usage for a user. **Note:** Only data from the past 24 months is accessible via this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -26,29 +25,13 @@ public extension BillingMethods {
     /// - model: The model name to query usage for. The name is not case sensitive.
     /// - product: The product name to query usage for. The name is not case
     ///   sensitive.
-    static func billingGetGithubBillingPremiumRequestUsageReportUser(
-        config: ClientConfig,
-        username: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        model: String?,
-        product: String?
-    ) async throws -> BillingPremiumRequestUsageReportUser {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/premium_request/usage"]
-                .joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("year", value: year),
-                SdkQueryParameter("month", value: month),
-                SdkQueryParameter("day", value: day),
-                SdkQueryParameter("model", value: model),
-                SdkQueryParameter("product", value: product),
-            ],
-            decoder: .json,
-            operationId: "billingGetGithubBillingPremiumRequestUsageReportUser"
-        )).data
+    public static func billingGetGithubBillingPremiumRequestUsageReportUser(config: ClientConfig, username: String, year: Int?, month: Int?, day: Int?, model: String?, product: String?) async throws -> BillingPremiumRequestUsageReportUser {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/premium_request/usage"].joined(), config: config, query: [
+            SdkQueryParameter("year", value: year),
+            SdkQueryParameter("month", value: month),
+            SdkQueryParameter("day", value: day),
+            SdkQueryParameter("model", value: model),
+            SdkQueryParameter("product", value: product),
+        ], decoder: .json, operationId: "billingGetGithubBillingPremiumRequestUsageReportUser")).data
     }
 }

@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
-    /// Bulk creates secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories,
-    /// the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
+extension SecretScanningMethods {
+    /// Bulk creates secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,29 +15,11 @@ public extension SecretScanningMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - patterns: The list of custom patterns to create (maximum 100).
-    static func secretScanningBulkCreateRepoCustomPatterns(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        patterns: [SecretScanningCustomPatternToCreate]
-    ) async throws -> SecretScanningBulkCreateRepoCustomPatternsResponse {
+    public static func secretScanningBulkCreateRepoCustomPatterns(config: ClientConfig, owner: String, repo: String, patterns: [SecretScanningCustomPatternToCreate]) async throws -> SecretScanningBulkCreateRepoCustomPatternsResponse {
         try validateItems("patterns", patterns, max: 100)
 
         let requestBody = SecretScanningBulkCreateRepoCustomPatternsRequestBody(patterns: patterns)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/secret-scanning/custom-patterns",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "secretScanningBulkCreateRepoCustomPatterns"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/secret-scanning/custom-patterns"].joined(), config: config, body: requestBody, decoder: .json, operationId: "secretScanningBulkCreateRepoCustomPatterns")).data
     }
 }

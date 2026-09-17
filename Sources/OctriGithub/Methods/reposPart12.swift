@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposListActivitiesOptions: Codable {
+extension ReposMethods {
+    public struct ReposListActivitiesOptions: Codable {
         public var owner: String
         public var repo: String
         public var direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?
@@ -25,10 +25,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Lists a detailed history of changes to a repository, such as pushes, merges, force pushes, and branch changes,
-    /// and associates these changes with commits and users. For more information about viewing repository activity, see
-    /// "[Viewing activity and data for your
-    /// repository](https://docs.github.com/repositories/viewing-activity-and-data-for-your-repository)."
+    /// Lists a detailed history of changes to a repository, such as pushes, merges, force pushes, and branch changes, and associates these changes with commits and users. For more information about viewing repository activity, see "[Viewing activity and data for your repository](https://docs.github.com/repositories/viewing-activity-and-data-for-your-repository)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -62,32 +59,16 @@ public extension ReposMethods {
     ///   activity that occurred in the past 7 days (168 hours).
     /// - activityType: The activity type to filter by. For example, you can choose
     ///   to filter by "force_push", to see all force pushes to the repository.
-    static func reposListActivities(
-        config: ClientConfig,
-        options: ReposListActivitiesOptions
-    ) async throws -> [Activity] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/activity",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("before", value: options.before),
-                SdkQueryParameter("after", value: options.after),
-                SdkQueryParameter("ref", value: options.ref),
-                SdkQueryParameter("actor", value: options.actor),
-                SdkQueryParameter("time_period", value: options.timePeriod),
-                SdkQueryParameter("activity_type", value: options.activityType),
-            ],
-            decoder: .json,
-            operationId: "reposListActivities"
-        )).data
+    public static func reposListActivities(config: ClientConfig, options: ReposListActivitiesOptions) async throws -> [Activity] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/activity"].joined(), config: config, query: [
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("before", value: options.before),
+            SdkQueryParameter("after", value: options.after),
+            SdkQueryParameter("ref", value: options.ref),
+            SdkQueryParameter("actor", value: options.actor),
+            SdkQueryParameter("time_period", value: options.timePeriod),
+            SdkQueryParameter("activity_type", value: options.activityType),
+        ], decoder: .json, operationId: "reposListActivities")).data
     }
 }

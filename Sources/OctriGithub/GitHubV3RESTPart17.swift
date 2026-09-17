@@ -3,507 +3,212 @@
 
 import Foundation
 
-public extension OrgsNamespace {
-    /// Creates a new issue field for an organization. You can find out more about issue fields in [Managing issue
-    /// fields in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization).
-    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func createIssueField(
-        org: String,
-        name: String,
-        dataType: OrganizationCreateIssueFieldDataType,
-        description: SdkOptional<String>?,
-        visibility: OrganizationCreateIssueFieldVisibility?,
-        options: SdkOptional<[OrganizationCreateIssueFieldOptionsItem]>?
-    ) async throws -> IssueField {
-        try await OrgsMethods.orgsCreateIssueField(
-            config: config,
-            org: org,
-            name: name,
-            dataType: dataType,
-            description: description,
-            visibility: visibility,
-            options: options
-        )
+extension OrgsNamespace {
+/// Creates a new issue field for an organization. You can find out more about issue fields in [Managing issue fields in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func createIssueField(org: String, name: String, dataType: OrganizationCreateIssueFieldDataType, description: SdkOptional<String>?, visibility: OrganizationCreateIssueFieldVisibility?, options: SdkOptional<[OrganizationCreateIssueFieldOptionsItem]>?) async throws -> IssueField {
+        return try await OrgsMethods.orgsCreateIssueField(config: config, org: org, name: name, dataType: dataType, description: description, visibility: visibility, options: options)
     }
 
-    /// Updates an issue field for an organization. You can find out more about issue fields in [Managing issue fields
-    /// in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization).
-    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func updateIssueField(
-        org: String,
-        issueFieldId: Int,
-        name: String?,
-        description: SdkOptional<String>?,
-        visibility: OrganizationUpdateIssueFieldVisibility?,
-        options: [OrganizationUpdateIssueFieldOptionsItem]?
-    ) async throws -> IssueField {
-        try await OrgsMethods.orgsUpdateIssueField(
-            config: config,
-            org: org,
-            issueFieldId: issueFieldId,
-            name: name,
-            description: description,
-            visibility: visibility,
-            options: options
-        )
+/// Updates an issue field for an organization. You can find out more about issue fields in [Managing issue fields in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func updateIssueField(org: String, issueFieldId: Int, name: String?, description: SdkOptional<String>?, visibility: OrganizationUpdateIssueFieldVisibility?, options: [OrganizationUpdateIssueFieldOptionsItem]?) async throws -> IssueField {
+        return try await OrgsMethods.orgsUpdateIssueField(config: config, org: org, issueFieldId: issueFieldId, name: name, description: description, visibility: visibility, options: options)
     }
 
-    /// Deletes an issue field for an organization. You can find out more about issue fields in [Managing issue fields
-    /// in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization).
-    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func deleteIssueField(org: String, issueFieldId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsDeleteIssueField(config: config, org: org, issueFieldId: issueFieldId)
+/// Deletes an issue field for an organization. You can find out more about issue fields in [Managing issue fields in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func deleteIssueField(org: String, issueFieldId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsDeleteIssueField(config: config, org: org, issueFieldId: issueFieldId)
     }
 
-    /// Lists all issue types for an organization. OAuth app tokens and personal access tokens (classic) need the
-    /// read:org scope to use this endpoint.
-    func listIssueTypes(org: String) async throws -> [IssueType?] {
-        try await OrgsMethods.orgsListIssueTypes(config: config, org: org)
+/// Lists all issue types for an organization. OAuth app tokens and personal access tokens (classic) need the read:org scope to use this endpoint.
+    public func listIssueTypes(org: String) async throws -> [IssueType?] {
+        return try await OrgsMethods.orgsListIssueTypes(config: config, org: org)
     }
 
-    /// Create a new issue type for an organization. You can find out more about issue types in [Managing issue types in
-    /// an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization).
-    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func createIssueType(
-        org: String,
-        name: String,
-        isEnabled: Bool,
-        description: SdkOptional<String>?,
-        color: SdkOptional<OrganizationCreateIssueTypeColor>?
-    ) async throws -> IssueType {
-        try await OrgsMethods.orgsCreateIssueType(
-            config: config,
-            org: org,
-            name: name,
-            isEnabled: isEnabled,
-            description: description,
-            color: color
-        )
+/// Create a new issue type for an organization. You can find out more about issue types in [Managing issue types in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func createIssueType(org: String, name: String, isEnabled: Bool, description: SdkOptional<String>?, color: SdkOptional<OrganizationCreateIssueTypeColor>?) async throws -> IssueType {
+        return try await OrgsMethods.orgsCreateIssueType(config: config, org: org, name: name, isEnabled: isEnabled, description: description, color: color)
     }
 
-    /// Updates an issue type for an organization. You can find out more about issue types in [Managing issue types in
-    /// an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization).
-    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func updateIssueType(
-        org: String,
-        issueTypeId: Int,
-        name: String,
-        isEnabled: Bool,
-        description: SdkOptional<String>?,
-        color: SdkOptional<OrganizationUpdateIssueTypeColor>?
-    ) async throws -> IssueType {
-        try await OrgsMethods.orgsUpdateIssueType(
-            config: config,
-            org: org,
-            issueTypeId: issueTypeId,
-            name: name,
-            isEnabled: isEnabled,
-            description: description,
-            color: color
-        )
+/// Updates an issue type for an organization. You can find out more about issue types in [Managing issue types in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func updateIssueType(org: String, issueTypeId: Int, name: String, isEnabled: Bool, description: SdkOptional<String>?, color: SdkOptional<OrganizationUpdateIssueTypeColor>?) async throws -> IssueType {
+        return try await OrgsMethods.orgsUpdateIssueType(config: config, org: org, issueTypeId: issueTypeId, name: name, isEnabled: isEnabled, description: description, color: color)
     }
 
-    /// Deletes an issue type for an organization. You can find out more about issue types in [Managing issue types in
-    /// an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization).
-    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func deleteIssueType(org: String, issueTypeId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsDeleteIssueType(config: config, org: org, issueTypeId: issueTypeId)
+/// Deletes an issue type for an organization. You can find out more about issue types in [Managing issue types in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/configuring-issues/managing-issue-types-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func deleteIssueType(org: String, issueTypeId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsDeleteIssueType(config: config, org: org, issueTypeId: issueTypeId)
     }
 
-    /// List all users who are members of an organization. If the authenticated user is also a member of this
-    /// organization then both concealed and public members will be returned.
-    func listMembers(
-        org: String,
-        filter: OrgsListMembersParameter?,
-        role: OrgsListMembersParameterX38b3e4da?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [SimpleUser] {
-        try await OrgsMethods.orgsListMembers(
-            config: config,
-            org: org,
-            filter: filter,
-            role: role,
-            perPage: perPage,
-            page: page
-        )
+/// List all users who are members of an organization. If the authenticated user is also a member of this organization then both concealed and public members will be returned.
+    public func listMembers(org: String, filter: OrgsListMembersParameter?, role: OrgsListMembersParameterX38b3e4da?, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        return try await OrgsMethods.orgsListMembers(config: config, org: org, filter: filter, role: role, perPage: perPage, page: page)
     }
 }
 
-public extension OrgsNamespace {
-    /// Check if a user is, publicly or privately, a member of the organization.
-    func checkMembershipForUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsCheckMembershipForUser(config: config, org: org, username: username)
+extension OrgsNamespace {
+/// Check if a user is, publicly or privately, a member of the organization.
+    public func checkMembershipForUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsCheckMembershipForUser(config: config, org: org, username: username)
     }
 
-    /// Removing a user from this list will remove them from all teams and they will no longer have any access to the
-    /// organization's repositories. > [!NOTE] > If a user has both direct membership in the organization as well as
-    /// indirect membership via an enterprise team, only their direct membership will be removed. Their indirect
-    /// membership via an enterprise team remains until the user is removed from the enterprise team.
-    func removeMember(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRemoveMember(config: config, org: org, username: username)
+/// Removing a user from this list will remove them from all teams and they will no longer have any access to the organization's repositories. > [!NOTE] > If a user has both direct membership in the organization as well as indirect membership via an enterprise team, only their direct membership will be removed. Their indirect membership via an enterprise team remains until the user is removed from the enterprise team.
+    public func removeMember(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRemoveMember(config: config, org: org, username: username)
     }
 
-    /// In order to get a user's membership with an organization, the authenticated user must be an organization member.
-    /// The `state` parameter in the response can be used to identify the user's membership status.
-    func getMembershipForUser(org: String, username: String) async throws -> OrgMembership {
-        try await OrgsMethods.orgsGetMembershipForUser(config: config, org: org, username: username)
+/// In order to get a user's membership with an organization, the authenticated user must be an organization member. The `state` parameter in the response can be used to identify the user's membership status.
+    public func getMembershipForUser(org: String, username: String) async throws -> OrgMembership {
+        return try await OrgsMethods.orgsGetMembershipForUser(config: config, org: org, username: username)
     }
 
-    /// Only authenticated organization owners can add a member to the organization or update the member's role. * If
-    /// the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting
-    /// them to the organization. The user's [membership
-    /// status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending`
-    /// until they accept the invitation. * Authenticated users can _update_ a user's membership by passing the `role`
-    /// parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email
-    /// notifying them that they've been made an organization owner. If the authenticated user changes an owner's role
-    /// to `member`, no email will be sent. **Rate limits** To prevent abuse, organization owners are limited to
-    /// creating 50 organization invitations for an organization within a 24 hour period. If the organization is more
-    /// than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
-    func setMembershipForUser(
-        org: String,
-        username: String,
-        role: OrgsSetMembershipForUserRequestBodyRole?
-    ) async throws -> OrgMembership {
-        try await OrgsMethods.orgsSetMembershipForUser(config: config, org: org, username: username, role: role)
+/// Only authenticated organization owners can add a member to the organization or update the member's role. * If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending` until they accept the invitation. * Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent. **Rate limits** To prevent abuse, organization owners are limited to creating 50 organization invitations for an organization within a 24 hour period. If the organization is more than one month old or on a paid plan, the limit is 500 invitations per 24 hour period.
+    public func setMembershipForUser(org: String, username: String, role: OrgsSetMembershipForUserRequestBodyRole?) async throws -> OrgMembership {
+        return try await OrgsMethods.orgsSetMembershipForUser(config: config, org: org, username: username, role: role)
     }
 
-    /// In order to remove a user's membership with an organization, the authenticated user must be an organization
-    /// owner. If the specified user is an active member of the organization, this will remove them from the
-    /// organization. If the specified user has been invited to the organization, this will cancel their invitation. The
-    /// specified user will receive an email notification in both cases. > [!NOTE] > If a user has both direct
-    /// membership in the organization as well as indirect membership via an enterprise team, only their direct
-    /// membership will be removed. Their indirect membership via an enterprise team remains until the user is removed
-    /// from the enterprise team.
-    func removeMembershipForUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRemoveMembershipForUser(config: config, org: org, username: username)
+/// In order to remove a user's membership with an organization, the authenticated user must be an organization owner. If the specified user is an active member of the organization, this will remove them from the organization. If the specified user has been invited to the organization, this will cancel their invitation. The specified user will receive an email notification in both cases. > [!NOTE] > If a user has both direct membership in the organization as well as indirect membership via an enterprise team, only their direct membership will be removed. Their indirect membership via an enterprise team remains until the user is removed from the enterprise team.
+    public func removeMembershipForUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRemoveMembershipForUser(config: config, org: org, username: username)
     }
 
-    /// Lists the organization roles available in this organization. For more information on organization roles, see
-    /// "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An
-    /// organization member (or a member of a team) assigned a custom organization role that includes the **View
-    /// organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions
-    /// for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)."
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func listOrgRoles(org: String) async throws -> OrgsListOrgRolesResponse {
-        try await OrgsMethods.orgsListOrgRoles(config: config, org: org)
+/// Lists the organization roles available in this organization. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An organization member (or a member of a team) assigned a custom organization role that includes the **View organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func listOrgRoles(org: String) async throws -> OrgsListOrgRolesResponse {
+        return try await OrgsMethods.orgsListOrgRoles(config: config, org: org)
     }
 
-    /// Removes all assigned organization roles from a team. For more information on organization roles, see "[Using
-    /// organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func revokeAllOrgRolesTeam(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRevokeAllOrgRolesTeam(config: config, org: org, teamSlug: teamSlug)
+/// Removes all assigned organization roles from a team. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func revokeAllOrgRolesTeam(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRevokeAllOrgRolesTeam(config: config, org: org, teamSlug: teamSlug)
     }
 
-    /// Assigns an organization role to a team in an organization. For more information on organization roles, see
-    /// "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func assignTeamToOrgRole(org: String, teamSlug: String, roleId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsAssignTeamToOrgRole(config: config, org: org, teamSlug: teamSlug, roleId: roleId)
+/// Assigns an organization role to a team in an organization. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func assignTeamToOrgRole(org: String, teamSlug: String, roleId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsAssignTeamToOrgRole(config: config, org: org, teamSlug: teamSlug, roleId: roleId)
     }
 }
 
-public extension OrgsNamespace {
-    /// Removes an organization role from a team. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func revokeOrgRoleTeam(org: String, teamSlug: String, roleId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRevokeOrgRoleTeam(config: config, org: org, teamSlug: teamSlug, roleId: roleId)
+extension OrgsNamespace {
+/// Removes an organization role from a team. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func revokeOrgRoleTeam(org: String, teamSlug: String, roleId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRevokeOrgRoleTeam(config: config, org: org, teamSlug: teamSlug, roleId: roleId)
     }
 
-    /// Revokes all assigned organization roles from a user. For more information on organization roles, see "[Using
-    /// organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func revokeAllOrgRolesUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRevokeAllOrgRolesUser(config: config, org: org, username: username)
+/// Revokes all assigned organization roles from a user. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func revokeAllOrgRolesUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRevokeAllOrgRolesUser(config: config, org: org, username: username)
     }
 
-    /// Assigns an organization role to a member of an organization. For more information on organization roles, see
-    /// "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func assignUserToOrgRole(org: String, username: String, roleId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsAssignUserToOrgRole(config: config, org: org, username: username, roleId: roleId)
+/// Assigns an organization role to a member of an organization. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func assignUserToOrgRole(org: String, username: String, roleId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsAssignUserToOrgRole(config: config, org: org, username: username, roleId: roleId)
     }
 
-    /// Remove an organization role from a user. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func revokeOrgRoleUser(org: String, username: String, roleId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRevokeOrgRoleUser(config: config, org: org, username: username, roleId: roleId)
+/// Remove an organization role from a user. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." The authenticated user must be an administrator for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func revokeOrgRoleUser(org: String, username: String, roleId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRevokeOrgRoleUser(config: config, org: org, username: username, roleId: roleId)
     }
 
-    /// Gets an organization role that is available to this organization. For more information on organization roles,
-    /// see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An
-    /// organization member (or a member of a team) assigned a custom organization role that includes the **View
-    /// organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions
-    /// for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)."
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    func getOrgRole(org: String, roleId: Int) async throws -> OrganizationRole {
-        try await OrgsMethods.orgsGetOrgRole(config: config, org: org, roleId: roleId)
+/// Gets an organization role that is available to this organization. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An organization member (or a member of a team) assigned a custom organization role that includes the **View organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func getOrgRole(org: String, roleId: Int) async throws -> OrganizationRole {
+        return try await OrgsMethods.orgsGetOrgRole(config: config, org: org, roleId: roleId)
     }
 
-    /// Lists the teams that are assigned to an organization role. For more information on organization roles, see
-    /// "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// To use this endpoint, you must be an administrator for the organization. OAuth app tokens and personal access
-    /// tokens (classic) need the `admin:org` scope to use this endpoint.
-    func listOrgRoleTeams(org: String, roleId: Int, perPage: Int?, page: Int?) async throws -> [TeamRoleAssignment] {
-        try await OrgsMethods.orgsListOrgRoleTeams(
-            config: config,
-            org: org,
-            roleId: roleId,
-            perPage: perPage,
-            page: page
-        )
+/// Lists the teams that are assigned to an organization role. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, you must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func listOrgRoleTeams(org: String, roleId: Int, perPage: Int?, page: Int?) async throws -> [TeamRoleAssignment] {
+        return try await OrgsMethods.orgsListOrgRoleTeams(config: config, org: org, roleId: roleId, perPage: perPage, page: page)
     }
 
-    /// Lists organization members that are assigned to an organization role. For more information on organization
-    /// roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
-    /// To use this endpoint, you must be an administrator for the organization. OAuth app tokens and personal access
-    /// tokens (classic) need the `admin:org` scope to use this endpoint.
-    func listOrgRoleUsers(org: String, roleId: Int, perPage: Int?, page: Int?) async throws -> [UserRoleAssignment] {
-        try await OrgsMethods.orgsListOrgRoleUsers(
-            config: config,
-            org: org,
-            roleId: roleId,
-            perPage: perPage,
-            page: page
-        )
+/// Lists organization members that are assigned to an organization role. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, you must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func listOrgRoleUsers(org: String, roleId: Int, perPage: Int?, page: Int?) async throws -> [UserRoleAssignment] {
+        return try await OrgsMethods.orgsListOrgRoleUsers(config: config, org: org, roleId: roleId, perPage: perPage, page: page)
     }
 
-    /// List all users who are outside collaborators of an organization.
-    func listOutsideCollaborators(
-        org: String,
-        filter: OrgsListOutsideCollaboratorsParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [SimpleUser] {
-        try await OrgsMethods.orgsListOutsideCollaborators(
-            config: config,
-            org: org,
-            filter: filter,
-            perPage: perPage,
-            page: page
-        )
+/// List all users who are outside collaborators of an organization.
+    public func listOutsideCollaborators(org: String, filter: OrgsListOutsideCollaboratorsParameter?, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        return try await OrgsMethods.orgsListOutsideCollaborators(config: config, org: org, filter: filter, perPage: perPage, page: page)
     }
 }
 
-public extension OrgsNamespace {
-    /// When an organization member is converted to an outside collaborator, they'll only have access to the
-    /// repositories that their current team membership allows. The user will no longer be a member of the organization.
-    /// For more information, see "[Converting an organization member to an outside
-    /// collaborator](https://docs.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
-    /// Converting an organization member to an outside collaborator may be restricted by enterprise administrators. For
-    /// more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)."
-    func convertMemberToOutsideCollaborator(
-        org: String,
-        username: String,
-        async: Bool?
-    ) async throws -> OrgsConvertMemberToOutsideCollaboratorResponse {
-        try await OrgsMethods.orgsConvertMemberToOutsideCollaborator(
-            config: config,
-            org: org,
-            username: username,
-            async: async
-        )
+extension OrgsNamespace {
+/// When an organization member is converted to an outside collaborator, they'll only have access to the repositories that their current team membership allows. The user will no longer be a member of the organization. For more information, see "[Converting an organization member to an outside collaborator](https://docs.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)". Converting an organization member to an outside collaborator may be restricted by enterprise administrators. For more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)."
+    public func convertMemberToOutsideCollaborator(org: String, username: String, async: Bool?) async throws -> OrgsConvertMemberToOutsideCollaboratorResponse {
+        return try await OrgsMethods.orgsConvertMemberToOutsideCollaborator(config: config, org: org, username: username, async: async)
     }
 
-    /// Removing a user from this list will remove them from all the organization's repositories.
-    func removeOutsideCollaborator(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsRemoveOutsideCollaborator(config: config, org: org, username: username)
+/// Removing a user from this list will remove them from all the organization's repositories.
+    public func removeOutsideCollaborator(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsRemoveOutsideCollaborator(config: config, org: org, username: username)
     }
 
-    /// Lists requests from organization members to access organization resources with a fine-grained personal access
-    /// token. Only GitHub Apps can use this endpoint.
-    func listPatGrantRequests(options: OrgsMethods
-        .OrgsListPatGrantRequestsOptions) async throws -> [OrganizationProgrammaticAccessGrantRequest] {
-        try await OrgsMethods.orgsListPatGrantRequests(config: config, options: options)
+/// Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can use this endpoint.
+    public func listPatGrantRequests(options: OrgsMethods.OrgsListPatGrantRequestsOptions) async throws -> [OrganizationProgrammaticAccessGrantRequest] {
+        return try await OrgsMethods.orgsListPatGrantRequests(config: config, options: options)
     }
 
-    /// Approves or denies multiple pending requests to access organization resources via a fine-grained personal access
-    /// token. Only GitHub Apps can use this endpoint.
-    func reviewPatGrantRequestsInBulk(
-        org: String,
-        action: OrgsReviewPatGrantRequestsInBulkRequestBodyAction,
-        patRequestIds: [Int]?,
-        reason: SdkOptional<String>?
-    ) async throws -> [String: JSONValue] {
-        try await OrgsMethods.orgsReviewPatGrantRequestsInBulk(
-            config: config,
-            org: org,
-            action: action,
-            patRequestIds: patRequestIds,
-            reason: reason
-        )
+/// Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can use this endpoint.
+    public func reviewPatGrantRequestsInBulk(org: String, action: OrgsReviewPatGrantRequestsInBulkRequestBodyAction, patRequestIds: [Int]?, reason: SdkOptional<String>?) async throws -> [String: JSONValue] {
+        return try await OrgsMethods.orgsReviewPatGrantRequestsInBulk(config: config, org: org, action: action, patRequestIds: patRequestIds, reason: reason)
     }
 
-    /// Approves or denies a pending request to access organization resources via a fine-grained personal access token.
-    /// Only GitHub Apps can use this endpoint.
-    func reviewPatGrantRequest(
-        org: String,
-        patRequestId: Int,
-        action: OrgsReviewPatGrantRequestRequestBodyAction,
-        reason: SdkOptional<String>?
-    ) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsReviewPatGrantRequest(
-            config: config,
-            org: org,
-            patRequestId: patRequestId,
-            action: action,
-            reason: reason
-        )
+/// Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can use this endpoint.
+    public func reviewPatGrantRequest(org: String, patRequestId: Int, action: OrgsReviewPatGrantRequestRequestBodyAction, reason: SdkOptional<String>?) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsReviewPatGrantRequest(config: config, org: org, patRequestId: patRequestId, action: action, reason: reason)
     }
 
-    /// Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps
-    /// can use this endpoint.
-    func listPatGrantRequestRepositories(
-        org: String,
-        patRequestId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await OrgsMethods.orgsListPatGrantRequestRepositories(
-            config: config,
-            org: org,
-            patRequestId: patRequestId,
-            perPage: perPage,
-            page: page
-        )
+/// Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can use this endpoint.
+    public func listPatGrantRequestRepositories(org: String, patRequestId: Int, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try await OrgsMethods.orgsListPatGrantRequestRepositories(config: config, org: org, patRequestId: patRequestId, perPage: perPage, page: page)
     }
 
-    /// Lists approved fine-grained personal access tokens owned by organization members that can access organization
-    /// resources. Only GitHub Apps can use this endpoint.
-    func listPatGrants(options: OrgsMethods
-        .OrgsListPatGrantsOptions) async throws -> [OrganizationProgrammaticAccessGrant] {
-        try await OrgsMethods.orgsListPatGrants(config: config, options: options)
+/// Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can use this endpoint.
+    public func listPatGrants(options: OrgsMethods.OrgsListPatGrantsOptions) async throws -> [OrganizationProgrammaticAccessGrant] {
+        return try await OrgsMethods.orgsListPatGrants(config: config, options: options)
     }
 
-    /// Updates the access organization members have to organization resources via fine-grained personal access tokens.
-    /// Limited to revoking a token's existing access. Only GitHub Apps can use this endpoint.
-    func updatePatAccesses(
-        org: String,
-        action: OrgsUpdatePatAccessesRequestBodyAction,
-        patIds: [Int]
-    ) async throws -> [String: JSONValue] {
-        try await OrgsMethods.orgsUpdatePatAccesses(config: config, org: org, action: action, patIds: patIds)
+/// Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can use this endpoint.
+    public func updatePatAccesses(org: String, action: OrgsUpdatePatAccessesRequestBodyAction, patIds: [Int]) async throws -> [String: JSONValue] {
+        return try await OrgsMethods.orgsUpdatePatAccesses(config: config, org: org, action: action, patIds: patIds)
     }
 }
 
-public extension OrgsNamespace {
-    /// Updates the access an organization member has to organization resources via a fine-grained personal access
-    /// token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only
-    /// GitHub Apps can use this endpoint.
-    func updatePatAccess(
-        org: String,
-        patId: Int,
-        action: OrgsUpdatePatAccessRequestBodyAction
-    ) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsUpdatePatAccess(config: config, org: org, patId: patId, action: action)
+extension OrgsNamespace {
+/// Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can use this endpoint.
+    public func updatePatAccess(org: String, patId: Int, action: OrgsUpdatePatAccessRequestBodyAction) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsUpdatePatAccess(config: config, org: org, patId: patId, action: action)
     }
 
-    /// Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can use this
-    /// endpoint.
-    func listPatGrantRepositories(
-        org: String,
-        patId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await OrgsMethods.orgsListPatGrantRepositories(
-            config: config,
-            org: org,
-            patId: patId,
-            perPage: perPage,
-            page: page
-        )
+/// Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can use this endpoint.
+    public func listPatGrantRepositories(org: String, patId: Int, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try await OrgsMethods.orgsListPatGrantRepositories(config: config, org: org, patId: patId, perPage: perPage, page: page)
     }
 
-    /// Gets all custom properties defined for an organization. Organization members can read these properties.
-    func customPropertiesForReposGetOrganizationDefinitions(org: String) async throws -> [CustomProperty] {
-        try await OrgsMethods.orgsCustomPropertiesForReposGetOrganizationDefinitions(config: config, org: org)
+/// Gets all custom properties defined for an organization. Organization members can read these properties.
+    public func customPropertiesForReposGetOrganizationDefinitions(org: String) async throws -> [CustomProperty] {
+        return try await OrgsMethods.orgsCustomPropertiesForReposGetOrganizationDefinitions(config: config, org: org)
     }
 
-    /// Creates new or updates existing custom properties defined for an organization in a batch. If the property
-    /// already exists, the existing property will be replaced with the new values. Missing optional values will fall
-    /// back to default values, previous values will be overwritten. E.g. if a property exists with `values_editable_by:
-    /// org_and_repo_actors` and it's updated without specifying `values_editable_by`, it will be updated to default
-    /// value `org_actors`. To use this endpoint, the authenticated user must be one of: - An administrator for the
-    /// organization. - A user, or a user on a team, with the fine-grained permission of
-    /// `custom_properties_org_definitions_manager` in the organization.
-    func customPropertiesForReposCreateOrUpdateOrganizationDefinitions(
-        org: String,
-        properties: [CustomProperty]
-    ) async throws -> [CustomProperty] {
-        try await OrgsMethods.orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions(
-            config: config,
-            org: org,
-            properties: properties
-        )
+/// Creates new or updates existing custom properties defined for an organization in a batch. If the property already exists, the existing property will be replaced with the new values. Missing optional values will fall back to default values, previous values will be overwritten. E.g. if a property exists with `values_editable_by: org_and_repo_actors` and it's updated without specifying `values_editable_by`, it will be updated to default value `org_actors`. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
+    public func customPropertiesForReposCreateOrUpdateOrganizationDefinitions(org: String, properties: [CustomProperty]) async throws -> [CustomProperty] {
+        return try await OrgsMethods.orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitions(config: config, org: org, properties: properties)
     }
 
-    /// Gets a custom property that is defined for an organization. Organization members can read these properties.
-    func customPropertiesForReposGetOrganizationDefinition(
-        org: String,
-        customPropertyName: String
-    ) async throws -> CustomProperty {
-        try await OrgsMethods.orgsCustomPropertiesForReposGetOrganizationDefinition(
-            config: config,
-            org: org,
-            customPropertyName: customPropertyName
-        )
+/// Gets a custom property that is defined for an organization. Organization members can read these properties.
+    public func customPropertiesForReposGetOrganizationDefinition(org: String, customPropertyName: String) async throws -> CustomProperty {
+        return try await OrgsMethods.orgsCustomPropertiesForReposGetOrganizationDefinition(config: config, org: org, customPropertyName: customPropertyName)
     }
 
-    /// Creates a new or updates an existing custom property that is defined for an organization. To use this endpoint,
-    /// the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team,
-    /// with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
-    func customPropertiesForReposCreateOrUpdateOrganizationDefinition(options: OrgsMethods
-        .OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions) async throws -> CustomProperty {
-        try await OrgsMethods.orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(
-            config: config,
-            options: options
-        )
+/// Creates a new or updates an existing custom property that is defined for an organization. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
+    public func customPropertiesForReposCreateOrUpdateOrganizationDefinition(options: OrgsMethods.OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions) async throws -> CustomProperty {
+        return try await OrgsMethods.orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(config: config, options: options)
     }
 
-    /// Removes a custom property that is defined for an organization. To use this endpoint, the authenticated user must
-    /// be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained
-    /// permission of `custom_properties_org_definitions_manager` in the organization.
-    func customPropertiesForReposDeleteOrganizationDefinition(
-        org: String,
-        customPropertyName: String
-    ) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsCustomPropertiesForReposDeleteOrganizationDefinition(
-            config: config,
-            org: org,
-            customPropertyName: customPropertyName
-        )
+/// Removes a custom property that is defined for an organization. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
+    public func customPropertiesForReposDeleteOrganizationDefinition(org: String, customPropertyName: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsCustomPropertiesForReposDeleteOrganizationDefinition(config: config, org: org, customPropertyName: customPropertyName)
     }
 
-    /// Lists organization repositories with all of their custom property values. Organization members can read these
-    /// properties.
-    func customPropertiesForReposGetOrganizationValues(
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        repositoryQuery: String?
-    ) async throws -> [OrgRepoCustomPropertyValues] {
-        try await OrgsMethods.orgsCustomPropertiesForReposGetOrganizationValues(
-            config: config,
-            org: org,
-            perPage: perPage,
-            page: page,
-            repositoryQuery: repositoryQuery
-        )
+/// Lists organization repositories with all of their custom property values. Organization members can read these properties.
+    public func customPropertiesForReposGetOrganizationValues(org: String, perPage: Int?, page: Int?, repositoryQuery: String?) async throws -> [OrgRepoCustomPropertyValues] {
+        return try await OrgsMethods.orgsCustomPropertiesForReposGetOrganizationValues(config: config, org: org, perPage: perPage, page: page, repositoryQuery: repositoryQuery)
     }
 }

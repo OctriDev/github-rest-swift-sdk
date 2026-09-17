@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Get the number of API requests and rate-limited requests made within an organization by a specific user over a
-    /// specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after making
-    /// a request. During incidents or periods of unusually high volume, it may take longer to show up.
+extension OrgsMethods {
+    /// Get the number of API requests and rate-limited requests made within an organization by a specific user over a specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -23,30 +21,11 @@ public extension OrgsMethods {
     ///   time 30 days ago. This is a timestamp in [ISO
     ///   8601](https://en.wikipedia.org/wiki/ISO_8601) format:
     ///   `YYYY-MM-DDTHH:MM:SSZ`.
-    static func apiInsightsGetTimeStatsByUser(
-        config: ClientConfig,
-        org: String,
-        userId: String,
-        minTimestamp: String,
-        timestampIncrement: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsTimeStats {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/insights/api/time-stats/users/",
-                sdkEncodePathSegment(sdkWireString(userId)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("min_timestamp", value: minTimestamp),
-                SdkQueryParameter("timestamp_increment", value: timestampIncrement),
-                SdkQueryParameter("max_timestamp", value: maxTimestamp),
-            ],
-            decoder: .json,
-            operationId: "apiInsightsGetTimeStatsByUser"
-        )).data
+    public static func apiInsightsGetTimeStatsByUser(config: ClientConfig, org: String, userId: String, minTimestamp: String, timestampIncrement: String, maxTimestamp: String?) async throws -> ApiInsightsTimeStats {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/insights/api/time-stats/users/", sdkEncodePathSegment(sdkWireString(userId))].joined(), config: config, query: [
+            SdkQueryParameter("min_timestamp", value: minTimestamp),
+            SdkQueryParameter("timestamp_increment", value: timestampIncrement),
+            SdkQueryParameter("max_timestamp", value: maxTimestamp),
+        ], decoder: .json, operationId: "apiInsightsGetTimeStatsByUser")).data
     }
 }

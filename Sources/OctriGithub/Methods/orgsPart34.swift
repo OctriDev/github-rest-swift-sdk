@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    struct ApiInsightsGetUserStatsOptions: Codable {
+extension OrgsMethods {
+    public struct ApiInsightsGetUserStatsOptions: Codable {
         public var org: String
         public var userId: String
         public var minTimestamp: String
@@ -25,9 +25,7 @@ public extension OrgsMethods {
         }
     }
 
-    /// Get API usage statistics within an organization for a user broken down by the type of access. Under normal
-    /// conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or
-    /// periods of unusually high volume, it may take longer to show up.
+    /// Get API usage statistics within an organization for a user broken down by the type of access. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -51,30 +49,15 @@ public extension OrgsMethods {
     /// - sort: The property to sort the results by.
     /// - actorNameSubstring: Providing a substring will filter results where the
     ///   actor name contains the substring. This is a case-insensitive search.
-    static func apiInsightsGetUserStats(
-        config: ClientConfig,
-        options: ApiInsightsGetUserStatsOptions
-    ) async throws -> ApiInsightsUserStats {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(options.org)),
-                "/insights/api/user-stats/",
-                sdkEncodePathSegment(sdkWireString(options.userId)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("min_timestamp", value: options.minTimestamp),
-                SdkQueryParameter("max_timestamp", value: options.maxTimestamp),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("sort", values: options.sort, style: "form", explode: true),
-                SdkQueryParameter("actor_name_substring", value: options.actorNameSubstring),
-            ],
-            decoder: .json,
-            operationId: "apiInsightsGetUserStats"
-        )).data
+    public static func apiInsightsGetUserStats(config: ClientConfig, options: ApiInsightsGetUserStatsOptions) async throws -> ApiInsightsUserStats {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/insights/api/user-stats/", sdkEncodePathSegment(sdkWireString(options.userId))].joined(), config: config, query: [
+            SdkQueryParameter("min_timestamp", value: options.minTimestamp),
+            SdkQueryParameter("max_timestamp", value: options.maxTimestamp),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("sort", values: options.sort, style: "form", explode: true),
+            SdkQueryParameter("actor_name_substring", value: options.actorNameSubstring),
+        ], decoder: .json, operationId: "apiInsightsGetUserStats")).data
     }
 }

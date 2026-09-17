@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Returns a list of webhook deliveries for a webhook configured in an organization. You must be an organization
-    /// owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope.
-    /// OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit
-    /// webhooks that were created by OAuth apps.
+extension OrgsMethods {
+    /// Returns a list of webhook deliveries for a webhook configured in an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -28,31 +25,11 @@ public extension OrgsMethods {
     ///   deliveries with a `status_code` in the 200-399 range (inclusive). A `status`
     ///   of `failure` returns deliveries with a `status_code` in the 400-599 range
     ///   (inclusive).
-    static func orgsListWebhookDeliveries(
-        config: ClientConfig,
-        org: String,
-        hookId: Int,
-        perPage: Int?,
-        cursor: String?,
-        status: AppsListWebhookDeliveriesParameter?
-    ) async throws -> [HookDeliveryItem] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-                "/deliveries",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("cursor", value: cursor),
-                SdkQueryParameter("status", value: status),
-            ],
-            decoder: .json,
-            operationId: "orgsListWebhookDeliveries"
-        )).data
+    public static func orgsListWebhookDeliveries(config: ClientConfig, org: String, hookId: Int, perPage: Int?, cursor: String?, status: AppsListWebhookDeliveriesParameter?) async throws -> [HookDeliveryItem] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/deliveries"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("cursor", value: cursor),
+            SdkQueryParameter("status", value: status),
+        ], decoder: .json, operationId: "orgsListWebhookDeliveries")).data
     }
 }

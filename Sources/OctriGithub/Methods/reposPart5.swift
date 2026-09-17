@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Creates a repository ruleset for an organization. Supply `name` and `enforcement`, and use `target`,
-    /// `bypass_actors`, `conditions`, and `rules` to define where and how the ruleset applies. A 201 response returns
-    /// the created organization repository ruleset with its identifier, source, conditions, rules, and timestamps.
+extension ReposMethods {
+    /// Creates a repository ruleset for an organization. Supply `name` and `enforcement`, and use `target`, `bypass_actors`, `conditions`, and `rules` to define where and how the ruleset applies. A 201 response returns the created organization repository ruleset with its identifier, source, conditions, rules, and timestamps.
     ///
     /// Create a repository ruleset for an organization.
     ///
@@ -29,32 +27,9 @@ public extension ReposMethods {
     ///   policy rulesets, the conditions object should only contain the
     ///   `repository_name`, the `repository_id`, or the `repository_property`.
     /// - rules: An array of rules within the ruleset.
-    static func reposCreateOrgRuleset(
-        config: ClientConfig,
-        org: String,
-        name: String,
-        enforcement: RepositoryRuleEnforcement,
-        target: ReposCreateOrgRulesetRequestBodyTarget?,
-        bypassActors: [RepositoryRulesetBypassActor]?,
-        conditions: OrgRulesetConditions?,
-        rules: [OrgRules]?
-    ) async throws -> RepositoryRuleset {
-        let requestBody = ReposCreateOrgRulesetRequestBody(
-            name: name,
-            enforcement: enforcement,
-            target: target,
-            bypassActors: bypassActors,
-            conditions: conditions,
-            rules: rules
-        )
+    public static func reposCreateOrgRuleset(config: ClientConfig, org: String, name: String, enforcement: RepositoryRuleEnforcement, target: ReposCreateOrgRulesetRequestBodyTarget?, bypassActors: [RepositoryRulesetBypassActor]?, conditions: OrgRulesetConditions?, rules: [OrgRules]?) async throws -> RepositoryRuleset {
+        let requestBody = ReposCreateOrgRulesetRequestBody(name: name, enforcement: enforcement, target: target, bypassActors: bypassActors, conditions: conditions, rules: rules)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateOrgRuleset"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateOrgRuleset")).data
     }
 }

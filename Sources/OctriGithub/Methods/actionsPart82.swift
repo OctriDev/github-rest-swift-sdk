@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets a specific workflow run attempt. Anyone with read access to the repository can use this endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private
-    /// repository.
+extension ActionsMethods {
+    /// Gets a specific workflow run attempt. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,32 +18,9 @@ public extension ActionsMethods {
     /// - attemptNumber: The attempt number of the workflow run.
     /// - excludePullRequests: If `true` pull requests are omitted from the response
     ///   (empty array).
-    static func actionsGetWorkflowRunAttempt(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        attemptNumber: Int,
-        excludePullRequests: Bool?
-    ) async throws -> WorkflowRun {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/attempts/",
-                sdkEncodePathSegment(sdkWireString(attemptNumber)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("exclude_pull_requests", value: excludePullRequests),
-            ],
-            decoder: .json,
-            operationId: "actionsGetWorkflowRunAttempt"
-        )).data
+    public static func actionsGetWorkflowRunAttempt(config: ClientConfig, owner: String, repo: String, runId: Int, attemptNumber: Int, excludePullRequests: Bool?) async throws -> WorkflowRun {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/attempts/", sdkEncodePathSegment(sdkWireString(attemptNumber))].joined(), config: config, query: [
+            SdkQueryParameter("exclude_pull_requests", value: excludePullRequests),
+        ], decoder: .json, operationId: "actionsGetWorkflowRunAttempt")).data
     }
 }

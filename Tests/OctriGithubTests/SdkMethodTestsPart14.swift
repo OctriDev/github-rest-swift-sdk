@@ -131,8 +131,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeScanningGetVariantAnalysisRepoTaskCodeScanningGetVariantAXda08119484ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeScanningGetVariantAnalysisRepoTaskCodeScanningGetVariantAXda08119484ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -216,10 +215,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CodeScanningMethods.CodeScanningListAlertsForRepoOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try CodeScanningMethods.CodeScanningListAlertsForRepoOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.toolName = try decoded("\"Example Name\"")
         options.toolGuid = try decoded("\"tool_gu-1\"")
         options.page = try decoded("1")
@@ -272,10 +268,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CodeScanningMethods.CodeScanningListRecentAnalysesOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try CodeScanningMethods.CodeScanningListRecentAnalysesOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.toolName = try decoded("\"Example Name\"")
         options.toolGuid = try decoded("\"tool_gu-1\"")
         options.page = try decoded("1")
@@ -299,8 +292,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeScanningUpdateAiScanEnablementCodeScanningUpdateAiScanEnablementReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeScanningUpdateAiScanEnablementCodeScanningUpdateAiScanEnablementReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -321,8 +313,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeScanningUpdateAiScanEnablementForOrgCodeScanningUpdateAiSXacd444a51fReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeScanningUpdateAiScanEnablementForOrgCodeScanningUpdateAiSXacd444a51fReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -347,11 +338,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CodeScanningMethods.CodeScanningUpdateAlertOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            alertNumber: decoded("1")
-        )
+        var options = try CodeScanningMethods.CodeScanningUpdateAlertOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), alertNumber: decoded("1"))
         options.state = try decoded("\"dismissed\"")
         options.dismissedReason = try decoded("\"false positive\"")
         options.dismissedComment = try decoded(sdkMethodFixture357Value1)
@@ -376,10 +363,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CodeScanningMethods.CodeScanningUpdateDefaultSetupOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try CodeScanningMethods.CodeScanningUpdateDefaultSetupOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.state = try decoded("\"configured\"")
         options.runnerType = try decoded("null")
         options.runnerLabel = try decoded("null")
@@ -405,13 +389,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CodeScanningMethods.CodeScanningUploadSarifOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            commitSha: decoded("\"4b6472266afd7b471e86085a6659e8c7f2b119da\""),
-            ref: decoded("\"refs/heads/master\""),
-            sarif: decoded(sdkMethodFixture359Value1)
-        )
+        var options = try CodeScanningMethods.CodeScanningUploadSarifOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), commitSha: decoded("\"4b6472266afd7b471e86085a6659e8c7f2b119da\""), ref: decoded("\"refs/heads/master\""), sarif: decoded(sdkMethodFixture359Value1))
         options.checkoutUri = try decoded("null")
         options.startedAt = try decoded("null")
         options.toolName = try decoded("null")
@@ -452,8 +430,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeSecurityAttachEnterpriseConfigurationCodeSecurityAttachEnX03f68bb4e3ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeSecurityAttachEnterpriseConfigurationCodeSecurityAttachEnX03f68bb4e3ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -479,10 +456,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try CodeSecurityMethods.CodeSecurityCreateConfigurationOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"octo-org recommended settings\"")
-        )
+        var options = try CodeSecurityMethods.CodeSecurityCreateConfigurationOptions(org: decoded("\"org\""), name: decoded("\"octo-org recommended settings\""))
         options.description = try decoded("\"This is a code security configuration for octo-org\"")
         options.advancedSecurity = try decoded("\"enabled\"")
         options.codeSecurity = try decoded("null")
@@ -522,16 +496,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeSecurityCreateConfigurationForEnterpriseCodeSecurityCreatX1ac013184eReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeSecurityCreateConfigurationForEnterpriseCodeSecurityCreatX1ac013184eReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try CodeSecurityMethods.CodeSecurityCreateConfigurationForEnterpriseOptions(
-            enterprise: decoded("\"enterprise\""),
-            name: decoded("\"High rish settings\"")
-        )
+        var options = try CodeSecurityMethods.CodeSecurityCreateConfigurationForEnterpriseOptions(enterprise: decoded("\"enterprise\""), name: decoded("\"High rish settings\""))
         options.description = try decoded("\"This is a code security configuration for octo-enterprise\"")
         options.advancedSecurity = try decoded("\"enabled\"")
         options.codeSecurity = try decoded("null")

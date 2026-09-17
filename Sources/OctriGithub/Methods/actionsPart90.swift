@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Re-runs your workflow run using its `id`. OAuth app tokens and personal access tokens (classic) need the `repo`
-    /// scope to use this endpoint.
+extension ActionsMethods {
+    /// Re-runs your workflow run using its `id`. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,35 +16,13 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
     /// - enableDebugLogging: Whether to enable debug logging for the re-run.
-    static func actionsReRunWorkflow(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        enableDebugLogging: Bool?
-    ) async throws -> EmptyObject {
+    public static func actionsReRunWorkflow(config: ClientConfig, owner: String, repo: String, runId: Int, enableDebugLogging: Bool?) async throws -> EmptyObject {
         let requestBody = ActionsReRunWorkflowRequestBody(enableDebugLogging: enableDebugLogging)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/rerun",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsReRunWorkflow"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/rerun"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsReRunWorkflow")).data
     }
 
-    /// Re-run all of the failed jobs and their dependent jobs in a workflow run using the `id` of the workflow run.
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Re-run all of the failed jobs and their dependent jobs in a workflow run using the `id` of the workflow run. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -54,30 +31,9 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
     /// - enableDebugLogging: Whether to enable debug logging for the re-run.
-    static func actionsReRunWorkflowFailedJobs(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        enableDebugLogging: Bool?
-    ) async throws -> EmptyObject {
+    public static func actionsReRunWorkflowFailedJobs(config: ClientConfig, owner: String, repo: String, runId: Int, enableDebugLogging: Bool?) async throws -> EmptyObject {
         let requestBody = ActionsReRunWorkflowFailedJobsRequestBody(enableDebugLogging: enableDebugLogging)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/rerun-failed-jobs",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsReRunWorkflowFailedJobs"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/rerun-failed-jobs"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsReRunWorkflowFailedJobs")).data
     }
 }

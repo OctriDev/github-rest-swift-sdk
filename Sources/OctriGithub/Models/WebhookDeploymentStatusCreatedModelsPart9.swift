@@ -3,23 +3,18 @@
 
 import Foundation
 
-/// WebhookDeploymentStatusCreated domain models
+// WebhookDeploymentStatusCreated domain models
 /// Optional enumerated value serialized in the `keys` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0dd9c41e6c: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0dd9c41e6c: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0dd9c41e6c(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0dd9c41e6c(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0dd9c41e6c(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,21 +24,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0dd9
 }
 
 /// Optional enumerated value serialized in the `repository_hooks` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8d91436485: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8d91436485: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8d91436485(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8d91436485(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8d91436485(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -53,21 +43,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8d91
 }
 
 /// Optional enumerated value serialized in the `emails` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdfa5a34308: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdfa5a34308: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdfa5a34308(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdfa5a34308(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdfa5a34308(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,21 +62,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdfa5
 }
 
 /// Optional enumerated value serialized in the `metadata` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX271975333b: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX271975333b: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX271975333b(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX271975333b(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX271975333b(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -101,21 +81,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX2719
 }
 
 /// Optional enumerated value serialized in the `organization_plan` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX89b420dc49: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX89b420dc49: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX89b420dc49(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX89b420dc49(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX89b420dc49(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -125,21 +100,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX89b4
 }
 
 /// Optional enumerated value serialized in the `repository_hooks` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX06800013a4: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX06800013a4: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX06800013a4(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX06800013a4(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX06800013a4(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -149,14 +119,10 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX0680
 }
 
 /// Required enumerated value serialized in the `conclusion` wire field.
-public struct WebhookDeploymentStatusCreatedWorkflowRunConclusion: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedWorkflowRunConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let success = WebhookDeploymentStatusCreatedWorkflowRunConclusion(rawValue: "success")
     public static let failure = WebhookDeploymentStatusCreatedWorkflowRunConclusion(rawValue: "failure")
     public static let neutral = WebhookDeploymentStatusCreatedWorkflowRunConclusion(rawValue: "neutral")
@@ -168,7 +134,7 @@ public struct WebhookDeploymentStatusCreatedWorkflowRunConclusion: RawRepresenta
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -178,21 +144,16 @@ public struct WebhookDeploymentStatusCreatedWorkflowRunConclusion: RawRepresenta
 }
 
 /// Optional enumerated value serialized in the `members` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXffe0039ed9: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXffe0039ed9: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXffe0039ed9(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXffe0039ed9(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXffe0039ed9(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -202,21 +163,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXffe0
 }
 
 /// Optional enumerated value serialized in the `checks` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXa5476d35fc: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXa5476d35fc: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXa5476d35fc(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXa5476d35fc(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXa5476d35fc(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -226,21 +182,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXa547
 }
 
 /// Optional enumerated value serialized in the `security_scanning_alert` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXb01d2916b3: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXb01d2916b3: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXb01d2916b3(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXb01d2916b3(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXb01d2916b3(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -250,21 +201,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXb01d
 }
 
 /// Optional enumerated value serialized in the `pages` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXf8ea9c770b: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXf8ea9c770b: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXf8ea9c770b(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXf8ea9c770b(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXf8ea9c770b(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -274,21 +220,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXf8ea
 }
 
 /// Optional enumerated value serialized in the `members` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdba2bd50e9: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdba2bd50e9: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdba2bd50e9(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdba2bd50e9(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdba2bd50e9(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -298,21 +239,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitXdba2
 }
 
 /// Optional enumerated value serialized in the `packages` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXcdf42dd468: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXcdf42dd468: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXcdf42dd468(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXcdf42dd468(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXcdf42dd468(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -322,21 +258,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXcdf4
 }
 
 /// Optional enumerated value serialized in the `organization_user_blocking` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX78609a1e42: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX78609a1e42: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX78609a1e42(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX78609a1e42(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX78609a1e42(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -346,21 +277,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX7860
 }
 
 /// Optional enumerated value serialized in the `metadata` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX6174c8ee87: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX6174c8ee87: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX6174c8ee87(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX6174c8ee87(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX6174c8ee87(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -370,21 +296,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX6174
 }
 
 /// Optional enumerated value serialized in the `pages` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX0f78d37bb8: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX0f78d37bb8: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX0f78d37bb8(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX0f78d37bb8(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX0f78d37bb8(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -394,21 +315,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX0f78
 }
 
 /// Optional enumerated value serialized in the `content_references` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXceb111ee62: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXceb111ee62: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXceb111ee62(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXceb111ee62(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXceb111ee62(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -418,21 +334,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppXceb1
 }
 
 /// Optional enumerated value serialized in the `organization_self_hosted_runners` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX88259b08f4: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX88259b08f4: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX88259b08f4(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX88259b08f4(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX88259b08f4(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -442,21 +353,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX8825
 }
 
 /// Optional enumerated value serialized in the `keys` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX9325bc207d: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX9325bc207d: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX9325bc207d(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX9325bc207d(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX9325bc207d(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -466,21 +372,16 @@ public struct WebhookDeploymentStatusCreatedDeploymentPerformedViaGithubAppX9325
 }
 
 /// Optional enumerated value serialized in the `deployments` wire field.
-public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX2658c1c862: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX2658c1c862: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let read = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX2658c1c862(rawValue: "read")
-    public static let write =
-        WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX2658c1c862(rawValue: "write")
+    public static let write = WebhookDeploymentStatusCreatedDeploymentStatusPerformedViaGitX2658c1c862(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

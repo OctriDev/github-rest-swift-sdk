@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// This will trigger the hook with the latest push to the current repository if the hook is subscribed to `push`
-    /// events. If the hook is not subscribed to `push` events, the server will respond with 204 but no test POST will
-    /// be generated. > [!NOTE] > Previously `/repos/:owner/:repo/hooks/:hook_id/test`
+extension ReposMethods {
+    /// This will trigger the hook with the latest push to the current repository if the hook is subscribed to `push` events. If the hook is not subscribed to `push` events, the server will respond with 204 but no test POST will be generated. > [!NOTE] > Previously `/repos/:owner/:repo/hooks/:hook_id/test`
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,54 +16,18 @@ public extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func reposTestPushWebhook(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        hookId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-                "/tests",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposTestPushWebhook"
-        )).data
+    public static func reposTestPushWebhook(config: ClientConfig, owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/tests"].joined(), config: config, decoder: .empty, operationId: "reposTestPushWebhook")).data
     }
 
-    /// Shows whether immutable releases are enabled or disabled. Also identifies whether immutability is being enforced
-    /// by the repository owner. The authenticated user must have admin read access to the repository.
+    /// Shows whether immutable releases are enabled or disabled. Also identifies whether immutability is being enforced by the repository owner. The authenticated user must have admin read access to the repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposCheckImmutableReleases(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> CheckImmutableReleases {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/immutable-releases",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposCheckImmutableReleases"
-        )).data
+    public static func reposCheckImmutableReleases(config: ClientConfig, owner: String, repo: String) async throws -> CheckImmutableReleases {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/immutable-releases"].joined(), config: config, decoder: .json, operationId: "reposCheckImmutableReleases")).data
     }
 }

@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Retrieves a specific historical version of an organization ruleset. Use `org`, `ruleset_id`, and `version_id` to
-    /// identify the organization, ruleset, and version to retrieve.
+extension OrgsMethods {
+    /// Retrieves a specific historical version of an organization ruleset. Use `org`, `ruleset_id`, and `version_id` to identify the organization, ruleset, and version to retrieve.
     ///
     /// Get a version of an organization ruleset.
     ///
@@ -16,43 +15,17 @@ public extension OrgsMethods {
     /// - org: The organization name. The name is not case sensitive.
     /// - rulesetId: The ID of the ruleset.
     /// - versionId: The ID of the version
-    static func orgsGetOrgRulesetVersion(
-        config: ClientConfig,
-        org: String,
-        rulesetId: Int,
-        versionId: Int
-    ) async throws -> RulesetVersionWithState {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/rulesets/",
-                sdkEncodePathSegment(sdkWireString(rulesetId)),
-                "/history/",
-                sdkEncodePathSegment(sdkWireString(versionId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsGetOrgRulesetVersion"
-        )).data
+    public static func orgsGetOrgRulesetVersion(config: ClientConfig, org: String, rulesetId: Int, versionId: Int) async throws -> RulesetVersionWithState {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId)), "/history/", sdkEncodePathSegment(sdkWireString(versionId))].joined(), config: config, decoder: .json, operationId: "orgsGetOrgRulesetVersion")).data
     }
 
-    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1,
-    /// 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints
-    /// instead.
+    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1, 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints instead.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func orgsListSecurityManagerTeams(config: ClientConfig, org: String) async throws -> [TeamSimple] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/security-managers"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsListSecurityManagerTeams"
-        )).data
+    public static func orgsListSecurityManagerTeams(config: ClientConfig, org: String) async throws -> [TeamSimple] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/security-managers"].joined(), config: config, decoder: .json, operationId: "orgsListSecurityManagerTeams")).data
     }
 }

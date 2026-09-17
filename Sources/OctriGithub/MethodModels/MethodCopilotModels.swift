@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical copilot operation model declarations
+// Canonical copilot operation model declarations
 public struct CopilotGetCopilotCodingAgentPermissionsOrganizationResponse: Codable {
     /// The policy for which repositories can use Copilot cloud agent. Can be one of `all`, `selected`, or `none`.
     public var enabledRepositories: CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1
@@ -19,31 +19,22 @@ public struct CopilotGetCopilotCodingAgentPermissionsOrganizationResponse: Codab
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotGetCopilotCodingAgentPermissionsOrganizationResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotGetCopilotCodingAgentPermissionsOrganizationResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.enabledRepositories) else {
-            throw SdkValidationError(
-                field: "enabled_repositories",
-                code: "required",
-                message: "Validation failed for 'enabled_repositories': value is required"
-            )
+            throw SdkValidationError(field: "enabled_repositories", code: "required", message: "Validation failed for 'enabled_repositories': value is required")
         }
-        enabledRepositories = try container.sdkDecodeRequired(.enabledRepositories)
-        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+        self.enabledRepositories = try container.sdkDecodeRequired(.enabledRepositories)
+        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
     }
 }
 
-public extension CopilotGetCopilotCodingAgentPermissionsOrganizationResponse {
-    init(
-        enabledRepositories: CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1,
-        selectedRepositoriesUrl: String? = nil
-    ) {
+extension CopilotGetCopilotCodingAgentPermissionsOrganizationResponse {
+    public init(enabledRepositories: CopilotGetCopilotCodingAgentPermissionsOrganizationResponseEnX3894dc52d1, selectedRepositoriesUrl: String? = nil) {
         self.enabledRepositories = enabledRepositories
         self.selectedRepositoriesUrl = selectedRepositoriesUrl
     }
@@ -57,19 +48,19 @@ public struct CopilotSetCopilotContentExclusionForOrganizationResponse: Codable 
     }
 
     init() {
-        message = nil
+        self.message = nil
     }
 }
 
-public extension CopilotSetCopilotContentExclusionForOrganizationResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotSetCopilotContentExclusionForOrganizationResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        message = try container.sdkDecodeIfPresent(.message)
+        self.message = try container.sdkDecodeIfPresent(.message)
     }
 }
 
-public extension CopilotSetCopilotContentExclusionForOrganizationResponse {
-    init(message: String? = nil) {
+extension CopilotSetCopilotContentExclusionForOrganizationResponse {
+    public init(message: String? = nil) {
         self.init()
         self.message = message
     }
@@ -83,27 +74,21 @@ public struct CopilotCancelCopilotSeatAssignmentForUsersResponse: Codable {
         case seatsCancelled = "seats_cancelled"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotCancelCopilotSeatAssignmentForUsersResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotCancelCopilotSeatAssignmentForUsersResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.seatsCancelled) else {
-            throw SdkValidationError(
-                field: "seats_cancelled",
-                code: "required",
-                message: "Validation failed for 'seats_cancelled': value is required"
-            )
+            throw SdkValidationError(field: "seats_cancelled", code: "required", message: "Validation failed for 'seats_cancelled': value is required")
         }
-        seatsCancelled = try container.sdkDecodeRequired(.seatsCancelled)
+        self.seatsCancelled = try container.sdkDecodeRequired(.seatsCancelled)
     }
 }
 
-public extension CopilotCancelCopilotSeatAssignmentForUsersResponse {
-    init(seatsCancelled: Int) {
+extension CopilotCancelCopilotSeatAssignmentForUsersResponse {
+    public init(seatsCancelled: Int) {
         self.seatsCancelled = seatsCancelled
     }
 }
@@ -116,27 +101,21 @@ public struct CopilotCancelCopilotSeatAssignmentForTeamsResponse: Codable {
         case seatsCancelled = "seats_cancelled"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotCancelCopilotSeatAssignmentForTeamsResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotCancelCopilotSeatAssignmentForTeamsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.seatsCancelled) else {
-            throw SdkValidationError(
-                field: "seats_cancelled",
-                code: "required",
-                message: "Validation failed for 'seats_cancelled': value is required"
-            )
+            throw SdkValidationError(field: "seats_cancelled", code: "required", message: "Validation failed for 'seats_cancelled': value is required")
         }
-        seatsCancelled = try container.sdkDecodeRequired(.seatsCancelled)
+        self.seatsCancelled = try container.sdkDecodeRequired(.seatsCancelled)
     }
 }
 
-public extension CopilotCancelCopilotSeatAssignmentForTeamsResponse {
-    init(seatsCancelled: Int) {
+extension CopilotCancelCopilotSeatAssignmentForTeamsResponse {
+    public init(seatsCancelled: Int) {
         self.seatsCancelled = seatsCancelled
     }
 }
@@ -148,27 +127,21 @@ public struct CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be
         case ifAnyMatch
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e {
-    init(from decoder: Decoder) throws {
+extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ifAnyMatch) else {
-            throw SdkValidationError(
-                field: "ifAnyMatch",
-                code: "required",
-                message: "Validation failed for 'ifAnyMatch': value is required"
-            )
+            throw SdkValidationError(field: "ifAnyMatch", code: "required", message: "Validation failed for 'ifAnyMatch': value is required")
         }
-        ifAnyMatch = try container.sdkDecodeRequired(.ifAnyMatch)
+        self.ifAnyMatch = try container.sdkDecodeRequired(.ifAnyMatch)
     }
 }
 
-public extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e {
-    init(ifAnyMatch: [String]) {
+extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e {
+    public init(ifAnyMatch: [String]) {
         self.ifAnyMatch = ifAnyMatch
     }
 }
@@ -184,20 +157,20 @@ public struct CopilotListCopilotSeatsResponse: Codable {
     }
 
     init() {
-        (totalSeats, seats) = (nil, nil)
+        (self.totalSeats, self.seats) = (nil, nil)
     }
 }
 
-public extension CopilotListCopilotSeatsResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotListCopilotSeatsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        totalSeats = try container.sdkDecodeIfPresent(.totalSeats)
-        seats = try container.sdkDecodeIfPresent(.seats)
+        self.totalSeats = try container.sdkDecodeIfPresent(.totalSeats)
+        self.seats = try container.sdkDecodeIfPresent(.seats)
     }
 }
 
-public extension CopilotListCopilotSeatsResponse {
-    init(totalSeats: Int? = nil, seats: [CopilotSeatDetails]? = nil) {
+extension CopilotListCopilotSeatsResponse {
+    public init(totalSeats: Int? = nil, seats: [CopilotSeatDetails]? = nil) {
         self.init()
         (self.totalSeats, self.seats) = (totalSeats, seats)
     }
@@ -210,27 +183,21 @@ public struct CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbb
         case ifNoneMatch
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214 {
-    init(from decoder: Decoder) throws {
+extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ifNoneMatch) else {
-            throw SdkValidationError(
-                field: "ifNoneMatch",
-                code: "required",
-                message: "Validation failed for 'ifNoneMatch': value is required"
-            )
+            throw SdkValidationError(field: "ifNoneMatch", code: "required", message: "Validation failed for 'ifNoneMatch': value is required")
         }
-        ifNoneMatch = try container.sdkDecodeRequired(.ifNoneMatch)
+        self.ifNoneMatch = try container.sdkDecodeRequired(.ifNoneMatch)
     }
 }
 
-public extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214 {
-    init(ifNoneMatch: [String]) {
+extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214 {
+    public init(ifNoneMatch: [String]) {
         self.ifNoneMatch = ifNoneMatch
     }
 }
@@ -253,51 +220,33 @@ public struct CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools: Coda
         case dependencyVulnerabilityChecks = "dependency_vulnerability_checks"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools {
-    init(from decoder: Decoder) throws {
+extension CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.codeql) else {
-            throw SdkValidationError(
-                field: "codeql",
-                code: "required",
-                message: "Validation failed for 'codeql': value is required"
-            )
+            throw SdkValidationError(field: "codeql", code: "required", message: "Validation failed for 'codeql': value is required")
         }
         guard container.contains(.copilotCodeReview) else {
-            throw SdkValidationError(
-                field: "copilot_code_review",
-                code: "required",
-                message: "Validation failed for 'copilot_code_review': value is required"
-            )
+            throw SdkValidationError(field: "copilot_code_review", code: "required", message: "Validation failed for 'copilot_code_review': value is required")
         }
         guard container.contains(.secretScanning) else {
-            throw SdkValidationError(
-                field: "secret_scanning",
-                code: "required",
-                message: "Validation failed for 'secret_scanning': value is required"
-            )
+            throw SdkValidationError(field: "secret_scanning", code: "required", message: "Validation failed for 'secret_scanning': value is required")
         }
         guard container.contains(.dependencyVulnerabilityChecks) else {
-            throw SdkValidationError(
-                field: "dependency_vulnerability_checks",
-                code: "required",
-                message: "Validation failed for 'dependency_vulnerability_checks': value is required"
-            )
+            throw SdkValidationError(field: "dependency_vulnerability_checks", code: "required", message: "Validation failed for 'dependency_vulnerability_checks': value is required")
         }
-        codeql = try container.sdkDecodeRequired(.codeql)
-        copilotCodeReview = try container.sdkDecodeRequired(.copilotCodeReview)
-        secretScanning = try container.sdkDecodeRequired(.secretScanning)
-        dependencyVulnerabilityChecks = try container.sdkDecodeRequired(.dependencyVulnerabilityChecks)
+        self.codeql = try container.sdkDecodeRequired(.codeql)
+        self.copilotCodeReview = try container.sdkDecodeRequired(.copilotCodeReview)
+        self.secretScanning = try container.sdkDecodeRequired(.secretScanning)
+        self.dependencyVulnerabilityChecks = try container.sdkDecodeRequired(.dependencyVulnerabilityChecks)
     }
 }
 
-public extension CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools {
-    init(codeql: Bool, copilotCodeReview: Bool, secretScanning: Bool, dependencyVulnerabilityChecks: Bool) {
+extension CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools {
+    public init(codeql: Bool, copilotCodeReview: Bool, secretScanning: Bool, dependencyVulnerabilityChecks: Bool) {
         (self.codeql, self.copilotCodeReview) = (codeql, copilotCodeReview)
         self.secretScanning = secretScanning
         self.dependencyVulnerabilityChecks = dependencyVulnerabilityChecks
@@ -339,37 +288,25 @@ public struct CopilotGetCopilotCloudAgentConfigurationResponse: Codable {
         case requireWriteAccessForAutomationTriggers = "require_write_access_for_automation_triggers"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotGetCopilotCloudAgentConfigurationResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotGetCopilotCloudAgentConfigurationResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        mcpConfiguration = try container.sdkDecodeIfPresent(.mcpConfiguration)
-        enabledTools = try container.sdkDecodeRequired(.enabledTools)
-        requireActionsWorkflowApproval = try container.sdkDecodeRequired(.requireActionsWorkflowApproval)
-        isFirewallEnabled = try container.sdkDecodeRequired(.isFirewallEnabled)
-        isFirewallRecommendedAllowlistEnabled = try container.sdkDecodeRequired(.isFirewallRecommendedAllowlistEnabled)
-        customAllowlist = try container.sdkDecodeRequired(.customAllowlist)
-        isAutomationsEnabled = try container.sdkDecodeRequired(.isAutomationsEnabled)
-        requireWriteAccessForAutomationTriggers = try container
-            .sdkDecodeRequired(.requireWriteAccessForAutomationTriggers)
+        self.mcpConfiguration = try container.sdkDecodeIfPresent(.mcpConfiguration)
+        self.enabledTools = try container.sdkDecodeRequired(.enabledTools)
+        self.requireActionsWorkflowApproval = try container.sdkDecodeRequired(.requireActionsWorkflowApproval)
+        self.isFirewallEnabled = try container.sdkDecodeRequired(.isFirewallEnabled)
+        self.isFirewallRecommendedAllowlistEnabled = try container.sdkDecodeRequired(.isFirewallRecommendedAllowlistEnabled)
+        self.customAllowlist = try container.sdkDecodeRequired(.customAllowlist)
+        self.isAutomationsEnabled = try container.sdkDecodeRequired(.isAutomationsEnabled)
+        self.requireWriteAccessForAutomationTriggers = try container.sdkDecodeRequired(.requireWriteAccessForAutomationTriggers)
     }
 }
 
-public extension CopilotGetCopilotCloudAgentConfigurationResponse {
-    init(
-        mcpConfiguration: [String: JSONValue]?,
-        enabledTools: CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools,
-        requireActionsWorkflowApproval: Bool,
-        isFirewallEnabled: Bool,
-        isFirewallRecommendedAllowlistEnabled: Bool,
-        customAllowlist: [String],
-        isAutomationsEnabled: Bool,
-        requireWriteAccessForAutomationTriggers: Bool
-    ) {
+extension CopilotGetCopilotCloudAgentConfigurationResponse {
+    public init(mcpConfiguration: [String: JSONValue]?, enabledTools: CopilotGetCopilotCloudAgentConfigurationResponseEnabledTools, requireActionsWorkflowApproval: Bool, isFirewallEnabled: Bool, isFirewallRecommendedAllowlistEnabled: Bool, customAllowlist: [String], isAutomationsEnabled: Bool, requireWriteAccessForAutomationTriggers: Bool) {
         (self.mcpConfiguration, self.enabledTools) = (mcpConfiguration, enabledTools)
         self.requireActionsWorkflowApproval = requireActionsWorkflowApproval
         self.isFirewallEnabled = isFirewallEnabled
@@ -390,35 +327,25 @@ public struct CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBoX2418
         case values
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBoX2418f346cd {
-    init(from decoder: Decoder) throws {
+extension CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBoX2418f346cd {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.propertyName) else {
-            throw SdkValidationError(
-                field: "property_name",
-                code: "required",
-                message: "Validation failed for 'property_name': value is required"
-            )
+            throw SdkValidationError(field: "property_name", code: "required", message: "Validation failed for 'property_name': value is required")
         }
         guard container.contains(.values) else {
-            throw SdkValidationError(
-                field: "values",
-                code: "required",
-                message: "Validation failed for 'values': value is required"
-            )
+            throw SdkValidationError(field: "values", code: "required", message: "Validation failed for 'values': value is required")
         }
-        propertyName = try container.sdkDecodeRequired(.propertyName)
-        values = try container.sdkDecodeRequired(.values)
+        self.propertyName = try container.sdkDecodeRequired(.propertyName)
+        self.values = try container.sdkDecodeRequired(.values)
     }
 }
 
-public extension CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBoX2418f346cd {
-    init(propertyName: String, values: [String]) {
+extension CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBoX2418f346cd {
+    public init(propertyName: String, values: [String]) {
         (self.propertyName, self.values) = (propertyName, values)
     }
 }
@@ -434,35 +361,25 @@ public struct CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequXed27
         case values
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequXed276f642f {
-    init(from decoder: Decoder) throws {
+extension CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequXed276f642f {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.propertyName) else {
-            throw SdkValidationError(
-                field: "property_name",
-                code: "required",
-                message: "Validation failed for 'property_name': value is required"
-            )
+            throw SdkValidationError(field: "property_name", code: "required", message: "Validation failed for 'property_name': value is required")
         }
         guard container.contains(.values) else {
-            throw SdkValidationError(
-                field: "values",
-                code: "required",
-                message: "Validation failed for 'values': value is required"
-            )
+            throw SdkValidationError(field: "values", code: "required", message: "Validation failed for 'values': value is required")
         }
-        propertyName = try container.sdkDecodeRequired(.propertyName)
-        values = try container.sdkDecodeRequired(.values)
+        self.propertyName = try container.sdkDecodeRequired(.propertyName)
+        self.values = try container.sdkDecodeRequired(.values)
     }
 }
 
-public extension CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequXed276f642f {
-    init(propertyName: String, values: [String]) {
+extension CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequXed276f642f {
+    public init(propertyName: String, values: [String]) {
         (self.propertyName, self.values) = (propertyName, values)
     }
 }
@@ -475,27 +392,21 @@ public struct CopilotAddCopilotSeatsForTeamsResponse: Codable {
         case seatsCreated = "seats_created"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotAddCopilotSeatsForTeamsResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotAddCopilotSeatsForTeamsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.seatsCreated) else {
-            throw SdkValidationError(
-                field: "seats_created",
-                code: "required",
-                message: "Validation failed for 'seats_created': value is required"
-            )
+            throw SdkValidationError(field: "seats_created", code: "required", message: "Validation failed for 'seats_created': value is required")
         }
-        seatsCreated = try container.sdkDecodeRequired(.seatsCreated)
+        self.seatsCreated = try container.sdkDecodeRequired(.seatsCreated)
     }
 }
 
-public extension CopilotAddCopilotSeatsForTeamsResponse {
-    init(seatsCreated: Int) {
+extension CopilotAddCopilotSeatsForTeamsResponse {
+    public init(seatsCreated: Int) {
         self.seatsCreated = seatsCreated
     }
 }
@@ -509,35 +420,25 @@ public struct CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationRe
         case repositories
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.repositories) else {
-            throw SdkValidationError(
-                field: "repositories",
-                code: "required",
-                message: "Validation failed for 'repositories': value is required"
-            )
+            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        repositories = try container.sdkDecodeRequired(.repositories)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.repositories = try container.sdkDecodeRequired(.repositories)
     }
 }
 
-public extension CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponse {
-    init(totalCount: Int, repositories: [MinimalRepository]) {
+extension CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponse {
+    public init(totalCount: Int, repositories: [MinimalRepository]) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
     }
 }
@@ -550,27 +451,21 @@ public struct CopilotAddCopilotSeatsForUsersResponse: Codable {
         case seatsCreated = "seats_created"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CopilotAddCopilotSeatsForUsersResponse {
-    init(from decoder: Decoder) throws {
+extension CopilotAddCopilotSeatsForUsersResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.seatsCreated) else {
-            throw SdkValidationError(
-                field: "seats_created",
-                code: "required",
-                message: "Validation failed for 'seats_created': value is required"
-            )
+            throw SdkValidationError(field: "seats_created", code: "required", message: "Validation failed for 'seats_created': value is required")
         }
-        seatsCreated = try container.sdkDecodeRequired(.seatsCreated)
+        self.seatsCreated = try container.sdkDecodeRequired(.seatsCreated)
     }
 }
 
-public extension CopilotAddCopilotSeatsForUsersResponse {
-    init(seatsCreated: Int) {
+extension CopilotAddCopilotSeatsForUsersResponse {
+    public init(seatsCreated: Int) {
         self.seatsCreated = seatsCreated
     }
 }
@@ -586,48 +481,39 @@ public enum CopilotSetCopilotContentExclusionForOrganizationRequestBodyValueItem
 }
 
 extension CopilotSetCopilotContentExclusionForOrganizationRequestBodyValueItem: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for CopilotSetCopilotContentExclusionForOrganizationRequestBodyValueItem"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for CopilotSetCopilotContentExclusionForOrganizationRequestBodyValueItem")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
         if let value = try? container.decode(
             CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e.self
         ) {
-            return .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e(value)
+            return             .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e(value)
         }
         if let value = try? container.decode(
             CopilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214.self
         ) {
-            return .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214(value)
+            return             .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214(value)
         }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
         var container = encoder.singleValueContainer()
         switch self {
         case let .stringValue(value): try container.encode(value); return true
-        case let .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e(value): try container
-            .encode(value); return true
-        case let .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214(value): try container
-            .encode(value); return true
+        case let .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXc7be48290e(value): try container.encode(value); return true
+        case let .copilotSetCopilotContentExclusionForOrganizationRequestBodyVaXcdbbf05214(value): try container.encode(value); return true
         }
     }
+
 }

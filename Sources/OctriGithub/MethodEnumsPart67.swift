@@ -13,9 +13,9 @@ struct ReposUpdateStatusCheckProtectionRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(strict, forKey: SdkCodingKey("strict"))
-        try keyedContainer.encodeIfPresent(contexts, forKey: SdkCodingKey("contexts"))
-        try keyedContainer.encodeIfPresent(checks, forKey: SdkCodingKey("checks"))
+        try keyedContainer.encodeIfPresent(self.strict, forKey: SdkCodingKey("strict"))
+        try keyedContainer.encodeIfPresent(self.contexts, forKey: SdkCodingKey("contexts"))
+        try keyedContainer.encodeIfPresent(self.checks, forKey: SdkCodingKey("checks"))
     }
 }
 
@@ -24,7 +24,7 @@ struct ReposAddAppAccessRestrictionsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(apps, forKey: SdkCodingKey("apps"))
+        try keyedContainer.encode(self.apps, forKey: SdkCodingKey("apps"))
     }
 }
 
@@ -33,7 +33,7 @@ struct ReposSetAppAccessRestrictionsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(apps, forKey: SdkCodingKey("apps"))
+        try keyedContainer.encode(self.apps, forKey: SdkCodingKey("apps"))
     }
 }
 
@@ -42,7 +42,7 @@ struct ReposRemoveAppAccessRestrictionsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(apps, forKey: SdkCodingKey("apps"))
+        try keyedContainer.encode(self.apps, forKey: SdkCodingKey("apps"))
     }
 }
 
@@ -51,7 +51,7 @@ struct ReposAddUserAccessRestrictionsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(users, forKey: SdkCodingKey("users"))
+        try keyedContainer.encode(self.users, forKey: SdkCodingKey("users"))
     }
 }
 
@@ -60,7 +60,7 @@ struct ReposSetUserAccessRestrictionsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(users, forKey: SdkCodingKey("users"))
+        try keyedContainer.encode(self.users, forKey: SdkCodingKey("users"))
     }
 }
 
@@ -69,7 +69,7 @@ struct ReposRemoveUserAccessRestrictionsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(users, forKey: SdkCodingKey("users"))
+        try keyedContainer.encode(self.users, forKey: SdkCodingKey("users"))
     }
 }
 
@@ -78,7 +78,7 @@ struct ReposRenameBranchRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(newName, forKey: SdkCodingKey("new_name"))
+        try keyedContainer.encode(self.newName, forKey: SdkCodingKey("new_name"))
     }
 }
 
@@ -87,7 +87,7 @@ struct ReposAddCollaboratorRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(permission, forKey: SdkCodingKey("permission"))
+        try keyedContainer.encodeIfPresent(self.permission, forKey: SdkCodingKey("permission"))
     }
 }
 
@@ -96,7 +96,7 @@ struct ReposUpdateCommitCommentRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(self.body, forKey: SdkCodingKey("body"))
     }
 }
 
@@ -108,10 +108,10 @@ struct ReposCreateCommitCommentRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(body, forKey: SdkCodingKey("body"))
-        try keyedContainer.encodeIfPresent(path, forKey: SdkCodingKey("path"))
-        try keyedContainer.encodeIfPresent(position, forKey: SdkCodingKey("position"))
-        try keyedContainer.encodeIfPresent(line, forKey: SdkCodingKey("line"))
+        try keyedContainer.encode(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encodeIfPresent(self.path, forKey: SdkCodingKey("path"))
+        try keyedContainer.encodeIfPresent(self.position, forKey: SdkCodingKey("position"))
+        try keyedContainer.encodeIfPresent(self.line, forKey: SdkCodingKey("line"))
     }
 }
 
@@ -125,21 +125,21 @@ struct ReposCreateOrUpdateFileContentsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(message, forKey: SdkCodingKey("message"))
-        try keyedContainer.encode(content, forKey: SdkCodingKey("content"))
-        try keyedContainer.encodeIfPresent(sha, forKey: SdkCodingKey("sha"))
-        try keyedContainer.encodeIfPresent(branch, forKey: SdkCodingKey("branch"))
-        try keyedContainer.encodeIfPresent(committer, forKey: SdkCodingKey("committer"))
-        try keyedContainer.encodeIfPresent(author, forKey: SdkCodingKey("author"))
+        try keyedContainer.encode(self.message, forKey: SdkCodingKey("message"))
+        try keyedContainer.encode(self.content, forKey: SdkCodingKey("content"))
+        try keyedContainer.encodeIfPresent(self.sha, forKey: SdkCodingKey("sha"))
+        try keyedContainer.encodeIfPresent(self.branch, forKey: SdkCodingKey("branch"))
+        try keyedContainer.encodeIfPresent(self.committer, forKey: SdkCodingKey("committer"))
+        try keyedContainer.encodeIfPresent(self.author, forKey: SdkCodingKey("author"))
     }
 
     init(options: ReposMethods.ReposCreateOrUpdateFileContentsOptions) {
-        message = options.message
-        content = options.content
-        sha = options.sha
-        branch = options.branch
-        committer = options.committer
-        author = options.author
+        self.message = options.message
+        self.content = options.content
+        self.sha = options.sha
+        self.branch = options.branch
+        self.committer = options.committer
+        self.author = options.author
     }
 }
 
@@ -152,19 +152,19 @@ struct ReposDeleteFileRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(message, forKey: SdkCodingKey("message"))
-        try keyedContainer.encode(sha, forKey: SdkCodingKey("sha"))
-        try keyedContainer.encodeIfPresent(branch, forKey: SdkCodingKey("branch"))
-        try keyedContainer.encodeIfPresent(committer, forKey: SdkCodingKey("committer"))
-        try keyedContainer.encodeIfPresent(author, forKey: SdkCodingKey("author"))
+        try keyedContainer.encode(self.message, forKey: SdkCodingKey("message"))
+        try keyedContainer.encode(self.sha, forKey: SdkCodingKey("sha"))
+        try keyedContainer.encodeIfPresent(self.branch, forKey: SdkCodingKey("branch"))
+        try keyedContainer.encodeIfPresent(self.committer, forKey: SdkCodingKey("committer"))
+        try keyedContainer.encodeIfPresent(self.author, forKey: SdkCodingKey("author"))
     }
 
     init(options: ReposMethods.ReposDeleteFileOptions) {
-        message = options.message
-        sha = options.sha
-        branch = options.branch
-        committer = options.committer
-        author = options.author
+        self.message = options.message
+        self.sha = options.sha
+        self.branch = options.branch
+        self.committer = options.committer
+        self.author = options.author
     }
 }
 
@@ -181,26 +181,26 @@ struct ReposCreateDeploymentRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(ref, forKey: SdkCodingKey("ref"))
-        try keyedContainer.encodeIfPresent(task, forKey: SdkCodingKey("task"))
-        try keyedContainer.encodeIfPresent(autoMerge, forKey: SdkCodingKey("auto_merge"))
-        try keyedContainer.encodeIfPresent(requiredContexts, forKey: SdkCodingKey("required_contexts"))
-        try keyedContainer.encodeIfPresent(payload, forKey: SdkCodingKey("payload"))
-        try keyedContainer.encodeIfPresent(environment, forKey: SdkCodingKey("environment"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(transientEnvironment, forKey: SdkCodingKey("transient_environment"))
-        try keyedContainer.encodeIfPresent(productionEnvironment, forKey: SdkCodingKey("production_environment"))
+        try keyedContainer.encode(self.ref, forKey: SdkCodingKey("ref"))
+        try keyedContainer.encodeIfPresent(self.task, forKey: SdkCodingKey("task"))
+        try keyedContainer.encodeIfPresent(self.autoMerge, forKey: SdkCodingKey("auto_merge"))
+        try keyedContainer.encodeIfPresent(self.requiredContexts, forKey: SdkCodingKey("required_contexts"))
+        try keyedContainer.encodeIfPresent(self.payload, forKey: SdkCodingKey("payload"))
+        try keyedContainer.encodeIfPresent(self.environment, forKey: SdkCodingKey("environment"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.transientEnvironment, forKey: SdkCodingKey("transient_environment"))
+        try keyedContainer.encodeIfPresent(self.productionEnvironment, forKey: SdkCodingKey("production_environment"))
     }
 
     init(options: ReposMethods.ReposCreateDeploymentOptions) {
-        ref = options.ref
-        task = options.task
-        autoMerge = options.autoMerge
-        requiredContexts = options.requiredContexts
-        payload = options.payload
-        environment = options.environment
-        description = options.description
-        transientEnvironment = options.transientEnvironment
-        productionEnvironment = options.productionEnvironment
+        self.ref = options.ref
+        self.task = options.task
+        self.autoMerge = options.autoMerge
+        self.requiredContexts = options.requiredContexts
+        self.payload = options.payload
+        self.environment = options.environment
+        self.description = options.description
+        self.transientEnvironment = options.transientEnvironment
+        self.productionEnvironment = options.productionEnvironment
     }
 }

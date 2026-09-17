@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ProjectsMethods {
+extension ProjectsMethods {
     /// List all fields for a specific organization-owned project.
     ///
     /// - Parameters:
@@ -28,31 +28,11 @@ public extension ProjectsMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func projectsListFieldsForOrg(
-        config: ClientConfig,
-        projectNumber: Int,
-        org: String,
-        perPage: Int?,
-        before: String?,
-        after: String?
-    ) async throws -> [ProjectsV2Field] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/projectsV2/",
-                sdkEncodePathSegment(sdkWireString(projectNumber)),
-                "/fields",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("before", value: before),
-                SdkQueryParameter("after", value: after),
-            ],
-            decoder: .json,
-            operationId: "projectsListFieldsForOrg"
-        )).data
+    public static func projectsListFieldsForOrg(config: ClientConfig, projectNumber: Int, org: String, perPage: Int?, before: String?, after: String?) async throws -> [ProjectsV2Field] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/fields"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("before", value: before),
+            SdkQueryParameter("after", value: after),
+        ], decoder: .json, operationId: "projectsListFieldsForOrg")).data
     }
 }

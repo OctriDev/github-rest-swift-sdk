@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookPullRequestEdited domain models
+// WebhookPullRequestEdited domain models
 /// Typed representation of the `WebhookPullRequestEdited` API schema.
 public struct WebhookPullRequestEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -42,80 +42,44 @@ public struct WebhookPullRequestEdited: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.number) else {
-            throw SdkValidationError(
-                field: "number",
-                code: "required",
-                message: "Validation failed for 'number': value is required"
-            )
+            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
         }
         guard container.contains(.pullRequest) else {
-            throw SdkValidationError(
-                field: "pull_request",
-                code: "required",
-                message: "Validation failed for 'pull_request': value is required"
-            )
+            throw SdkValidationError(field: "pull_request", code: "required", message: "Validation failed for 'pull_request': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        number = try container.sdkDecodeRequired(.number)
-        pullRequest = try container.sdkDecodeRequired(.pullRequest)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.pullRequest = try container.sdkDecodeRequired(.pullRequest)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookPullRequestEdited {
-    init(
-        action: WebhookPullRequestEditedAction,
-        changes: WebhookPullRequestEditedChanges,
-        number: WebhooksNumber,
-        pullRequest: PullRequestWebhook,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookPullRequestEdited {
+    public init(action: WebhookPullRequestEditedAction, changes: WebhookPullRequestEditedChanges, number: WebhooksNumber, pullRequest: PullRequestWebhook, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.number, self.pullRequest) = (number, pullRequest)
         (self.repository, self.sender) = (repository, sender)
@@ -140,25 +104,21 @@ public struct WebhookPullRequestEditedChanges: Codable {
     }
 
     init() {
-        (base, body, title) = (nil, nil, nil)
+        (self.base, self.body, self.title) = (nil, nil, nil)
     }
 }
 
-public extension WebhookPullRequestEditedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEditedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        base = try container.sdkDecodeIfPresent(.base)
-        body = try container.sdkDecodeIfPresent(.body)
-        title = try container.sdkDecodeIfPresent(.title)
+        self.base = try container.sdkDecodeIfPresent(.base)
+        self.body = try container.sdkDecodeIfPresent(.body)
+        self.title = try container.sdkDecodeIfPresent(.title)
     }
 }
 
-public extension WebhookPullRequestEditedChanges {
-    init(
-        base: WebhookPullRequestEditedChangesBase? = nil,
-        body: WebhookPullRequestEditedChangesBody? = nil,
-        title: WebhookPullRequestEditedChangesTitle? = nil
-    ) {
+extension WebhookPullRequestEditedChanges {
+    public init(base: WebhookPullRequestEditedChangesBase? = nil, body: WebhookPullRequestEditedChangesBody? = nil, title: WebhookPullRequestEditedChangesTitle? = nil) {
         self.init()
         (self.base, self.body) = (base, body)
         self.title = title
@@ -177,35 +137,25 @@ public struct WebhookPullRequestEditedChangesBase: Codable {
         case sha
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestEditedChangesBase {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEditedChangesBase {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
         guard container.contains(.sha) else {
-            throw SdkValidationError(
-                field: "sha",
-                code: "required",
-                message: "Validation failed for 'sha': value is required"
-            )
+            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
         }
-        ref = try container.sdkDecodeRequired(.ref)
-        sha = try container.sdkDecodeRequired(.sha)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.sha = try container.sdkDecodeRequired(.sha)
     }
 }
 
-public extension WebhookPullRequestEditedChangesBase {
-    init(ref: WebhookPullRequestEditedChangesBaseRef, sha: WebhookPullRequestEditedChangesBaseSha) {
+extension WebhookPullRequestEditedChangesBase {
+    public init(ref: WebhookPullRequestEditedChangesBaseRef, sha: WebhookPullRequestEditedChangesBaseSha) {
         (self.ref, self.sha) = (ref, sha)
     }
 }
@@ -219,27 +169,21 @@ public struct WebhookPullRequestEditedChangesBaseRef: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestEditedChangesBaseRef {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEditedChangesBaseRef {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookPullRequestEditedChangesBaseRef {
-    init(from: String) {
+extension WebhookPullRequestEditedChangesBaseRef {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -253,27 +197,21 @@ public struct WebhookPullRequestEditedChangesBaseSha: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestEditedChangesBaseSha {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEditedChangesBaseSha {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookPullRequestEditedChangesBaseSha {
-    init(from: String) {
+extension WebhookPullRequestEditedChangesBaseSha {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -287,27 +225,21 @@ public struct WebhookPullRequestEditedChangesBody: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestEditedChangesBody {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEditedChangesBody {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookPullRequestEditedChangesBody {
-    init(from: String) {
+extension WebhookPullRequestEditedChangesBody {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -321,27 +253,21 @@ public struct WebhookPullRequestEditedChangesTitle: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestEditedChangesTitle {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestEditedChangesTitle {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookPullRequestEditedChangesTitle {
-    init(from: String) {
+extension WebhookPullRequestEditedChangesTitle {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -350,15 +276,12 @@ public extension WebhookPullRequestEditedChangesTitle {
 public struct WebhookPullRequestEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookPullRequestEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

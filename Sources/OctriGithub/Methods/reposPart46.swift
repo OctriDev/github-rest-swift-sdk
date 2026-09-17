@@ -6,15 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Replaces the list of people that have push access to this branch. This removes all people that
-    /// previously had push access and grants push access to the new list of people. | Type | Description | | ------- | -----------------------------------------------------------------------------------------------------------------------------
-    /// | | `array` | Usernames for people who can have push access. **Note**: The list of users, apps, and teams in
-    /// total is limited to 100 items. |
+extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Replaces the list of people that have push access to this branch. This removes all people that previously had push access and grants push access to the new list of people. | Type | Description | | ------- | ----------------------------------------------------------------------------------------------------------------------------- | | `array` | Usernames for people who can have push access. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,30 +18,9 @@ public extension ReposMethods {
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
     /// - users: The username for users
-    static func reposSetUserAccessRestrictions(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        branch: String,
-        users: [String]
-    ) async throws -> [SimpleUser] {
+    public static func reposSetUserAccessRestrictions(config: ClientConfig, owner: String, repo: String, branch: String, users: [String]) async throws -> [SimpleUser] {
         let requestBody = ReposSetUserAccessRestrictionsRequestBody(users: users)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/branches/",
-                sdkEncodePathSegment(sdkWireString(branch)),
-                "/protection/restrictions/users",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposSetUserAccessRestrictions"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/restrictions/users"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposSetUserAccessRestrictions")).data
     }
 }

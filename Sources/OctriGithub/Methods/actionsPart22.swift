@@ -6,31 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in an organization,
-    /// as well as whether GitHub Actions can submit approving pull request reviews. For more information, see "[Setting
-    /// the permissions of the GITHUB_TOKEN for your organization](https://docs.github.com/organizations/managing-organization-settings/disabling-or-limiting-github-actions-for-your-organization#setting-the-permissions-of-the-github_token-for-your-organization)."
-    /// OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension ActionsMethods {
+    /// Gets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in an organization, as well as whether GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the permissions of the GITHUB_TOKEN for your organization](https://docs.github.com/organizations/managing-organization-settings/disabling-or-limiting-github-actions-for-your-organization#setting-the-permissions-of-the-github_token-for-your-organization)." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsGetDefaultWorkflowPermissions {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/workflow"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetGithubActionsDefaultWorkflowPermissionsOrganization"
-        )).data
+    public static func actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(config: ClientConfig, org: String) async throws -> ActionsGetDefaultWorkflowPermissions {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/workflow"].joined(), config: config, decoder: .json, operationId: "actionsGetGithubActionsDefaultWorkflowPermissionsOrganization")).data
     }
 
-    /// Sets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in an organization,
-    /// and sets if GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the
-    /// permissions of the GITHUB_TOKEN for your organization](https://docs.github.com/organizations/managing-organization-settings/disabling-or-limiting-github-actions-for-your-organization#setting-the-permissions-of-the-github_token-for-your-organization)."
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Sets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in an organization, and sets if GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the permissions of the GITHUB_TOKEN for your organization](https://docs.github.com/organizations/managing-organization-settings/disabling-or-limiting-github-actions-for-your-organization#setting-the-permissions-of-the-github_token-for-your-organization)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -38,24 +23,9 @@ public extension ActionsMethods {
     ///   the GITHUB_TOKEN when running workflows.
     /// - canApprovePullRequestReviews: Whether GitHub Actions can approve pull
     ///   requests. Enabling this can be a security risk.
-    static func actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
-        config: ClientConfig,
-        org: String,
-        defaultWorkflowPermissions: ActionsDefaultWorkflowPermissions?,
-        canApprovePullRequestReviews: ActionsCanApprovePullRequestReviews?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody(
-            defaultWorkflowPermissions: defaultWorkflowPermissions,
-            canApprovePullRequestReviews: canApprovePullRequestReviews
-        )
+    public static func actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(config: ClientConfig, org: String, defaultWorkflowPermissions: ActionsDefaultWorkflowPermissions?, canApprovePullRequestReviews: ActionsCanApprovePullRequestReviews?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody(defaultWorkflowPermissions: defaultWorkflowPermissions, canApprovePullRequestReviews: canApprovePullRequestReviews)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/workflow"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/workflow"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization")).data
     }
 }

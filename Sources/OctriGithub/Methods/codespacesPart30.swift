@@ -6,73 +6,38 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
+extension CodespacesMethods {
     /// Create a repository from an unpublished codespace
     ///
-    /// Publishes an unpublished codespace, creating a new repository and assigning it to the codespace. The codespace's
-    /// token is granted write permissions to the repository, allowing the user to push their changes. This will fail
-    /// for a codespace that is already published, meaning it has an associated repository. OAuth app tokens and
-    /// personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// Publishes an unpublished codespace, creating a new repository and assigning it to the codespace. The codespace's token is granted write permissions to the repository, allowing the user to push their changes. This will fail for a codespace that is already published, meaning it has an associated repository. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
     /// - name: A name for the new repository.
     /// - `private`: Whether the new repository should be private.
-    static func codespacesPublishForAuthenticatedUser(
-        config: ClientConfig,
-        codespaceName: String,
-        name: String?,
-        private: Bool?
-    ) async throws -> CodespaceWithFullRepository {
+    public static func codespacesPublishForAuthenticatedUser(config: ClientConfig, codespaceName: String, name: String?, private: Bool?) async throws -> CodespaceWithFullRepository {
         let requestBody = CodespacesPublishForAuthenticatedUserRequestBody(name: name, private: `private`)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/publish"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codespacesPublishForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("POST", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/publish"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codespacesPublishForAuthenticatedUser")).data
     }
 
     /// Start a codespace for the authenticated user
     ///
-    /// Starts a user's codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to
-    /// use this endpoint.
+    /// Starts a user's codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
-    static func codespacesStartForAuthenticatedUser(
-        config: ClientConfig,
-        codespaceName: String
-    ) async throws -> Codespace {
-        try await (sdkRequest(
-            "POST",
-            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/start"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codespacesStartForAuthenticatedUser"
-        )).data
+    public static func codespacesStartForAuthenticatedUser(config: ClientConfig, codespaceName: String) async throws -> Codespace {
+        return try (await sdkRequest("POST", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/start"].joined(), config: config, decoder: .json, operationId: "codespacesStartForAuthenticatedUser")).data
     }
 
     /// Stop a codespace for the authenticated user
     ///
-    /// Stops a user's codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to
-    /// use this endpoint.
+    /// Stops a user's codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
-    static func codespacesStopForAuthenticatedUser(
-        config: ClientConfig,
-        codespaceName: String
-    ) async throws -> Codespace {
-        try await (sdkRequest(
-            "POST",
-            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/stop"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codespacesStopForAuthenticatedUser"
-        )).data
+    public static func codespacesStopForAuthenticatedUser(config: ClientConfig, codespaceName: String) async throws -> Codespace {
+        return try (await sdkRequest("POST", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName)), "/stop"].joined(), config: config, decoder: .json, operationId: "codespacesStopForAuthenticatedUser")).data
     }
 }

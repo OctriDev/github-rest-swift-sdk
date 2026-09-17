@@ -6,15 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Locks the conversation on an issue or pull request in a repository. Optionally provide `lock_reason` to explain
-    /// why the conversation is locked; if you omit the request body, send a zero `Content-Length` header. Users with
-    /// push access can perform this operation.
+extension IssuesMethods {
+    /// Locks the conversation on an issue or pull request in a repository. Optionally provide `lock_reason` to explain why the conversation is locked; if you omit the request body, send a zero `Content-Length` header. Users with push access can perform this operation.
     ///
-    /// Users with push access can lock an issue or pull request's conversation. Note that, if you choose not to pass
-    /// any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more
-    /// information, see "[HTTP
-    /// method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    /// Users with push access can lock an issue or pull request's conversation. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,30 +20,9 @@ public extension IssuesMethods {
     /// - lockReason: The reason for locking the issue or pull request conversation.
     ///   Lock will fail if you don't use one of these reasons: * `off-topic` * `too
     ///   heated` * `resolved` * `spam`
-    static func issuesLock(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        lockReason: IssuesLockRequestBodyLockReason?
-    ) async throws -> SdkEmptyResponse {
+    public static func issuesLock(config: ClientConfig, owner: String, repo: String, issueNumber: Int, lockReason: IssuesLockRequestBodyLockReason?) async throws -> SdkEmptyResponse {
         let requestBody = IssuesLockRequestBody(lockReason: lockReason)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/lock",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "issuesLock"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/lock"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "issuesLock")).data
     }
 }

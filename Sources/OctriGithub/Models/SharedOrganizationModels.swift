@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SharedOrganization domain models
+// SharedOrganization domain models
 /// Secrets for GitHub Actions for an organization.
 public struct OrganizationActionsSecret: Codable {
     /// The name of the secret.
@@ -27,68 +27,44 @@ public struct OrganizationActionsSecret: Codable {
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationActionsSecret {
-    init(from decoder: Decoder) throws {
+extension OrganizationActionsSecret {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
         guard container.contains(.visibility) else {
-            throw SdkValidationError(
-                field: "visibility",
-                code: "required",
-                message: "Validation failed for 'visibility': value is required"
-            )
+            throw SdkValidationError(field: "visibility", code: "required", message: "Validation failed for 'visibility': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        visibility = try container.sdkDecodeRequired(.visibility)
-        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = selectedRepositoriesUrl {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.visibility = try container.sdkDecodeRequired(.visibility)
+        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
     }
 }
 
-public extension OrganizationActionsSecret {
-    init(
-        name: String,
-        createdAt: Date,
-        updatedAt: Date,
-        visibility: OrganizationActionsSecretVisibility,
-        selectedRepositoriesUrl: String? = nil
-    ) throws {
+extension OrganizationActionsSecret {
+    public init(name: String, createdAt: Date, updatedAt: Date, visibility: OrganizationActionsSecretVisibility, selectedRepositoriesUrl: String? = nil) throws {
         (self.name, self.createdAt) = (name, createdAt)
         (self.updatedAt, self.visibility) = (updatedAt, visibility)
         self.selectedRepositoriesUrl = selectedRepositoriesUrl
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
@@ -124,77 +100,48 @@ public struct OrganizationActionsVariable: Codable {
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationActionsVariable {
-    init(from decoder: Decoder) throws {
+extension OrganizationActionsVariable {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.value) else {
-            throw SdkValidationError(
-                field: "value",
-                code: "required",
-                message: "Validation failed for 'value': value is required"
-            )
+            throw SdkValidationError(field: "value", code: "required", message: "Validation failed for 'value': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
         guard container.contains(.visibility) else {
-            throw SdkValidationError(
-                field: "visibility",
-                code: "required",
-                message: "Validation failed for 'visibility': value is required"
-            )
+            throw SdkValidationError(field: "visibility", code: "required", message: "Validation failed for 'visibility': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        value = try container.sdkDecodeRequired(.value)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        visibility = try container.sdkDecodeRequired(.visibility)
-        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = selectedRepositoriesUrl {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.value = try container.sdkDecodeRequired(.value)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.visibility = try container.sdkDecodeRequired(.visibility)
+        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
     }
 }
 
-public extension OrganizationActionsVariable {
-    init(
-        name: String,
-        value: String,
-        createdAt: Date,
-        updatedAt: Date,
-        visibility: OrganizationActionsVariableVisibility,
-        selectedRepositoriesUrl: String? = nil
-    ) throws {
+extension OrganizationActionsVariable {
+    public init(name: String, value: String, createdAt: Date, updatedAt: Date, visibility: OrganizationActionsVariableVisibility, selectedRepositoriesUrl: String? = nil) throws {
         (self.name, self.value) = (name, value)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.visibility, self.selectedRepositoriesUrl) = (visibility, selectedRepositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
@@ -246,44 +193,29 @@ public struct OrganizationInvitation: Codable {
         case invitationSource = "invitation_source"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationInvitation {
-    init(from decoder: Decoder) throws {
+extension OrganizationInvitation {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeIfPresent(.login)
-        email = try container.sdkDecodeIfPresent(.email)
-        role = try container.sdkDecodeRequired(.role)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        inviter = try container.sdkDecodeRequired(.inviter)
-        teamCount = try container.sdkDecodeRequired(.teamCount)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        invitationTeamsUrl = try container.sdkDecodeRequired(.invitationTeamsUrl)
-        failedAt = try container.sdkDecodeIfPresent(.failedAt)
-        failedReason = try container.sdkDecodeIfPresent(.failedReason)
-        invitationSource = try container.sdkDecodeIfPresent(.invitationSource)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeIfPresent(.login)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.role = try container.sdkDecodeRequired(.role)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.inviter = try container.sdkDecodeRequired(.inviter)
+        self.teamCount = try container.sdkDecodeRequired(.teamCount)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.invitationTeamsUrl = try container.sdkDecodeRequired(.invitationTeamsUrl)
+        self.failedAt = try container.sdkDecodeIfPresent(.failedAt)
+        self.failedReason = try container.sdkDecodeIfPresent(.failedReason)
+        self.invitationSource = try container.sdkDecodeIfPresent(.invitationSource)
     }
 }
 
-public extension OrganizationInvitation {
-    init(
-        id: Int,
-        login: String?,
-        email: String?,
-        role: String,
-        createdAt: String,
-        inviter: SimpleUser,
-        teamCount: Int,
-        nodeId: String,
-        invitationTeamsUrl: String,
-        failedAt: String? = nil,
-        failedReason: String? = nil,
-        invitationSource: String? = nil
-    ) {
+extension OrganizationInvitation {
+    public init(id: Int, login: String?, email: String?, role: String, createdAt: String, inviter: SimpleUser, teamCount: Int, nodeId: String, invitationTeamsUrl: String, failedAt: String? = nil, failedReason: String? = nil, invitationSource: String? = nil) {
         (self.id, self.login) = (id, login)
         (self.email, self.role) = (email, role)
         (self.createdAt, self.inviter) = (createdAt, inviter)
@@ -347,56 +279,41 @@ public struct OrganizationSimple: Codable {
         case description
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationSimple {
-    init(from decoder: Decoder) throws {
+extension OrganizationSimple {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
-        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        description = try container.sdkDecodeIfPresent(.description)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("events_url", eventsUrl)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.description = try container.sdkDecodeIfPresent(.description)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
     }
 }
 
-public extension OrganizationSimple {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        url: String,
-        reposUrl: String,
-        eventsUrl: String,
-        hooksUrl: String,
-        issuesUrl: String,
-        membersUrl: String,
-        publicMembersUrl: String,
-        avatarUrl: String,
-        description: String?
-    ) throws {
+extension OrganizationSimple {
+    public init(login: String, id: Int, nodeId: String, url: String, reposUrl: String, eventsUrl: String, hooksUrl: String, issuesUrl: String, membersUrl: String, publicMembersUrl: String, avatarUrl: String, description: String?) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.url) = (nodeId, url)
         (self.reposUrl, self.eventsUrl) = (reposUrl, eventsUrl)
         (self.hooksUrl, self.issuesUrl) = (hooksUrl, issuesUrl)
         (self.membersUrl, self.publicMembersUrl) = (membersUrl, publicMembersUrl)
         (self.avatarUrl, self.description) = (avatarUrl, description)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("repos_url", self.reposUrl)
-        try sdkValidateUri("events_url", self.eventsUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
     }
 }
 
@@ -404,17 +321,14 @@ public extension OrganizationSimple {
 public struct OrganizationActionsVariableVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = OrganizationActionsVariableVisibility(rawValue: "all")
     public static let `private` = OrganizationActionsVariableVisibility(rawValue: "private")
     public static let selected = OrganizationActionsVariableVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -427,17 +341,14 @@ public struct OrganizationActionsVariableVisibility: RawRepresentable, Hashable,
 public struct OrganizationActionsSecretVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = OrganizationActionsSecretVisibility(rawValue: "all")
     public static let `private` = OrganizationActionsSecretVisibility(rawValue: "private")
     public static let selected = OrganizationActionsSecretVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

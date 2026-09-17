@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Get all the repository rulesets for an organization.
     ///
     /// - Parameters:
@@ -22,24 +22,11 @@ public extension ReposMethods {
     /// - targets: A comma-separated list of rule targets to filter by. If provided,
     ///   only rulesets that apply to the specified targets will be returned. For
     ///   example, `branch,tag,push`.
-    static func reposGetOrgRulesets(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        targets: String?
-    ) async throws -> [RepositoryRuleset] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("targets", value: targets),
-            ],
-            decoder: .json,
-            operationId: "reposGetOrgRulesets"
-        )).data
+    public static func reposGetOrgRulesets(config: ClientConfig, org: String, perPage: Int?, page: Int?, targets: String?) async throws -> [RepositoryRuleset] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("targets", value: targets),
+        ], decoder: .json, operationId: "reposGetOrgRulesets")).data
     }
 }

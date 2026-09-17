@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Lists the merged pull request that introduced the commit to the repository. If the commit is not present in the
-    /// default branch, it will return merged and open pull requests associated with the commit. To list the open or
-    /// merged pull requests associated with a branch, you can set the `commit_sha` parameter to the branch name.
+extension ReposMethods {
+    /// Lists the merged pull request that introduced the commit to the repository. If the commit is not present in the default branch, it will return merged and open pull requests associated with the commit. To list the open or merged pull requests associated with a branch, you can set the `commit_sha` parameter to the branch name.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,32 +23,10 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListPullRequestsAssociatedWithCommit(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        commitSha: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [PullRequestSimple] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/commits/",
-                sdkEncodePathSegment(sdkWireString(commitSha)),
-                "/pulls",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposListPullRequestsAssociatedWithCommit"
-        )).data
+    public static func reposListPullRequestsAssociatedWithCommit(config: ClientConfig, owner: String, repo: String, commitSha: String, perPage: Int?, page: Int?) async throws -> [PullRequestSimple] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/commits/", sdkEncodePathSegment(sdkWireString(commitSha)), "/pulls"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposListPullRequestsAssociatedWithCommit")).data
     }
 }

@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical agents operation model declarations
+// Canonical agents operation model declarations
 public struct AgentsListRepoVariablesResponse: Codable {
     public var totalCount: Int
     public var variables: [ActionsVariable]
@@ -17,35 +17,25 @@ public struct AgentsListRepoVariablesResponse: Codable {
         case variables
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListRepoVariablesResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListRepoVariablesResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.variables) else {
-            throw SdkValidationError(
-                field: "variables",
-                code: "required",
-                message: "Validation failed for 'variables': value is required"
-            )
+            throw SdkValidationError(field: "variables", code: "required", message: "Validation failed for 'variables': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        variables = try container.sdkDecodeRequired(.variables)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.variables = try container.sdkDecodeRequired(.variables)
     }
 }
 
-public extension AgentsListRepoVariablesResponse {
-    init(totalCount: Int, variables: [ActionsVariable]) {
+extension AgentsListRepoVariablesResponse {
+    public init(totalCount: Int, variables: [ActionsVariable]) {
         (self.totalCount, self.variables) = (totalCount, variables)
     }
 }
@@ -59,35 +49,25 @@ public struct AgentsListRepoOrganizationVariablesResponse: Codable {
         case variables
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListRepoOrganizationVariablesResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListRepoOrganizationVariablesResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.variables) else {
-            throw SdkValidationError(
-                field: "variables",
-                code: "required",
-                message: "Validation failed for 'variables': value is required"
-            )
+            throw SdkValidationError(field: "variables", code: "required", message: "Validation failed for 'variables': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        variables = try container.sdkDecodeRequired(.variables)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.variables = try container.sdkDecodeRequired(.variables)
     }
 }
 
-public extension AgentsListRepoOrganizationVariablesResponse {
-    init(totalCount: Int, variables: [ActionsVariable]) {
+extension AgentsListRepoOrganizationVariablesResponse {
+    public init(totalCount: Int, variables: [ActionsVariable]) {
         (self.totalCount, self.variables) = (totalCount, variables)
     }
 }
@@ -101,35 +81,25 @@ public struct AgentsListOrgSecretsResponse: Codable {
         case secrets
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListOrgSecretsResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListOrgSecretsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.secrets) else {
-            throw SdkValidationError(
-                field: "secrets",
-                code: "required",
-                message: "Validation failed for 'secrets': value is required"
-            )
+            throw SdkValidationError(field: "secrets", code: "required", message: "Validation failed for 'secrets': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        secrets = try container.sdkDecodeRequired(.secrets)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.secrets = try container.sdkDecodeRequired(.secrets)
     }
 }
 
-public extension AgentsListOrgSecretsResponse {
-    init(totalCount: Int, secrets: [OrganizationActionsSecret]) {
+extension AgentsListOrgSecretsResponse {
+    public init(totalCount: Int, secrets: [OrganizationActionsSecret]) {
         (self.totalCount, self.secrets) = (totalCount, secrets)
     }
 }
@@ -143,35 +113,25 @@ public struct AgentsListRepoSecretsResponse: Codable {
         case secrets
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListRepoSecretsResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListRepoSecretsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.secrets) else {
-            throw SdkValidationError(
-                field: "secrets",
-                code: "required",
-                message: "Validation failed for 'secrets': value is required"
-            )
+            throw SdkValidationError(field: "secrets", code: "required", message: "Validation failed for 'secrets': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        secrets = try container.sdkDecodeRequired(.secrets)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.secrets = try container.sdkDecodeRequired(.secrets)
     }
 }
 
-public extension AgentsListRepoSecretsResponse {
-    init(totalCount: Int, secrets: [ActionsSecret]) {
+extension AgentsListRepoSecretsResponse {
+    public init(totalCount: Int, secrets: [ActionsSecret]) {
         (self.totalCount, self.secrets) = (totalCount, secrets)
     }
 }
@@ -185,35 +145,25 @@ public struct AgentsListRepoOrganizationSecretsResponse: Codable {
         case secrets
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListRepoOrganizationSecretsResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListRepoOrganizationSecretsResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.secrets) else {
-            throw SdkValidationError(
-                field: "secrets",
-                code: "required",
-                message: "Validation failed for 'secrets': value is required"
-            )
+            throw SdkValidationError(field: "secrets", code: "required", message: "Validation failed for 'secrets': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        secrets = try container.sdkDecodeRequired(.secrets)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.secrets = try container.sdkDecodeRequired(.secrets)
     }
 }
 
-public extension AgentsListRepoOrganizationSecretsResponse {
-    init(totalCount: Int, secrets: [ActionsSecret]) {
+extension AgentsListRepoOrganizationSecretsResponse {
+    public init(totalCount: Int, secrets: [ActionsSecret]) {
         (self.totalCount, self.secrets) = (totalCount, secrets)
     }
 }
@@ -227,35 +177,25 @@ public struct AgentsListSelectedReposForOrgSecretResponse: Codable {
         case repositories
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListSelectedReposForOrgSecretResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListSelectedReposForOrgSecretResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.repositories) else {
-            throw SdkValidationError(
-                field: "repositories",
-                code: "required",
-                message: "Validation failed for 'repositories': value is required"
-            )
+            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        repositories = try container.sdkDecodeRequired(.repositories)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.repositories = try container.sdkDecodeRequired(.repositories)
     }
 }
 
-public extension AgentsListSelectedReposForOrgSecretResponse {
-    init(totalCount: Int, repositories: [MinimalRepository]) {
+extension AgentsListSelectedReposForOrgSecretResponse {
+    public init(totalCount: Int, repositories: [MinimalRepository]) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
     }
 }
@@ -269,35 +209,25 @@ public struct AgentsListOrgVariablesResponse: Codable {
         case variables
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListOrgVariablesResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListOrgVariablesResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.variables) else {
-            throw SdkValidationError(
-                field: "variables",
-                code: "required",
-                message: "Validation failed for 'variables': value is required"
-            )
+            throw SdkValidationError(field: "variables", code: "required", message: "Validation failed for 'variables': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        variables = try container.sdkDecodeRequired(.variables)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.variables = try container.sdkDecodeRequired(.variables)
     }
 }
 
-public extension AgentsListOrgVariablesResponse {
-    init(totalCount: Int, variables: [OrganizationActionsVariable]) {
+extension AgentsListOrgVariablesResponse {
+    public init(totalCount: Int, variables: [OrganizationActionsVariable]) {
         (self.totalCount, self.variables) = (totalCount, variables)
     }
 }
@@ -311,35 +241,25 @@ public struct AgentsListSelectedReposForOrgVariableResponse: Codable {
         case repositories
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AgentsListSelectedReposForOrgVariableResponse {
-    init(from decoder: Decoder) throws {
+extension AgentsListSelectedReposForOrgVariableResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.repositories) else {
-            throw SdkValidationError(
-                field: "repositories",
-                code: "required",
-                message: "Validation failed for 'repositories': value is required"
-            )
+            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        repositories = try container.sdkDecodeRequired(.repositories)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.repositories = try container.sdkDecodeRequired(.repositories)
     }
 }
 
-public extension AgentsListSelectedReposForOrgVariableResponse {
-    init(totalCount: Int, repositories: [MinimalRepository]) {
+extension AgentsListSelectedReposForOrgVariableResponse {
+    public init(totalCount: Int, repositories: [MinimalRepository]) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
     }
 }

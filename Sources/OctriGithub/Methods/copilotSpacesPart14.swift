@@ -6,64 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Delete a Copilot Space for a user
     ///
-    /// Deletes a Copilot Space owned by a user. The authenticated user must be the owner of the space. **Warning:**
-    /// This action is permanent and cannot be undone. Deleting a space will remove all associated resources and
-    /// configurations. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this
-    /// endpoint.
+    /// Deletes a Copilot Space owned by a user. The authenticated user must be the owner of the space. **Warning:** This action is permanent and cannot be undone. Deleting a space will remove all associated resources and configurations. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
-    static func copilotSpacesDeleteForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "copilotSpacesDeleteForUser"
-        )).data
+    public static func copilotSpacesDeleteForUser(config: ClientConfig, username: String, spaceNumber: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber))].joined(), config: config, decoder: .empty, operationId: "copilotSpacesDeleteForUser")).data
     }
 
     /// List collaborators for a Copilot Space for a user
     ///
-    /// Lists all collaborators for a specific Copilot Space owned by a user. The authenticated user must be the owner
-    /// of the space or have admin access to the space. Each collaborator entry specifies which user has access to the
-    /// space and at what level (reader, writer, or admin). The space owner is excluded from this list. Team
-    /// collaborators are not supported for user-owned Copilot Spaces. OAuth app tokens and personal access tokens
-    /// (classic) need the `user` scope to use this endpoint.
+    /// Lists all collaborators for a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. Each collaborator entry specifies which user has access to the space and at what level (reader, writer, or admin). The space owner is excluded from this list. Team collaborators are not supported for user-owned Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
-    static func copilotSpacesListCollaboratorsForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int
-    ) async throws -> CopilotSpacesListCollaboratorsForUserResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/collaborators",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotSpacesListCollaboratorsForUser"
-        )).data
+    public static func copilotSpacesListCollaboratorsForUser(config: ClientConfig, username: String, spaceNumber: Int) async throws -> CopilotSpacesListCollaboratorsForUserResponse {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators"].joined(), config: config, decoder: .json, operationId: "copilotSpacesListCollaboratorsForUser")).data
     }
 }

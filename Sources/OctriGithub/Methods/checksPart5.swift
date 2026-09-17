@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ChecksMethods {
-    /// Lists annotations for a check run using the annotation `id`. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint on a private repository.
+extension ChecksMethods {
+    /// Lists annotations for a check run using the annotation `id`. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,32 +23,10 @@ public extension ChecksMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func checksListAnnotations(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        checkRunId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [CheckAnnotation] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/check-runs/",
-                sdkEncodePathSegment(sdkWireString(checkRunId)),
-                "/annotations",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "checksListAnnotations"
-        )).data
+    public static func checksListAnnotations(config: ClientConfig, owner: String, repo: String, checkRunId: Int, perPage: Int?, page: Int?) async throws -> [CheckAnnotation] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/check-runs/", sdkEncodePathSegment(sdkWireString(checkRunId)), "/annotations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "checksListAnnotations")).data
     }
 }

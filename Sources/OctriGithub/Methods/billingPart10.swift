@@ -6,11 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension BillingMethods {
+extension BillingMethods {
     /// Get billing AI credit usage report for a user
     ///
-    /// Gets a report of AI credit usage for a user. **Note:** Only data from the past 24 months is accessible via this
-    /// endpoint.
+    /// Gets a report of AI credit usage for a user. **Note:** Only data from the past 24 months is accessible via this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -26,28 +25,13 @@ public extension BillingMethods {
     /// - model: The model name to query usage for. The name is not case sensitive.
     /// - product: The product name to query usage for. The name is not case
     ///   sensitive.
-    static func billingGetGithubBillingAiCreditUsageReportUser(
-        config: ClientConfig,
-        username: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        model: String?,
-        product: String?
-    ) async throws -> BillingAiCreditUsageReportUser {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/ai_credit/usage"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("year", value: year),
-                SdkQueryParameter("month", value: month),
-                SdkQueryParameter("day", value: day),
-                SdkQueryParameter("model", value: model),
-                SdkQueryParameter("product", value: product),
-            ],
-            decoder: .json,
-            operationId: "billingGetGithubBillingAiCreditUsageReportUser"
-        )).data
+    public static func billingGetGithubBillingAiCreditUsageReportUser(config: ClientConfig, username: String, year: Int?, month: Int?, day: Int?, model: String?, product: String?) async throws -> BillingAiCreditUsageReportUser {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/ai_credit/usage"].joined(), config: config, query: [
+            SdkQueryParameter("year", value: year),
+            SdkQueryParameter("month", value: month),
+            SdkQueryParameter("day", value: day),
+            SdkQueryParameter("model", value: model),
+            SdkQueryParameter("product", value: product),
+        ], decoder: .json, operationId: "billingGetGithubBillingAiCreditUsageReportUser")).data
     }
 }

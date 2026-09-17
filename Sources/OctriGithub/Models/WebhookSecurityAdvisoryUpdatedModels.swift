@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookSecurityAdvisoryUpdated domain models
+// WebhookSecurityAdvisoryUpdated domain models
 /// Typed representation of the `WebhookSecurityAdvisoryUpdated` API schema.
 public struct WebhookSecurityAdvisoryUpdated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,48 +36,30 @@ public struct WebhookSecurityAdvisoryUpdated: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookSecurityAdvisoryUpdated {
-    init(from decoder: Decoder) throws {
+extension WebhookSecurityAdvisoryUpdated {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.securityAdvisory) else {
-            throw SdkValidationError(
-                field: "security_advisory",
-                code: "required",
-                message: "Validation failed for 'security_advisory': value is required"
-            )
+            throw SdkValidationError(field: "security_advisory", code: "required", message: "Validation failed for 'security_advisory': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        securityAdvisory = try container.sdkDecodeRequired(.securityAdvisory)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.securityAdvisory = try container.sdkDecodeRequired(.securityAdvisory)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookSecurityAdvisoryUpdated {
-    init(
-        action: WebhookSecurityAdvisoryUpdatedAction,
-        securityAdvisory: WebhooksSecurityAdvisory,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: RepositoryWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookSecurityAdvisoryUpdated {
+    public init(action: WebhookSecurityAdvisoryUpdatedAction, securityAdvisory: WebhooksSecurityAdvisory, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.securityAdvisory) = (action, securityAdvisory)
         (self.enterprise, self.installation) = (enterprise, installation)
         (self.organization, self.repository) = (organization, repository)
@@ -89,15 +71,12 @@ public extension WebhookSecurityAdvisoryUpdated {
 public struct WebhookSecurityAdvisoryUpdatedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let updated = WebhookSecurityAdvisoryUpdatedAction(rawValue: "updated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    struct CodeScanningUpdateDefaultSetupOptions: Codable {
+extension CodeScanningMethods {
+    public struct CodeScanningUpdateDefaultSetupOptions: Codable {
         public var owner: String
         public var repo: String
         public var state: CodeScanningDefaultSetupUpdateState?
@@ -23,9 +23,7 @@ public extension CodeScanningMethods {
         }
     }
 
-    /// Updates a code scanning default setup configuration. OAuth app tokens and personal access tokens (classic) need
-    /// the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use
-    /// this endpoint with only public repositories.
+    /// Updates a code scanning default setup configuration. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -41,25 +39,9 @@ public extension CodeScanningMethods {
     ///   local sources like filesystem access, command-line arguments, database
     ///   reads, environment variable and standard input.
     /// - languages: CodeQL languages to be analyzed.
-    static func codeScanningUpdateDefaultSetup(
-        config: ClientConfig,
-        options: CodeScanningUpdateDefaultSetupOptions
-    ) async throws -> EmptyObject {
+    public static func codeScanningUpdateDefaultSetup(config: ClientConfig, options: CodeScanningUpdateDefaultSetupOptions) async throws -> EmptyObject {
         let requestBody = CodeScanningUpdateDefaultSetupRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/code-scanning/default-setup",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeScanningUpdateDefaultSetup"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/code-scanning/default-setup"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningUpdateDefaultSetup")).data
     }
 }

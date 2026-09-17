@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookSecretScanningAlertLocationCreated domain models
+// WebhookSecretScanningAlertLocationCreated domain models
 /// Typed representation of the `WebhookSecretScanningAlertLocationCreated` API schema.
 public struct WebhookSecretScanningAlertLocationCreated: Codable {
     /// Required object value serialized in the `alert` wire field.
@@ -34,62 +34,36 @@ public struct WebhookSecretScanningAlertLocationCreated: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookSecretScanningAlertLocationCreated {
-    init(from decoder: Decoder) throws {
+extension WebhookSecretScanningAlertLocationCreated {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.alert) else {
-            throw SdkValidationError(
-                field: "alert",
-                code: "required",
-                message: "Validation failed for 'alert': value is required"
-            )
+            throw SdkValidationError(field: "alert", code: "required", message: "Validation failed for 'alert': value is required")
         }
         guard container.contains(.location) else {
-            throw SdkValidationError(
-                field: "location",
-                code: "required",
-                message: "Validation failed for 'location': value is required"
-            )
+            throw SdkValidationError(field: "location", code: "required", message: "Validation failed for 'location': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        alert = try container.sdkDecodeRequired(.alert)
-        location = try container.sdkDecodeRequired(.location)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        action = try container.sdkDecodeIfPresent(.action)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.alert = try container.sdkDecodeRequired(.alert)
+        self.location = try container.sdkDecodeRequired(.location)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.action = try container.sdkDecodeIfPresent(.action)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookSecretScanningAlertLocationCreated {
-    init(
-        alert: SecretScanningAlertWebhook,
-        location: SecretScanningLocation,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        action: WebhookSecretScanningAlertLocationCreatedAction? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookSecretScanningAlertLocationCreated {
+    public init(alert: SecretScanningAlertWebhook, location: SecretScanningLocation, repository: RepositoryWebhooks, sender: SimpleUser, action: WebhookSecretScanningAlertLocationCreatedAction? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.alert, self.location) = (alert, location)
         (self.repository, self.sender) = (repository, sender)
         (self.action, self.installation) = (action, installation)
@@ -98,19 +72,15 @@ public extension WebhookSecretScanningAlertLocationCreated {
 }
 
 /// Optional enumerated value serialized in the `action` wire field.
-public struct WebhookSecretScanningAlertLocationCreatedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookSecretScanningAlertLocationCreatedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let created = WebhookSecretScanningAlertLocationCreatedAction(rawValue: "created")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

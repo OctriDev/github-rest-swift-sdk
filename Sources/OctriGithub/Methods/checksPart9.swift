@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ChecksMethods {
-    /// Triggers GitHub to rerequest an existing check suite, without pushing new code to a repository. This endpoint
-    /// will trigger the [`check_suite` webhook](https://docs.github.com/webhooks/event-payloads/#check_suite) event
-    /// with the action `rerequested`. When a check suite is `rerequested`, its `status` is reset to `queued` and the
-    /// `conclusion` is cleared.
+extension ChecksMethods {
+    /// Triggers GitHub to rerequest an existing check suite, without pushing new code to a repository. This endpoint will trigger the [`check_suite` webhook](https://docs.github.com/webhooks/event-payloads/#check_suite) event with the action `rerequested`. When a check suite is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,26 +15,7 @@ public extension ChecksMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - checkSuiteId: The unique identifier of the check suite.
-    static func checksRerequestSuite(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        checkSuiteId: Int
-    ) async throws -> EmptyObject {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/check-suites/",
-                sdkEncodePathSegment(sdkWireString(checkSuiteId)),
-                "/rerequest",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "checksRerequestSuite"
-        )).data
+    public static func checksRerequestSuite(config: ClientConfig, owner: String, repo: String, checkSuiteId: Int) async throws -> EmptyObject {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/check-suites/", sdkEncodePathSegment(sdkWireString(checkSuiteId)), "/rerequest"].joined(), config: config, decoder: .json, operationId: "checksRerequestSuite")).data
     }
 }

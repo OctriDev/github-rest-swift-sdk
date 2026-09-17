@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AgentTasksMethods {
-    struct AgentTasksCreateTaskInRepoOptions: Codable {
+extension AgentTasksMethods {
+    public struct AgentTasksCreateTaskInRepoOptions: Codable {
         public var owner: String
         public var repo: String
         public var prompt: String
@@ -24,13 +24,7 @@ public extension AgentTasksMethods {
         }
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Starts a new Copilot cloud agent task
-    /// for a repository. This endpoint is only available to users with a Copilot Business or Copilot Enterprise
-    /// subscription. **Fine-grained access tokens for "Start a task"** This endpoint works with the following
-    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
-    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read and
-    /// write) GitHub App installation access tokens are not supported for this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Starts a new Copilot cloud agent task for a repository. This endpoint is only available to users with a Copilot Business or Copilot Enterprise subscription. **Fine-grained access tokens for "Start a task"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read and write) GitHub App installation access tokens are not supported for this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -51,25 +45,9 @@ public extension AgentTasksMethods {
     /// - headRef: Head ref for existing branch/PR. If provided with `base_ref`, the
     ///   agent looks up open PR context for `head_ref` targeting `base_ref` and
     ///   commits to `head_ref` instead of creating a new branch.
-    static func agentTasksCreateTaskInRepo(
-        config: ClientConfig,
-        options: AgentTasksCreateTaskInRepoOptions
-    ) async throws -> AgentTasksCreateTaskInRepoResponse {
+    public static func agentTasksCreateTaskInRepo(config: ClientConfig, options: AgentTasksCreateTaskInRepoOptions) async throws -> AgentTasksCreateTaskInRepoResponse {
         let requestBody = AgentTasksCreateTaskInRepoRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/agents/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/tasks",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "agentTasksCreateTaskInRepo"
-        )).data
+        return try (await sdkRequest("POST", ["/agents/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/tasks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "agentTasksCreateTaskInRepo")).data
     }
 }

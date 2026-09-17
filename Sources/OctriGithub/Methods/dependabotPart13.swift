@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    struct DependabotListAlertsForRepoOptions: Codable {
+extension DependabotMethods {
+    public struct DependabotListAlertsForRepoOptions: Codable {
         public var owner: String
         public var repo: String
         public var classification: String?
@@ -33,8 +33,7 @@ public extension DependabotMethods {
         }
     }
 
-    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If
-    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -98,40 +97,24 @@ public extension DependabotMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func dependabotListAlertsForRepo(
-        config: ClientConfig,
-        options: DependabotListAlertsForRepoOptions
-    ) async throws -> [DependabotAlert] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/dependabot/alerts",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("classification", value: options.classification),
-                SdkQueryParameter("state", value: options.state),
-                SdkQueryParameter("severity", value: options.severity),
-                SdkQueryParameter("ecosystem", value: options.ecosystem),
-                SdkQueryParameter("package", value: options.package),
-                SdkQueryParameter("manifest", value: options.manifest),
-                SdkQueryParameter("epss_percentage", value: options.epssPercentage),
-                SdkQueryParameter("has", value: options.has),
-                SdkQueryParameter("assignee", value: options.assignee),
-                SdkQueryParameter("scope", value: options.scope),
-                SdkQueryParameter("relationship", value: options.relationship),
-                SdkQueryParameter("sort", value: options.sort),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("before", value: options.before),
-                SdkQueryParameter("after", value: options.after),
-                SdkQueryParameter("per_page", value: options.perPage),
-            ],
-            decoder: .json,
-            operationId: "dependabotListAlertsForRepo"
-        )).data
+    public static func dependabotListAlertsForRepo(config: ClientConfig, options: DependabotListAlertsForRepoOptions) async throws -> [DependabotAlert] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/dependabot/alerts"].joined(), config: config, query: [
+            SdkQueryParameter("classification", value: options.classification),
+            SdkQueryParameter("state", value: options.state),
+            SdkQueryParameter("severity", value: options.severity),
+            SdkQueryParameter("ecosystem", value: options.ecosystem),
+            SdkQueryParameter("package", value: options.package),
+            SdkQueryParameter("manifest", value: options.manifest),
+            SdkQueryParameter("epss_percentage", value: options.epssPercentage),
+            SdkQueryParameter("has", value: options.has),
+            SdkQueryParameter("assignee", value: options.assignee),
+            SdkQueryParameter("scope", value: options.scope),
+            SdkQueryParameter("relationship", value: options.relationship),
+            SdkQueryParameter("sort", value: options.sort),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("before", value: options.before),
+            SdkQueryParameter("after", value: options.after),
+            SdkQueryParameter("per_page", value: options.perPage),
+        ], decoder: .json, operationId: "dependabotListAlertsForRepo")).data
     }
 }

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension BillingMethods {
-    /// Gets a report of AI credit usage for an organization. To use this endpoint, you must be an administrator of an
-    /// organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is
-    /// accessible via this endpoint.
+extension BillingMethods {
+    /// Gets a report of AI credit usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -26,30 +24,14 @@ public extension BillingMethods {
     /// - model: The model name to query usage for. The name is not case sensitive.
     /// - product: The product name to query usage for. The name is not case
     ///   sensitive.
-    static func billingGetGithubBillingAiCreditUsageReportOrg(
-        config: ClientConfig,
-        org: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        user: String?,
-        model: String?,
-        product: String?
-    ) async throws -> BillingAiCreditUsageReportOrg {
-        try await (sdkRequest(
-            "GET",
-            ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/ai_credit/usage"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("year", value: year),
-                SdkQueryParameter("month", value: month),
-                SdkQueryParameter("day", value: day),
-                SdkQueryParameter("user", value: user),
-                SdkQueryParameter("model", value: model),
-                SdkQueryParameter("product", value: product),
-            ],
-            decoder: .json,
-            operationId: "billingGetGithubBillingAiCreditUsageReportOrg"
-        )).data
+    public static func billingGetGithubBillingAiCreditUsageReportOrg(config: ClientConfig, org: String, year: Int?, month: Int?, day: Int?, user: String?, model: String?, product: String?) async throws -> BillingAiCreditUsageReportOrg {
+        return try (await sdkRequest("GET", ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/ai_credit/usage"].joined(), config: config, query: [
+            SdkQueryParameter("year", value: year),
+            SdkQueryParameter("month", value: month),
+            SdkQueryParameter("day", value: day),
+            SdkQueryParameter("user", value: user),
+            SdkQueryParameter("model", value: model),
+            SdkQueryParameter("product", value: product),
+        ], decoder: .json, operationId: "billingGetGithubBillingAiCreditUsageReportOrg")).data
     }
 }

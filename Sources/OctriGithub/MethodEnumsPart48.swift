@@ -6,49 +6,6 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-struct SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBody: Encodable {
-    var summary: String?
-    var description: String?
-    var cveId: SdkOptional<String>?
-    var vulnerabilities: [RepositoryAdvisoryUpdateVulnerabilitiesItem]?
-    var cweIds: SdkOptional<[String]>?
-    var credits: SdkOptional<[RepositoryAdvisoryUpdateCreditsItem]>?
-    var severity: SdkOptional<RepositoryAdvisoryUpdateSeverity>?
-    var cvssVectorString: SdkOptional<String>?
-    var state: RepositoryAdvisoryUpdateState?
-    var collaboratingUsers: SdkOptional<[String]>?
-    var collaboratingTeams: SdkOptional<[String]>?
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(summary, forKey: SdkCodingKey("summary"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(cveId, forKey: SdkCodingKey("cve_id"))
-        try keyedContainer.encodeIfPresent(vulnerabilities, forKey: SdkCodingKey("vulnerabilities"))
-        try keyedContainer.encodeIfPresent(cweIds, forKey: SdkCodingKey("cwe_ids"))
-        try keyedContainer.encodeIfPresent(credits, forKey: SdkCodingKey("credits"))
-        try keyedContainer.encodeIfPresent(severity, forKey: SdkCodingKey("severity"))
-        try keyedContainer.encodeIfPresent(cvssVectorString, forKey: SdkCodingKey("cvss_vector_string"))
-        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(collaboratingUsers, forKey: SdkCodingKey("collaborating_users"))
-        try keyedContainer.encodeIfPresent(collaboratingTeams, forKey: SdkCodingKey("collaborating_teams"))
-    }
-
-    init(options: SecurityAdvisoriesMethods.SecurityAdvisoriesUpdateRepositoryAdvisoryOptions) {
-        summary = options.summary
-        description = options.description
-        cveId = options.cveId
-        vulnerabilities = options.vulnerabilities
-        cweIds = options.cweIds
-        credits = options.credits
-        severity = options.severity
-        cvssVectorString = options.cvssVectorString
-        state = options.state
-        collaboratingUsers = options.collaboratingUsers
-        collaboratingTeams = options.collaboratingTeams
-    }
-}
-
 struct AgentTasksCreateTaskInRepoRequestBody: Encodable {
     let prompt: String
     var model: String?
@@ -59,21 +16,21 @@ struct AgentTasksCreateTaskInRepoRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(prompt, forKey: SdkCodingKey("prompt"))
-        try keyedContainer.encodeIfPresent(model, forKey: SdkCodingKey("model"))
-        try keyedContainer.encodeIfPresent(customAgent, forKey: SdkCodingKey("custom_agent"))
-        try keyedContainer.encodeIfPresent(createPullRequest, forKey: SdkCodingKey("create_pull_request"))
-        try keyedContainer.encodeIfPresent(baseRef, forKey: SdkCodingKey("base_ref"))
-        try keyedContainer.encodeIfPresent(headRef, forKey: SdkCodingKey("head_ref"))
+        try keyedContainer.encode(self.prompt, forKey: SdkCodingKey("prompt"))
+        try keyedContainer.encodeIfPresent(self.model, forKey: SdkCodingKey("model"))
+        try keyedContainer.encodeIfPresent(self.customAgent, forKey: SdkCodingKey("custom_agent"))
+        try keyedContainer.encodeIfPresent(self.createPullRequest, forKey: SdkCodingKey("create_pull_request"))
+        try keyedContainer.encodeIfPresent(self.baseRef, forKey: SdkCodingKey("base_ref"))
+        try keyedContainer.encodeIfPresent(self.headRef, forKey: SdkCodingKey("head_ref"))
     }
 
     init(options: AgentTasksMethods.AgentTasksCreateTaskInRepoOptions) {
-        prompt = options.prompt
-        model = options.model
-        customAgent = options.customAgent
-        createPullRequest = options.createPullRequest
-        baseRef = options.baseRef
-        headRef = options.headRef
+        self.prompt = options.prompt
+        self.model = options.model
+        self.customAgent = options.customAgent
+        self.createPullRequest = options.createPullRequest
+        self.baseRef = options.baseRef
+        self.headRef = options.headRef
     }
 }
 
@@ -85,10 +42,10 @@ struct AppsUpdateWebhookConfigForAppRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(url, forKey: SdkCodingKey("url"))
-        try keyedContainer.encodeIfPresent(contentType, forKey: SdkCodingKey("content_type"))
-        try keyedContainer.encodeIfPresent(secret, forKey: SdkCodingKey("secret"))
-        try keyedContainer.encodeIfPresent(insecureSsl, forKey: SdkCodingKey("insecure_ssl"))
+        try keyedContainer.encodeIfPresent(self.url, forKey: SdkCodingKey("url"))
+        try keyedContainer.encodeIfPresent(self.contentType, forKey: SdkCodingKey("content_type"))
+        try keyedContainer.encodeIfPresent(self.secret, forKey: SdkCodingKey("secret"))
+        try keyedContainer.encodeIfPresent(self.insecureSsl, forKey: SdkCodingKey("insecure_ssl"))
     }
 }
 
@@ -99,9 +56,9 @@ struct AppsCreateInstallationAccessTokenRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(repositories, forKey: SdkCodingKey("repositories"))
-        try keyedContainer.encodeIfPresent(repositoryIds, forKey: SdkCodingKey("repository_ids"))
-        try keyedContainer.encodeIfPresent(permissions, forKey: SdkCodingKey("permissions"))
+        try keyedContainer.encodeIfPresent(self.repositories, forKey: SdkCodingKey("repositories"))
+        try keyedContainer.encodeIfPresent(self.repositoryIds, forKey: SdkCodingKey("repository_ids"))
+        try keyedContainer.encodeIfPresent(self.permissions, forKey: SdkCodingKey("permissions"))
     }
 }
 
@@ -110,7 +67,7 @@ struct AppsDeleteAuthorizationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(accessToken, forKey: SdkCodingKey("access_token"))
+        try keyedContainer.encode(self.accessToken, forKey: SdkCodingKey("access_token"))
     }
 }
 
@@ -119,7 +76,7 @@ struct AppsCheckTokenRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(accessToken, forKey: SdkCodingKey("access_token"))
+        try keyedContainer.encode(self.accessToken, forKey: SdkCodingKey("access_token"))
     }
 }
 
@@ -128,7 +85,7 @@ struct AppsResetTokenRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(accessToken, forKey: SdkCodingKey("access_token"))
+        try keyedContainer.encode(self.accessToken, forKey: SdkCodingKey("access_token"))
     }
 }
 
@@ -137,7 +94,7 @@ struct AppsDeleteTokenRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(accessToken, forKey: SdkCodingKey("access_token"))
+        try keyedContainer.encode(self.accessToken, forKey: SdkCodingKey("access_token"))
     }
 }
 
@@ -151,12 +108,12 @@ struct AppsScopeTokenRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(accessToken, forKey: SdkCodingKey("access_token"))
-        try keyedContainer.encodeIfPresent(target, forKey: SdkCodingKey("target"))
-        try keyedContainer.encodeIfPresent(targetId, forKey: SdkCodingKey("target_id"))
-        try keyedContainer.encodeIfPresent(repositories, forKey: SdkCodingKey("repositories"))
-        try keyedContainer.encodeIfPresent(repositoryIds, forKey: SdkCodingKey("repository_ids"))
-        try keyedContainer.encodeIfPresent(permissions, forKey: SdkCodingKey("permissions"))
+        try keyedContainer.encode(self.accessToken, forKey: SdkCodingKey("access_token"))
+        try keyedContainer.encodeIfPresent(self.target, forKey: SdkCodingKey("target"))
+        try keyedContainer.encodeIfPresent(self.targetId, forKey: SdkCodingKey("target_id"))
+        try keyedContainer.encodeIfPresent(self.repositories, forKey: SdkCodingKey("repositories"))
+        try keyedContainer.encodeIfPresent(self.repositoryIds, forKey: SdkCodingKey("repository_ids"))
+        try keyedContainer.encodeIfPresent(self.permissions, forKey: SdkCodingKey("permissions"))
     }
 }
 
@@ -165,7 +122,7 @@ struct CredentialsRevokeRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(credentials, forKey: SdkCodingKey("credentials"))
+        try keyedContainer.encode(self.credentials, forKey: SdkCodingKey("credentials"))
     }
 }
 
@@ -174,7 +131,7 @@ struct ActionsSetActionsCacheRetentionLimitForEnterpriseRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(maxCacheRetentionDays, forKey: SdkCodingKey("max_cache_retention_days"))
+        try keyedContainer.encodeIfPresent(self.maxCacheRetentionDays, forKey: SdkCodingKey("max_cache_retention_days"))
     }
 }
 
@@ -183,7 +140,7 @@ struct ActionsSetActionsCacheStorageLimitForEnterpriseRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(maxCacheSizeGb, forKey: SdkCodingKey("max_cache_size_gb"))
+        try keyedContainer.encodeIfPresent(self.maxCacheSizeGb, forKey: SdkCodingKey("max_cache_size_gb"))
     }
 }
 
@@ -192,7 +149,7 @@ struct ActionsSetActionsCacheRetentionLimitForOrganizationRequestBody: Encodable
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(maxCacheRetentionDays, forKey: SdkCodingKey("max_cache_retention_days"))
+        try keyedContainer.encodeIfPresent(self.maxCacheRetentionDays, forKey: SdkCodingKey("max_cache_retention_days"))
     }
 }
 
@@ -201,6 +158,37 @@ struct ActionsSetActionsCacheStorageLimitForOrganizationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(maxCacheSizeGb, forKey: SdkCodingKey("max_cache_size_gb"))
+        try keyedContainer.encodeIfPresent(self.maxCacheSizeGb, forKey: SdkCodingKey("max_cache_size_gb"))
+    }
+}
+
+struct ActionsCreateHostedRunnerForOrgRequestBody: Encodable {
+    let name: String
+    let image: ActionsCreateHostedRunnerForOrgRequestBodyImage
+    let size: String
+    let runnerGroupId: Int
+    var maximumRunners: Int?
+    var enableStaticIp: Bool?
+    var imageGen: Bool?
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(self.image, forKey: SdkCodingKey("image"))
+        try keyedContainer.encode(self.size, forKey: SdkCodingKey("size"))
+        try keyedContainer.encode(self.runnerGroupId, forKey: SdkCodingKey("runner_group_id"))
+        try keyedContainer.encodeIfPresent(self.maximumRunners, forKey: SdkCodingKey("maximum_runners"))
+        try keyedContainer.encodeIfPresent(self.enableStaticIp, forKey: SdkCodingKey("enable_static_ip"))
+        try keyedContainer.encodeIfPresent(self.imageGen, forKey: SdkCodingKey("image_gen"))
+    }
+
+    init(options: ActionsMethods.ActionsCreateHostedRunnerForOrgOptions) {
+        self.name = options.name
+        self.image = options.image
+        self.size = options.size
+        self.runnerGroupId = options.runnerGroupId
+        self.maximumRunners = options.maximumRunners
+        self.enableStaticIp = options.enableStaticIp
+        self.imageGen = options.imageGen
     }
 }

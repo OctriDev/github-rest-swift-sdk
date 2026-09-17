@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// RuleSuite domain models
+// RuleSuite domain models
 /// Metadata for a pull request rule evaluation result.
 public struct RuleSuitePullRequest: Codable {
     /// The pull request associated with the rule evaluation.
@@ -14,19 +14,19 @@ public struct RuleSuitePullRequest: Codable {
     }
 
     init() {
-        pullRequest = nil
+        self.pullRequest = nil
     }
 }
 
-public extension RuleSuitePullRequest {
-    init(from decoder: Decoder) throws {
+extension RuleSuitePullRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        pullRequest = try container.sdkDecodeIfPresent(.pullRequest)
+        self.pullRequest = try container.sdkDecodeIfPresent(.pullRequest)
     }
 }
 
-public extension RuleSuitePullRequest {
-    init(pullRequest: RuleSuitePullRequestPullRequest? = nil) {
+extension RuleSuitePullRequest {
+    public init(pullRequest: RuleSuitePullRequestPullRequest? = nil) {
         self.init()
         self.pullRequest = pullRequest
     }
@@ -51,27 +51,22 @@ public struct RuleSuitePullRequestPullRequest: Codable {
     }
 
     init() {
-        (id, number, user, reviews) = (nil, nil, nil, nil)
+        (self.id, self.number, self.user, self.reviews) = (nil, nil, nil, nil)
     }
 }
 
-public extension RuleSuitePullRequestPullRequest {
-    init(from decoder: Decoder) throws {
+extension RuleSuitePullRequestPullRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        number = try container.sdkDecodeIfPresent(.number)
-        user = try container.sdkDecodeIfPresent(.user)
-        reviews = try container.sdkDecodeIfPresent(.reviews)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.number = try container.sdkDecodeIfPresent(.number)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        self.reviews = try container.sdkDecodeIfPresent(.reviews)
     }
 }
 
-public extension RuleSuitePullRequestPullRequest {
-    init(
-        id: Int? = nil,
-        number: Int? = nil,
-        user: RuleSuitePullRequestPullRequestUser? = nil,
-        reviews: [RuleSuitePullRequestPullRequestReviewsItem]? = nil
-    ) {
+extension RuleSuitePullRequestPullRequest {
+    public init(id: Int? = nil, number: Int? = nil, user: RuleSuitePullRequestPullRequestUser? = nil, reviews: [RuleSuitePullRequestPullRequestReviewsItem]? = nil) {
         self.init()
         (self.id, self.number) = (id, number)
         (self.user, self.reviews) = (user, reviews)
@@ -94,21 +89,21 @@ public struct RuleSuitePullRequestPullRequestReviewsItem: Codable {
     }
 
     init() {
-        (id, user, state) = (nil, nil, nil)
+        (self.id, self.user, self.state) = (nil, nil, nil)
     }
 }
 
-public extension RuleSuitePullRequestPullRequestReviewsItem {
-    init(from decoder: Decoder) throws {
+extension RuleSuitePullRequestPullRequestReviewsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        user = try container.sdkDecodeIfPresent(.user)
-        state = try container.sdkDecodeIfPresent(.state)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        self.state = try container.sdkDecodeIfPresent(.state)
     }
 }
 
-public extension RuleSuitePullRequestPullRequestReviewsItem {
-    init(id: Int? = nil, user: RuleSuitePullRequestPullRequestReviewsItemUser? = nil, state: String? = nil) {
+extension RuleSuitePullRequestPullRequestReviewsItem {
+    public init(id: Int? = nil, user: RuleSuitePullRequestPullRequestReviewsItemUser? = nil, state: String? = nil) {
         self.init()
         (self.id, self.user) = (id, user)
         self.state = state
@@ -131,21 +126,21 @@ public struct RuleSuitePullRequestPullRequestReviewsItemUser: Codable {
     }
 
     init() {
-        (id, login, type) = (nil, nil, nil)
+        (self.id, self.login, self.type) = (nil, nil, nil)
     }
 }
 
-public extension RuleSuitePullRequestPullRequestReviewsItemUser {
-    init(from decoder: Decoder) throws {
+extension RuleSuitePullRequestPullRequestReviewsItemUser {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        login = try container.sdkDecodeIfPresent(.login)
-        type = try container.sdkDecodeIfPresent(.type)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.login = try container.sdkDecodeIfPresent(.login)
+        self.type = try container.sdkDecodeIfPresent(.type)
     }
 }
 
-public extension RuleSuitePullRequestPullRequestReviewsItemUser {
-    init(id: Int? = nil, login: String? = nil, type: String? = nil) {
+extension RuleSuitePullRequestPullRequestReviewsItemUser {
+    public init(id: Int? = nil, login: String? = nil, type: String? = nil) {
         self.init()
         (self.id, self.login) = (id, login)
         self.type = type
@@ -168,21 +163,21 @@ public struct RuleSuitePullRequestPullRequestUser: Codable {
     }
 
     init() {
-        (id, login, type) = (nil, nil, nil)
+        (self.id, self.login, self.type) = (nil, nil, nil)
     }
 }
 
-public extension RuleSuitePullRequestPullRequestUser {
-    init(from decoder: Decoder) throws {
+extension RuleSuitePullRequestPullRequestUser {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        login = try container.sdkDecodeIfPresent(.login)
-        type = try container.sdkDecodeIfPresent(.type)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.login = try container.sdkDecodeIfPresent(.login)
+        self.type = try container.sdkDecodeIfPresent(.type)
     }
 }
 
-public extension RuleSuitePullRequestPullRequestUser {
-    init(id: Int? = nil, login: String? = nil, type: String? = nil) {
+extension RuleSuitePullRequestPullRequestUser {
+    public init(id: Int? = nil, login: String? = nil, type: String? = nil) {
         self.init()
         (self.id, self.login) = (id, login)
         self.type = type
@@ -199,19 +194,19 @@ public struct RuleSuiteRequiredStatusChecks: Codable {
     }
 
     init() {
-        checks = nil
+        self.checks = nil
     }
 }
 
-public extension RuleSuiteRequiredStatusChecks {
-    init(from decoder: Decoder) throws {
+extension RuleSuiteRequiredStatusChecks {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        checks = try container.sdkDecodeIfPresent(.checks)
+        self.checks = try container.sdkDecodeIfPresent(.checks)
     }
 }
 
-public extension RuleSuiteRequiredStatusChecks {
-    init(checks: [RuleSuiteRequiredStatusChecksChecksItem]? = nil) {
+extension RuleSuiteRequiredStatusChecks {
+    public init(checks: [RuleSuiteRequiredStatusChecksChecksItem]? = nil) {
         self.init()
         self.checks = checks
     }
@@ -239,29 +234,23 @@ public struct RuleSuiteRequiredStatusChecksChecksItem: Codable {
     }
 
     init() {
-        (id, context, state, type, app) = (nil, nil, nil, nil, nil)
+        (self.id, self.context, self.state, self.type, self.app) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension RuleSuiteRequiredStatusChecksChecksItem {
-    init(from decoder: Decoder) throws {
+extension RuleSuiteRequiredStatusChecksChecksItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        context = try container.sdkDecodeIfPresent(.context)
-        state = try container.sdkDecodeIfPresent(.state)
-        type = try container.sdkDecodeIfPresent(.type)
-        app = try container.sdkDecodeIfPresent(.app)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.context = try container.sdkDecodeIfPresent(.context)
+        self.state = try container.sdkDecodeIfPresent(.state)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.app = try container.sdkDecodeIfPresent(.app)
     }
 }
 
-public extension RuleSuiteRequiredStatusChecksChecksItem {
-    init(
-        id: Int? = nil,
-        context: String? = nil,
-        state: String? = nil,
-        type: String? = nil,
-        app: RuleSuiteRequiredStatusChecksChecksItemApp? = nil
-    ) {
+extension RuleSuiteRequiredStatusChecksChecksItem {
+    public init(id: Int? = nil, context: String? = nil, state: String? = nil, type: String? = nil, app: RuleSuiteRequiredStatusChecksChecksItemApp? = nil) {
         self.init()
         (self.id, self.context) = (id, context)
         (self.state, self.type) = (state, type)
@@ -285,21 +274,21 @@ public struct RuleSuiteRequiredStatusChecksChecksItemApp: Codable {
     }
 
     init() {
-        (id, slug, name) = (nil, nil, nil)
+        (self.id, self.slug, self.name) = (nil, nil, nil)
     }
 }
 
-public extension RuleSuiteRequiredStatusChecksChecksItemApp {
-    init(from decoder: Decoder) throws {
+extension RuleSuiteRequiredStatusChecksChecksItemApp {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        slug = try container.sdkDecodeIfPresent(.slug)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.slug = try container.sdkDecodeIfPresent(.slug)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension RuleSuiteRequiredStatusChecksChecksItemApp {
-    init(id: Int? = nil, slug: String? = nil, name: String? = nil) {
+extension RuleSuiteRequiredStatusChecksChecksItemApp {
+    public init(id: Int? = nil, slug: String? = nil, name: String? = nil) {
         self.init()
         (self.id, self.slug) = (id, slug)
         self.name = name

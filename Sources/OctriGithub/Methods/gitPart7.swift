@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension GitMethods {
-    /// Deletes a Git reference from a repository. Supply `owner`, `repo`, and `ref` to identify the repository and
-    /// reference, but do not target the repository's default branch. A successful 204 response contains no response
-    /// body.
+extension GitMethods {
+    /// Deletes a Git reference from a repository. Supply `owner`, `repo`, and `ref` to identify the repository and reference, but do not target the repository's default branch. A successful 204 response contains no response body.
     ///
     /// Deletes the provided reference.
     ///
@@ -21,25 +19,7 @@ public extension GitMethods {
     /// - ref: The Git reference. For more information, see "[Git
     ///   References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in
     ///   the Git documentation.
-    static func gitDeleteRef(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        ref: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/git/refs/",
-                sdkEncodePathSegment(sdkWireString(ref)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "gitDeleteRef"
-        )).data
+    public static func gitDeleteRef(config: ClientConfig, owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/refs/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, decoder: .empty, operationId: "gitDeleteRef")).data
     }
 }

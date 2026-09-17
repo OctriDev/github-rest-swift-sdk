@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ProjectsMethods {
-    struct ProjectsCreateViewForUserOptions: Codable {
+extension ProjectsMethods {
+    public struct ProjectsCreateViewForUserOptions: Codable {
         public var userId: String
         public var projectNumber: Int
         public var name: String
@@ -18,12 +18,7 @@ public extension ProjectsMethods {
         public var groupBy: [Int]?
         public var verticalGroupBy: [Int]?
 
-        public init(
-            userId: String,
-            projectNumber: Int,
-            name: String,
-            layout: ProjectsCreateViewForUserRequestBodyLayout
-        ) {
+        public init(userId: String, projectNumber: Int, name: String, layout: ProjectsCreateViewForUserRequestBodyLayout) {
             self.userId = userId
             self.projectNumber = projectNumber
             self.name = name
@@ -33,8 +28,7 @@ public extension ProjectsMethods {
 
     /// Create a view for a user-owned project
     ///
-    /// Create a new view in a user-owned project. Views allow you to customize how items in a project are displayed and
-    /// filtered.
+    /// Create a new view in a user-owned project. Views allow you to customize how items in a project are displayed and filtered.
     ///
     /// - Parameters:
     /// - userId: The unique identifier of the user.
@@ -59,10 +53,7 @@ public extension ProjectsMethods {
     ///   (vertical grouping). Supports a single field. The field must support
     ///   grouping; fields such as `Title`, `Reviewers`, `Linked pull requests`,
     ///   `Sub-issues progress`, `Tracked by`, and `Tracks` cannot be grouped on.
-    static func projectsCreateViewForUser(
-        config: ClientConfig,
-        options: ProjectsCreateViewForUserOptions
-    ) async throws -> ProjectsV2View {
+    public static func projectsCreateViewForUser(config: ClientConfig, options: ProjectsCreateViewForUserOptions) async throws -> ProjectsV2View {
         if let groupBy = options.groupBy {
             try validateItems("group_by", groupBy, max: 1)
         }
@@ -73,19 +64,6 @@ public extension ProjectsMethods {
 
         let requestBody = ProjectsCreateViewForUserRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(options.userId)),
-                "/projectsV2/",
-                sdkEncodePathSegment(sdkWireString(options.projectNumber)),
-                "/views",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "projectsCreateViewForUser"
-        )).data
+        return try (await sdkRequest("POST", ["/users/", sdkEncodePathSegment(sdkWireString(options.userId)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(options.projectNumber)), "/views"].joined(), config: config, body: requestBody, decoder: .json, operationId: "projectsCreateViewForUser")).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// IssuesIssue domain models
+// IssuesIssue domain models
 public enum IssueEventForIssue {
     case labeledIssueEvent(LabeledIssueEvent)
     case unlabeledIssueEvent(UnlabeledIssueEvent)
@@ -34,136 +34,57 @@ public enum IssueEventForIssue {
 }
 
 extension IssueEventForIssue: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        if let value = Self.decodeGroup2(from: container) {
-            self = value; return
-        }
-        if let value = Self.decodeGroup3(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for IssueEventForIssue"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        if let value = Self.decodeGroup2(from: container) { self = value; return }
+        if let value = Self.decodeGroup3(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for IssueEventForIssue")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(LabeledIssueEvent.self) {
-            return .labeledIssueEvent(value)
-        }
-        if let value = try? container.decode(UnlabeledIssueEvent.self) {
-            return .unlabeledIssueEvent(value)
-        }
-        if let value = try? container.decode(AssignedIssueEvent.self) {
-            return .assignedIssueEvent(value)
-        }
-        if let value = try? container.decode(UnassignedIssueEvent.self) {
-            return .unassignedIssueEvent(value)
-        }
-        if let value = try? container.decode(MilestonedIssueEvent.self) {
-            return .milestonedIssueEvent(value)
-        }
-        if let value = try? container.decode(DemilestonedIssueEvent.self) {
-            return .demilestonedIssueEvent(value)
-        }
-        if let value = try? container.decode(RenamedIssueEvent.self) {
-            return .renamedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(ReviewRequestedIssueEvent.self) {
-            return .reviewRequestedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(ReviewRequestRemovedIssueEvent.self) {
-            return .reviewRequestRemovedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(ReviewDismissedIssueEvent.self) {
-            return .reviewDismissedIssueEvent(value)
-        }
-        if let value = try? container.decode(LockedIssueEvent.self) {
-            return .lockedIssueEvent(value)
-        }
-        if let value = try? container.decode(AddedToProjectIssueEvent.self) {
-            return .addedToProjectIssueEvent(value)
-        }
+        if let value = try? container.decode(LabeledIssueEvent.self) { return .labeledIssueEvent(value) }
+        if let value = try? container.decode(UnlabeledIssueEvent.self) { return .unlabeledIssueEvent(value) }
+        if let value = try? container.decode(AssignedIssueEvent.self) { return .assignedIssueEvent(value) }
+        if let value = try? container.decode(UnassignedIssueEvent.self) { return .unassignedIssueEvent(value) }
+        if let value = try? container.decode(MilestonedIssueEvent.self) { return .milestonedIssueEvent(value) }
+        if let value = try? container.decode(DemilestonedIssueEvent.self) { return .demilestonedIssueEvent(value) }
+        if let value = try? container.decode(RenamedIssueEvent.self) { return .renamedIssueEvent(value) }
+        if let value = try? container.decode(ReviewRequestedIssueEvent.self) { return .reviewRequestedIssueEvent(value) }
+        if let value = try? container.decode(ReviewRequestRemovedIssueEvent.self) { return .reviewRequestRemovedIssueEvent(value) }
+        if let value = try? container.decode(ReviewDismissedIssueEvent.self) { return .reviewDismissedIssueEvent(value) }
+        if let value = try? container.decode(LockedIssueEvent.self) { return .lockedIssueEvent(value) }
+        if let value = try? container.decode(AddedToProjectIssueEvent.self) { return .addedToProjectIssueEvent(value) }
         return nil
     }
 
     private static func decodeGroup2(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container
-            .decode(MovedColumnInProjectIssueEvent.self) {
-            return .movedColumnInProjectIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(RemovedFromProjectIssueEvent.self) {
-            return .removedFromProjectIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(ConvertedNoteToIssueIssueEvent.self) {
-            return .convertedNoteToIssueIssueEvent(value)
-        }
-        if let value = try? container.decode(IssueTypeAddedIssueEvent.self) {
-            return .issueTypeAddedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(IssueTypeRemovedIssueEvent.self) {
-            return .issueTypeRemovedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(IssueTypeChangedIssueEvent.self) {
-            return .issueTypeChangedIssueEvent(value)
-        }
-        if let value = try? container.decode(SubIssueAddedIssueEvent.self) {
-            return .subIssueAddedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(SubIssueRemovedIssueEvent.self) {
-            return .subIssueRemovedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(ParentIssueAddedIssueEvent.self) {
-            return .parentIssueAddedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(ParentIssueRemovedIssueEvent.self) {
-            return .parentIssueRemovedIssueEvent(value)
-        }
-        if let value = try? container.decode(BlockedByAddedIssueEvent.self) {
-            return .blockedByAddedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(BlockedByRemovedIssueEvent.self) {
-            return .blockedByRemovedIssueEvent(value)
-        }
+        if let value = try? container.decode(MovedColumnInProjectIssueEvent.self) { return .movedColumnInProjectIssueEvent(value) }
+        if let value = try? container.decode(RemovedFromProjectIssueEvent.self) { return .removedFromProjectIssueEvent(value) }
+        if let value = try? container.decode(ConvertedNoteToIssueIssueEvent.self) { return .convertedNoteToIssueIssueEvent(value) }
+        if let value = try? container.decode(IssueTypeAddedIssueEvent.self) { return .issueTypeAddedIssueEvent(value) }
+        if let value = try? container.decode(IssueTypeRemovedIssueEvent.self) { return .issueTypeRemovedIssueEvent(value) }
+        if let value = try? container.decode(IssueTypeChangedIssueEvent.self) { return .issueTypeChangedIssueEvent(value) }
+        if let value = try? container.decode(SubIssueAddedIssueEvent.self) { return .subIssueAddedIssueEvent(value) }
+        if let value = try? container.decode(SubIssueRemovedIssueEvent.self) { return .subIssueRemovedIssueEvent(value) }
+        if let value = try? container.decode(ParentIssueAddedIssueEvent.self) { return .parentIssueAddedIssueEvent(value) }
+        if let value = try? container.decode(ParentIssueRemovedIssueEvent.self) { return .parentIssueRemovedIssueEvent(value) }
+        if let value = try? container.decode(BlockedByAddedIssueEvent.self) { return .blockedByAddedIssueEvent(value) }
+        if let value = try? container.decode(BlockedByRemovedIssueEvent.self) { return .blockedByRemovedIssueEvent(value) }
         return nil
     }
 
     private static func decodeGroup3(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(BlockingAddedIssueEvent.self) {
-            return .blockingAddedIssueEvent(value)
-        }
-        if let value = try? container
-            .decode(BlockingRemovedIssueEvent.self) {
-            return .blockingRemovedIssueEvent(value)
-        }
+        if let value = try? container.decode(BlockingAddedIssueEvent.self) { return .blockingAddedIssueEvent(value) }
+        if let value = try? container.decode(BlockingRemovedIssueEvent.self) { return .blockingRemovedIssueEvent(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
-        if try encodeGroup2(to: encoder) {
-            return
-        }
-        if try encodeGroup3(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup2(to: encoder) { return }
+        if try encodeGroup3(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -212,6 +133,7 @@ extension IssueEventForIssue: Codable {
         default: return false
         }
     }
+
 }
 
 /// Issue Event
@@ -325,80 +247,48 @@ public struct IssueEvent: Codable {
         case performedViaGithubApp = "performed_via_github_app"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueEvent {
-    init(from decoder: Decoder) throws {
+extension IssueEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        actor = try container.sdkDecodeIfPresent(.actor)
-        event = try container.sdkDecodeRequired(.event)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        issue = try container.sdkDecodeIfPresent(.issue)
-        label = try container.sdkDecodeIfPresent(.label)
-        assignee = try container.sdkDecodeIfPresent(.assignee)
-        assigner = try container.sdkDecodeIfPresent(.assigner)
-        reviewRequester = try container.sdkDecodeIfPresent(.reviewRequester)
-        requestedReviewer = try container.sdkDecodeIfPresent(.requestedReviewer)
-        requestedTeam = try container.sdkDecodeIfPresent(.requestedTeam)
-        dismissedReview = try container.sdkDecodeIfPresent(.dismissedReview)
-        milestone = try container.sdkDecodeIfPresent(.milestone)
-        projectCard = try container.sdkDecodeIfPresent(.projectCard)
-        rename = try container.sdkDecodeIfPresent(.rename)
-        issueType = try container.sdkDecodeIfPresent(.issueType)
-        prevIssueType = try container.sdkDecodeIfPresent(.prevIssueType)
-        subIssue = try container.sdkDecodeIfPresent(.subIssue)
-        parentIssue = try container.sdkDecodeIfPresent(.parentIssue)
-        blockedBy = try container.sdkDecodeIfPresent(.blockedBy)
-        blocking = try container.sdkDecodeIfPresent(.blocking)
-        intent = try container.sdkDecodeIfPresent(.intent)
-        authorAssociation = try container.sdkDecodeIfPresent(.authorAssociation)
-        lockReason = try container.sdkDecodeIfPresent(.lockReason)
-        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        try sdkValidateUri("url", url)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.actor = try container.sdkDecodeIfPresent(.actor)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.issue = try container.sdkDecodeIfPresent(.issue)
+        self.label = try container.sdkDecodeIfPresent(.label)
+        self.assignee = try container.sdkDecodeIfPresent(.assignee)
+        self.assigner = try container.sdkDecodeIfPresent(.assigner)
+        self.reviewRequester = try container.sdkDecodeIfPresent(.reviewRequester)
+        self.requestedReviewer = try container.sdkDecodeIfPresent(.requestedReviewer)
+        self.requestedTeam = try container.sdkDecodeIfPresent(.requestedTeam)
+        self.dismissedReview = try container.sdkDecodeIfPresent(.dismissedReview)
+        self.milestone = try container.sdkDecodeIfPresent(.milestone)
+        self.projectCard = try container.sdkDecodeIfPresent(.projectCard)
+        self.rename = try container.sdkDecodeIfPresent(.rename)
+        self.issueType = try container.sdkDecodeIfPresent(.issueType)
+        self.prevIssueType = try container.sdkDecodeIfPresent(.prevIssueType)
+        self.subIssue = try container.sdkDecodeIfPresent(.subIssue)
+        self.parentIssue = try container.sdkDecodeIfPresent(.parentIssue)
+        self.blockedBy = try container.sdkDecodeIfPresent(.blockedBy)
+        self.blocking = try container.sdkDecodeIfPresent(.blocking)
+        self.intent = try container.sdkDecodeIfPresent(.intent)
+        self.authorAssociation = try container.sdkDecodeIfPresent(.authorAssociation)
+        self.lockReason = try container.sdkDecodeIfPresent(.lockReason)
+        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
-public extension IssueEvent {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        actor: NullableSimpleUser?,
-        event: String,
-        commitId: String?,
-        commitUrl: String?,
-        createdAt: Date,
-        issue: NullableIssue? = nil,
-        label: IssueEventLabel? = nil,
-        assignee: NullableSimpleUser? = nil,
-        assigner: NullableSimpleUser? = nil,
-        reviewRequester: NullableSimpleUser? = nil,
-        requestedReviewer: NullableSimpleUser? = nil,
-        requestedTeam: Team? = nil,
-        dismissedReview: IssueEventDismissedReview? = nil,
-        milestone: IssueEventMilestone? = nil,
-        projectCard: IssueEventProjectCard? = nil,
-        rename: IssueEventRename? = nil,
-        issueType: IssueTypeWebhook? = nil,
-        prevIssueType: IssueTypeWebhook? = nil,
-        subIssue: NullableIssueReference? = nil,
-        parentIssue: NullableIssueReference? = nil,
-        blockedBy: NullableIssueReference? = nil,
-        blocking: NullableIssueReference? = nil,
-        intent: NullableIssueEventIntent? = nil,
-        authorAssociation: AuthorAssociation? = nil,
-        lockReason: String? = nil,
-        performedViaGithubApp: NullableIntegration? = nil
-    ) throws {
+extension IssueEvent {
+    public init(id: Int, nodeId: String, url: String, actor: NullableSimpleUser?, event: String, commitId: String?, commitUrl: String?, createdAt: Date, issue: NullableIssue? = nil, label: IssueEventLabel? = nil, assignee: NullableSimpleUser? = nil, assigner: NullableSimpleUser? = nil, reviewRequester: NullableSimpleUser? = nil, requestedReviewer: NullableSimpleUser? = nil, requestedTeam: Team? = nil, dismissedReview: IssueEventDismissedReview? = nil, milestone: IssueEventMilestone? = nil, projectCard: IssueEventProjectCard? = nil, rename: IssueEventRename? = nil, issueType: IssueTypeWebhook? = nil, prevIssueType: IssueTypeWebhook? = nil, subIssue: NullableIssueReference? = nil, parentIssue: NullableIssueReference? = nil, blockedBy: NullableIssueReference? = nil, blocking: NullableIssueReference? = nil, intent: NullableIssueEventIntent? = nil, authorAssociation: AuthorAssociation? = nil, lockReason: String? = nil, performedViaGithubApp: NullableIntegration? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -414,8 +304,8 @@ public extension IssueEvent {
         (self.blocking, self.intent) = (blocking, intent)
         (self.authorAssociation, self.lockReason) = (authorAssociation, lockReason)
         self.performedViaGithubApp = performedViaGithubApp
-        try sdkValidateUri("url", self.url)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
@@ -437,44 +327,30 @@ public struct IssueEventDismissedReview: Codable {
         case dismissalCommitId = "dismissal_commit_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueEventDismissedReview {
-    init(from decoder: Decoder) throws {
+extension IssueEventDismissedReview {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.state) else {
-            throw SdkValidationError(
-                field: "state",
-                code: "required",
-                message: "Validation failed for 'state': value is required"
-            )
+            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
         }
         guard container.contains(.reviewId) else {
-            throw SdkValidationError(
-                field: "review_id",
-                code: "required",
-                message: "Validation failed for 'review_id': value is required"
-            )
+            throw SdkValidationError(field: "review_id", code: "required", message: "Validation failed for 'review_id': value is required")
         }
         guard container.contains(.dismissalMessage) else {
-            throw SdkValidationError(
-                field: "dismissal_message",
-                code: "required",
-                message: "Validation failed for 'dismissal_message': value is required"
-            )
+            throw SdkValidationError(field: "dismissal_message", code: "required", message: "Validation failed for 'dismissal_message': value is required")
         }
-        state = try container.sdkDecodeRequired(.state)
-        reviewId = try container.sdkDecodeRequired(.reviewId)
-        dismissalMessage = try container.sdkDecodeIfPresent(.dismissalMessage)
-        dismissalCommitId = try container.sdkDecodeIfPresent(.dismissalCommitId)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.reviewId = try container.sdkDecodeRequired(.reviewId)
+        self.dismissalMessage = try container.sdkDecodeIfPresent(.dismissalMessage)
+        self.dismissalCommitId = try container.sdkDecodeIfPresent(.dismissalCommitId)
     }
 }
 
-public extension IssueEventDismissedReview {
-    init(state: String, reviewId: Int, dismissalMessage: String?, dismissalCommitId: String? = nil) {
+extension IssueEventDismissedReview {
+    public init(state: String, reviewId: Int, dismissalMessage: String?, dismissalCommitId: String? = nil) {
         (self.state, self.reviewId) = (state, reviewId)
         (self.dismissalMessage, self.dismissalCommitId) = (dismissalMessage, dismissalCommitId)
     }
@@ -492,35 +368,25 @@ public struct IssueEventLabel: Codable {
         case color
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueEventLabel {
-    init(from decoder: Decoder) throws {
+extension IssueEventLabel {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.color) else {
-            throw SdkValidationError(
-                field: "color",
-                code: "required",
-                message: "Validation failed for 'color': value is required"
-            )
+            throw SdkValidationError(field: "color", code: "required", message: "Validation failed for 'color': value is required")
         }
-        name = try container.sdkDecodeIfPresent(.name)
-        color = try container.sdkDecodeIfPresent(.color)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.color = try container.sdkDecodeIfPresent(.color)
     }
 }
 
-public extension IssueEventLabel {
-    init(name: String?, color: String?) {
+extension IssueEventLabel {
+    public init(name: String?, color: String?) {
         (self.name, self.color) = (name, color)
     }
 }
@@ -534,27 +400,21 @@ public struct IssueEventMilestone: Codable {
         case title
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueEventMilestone {
-    init(from decoder: Decoder) throws {
+extension IssueEventMilestone {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.title) else {
-            throw SdkValidationError(
-                field: "title",
-                code: "required",
-                message: "Validation failed for 'title': value is required"
-            )
+            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
         }
-        title = try container.sdkDecodeRequired(.title)
+        self.title = try container.sdkDecodeRequired(.title)
     }
 }
 
-public extension IssueEventMilestone {
-    init(title: String) {
+extension IssueEventMilestone {
+    public init(title: String) {
         self.title = title
     }
 }
@@ -583,74 +443,45 @@ public struct IssueEventProjectCard: Codable {
         case previousColumnName = "previous_column_name"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension IssueEventProjectCard {
-    init(from decoder: Decoder) throws {
+extension IssueEventProjectCard {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.projectUrl) else {
-            throw SdkValidationError(
-                field: "project_url",
-                code: "required",
-                message: "Validation failed for 'project_url': value is required"
-            )
+            throw SdkValidationError(field: "project_url", code: "required", message: "Validation failed for 'project_url': value is required")
         }
         guard container.contains(.projectId) else {
-            throw SdkValidationError(
-                field: "project_id",
-                code: "required",
-                message: "Validation failed for 'project_id': value is required"
-            )
+            throw SdkValidationError(field: "project_id", code: "required", message: "Validation failed for 'project_id': value is required")
         }
         guard container.contains(.columnName) else {
-            throw SdkValidationError(
-                field: "column_name",
-                code: "required",
-                message: "Validation failed for 'column_name': value is required"
-            )
+            throw SdkValidationError(field: "column_name", code: "required", message: "Validation failed for 'column_name': value is required")
         }
-        url = try container.sdkDecodeRequired(.url)
-        id = try container.sdkDecodeRequired(.id)
-        projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        projectId = try container.sdkDecodeRequired(.projectId)
-        columnName = try container.sdkDecodeRequired(.columnName)
-        previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("project_url", projectUrl)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        self.projectId = try container.sdkDecodeRequired(.projectId)
+        self.columnName = try container.sdkDecodeRequired(.columnName)
+        self.previousColumnName = try container.sdkDecodeIfPresent(.previousColumnName)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
-public extension IssueEventProjectCard {
-    init(
-        url: String,
-        id: Int,
-        projectUrl: String,
-        projectId: Int,
-        columnName: String,
-        previousColumnName: String? = nil
-    ) throws {
+extension IssueEventProjectCard {
+    public init(url: String, id: Int, projectUrl: String, projectId: Int, columnName: String, previousColumnName: String? = nil) throws {
         (self.url, self.id) = (url, id)
         (self.projectUrl, self.projectId) = (projectUrl, projectId)
         (self.columnName, self.previousColumnName) = (columnName, previousColumnName)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("project_url", self.projectUrl)
     }
 }
 
@@ -666,7 +497,5 @@ public struct IssueEventRename: Codable {
         case to
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

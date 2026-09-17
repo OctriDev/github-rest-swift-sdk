@@ -3,20 +3,17 @@
 
 import Foundation
 
-/// Billing domain models
+// Billing domain models
 /// Required enumerated value serialized in the `budget_type` wire field.
 public struct GetBudgetBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let productPricing = GetBudgetBudgetTypeVariant0(rawValue: "ProductPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,10 +26,7 @@ public struct GetBudgetBudgetTypeVariant0: RawRepresentable, Hashable, Codable, 
 public struct BudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enterprise = BudgetBudgetScope(rawValue: "enterprise")
     public static let organization = BudgetBudgetScope(rawValue: "organization")
     public static let repository = BudgetBudgetScope(rawValue: "repository")
@@ -43,7 +37,7 @@ public struct BudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -56,15 +50,12 @@ public struct BudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendable, 
 public struct GetBudgetBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let skuPricing = GetBudgetBudgetTypeVariant1(rawValue: "SkuPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,15 +68,12 @@ public struct GetBudgetBudgetTypeVariant1: RawRepresentable, Hashable, Codable, 
 public struct CreateBudgetBudgetBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let productPricing = CreateBudgetBudgetBudgetTypeVariant0(rawValue: "ProductPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -98,15 +86,12 @@ public struct CreateBudgetBudgetBudgetTypeVariant0: RawRepresentable, Hashable, 
 public struct UpdateBudgetBudgetBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let skuPricing = UpdateBudgetBudgetBudgetTypeVariant1(rawValue: "SkuPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -119,10 +104,7 @@ public struct UpdateBudgetBudgetBudgetTypeVariant1: RawRepresentable, Hashable, 
 public struct GetBudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enterprise = GetBudgetBudgetScope(rawValue: "enterprise")
     public static let organization = GetBudgetBudgetScope(rawValue: "organization")
     public static let repository = GetBudgetBudgetScope(rawValue: "repository")
@@ -133,7 +115,7 @@ public struct GetBudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -146,15 +128,12 @@ public struct GetBudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendabl
 public struct BudgetBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let productPricing = BudgetBudgetTypeVariant1(rawValue: "ProductPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -167,15 +146,12 @@ public struct BudgetBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sen
 public struct CreateBudgetBudgetBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let skuPricing = CreateBudgetBudgetBudgetTypeVariant1(rawValue: "SkuPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -188,10 +164,7 @@ public struct CreateBudgetBudgetBudgetTypeVariant1: RawRepresentable, Hashable, 
 public struct CreateBudgetBudgetBudgetScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enterprise = CreateBudgetBudgetBudgetScope(rawValue: "enterprise")
     public static let organization = CreateBudgetBudgetBudgetScope(rawValue: "organization")
     public static let repository = CreateBudgetBudgetBudgetScope(rawValue: "repository")
@@ -202,7 +175,7 @@ public struct CreateBudgetBudgetBudgetScope: RawRepresentable, Hashable, Codable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -215,15 +188,12 @@ public struct CreateBudgetBudgetBudgetScope: RawRepresentable, Hashable, Codable
 public struct UpdateBudgetBudgetBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let productPricing = UpdateBudgetBudgetBudgetTypeVariant0(rawValue: "ProductPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -236,15 +206,12 @@ public struct UpdateBudgetBudgetBudgetTypeVariant0: RawRepresentable, Hashable, 
 public struct BudgetBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let skuPricing = BudgetBudgetTypeVariant0(rawValue: "SkuPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

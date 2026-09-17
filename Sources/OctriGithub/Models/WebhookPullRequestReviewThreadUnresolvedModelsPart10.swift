@@ -3,9 +3,9 @@
 
 import Foundation
 
-/// WebhookPullRequestReviewThreadUnresolved domain models
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksHtml {
-    init(href: String) {
+// WebhookPullRequestReviewThreadUnresolved domain models
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksHtml {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -19,27 +19,21 @@ public struct WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinXa547
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinXa547953f3f {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinXa547953f3f {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinXa547953f3f {
-    init(href: String) {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinXa547953f3f {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -53,27 +47,21 @@ public struct WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksSel
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksSelf {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksSelf {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksSelf {
-    init(href: String) {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemLinksSelf {
+    public init(href: String) {
         self.href = href
     }
 }
@@ -114,47 +102,34 @@ public struct WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemReaction
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemReactions {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemReactions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        plus1 = try container.sdkDecodeRequired(.plus1)
-        minus1 = try container.sdkDecodeRequired(.minus1)
-        confused = try container.sdkDecodeRequired(.confused)
-        eyes = try container.sdkDecodeRequired(.eyes)
-        heart = try container.sdkDecodeRequired(.heart)
-        hooray = try container.sdkDecodeRequired(.hooray)
-        laugh = try container.sdkDecodeRequired(.laugh)
-        rocket = try container.sdkDecodeRequired(.rocket)
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("url", url)
+        self.plus1 = try container.sdkDecodeRequired(.plus1)
+        self.minus1 = try container.sdkDecodeRequired(.minus1)
+        self.confused = try container.sdkDecodeRequired(.confused)
+        self.eyes = try container.sdkDecodeRequired(.eyes)
+        self.heart = try container.sdkDecodeRequired(.heart)
+        self.hooray = try container.sdkDecodeRequired(.hooray)
+        self.laugh = try container.sdkDecodeRequired(.laugh)
+        self.rocket = try container.sdkDecodeRequired(.rocket)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemReactions {
-    init(
-        plus1: Int,
-        minus1: Int,
-        confused: Int,
-        eyes: Int,
-        heart: Int,
-        hooray: Int,
-        laugh: Int,
-        rocket: Int,
-        totalCount: Int,
-        url: String
-    ) throws {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemReactions {
+    public init(plus1: Int, minus1: Int, confused: Int, eyes: Int, heart: Int, hooray: Int, laugh: Int, rocket: Int, totalCount: Int, url: String) throws {
         (self.plus1, self.minus1) = (plus1, minus1)
         (self.confused, self.eyes) = (confused, eyes)
         (self.heart, self.hooray) = (heart, hooray)
         (self.laugh, self.rocket) = (laugh, rocket)
         (self.totalCount, self.url) = (totalCount, url)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -230,79 +205,46 @@ public struct WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser: Co
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUserType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUserType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -320,48 +262,44 @@ public extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser 
 
 extension WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemUser {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
 /// The state of the milestone.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneState: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneState(rawValue: "open")
     public static let closed = WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -371,22 +309,17 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneState:
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType(rawValue: "Bot")
     public static let user = WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType(rawValue: "User")
-    public static let organization =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType(rawValue: "Organization")
+    public static let organization = WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -396,22 +329,17 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestHeadUserType: R
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreatorType: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreatorType(rawValue: "Bot")
     public static let user = WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreatorType(rawValue: "User")
-    public static let organization =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreatorType(rawValue: "Organization")
+    public static let organization = WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreatorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -421,19 +349,15 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestMilestoneCreato
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookPullRequestReviewThreadUnresolvedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let unresolved = WebhookPullRequestReviewThreadUnresolvedAction(rawValue: "unresolved")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -443,31 +367,22 @@ public struct WebhookPullRequestReviewThreadUnresolvedAction: RawRepresentable, 
 }
 
 /// How the author is associated with the repository.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let collaborator =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "COLLABORATOR")
-    public static let contributor =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "CONTRIBUTOR")
-    public static let firstTimer =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "FIRST_TIMER")
-    public static let firstTimeContributor =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "FIRST_TIME_CONTRIBUTOR")
-    public static let mannequin =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "MANNEQUIN")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let collaborator = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "COLLABORATOR")
+    public static let contributor = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "CONTRIBUTOR")
+    public static let firstTimer = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "FIRST_TIMER")
+    public static let firstTimeContributor = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "FIRST_TIME_CONTRIBUTOR")
+    public static let mannequin = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "MANNEQUIN")
     public static let member = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "MEMBER")
     public static let none = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "NONE")
     public static let owner = WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociation(rawValue: "OWNER")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -477,22 +392,17 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAuthorAssociati
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType(rawValue: "Bot")
     public static let user = WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType(rawValue: "User")
-    public static let organization =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType(rawValue: "Organization")
+    public static let organization = WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -502,23 +412,17 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestBaseUserType: R
 }
 
 /// The merge method to use.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let merge = WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod(rawValue: "merge")
-    public static let squash =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod(rawValue: "squash")
-    public static let rebase =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod(rawValue: "rebase")
+    public static let squash = WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod(rawValue: "squash")
+    public static let rebase = WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeMethod(rawValue: "rebase")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -528,22 +432,17 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAutoMergeMergeM
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType(rawValue: "Bot")
     public static let user = WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType(rawValue: "User")
-    public static let organization =
-        WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType(rawValue: "Organization")
+    public static let organization = WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -553,20 +452,16 @@ public struct WebhookPullRequestReviewThreadUnresolvedPullRequestAssigneeType: R
 }
 
 /// The side of the first line of the range for a multi-line comment.
-public struct WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemStartSide: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemStartSide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let left = WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemStartSide(rawValue: "LEFT")
     public static let right = WebhookPullRequestReviewThreadUnresolvedThreadCommentsItemStartSide(rawValue: "RIGHT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

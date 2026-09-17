@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Returns a webhook configured in a repository. To get only the webhook `config` properties, see "Get a webhook
-    /// configuration for a repository."
+extension ReposMethods {
+    /// Returns a webhook configured in a repository. To get only the webhook `config` properties, see "Get a webhook configuration for a repository."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,20 +16,7 @@ public extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func reposGetWebhook(config: ClientConfig, owner: String, repo: String, hookId: Int) async throws -> Hook {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetWebhook"
-        )).data
+    public static func reposGetWebhook(config: ClientConfig, owner: String, repo: String, hookId: Int) async throws -> Hook {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))].joined(), config: config, decoder: .json, operationId: "reposGetWebhook")).data
     }
 }

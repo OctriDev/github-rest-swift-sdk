@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Dependabot domain models
+// Dependabot domain models
 public typealias AlertAutoDismissedAt = Date
 
 /// A Dependabot alert.
@@ -64,55 +64,35 @@ public struct DependabotAlert: Codable {
         case assignees
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependabotAlert {
-    init(from decoder: Decoder) throws {
+extension DependabotAlert {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        number = try container.sdkDecodeRequired(.number)
-        state = try container.sdkDecodeRequired(.state)
-        dependency = try container.sdkDecodeRequired(.dependency)
-        securityAdvisory = try container.sdkDecodeRequired(.securityAdvisory)
-        securityVulnerability = try container.sdkDecodeRequired(.securityVulnerability)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
-        dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
-        dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
-        dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
-        fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
-        autoDismissedAt = try container.sdkDecodeIfPresent(.autoDismissedAt)
-        dismissalRequest = try container.sdkDecodeIfPresent(.dismissalRequest)
-        assignees = try container.sdkDecodeIfPresent(.assignees)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.dependency = try container.sdkDecodeRequired(.dependency)
+        self.securityAdvisory = try container.sdkDecodeRequired(.securityAdvisory)
+        self.securityVulnerability = try container.sdkDecodeRequired(.securityVulnerability)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
+        self.dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
+        self.dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
+        self.dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
+        self.fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
+        self.autoDismissedAt = try container.sdkDecodeIfPresent(.autoDismissedAt)
+        self.dismissalRequest = try container.sdkDecodeIfPresent(.dismissalRequest)
+        self.assignees = try container.sdkDecodeIfPresent(.assignees)
         try sdkValidateConstraints()
     }
 }
 
-public extension DependabotAlert {
-    init(
-        number: AlertNumber,
-        state: DependabotAlertState,
-        dependency: DependabotAlertDependency,
-        securityAdvisory: DependabotAlertSecurityAdvisory,
-        securityVulnerability: DependabotAlertSecurityVulnerability,
-        url: AlertUrl,
-        htmlUrl: AlertHtmlUrl,
-        createdAt: AlertCreatedAt,
-        updatedAt: AlertUpdatedAt,
-        dismissedAt: AlertDismissedAt?,
-        dismissedBy: NullableSimpleUser?,
-        dismissedReason: DependabotAlertDismissedReason?,
-        dismissedComment: String?,
-        fixedAt: AlertFixedAt?,
-        autoDismissedAt: AlertAutoDismissedAt? = nil,
-        dismissalRequest: DependabotAlertDismissalRequestSimple? = nil,
-        assignees: [SimpleUser]? = nil
-    ) throws {
+extension DependabotAlert {
+    public init(number: AlertNumber, state: DependabotAlertState, dependency: DependabotAlertDependency, securityAdvisory: DependabotAlertSecurityAdvisory, securityVulnerability: DependabotAlertSecurityVulnerability, url: AlertUrl, htmlUrl: AlertHtmlUrl, createdAt: AlertCreatedAt, updatedAt: AlertUpdatedAt, dismissedAt: AlertDismissedAt?, dismissedBy: NullableSimpleUser?, dismissedReason: DependabotAlertDismissedReason?, dismissedComment: String?, fixedAt: AlertFixedAt?, autoDismissedAt: AlertAutoDismissedAt? = nil, dismissalRequest: DependabotAlertDismissalRequestSimple? = nil, assignees: [SimpleUser]? = nil) throws {
         (self.number, self.state) = (number, state)
         (self.dependency, self.securityAdvisory) = (dependency, securityAdvisory)
         (self.securityVulnerability, self.url) = (securityVulnerability, url)
@@ -128,20 +108,20 @@ public extension DependabotAlert {
 
 extension DependabotAlert {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("url", sdkWireString(url))
-        try sdkValidateUri("html_url", sdkWireString(htmlUrl))
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = dismissedAt {
+            try sdkValidateUri("url", sdkWireString(self.url))
+            try sdkValidateUri("html_url", sdkWireString(self.htmlUrl))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.dismissedAt {
             try sdkValidateDateTime("dismissed_at", sdkWireString(value))
         }
-        if let value = dismissedComment {
+        if let value = self.dismissedComment {
             try validateLength("dismissed_comment", value, min: nil, max: 280)
         }
-        if let value = fixedAt {
+        if let value = self.fixedAt {
             try sdkValidateDateTime("fixed_at", sdkWireString(value))
         }
-        if let value = autoDismissedAt {
+        if let value = self.autoDismissedAt {
             try sdkValidateDateTime("auto_dismissed_at", sdkWireString(value))
         }
     }
@@ -168,27 +148,22 @@ public struct DependabotAlertDependency: Codable {
     }
 
     init() {
-        (package, manifestPath, scope, relationship) = (nil, nil, nil, nil)
+        (self.package, self.manifestPath, self.scope, self.relationship) = (nil, nil, nil, nil)
     }
 }
 
-public extension DependabotAlertDependency {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertDependency {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        package = try container.sdkDecodeIfPresent(.package)
-        manifestPath = try container.sdkDecodeIfPresent(.manifestPath)
-        scope = try container.sdkDecodeIfPresent(.scope)
-        relationship = try container.sdkDecodeIfPresent(.relationship)
+        self.package = try container.sdkDecodeIfPresent(.package)
+        self.manifestPath = try container.sdkDecodeIfPresent(.manifestPath)
+        self.scope = try container.sdkDecodeIfPresent(.scope)
+        self.relationship = try container.sdkDecodeIfPresent(.relationship)
     }
 }
 
-public extension DependabotAlertDependency {
-    init(
-        package: DependabotAlertPackage? = nil,
-        manifestPath: String? = nil,
-        scope: DependabotAlertDependencyScope? = nil,
-        relationship: DependabotAlertDependencyRelationship? = nil
-    ) {
+extension DependabotAlertDependency {
+    public init(package: DependabotAlertPackage? = nil, manifestPath: String? = nil, scope: DependabotAlertDependencyScope? = nil, relationship: DependabotAlertDependencyRelationship? = nil) {
         self.init()
         (self.package, self.manifestPath) = (package, manifestPath)
         (self.scope, self.relationship) = (scope, relationship)
@@ -217,35 +192,29 @@ public struct DependabotAlertDismissalRequestSimple: Codable {
     }
 
     init() {
-        (id, status, requester, createdAt, url) = (nil, nil, nil, nil, nil)
+        (self.id, self.status, self.requester, self.createdAt, self.url) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension DependabotAlertDismissalRequestSimple {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertDismissalRequestSimple {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        status = try container.sdkDecodeIfPresent(.status)
-        requester = try container.sdkDecodeIfPresent(.requester)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        url = try container.sdkDecodeIfPresent(.url)
-        if let value = createdAt {
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.status = try container.sdkDecodeIfPresent(.status)
+        self.requester = try container.sdkDecodeIfPresent(.requester)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
-public extension DependabotAlertDismissalRequestSimple {
-    init(
-        id: Int? = nil,
-        status: DependabotAlertDismissalRequestSimpleStatus? = nil,
-        requester: DependabotAlertDismissalRequestSimpleRequester? = nil,
-        createdAt: Date? = nil,
-        url: String? = nil
-    ) throws {
+extension DependabotAlertDismissalRequestSimple {
+    public init(id: Int? = nil, status: DependabotAlertDismissalRequestSimpleStatus? = nil, requester: DependabotAlertDismissalRequestSimpleRequester? = nil, createdAt: Date? = nil, url: String? = nil) throws {
         self.init()
         (self.id, self.status) = (id, status)
         (self.requester, self.createdAt) = (requester, createdAt)
@@ -272,20 +241,20 @@ public struct DependabotAlertDismissalRequestSimpleRequester: Codable {
     }
 
     init() {
-        (id, login) = (nil, nil)
+        (self.id, self.login) = (nil, nil)
     }
 }
 
-public extension DependabotAlertDismissalRequestSimpleRequester {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertDismissalRequestSimpleRequester {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        login = try container.sdkDecodeIfPresent(.login)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.login = try container.sdkDecodeIfPresent(.login)
     }
 }
 
-public extension DependabotAlertDismissalRequestSimpleRequester {
-    init(id: Int? = nil, login: String? = nil) {
+extension DependabotAlertDismissalRequestSimpleRequester {
+    public init(id: Int? = nil, login: String? = nil) {
         self.init()
         (self.id, self.login) = (id, login)
     }
@@ -303,35 +272,25 @@ public struct DependabotAlertPackage: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependabotAlertPackage {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertPackage {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ecosystem) else {
-            throw SdkValidationError(
-                field: "ecosystem",
-                code: "required",
-                message: "Validation failed for 'ecosystem': value is required"
-            )
+            throw SdkValidationError(field: "ecosystem", code: "required", message: "Validation failed for 'ecosystem': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        ecosystem = try container.sdkDecodeRequired(.ecosystem)
-        name = try container.sdkDecodeRequired(.name)
+        self.ecosystem = try container.sdkDecodeRequired(.ecosystem)
+        self.name = try container.sdkDecodeRequired(.name)
     }
 }
 
-public extension DependabotAlertPackage {
-    init(ecosystem: String, name: String) {
+extension DependabotAlertPackage {
+    public init(ecosystem: String, name: String) {
         (self.ecosystem, self.name) = (ecosystem, name)
     }
 }
@@ -390,58 +349,39 @@ public struct DependabotAlertSecurityAdvisory: Codable {
         case epss
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependabotAlertSecurityAdvisory {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertSecurityAdvisory {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        ghsaId = try container.sdkDecodeRequired(.ghsaId)
-        cveId = try container.sdkDecodeIfPresent(.cveId)
-        summary = try container.sdkDecodeRequired(.summary)
-        description = try container.sdkDecodeRequired(.description)
-        vulnerabilities = try container.sdkDecodeRequired(.vulnerabilities)
-        severity = try container.sdkDecodeRequired(.severity)
-        cvss = try container.sdkDecodeRequired(.cvss)
-        cwes = try container.sdkDecodeRequired(.cwes)
-        identifiers = try container.sdkDecodeRequired(.identifiers)
-        references = try container.sdkDecodeRequired(.references)
-        publishedAt = try container.sdkDecodeRequired(.publishedAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        withdrawnAt = try container.sdkDecodeIfPresent(.withdrawnAt)
-        classification = try container.sdkDecodeIfPresent(.classification)
-        cvssSeverities = try container.sdkDecodeIfPresent(.cvssSeverities)
-        epss = try container.sdkDecodeIfPresent(.epss)
-        try validateLength("summary", summary, min: nil, max: 1024)
-        try sdkValidateDateTime("published_at", sdkWireString(publishedAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = withdrawnAt {
+        self.ghsaId = try container.sdkDecodeRequired(.ghsaId)
+        self.cveId = try container.sdkDecodeIfPresent(.cveId)
+        self.summary = try container.sdkDecodeRequired(.summary)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.vulnerabilities = try container.sdkDecodeRequired(.vulnerabilities)
+        self.severity = try container.sdkDecodeRequired(.severity)
+        self.cvss = try container.sdkDecodeRequired(.cvss)
+        self.cwes = try container.sdkDecodeRequired(.cwes)
+        self.identifiers = try container.sdkDecodeRequired(.identifiers)
+        self.references = try container.sdkDecodeRequired(.references)
+        self.publishedAt = try container.sdkDecodeRequired(.publishedAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.withdrawnAt = try container.sdkDecodeIfPresent(.withdrawnAt)
+        self.classification = try container.sdkDecodeIfPresent(.classification)
+        self.cvssSeverities = try container.sdkDecodeIfPresent(.cvssSeverities)
+        self.epss = try container.sdkDecodeIfPresent(.epss)
+            try validateLength("summary", self.summary, min: nil, max: 1024)
+            try sdkValidateDateTime("published_at", sdkWireString(self.publishedAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.withdrawnAt {
             try sdkValidateDateTime("withdrawn_at", sdkWireString(value))
         }
     }
 }
 
-public extension DependabotAlertSecurityAdvisory {
-    init(
-        ghsaId: String,
-        cveId: String?,
-        summary: String,
-        description: String,
-        vulnerabilities: [DependabotAlertSecurityVulnerability],
-        severity: DependabotAlertSecurityAdvisorySeverity,
-        cvss: DependabotAlertSecurityAdvisoryCvss,
-        cwes: [DependabotAlertSecurityAdvisoryCwesItem],
-        identifiers: [DependabotAlertSecurityAdvisoryIdentifiersItem],
-        references: [DependabotAlertSecurityAdvisoryReferencesItem],
-        publishedAt: Date,
-        updatedAt: Date,
-        withdrawnAt: Date?,
-        classification: DependabotAlertSecurityAdvisoryClassification? = nil,
-        cvssSeverities: CvssSeverities? = nil,
-        epss: SecurityAdvisoryEpss? = nil
-    ) throws {
+extension DependabotAlertSecurityAdvisory {
+    public init(ghsaId: String, cveId: String?, summary: String, description: String, vulnerabilities: [DependabotAlertSecurityVulnerability], severity: DependabotAlertSecurityAdvisorySeverity, cvss: DependabotAlertSecurityAdvisoryCvss, cwes: [DependabotAlertSecurityAdvisoryCwesItem], identifiers: [DependabotAlertSecurityAdvisoryIdentifiersItem], references: [DependabotAlertSecurityAdvisoryReferencesItem], publishedAt: Date, updatedAt: Date, withdrawnAt: Date?, classification: DependabotAlertSecurityAdvisoryClassification? = nil, cvssSeverities: CvssSeverities? = nil, epss: SecurityAdvisoryEpss? = nil) throws {
         (self.ghsaId, self.cveId) = (ghsaId, cveId)
         (self.summary, self.description) = (summary, description)
         (self.vulnerabilities, self.severity) = (vulnerabilities, severity)
@@ -450,9 +390,9 @@ public extension DependabotAlertSecurityAdvisory {
         (self.publishedAt, self.updatedAt) = (publishedAt, updatedAt)
         (self.withdrawnAt, self.classification) = (withdrawnAt, classification)
         (self.cvssSeverities, self.epss) = (cvssSeverities, epss)
-        try validateLength("summary", self.summary, min: nil, max: 1024)
-        try sdkValidateDateTime("published_at", sdkWireString(self.publishedAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try validateLength("summary", self.summary, min: nil, max: 1024)
+            try sdkValidateDateTime("published_at", sdkWireString(self.publishedAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.withdrawnAt {
             try sdkValidateDateTime("withdrawn_at", sdkWireString(value))
         }
@@ -471,54 +411,28 @@ public struct DependabotAlertSecurityAdvisoryCvss: Codable {
         case vectorString = "vector_string"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependabotAlertSecurityAdvisoryCvss {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertSecurityAdvisoryCvss {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.score) else {
-            throw SdkValidationError(
-                field: "score",
-                code: "required",
-                message: "Validation failed for 'score': value is required"
-            )
+            throw SdkValidationError(field: "score", code: "required", message: "Validation failed for 'score': value is required")
         }
         guard container.contains(.vectorString) else {
-            throw SdkValidationError(
-                field: "vector_string",
-                code: "required",
-                message: "Validation failed for 'vector_string': value is required"
-            )
+            throw SdkValidationError(field: "vector_string", code: "required", message: "Validation failed for 'vector_string': value is required")
         }
-        score = try container.sdkDecodeRequired(.score)
-        vectorString = try container.sdkDecodeIfPresent(.vectorString)
-        try validateRange(
-            "score",
-            Double(score),
-            min: 0,
-            max: 10,
-            exclusiveMin: nil,
-            exclusiveMax: nil,
-            multipleOf: nil
-        )
+        self.score = try container.sdkDecodeRequired(.score)
+        self.vectorString = try container.sdkDecodeIfPresent(.vectorString)
+            try validateRange("score", Double(self.score), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
     }
 }
 
-public extension DependabotAlertSecurityAdvisoryCvss {
-    init(score: Double, vectorString: String?) throws {
+extension DependabotAlertSecurityAdvisoryCvss {
+    public init(score: Double, vectorString: String?) throws {
         (self.score, self.vectorString) = (score, vectorString)
-        try validateRange(
-            "score",
-            Double(self.score),
-            min: 0,
-            max: 10,
-            exclusiveMin: nil,
-            exclusiveMax: nil,
-            multipleOf: nil
-        )
+            try validateRange("score", Double(self.score), min: 0, max: 10, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
     }
 }
 
@@ -534,35 +448,25 @@ public struct DependabotAlertSecurityAdvisoryCwesItem: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependabotAlertSecurityAdvisoryCwesItem {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertSecurityAdvisoryCwesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.cweId) else {
-            throw SdkValidationError(
-                field: "cwe_id",
-                code: "required",
-                message: "Validation failed for 'cwe_id': value is required"
-            )
+            throw SdkValidationError(field: "cwe_id", code: "required", message: "Validation failed for 'cwe_id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        cweId = try container.sdkDecodeRequired(.cweId)
-        name = try container.sdkDecodeRequired(.name)
+        self.cweId = try container.sdkDecodeRequired(.cweId)
+        self.name = try container.sdkDecodeRequired(.name)
     }
 }
 
-public extension DependabotAlertSecurityAdvisoryCwesItem {
-    init(cweId: String, name: String) {
+extension DependabotAlertSecurityAdvisoryCwesItem {
+    public init(cweId: String, name: String) {
         (self.cweId, self.name) = (cweId, name)
     }
 }
@@ -579,35 +483,25 @@ public struct DependabotAlertSecurityAdvisoryIdentifiersItem: Codable {
         case value
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DependabotAlertSecurityAdvisoryIdentifiersItem {
-    init(from decoder: Decoder) throws {
+extension DependabotAlertSecurityAdvisoryIdentifiersItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.type) else {
-            throw SdkValidationError(
-                field: "type",
-                code: "required",
-                message: "Validation failed for 'type': value is required"
-            )
+            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
         }
         guard container.contains(.value) else {
-            throw SdkValidationError(
-                field: "value",
-                code: "required",
-                message: "Validation failed for 'value': value is required"
-            )
+            throw SdkValidationError(field: "value", code: "required", message: "Validation failed for 'value': value is required")
         }
-        type = try container.sdkDecodeRequired(.type)
-        value = try container.sdkDecodeRequired(.value)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.value = try container.sdkDecodeRequired(.value)
     }
 }
 
-public extension DependabotAlertSecurityAdvisoryIdentifiersItem {
-    init(type: DependabotAlertSecurityAdvisoryIdentifiersItemType, value: String) {
+extension DependabotAlertSecurityAdvisoryIdentifiersItem {
+    public init(type: DependabotAlertSecurityAdvisoryIdentifiersItemType, value: String) {
         (self.type, self.value) = (type, value)
     }
 }
@@ -621,7 +515,5 @@ public struct DependabotAlertSecurityAdvisoryReferencesItem: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

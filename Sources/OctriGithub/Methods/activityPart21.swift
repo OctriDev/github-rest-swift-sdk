@@ -6,13 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// List events for the authenticated user
     ///
-    /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public
-    /// events. _Optional_: use the fine-grained token with following permission set to view private events: "Events"
-    /// user permissions (read). > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time
-    /// of day, event latency can be anywhere from 30s to 6h.
+    /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events. _Optional_: use the fine-grained token with following permission set to view private events: "Events" user permissions (read). > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -24,22 +21,10 @@ public extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func activityListEventsForAuthenticatedUser(
-        config: ClientConfig,
-        username: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Event] {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/events"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "activityListEventsForAuthenticatedUser"
-        )).data
+    public static func activityListEventsForAuthenticatedUser(config: ClientConfig, username: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/events"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "activityListEventsForAuthenticatedUser")).data
     }
 }

@@ -6,62 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Shows whether Dependabot security updates are enabled, disabled or paused for a repository. The authenticated
-    /// user must have admin read access to the repository. For more information, see "[Configuring Dependabot security
-    /// updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
+extension ReposMethods {
+    /// Shows whether Dependabot security updates are enabled, disabled or paused for a repository. The authenticated user must have admin read access to the repository. For more information, see "[Configuring Dependabot security updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposCheckAutomatedSecurityFixes(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> CheckAutomatedSecurityFixes {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/automated-security-fixes",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposCheckAutomatedSecurityFixes"
-        )).data
+    public static func reposCheckAutomatedSecurityFixes(config: ClientConfig, owner: String, repo: String) async throws -> CheckAutomatedSecurityFixes {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/automated-security-fixes"].joined(), config: config, decoder: .json, operationId: "reposCheckAutomatedSecurityFixes")).data
     }
 
-    /// Enables Dependabot security updates for a repository. The authenticated user must have admin access to the
-    /// repository. For more information, see "[Configuring Dependabot security
-    /// updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
+    /// Enables Dependabot security updates for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring Dependabot security updates](https://docs.github.com/articles/configuring-automated-security-fixes)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposEnableAutomatedSecurityFixes(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/automated-security-fixes",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposEnableAutomatedSecurityFixes"
-        )).data
+    public static func reposEnableAutomatedSecurityFixes(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/automated-security-fixes"].joined(), config: config, decoder: .empty, operationId: "reposEnableAutomatedSecurityFixes")).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Licenses domain models
+// Licenses domain models
 /// License
 public struct License: Codable {
     /// Required `string` value serialized in the `key` wire field.
@@ -75,50 +75,34 @@ public struct License: Codable {
         case featured
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension License {
-    init(from decoder: Decoder) throws {
+extension License {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        key = try container.sdkDecodeRequired(.key)
-        name = try container.sdkDecodeRequired(.name)
-        spdxId = try container.sdkDecodeIfPresent(.spdxId)
-        url = try container.sdkDecodeIfPresent(.url)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        description = try container.sdkDecodeRequired(.description)
-        implementation = try container.sdkDecodeRequired(.implementation)
-        permissions = try container.sdkDecodeRequired(.permissions)
-        conditions = try container.sdkDecodeRequired(.conditions)
-        limitations = try container.sdkDecodeRequired(.limitations)
-        body = try container.sdkDecodeRequired(.body)
-        featured = try container.sdkDecodeRequired(.featured)
-        if let value = url {
+        self.key = try container.sdkDecodeRequired(.key)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.spdxId = try container.sdkDecodeIfPresent(.spdxId)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.implementation = try container.sdkDecodeRequired(.implementation)
+        self.permissions = try container.sdkDecodeRequired(.permissions)
+        self.conditions = try container.sdkDecodeRequired(.conditions)
+        self.limitations = try container.sdkDecodeRequired(.limitations)
+        self.body = try container.sdkDecodeRequired(.body)
+        self.featured = try container.sdkDecodeRequired(.featured)
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        try sdkValidateUri("html_url", htmlUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
-public extension License {
-    init(
-        key: String,
-        name: String,
-        spdxId: String?,
-        url: String?,
-        nodeId: String,
-        htmlUrl: String,
-        description: String,
-        implementation: String,
-        permissions: [String],
-        conditions: [String],
-        limitations: [String],
-        body: String,
-        featured: Bool
-    ) throws {
+extension License {
+    public init(key: String, name: String, spdxId: String?, url: String?, nodeId: String, htmlUrl: String, description: String, implementation: String, permissions: [String], conditions: [String], limitations: [String], body: String, featured: Bool) throws {
         (self.key, self.name) = (key, name)
         (self.spdxId, self.url) = (spdxId, url)
         (self.nodeId, self.htmlUrl) = (nodeId, htmlUrl)
@@ -129,7 +113,7 @@ public extension License {
         if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
@@ -178,56 +162,40 @@ public struct LicenseContent: Codable {
         case license
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LicenseContent {
-    init(from decoder: Decoder) throws {
+extension LicenseContent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.sdkDecodeRequired(.name)
-        path = try container.sdkDecodeRequired(.path)
-        sha = try container.sdkDecodeRequired(.sha)
-        size = try container.sdkDecodeRequired(.size)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
-        downloadUrl = try container.sdkDecodeIfPresent(.downloadUrl)
-        type = try container.sdkDecodeRequired(.type)
-        content = try container.sdkDecodeRequired(.content)
-        encoding = try container.sdkDecodeRequired(.encoding)
-        links = try container.sdkDecodeRequired(.links)
-        license = try container.sdkDecodeIfPresent(.license)
-        try sdkValidateUri("url", url)
-        if let value = htmlUrl {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.path = try container.sdkDecodeRequired(.path)
+        self.sha = try container.sdkDecodeRequired(.sha)
+        self.size = try container.sdkDecodeRequired(.size)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.gitUrl = try container.sdkDecodeIfPresent(.gitUrl)
+        self.downloadUrl = try container.sdkDecodeIfPresent(.downloadUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.content = try container.sdkDecodeRequired(.content)
+        self.encoding = try container.sdkDecodeRequired(.encoding)
+        self.links = try container.sdkDecodeRequired(.links)
+        self.license = try container.sdkDecodeIfPresent(.license)
+            try sdkValidateUri("url", self.url)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = gitUrl {
+        if let value = self.gitUrl {
             try sdkValidateUri("git_url", value)
         }
-        if let value = downloadUrl {
+        if let value = self.downloadUrl {
             try sdkValidateUri("download_url", value)
         }
     }
 }
 
-public extension LicenseContent {
-    init(
-        name: String,
-        path: String,
-        sha: String,
-        size: Int,
-        url: String,
-        htmlUrl: String?,
-        gitUrl: String?,
-        downloadUrl: String?,
-        type: String,
-        content: String,
-        encoding: String,
-        links: LicenseContentLinks,
-        license: NullableLicenseSimple?
-    ) throws {
+extension LicenseContent {
+    public init(name: String, path: String, sha: String, size: Int, url: String, htmlUrl: String?, gitUrl: String?, downloadUrl: String?, type: String, content: String, encoding: String, links: LicenseContentLinks, license: NullableLicenseSimple?) throws {
         (self.name, self.path) = (name, path)
         (self.sha, self.size) = (sha, size)
         (self.url, self.htmlUrl) = (url, htmlUrl)
@@ -235,7 +203,7 @@ public extension LicenseContent {
         (self.type, self.content) = (type, content)
         (self.encoding, self.links) = (encoding, links)
         self.license = license
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
@@ -263,50 +231,36 @@ public struct LicenseContentLinks: Codable {
         case `self`
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LicenseContentLinks {
-    init(from decoder: Decoder) throws {
+extension LicenseContentLinks {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.git) else {
-            throw SdkValidationError(
-                field: "git",
-                code: "required",
-                message: "Validation failed for 'git': value is required"
-            )
+            throw SdkValidationError(field: "git", code: "required", message: "Validation failed for 'git': value is required")
         }
         guard container.contains(.html) else {
-            throw SdkValidationError(
-                field: "html",
-                code: "required",
-                message: "Validation failed for 'html': value is required"
-            )
+            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
         }
         guard container.contains(.`self`) else {
-            throw SdkValidationError(
-                field: "self",
-                code: "required",
-                message: "Validation failed for 'self': value is required"
-            )
+            throw SdkValidationError(field: "self", code: "required", message: "Validation failed for 'self': value is required")
         }
-        git = try container.sdkDecodeIfPresent(.git)
-        html = try container.sdkDecodeIfPresent(.html)
+        self.git = try container.sdkDecodeIfPresent(.git)
+        self.html = try container.sdkDecodeIfPresent(.html)
         self.`self` = try container.sdkDecodeRequired(.`self`)
-        if let value = git {
+        if let value = self.git {
             try sdkValidateUri("git", value)
         }
-        if let value = html {
+        if let value = self.html {
             try sdkValidateUri("html", value)
         }
-        try sdkValidateUri("self", self.`self`)
+            try sdkValidateUri("self", self.`self`)
     }
 }
 
-public extension LicenseContentLinks {
-    init(git: String?, html: String?, self selfValue: String) throws {
+extension LicenseContentLinks {
+    public init(git: String?, html: String?, `self` selfValue: String) throws {
         (self.git, self.html) = (git, html)
         self.`self` = selfValue
         if let value = self.git {
@@ -315,7 +269,7 @@ public extension LicenseContentLinks {
         if let value = self.html {
             try sdkValidateUri("html", value)
         }
-        try sdkValidateUri("self", self.`self`)
+            try sdkValidateUri("self", self.`self`)
     }
 }
 
@@ -348,66 +302,44 @@ public struct LicenseSimple: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LicenseSimple {
-    init(from decoder: Decoder) throws {
+extension LicenseSimple {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.key) else {
-            throw SdkValidationError(
-                field: "key",
-                code: "required",
-                message: "Validation failed for 'key': value is required"
-            )
+            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.spdxId) else {
-            throw SdkValidationError(
-                field: "spdx_id",
-                code: "required",
-                message: "Validation failed for 'spdx_id': value is required"
-            )
+            throw SdkValidationError(field: "spdx_id", code: "required", message: "Validation failed for 'spdx_id': value is required")
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(
-                field: "node_id",
-                code: "required",
-                message: "Validation failed for 'node_id': value is required"
-            )
+            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
         }
-        key = try container.sdkDecodeRequired(.key)
-        name = try container.sdkDecodeRequired(.name)
-        url = try container.sdkDecodeIfPresent(.url)
-        spdxId = try container.sdkDecodeIfPresent(.spdxId)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        if let value = url {
+        self.key = try container.sdkDecodeRequired(.key)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.spdxId = try container.sdkDecodeIfPresent(.spdxId)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension LicenseSimple {
-    init(key: String, name: String, url: String?, spdxId: String?, nodeId: String, htmlUrl: String? = nil) throws {
+extension LicenseSimple {
+    public init(key: String, name: String, url: String?, spdxId: String?, nodeId: String, htmlUrl: String? = nil) throws {
         (self.key, self.name) = (key, name)
         (self.url, self.spdxId) = (url, spdxId)
         (self.nodeId, self.htmlUrl) = (nodeId, htmlUrl)

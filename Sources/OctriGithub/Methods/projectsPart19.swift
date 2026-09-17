@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ProjectsMethods {
+extension ProjectsMethods {
     /// Get an item for a user owned project
     ///
     /// Get a specific item from a user-owned project.
@@ -18,30 +18,10 @@ public extension ProjectsMethods {
     /// - fields: Limit results to specific fields, by their IDs. If not specified,
     ///   the title field will be returned. Example:
     ///   fields[]=123&fields[]=456&fields[]=789 or fields=123,456,789
-    static func projectsGetUserItem(
-        config: ClientConfig,
-        projectNumber: Int,
-        username: String,
-        itemId: Int,
-        fields: ProjectsGetUserItemParameter?
-    ) async throws -> ProjectsV2ItemWithContent {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/projectsV2/",
-                sdkEncodePathSegment(sdkWireString(projectNumber)),
-                "/items/",
-                sdkEncodePathSegment(sdkWireString(itemId)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("fields", value: fields),
-            ],
-            decoder: .json,
-            operationId: "projectsGetUserItem"
-        )).data
+    public static func projectsGetUserItem(config: ClientConfig, projectNumber: Int, username: String, itemId: Int, fields: ProjectsGetUserItemParameter?) async throws -> ProjectsV2ItemWithContent {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items/", sdkEncodePathSegment(sdkWireString(itemId))].joined(), config: config, query: [
+            SdkQueryParameter("fields", value: fields),
+        ], decoder: .json, operationId: "projectsGetUserItem")).data
     }
 
     /// Update project item for user
@@ -53,29 +33,9 @@ public extension ProjectsMethods {
     /// - username: The handle for the GitHub user account.
     /// - itemId: The unique identifier of the project item.
     /// - fields: A list of field updates to apply.
-    static func projectsUpdateItemForUser(
-        config: ClientConfig,
-        projectNumber: Int,
-        username: String,
-        itemId: Int,
-        fields: [ProjectsUpdateItemForUserRequestBodyFieldsItem]
-    ) async throws -> ProjectsV2ItemWithContent {
+    public static func projectsUpdateItemForUser(config: ClientConfig, projectNumber: Int, username: String, itemId: Int, fields: [ProjectsUpdateItemForUserRequestBodyFieldsItem]) async throws -> ProjectsV2ItemWithContent {
         let requestBody = ProjectsUpdateItemForUserRequestBody(fields: fields)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/projectsV2/",
-                sdkEncodePathSegment(sdkWireString(projectNumber)),
-                "/items/",
-                sdkEncodePathSegment(sdkWireString(itemId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "projectsUpdateItemForUser"
-        )).data
+        return try (await sdkRequest("PATCH", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items/", sdkEncodePathSegment(sdkWireString(itemId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "projectsUpdateItemForUser")).data
     }
 }

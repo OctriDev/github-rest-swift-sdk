@@ -6,43 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Enables an authenticated GitHub App to find the repository's installation information. The installation's
-    /// account type will be either an organization or a user account, depending which account the repository belongs
-    /// to. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+extension AppsMethods {
+    /// Enables an authenticated GitHub App to find the repository's installation information. The installation's account type will be either an organization or a user account, depending which account the repository belongs to. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func appsGetRepoInstallation(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> Installation {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/installation",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "appsGetRepoInstallation"
-        )).data
+    public static func appsGetRepoInstallation(config: ClientConfig, owner: String, repo: String) async throws -> Installation {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/installation"].joined(), config: config, decoder: .json, operationId: "appsGetRepoInstallation")).data
     }
 
     /// List app installations accessible to the user access token
     ///
-    /// Lists installations of your GitHub App that the authenticated user has explicit permission (`:read`, `:write`,
-    /// or `:admin`) to access. The authenticated user has explicit permission to access repositories they own,
-    /// repositories where they are a collaborator, and repositories that they can access through an organization
-    /// membership. You can find the permissions for the installation under the `permissions` key.
+    /// Lists installations of your GitHub App that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access. The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership. You can find the permissions for the installation under the `permissions` key.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -53,12 +31,8 @@ public extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func appsListInstallationsForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AppsListInstallationsForAuthenticatedUserResponse {
-        try await (sdkRequest("GET", "/user/installations", config: config, query: [
+    public static func appsListInstallationsForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> AppsListInstallationsForAuthenticatedUserResponse {
+        return try (await sdkRequest("GET", "/user/installations", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "appsListInstallationsForAuthenticatedUser")).data

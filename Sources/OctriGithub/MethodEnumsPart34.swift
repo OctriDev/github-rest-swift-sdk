@@ -7,14 +7,10 @@ import Foundation
     import FoundationNetworking
 #endif
 /// **Required when `state` is `dismissed`.** A reason for dismissing the alert.
-public struct DependabotUpdateAlertRequestBodyDismissedReason: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotUpdateAlertRequestBodyDismissedReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let fixStarted = DependabotUpdateAlertRequestBodyDismissedReason(rawValue: "fix_started")
     public static let inaccurate = DependabotUpdateAlertRequestBodyDismissedReason(rawValue: "inaccurate")
     public static let noBandwidth = DependabotUpdateAlertRequestBodyDismissedReason(rawValue: "no_bandwidth")
@@ -23,7 +19,7 @@ public struct DependabotUpdateAlertRequestBodyDismissedReason: RawRepresentable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -37,16 +33,13 @@ public struct DependabotUpdateAlertRequestBodyDismissedReason: RawRepresentable,
 public struct DependabotUpdateAlertRequestBodyState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let dismissed = DependabotUpdateAlertRequestBodyState(rawValue: "dismissed")
     public static let open = DependabotUpdateAlertRequestBodyState(rawValue: "open")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -57,14 +50,10 @@ public struct DependabotUpdateAlertRequestBodyState: RawRepresentable, Hashable,
 
 /// The state of the status. When you set a transient deployment to `inactive`, the deployment will be shown as
 /// `destroyed` in GitHub.
-public struct ReposCreateDeploymentStatusRequestBodyState: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateDeploymentStatusRequestBodyState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let error = ReposCreateDeploymentStatusRequestBodyState(rawValue: "error")
     public static let failure = ReposCreateDeploymentStatusRequestBodyState(rawValue: "failure")
     public static let inactive = ReposCreateDeploymentStatusRequestBodyState(rawValue: "inactive")
@@ -75,7 +64,7 @@ public struct ReposCreateDeploymentStatusRequestBodyState: RawRepresentable, Has
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -87,10 +76,7 @@ public struct ReposCreateDeploymentStatusRequestBodyState: RawRepresentable, Has
 public struct ReposListForksParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let newest = ReposListForksParameter(rawValue: "newest")
     public static let oldest = ReposListForksParameter(rawValue: "oldest")
     public static let stargazers = ReposListForksParameter(rawValue: "stargazers")
@@ -98,7 +84,7 @@ public struct ReposListForksParameter: RawRepresentable, Hashable, Codable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -111,17 +97,14 @@ public struct ReposListForksParameter: RawRepresentable, Hashable, Codable, Send
 public struct GitCreateTagRequestBodyType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let commit = GitCreateTagRequestBodyType(rawValue: "commit")
     public static let tree = GitCreateTagRequestBodyType(rawValue: "tree")
     public static let blob = GitCreateTagRequestBodyType(rawValue: "blob")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -135,10 +118,7 @@ public struct GitCreateTagRequestBodyType: RawRepresentable, Hashable, Codable, 
 public struct GitCreateTreeRequestBodyTreeItemMode: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let value100644 = GitCreateTreeRequestBodyTreeItemMode(rawValue: "100644")
     public static let value100755 = GitCreateTreeRequestBodyTreeItemMode(rawValue: "100755")
     public static let value040000 = GitCreateTreeRequestBodyTreeItemMode(rawValue: "040000")
@@ -147,7 +127,7 @@ public struct GitCreateTreeRequestBodyTreeItemMode: RawRepresentable, Hashable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -160,17 +140,14 @@ public struct GitCreateTreeRequestBodyTreeItemMode: RawRepresentable, Hashable, 
 public struct GitCreateTreeRequestBodyTreeItemType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let blob = GitCreateTreeRequestBodyTreeItemType(rawValue: "blob")
     public static let tree = GitCreateTreeRequestBodyTreeItemType(rawValue: "tree")
     public static let commit = GitCreateTreeRequestBodyTreeItemType(rawValue: "commit")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -183,10 +160,7 @@ public struct GitCreateTreeRequestBodyTreeItemType: RawRepresentable, Hashable, 
 public struct MigrationsUpdateImportRequestBodyVcs: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let subversion = MigrationsUpdateImportRequestBodyVcs(rawValue: "subversion")
     public static let tfvc = MigrationsUpdateImportRequestBodyVcs(rawValue: "tfvc")
     public static let git = MigrationsUpdateImportRequestBodyVcs(rawValue: "git")
@@ -194,7 +168,7 @@ public struct MigrationsUpdateImportRequestBodyVcs: RawRepresentable, Hashable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -208,10 +182,7 @@ public struct MigrationsUpdateImportRequestBodyVcs: RawRepresentable, Hashable, 
 public struct MigrationsStartImportRequestBodyVcs: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let subversion = MigrationsStartImportRequestBodyVcs(rawValue: "subversion")
     public static let git = MigrationsStartImportRequestBodyVcs(rawValue: "git")
     public static let mercurial = MigrationsStartImportRequestBodyVcs(rawValue: "mercurial")
@@ -219,7 +190,7 @@ public struct MigrationsStartImportRequestBodyVcs: RawRepresentable, Hashable, C
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

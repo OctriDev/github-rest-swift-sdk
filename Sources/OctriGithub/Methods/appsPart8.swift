@@ -6,52 +6,27 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// OAuth applications and GitHub applications with OAuth authorizations can use this API method to reset a valid
-    /// OAuth token without end-user involvement. Applications must save the "token" property in the response because
-    /// changes take effect immediately. Invalid tokens will return `404 NOT FOUND`.
+extension AppsMethods {
+    /// OAuth applications and GitHub applications with OAuth authorizations can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. Invalid tokens will return `404 NOT FOUND`.
     ///
     /// - Parameters:
     /// - clientId: The client ID of the GitHub app.
     /// - accessToken: The access_token of the OAuth or GitHub application.
-    static func appsResetToken(
-        config: ClientConfig,
-        clientId: String,
-        accessToken: String
-    ) async throws -> Authorization {
+    public static func appsResetToken(config: ClientConfig, clientId: String, accessToken: String) async throws -> Authorization {
         let requestBody = AppsResetTokenRequestBody(accessToken: accessToken)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "appsResetToken"
-        )).data
+        return try (await sdkRequest("PATCH", ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token"].joined(), config: config, body: requestBody, decoder: .json, operationId: "appsResetToken")).data
     }
 
-    /// OAuth or GitHub application owners can revoke a single token for an OAuth application or a GitHub application
-    /// with an OAuth authorization.
+    /// OAuth or GitHub application owners can revoke a single token for an OAuth application or a GitHub application with an OAuth authorization.
     ///
     /// - Parameters:
     /// - clientId: The client ID of the GitHub app.
     /// - accessToken: The OAuth access token used to authenticate to the GitHub
     ///   API.
-    static func appsDeleteToken(
-        config: ClientConfig,
-        clientId: String,
-        accessToken: String
-    ) async throws -> SdkEmptyResponse {
+    public static func appsDeleteToken(config: ClientConfig, clientId: String, accessToken: String) async throws -> SdkEmptyResponse {
         let requestBody = AppsDeleteTokenRequestBody(accessToken: accessToken)
 
-        return try await (sdkRequest(
-            "DELETE",
-            ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "appsDeleteToken"
-        )).data
+        return try (await sdkRequest("DELETE", ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "appsDeleteToken")).data
     }
 }

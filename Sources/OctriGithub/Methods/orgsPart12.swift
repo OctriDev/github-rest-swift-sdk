@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// List repositories owned by the provided organization that have created at least one attested artifact Results
-    /// will be sorted in ascending order by repository ID
+extension OrgsMethods {
+    /// List repositories owned by the provided organization that have created at least one attested artifact Results will be sorted in ascending order by repository ID
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -31,26 +30,12 @@ public extension OrgsMethods {
     /// - predicateType: Optional filter for fetching attestations with a given
     ///   predicate type. This option accepts `provenance`, `sbom`, `release`, or
     ///   freeform text for custom predicate types.
-    static func orgsListAttestationRepositories(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        before: String?,
-        after: String?,
-        predicateType: String?
-    ) async throws -> [OrgsListAttestationRepositoriesResponseItem] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/attestations/repositories"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("before", value: before),
-                SdkQueryParameter("after", value: after),
-                SdkQueryParameter("predicate_type", value: predicateType),
-            ],
-            decoder: .json,
-            operationId: "orgsListAttestationRepositories"
-        )).data
+    public static func orgsListAttestationRepositories(config: ClientConfig, org: String, perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> [OrgsListAttestationRepositoriesResponseItem] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/attestations/repositories"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("before", value: before),
+            SdkQueryParameter("after", value: after),
+            SdkQueryParameter("predicate_type", value: predicateType),
+        ], decoder: .json, operationId: "orgsListAttestationRepositories")).data
     }
 }

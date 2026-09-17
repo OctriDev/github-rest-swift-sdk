@@ -54303,8 +54303,8 @@
           "encrypted_value": "c2VjcmV0",
           "key_id": "012345678912345678",
           "selected_repository_ids": [
-            1234567,
-            2345678
+            "1234567",
+            "2345678"
           ]
         }
       }
@@ -86804,7 +86804,7 @@
             },
             {
               "field_id": 456,
-              "value": "5"
+              "value": 5
             },
             {
               "field_id": 789,
@@ -87073,7 +87073,7 @@
             },
             {
               "field_id": 456,
-              "value": "5"
+              "value": 5
             },
             {
               "field_id": 789,
@@ -129251,7 +129251,7 @@
         "bodyShape": "whole",
         "requiredFields": [],
         "fields": [],
-        "example": "[object Object]"
+        "example": "string"
       },
       {
         "mediaType": "text/x-markdown",
@@ -129260,7 +129260,7 @@
         "bodyShape": "whole",
         "requiredFields": [],
         "fields": [],
-        "example": "[object Object]"
+        "example": "string"
       }
     ],
     "responseModes": [
@@ -169127,7 +169127,7 @@
           "assignees": [
             "octocat"
           ],
-          "milestone": "1",
+          "milestone": 1,
           "labels": [
             "bug"
           ]
@@ -173092,7 +173092,10 @@
         ],
         "example": {
           "cname": "octocatblog.com",
-          "source": "gh-pages"
+          "source": {
+            "branch": "main",
+            "path": "/"
+          }
         }
       }
     ],
@@ -183687,7 +183690,7 @@
           "assignees": [
             "octocat"
           ],
-          "milestone": "1",
+          "milestone": 1,
           "state": "open",
           "labels": [
             "bug"

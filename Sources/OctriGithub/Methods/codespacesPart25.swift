@@ -6,47 +6,24 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
+extension CodespacesMethods {
     /// Delete a secret for the authenticated user
     ///
-    /// Deletes a development environment secret from a user's codespaces using the secret name. Deleting the secret
-    /// will remove access from all codespaces that were allowed to access the secret. The authenticated user must have
-    /// Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// Deletes a development environment secret from a user's codespaces using the secret name. Deleting the secret will remove access from all codespaces that were allowed to access the secret. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - secretName: The name of the secret.
-    static func codespacesDeleteSecretForAuthenticatedUser(
-        config: ClientConfig,
-        secretName: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "codespacesDeleteSecretForAuthenticatedUser"
-        )).data
+    public static func codespacesDeleteSecretForAuthenticatedUser(config: ClientConfig, secretName: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "codespacesDeleteSecretForAuthenticatedUser")).data
     }
 
     /// List selected repositories for a user secret
     ///
-    /// List the repositories that have been granted the ability to use a user's development environment secret. The
-    /// authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens
-    /// (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// List the repositories that have been granted the ability to use a user's development environment secret. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - secretName: The name of the secret.
-    static func codespacesListRepositoriesForSecretForAuthenticatedUser(
-        config: ClientConfig,
-        secretName: String
-    ) async throws -> CodespacesListRepositoriesForSecretForAuthenticatedUserResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codespacesListRepositoriesForSecretForAuthenticatedUser"
-        )).data
+    public static func codespacesListRepositoriesForSecretForAuthenticatedUser(config: ClientConfig, secretName: String) async throws -> CodespacesListRepositoriesForSecretForAuthenticatedUserResponse {
+        return try (await sdkRequest("GET", ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(), config: config, decoder: .json, operationId: "codespacesListRepositoriesForSecretForAuthenticatedUser")).data
     }
 }

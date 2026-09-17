@@ -6,23 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-struct CopilotSetEnterpriseCodingAgentPolicyRequestBody: Encodable {
-    let policyState: CopilotSetEnterpriseCodingAgentPolicyRequestBodyPolicyState
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(policyState, forKey: SdkCodingKey("policy_state"))
-    }
-}
-
 struct CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody: Encodable {
     var organizations: [String]?
     var customProperties: CopilotAddOrganizationsToEnterpriseCodingAgentPolicyCustomPropertiesList?
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(organizations, forKey: SdkCodingKey("organizations"))
-        try keyedContainer.encodeIfPresent(customProperties, forKey: SdkCodingKey("custom_properties"))
+        try keyedContainer.encodeIfPresent(self.organizations, forKey: SdkCodingKey("organizations"))
+        try keyedContainer.encodeIfPresent(self.customProperties, forKey: SdkCodingKey("custom_properties"))
     }
 }
 
@@ -32,8 +23,8 @@ struct CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequestBody: Enc
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(organizations, forKey: SdkCodingKey("organizations"))
-        try keyedContainer.encodeIfPresent(customProperties, forKey: SdkCodingKey("custom_properties"))
+        try keyedContainer.encodeIfPresent(self.organizations, forKey: SdkCodingKey("organizations"))
+        try keyedContainer.encodeIfPresent(self.customProperties, forKey: SdkCodingKey("custom_properties"))
     }
 }
 
@@ -42,7 +33,7 @@ struct CopilotAddCopilotSeatsForTeamsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedTeams, forKey: SdkCodingKey("selected_teams"))
+        try keyedContainer.encode(self.selectedTeams, forKey: SdkCodingKey("selected_teams"))
     }
 }
 
@@ -51,7 +42,7 @@ struct CopilotCancelCopilotSeatAssignmentForTeamsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedTeams, forKey: SdkCodingKey("selected_teams"))
+        try keyedContainer.encode(self.selectedTeams, forKey: SdkCodingKey("selected_teams"))
     }
 }
 
@@ -60,7 +51,7 @@ struct CopilotAddCopilotSeatsForUsersRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
+        try keyedContainer.encode(self.selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
     }
 }
 
@@ -69,7 +60,7 @@ struct CopilotCancelCopilotSeatAssignmentForUsersRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
+        try keyedContainer.encode(self.selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
     }
 }
 
@@ -78,7 +69,7 @@ struct CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody: Encodable
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(enabledRepositories, forKey: SdkCodingKey("enabled_repositories"))
+        try keyedContainer.encode(self.enabledRepositories, forKey: SdkCodingKey("enabled_repositories"))
     }
 }
 
@@ -88,8 +79,8 @@ struct DependabotUpdateRepositoryAccessForEnterpriseRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(repositoryIdsToAdd, forKey: SdkCodingKey("repository_ids_to_add"))
-        try keyedContainer.encodeIfPresent(repositoryIdsToRemove, forKey: SdkCodingKey("repository_ids_to_remove"))
+        try keyedContainer.encodeIfPresent(self.repositoryIdsToAdd, forKey: SdkCodingKey("repository_ids_to_add"))
+        try keyedContainer.encodeIfPresent(self.repositoryIdsToRemove, forKey: SdkCodingKey("repository_ids_to_remove"))
     }
 }
 
@@ -98,7 +89,7 @@ struct DependabotSetRepositoryAccessDefaultLevelForEnterpriseRequestBody: Encoda
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(defaultLevel, forKey: SdkCodingKey("default_level"))
+        try keyedContainer.encode(self.defaultLevel, forKey: SdkCodingKey("default_level"))
     }
 }
 
@@ -108,8 +99,8 @@ struct DependabotUpdateRepositoryAccessForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(repositoryIdsToAdd, forKey: SdkCodingKey("repository_ids_to_add"))
-        try keyedContainer.encodeIfPresent(repositoryIdsToRemove, forKey: SdkCodingKey("repository_ids_to_remove"))
+        try keyedContainer.encodeIfPresent(self.repositoryIdsToAdd, forKey: SdkCodingKey("repository_ids_to_add"))
+        try keyedContainer.encodeIfPresent(self.repositoryIdsToRemove, forKey: SdkCodingKey("repository_ids_to_remove"))
     }
 }
 
@@ -118,7 +109,7 @@ struct DependabotSetRepositoryAccessDefaultLevelRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(defaultLevel, forKey: SdkCodingKey("default_level"))
+        try keyedContainer.encode(self.defaultLevel, forKey: SdkCodingKey("default_level"))
     }
 }
 
@@ -130,10 +121,10 @@ struct DependabotCreateOrUpdateOrgSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(keyId, forKey: SdkCodingKey("key_id"))
-        try keyedContainer.encodeIfPresent(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(self.visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(self.keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -142,7 +133,7 @@ struct DependabotSetSelectedReposForOrgSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -155,19 +146,19 @@ struct DependabotUpdateAlertRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(dismissedReason, forKey: SdkCodingKey("dismissed_reason"))
-        try keyedContainer.encodeIfPresent(dismissedComment, forKey: SdkCodingKey("dismissed_comment"))
-        try keyedContainer.encodeIfPresent(assignees, forKey: SdkCodingKey("assignees"))
-        try keyedContainer.encodeIfPresent(agentAssignment, forKey: SdkCodingKey("agent_assignment"))
+        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.dismissedReason, forKey: SdkCodingKey("dismissed_reason"))
+        try keyedContainer.encodeIfPresent(self.dismissedComment, forKey: SdkCodingKey("dismissed_comment"))
+        try keyedContainer.encodeIfPresent(self.assignees, forKey: SdkCodingKey("assignees"))
+        try keyedContainer.encodeIfPresent(self.agentAssignment, forKey: SdkCodingKey("agent_assignment"))
     }
 
     init(options: DependabotMethods.DependabotUpdateAlertOptions) {
-        state = options.state
-        dismissedReason = options.dismissedReason
-        dismissedComment = options.dismissedComment
-        assignees = options.assignees
-        agentAssignment = options.agentAssignment
+        self.state = options.state
+        self.dismissedReason = options.dismissedReason
+        self.dismissedComment = options.dismissedComment
+        self.assignees = options.assignees
+        self.agentAssignment = options.agentAssignment
     }
 }
 
@@ -177,8 +168,8 @@ struct DependabotCreateOrUpdateRepoSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(self.keyId, forKey: SdkCodingKey("key_id"))
     }
 }
 
@@ -187,7 +178,7 @@ struct EnterpriseTeamMembershipsBulkAddRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(usernames, forKey: SdkCodingKey("usernames"))
+        try keyedContainer.encode(self.usernames, forKey: SdkCodingKey("usernames"))
     }
 }
 
@@ -196,6 +187,25 @@ struct EnterpriseTeamMembershipsBulkRemoveRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(usernames, forKey: SdkCodingKey("usernames"))
+        try keyedContainer.encode(self.usernames, forKey: SdkCodingKey("usernames"))
+    }
+}
+
+struct EnterpriseTeamsCreateRequestBody: Encodable {
+    let name: String
+    var description: SdkOptional<String>?
+    var syncToOrganizations: EnterpriseTeamsCreateRequestBodySyncToOrganizations?
+    var organizationSelectionType: EnterpriseTeamsCreateRequestBodyOrganizationSelectionType?
+    var groupId: SdkOptional<String>?
+    var notificationSetting: EnterpriseTeamsCreateRequestBodyNotificationSetting?
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.syncToOrganizations, forKey: SdkCodingKey("sync_to_organizations"))
+        try keyedContainer.encodeIfPresent(self.organizationSelectionType, forKey: SdkCodingKey("organization_selection_type"))
+        try keyedContainer.encodeIfPresent(self.groupId, forKey: SdkCodingKey("group_id"))
+        try keyedContainer.encodeIfPresent(self.notificationSetting, forKey: SdkCodingKey("notification_setting"))
     }
 }

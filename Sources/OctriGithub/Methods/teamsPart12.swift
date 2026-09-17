@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
-    /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from
-    /// the team. To remove a repository from a team as an organization member, the authenticated user must have admin
-    /// access to the repository and must be able to see the team. This does not delete the repository, it just removes
-    /// it from the team. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE
-    /// /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
+extension TeamsMethods {
+    /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. This does not delete the repository, it just removes it from the team. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,28 +16,7 @@ public extension TeamsMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func teamsRemoveRepoInOrg(
-        config: ClientConfig,
-        org: String,
-        teamSlug: String,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamSlug)),
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "teamsRemoveRepoInOrg"
-        )).data
+    public static func teamsRemoveRepoInOrg(config: ClientConfig, org: String, teamSlug: String, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug)), "/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo))].joined(), config: config, decoder: .empty, operationId: "teamsRemoveRepoInOrg")).data
     }
 }

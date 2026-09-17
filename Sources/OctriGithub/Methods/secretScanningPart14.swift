@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
-    struct SecretScanningUpdateRepoCustomPatternOptions: Codable {
+extension SecretScanningMethods {
+    public struct SecretScanningUpdateRepoCustomPatternOptions: Codable {
         public var owner: String
         public var repo: String
         public var patternId: Int
@@ -28,10 +28,7 @@ public extension SecretScanningMethods {
 
     /// Update a repository custom pattern
     ///
-    /// Updates a secret scanning custom pattern for a repository. OAuth app tokens and personal access tokens (classic)
-    /// need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token
-    /// can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
+    /// Updates a secret scanning custom pattern for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -47,26 +44,9 @@ public extension SecretScanningMethods {
     /// - endDelimiter: The updated end delimiter regex for the custom pattern.
     /// - mustMatch: Updated list of regexes that the secret must match.
     /// - mustNotMatch: Updated list of regexes that the secret must not match.
-    static func secretScanningUpdateRepoCustomPattern(
-        config: ClientConfig,
-        options: SecretScanningUpdateRepoCustomPatternOptions
-    ) async throws -> SecretScanningCustomPattern {
+    public static func secretScanningUpdateRepoCustomPattern(config: ClientConfig, options: SecretScanningUpdateRepoCustomPatternOptions) async throws -> SecretScanningCustomPattern {
         let requestBody = SecretScanningUpdateRepoCustomPatternRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/secret-scanning/custom-patterns/",
-                sdkEncodePathSegment(sdkWireString(options.patternId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "secretScanningUpdateRepoCustomPattern"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/secret-scanning/custom-patterns/", sdkEncodePathSegment(sdkWireString(options.patternId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "secretScanningUpdateRepoCustomPattern")).data
     }
 }

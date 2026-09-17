@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Retrieves a deployment for a repository by its numeric identifier. Use `owner`, `repo`, and `deployment_id` to
-    /// identify the repository and deployment to retrieve. The response contains the deployment reference, environment,
-    /// creator, payload, status links, and timestamps.
+extension ReposMethods {
+    /// Retrieves a deployment for a repository by its numeric identifier. Use `owner`, `repo`, and `deployment_id` to identify the repository and deployment to retrieve. The response contains the deployment reference, environment, creator, payload, status links, and timestamps.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,37 +15,11 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - deploymentId: deployment_id parameter
-    static func reposGetDeployment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        deploymentId: Int
-    ) async throws -> Deployment {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/deployments/",
-                sdkEncodePathSegment(sdkWireString(deploymentId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetDeployment"
-        )).data
+    public static func reposGetDeployment(config: ClientConfig, owner: String, repo: String, deploymentId: Int) async throws -> Deployment {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/deployments/", sdkEncodePathSegment(sdkWireString(deploymentId))].joined(), config: config, decoder: .json, operationId: "reposGetDeployment")).data
     }
 
-    /// If the repository only has one deployment, you can delete the deployment regardless of its status. If the
-    /// repository has more than one deployment, you can only delete inactive deployments. This ensures that
-    /// repositories with multiple deployments will always have an active deployment. To set a deployment as inactive,
-    /// you must: * Create a new deployment that is active so that the system has a record of the current state, then
-    /// delete the previously active deployment. * Mark the active deployment as inactive by adding any non-successful
-    /// deployment status. For more information, see "[Create a
-    /// deployment](https://docs.github.com/rest/deployments/deployments/#create-a-deployment)" and "[Create a
-    /// deployment status](https://docs.github.com/rest/deployments/statuses#create-a-deployment-status)." OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` or `repo_deployment` scope to use this endpoint.
+    /// If the repository only has one deployment, you can delete the deployment regardless of its status. If the repository has more than one deployment, you can only delete inactive deployments. This ensures that repositories with multiple deployments will always have an active deployment. To set a deployment as inactive, you must: * Create a new deployment that is active so that the system has a record of the current state, then delete the previously active deployment. * Mark the active deployment as inactive by adding any non-successful deployment status. For more information, see "[Create a deployment](https://docs.github.com/rest/deployments/deployments/#create-a-deployment)" and "[Create a deployment status](https://docs.github.com/rest/deployments/statuses#create-a-deployment-status)." OAuth app tokens and personal access tokens (classic) need the `repo` or `repo_deployment` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -55,25 +27,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - deploymentId: deployment_id parameter
-    static func reposDeleteDeployment(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        deploymentId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/deployments/",
-                sdkEncodePathSegment(sdkWireString(deploymentId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteDeployment"
-        )).data
+    public static func reposDeleteDeployment(config: ClientConfig, owner: String, repo: String, deploymentId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/deployments/", sdkEncodePathSegment(sdkWireString(deploymentId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteDeployment")).data
     }
 }

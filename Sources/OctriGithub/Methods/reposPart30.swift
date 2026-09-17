@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Updating required status checks requires admin or owner permissions to the repository and branch
-    /// protection to be enabled.
+extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Updating required status checks requires admin or owner permissions to the repository and branch protection to be enabled.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,36 +25,9 @@ public extension ReposMethods {
     ///   more fine-grained control.
     /// - checks: The list of status checks to require in order to merge into this
     ///   branch.
-    static func reposUpdateStatusCheckProtection(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        branch: String,
-        strict: Bool?,
-        contexts: [String]?,
-        checks: [ReposUpdateStatusCheckProtectionRequestBodyChecksItem]?
-    ) async throws -> StatusCheckPolicy {
-        let requestBody = ReposUpdateStatusCheckProtectionRequestBody(
-            strict: strict,
-            contexts: contexts,
-            checks: checks
-        )
+    public static func reposUpdateStatusCheckProtection(config: ClientConfig, owner: String, repo: String, branch: String, strict: Bool?, contexts: [String]?, checks: [ReposUpdateStatusCheckProtectionRequestBodyChecksItem]?) async throws -> StatusCheckPolicy {
+        let requestBody = ReposUpdateStatusCheckProtectionRequestBody(strict: strict, contexts: contexts, checks: checks)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/branches/",
-                sdkEncodePathSegment(sdkWireString(branch)),
-                "/protection/required_status_checks",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposUpdateStatusCheckProtection"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/required_status_checks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateStatusCheckProtection")).data
     }
 }

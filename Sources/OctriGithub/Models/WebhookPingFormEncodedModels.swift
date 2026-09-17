@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookPingFormEncoded domain models
+// WebhookPingFormEncoded domain models
 /// The webhooks ping payload encoded with URL encoding.
 public struct WebhookPingFormEncoded: Codable {
     /// A URL-encoded string of the ping JSON payload. The decoded payload is a JSON object.
@@ -13,27 +13,21 @@ public struct WebhookPingFormEncoded: Codable {
         case payload
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPingFormEncoded {
-    init(from decoder: Decoder) throws {
+extension WebhookPingFormEncoded {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.payload) else {
-            throw SdkValidationError(
-                field: "payload",
-                code: "required",
-                message: "Validation failed for 'payload': value is required"
-            )
+            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
         }
-        payload = try container.sdkDecodeRequired(.payload)
+        self.payload = try container.sdkDecodeRequired(.payload)
     }
 }
 
-public extension WebhookPingFormEncoded {
-    init(payload: String) {
+extension WebhookPingFormEncoded {
+    public init(payload: String) {
         self.payload = payload
     }
 }

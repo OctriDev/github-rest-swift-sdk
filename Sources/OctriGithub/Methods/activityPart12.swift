@@ -6,13 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// List stargazers
     ///
-    /// Lists the people that have starred the repository. This endpoint supports the following custom media types. For
-    /// more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
+    /// Lists the people that have starred the repository. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,29 +24,10 @@ public extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func activityListStargazersForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> ActivityListStargazersForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/stargazers",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "activityListStargazersForRepo"
-        )).data
+    public static func activityListStargazersForRepo(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> ActivityListStargazersForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stargazers"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "activityListStargazersForRepo")).data
     }
 }

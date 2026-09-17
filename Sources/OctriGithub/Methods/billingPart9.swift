@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension BillingMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for an
-    /// organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an
-    /// organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
+extension BillingMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -27,30 +25,14 @@ public extension BillingMethods {
     /// - product: The product name to query usage for. The name is not case
     ///   sensitive.
     /// - sku: The SKU to query for usage.
-    static func billingGetGithubBillingUsageSummaryReportOrg(
-        config: ClientConfig,
-        org: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        repository: String?,
-        product: String?,
-        sku: String?
-    ) async throws -> BillingUsageSummaryReportOrg {
-        try await (sdkRequest(
-            "GET",
-            ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/usage/summary"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("year", value: year),
-                SdkQueryParameter("month", value: month),
-                SdkQueryParameter("day", value: day),
-                SdkQueryParameter("repository", value: repository),
-                SdkQueryParameter("product", value: product),
-                SdkQueryParameter("sku", value: sku),
-            ],
-            decoder: .json,
-            operationId: "billingGetGithubBillingUsageSummaryReportOrg"
-        )).data
+    public static func billingGetGithubBillingUsageSummaryReportOrg(config: ClientConfig, org: String, year: Int?, month: Int?, day: Int?, repository: String?, product: String?, sku: String?) async throws -> BillingUsageSummaryReportOrg {
+        return try (await sdkRequest("GET", ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/usage/summary"].joined(), config: config, query: [
+            SdkQueryParameter("year", value: year),
+            SdkQueryParameter("month", value: month),
+            SdkQueryParameter("day", value: day),
+            SdkQueryParameter("repository", value: repository),
+            SdkQueryParameter("product", value: product),
+            SdkQueryParameter("sku", value: sku),
+        ], decoder: .json, operationId: "billingGetGithubBillingUsageSummaryReportOrg")).data
     }
 }

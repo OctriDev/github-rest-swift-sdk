@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposCreateReleaseOptions: Codable {
+extension ReposMethods {
+    public struct ReposCreateReleaseOptions: Codable {
         public var owner: String
         public var repo: String
         public var tagName: String
@@ -27,21 +27,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Users with push access to the repository can create a release. > [!NOTE] > If the commit identified by
-    /// `target_commitish` (or, when `target_commitish` is omitted, the latest commit on the default branch) adds or
-    /// modifies any file under `.github/workflows/` relative to the repository's default branch, the authenticating
-    /// token must be authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some
-    /// authentication paths surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal
-    /// access tokens (classic) need the `workflow` scope when the resolved target commit modifies workflow files.
-    /// Fine-grained access tokens and GitHub App installation tokens also need the "Workflows" repository permission
-    /// (write). The `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see
-    /// "[Automatic token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)".
-    /// This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    /// Users with push access to the repository can create a release. > [!NOTE] > If the commit identified by `target_commitish` (or, when `target_commitish` is omitted, the latest commit on the default branch) adds or modifies any file under `.github/workflows/` relative to the repository's default branch, the authenticating token must be authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some authentication paths surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal access tokens (classic) need the `workflow` scope when the resolved target commit modifies workflow files. Fine-grained access tokens and GitHub App installation tokens also need the "Workflows" repository permission (write). The `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see "[Automatic token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)". This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -73,22 +59,9 @@ public extension ReposMethods {
     ///   Defaults to `true` for newly published releases. `legacy` specifies that the
     ///   latest release should be determined based on the release creation date and
     ///   higher semantic version.
-    static func reposCreateRelease(config: ClientConfig, options: ReposCreateReleaseOptions) async throws -> Release {
+    public static func reposCreateRelease(config: ClientConfig, options: ReposCreateReleaseOptions) async throws -> Release {
         let requestBody = ReposCreateReleaseRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/releases",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateRelease"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/releases"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateRelease")).data
     }
 }

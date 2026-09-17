@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// List GPG keys for a user
     ///
     /// Lists the GPG keys for a user. This information is accessible by anyone.
@@ -21,22 +21,10 @@ public extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func usersListGpgKeysForUser(
-        config: ClientConfig,
-        username: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [GpgKey] {
-        try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/gpg_keys"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "usersListGpgKeysForUser"
-        )).data
+    public static func usersListGpgKeysForUser(config: ClientConfig, username: String, perPage: Int?, page: Int?) async throws -> [GpgKey] {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/gpg_keys"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "usersListGpgKeysForUser")).data
     }
 }

@@ -3,38 +3,9 @@
 
 import Foundation
 
-/// Webhooks domain models
-public extension WebhooksRule {
-    init(
-        adminEnforced: Bool,
-        allowDeletionsEnforcementLevel: WebhooksRuleAllowDeletionsEnforcementLevel,
-        allowForcePushesEnforcementLevel: WebhooksRuleAllowForcePushesEnforcementLevel,
-        authorizedActorNames: [String],
-        authorizedActorsOnly: Bool,
-        authorizedDismissalActorsOnly: Bool,
-        createdAt: Date,
-        dismissStaleReviewsOnPush: Bool,
-        id: Int,
-        ignoreApprovalsFromContributors: Bool,
-        linearHistoryRequirementEnforcementLevel: WebhooksRuleLinearHistoryRequirementEnforcementLevel,
-        lockBranchEnforcementLevel: WebhooksRuleLockBranchEnforcementLevel,
-        mergeQueueEnforcementLevel: WebhooksRuleMergeQueueEnforcementLevel,
-        name: String,
-        pullRequestReviewsEnforcementLevel: WebhooksRulePullRequestReviewsEnforcementLevel,
-        repositoryId: Int,
-        requireCodeOwnerReview: Bool,
-        requiredApprovingReviewCount: Int,
-        requiredConversationResolutionLevel: WebhooksRuleRequiredConversationResolutionLevel,
-        requiredDeploymentsEnforcementLevel: WebhooksRuleRequiredDeploymentsEnforcementLevel,
-        requiredStatusChecks: [String],
-        requiredStatusChecksEnforcementLevel: WebhooksRuleRequiredStatusChecksEnforcementLevel,
-        signatureRequirementEnforcementLevel: WebhooksRuleSignatureRequirementEnforcementLevel,
-        strictRequiredStatusChecksPolicy: Bool,
-        updatedAt: Date,
-        createProtected: Bool? = nil,
-        lockAllowsForkSync: Bool? = nil,
-        requireLastPushApproval: Bool? = nil
-    ) throws {
+// Webhooks domain models
+extension WebhooksRule {
+    public init(adminEnforced: Bool, allowDeletionsEnforcementLevel: WebhooksRuleAllowDeletionsEnforcementLevel, allowForcePushesEnforcementLevel: WebhooksRuleAllowForcePushesEnforcementLevel, authorizedActorNames: [String], authorizedActorsOnly: Bool, authorizedDismissalActorsOnly: Bool, createdAt: Date, dismissStaleReviewsOnPush: Bool, id: Int, ignoreApprovalsFromContributors: Bool, linearHistoryRequirementEnforcementLevel: WebhooksRuleLinearHistoryRequirementEnforcementLevel, lockBranchEnforcementLevel: WebhooksRuleLockBranchEnforcementLevel, mergeQueueEnforcementLevel: WebhooksRuleMergeQueueEnforcementLevel, name: String, pullRequestReviewsEnforcementLevel: WebhooksRulePullRequestReviewsEnforcementLevel, repositoryId: Int, requireCodeOwnerReview: Bool, requiredApprovingReviewCount: Int, requiredConversationResolutionLevel: WebhooksRuleRequiredConversationResolutionLevel, requiredDeploymentsEnforcementLevel: WebhooksRuleRequiredDeploymentsEnforcementLevel, requiredStatusChecks: [String], requiredStatusChecksEnforcementLevel: WebhooksRuleRequiredStatusChecksEnforcementLevel, signatureRequirementEnforcementLevel: WebhooksRuleSignatureRequirementEnforcementLevel, strictRequiredStatusChecksPolicy: Bool, updatedAt: Date, createProtected: Bool? = nil, lockAllowsForkSync: Bool? = nil, requireLastPushApproval: Bool? = nil) throws {
         self.adminEnforced = adminEnforced
         self.allowDeletionsEnforcementLevel = allowDeletionsEnforcementLevel
         self.allowForcePushesEnforcementLevel = allowForcePushesEnforcementLevel
@@ -58,8 +29,8 @@ public extension WebhooksRule {
         (self.updatedAt, self.createProtected) = (updatedAt, createProtected)
         self.lockAllowsForkSync = lockAllowsForkSync
         self.requireLastPushApproval = requireLastPushApproval
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -108,46 +79,30 @@ public struct WebhooksSecurityAdvisory: Codable {
         case cvssSeverities = "cvss_severities"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisory {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisory {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        cvss = try container.sdkDecodeRequired(.cvss)
-        cwes = try container.sdkDecodeRequired(.cwes)
-        description = try container.sdkDecodeRequired(.description)
-        ghsaId = try container.sdkDecodeRequired(.ghsaId)
-        identifiers = try container.sdkDecodeRequired(.identifiers)
-        publishedAt = try container.sdkDecodeRequired(.publishedAt)
-        references = try container.sdkDecodeRequired(.references)
-        severity = try container.sdkDecodeRequired(.severity)
-        summary = try container.sdkDecodeRequired(.summary)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        vulnerabilities = try container.sdkDecodeRequired(.vulnerabilities)
-        withdrawnAt = try container.sdkDecodeIfPresent(.withdrawnAt)
-        cvssSeverities = try container.sdkDecodeIfPresent(.cvssSeverities)
+        self.cvss = try container.sdkDecodeRequired(.cvss)
+        self.cwes = try container.sdkDecodeRequired(.cwes)
+        self.description = try container.sdkDecodeRequired(.description)
+        self.ghsaId = try container.sdkDecodeRequired(.ghsaId)
+        self.identifiers = try container.sdkDecodeRequired(.identifiers)
+        self.publishedAt = try container.sdkDecodeRequired(.publishedAt)
+        self.references = try container.sdkDecodeRequired(.references)
+        self.severity = try container.sdkDecodeRequired(.severity)
+        self.summary = try container.sdkDecodeRequired(.summary)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.vulnerabilities = try container.sdkDecodeRequired(.vulnerabilities)
+        self.withdrawnAt = try container.sdkDecodeIfPresent(.withdrawnAt)
+        self.cvssSeverities = try container.sdkDecodeIfPresent(.cvssSeverities)
     }
 }
 
-public extension WebhooksSecurityAdvisory {
-    init(
-        cvss: WebhooksSecurityAdvisoryCvss,
-        cwes: [WebhooksSecurityAdvisoryCwesItem],
-        description: String,
-        ghsaId: String,
-        identifiers: [WebhooksSecurityAdvisoryIdentifiersItem],
-        publishedAt: String,
-        references: [WebhooksSecurityAdvisoryReferencesItem],
-        severity: String,
-        summary: String,
-        updatedAt: String,
-        vulnerabilities: [WebhooksSecurityAdvisoryVulnerabilitiesItem],
-        withdrawnAt: String?,
-        cvssSeverities: CvssSeverities? = nil
-    ) {
+extension WebhooksSecurityAdvisory {
+    public init(cvss: WebhooksSecurityAdvisoryCvss, cwes: [WebhooksSecurityAdvisoryCwesItem], description: String, ghsaId: String, identifiers: [WebhooksSecurityAdvisoryIdentifiersItem], publishedAt: String, references: [WebhooksSecurityAdvisoryReferencesItem], severity: String, summary: String, updatedAt: String, vulnerabilities: [WebhooksSecurityAdvisoryVulnerabilitiesItem], withdrawnAt: String?, cvssSeverities: CvssSeverities? = nil) {
         (self.cvss, self.cwes) = (cvss, cwes)
         (self.description, self.ghsaId) = (description, ghsaId)
         (self.identifiers, self.publishedAt) = (identifiers, publishedAt)
@@ -170,35 +125,25 @@ public struct WebhooksSecurityAdvisoryCvss: Codable {
         case vectorString = "vector_string"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryCvss {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryCvss {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.score) else {
-            throw SdkValidationError(
-                field: "score",
-                code: "required",
-                message: "Validation failed for 'score': value is required"
-            )
+            throw SdkValidationError(field: "score", code: "required", message: "Validation failed for 'score': value is required")
         }
         guard container.contains(.vectorString) else {
-            throw SdkValidationError(
-                field: "vector_string",
-                code: "required",
-                message: "Validation failed for 'vector_string': value is required"
-            )
+            throw SdkValidationError(field: "vector_string", code: "required", message: "Validation failed for 'vector_string': value is required")
         }
-        score = try container.sdkDecodeRequired(.score)
-        vectorString = try container.sdkDecodeIfPresent(.vectorString)
+        self.score = try container.sdkDecodeRequired(.score)
+        self.vectorString = try container.sdkDecodeIfPresent(.vectorString)
     }
 }
 
-public extension WebhooksSecurityAdvisoryCvss {
-    init(score: Double, vectorString: String?) {
+extension WebhooksSecurityAdvisoryCvss {
+    public init(score: Double, vectorString: String?) {
         (self.score, self.vectorString) = (score, vectorString)
     }
 }
@@ -215,35 +160,25 @@ public struct WebhooksSecurityAdvisoryCwesItem: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryCwesItem {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryCwesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.cweId) else {
-            throw SdkValidationError(
-                field: "cwe_id",
-                code: "required",
-                message: "Validation failed for 'cwe_id': value is required"
-            )
+            throw SdkValidationError(field: "cwe_id", code: "required", message: "Validation failed for 'cwe_id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        cweId = try container.sdkDecodeRequired(.cweId)
-        name = try container.sdkDecodeRequired(.name)
+        self.cweId = try container.sdkDecodeRequired(.cweId)
+        self.name = try container.sdkDecodeRequired(.name)
     }
 }
 
-public extension WebhooksSecurityAdvisoryCwesItem {
-    init(cweId: String, name: String) {
+extension WebhooksSecurityAdvisoryCwesItem {
+    public init(cweId: String, name: String) {
         (self.cweId, self.name) = (cweId, name)
     }
 }
@@ -260,35 +195,25 @@ public struct WebhooksSecurityAdvisoryIdentifiersItem: Codable {
         case value
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryIdentifiersItem {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryIdentifiersItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.type) else {
-            throw SdkValidationError(
-                field: "type",
-                code: "required",
-                message: "Validation failed for 'type': value is required"
-            )
+            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
         }
         guard container.contains(.value) else {
-            throw SdkValidationError(
-                field: "value",
-                code: "required",
-                message: "Validation failed for 'value': value is required"
-            )
+            throw SdkValidationError(field: "value", code: "required", message: "Validation failed for 'value': value is required")
         }
-        type = try container.sdkDecodeRequired(.type)
-        value = try container.sdkDecodeRequired(.value)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.value = try container.sdkDecodeRequired(.value)
     }
 }
 
-public extension WebhooksSecurityAdvisoryIdentifiersItem {
-    init(type: String, value: String) {
+extension WebhooksSecurityAdvisoryIdentifiersItem {
+    public init(type: String, value: String) {
         (self.type, self.value) = (type, value)
     }
 }
@@ -302,30 +227,24 @@ public struct WebhooksSecurityAdvisoryReferencesItem: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryReferencesItem {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryReferencesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("url", url)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhooksSecurityAdvisoryReferencesItem {
-    init(url: String) throws {
+extension WebhooksSecurityAdvisoryReferencesItem {
+    public init(url: String) throws {
         self.url = url
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -347,56 +266,33 @@ public struct WebhooksSecurityAdvisoryVulnerabilitiesItem: Codable {
         case vulnerableVersionRange = "vulnerable_version_range"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryVulnerabilitiesItem {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryVulnerabilitiesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.firstPatchedVersion) else {
-            throw SdkValidationError(
-                field: "first_patched_version",
-                code: "required",
-                message: "Validation failed for 'first_patched_version': value is required"
-            )
+            throw SdkValidationError(field: "first_patched_version", code: "required", message: "Validation failed for 'first_patched_version': value is required")
         }
         guard container.contains(.package) else {
-            throw SdkValidationError(
-                field: "package",
-                code: "required",
-                message: "Validation failed for 'package': value is required"
-            )
+            throw SdkValidationError(field: "package", code: "required", message: "Validation failed for 'package': value is required")
         }
         guard container.contains(.severity) else {
-            throw SdkValidationError(
-                field: "severity",
-                code: "required",
-                message: "Validation failed for 'severity': value is required"
-            )
+            throw SdkValidationError(field: "severity", code: "required", message: "Validation failed for 'severity': value is required")
         }
         guard container.contains(.vulnerableVersionRange) else {
-            throw SdkValidationError(
-                field: "vulnerable_version_range",
-                code: "required",
-                message: "Validation failed for 'vulnerable_version_range': value is required"
-            )
+            throw SdkValidationError(field: "vulnerable_version_range", code: "required", message: "Validation failed for 'vulnerable_version_range': value is required")
         }
-        firstPatchedVersion = try container.sdkDecodeIfPresent(.firstPatchedVersion)
-        package = try container.sdkDecodeRequired(.package)
-        severity = try container.sdkDecodeRequired(.severity)
-        vulnerableVersionRange = try container.sdkDecodeRequired(.vulnerableVersionRange)
+        self.firstPatchedVersion = try container.sdkDecodeIfPresent(.firstPatchedVersion)
+        self.package = try container.sdkDecodeRequired(.package)
+        self.severity = try container.sdkDecodeRequired(.severity)
+        self.vulnerableVersionRange = try container.sdkDecodeRequired(.vulnerableVersionRange)
     }
 }
 
-public extension WebhooksSecurityAdvisoryVulnerabilitiesItem {
-    init(
-        firstPatchedVersion: WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion?,
-        package: WebhooksSecurityAdvisoryVulnerabilitiesItemPackage,
-        severity: String,
-        vulnerableVersionRange: String
-    ) {
+extension WebhooksSecurityAdvisoryVulnerabilitiesItem {
+    public init(firstPatchedVersion: WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion?, package: WebhooksSecurityAdvisoryVulnerabilitiesItemPackage, severity: String, vulnerableVersionRange: String) {
         (self.firstPatchedVersion, self.package) = (firstPatchedVersion, package)
         (self.severity, self.vulnerableVersionRange) = (severity, vulnerableVersionRange)
     }
@@ -411,27 +307,21 @@ public struct WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion: Co
         case identifier
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.identifier) else {
-            throw SdkValidationError(
-                field: "identifier",
-                code: "required",
-                message: "Validation failed for 'identifier': value is required"
-            )
+            throw SdkValidationError(field: "identifier", code: "required", message: "Validation failed for 'identifier': value is required")
         }
-        identifier = try container.sdkDecodeRequired(.identifier)
+        self.identifier = try container.sdkDecodeRequired(.identifier)
     }
 }
 
-public extension WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion {
-    init(identifier: String) {
+extension WebhooksSecurityAdvisoryVulnerabilitiesItemFirstPatchedVersion {
+    public init(identifier: String) {
         self.identifier = identifier
     }
 }
@@ -448,35 +338,25 @@ public struct WebhooksSecurityAdvisoryVulnerabilitiesItemPackage: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSecurityAdvisoryVulnerabilitiesItemPackage {
-    init(from decoder: Decoder) throws {
+extension WebhooksSecurityAdvisoryVulnerabilitiesItemPackage {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ecosystem) else {
-            throw SdkValidationError(
-                field: "ecosystem",
-                code: "required",
-                message: "Validation failed for 'ecosystem': value is required"
-            )
+            throw SdkValidationError(field: "ecosystem", code: "required", message: "Validation failed for 'ecosystem': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        ecosystem = try container.sdkDecodeRequired(.ecosystem)
-        name = try container.sdkDecodeRequired(.name)
+        self.ecosystem = try container.sdkDecodeRequired(.ecosystem)
+        self.name = try container.sdkDecodeRequired(.name)
     }
 }
 
-public extension WebhooksSecurityAdvisoryVulnerabilitiesItemPackage {
-    init(ecosystem: String, name: String) {
+extension WebhooksSecurityAdvisoryVulnerabilitiesItemPackage {
+    public init(ecosystem: String, name: String) {
         (self.ecosystem, self.name) = (ecosystem, name)
     }
 }
@@ -509,76 +389,42 @@ public struct WebhooksSponsorship: Codable {
         case maintainer
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksSponsorship {
-    init(from decoder: Decoder) throws {
+extension WebhooksSponsorship {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(
-                field: "node_id",
-                code: "required",
-                message: "Validation failed for 'node_id': value is required"
-            )
+            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
         }
         guard container.contains(.privacyLevel) else {
-            throw SdkValidationError(
-                field: "privacy_level",
-                code: "required",
-                message: "Validation failed for 'privacy_level': value is required"
-            )
+            throw SdkValidationError(field: "privacy_level", code: "required", message: "Validation failed for 'privacy_level': value is required")
         }
         guard container.contains(.sponsor) else {
-            throw SdkValidationError(
-                field: "sponsor",
-                code: "required",
-                message: "Validation failed for 'sponsor': value is required"
-            )
+            throw SdkValidationError(field: "sponsor", code: "required", message: "Validation failed for 'sponsor': value is required")
         }
         guard container.contains(.sponsorable) else {
-            throw SdkValidationError(
-                field: "sponsorable",
-                code: "required",
-                message: "Validation failed for 'sponsorable': value is required"
-            )
+            throw SdkValidationError(field: "sponsorable", code: "required", message: "Validation failed for 'sponsorable': value is required")
         }
         guard container.contains(.tier) else {
-            throw SdkValidationError(
-                field: "tier",
-                code: "required",
-                message: "Validation failed for 'tier': value is required"
-            )
+            throw SdkValidationError(field: "tier", code: "required", message: "Validation failed for 'tier': value is required")
         }
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        privacyLevel = try container.sdkDecodeRequired(.privacyLevel)
-        sponsor = try container.sdkDecodeIfPresent(.sponsor)
-        sponsorable = try container.sdkDecodeIfPresent(.sponsorable)
-        tier = try container.sdkDecodeRequired(.tier)
-        maintainer = try container.sdkDecodeIfPresent(.maintainer)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.privacyLevel = try container.sdkDecodeRequired(.privacyLevel)
+        self.sponsor = try container.sdkDecodeIfPresent(.sponsor)
+        self.sponsorable = try container.sdkDecodeIfPresent(.sponsorable)
+        self.tier = try container.sdkDecodeRequired(.tier)
+        self.maintainer = try container.sdkDecodeIfPresent(.maintainer)
     }
 }
 
-public extension WebhooksSponsorship {
-    init(
-        createdAt: String,
-        nodeId: String,
-        privacyLevel: String,
-        sponsor: WebhooksSponsorshipSponsor?,
-        sponsorable: WebhooksSponsorshipSponsorable?,
-        tier: WebhooksSponsorshipTier,
-        maintainer: WebhooksSponsorshipMaintainer? = nil
-    ) {
+extension WebhooksSponsorship {
+    public init(createdAt: String, nodeId: String, privacyLevel: String, sponsor: WebhooksSponsorshipSponsor?, sponsorable: WebhooksSponsorshipSponsorable?, tier: WebhooksSponsorshipTier, maintainer: WebhooksSponsorshipMaintainer? = nil) {
         (self.createdAt, self.nodeId) = (createdAt, nodeId)
         (self.privacyLevel, self.sponsor) = (privacyLevel, sponsor)
         (self.sponsorable, self.tier) = (sponsorable, tier)

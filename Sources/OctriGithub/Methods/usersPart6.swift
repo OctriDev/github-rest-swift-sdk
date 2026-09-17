@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// List followers of the authenticated user
     ///
     /// Lists the people following the authenticated user.
@@ -20,12 +20,8 @@ public extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func usersListFollowersForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [SimpleUser] {
-        try await (sdkRequest("GET", "/user/followers", config: config, query: [
+    public static func usersListFollowersForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        return try (await sdkRequest("GET", "/user/followers", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListFollowersForAuthenticatedUser")).data

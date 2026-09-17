@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Oidc domain models
+// Oidc domain models
 /// An OIDC custom property inclusion for repository properties
 public struct OidcCustomPropertyInclusion: Codable {
     /// The name of the custom property that is included in the OIDC token
@@ -17,35 +17,25 @@ public struct OidcCustomPropertyInclusion: Codable {
         case inclusionSource = "inclusion_source"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OidcCustomPropertyInclusion {
-    init(from decoder: Decoder) throws {
+extension OidcCustomPropertyInclusion {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.customPropertyName) else {
-            throw SdkValidationError(
-                field: "custom_property_name",
-                code: "required",
-                message: "Validation failed for 'custom_property_name': value is required"
-            )
+            throw SdkValidationError(field: "custom_property_name", code: "required", message: "Validation failed for 'custom_property_name': value is required")
         }
         guard container.contains(.inclusionSource) else {
-            throw SdkValidationError(
-                field: "inclusion_source",
-                code: "required",
-                message: "Validation failed for 'inclusion_source': value is required"
-            )
+            throw SdkValidationError(field: "inclusion_source", code: "required", message: "Validation failed for 'inclusion_source': value is required")
         }
-        customPropertyName = try container.sdkDecodeRequired(.customPropertyName)
-        inclusionSource = try container.sdkDecodeRequired(.inclusionSource)
+        self.customPropertyName = try container.sdkDecodeRequired(.customPropertyName)
+        self.inclusionSource = try container.sdkDecodeRequired(.inclusionSource)
     }
 }
 
-public extension OidcCustomPropertyInclusion {
-    init(customPropertyName: String, inclusionSource: OidcCustomPropertyInclusionInclusionSource) {
+extension OidcCustomPropertyInclusion {
+    public init(customPropertyName: String, inclusionSource: OidcCustomPropertyInclusionInclusionSource) {
         (self.customPropertyName, self.inclusionSource) = (customPropertyName, inclusionSource)
     }
 }
@@ -59,27 +49,21 @@ public struct OidcCustomPropertyInclusionInput: Codable {
         case customPropertyName = "custom_property_name"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OidcCustomPropertyInclusionInput {
-    init(from decoder: Decoder) throws {
+extension OidcCustomPropertyInclusionInput {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.customPropertyName) else {
-            throw SdkValidationError(
-                field: "custom_property_name",
-                code: "required",
-                message: "Validation failed for 'custom_property_name': value is required"
-            )
+            throw SdkValidationError(field: "custom_property_name", code: "required", message: "Validation failed for 'custom_property_name': value is required")
         }
-        customPropertyName = try container.sdkDecodeRequired(.customPropertyName)
+        self.customPropertyName = try container.sdkDecodeRequired(.customPropertyName)
     }
 }
 
-public extension OidcCustomPropertyInclusionInput {
-    init(customPropertyName: String) {
+extension OidcCustomPropertyInclusionInput {
+    public init(customPropertyName: String) {
         self.customPropertyName = customPropertyName
     }
 }
@@ -97,47 +81,37 @@ public struct OidcCustomSub: Codable {
         case useImmutableSubject = "use_immutable_subject"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OidcCustomSub {
-    init(from decoder: Decoder) throws {
+extension OidcCustomSub {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.includeClaimKeys) else {
-            throw SdkValidationError(
-                field: "include_claim_keys",
-                code: "required",
-                message: "Validation failed for 'include_claim_keys': value is required"
-            )
+            throw SdkValidationError(field: "include_claim_keys", code: "required", message: "Validation failed for 'include_claim_keys': value is required")
         }
-        includeClaimKeys = try container.sdkDecodeRequired(.includeClaimKeys)
-        useImmutableSubject = try container.sdkDecodeIfPresent(.useImmutableSubject)
+        self.includeClaimKeys = try container.sdkDecodeRequired(.includeClaimKeys)
+        self.useImmutableSubject = try container.sdkDecodeIfPresent(.useImmutableSubject)
     }
 }
 
-public extension OidcCustomSub {
-    init(includeClaimKeys: [String], useImmutableSubject: Bool? = nil) {
+extension OidcCustomSub {
+    public init(includeClaimKeys: [String], useImmutableSubject: Bool? = nil) {
         (self.includeClaimKeys, self.useImmutableSubject) = (includeClaimKeys, useImmutableSubject)
     }
 }
 
 /// Whether the inclusion was defined at the organization or enterprise level
-public struct OidcCustomPropertyInclusionInclusionSource: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct OidcCustomPropertyInclusionInclusionSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let organization = OidcCustomPropertyInclusionInclusionSource(rawValue: "organization")
     public static let enterprise = OidcCustomPropertyInclusionInclusionSource(rawValue: "enterprise")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

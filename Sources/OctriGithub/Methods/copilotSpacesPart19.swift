@@ -6,73 +6,31 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Set a resource for a Copilot Space for a user
     ///
-    /// Updates the metadata of a resource in a specific Copilot Space owned by a user. The authenticated user must have
-    /// write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user`
-    /// scope to use this endpoint.
+    /// Updates the metadata of a resource in a specific Copilot Space owned by a user. The authenticated user must have write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
     /// - spaceResourceId: The unique identifier of the resource.
     /// - metadata: Updated resource-specific metadata.
-    static func copilotSpacesUpdateResourceForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int,
-        spaceResourceId: Int,
-        metadata: [String: JSONValue]?
-    ) async throws -> CopilotSpaceResource {
+    public static func copilotSpacesUpdateResourceForUser(config: ClientConfig, username: String, spaceNumber: Int, spaceResourceId: Int, metadata: [String: JSONValue]?) async throws -> CopilotSpaceResource {
         let requestBody = CopilotSpacesUpdateResourceForUserRequestBody(metadata: metadata)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/resources/",
-                sdkEncodePathSegment(sdkWireString(spaceResourceId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesUpdateResourceForUser"
-        )).data
+        return try (await sdkRequest("PUT", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/resources/", sdkEncodePathSegment(sdkWireString(spaceResourceId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesUpdateResourceForUser")).data
     }
 
     /// Delete a resource from a Copilot Space for a user
     ///
-    /// Deletes a resource from a specific Copilot Space owned by a user. The authenticated user must have write
-    /// permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to
-    /// use this endpoint.
+    /// Deletes a resource from a specific Copilot Space owned by a user. The authenticated user must have write permissions on the space. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
     /// - spaceResourceId: The unique identifier of the resource.
-    static func copilotSpacesDeleteResourceForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int,
-        spaceResourceId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/resources/",
-                sdkEncodePathSegment(sdkWireString(spaceResourceId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "copilotSpacesDeleteResourceForUser"
-        )).data
+    public static func copilotSpacesDeleteResourceForUser(config: ClientConfig, username: String, spaceNumber: Int, spaceResourceId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/resources/", sdkEncodePathSegment(sdkWireString(spaceResourceId))].joined(), config: config, decoder: .empty, operationId: "copilotSpacesDeleteResourceForUser")).data
     }
 }

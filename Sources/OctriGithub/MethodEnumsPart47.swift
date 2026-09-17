@@ -8,21 +8,17 @@ import Foundation
 #endif
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct ReposCreateForAuthenticatedUserRequestBodyMergeCommitMessage: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct ReposCreateForAuthenticatedUserRequestBodyMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = ReposCreateForAuthenticatedUserRequestBodyMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = ReposCreateForAuthenticatedUserRequestBodyMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = ReposCreateForAuthenticatedUserRequestBodyMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -34,21 +30,16 @@ public struct ReposCreateForAuthenticatedUserRequestBodyMergeCommitMessage: RawR
 /// Required when using `merge_commit_message`. The default value for a merge commit title. - `PR_TITLE` -
 /// default to the pull request's title. - `MERGE_MESSAGE` - default to the classic title for a merge message
 /// (e.g., Merge pull request #123 from branch-name).
-public struct ReposCreateForAuthenticatedUserRequestBodyMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateForAuthenticatedUserRequestBodyMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = ReposCreateForAuthenticatedUserRequestBodyMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let mergeMessage =
-        ReposCreateForAuthenticatedUserRequestBodyMergeCommitTitle(rawValue: "MERGE_MESSAGE")
+    public static let mergeMessage = ReposCreateForAuthenticatedUserRequestBodyMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -59,22 +50,17 @@ public struct ReposCreateForAuthenticatedUserRequestBodyMergeCommitTitle: RawRep
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage(rawValue: "PR_BODY")
-    public static let commitMessages =
-        ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
+    public static let commitMessages = ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -86,21 +72,16 @@ public struct ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitMessage
 /// Required when using `squash_merge_commit_message`. The default value for a squash merge commit title: -
 /// `PR_TITLE` - default to the pull request's title. - `COMMIT_OR_PR_TITLE` - default to the commit's title (if
 /// only one commit) or the pull request's title (when more than one commit).
-public struct ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitTitle: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let commitOrPrTitle =
-        ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
+    public static let commitOrPrTitle = ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -109,55 +90,15 @@ public struct ReposCreateForAuthenticatedUserRequestBodySquashMergeCommitTitle: 
     }
 }
 
-public struct CopilotAddOrganizationsToEnterpriseCodingAgentPolicyCustomPropertiesList: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
-}
+public typealias CopilotAddOrganizationsToEnterpriseCodingAgentPolicyCustomPropertiesList = [CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBoX2418f346cd]
 
-public extension CopilotAddOrganizationsToEnterpriseCodingAgentPolicyCustomPropertiesList {
-    init() {}
-}
+public typealias CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyCustXd9c994a561 = [CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyRequXed276f642f]
 
-public struct CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyCustXd9c994a561: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
-}
+public typealias OrgsCreateClusterDeploymentRecordsJobDeploymentsList = [OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem]
 
-public extension CopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyCustXd9c994a561 {
-    init() {}
-}
+public typealias SecretScanningUpdateOrgPatternConfigsProviderPatternSettingsList = [SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteX496d235208]
 
-public struct OrgsCreateClusterDeploymentRecordsJobDeploymentsList: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
-}
-
-public extension OrgsCreateClusterDeploymentRecordsJobDeploymentsList {
-    init() {}
-}
-
-public struct SecretScanningUpdateOrgPatternConfigsProviderPatternSettingsList: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
-}
-
-public extension SecretScanningUpdateOrgPatternConfigsProviderPatternSettingsList {
-    init() {}
-}
-
-public struct SecretScanningUpdateOrgPatternConfigsCustomPatternSettingsList: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
-}
-
-public extension SecretScanningUpdateOrgPatternConfigsCustomPatternSettingsList {
-    init() {}
-}
+public typealias SecretScanningUpdateOrgPatternConfigsCustomPatternSettingsList = [SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX60fe54664b]
 
 struct SecurityAdvisoriesCreateRepositoryAdvisoryRequestBody: Encodable {
     let summary: String
@@ -172,27 +113,27 @@ struct SecurityAdvisoriesCreateRepositoryAdvisoryRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(summary, forKey: SdkCodingKey("summary"))
-        try keyedContainer.encode(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encode(vulnerabilities, forKey: SdkCodingKey("vulnerabilities"))
-        try keyedContainer.encodeIfPresent(cveId, forKey: SdkCodingKey("cve_id"))
-        try keyedContainer.encodeIfPresent(cweIds, forKey: SdkCodingKey("cwe_ids"))
-        try keyedContainer.encodeIfPresent(credits, forKey: SdkCodingKey("credits"))
-        try keyedContainer.encodeIfPresent(severity, forKey: SdkCodingKey("severity"))
-        try keyedContainer.encodeIfPresent(cvssVectorString, forKey: SdkCodingKey("cvss_vector_string"))
-        try keyedContainer.encodeIfPresent(startPrivateFork, forKey: SdkCodingKey("start_private_fork"))
+        try keyedContainer.encode(self.summary, forKey: SdkCodingKey("summary"))
+        try keyedContainer.encode(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encode(self.vulnerabilities, forKey: SdkCodingKey("vulnerabilities"))
+        try keyedContainer.encodeIfPresent(self.cveId, forKey: SdkCodingKey("cve_id"))
+        try keyedContainer.encodeIfPresent(self.cweIds, forKey: SdkCodingKey("cwe_ids"))
+        try keyedContainer.encodeIfPresent(self.credits, forKey: SdkCodingKey("credits"))
+        try keyedContainer.encodeIfPresent(self.severity, forKey: SdkCodingKey("severity"))
+        try keyedContainer.encodeIfPresent(self.cvssVectorString, forKey: SdkCodingKey("cvss_vector_string"))
+        try keyedContainer.encodeIfPresent(self.startPrivateFork, forKey: SdkCodingKey("start_private_fork"))
     }
 
     init(options: SecurityAdvisoriesMethods.SecurityAdvisoriesCreateRepositoryAdvisoryOptions) {
-        summary = options.summary
-        description = options.description
-        vulnerabilities = options.vulnerabilities
-        cveId = options.cveId
-        cweIds = options.cweIds
-        credits = options.credits
-        severity = options.severity
-        cvssVectorString = options.cvssVectorString
-        startPrivateFork = options.startPrivateFork
+        self.summary = options.summary
+        self.description = options.description
+        self.vulnerabilities = options.vulnerabilities
+        self.cveId = options.cveId
+        self.cweIds = options.cweIds
+        self.credits = options.credits
+        self.severity = options.severity
+        self.cvssVectorString = options.cvssVectorString
+        self.startPrivateFork = options.startPrivateFork
     }
 }
 
@@ -207,22 +148,65 @@ struct SecurityAdvisoriesCreatePrivateVulnerabilityReportRequestBody: Encodable 
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(summary, forKey: SdkCodingKey("summary"))
-        try keyedContainer.encode(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(vulnerabilities, forKey: SdkCodingKey("vulnerabilities"))
-        try keyedContainer.encodeIfPresent(cweIds, forKey: SdkCodingKey("cwe_ids"))
-        try keyedContainer.encodeIfPresent(severity, forKey: SdkCodingKey("severity"))
-        try keyedContainer.encodeIfPresent(cvssVectorString, forKey: SdkCodingKey("cvss_vector_string"))
-        try keyedContainer.encodeIfPresent(startPrivateFork, forKey: SdkCodingKey("start_private_fork"))
+        try keyedContainer.encode(self.summary, forKey: SdkCodingKey("summary"))
+        try keyedContainer.encode(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.vulnerabilities, forKey: SdkCodingKey("vulnerabilities"))
+        try keyedContainer.encodeIfPresent(self.cweIds, forKey: SdkCodingKey("cwe_ids"))
+        try keyedContainer.encodeIfPresent(self.severity, forKey: SdkCodingKey("severity"))
+        try keyedContainer.encodeIfPresent(self.cvssVectorString, forKey: SdkCodingKey("cvss_vector_string"))
+        try keyedContainer.encodeIfPresent(self.startPrivateFork, forKey: SdkCodingKey("start_private_fork"))
     }
 
     init(options: SecurityAdvisoriesMethods.SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions) {
-        summary = options.summary
-        description = options.description
-        vulnerabilities = options.vulnerabilities
-        cweIds = options.cweIds
-        severity = options.severity
-        cvssVectorString = options.cvssVectorString
-        startPrivateFork = options.startPrivateFork
+        self.summary = options.summary
+        self.description = options.description
+        self.vulnerabilities = options.vulnerabilities
+        self.cweIds = options.cweIds
+        self.severity = options.severity
+        self.cvssVectorString = options.cvssVectorString
+        self.startPrivateFork = options.startPrivateFork
+    }
+}
+
+struct SecurityAdvisoriesUpdateRepositoryAdvisoryRequestBody: Encodable {
+    var summary: String?
+    var description: String?
+    var cveId: SdkOptional<String>?
+    var vulnerabilities: [RepositoryAdvisoryUpdateVulnerabilitiesItem]?
+    var cweIds: SdkOptional<[String]>?
+    var credits: SdkOptional<[RepositoryAdvisoryUpdateCreditsItem]>?
+    var severity: SdkOptional<RepositoryAdvisoryUpdateSeverity>?
+    var cvssVectorString: SdkOptional<String>?
+    var state: RepositoryAdvisoryUpdateState?
+    var collaboratingUsers: SdkOptional<[String]>?
+    var collaboratingTeams: SdkOptional<[String]>?
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encodeIfPresent(self.summary, forKey: SdkCodingKey("summary"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.cveId, forKey: SdkCodingKey("cve_id"))
+        try keyedContainer.encodeIfPresent(self.vulnerabilities, forKey: SdkCodingKey("vulnerabilities"))
+        try keyedContainer.encodeIfPresent(self.cweIds, forKey: SdkCodingKey("cwe_ids"))
+        try keyedContainer.encodeIfPresent(self.credits, forKey: SdkCodingKey("credits"))
+        try keyedContainer.encodeIfPresent(self.severity, forKey: SdkCodingKey("severity"))
+        try keyedContainer.encodeIfPresent(self.cvssVectorString, forKey: SdkCodingKey("cvss_vector_string"))
+        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.collaboratingUsers, forKey: SdkCodingKey("collaborating_users"))
+        try keyedContainer.encodeIfPresent(self.collaboratingTeams, forKey: SdkCodingKey("collaborating_teams"))
+    }
+
+    init(options: SecurityAdvisoriesMethods.SecurityAdvisoriesUpdateRepositoryAdvisoryOptions) {
+        self.summary = options.summary
+        self.description = options.description
+        self.cveId = options.cveId
+        self.vulnerabilities = options.vulnerabilities
+        self.cweIds = options.cweIds
+        self.credits = options.credits
+        self.severity = options.severity
+        self.cvssVectorString = options.cvssVectorString
+        self.state = options.state
+        self.collaboratingUsers = options.collaboratingUsers
+        self.collaboratingTeams = options.collaboratingTeams
     }
 }

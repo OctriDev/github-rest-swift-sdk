@@ -7,31 +7,16 @@ import Foundation
     import FoundationNetworking
 #endif
 public enum CodesOfConductMethods {
-    /// Lists all of GitHub's available codes of conduct. Use the returned collection to inspect each code's `key`,
-    /// `name`, `url`, `body`, and `html_url` values.
+    /// Lists all of GitHub's available codes of conduct. Use the returned collection to inspect each code's `key`, `name`, `url`, `body`, and `html_url` values.
     ///
     /// Returns array of all GitHub's codes of conduct.
     public static func codesOfConductGetAllCodesOfConduct(config: ClientConfig) async throws -> [CodeOfConduct] {
-        try await (sdkRequest(
-            "GET",
-            "/codes_of_conduct",
-            config: config,
-            decoder: .json,
-            operationId: "codesOfConductGetAllCodesOfConduct"
-        )).data
+        return try (await sdkRequest("GET", "/codes_of_conduct", config: config, decoder: .json, operationId: "codesOfConductGetAllCodesOfConduct")).data
     }
-
-    /// Retrieves a specific code of conduct by its key. Supply `key` to select the code you want to inspect, including
-    /// its name, URLs, and body when available.
+    /// Retrieves a specific code of conduct by its key. Supply `key` to select the code you want to inspect, including its name, URLs, and body when available.
     ///
     /// Returns information about the specified GitHub code of conduct.
     public static func codesOfConductGetConductCode(config: ClientConfig, key: String) async throws -> CodeOfConduct {
-        try await (sdkRequest(
-            "GET",
-            ["/codes_of_conduct/", sdkEncodePathSegment(sdkWireString(key))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codesOfConductGetConductCode"
-        )).data
+        return try (await sdkRequest("GET", ["/codes_of_conduct/", sdkEncodePathSegment(sdkWireString(key))].joined(), config: config, decoder: .json, operationId: "codesOfConductGetConductCode")).data
     }
 }

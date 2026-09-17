@@ -6,16 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets a specific concurrency group for a repository, including all instances in the group's queue. Returns 404 if
-    /// the group is inactive or does not exist. Optionally, pass `ahead_of_run` or `ahead_of_job` to filter the results
-    /// to only the items ahead of the specified workflow run or job in the queue, plus the specified item itself
-    /// (returned as the last element). This is useful for determining what is blocking a particular run or job. Returns
-    /// 422 if the specified run or job is not in this concurrency group. When using `ahead_of_run`, this matches
-    /// workflow-level concurrency and any reusable-workflow leases held on behalf of that run. Job-level leases within
-    /// the run are not considered to block the run as a whole. Use `ahead_of_job` to match job-level concurrency and
-    /// reusable-workflow leases on the job's ancestor paths. OAuth app tokens and personal access tokens (classic) need
-    /// the `repo` scope to use this endpoint with a private repository.
+extension ActionsMethods {
+    /// Gets a specific concurrency group for a repository, including all instances in the group's queue. Returns 404 if the group is inactive or does not exist. Optionally, pass `ahead_of_run` or `ahead_of_job` to filter the results to only the items ahead of the specified workflow run or job in the queue, plus the specified item itself (returned as the last element). This is useful for determining what is blocking a particular run or job. Returns 422 if the specified run or job is not in this concurrency group. When using `ahead_of_run`, this matches workflow-level concurrency and any reusable-workflow leases held on behalf of that run. Job-level leases within the run are not considered to block the run as a whole. Use `ahead_of_job` to match job-level concurrency and reusable-workflow leases on the job's ancestor paths. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,39 +22,18 @@ public extension ActionsMethods {
     /// - aheadOfJob: Filter to items ahead of this job ID in the queue, plus the
     ///   job itself. Matches job-level concurrency and reusable-workflow leases on
     ///   the job's ancestor paths. Mutually exclusive with `ahead_of_run`.
-    static func actionsGetConcurrencyGroupForRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        concurrencyGroupName: String,
-        aheadOfRun: Int?,
-        aheadOfJob: Int?
-    ) async throws -> ConcurrencyGroup {
-        if let aheadOfRun {
+    public static func actionsGetConcurrencyGroupForRepository(config: ClientConfig, owner: String, repo: String, concurrencyGroupName: String, aheadOfRun: Int?, aheadOfJob: Int?) async throws -> ConcurrencyGroup {
+        if let aheadOfRun = aheadOfRun {
             try validateRange("ahead_of_run", Double(aheadOfRun), min: 1)
         }
 
-        if let aheadOfJob {
+        if let aheadOfJob = aheadOfJob {
             try validateRange("ahead_of_job", Double(aheadOfJob), min: 1)
         }
 
-        return try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/concurrency_groups/",
-                sdkEncodePathSegment(sdkWireString(concurrencyGroupName)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("ahead_of_run", value: aheadOfRun),
-                SdkQueryParameter("ahead_of_job", value: aheadOfJob),
-            ],
-            decoder: .json,
-            operationId: "actionsGetConcurrencyGroupForRepository"
-        )).data
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/concurrency_groups/", sdkEncodePathSegment(sdkWireString(concurrencyGroupName))].joined(), config: config, query: [
+            SdkQueryParameter("ahead_of_run", value: aheadOfRun),
+            SdkQueryParameter("ahead_of_job", value: aheadOfJob),
+        ], decoder: .json, operationId: "actionsGetConcurrencyGroupForRepository")).data
     }
 }

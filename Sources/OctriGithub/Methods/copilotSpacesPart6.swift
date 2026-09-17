@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
-    /// Updates the role of a collaborator for a specific Copilot Space owned by an organization. The authenticated user
-    /// must have appropriate permissions to manage collaborators. OAuth app tokens and personal access tokens (classic)
-    /// need the `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have
-    /// been granted access to the organization that owns the space. They must also have been granted access to every
-    /// repository referenced by resources in the space.
+extension CopilotSpacesMethods {
+    /// Updates the role of a collaborator for a specific Copilot Space owned by an organization. The authenticated user must have appropriate permissions to manage collaborators. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,40 +17,13 @@ public extension CopilotSpacesMethods {
     ///   numeric ID of a user or team is also accepted.
     /// - role: The new role to grant to the collaborator. Use `no_access` to remove
     ///   the collaborator.
-    static func copilotSpacesUpdateCollaboratorForOrg(
-        config: ClientConfig,
-        org: String,
-        spaceNumber: Int,
-        actorType: CopilotSpacesUpdateCollaboratorForOrgParameter,
-        actorIdentifier: String,
-        role: CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole
-    ) async throws -> CopilotSpaceCollaborator {
+    public static func copilotSpacesUpdateCollaboratorForOrg(config: ClientConfig, org: String, spaceNumber: Int, actorType: CopilotSpacesUpdateCollaboratorForOrgParameter, actorIdentifier: String, role: CopilotSpacesUpdateCollaboratorForOrgRequestBodyRole) async throws -> CopilotSpaceCollaborator {
         let requestBody = CopilotSpacesUpdateCollaboratorForOrgRequestBody(role: role)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/collaborators/",
-                sdkEncodePathSegment(sdkWireString(actorType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(actorIdentifier)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesUpdateCollaboratorForOrg"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators/", sdkEncodePathSegment(sdkWireString(actorType)), "/", sdkEncodePathSegment(sdkWireString(actorIdentifier))].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesUpdateCollaboratorForOrg")).data
     }
 
-    /// Removes a collaborator from a specific Copilot Space owned by an organization. The authenticated user must have
-    /// appropriate permissions to manage collaborators. OAuth app tokens and personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been
-    /// granted access to the organization that owns the space. They must also have been granted access to every
-    /// repository referenced by resources in the space.
+    /// Removes a collaborator from a specific Copilot Space owned by an organization. The authenticated user must have appropriate permissions to manage collaborators. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -62,28 +31,7 @@ public extension CopilotSpacesMethods {
     /// - actorType: The type of actor (user or team).
     /// - actorIdentifier: The username (for users) or team slug (for teams). The
     ///   numeric ID of a user or team is also accepted.
-    static func copilotSpacesRemoveCollaboratorForOrg(
-        config: ClientConfig,
-        org: String,
-        spaceNumber: Int,
-        actorType: CopilotSpacesRemoveCollaboratorForOrgParameter,
-        actorIdentifier: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/collaborators/",
-                sdkEncodePathSegment(sdkWireString(actorType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(actorIdentifier)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "copilotSpacesRemoveCollaboratorForOrg"
-        )).data
+    public static func copilotSpacesRemoveCollaboratorForOrg(config: ClientConfig, org: String, spaceNumber: Int, actorType: CopilotSpacesRemoveCollaboratorForOrgParameter, actorIdentifier: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators/", sdkEncodePathSegment(sdkWireString(actorType)), "/", sdkEncodePathSegment(sdkWireString(actorIdentifier))].joined(), config: config, decoder: .empty, operationId: "copilotSpacesRemoveCollaboratorForOrg")).data
     }
 }

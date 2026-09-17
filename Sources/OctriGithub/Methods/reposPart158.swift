@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposListForAuthenticatedUserOptions: Codable {
+extension ReposMethods {
+    public struct ReposListForAuthenticatedUserOptions: Codable {
         public var visibility: ReposListForAuthenticatedUserParameter?
         public var affiliation: String?
         public var type: ReposListForAuthenticatedUserParameterX68ee8e50?
@@ -23,9 +23,7 @@ public extension ReposMethods {
 
     /// List repositories for the authenticated user
     ///
-    /// Lists repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to
-    /// access. The authenticated user has explicit permission to access repositories they own, repositories where they
-    /// are a collaborator, and repositories that they can access through an organization membership.
+    /// Lists repositories that the authenticated user has explicit permission (`:read`, `:write`, or `:admin`) to access. The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
     ///
     /// - Parameters:
     /// - visibility: Limit results to repositories with the specified visibility.
@@ -55,10 +53,7 @@ public extension ReposMethods {
     /// - before: Only show repositories updated before the given time. This is a
     ///   timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format:
     ///   `YYYY-MM-DDTHH:MM:SSZ`.
-    static func reposListForAuthenticatedUser(
-        config: ClientConfig,
-        options: ReposListForAuthenticatedUserOptions
-    ) async throws -> [Repository] {
+    public static func reposListForAuthenticatedUser(config: ClientConfig, options: ReposListForAuthenticatedUserOptions) async throws -> [Repository] {
         if let since = options.since {
             try sdkValidateDateTime("since", since)
         }
@@ -67,7 +62,7 @@ public extension ReposMethods {
             try sdkValidateDateTime("before", before)
         }
 
-        return try await (sdkRequest("GET", "/user/repos", config: config, query: [
+        return try (await sdkRequest("GET", "/user/repos", config: config, query: [
             SdkQueryParameter("visibility", value: options.visibility),
             SdkQueryParameter("affiliation", value: options.affiliation),
             SdkQueryParameter("type", value: options.type),

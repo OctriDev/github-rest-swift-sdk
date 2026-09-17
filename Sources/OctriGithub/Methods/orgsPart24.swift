@@ -6,75 +6,28 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Retrieves a specific delivery made by an organization webhook. Use `org`, `hook_id`, and `delivery_id` to
-    /// identify the organization webhook and delivery whose event, status, request, and response details you need. You
-    /// must be an organization owner and have permission to view the webhook.
+extension OrgsMethods {
+    /// Retrieves a specific delivery made by an organization webhook. Use `org`, `hook_id`, and `delivery_id` to identify the organization webhook and delivery whose event, status, request, and response details you need. You must be an organization owner and have permission to view the webhook.
     ///
-    /// Returns a delivery for a webhook configured in an organization. You must be an organization owner to use this
-    /// endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot
-    /// list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were
-    /// created by OAuth apps.
+    /// Returns a delivery for a webhook configured in an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func orgsGetWebhookDelivery(
-        config: ClientConfig,
-        org: String,
-        hookId: Int,
-        deliveryId: Int
-    ) async throws -> HookDelivery {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-                "/deliveries/",
-                sdkEncodePathSegment(sdkWireString(deliveryId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsGetWebhookDelivery"
-        )).data
+    public static func orgsGetWebhookDelivery(config: ClientConfig, org: String, hookId: Int, deliveryId: Int) async throws -> HookDelivery {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId))].joined(), config: config, decoder: .json, operationId: "orgsGetWebhookDelivery")).data
     }
 
-    /// Triggers a redelivery attempt for a specific delivery made by an organization webhook. Use `org`, `hook_id`, and
-    /// `delivery_id` to identify the organization webhook delivery to send again. The redelivery is processed
-    /// asynchronously, so a 202 response confirms acceptance rather than completion.
+    /// Triggers a redelivery attempt for a specific delivery made by an organization webhook. Use `org`, `hook_id`, and `delivery_id` to identify the organization webhook delivery to send again. The redelivery is processed asynchronously, so a 202 response confirms acceptance rather than completion.
     ///
-    /// Redeliver a delivery for a webhook configured in an organization. You must be an organization owner to use this
-    /// endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot
-    /// list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were
-    /// created by OAuth apps.
+    /// Redeliver a delivery for a webhook configured in an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func orgsRedeliverWebhookDelivery(
-        config: ClientConfig,
-        org: String,
-        hookId: Int,
-        deliveryId: Int
-    ) async throws -> [String: JSONValue] {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-                "/deliveries/",
-                sdkEncodePathSegment(sdkWireString(deliveryId)),
-                "/attempts",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsRedeliverWebhookDelivery"
-        )).data
+    public static func orgsRedeliverWebhookDelivery(config: ClientConfig, org: String, hookId: Int, deliveryId: Int) async throws -> [String: JSONValue] {
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId)), "/attempts"].joined(), config: config, decoder: .json, operationId: "orgsRedeliverWebhookDelivery")).data
     }
 }

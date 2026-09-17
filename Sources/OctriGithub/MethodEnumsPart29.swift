@@ -8,22 +8,16 @@ import Foundation
 #endif
 /// What to do with alerts associated with the deleted patterns. `delete_alerts` permanently removes the alerts.
 /// `resolve_alerts` resolves the alerts as "pattern deleted". Defaults to `delete_alerts` when not specified.
-public struct SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let deleteAlerts =
-        SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction(rawValue: "delete_alerts")
-    public static let resolveAlerts =
-        SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction(rawValue: "resolve_alerts")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let deleteAlerts = SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction(rawValue: "delete_alerts")
+    public static let resolveAlerts = SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction(rawValue: "resolve_alerts")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,22 +27,16 @@ public struct SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteActi
 }
 
 /// Push protection setting to set for the pattern.
-public struct SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let disabled =
-        SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde(rawValue: "disabled")
-    public static let enabled =
-        SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde(rawValue: "enabled")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let disabled = SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde(rawValue: "disabled")
+    public static let enabled = SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28d27bde(rawValue: "enabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -58,24 +46,17 @@ public struct SecretScanningUpdateOrgPatternConfigsRequestBodyCustomPatternX9f28
 }
 
 /// Push protection setting to set for the pattern.
-public struct SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let notSet =
-        SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93(rawValue: "not-set")
-    public static let disabled =
-        SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93(rawValue: "disabled")
-    public static let enabled =
-        SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93(rawValue: "enabled")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let notSet = SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93(rawValue: "not-set")
+    public static let disabled = SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93(rawValue: "disabled")
+    public static let enabled = SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9ded37f93(rawValue: "enabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -84,21 +65,17 @@ public struct SecretScanningUpdateOrgPatternConfigsRequestBodyProviderPatteXc9de
     }
 }
 
-public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let created = SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter(rawValue: "created")
     public static let updated = SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter(rawValue: "updated")
     public static let published = SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter(rawValue: "published")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -107,14 +84,10 @@ public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter: RawReprese
     }
 }
 
-public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let triage = SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc(rawValue: "triage")
     public static let draft = SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc(rawValue: "draft")
     public static let published = SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc(rawValue: "published")
@@ -122,7 +95,7 @@ public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc: R
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,21 +105,17 @@ public struct SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc: R
 }
 
 /// The policy that controls how immutable releases are enforced in the organization.
-public struct OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories(rawValue: "all")
     public static let none = OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories(rawValue: "none")
     public static let selected = OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -156,21 +125,16 @@ public struct OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories: R
 }
 
 /// The hosted compute service to use for the network configuration.
-public struct HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let none = HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService(rawValue: "none")
-    public static let actions =
-        HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService(rawValue: "actions")
+    public static let actions = HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService(rawValue: "actions")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -180,21 +144,16 @@ public struct HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeSer
 }
 
 /// The hosted compute service to use for the network configuration.
-public struct HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let none = HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService(rawValue: "none")
-    public static let actions =
-        HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService(rawValue: "actions")
+    public static let actions = HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService(rawValue: "actions")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -206,22 +165,16 @@ public struct HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeSer
 /// The notification setting the team has chosen. The options are: * `notifications_enabled` - team members
 /// receive notifications when the team is @mentioned. * `notifications_disabled` - no one receives
 /// notifications. Default: `notifications_enabled`
-public struct TeamsCreateRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct TeamsCreateRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let notificationsEnabled =
-        TeamsCreateRequestBodyNotificationSetting(rawValue: "notifications_enabled")
-    public static let notificationsDisabled =
-        TeamsCreateRequestBodyNotificationSetting(rawValue: "notifications_disabled")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let notificationsEnabled = TeamsCreateRequestBodyNotificationSetting(rawValue: "notifications_enabled")
+    public static let notificationsDisabled = TeamsCreateRequestBodyNotificationSetting(rawValue: "notifications_disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -235,16 +188,13 @@ public struct TeamsCreateRequestBodyNotificationSetting: RawRepresentable, Hasha
 public struct TeamsCreateRequestBodyPermission: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pull = TeamsCreateRequestBodyPermission(rawValue: "pull")
     public static let push = TeamsCreateRequestBodyPermission(rawValue: "push")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

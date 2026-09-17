@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension EnterpriseTeamOrganizationsMethods {
+extension EnterpriseTeamOrganizationsMethods {
     /// Unassign an enterprise team from multiple organizations.
     ///
     /// - Parameters:
@@ -14,28 +14,10 @@ public extension EnterpriseTeamOrganizationsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - organizationSlugs: Organization slug to unassign the team from.
-    static func enterpriseTeamOrganizationsBulkRemove(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        organizationSlugs: [String]
-    ) async throws -> SdkEmptyResponse {
+    public static func enterpriseTeamOrganizationsBulkRemove(config: ClientConfig, enterprise: String, enterpriseTeam: String, organizationSlugs: [String]) async throws -> SdkEmptyResponse {
         let requestBody = EnterpriseTeamOrganizationsBulkRemoveRequestBody(organizationSlugs: organizationSlugs)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/organizations/remove",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "enterpriseTeamOrganizationsBulkRemove"
-        )).data
+        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/organizations/remove"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "enterpriseTeamOrganizationsBulkRemove")).data
     }
 
     /// Check if an enterprise team is assigned to an organization
@@ -45,25 +27,7 @@ public extension EnterpriseTeamOrganizationsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - org: The organization name. The name is not case sensitive.
-    static func enterpriseTeamOrganizationsGetAssignment(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        org: String
-    ) async throws -> OrganizationSimple {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/organizations/",
-                sdkEncodePathSegment(sdkWireString(org)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "enterpriseTeamOrganizationsGetAssignment"
-        )).data
+    public static func enterpriseTeamOrganizationsGetAssignment(config: ClientConfig, enterprise: String, enterpriseTeam: String, org: String) async throws -> OrganizationSimple {
+        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/organizations/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, decoder: .json, operationId: "enterpriseTeamOrganizationsGetAssignment")).data
     }
 }

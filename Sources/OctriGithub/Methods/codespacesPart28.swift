@@ -6,13 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
+extension CodespacesMethods {
     /// Update a codespace for the authenticated user
     ///
-    /// Updates a codespace owned by the authenticated user. Currently only the codespace's machine type and recent
-    /// folders can be modified using this endpoint. If you specify a new machine type it will be applied the next time
-    /// your codespace is started. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to
-    /// use this endpoint.
+    /// Updates a codespace owned by the authenticated user. Currently only the codespace's machine type and recent folders can be modified using this endpoint. If you specify a new machine type it will be applied the next time your codespace is started. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
@@ -21,46 +18,19 @@ public extension CodespacesMethods {
     /// - recentFolders: Recently opened folders inside the codespace. It is
     ///   currently used by the clients to determine the folder path to load the
     ///   codespace in.
-    static func codespacesUpdateForAuthenticatedUser(
-        config: ClientConfig,
-        codespaceName: String,
-        machine: String?,
-        displayName: String?,
-        recentFolders: [String]?
-    ) async throws -> Codespace {
-        let requestBody = CodespacesUpdateForAuthenticatedUserRequestBody(
-            machine: machine,
-            displayName: displayName,
-            recentFolders: recentFolders
-        )
+    public static func codespacesUpdateForAuthenticatedUser(config: ClientConfig, codespaceName: String, machine: String?, displayName: String?, recentFolders: [String]?) async throws -> Codespace {
+        let requestBody = CodespacesUpdateForAuthenticatedUserRequestBody(machine: machine, displayName: displayName, recentFolders: recentFolders)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName))].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codespacesUpdateForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("PATCH", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "codespacesUpdateForAuthenticatedUser")).data
     }
 
     /// Delete a codespace for the authenticated user
     ///
-    /// Deletes a user's codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to
-    /// use this endpoint.
+    /// Deletes a user's codespace. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - codespaceName: The name of the codespace.
-    static func codespacesDeleteForAuthenticatedUser(
-        config: ClientConfig,
-        codespaceName: String
-    ) async throws -> [String: JSONValue] {
-        try await (sdkRequest(
-            "DELETE",
-            ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codespacesDeleteForAuthenticatedUser"
-        )).data
+    public static func codespacesDeleteForAuthenticatedUser(config: ClientConfig, codespaceName: String) async throws -> [String: JSONValue] {
+        return try (await sdkRequest("DELETE", ["/user/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName))].joined(), config: config, decoder: .json, operationId: "codespacesDeleteForAuthenticatedUser")).data
     }
 }

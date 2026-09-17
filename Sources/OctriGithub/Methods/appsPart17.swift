@@ -6,33 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
+extension AppsMethods {
     /// Remove a repository from an app installation
     ///
-    /// Remove a single repository from an installation. The authenticated user must have admin access to the
-    /// repository. The installation must have the `repository_selection` of `selected`. This endpoint only works for
-    /// PATs (classic) with the `repo` scope.
+    /// Remove a single repository from an installation. The authenticated user must have admin access to the repository. The installation must have the `repository_selection` of `selected`. This endpoint only works for PATs (classic) with the `repo` scope.
     ///
     /// - Parameters:
     /// - installationId: The unique identifier of the installation.
     /// - repositoryId: The unique identifier of the repository.
-    static func appsRemoveRepoFromInstallationForAuthenticatedUser(
-        config: ClientConfig,
-        installationId: Int,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/user/installations/",
-                sdkEncodePathSegment(sdkWireString(installationId)),
-                "/repositories/",
-                sdkEncodePathSegment(sdkWireString(repositoryId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "appsRemoveRepoFromInstallationForAuthenticatedUser"
-        )).data
+    public static func appsRemoveRepoFromInstallationForAuthenticatedUser(config: ClientConfig, installationId: Int, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/user/installations/", sdkEncodePathSegment(sdkWireString(installationId)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "appsRemoveRepoFromInstallationForAuthenticatedUser")).data
     }
 
     /// List subscriptions for the authenticated user
@@ -48,12 +31,8 @@ public extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func appsListSubscriptionsForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [UserMarketplacePurchase] {
-        try await (sdkRequest("GET", "/user/marketplace_purchases", config: config, query: [
+    public static func appsListSubscriptionsForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [UserMarketplacePurchase] {
+        return try (await sdkRequest("GET", "/user/marketplace_purchases", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "appsListSubscriptionsForAuthenticatedUser")).data

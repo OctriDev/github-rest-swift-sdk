@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists the labels assigned to a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to
-    /// identify the issue, then use pagination parameters when the issue has many labels. Use `page` and `per_page` to
-    /// paginate the results.
+extension IssuesMethods {
+    /// Lists the labels assigned to a specific issue in a repository. Use `owner`, `repo`, and `issue_number` to identify the issue, then use pagination parameters when the issue has many labels. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists all labels for an issue.
     ///
@@ -27,32 +25,10 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListLabelsOnIssue(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Label] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/labels",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListLabelsOnIssue"
-        )).data
+    public static func issuesListLabelsOnIssue(config: ClientConfig, owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [Label] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/labels"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListLabelsOnIssue")).data
     }
 }

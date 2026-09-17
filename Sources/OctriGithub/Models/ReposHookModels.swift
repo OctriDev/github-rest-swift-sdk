@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ReposHook domain models
+// ReposHook domain models
 /// Webhooks for repositories.
 public struct Hook: Codable {
     /// Required `string` value serialized in the `type` wire field.
@@ -59,54 +59,38 @@ public struct Hook: Codable {
         case deliveriesUrl = "deliveries_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Hook {
-    init(from decoder: Decoder) throws {
+extension Hook {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.sdkDecodeRequired(.type)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        active = try container.sdkDecodeRequired(.active)
-        events = try container.sdkDecodeRequired(.events)
-        config = try container.sdkDecodeRequired(.config)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        url = try container.sdkDecodeRequired(.url)
-        testUrl = try container.sdkDecodeRequired(.testUrl)
-        pingUrl = try container.sdkDecodeRequired(.pingUrl)
-        lastResponse = try container.sdkDecodeRequired(.lastResponse)
-        deliveriesUrl = try container.sdkDecodeIfPresent(.deliveriesUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("test_url", testUrl)
-        try sdkValidateUri("ping_url", pingUrl)
-        if let value = deliveriesUrl {
+        self.type = try container.sdkDecodeRequired(.type)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.active = try container.sdkDecodeRequired(.active)
+        self.events = try container.sdkDecodeRequired(.events)
+        self.config = try container.sdkDecodeRequired(.config)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.testUrl = try container.sdkDecodeRequired(.testUrl)
+        self.pingUrl = try container.sdkDecodeRequired(.pingUrl)
+        self.lastResponse = try container.sdkDecodeRequired(.lastResponse)
+        self.deliveriesUrl = try container.sdkDecodeIfPresent(.deliveriesUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("test_url", self.testUrl)
+            try sdkValidateUri("ping_url", self.pingUrl)
+        if let value = self.deliveriesUrl {
             try sdkValidateUri("deliveries_url", value)
         }
     }
 }
 
-public extension Hook {
-    init(
-        type: String,
-        id: Int,
-        name: String,
-        active: Bool,
-        events: [String],
-        config: WebhookConfig,
-        updatedAt: Date,
-        createdAt: Date,
-        url: String,
-        testUrl: String,
-        pingUrl: String,
-        lastResponse: HookResponse,
-        deliveriesUrl: String? = nil
-    ) throws {
+extension Hook {
+    public init(type: String, id: Int, name: String, active: Bool, events: [String], config: WebhookConfig, updatedAt: Date, createdAt: Date, url: String, testUrl: String, pingUrl: String, lastResponse: HookResponse, deliveriesUrl: String? = nil) throws {
         (self.type, self.id) = (type, id)
         (self.name, self.active) = (name, active)
         (self.events, self.config) = (events, config)
@@ -114,11 +98,11 @@ public extension Hook {
         (self.url, self.testUrl) = (url, testUrl)
         (self.pingUrl, self.lastResponse) = (pingUrl, lastResponse)
         self.deliveriesUrl = deliveriesUrl
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("test_url", self.testUrl)
-        try sdkValidateUri("ping_url", self.pingUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("test_url", self.testUrl)
+            try sdkValidateUri("ping_url", self.pingUrl)
         if let value = self.deliveriesUrl {
             try sdkValidateUri("deliveries_url", value)
         }
@@ -140,43 +124,29 @@ public struct HookResponse: Codable {
         case message
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension HookResponse {
-    init(from decoder: Decoder) throws {
+extension HookResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.code) else {
-            throw SdkValidationError(
-                field: "code",
-                code: "required",
-                message: "Validation failed for 'code': value is required"
-            )
+            throw SdkValidationError(field: "code", code: "required", message: "Validation failed for 'code': value is required")
         }
         guard container.contains(.status) else {
-            throw SdkValidationError(
-                field: "status",
-                code: "required",
-                message: "Validation failed for 'status': value is required"
-            )
+            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
         }
         guard container.contains(.message) else {
-            throw SdkValidationError(
-                field: "message",
-                code: "required",
-                message: "Validation failed for 'message': value is required"
-            )
+            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
         }
-        code = try container.sdkDecodeIfPresent(.code)
-        status = try container.sdkDecodeIfPresent(.status)
-        message = try container.sdkDecodeIfPresent(.message)
+        self.code = try container.sdkDecodeIfPresent(.code)
+        self.status = try container.sdkDecodeIfPresent(.status)
+        self.message = try container.sdkDecodeIfPresent(.message)
     }
 }
 
-public extension HookResponse {
-    init(code: Int?, status: String?, message: String?) {
+extension HookResponse {
+    public init(code: Int?, status: String?, message: String?) {
         (self.code, self.status) = (code, status)
         self.message = message
     }

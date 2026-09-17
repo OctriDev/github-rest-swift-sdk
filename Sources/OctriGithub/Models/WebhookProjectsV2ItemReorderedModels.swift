@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookProjectsV2ItemReordered domain models
+// WebhookProjectsV2ItemReordered domain models
 /// Typed representation of the `WebhookProjectsV2ItemReordered` API schema.
 public struct WebhookProjectsV2ItemReordered: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -30,67 +30,38 @@ public struct WebhookProjectsV2ItemReordered: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectsV2ItemReordered {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemReordered {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.projectsV2Item) else {
-            throw SdkValidationError(
-                field: "projects_v2_item",
-                code: "required",
-                message: "Validation failed for 'projects_v2_item': value is required"
-            )
+            throw SdkValidationError(field: "projects_v2_item", code: "required", message: "Validation failed for 'projects_v2_item': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        organization = try container.sdkDecodeRequired(.organization)
-        projectsV2Item = try container.sdkDecodeRequired(.projectsV2Item)
-        sender = try container.sdkDecodeRequired(.sender)
-        installation = try container.sdkDecodeIfPresent(.installation)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.projectsV2Item = try container.sdkDecodeRequired(.projectsV2Item)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
     }
 }
 
-public extension WebhookProjectsV2ItemReordered {
-    init(
-        action: WebhookProjectsV2ItemReorderedAction,
-        changes: WebhookProjectsV2ItemReorderedChanges,
-        organization: OrganizationSimpleWebhooks,
-        projectsV2Item: ProjectsV2Item,
-        sender: SimpleUser,
-        installation: SimpleInstallation? = nil
-    ) {
+extension WebhookProjectsV2ItemReordered {
+    public init(action: WebhookProjectsV2ItemReorderedAction, changes: WebhookProjectsV2ItemReorderedChanges, organization: OrganizationSimpleWebhooks, projectsV2Item: ProjectsV2Item, sender: SimpleUser, installation: SimpleInstallation? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.organization, self.projectsV2Item) = (organization, projectsV2Item)
         (self.sender, self.installation) = (sender, installation)
@@ -107,19 +78,19 @@ public struct WebhookProjectsV2ItemReorderedChanges: Codable {
     }
 
     init() {
-        previousProjectsV2ItemNodeId = nil
+        self.previousProjectsV2ItemNodeId = nil
     }
 }
 
-public extension WebhookProjectsV2ItemReorderedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemReorderedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        previousProjectsV2ItemNodeId = try container.sdkDecodeIfPresent(.previousProjectsV2ItemNodeId)
+        self.previousProjectsV2ItemNodeId = try container.sdkDecodeIfPresent(.previousProjectsV2ItemNodeId)
     }
 }
 
-public extension WebhookProjectsV2ItemReorderedChanges {
-    init(previousProjectsV2ItemNodeId: WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId? = nil) {
+extension WebhookProjectsV2ItemReorderedChanges {
+    public init(previousProjectsV2ItemNodeId: WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId? = nil) {
         self.init()
         self.previousProjectsV2ItemNodeId = previousProjectsV2ItemNodeId
     }
@@ -138,20 +109,20 @@ public struct WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId:
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId {
-    init(from: String? = nil, to: String? = nil) {
+extension WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNodeId {
+    public init(from: String? = nil, to: String? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -161,15 +132,12 @@ public extension WebhookProjectsV2ItemReorderedChangesPreviousProjectsV2ItemNode
 public struct WebhookProjectsV2ItemReorderedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let reordered = WebhookProjectsV2ItemReorderedAction(rawValue: "reordered")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,20 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists the issues that block a specified issue from progressing. Use `owner`, `repo`, and `issue_number` to
-    /// identify the issue, then use `page` and `per_page` to paginate the blocking issues. Results use the issue
-    /// representation and support selectable Markdown body formats.
+extension IssuesMethods {
+    /// Lists the issues that block a specified issue from progressing. Use `owner`, `repo`, and `issue_number` to identify the issue, then use `page` and `per_page` to paginate the blocking issues. Results use the issue representation and support selectable Markdown body formats.
     ///
-    /// You can use the REST API to list the dependencies an issue is blocked by. This endpoint supports the following
-    /// custom media types. For more information, see [Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). -
-    /// **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the Markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
+    /// You can use the REST API to list the dependencies an issue is blocked by. This endpoint supports the following custom media types. For more information, see [Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types). - **`application/vnd.github.raw+json`**: Returns the raw Markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the Markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's Markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -35,32 +25,10 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListDependenciesBlockedBy(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Issue] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/dependencies/blocked_by",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListDependenciesBlockedBy"
-        )).data
+    public static func issuesListDependenciesBlockedBy(config: ClientConfig, owner: String, repo: String, issueNumber: Int, perPage: Int?, page: Int?) async throws -> [Issue] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/dependencies/blocked_by"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListDependenciesBlockedBy")).data
     }
 }

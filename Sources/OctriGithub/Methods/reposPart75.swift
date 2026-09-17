@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposCreateDeploymentStatusOptions: Codable {
+extension ReposMethods {
+    public struct ReposCreateDeploymentStatusOptions: Codable {
         public var owner: String
         public var repo: String
         public var deploymentId: Int
@@ -19,12 +19,7 @@ public extension ReposMethods {
         public var environmentUrl: String?
         public var autoInactive: Bool?
 
-        public init(
-            owner: String,
-            repo: String,
-            deploymentId: Int,
-            state: ReposCreateDeploymentStatusRequestBodyState
-        ) {
+        public init(owner: String, repo: String, deploymentId: Int, state: ReposCreateDeploymentStatusRequestBodyState) {
             self.owner = owner
             self.repo = repo
             self.deploymentId = deploymentId
@@ -32,8 +27,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Users with `push` access can create deployment statuses for a given deployment. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo_deployment` scope to use this endpoint.
+    /// Users with `push` access can create deployment statuses for a given deployment. OAuth app tokens and personal access tokens (classic) need the `repo_deployment` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -65,27 +59,9 @@ public extension ReposMethods {
     ///   non-production environment deployments with the same repository and
     ///   `environment` name as the created status's deployment. An `inactive` status
     ///   is only added to deployments that had a `success` state. Default: `true`
-    static func reposCreateDeploymentStatus(
-        config: ClientConfig,
-        options: ReposCreateDeploymentStatusOptions
-    ) async throws -> DeploymentStatus {
+    public static func reposCreateDeploymentStatus(config: ClientConfig, options: ReposCreateDeploymentStatusOptions) async throws -> DeploymentStatus {
         let requestBody = ReposCreateDeploymentStatusRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/deployments/",
-                sdkEncodePathSegment(sdkWireString(options.deploymentId)),
-                "/statuses",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateDeploymentStatus"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/deployments/", sdkEncodePathSegment(sdkWireString(options.deploymentId)), "/statuses"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateDeploymentStatus")).data
     }
 }

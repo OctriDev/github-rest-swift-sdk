@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    /// Lists the codespaces associated to a specified organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `admin:org` scope to use this endpoint.
+extension CodespacesMethods {
+    /// Lists the codespaces associated to a specified organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,22 +19,10 @@ public extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func codespacesListInOrganization(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> CodespacesListInOrganizationResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "codespacesListInOrganization"
-        )).data
+    public static func codespacesListInOrganization(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> CodespacesListInOrganizationResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "codespacesListInOrganization")).data
     }
 }

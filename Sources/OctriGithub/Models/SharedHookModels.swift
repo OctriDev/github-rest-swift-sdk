@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SharedHook domain models
+// SharedHook domain models
 /// Delivery made by a webhook.
 public struct HookDelivery: Codable {
     /// Unique identifier of the delivery.
@@ -67,54 +67,36 @@ public struct HookDelivery: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension HookDelivery {
-    init(from decoder: Decoder) throws {
+extension HookDelivery {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        guid = try container.sdkDecodeRequired(.guid)
-        deliveredAt = try container.sdkDecodeRequired(.deliveredAt)
-        redelivery = try container.sdkDecodeRequired(.redelivery)
-        duration = try container.sdkDecodeRequired(.duration)
-        status = try container.sdkDecodeRequired(.status)
-        statusCode = try container.sdkDecodeRequired(.statusCode)
-        event = try container.sdkDecodeRequired(.event)
-        action = try container.sdkDecodeIfPresent(.action)
-        installationId = try container.sdkDecodeIfPresent(.installationId)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        request = try container.sdkDecodeRequired(.request)
-        response = try container.sdkDecodeRequired(.response)
-        throttledAt = try container.sdkDecodeIfPresent(.throttledAt)
-        url = try container.sdkDecodeIfPresent(.url)
-        try sdkValidateDateTime("delivered_at", sdkWireString(deliveredAt))
-        if let value = throttledAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.guid = try container.sdkDecodeRequired(.guid)
+        self.deliveredAt = try container.sdkDecodeRequired(.deliveredAt)
+        self.redelivery = try container.sdkDecodeRequired(.redelivery)
+        self.duration = try container.sdkDecodeRequired(.duration)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.statusCode = try container.sdkDecodeRequired(.statusCode)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.action = try container.sdkDecodeIfPresent(.action)
+        self.installationId = try container.sdkDecodeIfPresent(.installationId)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.request = try container.sdkDecodeRequired(.request)
+        self.response = try container.sdkDecodeRequired(.response)
+        self.throttledAt = try container.sdkDecodeIfPresent(.throttledAt)
+        self.url = try container.sdkDecodeIfPresent(.url)
+            try sdkValidateDateTime("delivered_at", sdkWireString(self.deliveredAt))
+        if let value = self.throttledAt {
             try sdkValidateDateTime("throttled_at", sdkWireString(value))
         }
     }
 }
 
-public extension HookDelivery {
-    init(
-        id: Int,
-        guid: String,
-        deliveredAt: Date,
-        redelivery: Bool,
-        duration: Double,
-        status: String,
-        statusCode: Int,
-        event: String,
-        action: String?,
-        installationId: Int?,
-        repositoryId: Int?,
-        request: HookDeliveryRequest,
-        response: HookDeliveryResponse,
-        throttledAt: Date? = nil,
-        url: String? = nil
-    ) throws {
+extension HookDelivery {
+    public init(id: Int, guid: String, deliveredAt: Date, redelivery: Bool, duration: Double, status: String, statusCode: Int, event: String, action: String?, installationId: Int?, repositoryId: Int?, request: HookDeliveryRequest, response: HookDeliveryResponse, throttledAt: Date? = nil, url: String? = nil) throws {
         (self.id, self.guid) = (id, guid)
         (self.deliveredAt, self.redelivery) = (deliveredAt, redelivery)
         (self.duration, self.status) = (duration, status)
@@ -123,7 +105,7 @@ public extension HookDelivery {
         (self.repositoryId, self.request) = (repositoryId, request)
         (self.response, self.throttledAt) = (response, throttledAt)
         self.url = url
-        try sdkValidateDateTime("delivered_at", sdkWireString(self.deliveredAt))
+            try sdkValidateDateTime("delivered_at", sdkWireString(self.deliveredAt))
         if let value = self.throttledAt {
             try sdkValidateDateTime("throttled_at", sdkWireString(value))
         }
@@ -142,35 +124,25 @@ public struct HookDeliveryRequest: Codable {
         case payload
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension HookDeliveryRequest {
-    init(from decoder: Decoder) throws {
+extension HookDeliveryRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.headers) else {
-            throw SdkValidationError(
-                field: "headers",
-                code: "required",
-                message: "Validation failed for 'headers': value is required"
-            )
+            throw SdkValidationError(field: "headers", code: "required", message: "Validation failed for 'headers': value is required")
         }
         guard container.contains(.payload) else {
-            throw SdkValidationError(
-                field: "payload",
-                code: "required",
-                message: "Validation failed for 'payload': value is required"
-            )
+            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
         }
-        headers = try container.sdkDecodeIfPresent(.headers)
-        payload = try container.sdkDecodeIfPresent(.payload)
+        self.headers = try container.sdkDecodeIfPresent(.headers)
+        self.payload = try container.sdkDecodeIfPresent(.payload)
     }
 }
 
-public extension HookDeliveryRequest {
-    init(headers: [String: JSONValue]?, payload: [String: JSONValue]?) {
+extension HookDeliveryRequest {
+    public init(headers: [String: JSONValue]?, payload: [String: JSONValue]?) {
         (self.headers, self.payload) = (headers, payload)
     }
 }
@@ -187,35 +159,25 @@ public struct HookDeliveryResponse: Codable {
         case payload
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension HookDeliveryResponse {
-    init(from decoder: Decoder) throws {
+extension HookDeliveryResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.headers) else {
-            throw SdkValidationError(
-                field: "headers",
-                code: "required",
-                message: "Validation failed for 'headers': value is required"
-            )
+            throw SdkValidationError(field: "headers", code: "required", message: "Validation failed for 'headers': value is required")
         }
         guard container.contains(.payload) else {
-            throw SdkValidationError(
-                field: "payload",
-                code: "required",
-                message: "Validation failed for 'payload': value is required"
-            )
+            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
         }
-        headers = try container.sdkDecodeIfPresent(.headers)
-        payload = try container.sdkDecodeIfPresent(.payload)
+        self.headers = try container.sdkDecodeIfPresent(.headers)
+        self.payload = try container.sdkDecodeIfPresent(.payload)
     }
 }
 
-public extension HookDeliveryResponse {
-    init(headers: [String: JSONValue]?, payload: String?) {
+extension HookDeliveryResponse {
+    public init(headers: [String: JSONValue]?, payload: String?) {
         (self.headers, self.payload) = (headers, payload)
     }
 }
@@ -273,55 +235,40 @@ public struct HookDeliveryItem: Codable {
         case throttledAt = "throttled_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension HookDeliveryItem {
-    init(from decoder: Decoder) throws {
+extension HookDeliveryItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        guid = try container.sdkDecodeRequired(.guid)
-        deliveredAt = try container.sdkDecodeRequired(.deliveredAt)
-        redelivery = try container.sdkDecodeRequired(.redelivery)
-        duration = try container.sdkDecodeRequired(.duration)
-        status = try container.sdkDecodeRequired(.status)
-        statusCode = try container.sdkDecodeRequired(.statusCode)
-        event = try container.sdkDecodeRequired(.event)
-        action = try container.sdkDecodeIfPresent(.action)
-        installationId = try container.sdkDecodeIfPresent(.installationId)
-        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        throttledAt = try container.sdkDecodeIfPresent(.throttledAt)
-        try sdkValidateDateTime("delivered_at", sdkWireString(deliveredAt))
-        if let value = throttledAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.guid = try container.sdkDecodeRequired(.guid)
+        self.deliveredAt = try container.sdkDecodeRequired(.deliveredAt)
+        self.redelivery = try container.sdkDecodeRequired(.redelivery)
+        self.duration = try container.sdkDecodeRequired(.duration)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.statusCode = try container.sdkDecodeRequired(.statusCode)
+        self.event = try container.sdkDecodeRequired(.event)
+        self.action = try container.sdkDecodeIfPresent(.action)
+        self.installationId = try container.sdkDecodeIfPresent(.installationId)
+        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        self.throttledAt = try container.sdkDecodeIfPresent(.throttledAt)
+            try sdkValidateDateTime("delivered_at", sdkWireString(self.deliveredAt))
+        if let value = self.throttledAt {
             try sdkValidateDateTime("throttled_at", sdkWireString(value))
         }
     }
 }
 
-public extension HookDeliveryItem {
-    init(
-        id: Int,
-        guid: String,
-        deliveredAt: Date,
-        redelivery: Bool,
-        duration: Double,
-        status: String,
-        statusCode: Int,
-        event: String,
-        action: String?,
-        installationId: Int?,
-        repositoryId: Int?,
-        throttledAt: Date? = nil
-    ) throws {
+extension HookDeliveryItem {
+    public init(id: Int, guid: String, deliveredAt: Date, redelivery: Bool, duration: Double, status: String, statusCode: Int, event: String, action: String?, installationId: Int?, repositoryId: Int?, throttledAt: Date? = nil) throws {
         (self.id, self.guid) = (id, guid)
         (self.deliveredAt, self.redelivery) = (deliveredAt, redelivery)
         (self.duration, self.status) = (duration, status)
         (self.statusCode, self.event) = (statusCode, event)
         (self.action, self.installationId) = (action, installationId)
         (self.repositoryId, self.throttledAt) = (repositoryId, throttledAt)
-        try sdkValidateDateTime("delivered_at", sdkWireString(self.deliveredAt))
+            try sdkValidateDateTime("delivered_at", sdkWireString(self.deliveredAt))
         if let value = self.throttledAt {
             try sdkValidateDateTime("throttled_at", sdkWireString(value))
         }

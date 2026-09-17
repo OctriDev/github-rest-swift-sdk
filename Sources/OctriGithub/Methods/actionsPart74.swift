@@ -6,41 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an repository. The
-    /// token expires after one hour. For example, you can replace `TOKEN` in the following example with the
-    /// registration token provided by this endpoint to remove your self-hosted runner from an organization: ```
-    /// ./config.sh remove --token TOKEN ``` Authenticated users must have admin access to the repository to use this
-    /// endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an repository. The token expires after one hour. For example, you can replace `TOKEN` in the following example with the registration token provided by this endpoint to remove your self-hosted runner from an organization: ``` ./config.sh remove --token TOKEN ``` Authenticated users must have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsCreateRemoveTokenForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> AuthenticationToken {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/remove-token",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsCreateRemoveTokenForRepo"
-        )).data
+    public static func actionsCreateRemoveTokenForRepo(config: ClientConfig, owner: String, repo: String) async throws -> AuthenticationToken {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/remove-token"].joined(), config: config, decoder: .json, operationId: "actionsCreateRemoveTokenForRepo")).data
     }
 
-    /// Gets a specific self-hosted runner configured in a repository. Authenticated users must have admin access to the
-    /// repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
-    /// use this endpoint.
+    /// Gets a specific self-hosted runner configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -48,25 +26,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
-    static func actionsGetSelfHostedRunnerForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runnerId: Int
-    ) async throws -> Runner {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/",
-                sdkEncodePathSegment(sdkWireString(runnerId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetSelfHostedRunnerForRepo"
-        )).data
+    public static func actionsGetSelfHostedRunnerForRepo(config: ClientConfig, owner: String, repo: String, runnerId: Int) async throws -> Runner {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId))].joined(), config: config, decoder: .json, operationId: "actionsGetSelfHostedRunnerForRepo")).data
     }
 }

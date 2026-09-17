@@ -6,15 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
+extension CodespacesMethods {
     /// Create or update a secret for the authenticated user
     ///
-    /// Creates or updates a development environment secret for a user's codespace with an encrypted value. Encrypt your
-    /// secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information,
-    /// see "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." The authenticated user must have
-    /// Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// Creates or updates a development environment secret for a user's codespace with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - secretName: The name of the secret.
@@ -34,30 +29,13 @@ public extension CodespacesMethods {
     ///   ories-for-a-user-secret), and [Remove a selected repository from a user
     ///   secret](https://docs.github.com/rest/codespaces/secrets#remove-a-selected-re
     ///   pository-from-a-user-secret) endpoints.
-    static func codespacesCreateOrUpdateSecretForAuthenticatedUser(
-        config: ClientConfig,
-        secretName: String,
-        keyId: String,
-        encryptedValue: String?,
-        selectedRepositoryIds: [CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodyX84658888db]?
-    ) async throws -> EmptyObject {
-        if let encryptedValue {
+    public static func codespacesCreateOrUpdateSecretForAuthenticatedUser(config: ClientConfig, secretName: String, keyId: String, encryptedValue: String?, selectedRepositoryIds: [CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBodyX84658888db]?) async throws -> EmptyObject {
+        if let encryptedValue = encryptedValue {
             try sdkValidatePattern("encrypted_value", encryptedValue, sdkPattern21db07621cc5)
         }
 
-        let requestBody = CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody(
-            keyId: keyId,
-            encryptedValue: encryptedValue,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+        let requestBody = CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody(keyId: keyId, encryptedValue: encryptedValue, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codespacesCreateOrUpdateSecretForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("PUT", ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "codespacesCreateOrUpdateSecretForAuthenticatedUser")).data
     }
 }

@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical git operation model declarations
+// Canonical git operation model declarations
 /// An object with information about the individual creating the tag.
 public struct GitCreateTagRequestBodyTagger: Codable {
     /// The name of the author of the tag
@@ -23,39 +23,29 @@ public struct GitCreateTagRequestBodyTagger: Codable {
         case date
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension GitCreateTagRequestBodyTagger {
-    init(from decoder: Decoder) throws {
+extension GitCreateTagRequestBodyTagger {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        email = try container.sdkDecodeRequired(.email)
-        date = try container.sdkDecodeIfPresent(.date)
-        if let value = date {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.email = try container.sdkDecodeRequired(.email)
+        self.date = try container.sdkDecodeIfPresent(.date)
+        if let value = self.date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-public extension GitCreateTagRequestBodyTagger {
-    init(name: String, email: String, date: Date? = nil) throws {
+extension GitCreateTagRequestBodyTagger {
+    public init(name: String, email: String, date: Date? = nil) throws {
         (self.name, self.email) = (name, email)
         self.date = date
         if let value = self.date {
@@ -82,24 +72,24 @@ public struct GitCreateCommitRequestBodyCommitter: Codable {
     }
 
     init() {
-        (name, email, date) = (nil, nil, nil)
+        (self.name, self.email, self.date) = (nil, nil, nil)
     }
 }
 
-public extension GitCreateCommitRequestBodyCommitter {
-    init(from decoder: Decoder) throws {
+extension GitCreateCommitRequestBodyCommitter {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        date = try container.sdkDecodeIfPresent(.date)
-        if let value = date {
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.date = try container.sdkDecodeIfPresent(.date)
+        if let value = self.date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-public extension GitCreateCommitRequestBodyCommitter {
-    init(name: String? = nil, email: String? = nil, date: Date? = nil) throws {
+extension GitCreateCommitRequestBodyCommitter {
+    public init(name: String? = nil, email: String? = nil, date: Date? = nil) throws {
         self.init()
         (self.name, self.email) = (name, email)
         self.date = date
@@ -115,32 +105,21 @@ public enum GitCreateBlobResponse {
 }
 
 extension GitCreateBlobResponse: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for GitCreateBlobResponse"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for GitCreateBlobResponse")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(ValidationError.self) {
-            return .validationError(value)
-        }
-        if let value = try? container
-            .decode(RepositoryRuleViolationError.self) {
-            return .repositoryRuleViolationError(value)
-        }
+        if let value = try? container.decode(ValidationError.self) { return .validationError(value) }
+        if let value = try? container.decode(RepositoryRuleViolationError.self) { return .repositoryRuleViolationError(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -150,7 +129,12 @@ extension GitCreateBlobResponse: Codable {
         case let .repositoryRuleViolationError(value): try container.encode(value); return true
         }
     }
+
 }
+
+
+
+
 
 public struct GitCreateTreeRequestBodyTreeItem: Codable {
     /// The file referenced in the tree.
@@ -178,29 +162,23 @@ public struct GitCreateTreeRequestBodyTreeItem: Codable {
     }
 
     init() {
-        (path, mode, type, sha, content) = (nil, nil, nil, nil, nil)
+        (self.path, self.mode, self.type, self.sha, self.content) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension GitCreateTreeRequestBodyTreeItem {
-    init(from decoder: Decoder) throws {
+extension GitCreateTreeRequestBodyTreeItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        path = try container.sdkDecodeIfPresent(.path)
-        mode = try container.sdkDecodeIfPresent(.mode)
-        type = try container.sdkDecodeIfPresent(.type)
-        sha = try container.sdkDecodeIfPresent(.sha)
-        content = try container.sdkDecodeIfPresent(.content)
+        self.path = try container.sdkDecodeIfPresent(.path)
+        self.mode = try container.sdkDecodeIfPresent(.mode)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.sha = try container.sdkDecodeIfPresent(.sha)
+        self.content = try container.sdkDecodeIfPresent(.content)
     }
 }
 
-public extension GitCreateTreeRequestBodyTreeItem {
-    init(
-        path: String? = nil,
-        mode: GitCreateTreeRequestBodyTreeItemMode? = nil,
-        type: GitCreateTreeRequestBodyTreeItemType? = nil,
-        sha: String? = nil,
-        content: String? = nil
-    ) {
+extension GitCreateTreeRequestBodyTreeItem {
+    public init(path: String? = nil, mode: GitCreateTreeRequestBodyTreeItemMode? = nil, type: GitCreateTreeRequestBodyTreeItemType? = nil, sha: String? = nil, content: String? = nil) {
         self.init()
         (self.path, self.mode) = (path, mode)
         (self.type, self.sha) = (type, sha)
@@ -225,39 +203,29 @@ public struct GitCreateCommitRequestBodyAuthor: Codable {
         case date
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension GitCreateCommitRequestBodyAuthor {
-    init(from decoder: Decoder) throws {
+extension GitCreateCommitRequestBodyAuthor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        email = try container.sdkDecodeRequired(.email)
-        date = try container.sdkDecodeIfPresent(.date)
-        if let value = date {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.email = try container.sdkDecodeRequired(.email)
+        self.date = try container.sdkDecodeIfPresent(.date)
+        if let value = self.date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-public extension GitCreateCommitRequestBodyAuthor {
-    init(name: String, email: String, date: Date? = nil) throws {
+extension GitCreateCommitRequestBodyAuthor {
+    public init(name: String, email: String, date: Date? = nil) throws {
         (self.name, self.email) = (name, email)
         self.date = date
         if let value = self.date {

@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists the repositories with access to a self-hosted runner group configured in an organization. OAuth app tokens
-    /// and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension ActionsMethods {
+    /// Lists the repositories with access to a self-hosted runner group configured in an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,62 +20,23 @@ public extension ActionsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func actionsListRepoAccessToSelfHostedRunnerGroupInOrg(
-        config: ClientConfig,
-        org: String,
-        runnerGroupId: Int,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> ActionsListRepoAccessToSelfHostedRunnerGroupInOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/runner-groups/",
-                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "actionsListRepoAccessToSelfHostedRunnerGroupInOrg"
-        )).data
+    public static func actionsListRepoAccessToSelfHostedRunnerGroupInOrg(config: ClientConfig, org: String, runnerGroupId: Int, page: Int?, perPage: Int?) async throws -> ActionsListRepoAccessToSelfHostedRunnerGroupInOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId)), "/repositories"].joined(), config: config, query: [
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "actionsListRepoAccessToSelfHostedRunnerGroupInOrg")).data
     }
 
-    /// Replaces the list of repositories that have access to a self-hosted runner group configured in an organization.
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Replaces the list of repositories that have access to a self-hosted runner group configured in an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerGroupId: Unique identifier of the self-hosted runner group.
     /// - selectedRepositoryIds: List of repository IDs that can access the runner
     ///   group.
-    static func actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(
-        config: ClientConfig,
-        org: String,
-        runnerGroupId: Int,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
-        let requestBody =
-            ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody(selectedRepositoryIds: selectedRepositoryIds)
+    public static func actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(config: ClientConfig, org: String, runnerGroupId: Int, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/runner-groups/",
-                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId)), "/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg")).data
     }
 }

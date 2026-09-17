@@ -3,25 +3,19 @@
 
 import Foundation
 
-/// WebhookBranchProtectionRuleEdited domain models
+// WebhookBranchProtectionRuleEdited domain models
 /// Required enumerated value serialized in the `from` wire field.
-public struct WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let off = WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2(rawValue: "off")
-    public static let nonAdmins =
-        WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2(rawValue: "non_admins")
-    public static let everyone =
-        WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2(rawValue: "everyone")
+    public static let nonAdmins = WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2(rawValue: "non_admins")
+    public static let everyone = WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2(rawValue: "everyone")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,23 +25,17 @@ public struct WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f40
 }
 
 /// Required enumerated value serialized in the `from` wire field.
-public struct WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let off = WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom(rawValue: "off")
-    public static let nonAdmins =
-        WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom(rawValue: "non_admins")
-    public static let everyone =
-        WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom(rawValue: "everyone")
+    public static let nonAdmins = WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom(rawValue: "non_admins")
+    public static let everyone = WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom(rawValue: "everyone")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -57,23 +45,17 @@ public struct WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel
 }
 
 /// Required enumerated value serialized in the `from` wire field.
-public struct WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let off = WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174(rawValue: "off")
-    public static let nonAdmins =
-        WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174(rawValue: "non_admins")
-    public static let everyone =
-        WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174(rawValue: "everyone")
+    public static let nonAdmins = WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174(rawValue: "non_admins")
+    public static let everyone = WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174(rawValue: "everyone")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -83,19 +65,15 @@ public struct WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookBranchProtectionRuleEditedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookBranchProtectionRuleEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookBranchProtectionRuleEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

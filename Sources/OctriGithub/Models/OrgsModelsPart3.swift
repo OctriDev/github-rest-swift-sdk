@@ -3,47 +3,31 @@
 
 import Foundation
 
-/// Orgs domain models
-public extension OrgRepoCustomPropertyValues {
-    init(from decoder: Decoder) throws {
+// Orgs domain models
+extension OrgRepoCustomPropertyValues {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryId) else {
-            throw SdkValidationError(
-                field: "repository_id",
-                code: "required",
-                message: "Validation failed for 'repository_id': value is required"
-            )
+            throw SdkValidationError(field: "repository_id", code: "required", message: "Validation failed for 'repository_id': value is required")
         }
         guard container.contains(.repositoryName) else {
-            throw SdkValidationError(
-                field: "repository_name",
-                code: "required",
-                message: "Validation failed for 'repository_name': value is required"
-            )
+            throw SdkValidationError(field: "repository_name", code: "required", message: "Validation failed for 'repository_name': value is required")
         }
         guard container.contains(.repositoryFullName) else {
-            throw SdkValidationError(
-                field: "repository_full_name",
-                code: "required",
-                message: "Validation failed for 'repository_full_name': value is required"
-            )
+            throw SdkValidationError(field: "repository_full_name", code: "required", message: "Validation failed for 'repository_full_name': value is required")
         }
         guard container.contains(.properties) else {
-            throw SdkValidationError(
-                field: "properties",
-                code: "required",
-                message: "Validation failed for 'properties': value is required"
-            )
+            throw SdkValidationError(field: "properties", code: "required", message: "Validation failed for 'properties': value is required")
         }
-        repositoryId = try container.sdkDecodeRequired(.repositoryId)
-        repositoryName = try container.sdkDecodeRequired(.repositoryName)
-        repositoryFullName = try container.sdkDecodeRequired(.repositoryFullName)
-        properties = try container.sdkDecodeRequired(.properties)
+        self.repositoryId = try container.sdkDecodeRequired(.repositoryId)
+        self.repositoryName = try container.sdkDecodeRequired(.repositoryName)
+        self.repositoryFullName = try container.sdkDecodeRequired(.repositoryFullName)
+        self.properties = try container.sdkDecodeRequired(.properties)
     }
 }
 
-public extension OrgRepoCustomPropertyValues {
-    init(repositoryId: Int, repositoryName: String, repositoryFullName: String, properties: [CustomPropertyValue]) {
+extension OrgRepoCustomPropertyValues {
+    public init(repositoryId: Int, repositoryName: String, repositoryFullName: String, properties: [CustomPropertyValue]) {
         (self.repositoryId, self.repositoryName) = (repositoryId, repositoryName)
         (self.repositoryFullName, self.properties) = (repositoryFullName, properties)
     }
@@ -72,44 +56,28 @@ public struct OrganizationCreateIssueField: Codable {
         case options
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationCreateIssueField {
-    init(from decoder: Decoder) throws {
+extension OrganizationCreateIssueField {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.dataType) else {
-            throw SdkValidationError(
-                field: "data_type",
-                code: "required",
-                message: "Validation failed for 'data_type': value is required"
-            )
+            throw SdkValidationError(field: "data_type", code: "required", message: "Validation failed for 'data_type': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        dataType = try container.sdkDecodeRequired(.dataType)
-        description = try container.sdkDecodeIfPresent(.description)
-        visibility = try container.sdkDecodeIfPresent(.visibility)
-        options = try container.sdkDecodeIfPresent(.options)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.dataType = try container.sdkDecodeRequired(.dataType)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.visibility = try container.sdkDecodeIfPresent(.visibility)
+        self.options = try container.sdkDecodeIfPresent(.options)
     }
 }
 
-public extension OrganizationCreateIssueField {
-    init(
-        name: String,
-        dataType: OrganizationCreateIssueFieldDataType,
-        description: String? = nil,
-        visibility: OrganizationCreateIssueFieldVisibility? = nil,
-        options: [OrganizationCreateIssueFieldOptionsItem]? = nil
-    ) {
+extension OrganizationCreateIssueField {
+    public init(name: String, dataType: OrganizationCreateIssueFieldDataType, description: String? = nil, visibility: OrganizationCreateIssueFieldVisibility? = nil, options: [OrganizationCreateIssueFieldOptionsItem]? = nil) {
         (self.name, self.dataType) = (name, dataType)
         (self.description, self.visibility) = (description, visibility)
         self.options = options
@@ -134,44 +102,30 @@ public struct OrganizationCreateIssueFieldOptionsItem: Codable {
         case description
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationCreateIssueFieldOptionsItem {
-    init(from decoder: Decoder) throws {
+extension OrganizationCreateIssueFieldOptionsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.color) else {
-            throw SdkValidationError(
-                field: "color",
-                code: "required",
-                message: "Validation failed for 'color': value is required"
-            )
+            throw SdkValidationError(field: "color", code: "required", message: "Validation failed for 'color': value is required")
         }
         guard container.contains(.priority) else {
-            throw SdkValidationError(
-                field: "priority",
-                code: "required",
-                message: "Validation failed for 'priority': value is required"
-            )
+            throw SdkValidationError(field: "priority", code: "required", message: "Validation failed for 'priority': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        color = try container.sdkDecodeRequired(.color)
-        priority = try container.sdkDecodeRequired(.priority)
-        description = try container.sdkDecodeIfPresent(.description)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.color = try container.sdkDecodeRequired(.color)
+        self.priority = try container.sdkDecodeRequired(.priority)
+        self.description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
-public extension OrganizationCreateIssueFieldOptionsItem {
-    init(name: String, color: OrganizationCreateIssueFieldOptionsItemColor, priority: Int, description: String? = nil) {
+extension OrganizationCreateIssueFieldOptionsItem {
+    public init(name: String, color: OrganizationCreateIssueFieldOptionsItemColor, priority: Int, description: String? = nil) {
         (self.name, self.color) = (name, color)
         (self.priority, self.description) = (priority, description)
     }
@@ -195,37 +149,27 @@ public struct OrganizationCreateIssueType: Codable {
         case color
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationCreateIssueType {
-    init(from decoder: Decoder) throws {
+extension OrganizationCreateIssueType {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.isEnabled) else {
-            throw SdkValidationError(
-                field: "is_enabled",
-                code: "required",
-                message: "Validation failed for 'is_enabled': value is required"
-            )
+            throw SdkValidationError(field: "is_enabled", code: "required", message: "Validation failed for 'is_enabled': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        isEnabled = try container.sdkDecodeRequired(.isEnabled)
-        description = try container.sdkDecodeIfPresent(.description)
-        color = try container.sdkDecodeIfPresent(.color)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.isEnabled = try container.sdkDecodeRequired(.isEnabled)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.color = try container.sdkDecodeIfPresent(.color)
     }
 }
 
-public extension OrganizationCreateIssueType {
-    init(name: String, isEnabled: Bool, description: String? = nil, color: OrganizationCreateIssueTypeColor? = nil) {
+extension OrganizationCreateIssueType {
+    public init(name: String, isEnabled: Bool, description: String? = nil, color: OrganizationCreateIssueTypeColor? = nil) {
         (self.name, self.isEnabled) = (name, isEnabled)
         (self.description, self.color) = (description, color)
     }
@@ -505,7 +449,5 @@ public struct OrganizationFull: Codable {
         case deployKeysEnabledForRepositories = "deploy_keys_enabled_for_repositories"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

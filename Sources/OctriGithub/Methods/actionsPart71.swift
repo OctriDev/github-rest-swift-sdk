@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists all self-hosted runners configured in a repository. Authenticated users must have admin access to the
-    /// repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
-    /// use this endpoint.
+extension ActionsMethods {
+    /// Lists all self-hosted runners configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,31 +23,11 @@ public extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func actionsListSelfHostedRunnersForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        name: String?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> ActionsListSelfHostedRunnersForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("name", value: name),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "actionsListSelfHostedRunnersForRepo"
-        )).data
+    public static func actionsListSelfHostedRunnersForRepo(config: ClientConfig, owner: String, repo: String, name: String?, perPage: Int?, page: Int?) async throws -> ActionsListSelfHostedRunnersForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners"].joined(), config: config, query: [
+            SdkQueryParameter("name", value: name),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "actionsListSelfHostedRunnersForRepo")).data
     }
 }

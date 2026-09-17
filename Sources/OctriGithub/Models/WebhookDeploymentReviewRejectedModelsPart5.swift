@@ -3,23 +3,19 @@
 
 import Foundation
 
-/// WebhookDeploymentReviewRejected domain models
+// WebhookDeploymentReviewRejected domain models
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookDeploymentReviewRejectedWorkflowRunActorType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookDeploymentReviewRejectedWorkflowRunActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookDeploymentReviewRejectedWorkflowRunActorType(rawValue: "Bot")
     public static let user = WebhookDeploymentReviewRejectedWorkflowRunActorType(rawValue: "User")
     public static let organization = WebhookDeploymentReviewRejectedWorkflowRunActorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,15 +28,12 @@ public struct WebhookDeploymentReviewRejectedWorkflowRunActorType: RawRepresenta
 public struct WebhookDeploymentReviewRejectedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let rejected = WebhookDeploymentReviewRejectedAction(rawValue: "rejected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,14 +43,10 @@ public struct WebhookDeploymentReviewRejectedAction: RawRepresentable, Hashable,
 }
 
 /// Required enumerated value serialized in the `status` wire field.
-public struct WebhookDeploymentReviewRejectedWorkflowRunStatus: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookDeploymentReviewRejectedWorkflowRunStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let requested = WebhookDeploymentReviewRejectedWorkflowRunStatus(rawValue: "requested")
     public static let inProgress = WebhookDeploymentReviewRejectedWorkflowRunStatus(rawValue: "in_progress")
     public static let completed = WebhookDeploymentReviewRejectedWorkflowRunStatus(rawValue: "completed")
@@ -66,7 +55,7 @@ public struct WebhookDeploymentReviewRejectedWorkflowRunStatus: RawRepresentable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

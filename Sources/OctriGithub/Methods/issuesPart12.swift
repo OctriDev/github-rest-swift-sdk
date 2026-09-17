@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists issue events for a repository. Use `page` and `per_page` to paginate the results. `per_page` defaults to
-    /// 30 and `page` defaults to 1 when omitted.
+extension IssuesMethods {
+    /// Lists issue events for a repository. Use `page` and `per_page` to paginate the results. `per_page` defaults to 30 and `page` defaults to 1 when omitted.
     ///
     /// Lists events for a repository.
     ///
@@ -25,29 +24,10 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListEventsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IssueEvent] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/events",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListEventsForRepo"
-        )).data
+    public static func issuesListEventsForRepo(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [IssueEvent] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/events"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListEventsForRepo")).data
     }
 }

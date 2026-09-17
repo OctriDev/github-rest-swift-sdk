@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Retrieves a specific deploy key from a repository. Supply `key_id` to identify the key you want to inspect and
-    /// use `owner` and `repo` to select the repository.
+extension ReposMethods {
+    /// Retrieves a specific deploy key from a repository. Supply `key_id` to identify the key you want to inspect and use `owner` and `repo` to select the repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,26 +15,8 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - keyId: The unique identifier of the key.
-    static func reposGetDeployKey(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        keyId: Int
-    ) async throws -> DeployKey {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/keys/",
-                sdkEncodePathSegment(sdkWireString(keyId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetDeployKey"
-        )).data
+    public static func reposGetDeployKey(config: ClientConfig, owner: String, repo: String, keyId: Int) async throws -> DeployKey {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/keys/", sdkEncodePathSegment(sdkWireString(keyId))].joined(), config: config, decoder: .json, operationId: "reposGetDeployKey")).data
     }
 
     /// Deploy keys are immutable. If you need to update a key, remove the key and create a new one instead.
@@ -46,25 +27,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - keyId: The unique identifier of the key.
-    static func reposDeleteDeployKey(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        keyId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/keys/",
-                sdkEncodePathSegment(sdkWireString(keyId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteDeployKey"
-        )).data
+    public static func reposDeleteDeployKey(config: ClientConfig, owner: String, repo: String, keyId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/keys/", sdkEncodePathSegment(sdkWireString(keyId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteDeployKey")).data
     }
 }

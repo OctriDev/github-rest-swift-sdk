@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension InteractionsMethods {
-    /// Temporarily restricts interactions to a certain type of GitHub user within the given repository. You must have
-    /// owner or admin access to set these restrictions. If an interaction limit is set for the user or organization
-    /// that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint
-    /// to change the interaction limit for a single repository.
+extension InteractionsMethods {
+    /// Temporarily restricts interactions to a certain type of GitHub user within the given repository. You must have owner or admin access to set these restrictions. If an interaction limit is set for the user or organization that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for a single repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,58 +17,20 @@ public extension InteractionsMethods {
     /// - limit: The type of GitHub user that can comment, open issues, or create
     ///   pull requests while the interaction limit is in effect.
     /// - expiry: The duration of the interaction restriction. Default: `one_day`.
-    static func interactionsSetRestrictionsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        limit: InteractionGroup,
-        expiry: InteractionExpiry?
-    ) async throws -> InteractionLimitResponse {
+    public static func interactionsSetRestrictionsForRepo(config: ClientConfig, owner: String, repo: String, limit: InteractionGroup, expiry: InteractionExpiry?) async throws -> InteractionLimitResponse {
         let requestBody = InteractionsSetRestrictionsForRepoRequestBody(limit: limit, expiry: expiry)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/interaction-limits",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "interactionsSetRestrictionsForRepo"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/interaction-limits"].joined(), config: config, body: requestBody, decoder: .json, operationId: "interactionsSetRestrictionsForRepo")).data
     }
 
-    /// Removes all interaction restrictions from the given repository. You must have owner or admin access to remove
-    /// restrictions. If the interaction limit is set for the user or organization that owns this repository, you will
-    /// receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for
-    /// a single repository.
+    /// Removes all interaction restrictions from the given repository. You must have owner or admin access to remove restrictions. If the interaction limit is set for the user or organization that owns this repository, you will receive a `409 Conflict` response and will not be able to use this endpoint to change the interaction limit for a single repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func interactionsRemoveRestrictionsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/interaction-limits",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "interactionsRemoveRestrictionsForRepo"
-        )).data
+    public static func interactionsRemoveRestrictionsForRepo(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/interaction-limits"].joined(), config: config, decoder: .empty, operationId: "interactionsRemoveRestrictionsForRepo")).data
     }
 }

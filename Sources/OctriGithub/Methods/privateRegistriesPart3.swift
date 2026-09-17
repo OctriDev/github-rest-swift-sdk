@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PrivateRegistriesMethods {
-    struct PrivateRegistriesCreateOrgPrivateRegistryOptions: Codable {
+extension PrivateRegistriesMethods {
+    public struct PrivateRegistriesCreateOrgPrivateRegistryOptions: Codable {
         public var org: String
         public var registryType: PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType
         public var url: String
@@ -34,12 +34,7 @@ public extension PrivateRegistriesMethods {
         public var workloadIdentityProvider: String?
         public var serviceAccount: String?
 
-        public init(
-            org: String,
-            registryType: PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType,
-            url: String,
-            visibility: PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility
-        ) {
+        public init(org: String, registryType: PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType, url: String, visibility: PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility) {
             self.org = org
             self.registryType = registryType
             self.url = url
@@ -47,13 +42,7 @@ public extension PrivateRegistriesMethods {
         }
     }
 
-    /// Creates a private registry configuration with an encrypted value for an organization. Encrypt your secret using
-    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." For OIDC-based registries
-    /// (`oidc_azure`, `oidc_aws`, `oidc_jfrog`, `oidc_cloudsmith`, or `oidc_gcp`), the `encrypted_value` and `key_id`
-    /// fields should be omitted. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
-    /// use this endpoint.
+    /// Creates a private registry configuration with an encrypted value for an organization. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." For OIDC-based registries (`oidc_azure`, `oidc_aws`, `oidc_jfrog`, `oidc_cloudsmith`, or `oidc_gcp`), the `encrypted_value` and `key_id` fields should be omitted. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -121,10 +110,7 @@ public extension PrivateRegistriesMethods {
     /// - serviceAccount: The GCP service account email to impersonate. Optional for
     ///   `oidc_gcp` auth type. If omitted, the federated token is used directly
     ///   (direct WIF).
-    static func privateRegistriesCreateOrgPrivateRegistry(
-        config: ClientConfig,
-        options: PrivateRegistriesCreateOrgPrivateRegistryOptions
-    ) async throws -> OrgPrivateRegistryConfigurationWithSelectedRepositories {
+    public static func privateRegistriesCreateOrgPrivateRegistry(config: ClientConfig, options: PrivateRegistriesCreateOrgPrivateRegistryOptions) async throws -> OrgPrivateRegistryConfigurationWithSelectedRepositories {
         try sdkValidateUri("url", options.url)
 
         if let encryptedValue = options.encryptedValue {
@@ -133,13 +119,6 @@ public extension PrivateRegistriesMethods {
 
         let requestBody = PrivateRegistriesCreateOrgPrivateRegistryRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/private-registries"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "privateRegistriesCreateOrgPrivateRegistry"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/private-registries"].joined(), config: config, body: requestBody, decoder: .json, operationId: "privateRegistriesCreateOrgPrivateRegistry")).data
     }
 }

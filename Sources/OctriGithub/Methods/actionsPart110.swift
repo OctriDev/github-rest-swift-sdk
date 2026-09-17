@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Create an environment variable that you can reference in a GitHub Actions workflow. Authenticated users must
-    /// have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access
-    /// tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Create an environment variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,31 +18,9 @@ public extension ActionsMethods {
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - name: The name of the variable.
     /// - value: The value of the variable.
-    static func actionsCreateEnvironmentVariable(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String,
-        name: String,
-        value: String
-    ) async throws -> EmptyObject {
+    public static func actionsCreateEnvironmentVariable(config: ClientConfig, owner: String, repo: String, environmentName: String, name: String, value: String) async throws -> EmptyObject {
         let requestBody = ActionsCreateEnvironmentVariableRequestBody(name: name, value: value)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/variables",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsCreateEnvironmentVariable"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/variables"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateEnvironmentVariable")).data
     }
 }

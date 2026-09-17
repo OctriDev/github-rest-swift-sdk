@@ -6,37 +6,6 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-struct ActionsCreateHostedRunnerForOrgRequestBody: Encodable {
-    let name: String
-    let image: ActionsCreateHostedRunnerForOrgRequestBodyImage
-    let size: String
-    let runnerGroupId: Int
-    var maximumRunners: Int?
-    var enableStaticIp: Bool?
-    var imageGen: Bool?
-
-    func encode(to encoder: Encoder) throws {
-        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(image, forKey: SdkCodingKey("image"))
-        try keyedContainer.encode(size, forKey: SdkCodingKey("size"))
-        try keyedContainer.encode(runnerGroupId, forKey: SdkCodingKey("runner_group_id"))
-        try keyedContainer.encodeIfPresent(maximumRunners, forKey: SdkCodingKey("maximum_runners"))
-        try keyedContainer.encodeIfPresent(enableStaticIp, forKey: SdkCodingKey("enable_static_ip"))
-        try keyedContainer.encodeIfPresent(imageGen, forKey: SdkCodingKey("image_gen"))
-    }
-
-    init(options: ActionsMethods.ActionsCreateHostedRunnerForOrgOptions) {
-        name = options.name
-        image = options.image
-        size = options.size
-        runnerGroupId = options.runnerGroupId
-        maximumRunners = options.maximumRunners
-        enableStaticIp = options.enableStaticIp
-        imageGen = options.imageGen
-    }
-}
-
 struct ActionsUpdateHostedRunnerForOrgRequestBody: Encodable {
     var name: String?
     var runnerGroupId: Int?
@@ -50,27 +19,27 @@ struct ActionsUpdateHostedRunnerForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(runnerGroupId, forKey: SdkCodingKey("runner_group_id"))
-        try keyedContainer.encodeIfPresent(maximumRunners, forKey: SdkCodingKey("maximum_runners"))
-        try keyedContainer.encodeIfPresent(enableStaticIp, forKey: SdkCodingKey("enable_static_ip"))
-        try keyedContainer.encodeIfPresent(size, forKey: SdkCodingKey("size"))
-        try keyedContainer.encodeIfPresent(imageSource, forKey: SdkCodingKey("image_source"))
-        try keyedContainer.encodeIfPresent(imageId, forKey: SdkCodingKey("image_id"))
-        try keyedContainer.encodeIfPresent(imageVersion, forKey: SdkCodingKey("image_version"))
-        try keyedContainer.encodeIfPresent(imageGen, forKey: SdkCodingKey("image_gen"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.runnerGroupId, forKey: SdkCodingKey("runner_group_id"))
+        try keyedContainer.encodeIfPresent(self.maximumRunners, forKey: SdkCodingKey("maximum_runners"))
+        try keyedContainer.encodeIfPresent(self.enableStaticIp, forKey: SdkCodingKey("enable_static_ip"))
+        try keyedContainer.encodeIfPresent(self.size, forKey: SdkCodingKey("size"))
+        try keyedContainer.encodeIfPresent(self.imageSource, forKey: SdkCodingKey("image_source"))
+        try keyedContainer.encodeIfPresent(self.imageId, forKey: SdkCodingKey("image_id"))
+        try keyedContainer.encodeIfPresent(self.imageVersion, forKey: SdkCodingKey("image_version"))
+        try keyedContainer.encodeIfPresent(self.imageGen, forKey: SdkCodingKey("image_gen"))
     }
 
     init(options: ActionsMethods.ActionsUpdateHostedRunnerForOrgOptions) {
-        name = options.name
-        runnerGroupId = options.runnerGroupId
-        maximumRunners = options.maximumRunners
-        enableStaticIp = options.enableStaticIp
-        size = options.size
-        imageSource = options.imageSource
-        imageId = options.imageId
-        imageVersion = options.imageVersion
-        imageGen = options.imageGen
+        self.name = options.name
+        self.runnerGroupId = options.runnerGroupId
+        self.maximumRunners = options.maximumRunners
+        self.enableStaticIp = options.enableStaticIp
+        self.size = options.size
+        self.imageSource = options.imageSource
+        self.imageId = options.imageId
+        self.imageVersion = options.imageVersion
+        self.imageGen = options.imageGen
     }
 }
 
@@ -81,9 +50,9 @@ struct ActionsSetGithubActionsPermissionsOrganizationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(enabledRepositories, forKey: SdkCodingKey("enabled_repositories"))
-        try keyedContainer.encodeIfPresent(allowedActions, forKey: SdkCodingKey("allowed_actions"))
-        try keyedContainer.encodeIfPresent(shaPinningRequired, forKey: SdkCodingKey("sha_pinning_required"))
+        try keyedContainer.encode(self.enabledRepositories, forKey: SdkCodingKey("enabled_repositories"))
+        try keyedContainer.encodeIfPresent(self.allowedActions, forKey: SdkCodingKey("allowed_actions"))
+        try keyedContainer.encodeIfPresent(self.shaPinningRequired, forKey: SdkCodingKey("sha_pinning_required"))
     }
 }
 
@@ -92,7 +61,7 @@ struct ActionsSetArtifactAndLogRetentionSettingsOrganizationRequestBody: Encodab
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(days, forKey: SdkCodingKey("days"))
+        try keyedContainer.encode(self.days, forKey: SdkCodingKey("days"))
     }
 }
 
@@ -101,7 +70,7 @@ struct ActionsSetForkPrContributorApprovalPermissionsOrganizationRequestBody: En
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(approvalPolicy, forKey: SdkCodingKey("approval_policy"))
+        try keyedContainer.encode(self.approvalPolicy, forKey: SdkCodingKey("approval_policy"))
     }
 }
 
@@ -113,19 +82,10 @@ struct ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationRequestBody: Enco
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(
-            runWorkflowsFromForkPullRequests,
-            forKey: SdkCodingKey("run_workflows_from_fork_pull_requests")
-        )
-        try keyedContainer.encodeIfPresent(
-            sendWriteTokensToWorkflows,
-            forKey: SdkCodingKey("send_write_tokens_to_workflows")
-        )
-        try keyedContainer.encodeIfPresent(sendSecretsAndVariables, forKey: SdkCodingKey("send_secrets_and_variables"))
-        try keyedContainer.encodeIfPresent(
-            requireApprovalForForkPrWorkflows,
-            forKey: SdkCodingKey("require_approval_for_fork_pr_workflows")
-        )
+        try keyedContainer.encode(self.runWorkflowsFromForkPullRequests, forKey: SdkCodingKey("run_workflows_from_fork_pull_requests"))
+        try keyedContainer.encodeIfPresent(self.sendWriteTokensToWorkflows, forKey: SdkCodingKey("send_write_tokens_to_workflows"))
+        try keyedContainer.encodeIfPresent(self.sendSecretsAndVariables, forKey: SdkCodingKey("send_secrets_and_variables"))
+        try keyedContainer.encodeIfPresent(self.requireApprovalForForkPrWorkflows, forKey: SdkCodingKey("require_approval_for_fork_pr_workflows"))
     }
 }
 
@@ -136,9 +96,9 @@ struct ActionsSetAllowedActionsOrganizationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(githubOwnedAllowed, forKey: SdkCodingKey("github_owned_allowed"))
-        try keyedContainer.encodeIfPresent(verifiedAllowed, forKey: SdkCodingKey("verified_allowed"))
-        try keyedContainer.encodeIfPresent(patternsAllowed, forKey: SdkCodingKey("patterns_allowed"))
+        try keyedContainer.encodeIfPresent(self.githubOwnedAllowed, forKey: SdkCodingKey("github_owned_allowed"))
+        try keyedContainer.encodeIfPresent(self.verifiedAllowed, forKey: SdkCodingKey("verified_allowed"))
+        try keyedContainer.encodeIfPresent(self.patternsAllowed, forKey: SdkCodingKey("patterns_allowed"))
     }
 }
 
@@ -147,7 +107,7 @@ struct ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody: Encodable 
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(enabledRepositories, forKey: SdkCodingKey("enabled_repositories"))
+        try keyedContainer.encode(self.enabledRepositories, forKey: SdkCodingKey("enabled_repositories"))
     }
 }
 
@@ -156,7 +116,7 @@ struct ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody: E
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -166,14 +126,8 @@ struct ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationRequestBody:
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(
-            defaultWorkflowPermissions,
-            forKey: SdkCodingKey("default_workflow_permissions")
-        )
-        try keyedContainer.encodeIfPresent(
-            canApprovePullRequestReviews,
-            forKey: SdkCodingKey("can_approve_pull_request_reviews")
-        )
+        try keyedContainer.encodeIfPresent(self.defaultWorkflowPermissions, forKey: SdkCodingKey("default_workflow_permissions"))
+        try keyedContainer.encodeIfPresent(self.canApprovePullRequestReviews, forKey: SdkCodingKey("can_approve_pull_request_reviews"))
     }
 }
 
@@ -189,24 +143,70 @@ struct ActionsCreateSelfHostedRunnerGroupForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
-        try keyedContainer.encodeIfPresent(runners, forKey: SdkCodingKey("runners"))
-        try keyedContainer.encodeIfPresent(allowsPublicRepositories, forKey: SdkCodingKey("allows_public_repositories"))
-        try keyedContainer.encodeIfPresent(restrictedToWorkflows, forKey: SdkCodingKey("restricted_to_workflows"))
-        try keyedContainer.encodeIfPresent(selectedWorkflows, forKey: SdkCodingKey("selected_workflows"))
-        try keyedContainer.encodeIfPresent(networkConfigurationId, forKey: SdkCodingKey("network_configuration_id"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encodeIfPresent(self.runners, forKey: SdkCodingKey("runners"))
+        try keyedContainer.encodeIfPresent(self.allowsPublicRepositories, forKey: SdkCodingKey("allows_public_repositories"))
+        try keyedContainer.encodeIfPresent(self.restrictedToWorkflows, forKey: SdkCodingKey("restricted_to_workflows"))
+        try keyedContainer.encodeIfPresent(self.selectedWorkflows, forKey: SdkCodingKey("selected_workflows"))
+        try keyedContainer.encodeIfPresent(self.networkConfigurationId, forKey: SdkCodingKey("network_configuration_id"))
     }
 
     init(options: ActionsMethods.ActionsCreateSelfHostedRunnerGroupForOrgOptions) {
-        name = options.name
-        visibility = options.visibility
-        selectedRepositoryIds = options.selectedRepositoryIds
-        runners = options.runners
-        allowsPublicRepositories = options.allowsPublicRepositories
-        restrictedToWorkflows = options.restrictedToWorkflows
-        selectedWorkflows = options.selectedWorkflows
-        networkConfigurationId = options.networkConfigurationId
+        self.name = options.name
+        self.visibility = options.visibility
+        self.selectedRepositoryIds = options.selectedRepositoryIds
+        self.runners = options.runners
+        self.allowsPublicRepositories = options.allowsPublicRepositories
+        self.restrictedToWorkflows = options.restrictedToWorkflows
+        self.selectedWorkflows = options.selectedWorkflows
+        self.networkConfigurationId = options.networkConfigurationId
+    }
+}
+
+struct ActionsUpdateSelfHostedRunnerGroupForOrgRequestBody: Encodable {
+    let name: String
+    var visibility: ActionsUpdateSelfHostedRunnerGroupForOrgRequestBodyVisibility?
+    var allowsPublicRepositories: Bool?
+    var restrictedToWorkflows: Bool?
+    var selectedWorkflows: [String]?
+    var networkConfigurationId: SdkOptional<String>?
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(self.allowsPublicRepositories, forKey: SdkCodingKey("allows_public_repositories"))
+        try keyedContainer.encodeIfPresent(self.restrictedToWorkflows, forKey: SdkCodingKey("restricted_to_workflows"))
+        try keyedContainer.encodeIfPresent(self.selectedWorkflows, forKey: SdkCodingKey("selected_workflows"))
+        try keyedContainer.encodeIfPresent(self.networkConfigurationId, forKey: SdkCodingKey("network_configuration_id"))
+    }
+
+    init(options: ActionsMethods.ActionsUpdateSelfHostedRunnerGroupForOrgOptions) {
+        self.name = options.name
+        self.visibility = options.visibility
+        self.allowsPublicRepositories = options.allowsPublicRepositories
+        self.restrictedToWorkflows = options.restrictedToWorkflows
+        self.selectedWorkflows = options.selectedWorkflows
+        self.networkConfigurationId = options.networkConfigurationId
+    }
+}
+
+struct ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgRequestBody: Encodable {
+    let selectedRepositoryIds: [Int]
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+    }
+}
+
+struct ActionsSetSelfHostedRunnersInGroupForOrgRequestBody: Encodable {
+    let runners: [Int]
+
+    func encode(to encoder: Encoder) throws {
+        var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
+        try keyedContainer.encode(self.runners, forKey: SdkCodingKey("runners"))
     }
 }

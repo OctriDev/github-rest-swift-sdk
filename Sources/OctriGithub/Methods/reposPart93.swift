@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Repositories can have multiple webhooks installed. Each webhook should have a unique `config`. Multiple webhooks
-    /// can share the same `config` as long as those webhooks do not have any `events` that overlap.
+extension ReposMethods {
+    /// Repositories can have multiple webhooks installed. Each webhook should have a unique `config`. Multiple webhooks can share the same `config` as long as those webhooks do not have any `events` that overlap.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,30 +22,9 @@ public extension ReposMethods {
     ///   triggered for.
     /// - active: Determines if notifications are sent when the webhook is
     ///   triggered. Set to `true` to send notifications.
-    static func reposCreateWebhook(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        name: String?,
-        config2: ReposCreateWebhookRequestBodyConfig?,
-        events: [String]?,
-        active: Bool?
-    ) async throws -> Hook {
+    public static func reposCreateWebhook(config: ClientConfig, owner: String, repo: String, name: String?, config2: ReposCreateWebhookRequestBodyConfig?, events: [String]?, active: Bool?) async throws -> Hook {
         let requestBody = ReposCreateWebhookRequestBody(name: name, config2: config2, events: events, active: active)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/hooks",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateWebhook"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateWebhook")).data
     }
 }

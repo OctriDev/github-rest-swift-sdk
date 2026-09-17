@@ -6,26 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    /// View the progress of an import. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage
-    /// and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on
-    /// April 12, 2024. For more details and alternatives, see the
-    /// [changelog](https://gh.io/source-imports-api-deprecation). **Import status** This section includes details about
-    /// the possible values of the `status` field of the Import Progress response. An import that does not have errors
-    /// will progress through these steps: * `detecting` - the "detection" step of the import is in progress because the
-    /// request did not include a `vcs` parameter. The import is identifying the type of source control present at the
-    /// URL. * `importing` - the "raw" step of the import is in progress. This is where commit data is fetched from the
-    /// original repository. The import progress response will include `commit_count` (the total number of raw commits
-    /// that will be imported) and `percent` (0 - 100, the current progress through the import). * `mapping` - the
-    /// "rewrite" step of the import is in progress. This is where SVN branches are converted to Git branches, and where
-    /// author updates are applied. The import progress response does not include progress information. * `pushing` -
-    /// the "push" step of the import is in progress. This is where the importer updates the repository on GitHub. The
-    /// import progress response will include `push_percent`, which is the percent value reported by `git push` when it
-    /// is "Writing objects". * `complete` - the import is complete, and the repository is ready on GitHub. If there are
-    /// problems, you will see one of these in the `status` field: * `auth_failed` - the import requires authentication
-    /// in order to connect to the original repository. To update authentication for the import, please see the [Update
-    /// an import](https://docs.github.com/rest/migrations/source-imports#update-an-import) section. * `error` - the
-    /// import encountered an error. The import progress…
+extension MigrationsMethods {
+    /// View the progress of an import. > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation). **Import status** This section includes details about the possible values of the `status` field of the Import Progress response. An import that does not have errors will progress through these steps: * `detecting` - the "detection" step of the import is in progress because the request did not include a `vcs` parameter. The import is identifying the type of source control present at the URL. * `importing` - the "raw" step of the import is in progress. This is where commit data is fetched from the original repository. The import progress response will include `commit_count` (the total number of raw commits that will be imported) and `percent` (0 - 100, the current progress through the import). * `mapping` - the "rewrite" step of the import is in progress. This is where SVN branches are converted to Git branches, and where author updates are applied. The import progress response does not include progress information. * `pushing` - the "push" step of the import is in progress. This is where the importer updates the repository on GitHub. The import progress response will include `push_percent`, which is the percent value reported by `git push` when it is "Writing objects". * `complete` - the import is complete, and the repository is ready on GitHub. If there are problems, you will see one of these in the `status` field: * `auth_failed` - the import requires authentication in order to connect to the original repository. To update authentication for the import, please see the [Update an import](https://docs.github.com/rest/migrations/source-imports#update-an-import) section. * `error` - the import encountered an error. The import progress…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -34,19 +16,7 @@ public extension MigrationsMethods {
     ///   not case sensitive.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func migrationsGetImportStatus(config: ClientConfig, owner: String, repo: String) async throws -> Import {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/import",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "migrationsGetImportStatus"
-        )).data
+    public static func migrationsGetImportStatus(config: ClientConfig, owner: String, repo: String) async throws -> Import {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import"].joined(), config: config, decoder: .json, operationId: "migrationsGetImportStatus")).data
     }
 }

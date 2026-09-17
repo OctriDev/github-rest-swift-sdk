@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// CodeScanningCodeScanningSarifs domain models
+// CodeScanningCodeScanningSarifs domain models
 /// Typed representation of the `CodeScanningSarifsReceipt` API schema.
 public struct CodeScanningSarifsReceipt: Codable {
     /// An identifier for the upload.
@@ -18,23 +18,23 @@ public struct CodeScanningSarifsReceipt: Codable {
     }
 
     init() {
-        (id, url) = (nil, nil)
+        (self.id, self.url) = (nil, nil)
     }
 }
 
-public extension CodeScanningSarifsReceipt {
-    init(from decoder: Decoder) throws {
+extension CodeScanningSarifsReceipt {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        url = try container.sdkDecodeIfPresent(.url)
-        if let value = url {
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
-public extension CodeScanningSarifsReceipt {
-    init(id: CodeScanningAnalysisSarifId? = nil, url: String? = nil) throws {
+extension CodeScanningSarifsReceipt {
+    public init(id: CodeScanningAnalysisSarifId? = nil, url: String? = nil) throws {
         self.init()
         (self.id, self.url) = (id, url)
         if let value = self.url {
@@ -60,28 +60,24 @@ public struct CodeScanningSarifsStatus: Codable {
     }
 
     init() {
-        (processingStatus, analysesUrl, errors) = (nil, nil, nil)
+        (self.processingStatus, self.analysesUrl, self.errors) = (nil, nil, nil)
     }
 }
 
-public extension CodeScanningSarifsStatus {
-    init(from decoder: Decoder) throws {
+extension CodeScanningSarifsStatus {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        processingStatus = try container.sdkDecodeIfPresent(.processingStatus)
-        analysesUrl = try container.sdkDecodeIfPresent(.analysesUrl)
-        errors = try container.sdkDecodeIfPresent(.errors)
-        if let value = analysesUrl {
+        self.processingStatus = try container.sdkDecodeIfPresent(.processingStatus)
+        self.analysesUrl = try container.sdkDecodeIfPresent(.analysesUrl)
+        self.errors = try container.sdkDecodeIfPresent(.errors)
+        if let value = self.analysesUrl {
             try sdkValidateUri("analyses_url", value)
         }
     }
 }
 
-public extension CodeScanningSarifsStatus {
-    init(
-        processingStatus: CodeScanningSarifsStatusProcessingStatus? = nil,
-        analysesUrl: String? = nil,
-        errors: [String]? = nil
-    ) throws {
+extension CodeScanningSarifsStatus {
+    public init(processingStatus: CodeScanningSarifsStatusProcessingStatus? = nil, analysesUrl: String? = nil, errors: [String]? = nil) throws {
         self.init()
         (self.processingStatus, self.analysesUrl) = (processingStatus, analysesUrl)
         self.errors = errors
@@ -93,21 +89,17 @@ public extension CodeScanningSarifsStatus {
 
 /// `pending` files have not yet been processed, while `complete` means results from the SARIF have been stored.
 /// `failed` files have either not been processed at all, or could only be partially processed.
-public struct CodeScanningSarifsStatusProcessingStatus: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningSarifsStatusProcessingStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pending = CodeScanningSarifsStatusProcessingStatus(rawValue: "pending")
     public static let complete = CodeScanningSarifsStatusProcessingStatus(rawValue: "complete")
     public static let failed = CodeScanningSarifsStatusProcessingStatus(rawValue: "failed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

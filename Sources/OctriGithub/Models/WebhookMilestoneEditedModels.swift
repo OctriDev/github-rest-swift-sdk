@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookMilestoneEdited domain models
+// WebhookMilestoneEdited domain models
 /// Typed representation of the `WebhookMilestoneEdited` API schema.
 public struct WebhookMilestoneEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,71 +39,40 @@ public struct WebhookMilestoneEdited: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMilestoneEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookMilestoneEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.milestone) else {
-            throw SdkValidationError(
-                field: "milestone",
-                code: "required",
-                message: "Validation failed for 'milestone': value is required"
-            )
+            throw SdkValidationError(field: "milestone", code: "required", message: "Validation failed for 'milestone': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        milestone = try container.sdkDecodeRequired(.milestone)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.milestone = try container.sdkDecodeRequired(.milestone)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookMilestoneEdited {
-    init(
-        action: WebhookMilestoneEditedAction,
-        changes: WebhookMilestoneEditedChanges,
-        milestone: WebhooksMilestone,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookMilestoneEdited {
+    public init(action: WebhookMilestoneEditedAction, changes: WebhookMilestoneEditedChanges, milestone: WebhooksMilestone, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.milestone, self.repository) = (milestone, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -127,25 +96,21 @@ public struct WebhookMilestoneEditedChanges: Codable {
     }
 
     init() {
-        (description, dueOn, title) = (nil, nil, nil)
+        (self.description, self.dueOn, self.title) = (nil, nil, nil)
     }
 }
 
-public extension WebhookMilestoneEditedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookMilestoneEditedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        description = try container.sdkDecodeIfPresent(.description)
-        dueOn = try container.sdkDecodeIfPresent(.dueOn)
-        title = try container.sdkDecodeIfPresent(.title)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.dueOn = try container.sdkDecodeIfPresent(.dueOn)
+        self.title = try container.sdkDecodeIfPresent(.title)
     }
 }
 
-public extension WebhookMilestoneEditedChanges {
-    init(
-        description: WebhookMilestoneEditedChangesDescription? = nil,
-        dueOn: WebhookMilestoneEditedChangesDueOn? = nil,
-        title: WebhookMilestoneEditedChangesTitle? = nil
-    ) {
+extension WebhookMilestoneEditedChanges {
+    public init(description: WebhookMilestoneEditedChangesDescription? = nil, dueOn: WebhookMilestoneEditedChangesDueOn? = nil, title: WebhookMilestoneEditedChangesTitle? = nil) {
         self.init()
         (self.description, self.dueOn) = (description, dueOn)
         self.title = title
@@ -161,27 +126,21 @@ public struct WebhookMilestoneEditedChangesDescription: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMilestoneEditedChangesDescription {
-    init(from decoder: Decoder) throws {
+extension WebhookMilestoneEditedChangesDescription {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookMilestoneEditedChangesDescription {
-    init(from: String) {
+extension WebhookMilestoneEditedChangesDescription {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -195,27 +154,21 @@ public struct WebhookMilestoneEditedChangesDueOn: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMilestoneEditedChangesDueOn {
-    init(from decoder: Decoder) throws {
+extension WebhookMilestoneEditedChangesDueOn {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookMilestoneEditedChangesDueOn {
-    init(from: String) {
+extension WebhookMilestoneEditedChangesDueOn {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -229,27 +182,21 @@ public struct WebhookMilestoneEditedChangesTitle: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMilestoneEditedChangesTitle {
-    init(from decoder: Decoder) throws {
+extension WebhookMilestoneEditedChangesTitle {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookMilestoneEditedChangesTitle {
-    init(from: String) {
+extension WebhookMilestoneEditedChangesTitle {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -258,15 +205,12 @@ public extension WebhookMilestoneEditedChangesTitle {
 public struct WebhookMilestoneEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookMilestoneEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

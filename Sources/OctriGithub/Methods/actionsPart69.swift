@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Sets the actions and reusable workflows that are allowed in a repository. To use this endpoint, the repository
-    /// permission policy for `allowed_actions` must be configured to `selected`. For more information, see "Set GitHub
-    /// Actions permissions for a repository." OAuth app tokens and personal access tokens (classic) need the `repo`
-    /// scope to use this endpoint.
+extension ActionsMethods {
+    /// Sets the actions and reusable workflows that are allowed in a repository. To use this endpoint, the repository permission policy for `allowed_actions` must be configured to `selected`. For more information, see "Set GitHub Actions permissions for a repository." OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,33 +24,9 @@ public extension ActionsMethods {
     ///   allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`,
     ///   `monalisa/*`. > [!NOTE] > The `patterns_allowed` setting only applies to
     ///   public repositories.
-    static func actionsSetAllowedActionsRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        githubOwnedAllowed: Bool?,
-        verifiedAllowed: Bool?,
-        patternsAllowed: [String]?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetAllowedActionsRepositoryRequestBody(
-            githubOwnedAllowed: githubOwnedAllowed,
-            verifiedAllowed: verifiedAllowed,
-            patternsAllowed: patternsAllowed
-        )
+    public static func actionsSetAllowedActionsRepository(config: ClientConfig, owner: String, repo: String, githubOwnedAllowed: Bool?, verifiedAllowed: Bool?, patternsAllowed: [String]?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetAllowedActionsRepositoryRequestBody(githubOwnedAllowed: githubOwnedAllowed, verifiedAllowed: verifiedAllowed, patternsAllowed: patternsAllowed)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions/selected-actions",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetAllowedActionsRepository"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/selected-actions"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetAllowedActionsRepository")).data
     }
 }

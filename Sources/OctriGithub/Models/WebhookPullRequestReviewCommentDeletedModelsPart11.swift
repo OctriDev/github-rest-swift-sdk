@@ -3,27 +3,20 @@
 
 import Foundation
 
-/// WebhookPullRequestReviewCommentDeleted domain models
+// WebhookPullRequestReviewCommentDeleted domain models
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let prBody =
-        WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09(rawValue: "PR_BODY")
-    public static let prTitle =
-        WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09(rawValue: "PR_TITLE")
-    public static let blank =
-        WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09(rawValue: "BLANK")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let prBody = WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09(rawValue: "PR_BODY")
+    public static let prTitle = WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09(rawValue: "PR_TITLE")
+    public static let blank = WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181882c09(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,21 +26,16 @@ public struct WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoMergX7181
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct WebhookPullRequestReviewCommentDeletedPullRequestBaseRepoPullX61672d54f0: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewCommentDeletedPullRequestBaseRepoPullX61672d54f0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = WebhookPullRequestReviewCommentDeletedPullRequestBaseRepoPullX61672d54f0(rawValue: "all")
-    public static let collaboratorsOnly =
-        WebhookPullRequestReviewCommentDeletedPullRequestBaseRepoPullX61672d54f0(rawValue: "collaborators_only")
+    public static let collaboratorsOnly = WebhookPullRequestReviewCommentDeletedPullRequestBaseRepoPullX61672d54f0(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -57,14 +45,10 @@ public struct WebhookPullRequestReviewCommentDeletedPullRequestBaseRepoPullX6167
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookPullRequestReviewCommentDeletedPullRequestUserType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookPullRequestReviewCommentDeletedPullRequestUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookPullRequestReviewCommentDeletedPullRequestUserType(rawValue: "Bot")
     public static let user = WebhookPullRequestReviewCommentDeletedPullRequestUserType(rawValue: "User")
     public static let organization = WebhookPullRequestReviewCommentDeletedPullRequestUserType(rawValue: "Organization")
@@ -72,7 +56,7 @@ public struct WebhookPullRequestReviewCommentDeletedPullRequestUserType: RawRepr
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -82,21 +66,16 @@ public struct WebhookPullRequestReviewCommentDeletedPullRequestUserType: RawRepr
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoPullX0ac5f4eb8e: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoPullX0ac5f4eb8e: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoPullX0ac5f4eb8e(rawValue: "all")
-    public static let collaboratorsOnly =
-        WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoPullX0ac5f4eb8e(rawValue: "collaborators_only")
+    public static let collaboratorsOnly = WebhookPullRequestReviewCommentDeletedPullRequestHeadRepoPullX0ac5f4eb8e(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

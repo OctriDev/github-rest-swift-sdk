@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
+extension IssuesMethods {
     /// You can use the REST API to reprioritize a sub-issue to a different position in the parent list.
     ///
     /// - Parameters:
@@ -20,36 +20,9 @@ public extension IssuesMethods {
     ///   positional argument after OR before should be specified).
     /// - beforeId: The id of the sub-issue to be prioritized before (either
     ///   positional argument after OR before should be specified).
-    static func issuesReprioritizeSubIssue(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        subIssueId: Int,
-        afterId: Int?,
-        beforeId: Int?
-    ) async throws -> Issue {
-        let requestBody = IssuesReprioritizeSubIssueRequestBody(
-            subIssueId: subIssueId,
-            afterId: afterId,
-            beforeId: beforeId
-        )
+    public static func issuesReprioritizeSubIssue(config: ClientConfig, owner: String, repo: String, issueNumber: Int, subIssueId: Int, afterId: Int?, beforeId: Int?) async throws -> Issue {
+        let requestBody = IssuesReprioritizeSubIssueRequestBody(subIssueId: subIssueId, afterId: afterId, beforeId: beforeId)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/sub_issues/priority",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "issuesReprioritizeSubIssue"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/sub_issues/priority"].joined(), config: config, body: requestBody, decoder: .json, operationId: "issuesReprioritizeSubIssue")).data
     }
 }

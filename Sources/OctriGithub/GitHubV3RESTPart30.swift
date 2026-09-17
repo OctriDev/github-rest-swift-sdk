@@ -3,391 +3,180 @@
 
 import Foundation
 
-public extension ReposNamespace {
-    /// Lists the forks of a specified repository. Use `sort`, `per_page`, and `page` to control ordering and
-    /// pagination; the response contains minimal repository objects for the matching forks.
-    func listForks(
-        owner: String,
-        repo: String,
-        sort: ReposListForksParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await ReposMethods.reposListForks(
-            config: config,
-            owner: owner,
-            repo: repo,
-            sort: sort,
-            perPage: perPage,
-            page: page
-        )
+extension ReposNamespace {
+/// Lists the forks of a specified repository. Use `sort`, `per_page`, and `page` to control ordering and pagination; the response contains minimal repository objects for the matching forks.
+    public func listForks(owner: String, repo: String, sort: ReposListForksParameter?, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try await ReposMethods.reposListForks(config: config, owner: owner, repo: repo, sort: sort, perPage: perPage, page: page)
     }
 
-    /// Create a fork for the authenticated user. > [!NOTE] > Forking a Repository happens asynchronously. You may have
-    /// to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be
-    /// sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api). > [!NOTE] > Although
-    /// this endpoint works with GitHub Apps, the GitHub App must be installed on the destination account with access to
-    /// all repositories and on the source account with access to the source repository.
-    func createFork(
-        owner: String,
-        repo: String,
-        organization: String?,
-        name: String?,
-        defaultBranchOnly: Bool?
-    ) async throws -> FullRepository {
-        try await ReposMethods.reposCreateFork(
-            config: config,
-            owner: owner,
-            repo: repo,
-            organization: organization,
-            name: name,
-            defaultBranchOnly: defaultBranchOnly
-        )
+/// Create a fork for the authenticated user. > [!NOTE] > Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api). > [!NOTE] > Although this endpoint works with GitHub Apps, the GitHub App must be installed on the destination account with access to all repositories and on the source account with access to the source repository.
+    public func createFork(owner: String, repo: String, organization: String?, name: String?, defaultBranchOnly: Bool?) async throws -> FullRepository {
+        return try await ReposMethods.reposCreateFork(config: config, owner: owner, repo: repo, organization: organization, name: name, defaultBranchOnly: defaultBranchOnly)
     }
 
-    /// Returns the hash algorithm used to store repository objects.
-    func getHashAlgorithm(owner: String, repo: String) async throws -> RepositoryHashAlgorithm {
-        try await ReposMethods.reposGetHashAlgorithm(config: config, owner: owner, repo: repo)
+/// Returns the hash algorithm used to store repository objects.
+    public func getHashAlgorithm(owner: String, repo: String) async throws -> RepositoryHashAlgorithm {
+        return try await ReposMethods.reposGetHashAlgorithm(config: config, owner: owner, repo: repo)
     }
 
-    /// Lists webhooks for a repository. `last response` may return null if there have not been any deliveries within 30
-    /// days.
-    func listWebhooks(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Hook] {
-        try await ReposMethods.reposListWebhooks(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+/// Lists webhooks for a repository. `last response` may return null if there have not been any deliveries within 30 days.
+    public func listWebhooks(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Hook] {
+        return try await ReposMethods.reposListWebhooks(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Repositories can have multiple webhooks installed. Each webhook should have a unique `config`. Multiple webhooks
-    /// can share the same `config` as long as those webhooks do not have any `events` that overlap.
-    func createWebhook(
-        owner: String,
-        repo: String,
-        name: String?,
-        config: ReposCreateWebhookRequestBodyConfig?,
-        events: [String]?,
-        active: Bool?
-    ) async throws -> Hook {
-        try await ReposMethods.reposCreateWebhook(
-            config: self.config,
-            owner: owner,
-            repo: repo,
-            name: name,
-            config2: config,
-            events: events,
-            active: active
-        )
+/// Repositories can have multiple webhooks installed. Each webhook should have a unique `config`. Multiple webhooks can share the same `config` as long as those webhooks do not have any `events` that overlap.
+    public func createWebhook(owner: String, repo: String, name: String?, config: ReposCreateWebhookRequestBodyConfig?, events: [String]?, active: Bool?) async throws -> Hook {
+        return try await ReposMethods.reposCreateWebhook(config: self.config, owner: owner, repo: repo, name: name, config2: config, events: events, active: active)
     }
 
-    /// Returns a webhook configured in a repository. To get only the webhook `config` properties, see "Get a webhook
-    /// configuration for a repository."
-    func getWebhook(owner: String, repo: String, hookId: Int) async throws -> Hook {
-        try await ReposMethods.reposGetWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
+/// Returns a webhook configured in a repository. To get only the webhook `config` properties, see "Get a webhook configuration for a repository."
+    public func getWebhook(owner: String, repo: String, hookId: Int) async throws -> Hook {
+        return try await ReposMethods.reposGetWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
     }
 
-    /// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same
-    /// `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook
-    /// `config` properties, use "Update a webhook configuration for a repository."
-    func updateWebhook(options: ReposMethods.ReposUpdateWebhookOptions) async throws -> Hook {
-        try await ReposMethods.reposUpdateWebhook(config: config, options: options)
+/// Updates a webhook configured in a repository. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "Update a webhook configuration for a repository."
+    public func updateWebhook(options: ReposMethods.ReposUpdateWebhookOptions) async throws -> Hook {
+        return try await ReposMethods.reposUpdateWebhook(config: config, options: options)
     }
 
-    /// Delete a webhook for an organization. The authenticated user must be a repository owner, or have admin access in
-    /// the repository, to delete the webhook.
-    func deleteWebhook(owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
+/// Delete a webhook for an organization. The authenticated user must be a repository owner, or have admin access in the repository, to delete the webhook.
+    public func deleteWebhook(owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
     }
 }
 
-public extension ReposNamespace {
-    /// Returns the webhook configuration for a repository. To get more information about the webhook, including the
-    /// `active` state and `events`, use "Get a repository webhook." OAuth app tokens and personal access tokens
-    /// (classic) need the `read:repo_hook` or `repo` scope to use this endpoint.
-    func getWebhookConfigForRepo(owner: String, repo: String, hookId: Int) async throws -> WebhookConfig {
-        try await ReposMethods.reposGetWebhookConfigForRepo(config: config, owner: owner, repo: repo, hookId: hookId)
+extension ReposNamespace {
+/// Returns the webhook configuration for a repository. To get more information about the webhook, including the `active` state and `events`, use "Get a repository webhook." OAuth app tokens and personal access tokens (classic) need the `read:repo_hook` or `repo` scope to use this endpoint.
+    public func getWebhookConfigForRepo(owner: String, repo: String, hookId: Int) async throws -> WebhookConfig {
+        return try await ReposMethods.reposGetWebhookConfigForRepo(config: config, owner: owner, repo: repo, hookId: hookId)
     }
 
-    /// Updates the configuration for a webhook attached to a repository. Supply any configuration fields you want to
-    /// change, including the delivery `url`, payload `content_type`, signing `secret`, or `insecure_ssl` setting. Use
-    /// the repository webhook update operation to change the hook's `active` state or subscribed `events`.
+/// Updates the configuration for a webhook attached to a repository. Supply any configuration fields you want to change, including the delivery `url`, payload `content_type`, signing `secret`, or `insecure_ssl` setting. Use the repository webhook update operation to change the hook's `active` state or subscribed `events`.
     ///
-    /// Updates the webhook configuration for a repository. To update more information about the webhook, including the
-    /// `active` state and `events`, use "Update a repository webhook." OAuth app tokens and personal access tokens
-    /// (classic) need the `write:repo_hook` or `repo` scope to use this endpoint.
-    func updateWebhookConfigForRepo(
-        owner: String,
-        repo: String,
-        hookId: Int,
-        url: WebhookConfigUrl?,
-        contentType: WebhookConfigContentType?,
-        secret: WebhookConfigSecret?,
-        insecureSsl: WebhookConfigInsecureSsl?
-    ) async throws -> WebhookConfig {
-        try await ReposMethods.reposUpdateWebhookConfigForRepo(
-            config: config,
-            owner: owner,
-            repo: repo,
-            hookId: hookId,
-            url: url,
-            contentType: contentType,
-            secret: secret,
-            insecureSsl: insecureSsl
-        )
+    /// Updates the webhook configuration for a repository. To update more information about the webhook, including the `active` state and `events`, use "Update a repository webhook." OAuth app tokens and personal access tokens (classic) need the `write:repo_hook` or `repo` scope to use this endpoint.
+    public func updateWebhookConfigForRepo(owner: String, repo: String, hookId: Int, url: WebhookConfigUrl?, contentType: WebhookConfigContentType?, secret: WebhookConfigSecret?, insecureSsl: WebhookConfigInsecureSsl?) async throws -> WebhookConfig {
+        return try await ReposMethods.reposUpdateWebhookConfigForRepo(config: config, owner: owner, repo: repo, hookId: hookId, url: url, contentType: contentType, secret: secret, insecureSsl: insecureSsl)
     }
 
-    /// Returns a list of webhook deliveries for a webhook configured in a repository.
-    func listWebhookDeliveries(
-        owner: String,
-        repo: String,
-        hookId: Int,
-        perPage: Int?,
-        cursor: String?,
-        status: AppsListWebhookDeliveriesParameter?
-    ) async throws -> [HookDeliveryItem] {
-        try await ReposMethods.reposListWebhookDeliveries(
-            config: config,
-            owner: owner,
-            repo: repo,
-            hookId: hookId,
-            perPage: perPage,
-            cursor: cursor,
-            status: status
-        )
+/// Returns a list of webhook deliveries for a webhook configured in a repository.
+    public func listWebhookDeliveries(owner: String, repo: String, hookId: Int, perPage: Int?, cursor: String?, status: AppsListWebhookDeliveriesParameter?) async throws -> [HookDeliveryItem] {
+        return try await ReposMethods.reposListWebhookDeliveries(config: config, owner: owner, repo: repo, hookId: hookId, perPage: perPage, cursor: cursor, status: status)
     }
 
-    /// Retrieves a specific delivery made by a webhook configured for a repository. Provide `owner`, `repo`, `hook_id`,
-    /// and `delivery_id` to identify the repository, webhook, and delivery record. The response includes delivery
-    /// metadata together with the request and response details.
+/// Retrieves a specific delivery made by a webhook configured for a repository. Provide `owner`, `repo`, `hook_id`, and `delivery_id` to identify the repository, webhook, and delivery record. The response includes delivery metadata together with the request and response details.
     ///
     /// Returns a delivery for a webhook configured in a repository.
-    func getWebhookDelivery(owner: String, repo: String, hookId: Int, deliveryId: Int) async throws -> HookDelivery {
-        try await ReposMethods.reposGetWebhookDelivery(
-            config: config,
-            owner: owner,
-            repo: repo,
-            hookId: hookId,
-            deliveryId: deliveryId
-        )
+    public func getWebhookDelivery(owner: String, repo: String, hookId: Int, deliveryId: Int) async throws -> HookDelivery {
+        return try await ReposMethods.reposGetWebhookDelivery(config: config, owner: owner, repo: repo, hookId: hookId, deliveryId: deliveryId)
     }
 
-    /// Triggers redelivery of a webhook delivery configured for a repository. Use `owner`, `repo`, `hook_id`, and
-    /// `delivery_id` to identify the repository webhook and delivery to resend. Redelivery is accepted asynchronously,
-    /// so a successful response confirms acceptance rather than completion.
+/// Triggers redelivery of a webhook delivery configured for a repository. Use `owner`, `repo`, `hook_id`, and `delivery_id` to identify the repository webhook and delivery to resend. Redelivery is accepted asynchronously, so a successful response confirms acceptance rather than completion.
     ///
     /// Redeliver a webhook delivery for a webhook configured in a repository.
-    func redeliverWebhookDelivery(
-        owner: String,
-        repo: String,
-        hookId: Int,
-        deliveryId: Int
-    ) async throws -> [String: JSONValue] {
-        try await ReposMethods.reposRedeliverWebhookDelivery(
-            config: config,
-            owner: owner,
-            repo: repo,
-            hookId: hookId,
-            deliveryId: deliveryId
-        )
+    public func redeliverWebhookDelivery(owner: String, repo: String, hookId: Int, deliveryId: Int) async throws -> [String: JSONValue] {
+        return try await ReposMethods.reposRedeliverWebhookDelivery(config: config, owner: owner, repo: repo, hookId: hookId, deliveryId: deliveryId)
     }
 
-    /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
-    func pingWebhook(owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposPingWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
+/// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
+    public func pingWebhook(owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposPingWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
     }
 
-    /// This will trigger the hook with the latest push to the current repository if the hook is subscribed to `push`
-    /// events. If the hook is not subscribed to `push` events, the server will respond with 204 but no test POST will
-    /// be generated. > [!NOTE] > Previously `/repos/:owner/:repo/hooks/:hook_id/test`
-    func testPushWebhook(owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposTestPushWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
+/// This will trigger the hook with the latest push to the current repository if the hook is subscribed to `push` events. If the hook is not subscribed to `push` events, the server will respond with 204 but no test POST will be generated. > [!NOTE] > Previously `/repos/:owner/:repo/hooks/:hook_id/test`
+    public func testPushWebhook(owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposTestPushWebhook(config: config, owner: owner, repo: repo, hookId: hookId)
     }
 
-    /// Shows whether immutable releases are enabled or disabled. Also identifies whether immutability is being enforced
-    /// by the repository owner. The authenticated user must have admin read access to the repository.
-    func checkImmutableReleases(owner: String, repo: String) async throws -> CheckImmutableReleases {
-        try await ReposMethods.reposCheckImmutableReleases(config: config, owner: owner, repo: repo)
+/// Shows whether immutable releases are enabled or disabled. Also identifies whether immutability is being enforced by the repository owner. The authenticated user must have admin read access to the repository.
+    public func checkImmutableReleases(owner: String, repo: String) async throws -> CheckImmutableReleases {
+        return try await ReposMethods.reposCheckImmutableReleases(config: config, owner: owner, repo: repo)
     }
 }
 
-public extension ReposNamespace {
-    /// Enables immutable releases for a repository. The authenticated user must have admin access to the repository.
-    func enableImmutableReleases(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposEnableImmutableReleases(config: config, owner: owner, repo: repo)
+extension ReposNamespace {
+/// Enables immutable releases for a repository. The authenticated user must have admin access to the repository.
+    public func enableImmutableReleases(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposEnableImmutableReleases(config: config, owner: owner, repo: repo)
     }
 
-    /// Disables immutable releases for a repository. The authenticated user must have admin access to the repository.
-    func disableImmutableReleases(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDisableImmutableReleases(config: config, owner: owner, repo: repo)
+/// Disables immutable releases for a repository. The authenticated user must have admin access to the repository.
+    public func disableImmutableReleases(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDisableImmutableReleases(config: config, owner: owner, repo: repo)
     }
 
-    /// When authenticating as a user with admin rights to a repository, this endpoint will list all currently open
-    /// repository invitations.
-    func listInvitations(
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [RepositoryInvitation] {
-        try await ReposMethods.reposListInvitations(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+/// When authenticating as a user with admin rights to a repository, this endpoint will list all currently open repository invitations.
+    public func listInvitations(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [RepositoryInvitation] {
+        return try await ReposMethods.reposListInvitations(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Updates the permissions associated with an invitation to collaborate on a repository. Provide `owner`, `repo`,
-    /// and `invitation_id`, and optionally set `permissions` to control the invitee's repository access.
-    func updateInvitation(
-        owner: String,
-        repo: String,
-        invitationId: Int,
-        permissions: ReposUpdateInvitationRequestBodyPermissions?
-    ) async throws -> RepositoryInvitation {
-        try await ReposMethods.reposUpdateInvitation(
-            config: config,
-            owner: owner,
-            repo: repo,
-            invitationId: invitationId,
-            permissions: permissions
-        )
+/// Updates the permissions associated with an invitation to collaborate on a repository. Provide `owner`, `repo`, and `invitation_id`, and optionally set `permissions` to control the invitee's repository access.
+    public func updateInvitation(owner: String, repo: String, invitationId: Int, permissions: ReposUpdateInvitationRequestBodyPermissions?) async throws -> RepositoryInvitation {
+        return try await ReposMethods.reposUpdateInvitation(config: config, owner: owner, repo: repo, invitationId: invitationId, permissions: permissions)
     }
 
-    /// Deletes a pending invitation to collaborate on a repository. Supply the repository identifiers and the
-    /// invitation identifier to remove that invitation.
-    func deleteInvitation(owner: String, repo: String, invitationId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteInvitation(
-            config: config,
-            owner: owner,
-            repo: repo,
-            invitationId: invitationId
-        )
+/// Deletes a pending invitation to collaborate on a repository. Supply the repository identifiers and the invitation identifier to remove that invitation.
+    public func deleteInvitation(owner: String, repo: String, invitationId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteInvitation(config: config, owner: owner, repo: repo, invitationId: invitationId)
     }
 
-    /// Lists issue types available for a repository (inherited from its organization owner, with any per-repository
-    /// overrides applied). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this
-    /// endpoint. Fine-grained access tokens require the "Metadata" repository permission (read).
-    func listIssueTypes(owner: String, repo: String) async throws -> [IssueType?] {
-        try await ReposMethods.reposListIssueTypes(config: config, owner: owner, repo: repo)
+/// Lists issue types available for a repository (inherited from its organization owner, with any per-repository overrides applied). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. Fine-grained access tokens require the "Metadata" repository permission (read).
+    public func listIssueTypes(owner: String, repo: String) async throws -> [IssueType?] {
+        return try await ReposMethods.reposListIssueTypes(config: config, owner: owner, repo: repo)
     }
 
-    /// Lists the deploy keys configured for a repository. Use `page` and `per_page` to paginate the results; `per_page`
-    /// can be at most 100.
-    func listDeployKeys(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [DeployKey] {
-        try await ReposMethods.reposListDeployKeys(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+/// Lists the deploy keys configured for a repository. Use `page` and `per_page` to paginate the results; `per_page` can be at most 100.
+    public func listDeployKeys(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [DeployKey] {
+        return try await ReposMethods.reposListDeployKeys(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Creates a deploy key for a repository. Supply the SSH key contents in `key`, and use `read_only` to control
-    /// whether the key can only read repository contents or can also write to the repository.
+/// Creates a deploy key for a repository. Supply the SSH key contents in `key`, and use `read_only` to control whether the key can only read repository contents or can also write to the repository.
     ///
     /// You can create a read-only deploy key.
-    func createDeployKey(
-        owner: String,
-        repo: String,
-        key: String,
-        title: String?,
-        readOnly: Bool?
-    ) async throws -> DeployKey {
-        try await ReposMethods.reposCreateDeployKey(
-            config: config,
-            owner: owner,
-            repo: repo,
-            key: key,
-            title: title,
-            readOnly: readOnly
-        )
+    public func createDeployKey(owner: String, repo: String, key: String, title: String?, readOnly: Bool?) async throws -> DeployKey {
+        return try await ReposMethods.reposCreateDeployKey(config: config, owner: owner, repo: repo, key: key, title: title, readOnly: readOnly)
     }
 }
 
-public extension ReposNamespace {
-    /// Retrieves a specific deploy key from a repository. Supply `key_id` to identify the key you want to inspect and
-    /// use `owner` and `repo` to select the repository.
-    func getDeployKey(owner: String, repo: String, keyId: Int) async throws -> DeployKey {
-        try await ReposMethods.reposGetDeployKey(config: config, owner: owner, repo: repo, keyId: keyId)
+extension ReposNamespace {
+/// Retrieves a specific deploy key from a repository. Supply `key_id` to identify the key you want to inspect and use `owner` and `repo` to select the repository.
+    public func getDeployKey(owner: String, repo: String, keyId: Int) async throws -> DeployKey {
+        return try await ReposMethods.reposGetDeployKey(config: config, owner: owner, repo: repo, keyId: keyId)
     }
 
-    /// Deploy keys are immutable. If you need to update a key, remove the key and create a new one instead.
-    func deleteDeployKey(owner: String, repo: String, keyId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteDeployKey(config: config, owner: owner, repo: repo, keyId: keyId)
+/// Deploy keys are immutable. If you need to update a key, remove the key and create a new one instead.
+    public func deleteDeployKey(owner: String, repo: String, keyId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteDeployKey(config: config, owner: owner, repo: repo, keyId: keyId)
     }
 
-    /// Lists languages for the specified repository. The value shown for each language is the number of bytes of code
-    /// written in that language.
-    func listLanguages(owner: String, repo: String) async throws -> Language {
-        try await ReposMethods.reposListLanguages(config: config, owner: owner, repo: repo)
+/// Lists languages for the specified repository. The value shown for each language is the number of bytes of code written in that language.
+    public func listLanguages(owner: String, repo: String) async throws -> Language {
+        return try await ReposMethods.reposListLanguages(config: config, owner: owner, repo: repo)
     }
 
-    /// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
-    func mergeUpstream(owner: String, repo: String, branch: String) async throws -> MergedUpstream {
-        try await ReposMethods.reposMergeUpstream(config: config, owner: owner, repo: repo, branch: branch)
+/// Sync a branch of a forked repository to keep it up-to-date with the upstream repository.
+    public func mergeUpstream(owner: String, repo: String, branch: String) async throws -> MergedUpstream {
+        return try await ReposMethods.reposMergeUpstream(config: config, owner: owner, repo: repo, branch: branch)
     }
 
-    /// Merges a head branch or commit into a base branch in a repository. Supply `base` and `head` to identify the
-    /// branches or commit involved, and optionally provide `commit_message` for the resulting merge commit. A
-    /// successful merge returns the resulting commit, while an already completed merge returns no content.
-    func merge(owner: String, repo: String, base: String, head: String, commitMessage: String?) async throws -> Commit {
-        try await ReposMethods.reposMerge(
-            config: config,
-            owner: owner,
-            repo: repo,
-            base: base,
-            head: head,
-            commitMessage: commitMessage
-        )
+/// Merges a head branch or commit into a base branch in a repository. Supply `base` and `head` to identify the branches or commit involved, and optionally provide `commit_message` for the resulting merge commit. A successful merge returns the resulting commit, while an already completed merge returns no content.
+    public func merge(owner: String, repo: String, base: String, head: String, commitMessage: String?) async throws -> Commit {
+        return try await ReposMethods.reposMerge(config: config, owner: owner, repo: repo, base: base, head: head, commitMessage: commitMessage)
     }
 
-    /// Gets information about a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the
-    /// `repo` scope to use this endpoint.
-    func getPages(owner: String, repo: String) async throws -> Page {
-        try await ReposMethods.reposGetPages(config: config, owner: owner, repo: repo)
+/// Gets information about a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func getPages(owner: String, repo: String) async throws -> Page {
+        return try await ReposMethods.reposGetPages(config: config, owner: owner, repo: repo)
     }
 
-    /// Configures a GitHub Pages site. For more information, see "About GitHub Pages." The authenticated user must be a
-    /// repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens
-    /// and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    func createPagesSite(
-        owner: String,
-        repo: String,
-        buildType: ReposCreatePagesSiteRequestBodyBuildType?,
-        source: ReposCreatePagesSiteRequestBodySource?
-    ) async throws -> Page {
-        try await ReposMethods.reposCreatePagesSite(
-            config: config,
-            owner: owner,
-            repo: repo,
-            buildType: buildType,
-            source: source
-        )
+/// Configures a GitHub Pages site. For more information, see "About GitHub Pages." The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createPagesSite(owner: String, repo: String, buildType: ReposCreatePagesSiteRequestBodyBuildType?, source: ReposCreatePagesSiteRequestBodySource?) async throws -> Page {
+        return try await ReposMethods.reposCreatePagesSite(config: config, owner: owner, repo: repo, buildType: buildType, source: source)
     }
 
-    /// Replaces configuration information for a repository's GitHub Pages site. Provide at least one of `build_type`,
-    /// `source`, or `cname`, and include `https_enforced` when you want to change HTTPS enforcement. The authenticated
-    /// user must be a repository administrator, maintainer, or have the manage GitHub Pages settings permission.
+/// Replaces configuration information for a repository's GitHub Pages site. Provide at least one of `build_type`, `source`, or `cname`, and include `https_enforced` when you want to change HTTPS enforcement. The authenticated user must be a repository administrator, maintainer, or have the manage GitHub Pages settings permission.
     ///
-    /// Updates information for a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated
-    /// user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission.
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    func updateInformationAboutPagesSite(
-        owner: String,
-        repo: String,
-        cname: SdkOptional<String>?,
-        httpsEnforced: Bool?,
-        buildType: ReposUpdateInformationAboutPagesSiteRequestBodyBuildType?,
-        source: ReposUpdateInformationAboutPagesSiteRequestBodySource?
-    ) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposUpdateInformationAboutPagesSite(
-            config: config,
-            owner: owner,
-            repo: repo,
-            cname: cname,
-            httpsEnforced: httpsEnforced,
-            buildType: buildType,
-            source: source
-        )
+    /// Updates information for a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func updateInformationAboutPagesSite(owner: String, repo: String, cname: SdkOptional<String>?, httpsEnforced: Bool?, buildType: ReposUpdateInformationAboutPagesSiteRequestBodyBuildType?, source: ReposUpdateInformationAboutPagesSiteRequestBodySource?) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposUpdateInformationAboutPagesSite(config: config, owner: owner, repo: repo, cname: cname, httpsEnforced: httpsEnforced, buildType: buildType, source: source)
     }
 }

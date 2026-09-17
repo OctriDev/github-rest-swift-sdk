@@ -13,9 +13,9 @@ struct CodespacesUpdateForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(machine, forKey: SdkCodingKey("machine"))
-        try keyedContainer.encodeIfPresent(displayName, forKey: SdkCodingKey("display_name"))
-        try keyedContainer.encodeIfPresent(recentFolders, forKey: SdkCodingKey("recent_folders"))
+        try keyedContainer.encodeIfPresent(self.machine, forKey: SdkCodingKey("machine"))
+        try keyedContainer.encodeIfPresent(self.displayName, forKey: SdkCodingKey("display_name"))
+        try keyedContainer.encodeIfPresent(self.recentFolders, forKey: SdkCodingKey("recent_folders"))
     }
 }
 
@@ -25,8 +25,8 @@ struct CodespacesPublishForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(self.private, forKey: SdkCodingKey("private"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.`private`, forKey: SdkCodingKey("private"))
     }
 }
 
@@ -39,11 +39,11 @@ struct CopilotSpacesCreateForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(generalInstructions, forKey: SdkCodingKey("general_instructions"))
-        try keyedContainer.encodeIfPresent(baseRole, forKey: SdkCodingKey("base_role"))
-        try keyedContainer.encodeIfPresent(resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.generalInstructions, forKey: SdkCodingKey("general_instructions"))
+        try keyedContainer.encodeIfPresent(self.baseRole, forKey: SdkCodingKey("base_role"))
+        try keyedContainer.encodeIfPresent(self.resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
     }
 }
 
@@ -56,11 +56,11 @@ struct CopilotSpacesUpdateForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(generalInstructions, forKey: SdkCodingKey("general_instructions"))
-        try keyedContainer.encodeIfPresent(baseRole, forKey: SdkCodingKey("base_role"))
-        try keyedContainer.encodeIfPresent(resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.generalInstructions, forKey: SdkCodingKey("general_instructions"))
+        try keyedContainer.encodeIfPresent(self.baseRole, forKey: SdkCodingKey("base_role"))
+        try keyedContainer.encodeIfPresent(self.resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
     }
 }
 
@@ -71,9 +71,9 @@ struct CopilotSpacesAddCollaboratorForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(actorType, forKey: SdkCodingKey("actor_type"))
-        try keyedContainer.encode(actorIdentifier, forKey: SdkCodingKey("actor_identifier"))
-        try keyedContainer.encode(role, forKey: SdkCodingKey("role"))
+        try keyedContainer.encode(self.actorType, forKey: SdkCodingKey("actor_type"))
+        try keyedContainer.encode(self.actorIdentifier, forKey: SdkCodingKey("actor_identifier"))
+        try keyedContainer.encode(self.role, forKey: SdkCodingKey("role"))
     }
 }
 
@@ -82,7 +82,7 @@ struct CopilotSpacesUpdateCollaboratorForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(role, forKey: SdkCodingKey("role"))
+        try keyedContainer.encode(self.role, forKey: SdkCodingKey("role"))
     }
 }
 
@@ -92,8 +92,8 @@ struct CopilotSpacesCreateResourceForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(resourceType, forKey: SdkCodingKey("resource_type"))
-        try keyedContainer.encode(metadata, forKey: SdkCodingKey("metadata"))
+        try keyedContainer.encode(self.resourceType, forKey: SdkCodingKey("resource_type"))
+        try keyedContainer.encode(self.metadata, forKey: SdkCodingKey("metadata"))
     }
 }
 
@@ -102,7 +102,7 @@ struct CopilotSpacesUpdateResourceForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(metadata, forKey: SdkCodingKey("metadata"))
+        try keyedContainer.encodeIfPresent(self.metadata, forKey: SdkCodingKey("metadata"))
     }
 }
 
@@ -115,11 +115,11 @@ struct CopilotSpacesCreateForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(generalInstructions, forKey: SdkCodingKey("general_instructions"))
-        try keyedContainer.encodeIfPresent(baseRole, forKey: SdkCodingKey("base_role"))
-        try keyedContainer.encodeIfPresent(resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.generalInstructions, forKey: SdkCodingKey("general_instructions"))
+        try keyedContainer.encodeIfPresent(self.baseRole, forKey: SdkCodingKey("base_role"))
+        try keyedContainer.encodeIfPresent(self.resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
     }
 }
 
@@ -132,11 +132,11 @@ struct CopilotSpacesUpdateForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(generalInstructions, forKey: SdkCodingKey("general_instructions"))
-        try keyedContainer.encodeIfPresent(baseRole, forKey: SdkCodingKey("base_role"))
-        try keyedContainer.encodeIfPresent(resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.generalInstructions, forKey: SdkCodingKey("general_instructions"))
+        try keyedContainer.encodeIfPresent(self.baseRole, forKey: SdkCodingKey("base_role"))
+        try keyedContainer.encodeIfPresent(self.resourcesAttributes, forKey: SdkCodingKey("resources_attributes"))
     }
 }
 
@@ -147,9 +147,9 @@ struct CopilotSpacesAddCollaboratorForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(actorType, forKey: SdkCodingKey("actor_type"))
-        try keyedContainer.encode(actorIdentifier, forKey: SdkCodingKey("actor_identifier"))
-        try keyedContainer.encode(role, forKey: SdkCodingKey("role"))
+        try keyedContainer.encode(self.actorType, forKey: SdkCodingKey("actor_type"))
+        try keyedContainer.encode(self.actorIdentifier, forKey: SdkCodingKey("actor_identifier"))
+        try keyedContainer.encode(self.role, forKey: SdkCodingKey("role"))
     }
 }
 
@@ -158,7 +158,7 @@ struct CopilotSpacesUpdateCollaboratorForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(role, forKey: SdkCodingKey("role"))
+        try keyedContainer.encode(self.role, forKey: SdkCodingKey("role"))
     }
 }
 
@@ -168,8 +168,8 @@ struct CopilotSpacesCreateResourceForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(resourceType, forKey: SdkCodingKey("resource_type"))
-        try keyedContainer.encode(metadata, forKey: SdkCodingKey("metadata"))
+        try keyedContainer.encode(self.resourceType, forKey: SdkCodingKey("resource_type"))
+        try keyedContainer.encode(self.metadata, forKey: SdkCodingKey("metadata"))
     }
 }
 
@@ -178,7 +178,7 @@ struct CopilotSpacesUpdateResourceForUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(metadata, forKey: SdkCodingKey("metadata"))
+        try keyedContainer.encodeIfPresent(self.metadata, forKey: SdkCodingKey("metadata"))
     }
 }
 
@@ -188,8 +188,8 @@ struct InteractionsSetRestrictionsForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(limit, forKey: SdkCodingKey("limit"))
-        try keyedContainer.encodeIfPresent(expiry, forKey: SdkCodingKey("expiry"))
+        try keyedContainer.encode(self.limit, forKey: SdkCodingKey("limit"))
+        try keyedContainer.encodeIfPresent(self.expiry, forKey: SdkCodingKey("expiry"))
     }
 }
 
@@ -199,7 +199,7 @@ struct InteractionsUpdatePullRequestCreationCapForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(enabled, forKey: SdkCodingKey("enabled"))
-        try keyedContainer.encodeIfPresent(maxOpenPullRequests, forKey: SdkCodingKey("max_open_pull_requests"))
+        try keyedContainer.encode(self.enabled, forKey: SdkCodingKey("enabled"))
+        try keyedContainer.encodeIfPresent(self.maxOpenPullRequests, forKey: SdkCodingKey("max_open_pull_requests"))
     }
 }

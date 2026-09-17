@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// HostedCompute domain models
+// HostedCompute domain models
 /// A hosted compute network configuration.
 public struct NetworkConfiguration: Codable {
     /// The unique identifier of the network configuration.
@@ -37,58 +37,36 @@ public struct NetworkConfiguration: Codable {
         case failoverNetworkEnabled = "failover_network_enabled"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NetworkConfiguration {
-    init(from decoder: Decoder) throws {
+extension NetworkConfiguration {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.createdOn) else {
-            throw SdkValidationError(
-                field: "created_on",
-                code: "required",
-                message: "Validation failed for 'created_on': value is required"
-            )
+            throw SdkValidationError(field: "created_on", code: "required", message: "Validation failed for 'created_on': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        createdOn = try container.sdkDecodeIfPresent(.createdOn)
-        computeService = try container.sdkDecodeIfPresent(.computeService)
-        networkSettingsIds = try container.sdkDecodeIfPresent(.networkSettingsIds)
-        failoverNetworkSettingsIds = try container.sdkDecodeIfPresent(.failoverNetworkSettingsIds)
-        failoverNetworkEnabled = try container.sdkDecodeIfPresent(.failoverNetworkEnabled)
-        if let value = createdOn {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.createdOn = try container.sdkDecodeIfPresent(.createdOn)
+        self.computeService = try container.sdkDecodeIfPresent(.computeService)
+        self.networkSettingsIds = try container.sdkDecodeIfPresent(.networkSettingsIds)
+        self.failoverNetworkSettingsIds = try container.sdkDecodeIfPresent(.failoverNetworkSettingsIds)
+        self.failoverNetworkEnabled = try container.sdkDecodeIfPresent(.failoverNetworkEnabled)
+        if let value = self.createdOn {
             try sdkValidateDateTime("created_on", sdkWireString(value))
         }
     }
 }
 
-public extension NetworkConfiguration {
-    init(
-        id: String,
-        name: String,
-        createdOn: Date?,
-        computeService: NetworkConfigurationComputeService? = nil,
-        networkSettingsIds: [String]? = nil,
-        failoverNetworkSettingsIds: [String]? = nil,
-        failoverNetworkEnabled: Bool? = nil
-    ) throws {
+extension NetworkConfiguration {
+    public init(id: String, name: String, createdOn: Date?, computeService: NetworkConfigurationComputeService? = nil, networkSettingsIds: [String]? = nil, failoverNetworkSettingsIds: [String]? = nil, failoverNetworkEnabled: Bool? = nil) throws {
         (self.id, self.name) = (id, name)
         (self.createdOn, self.computeService) = (createdOn, computeService)
         self.networkSettingsIds = networkSettingsIds
@@ -128,52 +106,34 @@ public struct NetworkSettings: Codable {
         case networkConfigurationId = "network_configuration_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NetworkSettings {
-    init(from decoder: Decoder) throws {
+extension NetworkSettings {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.subnetId) else {
-            throw SdkValidationError(
-                field: "subnet_id",
-                code: "required",
-                message: "Validation failed for 'subnet_id': value is required"
-            )
+            throw SdkValidationError(field: "subnet_id", code: "required", message: "Validation failed for 'subnet_id': value is required")
         }
         guard container.contains(.region) else {
-            throw SdkValidationError(
-                field: "region",
-                code: "required",
-                message: "Validation failed for 'region': value is required"
-            )
+            throw SdkValidationError(field: "region", code: "required", message: "Validation failed for 'region': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        subnetId = try container.sdkDecodeRequired(.subnetId)
-        region = try container.sdkDecodeRequired(.region)
-        networkConfigurationId = try container.sdkDecodeIfPresent(.networkConfigurationId)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.subnetId = try container.sdkDecodeRequired(.subnetId)
+        self.region = try container.sdkDecodeRequired(.region)
+        self.networkConfigurationId = try container.sdkDecodeIfPresent(.networkConfigurationId)
     }
 }
 
-public extension NetworkSettings {
-    init(id: String, name: String, subnetId: String, region: String, networkConfigurationId: String? = nil) {
+extension NetworkSettings {
+    public init(id: String, name: String, subnetId: String, region: String, networkConfigurationId: String? = nil) {
         (self.id, self.name) = (id, name)
         (self.subnetId, self.region) = (subnetId, region)
         self.networkConfigurationId = networkConfigurationId
@@ -184,17 +144,14 @@ public extension NetworkSettings {
 public struct NetworkConfigurationComputeService: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let none = NetworkConfigurationComputeService(rawValue: "none")
     public static let actions = NetworkConfigurationComputeService(rawValue: "actions")
     public static let codespaces = NetworkConfigurationComputeService(rawValue: "codespaces")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

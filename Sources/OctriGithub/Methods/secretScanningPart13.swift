@@ -6,13 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
+extension SecretScanningMethods {
     /// Bulk delete repository custom patterns
     ///
-    /// Bulk deletes secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories,
-    /// the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
+    /// Bulk deletes secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,33 +21,11 @@ public extension SecretScanningMethods {
     ///   patterns. `delete_alerts` permanently removes the alerts. `resolve_alerts`
     ///   resolves the alerts as "pattern deleted". Defaults to `delete_alerts` when
     ///   not specified.
-    static func secretScanningBulkDeleteRepoCustomPatterns(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        patterns: [SecretScanningCustomPatternToDelete],
-        postDeleteAction: SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction?
-    ) async throws -> SdkEmptyResponse {
+    public static func secretScanningBulkDeleteRepoCustomPatterns(config: ClientConfig, owner: String, repo: String, patterns: [SecretScanningCustomPatternToDelete], postDeleteAction: SecretScanningBulkDeleteRepoCustomPatternsRequestBodyPostDeleteAction?) async throws -> SdkEmptyResponse {
         try validateItems("patterns", patterns, max: 500)
 
-        let requestBody = SecretScanningBulkDeleteRepoCustomPatternsRequestBody(
-            patterns: patterns,
-            postDeleteAction: postDeleteAction
-        )
+        let requestBody = SecretScanningBulkDeleteRepoCustomPatternsRequestBody(patterns: patterns, postDeleteAction: postDeleteAction)
 
-        return try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/secret-scanning/custom-patterns",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "secretScanningBulkDeleteRepoCustomPatterns"
-        )).data
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/secret-scanning/custom-patterns"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "secretScanningBulkDeleteRepoCustomPatterns")).data
     }
 }

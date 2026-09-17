@@ -6,14 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Replaces configuration information for a repository's GitHub Pages site. Provide at least one of `build_type`,
-    /// `source`, or `cname`, and include `https_enforced` when you want to change HTTPS enforcement. The authenticated
-    /// user must be a repository administrator, maintainer, or have the manage GitHub Pages settings permission.
+extension ReposMethods {
+    /// Replaces configuration information for a repository's GitHub Pages site. Provide at least one of `build_type`, `source`, or `cname`, and include `https_enforced` when you want to change HTTPS enforcement. The authenticated user must be a repository administrator, maintainer, or have the manage GitHub Pages settings permission.
     ///
-    /// Updates information for a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated
-    /// user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission.
-    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Updates information for a GitHub Pages site. For more information, see "About GitHub Pages. The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,35 +27,9 @@ public extension ReposMethods {
     ///   `workflow` means that the site is built by a custom GitHub Actions workflow.
     ///   `legacy` means that the site is built by GitHub when changes are pushed to a
     ///   specific branch.
-    static func reposUpdateInformationAboutPagesSite(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        cname: SdkOptional<String>?,
-        httpsEnforced: Bool?,
-        buildType: ReposUpdateInformationAboutPagesSiteRequestBodyBuildType?,
-        source: ReposUpdateInformationAboutPagesSiteRequestBodySource?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ReposUpdateInformationAboutPagesSiteRequestBody(
-            cname: cname,
-            httpsEnforced: httpsEnforced,
-            buildType: buildType,
-            source: source
-        )
+    public static func reposUpdateInformationAboutPagesSite(config: ClientConfig, owner: String, repo: String, cname: SdkOptional<String>?, httpsEnforced: Bool?, buildType: ReposUpdateInformationAboutPagesSiteRequestBodyBuildType?, source: ReposUpdateInformationAboutPagesSiteRequestBodySource?) async throws -> SdkEmptyResponse {
+        let requestBody = ReposUpdateInformationAboutPagesSiteRequestBody(cname: cname, httpsEnforced: httpsEnforced, buildType: buildType, source: source)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pages",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "reposUpdateInformationAboutPagesSite"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "reposUpdateInformationAboutPagesSite")).data
     }
 }

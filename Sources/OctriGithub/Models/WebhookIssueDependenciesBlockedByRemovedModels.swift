@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookIssueDependenciesBlockedByRemoved domain models
+// WebhookIssueDependenciesBlockedByRemoved domain models
 /// Typed representation of the `WebhookIssueDependenciesBlockedByRemoved` API schema.
 public struct WebhookIssueDependenciesBlockedByRemoved: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -43,68 +43,39 @@ public struct WebhookIssueDependenciesBlockedByRemoved: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookIssueDependenciesBlockedByRemoved {
-    init(from decoder: Decoder) throws {
+extension WebhookIssueDependenciesBlockedByRemoved {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        organization = try container.sdkDecodeRequired(.organization)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        blockedIssueId = try container.sdkDecodeIfPresent(.blockedIssueId)
-        blockedIssue = try container.sdkDecodeIfPresent(.blockedIssue)
-        blockingIssueId = try container.sdkDecodeIfPresent(.blockingIssueId)
-        blockingIssue = try container.sdkDecodeIfPresent(.blockingIssue)
-        blockingIssueRepo = try container.sdkDecodeIfPresent(.blockingIssueRepo)
-        installation = try container.sdkDecodeIfPresent(.installation)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.blockedIssueId = try container.sdkDecodeIfPresent(.blockedIssueId)
+        self.blockedIssue = try container.sdkDecodeIfPresent(.blockedIssue)
+        self.blockingIssueId = try container.sdkDecodeIfPresent(.blockingIssueId)
+        self.blockingIssue = try container.sdkDecodeIfPresent(.blockingIssue)
+        self.blockingIssueRepo = try container.sdkDecodeIfPresent(.blockingIssueRepo)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
     }
 }
 
-public extension WebhookIssueDependenciesBlockedByRemoved {
-    init(
-        action: WebhookIssueDependenciesBlockedByRemovedAction,
-        organization: OrganizationSimpleWebhooks,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        blockedIssueId: Double? = nil,
-        blockedIssue: Issue? = nil,
-        blockingIssueId: Double? = nil,
-        blockingIssue: Issue? = nil,
-        blockingIssueRepo: Repository? = nil,
-        installation: SimpleInstallation? = nil
-    ) {
+extension WebhookIssueDependenciesBlockedByRemoved {
+    public init(action: WebhookIssueDependenciesBlockedByRemovedAction, organization: OrganizationSimpleWebhooks, repository: RepositoryWebhooks, sender: SimpleUser, blockedIssueId: Double? = nil, blockedIssue: Issue? = nil, blockingIssueId: Double? = nil, blockingIssue: Issue? = nil, blockingIssueRepo: Repository? = nil, installation: SimpleInstallation? = nil) {
         (self.action, self.organization) = (action, organization)
         (self.repository, self.sender) = (repository, sender)
         (self.blockedIssueId, self.blockedIssue) = (blockedIssueId, blockedIssue)
@@ -114,19 +85,15 @@ public extension WebhookIssueDependenciesBlockedByRemoved {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookIssueDependenciesBlockedByRemovedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookIssueDependenciesBlockedByRemovedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let blockedByRemoved = WebhookIssueDependenciesBlockedByRemovedAction(rawValue: "blocked_by_removed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

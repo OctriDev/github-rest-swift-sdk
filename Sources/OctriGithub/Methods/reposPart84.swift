@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Gets a deployment branch or tag policy for an environment. Anyone with read access to the repository can use
-    /// this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint
-    /// with a private repository.
+extension ReposMethods {
+    /// Gets a deployment branch or tag policy for an environment. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,28 +17,7 @@ public extension ReposMethods {
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - branchPolicyId: The unique identifier of the branch policy.
-    static func reposGetDeploymentBranchPolicy(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String,
-        branchPolicyId: Int
-    ) async throws -> DeploymentBranchPolicy {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/deployment-branch-policies/",
-                sdkEncodePathSegment(sdkWireString(branchPolicyId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetDeploymentBranchPolicy"
-        )).data
+    public static func reposGetDeploymentBranchPolicy(config: ClientConfig, owner: String, repo: String, environmentName: String, branchPolicyId: Int) async throws -> DeploymentBranchPolicy {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment-branch-policies/", sdkEncodePathSegment(sdkWireString(branchPolicyId))].joined(), config: config, decoder: .json, operationId: "reposGetDeploymentBranchPolicy")).data
     }
 }

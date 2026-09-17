@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
-    struct SecretScanningListRepoCustomPatternsOptions: Codable {
+extension SecretScanningMethods {
+    public struct SecretScanningListRepoCustomPatternsOptions: Codable {
         public var owner: String
         public var repo: String
         public var state: SecretScanningListOrgCustomPatternsParameterX192aabd9?
@@ -23,10 +23,7 @@ public extension SecretScanningMethods {
         }
     }
 
-    /// Lists secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic)
-    /// need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token
-    /// can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write`
-    /// repository permission.
+    /// Lists secret scanning custom patterns for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead. Fine-grained access tokens require the `administration:write` repository permission.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -51,30 +48,14 @@ public extension SecretScanningMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func secretScanningListRepoCustomPatterns(
-        config: ClientConfig,
-        options: SecretScanningListRepoCustomPatternsOptions
-    ) async throws -> [SecretScanningCustomPattern] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/secret-scanning/custom-patterns",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("state", value: options.state),
-                SdkQueryParameter("push_protection", value: options.pushProtection),
-                SdkQueryParameter("sort", value: options.sort),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("before", value: options.before),
-                SdkQueryParameter("after", value: options.after),
-            ],
-            decoder: .json,
-            operationId: "secretScanningListRepoCustomPatterns"
-        )).data
+    public static func secretScanningListRepoCustomPatterns(config: ClientConfig, options: SecretScanningListRepoCustomPatternsOptions) async throws -> [SecretScanningCustomPattern] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/secret-scanning/custom-patterns"].joined(), config: config, query: [
+            SdkQueryParameter("state", value: options.state),
+            SdkQueryParameter("push_protection", value: options.pushProtection),
+            SdkQueryParameter("sort", value: options.sort),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("before", value: options.before),
+            SdkQueryParameter("after", value: options.after),
+        ], decoder: .json, operationId: "secretScanningListRepoCustomPatterns")).data
     }
 }

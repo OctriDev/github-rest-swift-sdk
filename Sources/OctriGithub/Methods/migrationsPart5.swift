@@ -6,36 +6,15 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    /// Unlocks a repository that was locked for migration. You should unlock each migrated repository and [delete
-    /// them](https://docs.github.com/rest/repos/repos#delete-a-repository) when the migration is complete and you no
-    /// longer need the source data.
+extension MigrationsMethods {
+    /// Unlocks a repository that was locked for migration. You should unlock each migrated repository and [delete them](https://docs.github.com/rest/repos/repos#delete-a-repository) when the migration is complete and you no longer need the source data.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - migrationId: The unique identifier of the migration.
     /// - repoName: repo_name parameter
-    static func migrationsUnlockRepoForOrg(
-        config: ClientConfig,
-        org: String,
-        migrationId: Int,
-        repoName: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/migrations/",
-                sdkEncodePathSegment(sdkWireString(migrationId)),
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(repoName)),
-                "/lock",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "migrationsUnlockRepoForOrg"
-        )).data
+    public static func migrationsUnlockRepoForOrg(config: ClientConfig, org: String, migrationId: Int, repoName: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations/", sdkEncodePathSegment(sdkWireString(migrationId)), "/repos/", sdkEncodePathSegment(sdkWireString(repoName)), "/lock"].joined(), config: config, decoder: .empty, operationId: "migrationsUnlockRepoForOrg")).data
     }
 
     /// List all the repositories for this organization migration.
@@ -51,29 +30,10 @@ public extension MigrationsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func migrationsListReposForOrg(
-        config: ClientConfig,
-        org: String,
-        migrationId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/migrations/",
-                sdkEncodePathSegment(sdkWireString(migrationId)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "migrationsListReposForOrg"
-        )).data
+    public static func migrationsListReposForOrg(config: ClientConfig, org: String, migrationId: Int, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations/", sdkEncodePathSegment(sdkWireString(migrationId)), "/repositories"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "migrationsListReposForOrg")).data
     }
 }

@@ -6,57 +6,27 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Returns the GitHub App associated with the authentication credentials used. To see how many app installations
-    /// are associated with this GitHub App, see the `installations_count` in the response. For more details about your
-    /// app's installations, see the "[List installations for the authenticated
-    /// app](https://docs.github.com/rest/apps/apps#list-installations-for-the-authenticated-app)" endpoint. You must
-    /// use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
-    static func appsGetAuthenticated(config: ClientConfig) async throws -> Integration {
-        try await (sdkRequest("GET", "/app", config: config, decoder: .json, operationId: "appsGetAuthenticated")).data
+extension AppsMethods {
+    /// Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/apps/apps#list-installations-for-the-authenticated-app)" endpoint. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+    public static func appsGetAuthenticated(config: ClientConfig) async throws -> Integration {
+        return try (await sdkRequest("GET", "/app", config: config, decoder: .json, operationId: "appsGetAuthenticated")).data
     }
 
-    /// Creates a GitHub App from a temporary manifest-flow code. Use `code` to complete the manifest handshake and
-    /// retrieve the app's identifiers, credentials, private key, and webhook secret. A 201 response returns the created
-    /// GitHub App and its generated credentials.
+    /// Creates a GitHub App from a temporary manifest-flow code. Use `code` to complete the manifest handshake and retrieve the app's identifiers, credentials, private key, and webhook secret. A 201 response returns the created GitHub App and its generated credentials.
     ///
-    /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest
-    /// flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create
-    /// a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`,
-    /// `pem` (private key), and `webhook_secret`.
-    static func appsCreateFromManifest(
-        config: ClientConfig,
-        code: String
-    ) async throws -> AppsCreateFromManifestResponse {
-        try await (sdkRequest(
-            "POST",
-            ["/app-manifests/", sdkEncodePathSegment(sdkWireString(code)), "/conversions"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "appsCreateFromManifest"
-        )).data
+    /// Use this endpoint to complete the handshake necessary when implementing the [GitHub App Manifest flow](https://docs.github.com/apps/building-github-apps/creating-github-apps-from-a-manifest/). When you create a GitHub App with the manifest flow, you receive a temporary `code` used to retrieve the GitHub App's `id`, `pem` (private key), and `webhook_secret`.
+    public static func appsCreateFromManifest(config: ClientConfig, code: String) async throws -> AppsCreateFromManifestResponse {
+        return try (await sdkRequest("POST", ["/app-manifests/", sdkEncodePathSegment(sdkWireString(code)), "/conversions"].joined(), config: config, decoder: .json, operationId: "appsCreateFromManifest")).data
     }
 
-    /// Returns the webhook configuration for a GitHub App. For more information about configuring a webhook for your
-    /// app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
-    static func appsGetWebhookConfigForApp(config: ClientConfig) async throws -> WebhookConfig {
-        try await (sdkRequest(
-            "GET",
-            "/app/hook/config",
-            config: config,
-            decoder: .json,
-            operationId: "appsGetWebhookConfigForApp"
-        )).data
+    /// Returns the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+    public static func appsGetWebhookConfigForApp(config: ClientConfig) async throws -> WebhookConfig {
+        return try (await sdkRequest("GET", "/app/hook/config", config: config, decoder: .json, operationId: "appsGetWebhookConfigForApp")).data
     }
 
-    /// Updates the webhook configuration for a GitHub App. Supply the delivery `url` and optionally set the payload
-    /// `content_type`, signing `secret`, or SSL verification behaviour with `insecure_ssl`.
+    /// Updates the webhook configuration for a GitHub App. Supply the delivery `url` and optionally set the payload `content_type`, signing `secret`, or SSL verification behaviour with `insecure_ssl`.
     ///
-    /// Updates the webhook configuration for a GitHub App. For more information about configuring a webhook for your
-    /// app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint.
+    /// Updates the webhook configuration for a GitHub App. For more information about configuring a webhook for your app, see "Creating a GitHub App." You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
     ///
     /// - Parameters:
     /// - url: The URL to which the payloads will be delivered.
@@ -65,31 +35,13 @@ public extension AppsMethods {
     /// - secret: If provided, the `secret` will be used as the `key` to generate
     ///   the HMAC hex digest value for [delivery signature
     ///   headers](https://docs.github.com/webhooks/event-payloads/#delivery-headers).
-    static func appsUpdateWebhookConfigForApp(
-        config: ClientConfig,
-        url: WebhookConfigUrl?,
-        contentType: WebhookConfigContentType?,
-        secret: WebhookConfigSecret?,
-        insecureSsl: WebhookConfigInsecureSsl?
-    ) async throws -> WebhookConfig {
-        if let url {
+    public static func appsUpdateWebhookConfigForApp(config: ClientConfig, url: WebhookConfigUrl?, contentType: WebhookConfigContentType?, secret: WebhookConfigSecret?, insecureSsl: WebhookConfigInsecureSsl?) async throws -> WebhookConfig {
+        if let url = url {
             try sdkValidateUri("url", url)
         }
 
-        let requestBody = AppsUpdateWebhookConfigForAppRequestBody(
-            url: url,
-            contentType: contentType,
-            secret: secret,
-            insecureSsl: insecureSsl
-        )
+        let requestBody = AppsUpdateWebhookConfigForAppRequestBody(url: url, contentType: contentType, secret: secret, insecureSsl: insecureSsl)
 
-        return try await (sdkRequest(
-            "PATCH",
-            "/app/hook/config",
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "appsUpdateWebhookConfigForApp"
-        )).data
+        return try (await sdkRequest("PATCH", "/app/hook/config", config: config, body: requestBody, decoder: .json, operationId: "appsUpdateWebhookConfigForApp")).data
     }
 }

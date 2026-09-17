@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
+extension IssuesMethods {
     /// Deletes a milestone using the given milestone number.
     ///
     /// - Parameters:
@@ -15,25 +15,7 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - milestoneNumber: The number that identifies the milestone.
-    static func issuesDeleteMilestone(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        milestoneNumber: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/milestones/",
-                sdkEncodePathSegment(sdkWireString(milestoneNumber)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "issuesDeleteMilestone"
-        )).data
+    public static func issuesDeleteMilestone(config: ClientConfig, owner: String, repo: String, milestoneNumber: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/milestones/", sdkEncodePathSegment(sdkWireString(milestoneNumber))].joined(), config: config, decoder: .empty, operationId: "issuesDeleteMilestone")).data
     }
 }

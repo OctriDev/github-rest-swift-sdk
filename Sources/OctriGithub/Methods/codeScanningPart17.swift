@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// Creates a new CodeQL variant analysis, which will run a CodeQL query against one or more repositories. Get
-    /// started by learning more about [running CodeQL queries at scale with Multi-Repository Variant Analysis](https://docs.github.com/code-security/codeql-for-vs-code/getting-started-with-codeql-for-vs-code/running-codeql-queries-at-scale-with-multi-repository-variant-analysis).
-    /// Use the `owner` and `repo` parameters in the URL to specify the controller repository that will be used for
-    /// running GitHub Actions workflows and storing the results of the CodeQL variant analysis. OAuth app tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension CodeScanningMethods {
+    /// Creates a new CodeQL variant analysis, which will run a CodeQL query against one or more repositories. Get started by learning more about [running CodeQL queries at scale with Multi-Repository Variant Analysis](https://docs.github.com/code-security/codeql-for-vs-code/getting-started-with-codeql-for-vs-code/running-codeql-queries-at-scale-with-multi-repository-variant-analysis). Use the `owner` and `repo` parameters in the URL to specify the controller repository that will be used for running GitHub Actions workflows and storing the results of the CodeQL variant analysis. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,45 +26,17 @@ public extension CodeScanningMethods {
     /// - repositoryOwners: List of organization or user names whose repositories
     ///   the query should be run against. Precisely one property from `repositories`,
     ///   `repository_lists` and `repository_owners` is required.
-    static func codeScanningCreateVariantAnalysis(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        language: CodeScanningVariantAnalysisLanguage,
-        queryPack: String,
-        repositories: [String]?,
-        repositoryLists: [String]?,
-        repositoryOwners: [String]?
-    ) async throws -> CodeScanningVariantAnalysis {
-        if let repositoryLists {
+    public static func codeScanningCreateVariantAnalysis(config: ClientConfig, owner: String, repo: String, language: CodeScanningVariantAnalysisLanguage, queryPack: String, repositories: [String]?, repositoryLists: [String]?, repositoryOwners: [String]?) async throws -> CodeScanningVariantAnalysis {
+        if let repositoryLists = repositoryLists {
             try validateItems("repository_lists", repositoryLists, max: 1)
         }
 
-        if let repositoryOwners {
+        if let repositoryOwners = repositoryOwners {
             try validateItems("repository_owners", repositoryOwners, max: 1)
         }
 
-        let requestBody = CodeScanningCreateVariantAnalysisRequestBody(
-            language: language,
-            queryPack: queryPack,
-            repositories: repositories,
-            repositoryLists: repositoryLists,
-            repositoryOwners: repositoryOwners
-        )
+        let requestBody = CodeScanningCreateVariantAnalysisRequestBody(language: language, queryPack: queryPack, repositories: repositories, repositoryLists: repositoryLists, repositoryOwners: repositoryOwners)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/codeql/variant-analyses",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeScanningCreateVariantAnalysis"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/codeql/variant-analyses"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningCreateVariantAnalysis")).data
     }
 }

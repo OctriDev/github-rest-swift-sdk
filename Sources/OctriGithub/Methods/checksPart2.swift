@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ChecksMethods {
-    struct ChecksCreateOptions: Codable {
+extension ChecksMethods {
+    public struct ChecksCreateOptions: Codable {
         public var owner: String
         public var repo: String
         public var name: String
@@ -29,12 +29,7 @@ public extension ChecksMethods {
         }
     }
 
-    /// Creates a new check run for a specific commit in a repository. To create a check run, you must use a GitHub App.
-    /// OAuth apps and authenticated users are not able to create a check suite. In a check suite, GitHub limits the
-    /// number of check runs with the same name to 1000. Once these check runs exceed 1000, GitHub will start to
-    /// automatically delete older check runs. > [!NOTE] > The Checks API only looks for pushes in the repository where
-    /// the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return
-    /// an empty `pull_requests` array.
+    /// Creates a new check run for a specific commit in a repository. To create a check run, you must use a GitHub App. OAuth apps and authenticated users are not able to create a check suite. In a check suite, GitHub limits the number of check runs with the same name to 1000. Once these check runs exceed 1000, GitHub will start to automatically delete older check runs. > [!NOTE] > The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -74,7 +69,7 @@ public extension ChecksMethods {
     ///   requested actions, see "[Check runs and requested
     ///   actions](https://docs.github.com/rest/guides/using-the-rest-api-to-interact-
     ///   with-checks#check-runs-and-requested-actions)."
-    static func checksCreate(config: ClientConfig, options: ChecksCreateOptions) async throws -> CheckRun {
+    public static func checksCreate(config: ClientConfig, options: ChecksCreateOptions) async throws -> CheckRun {
         if let startedAt = options.startedAt {
             try sdkValidateDateTime("started_at", startedAt)
         }
@@ -89,19 +84,6 @@ public extension ChecksMethods {
 
         let requestBody = ChecksCreateRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/check-runs",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "checksCreate"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/check-runs"].joined(), config: config, body: requestBody, decoder: .json, operationId: "checksCreate")).data
     }
 }

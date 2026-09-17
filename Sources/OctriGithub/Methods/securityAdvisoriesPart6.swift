@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecurityAdvisoriesMethods {
-    struct SecurityAdvisoriesCreateRepositoryAdvisoryOptions: Codable {
+extension SecurityAdvisoriesMethods {
+    public struct SecurityAdvisoriesCreateRepositoryAdvisoryOptions: Codable {
         public var owner: String
         public var repo: String
         public var summary: String
@@ -20,13 +20,7 @@ public extension SecurityAdvisoriesMethods {
         public var cvssVectorString: SdkOptional<String>?
         public var startPrivateFork: Bool?
 
-        public init(
-            owner: String,
-            repo: String,
-            summary: String,
-            description: String,
-            vulnerabilities: [RepositoryAdvisoryCreateVulnerabilitiesItem]
-        ) {
+        public init(owner: String, repo: String, summary: String, description: String, vulnerabilities: [RepositoryAdvisoryCreateVulnerabilitiesItem]) {
             self.owner = owner
             self.repo = repo
             self.summary = summary
@@ -37,9 +31,7 @@ public extension SecurityAdvisoriesMethods {
 
     /// Create a repository security advisory
     ///
-    /// Creates a new repository security advisory. In order to create a draft repository security advisory, the
-    /// authenticated user must be a security manager or administrator of that repository. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+    /// Creates a new repository security advisory. In order to create a draft repository security advisory, the authenticated user must be a security manager or administrator of that repository. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -60,29 +52,13 @@ public extension SecurityAdvisoriesMethods {
     ///   advisory. You must choose between setting this field or `severity`.
     /// - startPrivateFork: Whether to create a temporary private fork of the
     ///   repository to collaborate on a fix.
-    static func securityAdvisoriesCreateRepositoryAdvisory(
-        config: ClientConfig,
-        options: SecurityAdvisoriesCreateRepositoryAdvisoryOptions
-    ) async throws -> RepositoryAdvisory {
+    public static func securityAdvisoriesCreateRepositoryAdvisory(config: ClientConfig, options: SecurityAdvisoriesCreateRepositoryAdvisoryOptions) async throws -> RepositoryAdvisory {
         try validateLength("summary", options.summary, max: 1024)
 
         try validateLength("description", options.description, max: 65535)
 
         let requestBody = SecurityAdvisoriesCreateRepositoryAdvisoryRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/security-advisories",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "securityAdvisoriesCreateRepositoryAdvisory"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/security-advisories"].joined(), config: config, body: requestBody, decoder: .json, operationId: "securityAdvisoriesCreateRepositoryAdvisory")).data
     }
 }

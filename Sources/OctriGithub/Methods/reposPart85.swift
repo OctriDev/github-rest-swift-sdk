@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Updates a deployment branch or tag policy for an environment. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+extension ReposMethods {
+    /// Updates a deployment branch or tag policy for an environment. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,32 +23,9 @@ public extension ReposMethods {
     ///   use `release/*/*`. For more information about pattern matching syntax, see
     ///   the [Ruby File.fnmatch
     ///   documentation](https://ruby-doc.org/core-2.5.1/File.html#method-c-fnmatch).
-    static func reposUpdateDeploymentBranchPolicy(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        environmentName: String,
-        branchPolicyId: Int,
-        name: String
-    ) async throws -> DeploymentBranchPolicy {
+    public static func reposUpdateDeploymentBranchPolicy(config: ClientConfig, owner: String, repo: String, environmentName: String, branchPolicyId: Int, name: String) async throws -> DeploymentBranchPolicy {
         let requestBody = ReposUpdateDeploymentBranchPolicyRequestBody(name: name)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/environments/",
-                sdkEncodePathSegment(sdkWireString(environmentName)),
-                "/deployment-branch-policies/",
-                sdkEncodePathSegment(sdkWireString(branchPolicyId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposUpdateDeploymentBranchPolicy"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment-branch-policies/", sdkEncodePathSegment(sdkWireString(branchPolicyId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateDeploymentBranchPolicy")).data
     }
 }

@@ -6,17 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Updates a webhook configured in an organization. Supply the webhook fields you want to change, and include
-    /// `config.url` whenever `config` is provided because the URL is required within that object. Updating the webhook
-    /// overwrites its `secret`; provide the existing secret to retain it or provide a new secret to replace it.
+extension OrgsMethods {
+    /// Updates a webhook configured in an organization. Supply the webhook fields you want to change, and include `config.url` whenever `config` is provided because the URL is required within that object. Updating the webhook overwrites its `secret`; provide the existing secret to retain it or provide a new secret to replace it.
     ///
-    /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If
-    /// you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will
-    /// be removed. If you are only updating individual webhook `config` properties, use "Update a webhook configuration
-    /// for an organization". You must be an organization owner to use this endpoint. OAuth app tokens and personal
-    /// access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they
-    /// did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "Update a webhook configuration for an organization". You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -28,45 +21,19 @@ public extension OrgsMethods {
     ///   triggered for.
     /// - active: Determines if notifications are sent when the webhook is
     ///   triggered. Set to `true` to send notifications.
-    static func orgsUpdateWebhook(
-        config: ClientConfig,
-        org: String,
-        hookId: Int,
-        config2: OrgsUpdateWebhookRequestBodyConfig?,
-        events: [String]?,
-        active: Bool?,
-        name: String?
-    ) async throws -> OrgHook {
+    public static func orgsUpdateWebhook(config: ClientConfig, org: String, hookId: Int, config2: OrgsUpdateWebhookRequestBodyConfig?, events: [String]?, active: Bool?, name: String?) async throws -> OrgHook {
         let requestBody = OrgsUpdateWebhookRequestBody(config2: config2, events: events, active: active, name: name)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))]
-                .joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsUpdateWebhook"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdateWebhook")).data
     }
 
-    /// Delete a webhook for an organization. The authenticated user must be an organization owner to use this endpoint.
-    /// OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view,
-    /// or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by
-    /// OAuth apps.
+    /// Delete a webhook for an organization. The authenticated user must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func orgsDeleteWebhook(config: ClientConfig, org: String, hookId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))]
-                .joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "orgsDeleteWebhook"
-        )).data
+    public static func orgsDeleteWebhook(config: ClientConfig, org: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))].joined(), config: config, decoder: .empty, operationId: "orgsDeleteWebhook")).data
     }
 }

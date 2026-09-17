@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension HostedComputeMethods {
-    /// Updates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens
-    /// (classic) need the `write:network_configurations` scope to use this endpoint.
+extension HostedComputeMethods {
+    /// Updates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens (classic) need the `write:network_configurations` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -27,44 +26,17 @@ public extension HostedComputeMethods {
     ///   resource identifier must be specified in the list.
     /// - failoverNetworkEnabled: Indicates whether the failover network resource is
     ///   enabled.
-    static func hostedComputeUpdateNetworkConfigurationForOrg(
-        config: ClientConfig,
-        org: String,
-        networkConfigurationId: String,
-        name: String?,
-        computeService: HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService?,
-        networkSettingsIds: [String]?,
-        failoverNetworkSettingsIds: [String]?,
-        failoverNetworkEnabled: Bool?
-    ) async throws -> NetworkConfiguration {
-        if let networkSettingsIds {
+    public static func hostedComputeUpdateNetworkConfigurationForOrg(config: ClientConfig, org: String, networkConfigurationId: String, name: String?, computeService: HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService?, networkSettingsIds: [String]?, failoverNetworkSettingsIds: [String]?, failoverNetworkEnabled: Bool?) async throws -> NetworkConfiguration {
+        if let networkSettingsIds = networkSettingsIds {
             try validateItems("network_settings_ids", networkSettingsIds, min: 0, max: 1)
         }
 
-        if let failoverNetworkSettingsIds {
+        if let failoverNetworkSettingsIds = failoverNetworkSettingsIds {
             try validateItems("failover_network_settings_ids", failoverNetworkSettingsIds, min: 0, max: 1)
         }
 
-        let requestBody = HostedComputeUpdateNetworkConfigurationForOrgRequestBody(
-            name: name,
-            computeService: computeService,
-            networkSettingsIds: networkSettingsIds,
-            failoverNetworkSettingsIds: failoverNetworkSettingsIds,
-            failoverNetworkEnabled: failoverNetworkEnabled
-        )
+        let requestBody = HostedComputeUpdateNetworkConfigurationForOrgRequestBody(name: name, computeService: computeService, networkSettingsIds: networkSettingsIds, failoverNetworkSettingsIds: failoverNetworkSettingsIds, failoverNetworkEnabled: failoverNetworkEnabled)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/settings/network-configurations/",
-                sdkEncodePathSegment(sdkWireString(networkConfigurationId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "hostedComputeUpdateNetworkConfigurationForOrg"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/settings/network-configurations/", sdkEncodePathSegment(sdkWireString(networkConfigurationId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "hostedComputeUpdateNetworkConfigurationForOrg")).data
     }
 }

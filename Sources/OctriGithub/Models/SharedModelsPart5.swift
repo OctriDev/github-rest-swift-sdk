@@ -3,33 +3,23 @@
 
 import Foundation
 
-/// Shared domain models
+// Shared domain models
 extension IntegrationOwner: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for IntegrationOwner"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for IntegrationOwner")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(SimpleUser.self) {
-            return .simpleUser(value)
-        }
-        if let value = try? container.decode(Enterprise.self) {
-            return .enterprise(value)
-        }
+        if let value = try? container.decode(SimpleUser.self) { return .simpleUser(value) }
+        if let value = try? container.decode(Enterprise.self) { return .enterprise(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -39,6 +29,7 @@ extension IntegrationOwner: Codable {
         case let .enterprise(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// The set of permissions for the GitHub app
@@ -63,29 +54,23 @@ public struct IntegrationPermissions: Codable {
     }
 
     init() {
-        (issues, checks, metadata, contents, deployments) = (nil, nil, nil, nil, nil)
+        (self.issues, self.checks, self.metadata, self.contents, self.deployments) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension IntegrationPermissions {
-    init(from decoder: Decoder) throws {
+extension IntegrationPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        issues = try container.sdkDecodeIfPresent(.issues)
-        checks = try container.sdkDecodeIfPresent(.checks)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
-        contents = try container.sdkDecodeIfPresent(.contents)
-        deployments = try container.sdkDecodeIfPresent(.deployments)
+        self.issues = try container.sdkDecodeIfPresent(.issues)
+        self.checks = try container.sdkDecodeIfPresent(.checks)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
+        self.contents = try container.sdkDecodeIfPresent(.contents)
+        self.deployments = try container.sdkDecodeIfPresent(.deployments)
     }
 }
 
-public extension IntegrationPermissions {
-    init(
-        issues: String? = nil,
-        checks: String? = nil,
-        metadata: String? = nil,
-        contents: String? = nil,
-        deployments: String? = nil
-    ) {
+extension IntegrationPermissions {
+    public init(issues: String? = nil, checks: String? = nil, metadata: String? = nil, contents: String? = nil, deployments: String? = nil) {
         self.init()
         (self.issues, self.checks) = (issues, checks)
         (self.metadata, self.contents) = (metadata, contents)
@@ -134,48 +119,36 @@ public struct Label: Codable {
         case archivedBy = "archived_by"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Label {
-    init(from decoder: Decoder) throws {
+extension Label {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        name = try container.sdkDecodeRequired(.name)
-        description = try container.sdkDecodeIfPresent(.description)
-        color = try container.sdkDecodeRequired(.color)
-        self.default = try container.sdkDecodeRequired(.default)
-        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
-        try sdkValidateUri("url", url)
-        if let value = archivedAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.color = try container.sdkDecodeRequired(.color)
+        self.`default` = try container.sdkDecodeRequired(.`default`)
+        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        self.archivedBy = try container.sdkDecodeIfPresent(.archivedBy)
+            try sdkValidateUri("url", self.url)
+        if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
     }
 }
 
-public extension Label {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        name: String,
-        description: String?,
-        color: String,
-        default: Bool,
-        archivedAt: Date?,
-        archivedBy: LabelArchivedBy?
-    ) throws {
+extension Label {
+    public init(id: Int, nodeId: String, url: String, name: String, description: String?, color: String, `default`: Bool, archivedAt: Date?, archivedBy: LabelArchivedBy?) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.name) = (url, name)
         (self.description, self.color) = (description, color)
-        (self.default, self.archivedAt) = (`default`, archivedAt)
+        (self.`default`, self.archivedAt) = (`default`, archivedAt)
         self.archivedBy = archivedBy
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
@@ -273,65 +246,40 @@ public struct LabelArchivedBy: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension LabelArchivedBy {
-    init(from decoder: Decoder) throws {
+extension LabelArchivedBy {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension LabelArchivedBy {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarUrl: String,
-        gravatarId: String?,
-        url: String,
-        htmlUrl: String,
-        followersUrl: String,
-        followingUrl: String,
-        gistsUrl: String,
-        starredUrl: String,
-        subscriptionsUrl: String,
-        organizationsUrl: String,
-        reposUrl: String,
-        eventsUrl: String,
-        receivedEventsUrl: String,
-        type: String,
-        siteAdmin: Bool,
-        name: String? = nil,
-        email: String? = nil,
-        starredAt: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension LabelArchivedBy {
+    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String? = nil, email: String? = nil, starredAt: String? = nil, userViewType: String? = nil) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -349,14 +297,14 @@ public extension LabelArchivedBy {
 
 extension LabelArchivedBy {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("followers_url", followersUrl)
-        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
-        try sdkValidateUri("organizations_url", organizationsUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("received_events_url", receivedEventsUrl)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("followers_url", self.followersUrl)
+            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
+            try sdkValidateUri("organizations_url", self.organizationsUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
     }
 }
 
@@ -369,27 +317,21 @@ public struct Link: Codable {
         case href
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Link {
-    init(from decoder: Decoder) throws {
+extension Link {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.href) else {
-            throw SdkValidationError(
-                field: "href",
-                code: "required",
-                message: "Validation failed for 'href': value is required"
-            )
+            throw SdkValidationError(field: "href", code: "required", message: "Validation failed for 'href': value is required")
         }
-        href = try container.sdkDecodeRequired(.href)
+        self.href = try container.sdkDecodeRequired(.href)
     }
 }
 
-public extension Link {
-    init(href: String) {
+extension Link {
+    public init(href: String) {
         self.href = href
     }
 }

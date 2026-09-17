@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookCheckRunCompleted domain models
+// WebhookCheckRunCompleted domain models
 /// Typed representation of the `WebhookCheckRunCompleted` API schema.
 public struct WebhookCheckRunCompleted: Codable {
     /// A check performed on the code of a given code change
@@ -36,55 +36,33 @@ public struct WebhookCheckRunCompleted: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCheckRunCompleted {
-    init(from decoder: Decoder) throws {
+extension WebhookCheckRunCompleted {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.checkRun) else {
-            throw SdkValidationError(
-                field: "check_run",
-                code: "required",
-                message: "Validation failed for 'check_run': value is required"
-            )
+            throw SdkValidationError(field: "check_run", code: "required", message: "Validation failed for 'check_run': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        checkRun = try container.sdkDecodeRequired(.checkRun)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        action = try container.sdkDecodeIfPresent(.action)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.checkRun = try container.sdkDecodeRequired(.checkRun)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.action = try container.sdkDecodeIfPresent(.action)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookCheckRunCompleted {
-    init(
-        checkRun: CheckRunWithSimpleCheckSuite,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        action: WebhookCheckRunCompletedAction? = nil,
-        installation: SimpleInstallation? = nil,
-        enterprise: EnterpriseWebhooks? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookCheckRunCompleted {
+    public init(checkRun: CheckRunWithSimpleCheckSuite, repository: RepositoryWebhooks, sender: SimpleUser, action: WebhookCheckRunCompletedAction? = nil, installation: SimpleInstallation? = nil, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.checkRun, self.repository) = (checkRun, repository)
         (self.sender, self.action) = (sender, action)
         (self.installation, self.enterprise) = (installation, enterprise)
@@ -96,15 +74,12 @@ public extension WebhookCheckRunCompleted {
 public struct WebhookCheckRunCompletedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let completed = WebhookCheckRunCompletedAction(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

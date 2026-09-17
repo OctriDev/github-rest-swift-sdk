@@ -3,24 +3,19 @@
 
 import Foundation
 
-/// WebhookCodeScanningAlertCreated domain models
+// WebhookCodeScanningAlertCreated domain models
 /// State of a code scanning alert.
-public struct WebhookCodeScanningAlertCreatedAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable,
-    Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertCreatedAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookCodeScanningAlertCreatedAlertMostRecentInstanceState(rawValue: "open")
     public static let dismissed = WebhookCodeScanningAlertCreatedAlertMostRecentInstanceState(rawValue: "dismissed")
     public static let fixed = WebhookCodeScanningAlertCreatedAlertMostRecentInstanceState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,20 +26,16 @@ public struct WebhookCodeScanningAlertCreatedAlertMostRecentInstanceState: RawRe
 
 /// State of a code scanning alert. Events for alerts found outside the default branch will return a `null`
 /// value until they are dismissed or fixed.
-public struct WebhookCodeScanningAlertCreatedAlertState: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookCodeScanningAlertCreatedAlertState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhookCodeScanningAlertCreatedAlertState(rawValue: "open")
     public static let dismissed = WebhookCodeScanningAlertCreatedAlertState(rawValue: "dismissed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

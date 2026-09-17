@@ -21180,8 +21180,8 @@
         "keyId": "012345678912345678",
         "encryptedValue": "c2VjcmV0",
         "selectedRepositoryIds": [
-          1234567,
-          2345678
+          "1234567",
+          "2345678"
         ]
       },
       "argumentOrder": [
@@ -36831,7 +36831,7 @@
           },
           {
             "field_id": 456,
-            "value": "5"
+            "value": 5
           },
           {
             "field_id": 789,
@@ -37273,7 +37273,7 @@
         "title": "Found a bug",
         "body": "sample",
         "assignee": null,
-        "milestone": "1",
+        "milestone": 1,
         "labels": [
           "bug"
         ],
@@ -42111,7 +42111,7 @@
           },
           {
             "field_id": 456,
-            "value": "5"
+            "value": 5
           },
           {
             "field_id": 789,
@@ -42327,7 +42327,7 @@
         "state": "open",
         "stateReason": null,
         "duplicateIssueId": null,
-        "milestone": "1",
+        "milestone": 1,
         "labels": [
           "bug"
         ],
@@ -42892,7 +42892,7 @@
       "mode": "normal",
       "owner": null,
       "arguments": {
-        "body": "[object Object]"
+        "body": "string"
       },
       "argumentOrder": [
         "body"
@@ -42913,7 +42913,7 @@
       "mode": "normal",
       "owner": null,
       "arguments": {
-        "body": "[object Object]"
+        "body": "string"
       },
       "argumentOrder": [
         "body"
@@ -80515,7 +80515,10 @@
         "cname": "octocatblog.com",
         "httpsEnforced": null,
         "buildType": null,
-        "source": "gh-pages"
+        "source": {
+          "branch": "main",
+          "path": "/"
+        }
       },
       "argumentOrder": [
         "owner",

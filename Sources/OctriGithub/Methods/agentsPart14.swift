@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AgentsMethods {
-    /// Lists all organization variables shared with a repository. Authenticated users must have collaborator access to
-    /// a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need
-    /// the `repo` scope to use this endpoint.
+extension AgentsMethods {
+    /// Lists all organization variables shared with a repository. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,29 +22,10 @@ public extension AgentsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func agentsListRepoOrganizationVariables(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AgentsListRepoOrganizationVariablesResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/agents/organization-variables",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "agentsListRepoOrganizationVariables"
-        )).data
+    public static func agentsListRepoOrganizationVariables(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> AgentsListRepoOrganizationVariablesResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/agents/organization-variables"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "agentsListRepoOrganizationVariables")).data
     }
 }

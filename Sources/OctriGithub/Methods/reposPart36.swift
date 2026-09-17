@@ -6,14 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Lists the GitHub Apps that have push access to this branch. Only GitHub Apps that are installed
-    /// on the repository and that have been granted write access to the repository contents can be added as authorized
-    /// actors on a protected branch.
+extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Lists the GitHub Apps that have push access to this branch. Only GitHub Apps that are installed on the repository and that have been granted write access to the repository contents can be added as authorized actors on a protected branch.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,26 +17,7 @@ public extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    static func reposGetAppsWithAccessToProtectedBranch(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        branch: String
-    ) async throws -> [Integration?] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/branches/",
-                sdkEncodePathSegment(sdkWireString(branch)),
-                "/protection/restrictions/apps",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetAppsWithAccessToProtectedBranch"
-        )).data
+    public static func reposGetAppsWithAccessToProtectedBranch(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> [Integration?] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/restrictions/apps"].joined(), config: config, decoder: .json, operationId: "reposGetAppsWithAccessToProtectedBranch")).data
     }
 }

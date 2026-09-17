@@ -3,22 +3,13 @@
 
 import Foundation
 
-/// SharedPull domain models
-public extension PullRequestSimpleLabelsItem {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        name: String,
-        description: String,
-        color: String,
-        default: Bool,
-        archivedBy: PullRequestSimpleLabelsItemArchivedBy?
-    ) {
+// SharedPull domain models
+extension PullRequestSimpleLabelsItem {
+    public init(id: Int, nodeId: String, url: String, name: String, description: String, color: String, `default`: Bool, archivedBy: PullRequestSimpleLabelsItemArchivedBy?) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.name) = (url, name)
         (self.description, self.color) = (description, color)
-        (self.default, self.archivedBy) = (`default`, archivedBy)
+        (self.`default`, self.archivedBy) = (`default`, archivedBy)
     }
 }
 
@@ -113,65 +104,40 @@ public struct PullRequestSimpleLabelsItemArchivedBy: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestSimpleLabelsItemArchivedBy {
-    init(from decoder: Decoder) throws {
+extension PullRequestSimpleLabelsItemArchivedBy {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension PullRequestSimpleLabelsItemArchivedBy {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarUrl: String,
-        gravatarId: String?,
-        url: String,
-        htmlUrl: String,
-        followersUrl: String,
-        followingUrl: String,
-        gistsUrl: String,
-        starredUrl: String,
-        subscriptionsUrl: String,
-        organizationsUrl: String,
-        reposUrl: String,
-        eventsUrl: String,
-        receivedEventsUrl: String,
-        type: String,
-        siteAdmin: Bool,
-        name: String? = nil,
-        email: String? = nil,
-        starredAt: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension PullRequestSimpleLabelsItemArchivedBy {
+    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, followingUrl: String, gistsUrl: String, starredUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, eventsUrl: String, receivedEventsUrl: String, type: String, siteAdmin: Bool, name: String? = nil, email: String? = nil, starredAt: String? = nil, userViewType: String? = nil) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -189,14 +155,14 @@ public extension PullRequestSimpleLabelsItemArchivedBy {
 
 extension PullRequestSimpleLabelsItemArchivedBy {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("followers_url", followersUrl)
-        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
-        try sdkValidateUri("organizations_url", organizationsUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("received_events_url", receivedEventsUrl)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("followers_url", self.followersUrl)
+            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
+            try sdkValidateUri("organizations_url", self.organizationsUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
     }
 }
 
@@ -221,31 +187,25 @@ public struct PullRequestStack: Codable {
         case number
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStack {
-    init(from decoder: Decoder) throws {
+extension PullRequestStack {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.base) else {
-            throw SdkValidationError(
-                field: "base",
-                code: "required",
-                message: "Validation failed for 'base': value is required"
-            )
+            throw SdkValidationError(field: "base", code: "required", message: "Validation failed for 'base': value is required")
         }
-        base = try container.sdkDecodeRequired(.base)
-        size = try container.sdkDecodeIfPresent(.size)
-        position = try container.sdkDecodeIfPresent(.position)
-        id = try container.sdkDecodeIfPresent(.id)
-        number = try container.sdkDecodeIfPresent(.number)
+        self.base = try container.sdkDecodeRequired(.base)
+        self.size = try container.sdkDecodeIfPresent(.size)
+        self.position = try container.sdkDecodeIfPresent(.position)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.number = try container.sdkDecodeIfPresent(.number)
     }
 }
 
-public extension PullRequestStack {
-    init(base: PullRequestStackBase, size: Int? = nil, position: Int? = nil, id: Int? = nil, number: Int? = nil) {
+extension PullRequestStack {
+    public init(base: PullRequestStackBase, size: Int? = nil, position: Int? = nil, id: Int? = nil, number: Int? = nil) {
         (self.base, self.size) = (base, size)
         (self.position, self.id) = (position, id)
         self.number = number
@@ -264,35 +224,25 @@ public struct PullRequestStackBase: Codable {
         case sha
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PullRequestStackBase {
-    init(from decoder: Decoder) throws {
+extension PullRequestStackBase {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
         guard container.contains(.sha) else {
-            throw SdkValidationError(
-                field: "sha",
-                code: "required",
-                message: "Validation failed for 'sha': value is required"
-            )
+            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
         }
-        ref = try container.sdkDecodeRequired(.ref)
-        sha = try container.sdkDecodeRequired(.sha)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.sha = try container.sdkDecodeRequired(.sha)
     }
 }
 
-public extension PullRequestStackBase {
-    init(ref: String, sha: String) {
+extension PullRequestStackBase {
+    public init(ref: String, sha: String) {
         (self.ref, self.sha) = (ref, sha)
     }
 }
@@ -302,16 +252,13 @@ public extension PullRequestStackBase {
 public struct PullRequestReviewCommentSide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let left = PullRequestReviewCommentSide(rawValue: "LEFT")
     public static let right = PullRequestReviewCommentSide(rawValue: "RIGHT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -324,16 +271,13 @@ public struct PullRequestReviewCommentSide: RawRepresentable, Hashable, Codable,
 public struct PullRequestReviewCommentSubjectType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let line = PullRequestReviewCommentSubjectType(rawValue: "line")
     public static let file = PullRequestReviewCommentSubjectType(rawValue: "file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -346,16 +290,13 @@ public struct PullRequestReviewCommentSubjectType: RawRepresentable, Hashable, C
 public struct PullRequestReviewCommentStartSide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let left = PullRequestReviewCommentStartSide(rawValue: "LEFT")
     public static let right = PullRequestReviewCommentStartSide(rawValue: "RIGHT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,14 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
-    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have
-    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
-    /// (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -39,36 +33,11 @@ public extension ActionsMethods {
     ///   organization
     ///   secret](https://docs.github.com/rest/actions/secrets#remove-selected-reposit
     ///   ory-from-an-organization-secret) endpoints.
-    static func actionsCreateOrUpdateOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String,
-        encryptedValue: String,
-        keyId: String,
-        visibility: ActionsCreateOrUpdateOrgSecretRequestBodyVisibility,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> EmptyObject {
+    public static func actionsCreateOrUpdateOrgSecret(config: ClientConfig, org: String, secretName: String, encryptedValue: String, keyId: String, visibility: ActionsCreateOrUpdateOrgSecretRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
         try sdkValidatePattern("encrypted_value", encryptedValue, sdkPattern21db07621cc5)
 
-        let requestBody = ActionsCreateOrUpdateOrgSecretRequestBody(
-            encryptedValue: encryptedValue,
-            keyId: keyId,
-            visibility: visibility,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+        let requestBody = ActionsCreateOrUpdateOrgSecretRequestBody(encryptedValue: encryptedValue, keyId: keyId, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsCreateOrUpdateOrgSecret"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateOrUpdateOrgSecret")).data
     }
 }

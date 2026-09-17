@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    /// Replaces all repositories for an organization development environment secret when the `visibility` for
-    /// repository access is set to `selected`. The visibility is set when you [Create or update an organization
-    /// secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret).
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension CodespacesMethods {
+    /// Replaces all repositories for an organization development environment secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -24,28 +21,9 @@ public extension CodespacesMethods {
     ///   repository from an organization
     ///   secret](https://docs.github.com/rest/codespaces/organization-secrets#remove-
     ///   selected-repository-from-an-organization-secret) endpoints.
-    static func codespacesSetSelectedReposForOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
-        let requestBody =
-            CodespacesSetSelectedReposForOrgSecretRequestBody(selectedRepositoryIds: selectedRepositoryIds)
+    public static func codespacesSetSelectedReposForOrgSecret(config: ClientConfig, org: String, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+        let requestBody = CodespacesSetSelectedReposForOrgSecretRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/codespaces/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "codespacesSetSelectedReposForOrgSecret"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "codespacesSetSelectedReposForOrgSecret")).data
     }
 }

@@ -6,23 +6,15 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// Get the authenticated user
     ///
-    /// OAuth app tokens and personal access tokens (classic) need the `read:user` scope, or the broader `user` scope,
-    /// for this endpoint to return the private user response. The private user response includes additional fields such
-    /// as `private_gists`, `total_private_repos`, `owned_private_repos`, `disk_usage`, `collaborators`, and
-    /// `two_factor_authentication`. Tokens without these scopes receive the public user response. The private and
-    /// public user response types are unrelated to the [private
-    /// profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles) setting. A
-    /// token without scopes still authenticates as the token's owner, so values subject to private profile visibility,
-    /// such as `followers` and `following`, may differ from an unauthenticated response.
-    static func usersGetAuthenticated(config: ClientConfig) async throws -> UsersGetAuthenticatedResponse {
-        try await (sdkRequest("GET", "/user", config: config, decoder: .json, operationId: "usersGetAuthenticated"))
-            .data
+    /// OAuth app tokens and personal access tokens (classic) need the `read:user` scope, or the broader `user` scope, for this endpoint to return the private user response. The private user response includes additional fields such as `private_gists`, `total_private_repos`, `owned_private_repos`, `disk_usage`, `collaborators`, and `two_factor_authentication`. Tokens without these scopes receive the public user response. The private and public user response types are unrelated to the [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles) setting. A token without scopes still authenticates as the token's owner, so values subject to private profile visibility, such as `followers` and `following`, may differ from an unauthenticated response.
+    public static func usersGetAuthenticated(config: ClientConfig) async throws -> UsersGetAuthenticatedResponse {
+        return try (await sdkRequest("GET", "/user", config: config, decoder: .json, operationId: "usersGetAuthenticated")).data
     }
 
-    struct UsersUpdateAuthenticatedOptions: Codable {
+    public struct UsersUpdateAuthenticatedOptions: Codable {
         public var name: String?
         public var email: String?
         public var blog: String?
@@ -37,9 +29,7 @@ public extension UsersMethods {
 
     /// Update the authenticated user
     ///
-    /// **Note:** If your email is set to private and you send an `email` parameter as part of this request to update
-    /// your profile, your privacy settings are still enforced: the email address will not be displayed on your public
-    /// profile or via the API.
+    /// **Note:** If your email is set to private and you send an `email` parameter as part of this request to update your profile, your privacy settings are still enforced: the email address will not be displayed on your public profile or via the API.
     ///
     /// - Parameters:
     /// - name: The new name of the user.
@@ -50,19 +40,9 @@ public extension UsersMethods {
     /// - location: The new location of the user.
     /// - hireable: The new hiring availability of the user.
     /// - bio: The new short biography of the user.
-    static func usersUpdateAuthenticated(
-        config: ClientConfig,
-        options: UsersUpdateAuthenticatedOptions
-    ) async throws -> PrivateUser {
+    public static func usersUpdateAuthenticated(config: ClientConfig, options: UsersUpdateAuthenticatedOptions) async throws -> PrivateUser {
         let requestBody = UsersUpdateAuthenticatedRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            "/user",
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "usersUpdateAuthenticated"
-        )).data
+        return try (await sdkRequest("PATCH", "/user", config: config, body: requestBody, decoder: .json, operationId: "usersUpdateAuthenticated")).data
     }
 }

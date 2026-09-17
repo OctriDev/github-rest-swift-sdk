@@ -6,14 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    /// Retrieves a specific Dependabot alert for a repository. Use `owner`, `repo`, and `alert_number` to identify the
-    /// repository and alert; OAuth app tokens and classic personal access tokens require the `security_events` scope,
-    /// or `public_repo` for public repositories. The response includes the alert state, vulnerable dependency, security
-    /// advisory, and dismissal details.
+extension DependabotMethods {
+    /// Retrieves a specific Dependabot alert for a repository. Use `owner`, `repo`, and `alert_number` to identify the repository and alert; OAuth app tokens and classic personal access tokens require the `security_events` scope, or `public_repo` for public repositories. The response includes the alert state, vulnerable dependency, security advisory, and dismissal details.
     ///
-    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If
-    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,25 +20,7 @@ public extension DependabotMethods {
     ///   repository. You can find this at the end of the URL for a Dependabot alert
     ///   within GitHub, or in `number` fields in the response from the `GET
     ///   /repos/{owner}/{repo}/dependabot/alerts` operation.
-    static func dependabotGetAlert(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber
-    ) async throws -> DependabotAlert {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/dependabot/alerts/",
-                sdkEncodePathSegment(sdkWireString(alertNumber)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "dependabotGetAlert"
-        )).data
+    public static func dependabotGetAlert(config: ClientConfig, owner: String, repo: String, alertNumber: AlertNumber) async throws -> DependabotAlert {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dependabot/alerts/", sdkEncodePathSegment(sdkWireString(alertNumber))].joined(), config: config, decoder: .json, operationId: "dependabotGetAlert")).data
     }
 }

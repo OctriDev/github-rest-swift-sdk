@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension GistsMethods {
-    /// Lists gists that the authenticated user has starred. Use `since` to return only gists updated after a specified
-    /// timestamp, and use `page` and `per_page` to paginate the results.
+extension GistsMethods {
+    /// Lists gists that the authenticated user has starred. Use `since` to return only gists updated after a specified timestamp, and use `page` and `per_page` to paginate the results.
     ///
     /// List the authenticated user's starred gists:
     ///
@@ -24,37 +23,23 @@ public extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func gistsListStarred(
-        config: ClientConfig,
-        since: Date?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [BaseGist] {
-        if let since {
+    public static func gistsListStarred(config: ClientConfig, since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
+        if let since = since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try await (sdkRequest("GET", "/gists/starred", config: config, query: [
+        return try (await sdkRequest("GET", "/gists/starred", config: config, query: [
             SdkQueryParameter("since", value: since),
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "gistsListStarred")).data
     }
 
-    /// Gets a specified gist. This endpoint supports the following custom media types. For more information, see
-    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
-    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
-    /// specific media type.
+    /// Gets a specified gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
-    static func gistsGet(config: ClientConfig, gistId: String) async throws -> GistSimple {
-        try await (sdkRequest(
-            "GET",
-            ["/gists/", sdkEncodePathSegment(sdkWireString(gistId))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "gistsGet"
-        )).data
+    public static func gistsGet(config: ClientConfig, gistId: String) async throws -> GistSimple {
+        return try (await sdkRequest("GET", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId))].joined(), config: config, decoder: .json, operationId: "gistsGet")).data
     }
 }

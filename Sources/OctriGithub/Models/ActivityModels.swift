@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Activity domain models
+// Activity domain models
 /// Actor
 public struct Actor: Codable {
     /// Required `integer` value serialized in the `id` wire field.
@@ -28,74 +28,45 @@ public struct Actor: Codable {
         case displayLogin = "display_login"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Actor {
-    init(from decoder: Decoder) throws {
+extension Actor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
         guard container.contains(.gravatarId) else {
-            throw SdkValidationError(
-                field: "gravatar_id",
-                code: "required",
-                message: "Validation failed for 'gravatar_id': value is required"
-            )
+            throw SdkValidationError(field: "gravatar_id", code: "required", message: "Validation failed for 'gravatar_id': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.avatarUrl) else {
-            throw SdkValidationError(
-                field: "avatar_url",
-                code: "required",
-                message: "Validation failed for 'avatar_url': value is required"
-            )
+            throw SdkValidationError(field: "avatar_url", code: "required", message: "Validation failed for 'avatar_url': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        displayLogin = try container.sdkDecodeIfPresent(.displayLogin)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("avatar_url", avatarUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.displayLogin = try container.sdkDecodeIfPresent(.displayLogin)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
     }
 }
 
-public extension Actor {
-    init(
-        id: Int,
-        login: String,
-        gravatarId: String?,
-        url: String,
-        avatarUrl: String,
-        displayLogin: String? = nil
-    ) throws {
+extension Actor {
+    public init(id: Int, login: String, gravatarId: String?, url: String, avatarUrl: String, displayLogin: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.gravatarId, self.url) = (gravatarId, url)
         (self.avatarUrl, self.displayLogin) = (avatarUrl, displayLogin)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("avatar_url", self.avatarUrl)
     }
 }
 
@@ -111,35 +82,25 @@ public struct CommitCommentEvent: Codable {
         case comment
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CommitCommentEvent {
-    init(from decoder: Decoder) throws {
+extension CommitCommentEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.comment) else {
-            throw SdkValidationError(
-                field: "comment",
-                code: "required",
-                message: "Validation failed for 'comment': value is required"
-            )
+            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        comment = try container.sdkDecodeRequired(.comment)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.comment = try container.sdkDecodeRequired(.comment)
     }
 }
 
-public extension CommitCommentEvent {
-    init(action: String, comment: CommitCommentEventComment) {
+extension CommitCommentEvent {
+    public init(action: String, comment: CommitCommentEventComment) {
         (self.action, self.comment) = (action, comment)
     }
 }
@@ -190,59 +151,45 @@ public struct CommitCommentEventComment: Codable {
     }
 
     init() {
-        (htmlUrl, url, id, nodeId, body) = (nil, nil, nil, nil, nil)
-        (path, position, line, commitId, user) = (nil, nil, nil, nil, nil)
-        (createdAt, updatedAt, reactions) = (nil, nil, nil)
+        (self.htmlUrl, self.url, self.id, self.nodeId, self.body) = (nil, nil, nil, nil, nil)
+        (self.path, self.position, self.line, self.commitId, self.user) = (nil, nil, nil, nil, nil)
+        (self.createdAt, self.updatedAt, self.reactions) = (nil, nil, nil)
     }
 }
 
-public extension CommitCommentEventComment {
-    init(from decoder: Decoder) throws {
+extension CommitCommentEventComment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        url = try container.sdkDecodeIfPresent(.url)
-        id = try container.sdkDecodeIfPresent(.id)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        body = try container.sdkDecodeIfPresent(.body)
-        path = try container.sdkDecodeIfPresent(.path)
-        position = try container.sdkDecodeIfPresent(.position)
-        line = try container.sdkDecodeIfPresent(.line)
-        commitId = try container.sdkDecodeIfPresent(.commitId)
-        user = try container.sdkDecodeIfPresent(.user)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        reactions = try container.sdkDecodeIfPresent(.reactions)
-        if let value = htmlUrl {
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.body = try container.sdkDecodeIfPresent(.body)
+        self.path = try container.sdkDecodeIfPresent(.path)
+        self.position = try container.sdkDecodeIfPresent(.position)
+        self.line = try container.sdkDecodeIfPresent(.line)
+        self.commitId = try container.sdkDecodeIfPresent(.commitId)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.reactions = try container.sdkDecodeIfPresent(.reactions)
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
-        if let value = createdAt {
+        if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = updatedAt {
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension CommitCommentEventComment {
-    init(
-        htmlUrl: String? = nil,
-        url: String? = nil,
-        id: Int? = nil,
-        nodeId: String? = nil,
-        body: String? = nil,
-        path: String? = nil,
-        position: Int? = nil,
-        line: Int? = nil,
-        commitId: String? = nil,
-        user: NullableSimpleUser? = nil,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil,
-        reactions: ReactionRollup? = nil
-    ) throws {
+extension CommitCommentEventComment {
+    public init(htmlUrl: String? = nil, url: String? = nil, id: Int? = nil, nodeId: String? = nil, body: String? = nil, path: String? = nil, position: Int? = nil, line: Int? = nil, commitId: String? = nil, user: NullableSimpleUser? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, reactions: ReactionRollup? = nil) throws {
         self.init()
         (self.htmlUrl, self.url) = (htmlUrl, url)
         (self.id, self.nodeId) = (id, nodeId)
@@ -290,67 +237,38 @@ public struct CreateEvent: Codable {
         case description
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CreateEvent {
-    init(from decoder: Decoder) throws {
+extension CreateEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
         guard container.contains(.refType) else {
-            throw SdkValidationError(
-                field: "ref_type",
-                code: "required",
-                message: "Validation failed for 'ref_type': value is required"
-            )
+            throw SdkValidationError(field: "ref_type", code: "required", message: "Validation failed for 'ref_type': value is required")
         }
         guard container.contains(.fullRef) else {
-            throw SdkValidationError(
-                field: "full_ref",
-                code: "required",
-                message: "Validation failed for 'full_ref': value is required"
-            )
+            throw SdkValidationError(field: "full_ref", code: "required", message: "Validation failed for 'full_ref': value is required")
         }
         guard container.contains(.primaryBranch) else {
-            throw SdkValidationError(
-                field: "master_branch",
-                code: "required",
-                message: "Validation failed for 'master_branch': value is required"
-            )
+            throw SdkValidationError(field: "master_branch", code: "required", message: "Validation failed for 'master_branch': value is required")
         }
         guard container.contains(.pusherType) else {
-            throw SdkValidationError(
-                field: "pusher_type",
-                code: "required",
-                message: "Validation failed for 'pusher_type': value is required"
-            )
+            throw SdkValidationError(field: "pusher_type", code: "required", message: "Validation failed for 'pusher_type': value is required")
         }
-        ref = try container.sdkDecodeRequired(.ref)
-        refType = try container.sdkDecodeRequired(.refType)
-        fullRef = try container.sdkDecodeRequired(.fullRef)
-        primaryBranch = try container.sdkDecodeRequired(.primaryBranch)
-        pusherType = try container.sdkDecodeRequired(.pusherType)
-        description = try container.sdkDecodeIfPresent(.description)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.refType = try container.sdkDecodeRequired(.refType)
+        self.fullRef = try container.sdkDecodeRequired(.fullRef)
+        self.primaryBranch = try container.sdkDecodeRequired(.primaryBranch)
+        self.pusherType = try container.sdkDecodeRequired(.pusherType)
+        self.description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
-public extension CreateEvent {
-    init(
-        ref: String,
-        refType: String,
-        fullRef: String,
-        primaryBranch: String,
-        pusherType: String,
-        description: String? = nil
-    ) {
+extension CreateEvent {
+    public init(ref: String, refType: String, fullRef: String, primaryBranch: String, pusherType: String, description: String? = nil) {
         (self.ref, self.refType) = (ref, refType)
         (self.fullRef, self.primaryBranch) = (fullRef, primaryBranch)
         (self.pusherType, self.description) = (pusherType, description)
@@ -375,51 +293,33 @@ public struct DeleteEvent: Codable {
         case pusherType = "pusher_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension DeleteEvent {
-    init(from decoder: Decoder) throws {
+extension DeleteEvent {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.ref) else {
-            throw SdkValidationError(
-                field: "ref",
-                code: "required",
-                message: "Validation failed for 'ref': value is required"
-            )
+            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
         }
         guard container.contains(.refType) else {
-            throw SdkValidationError(
-                field: "ref_type",
-                code: "required",
-                message: "Validation failed for 'ref_type': value is required"
-            )
+            throw SdkValidationError(field: "ref_type", code: "required", message: "Validation failed for 'ref_type': value is required")
         }
         guard container.contains(.fullRef) else {
-            throw SdkValidationError(
-                field: "full_ref",
-                code: "required",
-                message: "Validation failed for 'full_ref': value is required"
-            )
+            throw SdkValidationError(field: "full_ref", code: "required", message: "Validation failed for 'full_ref': value is required")
         }
         guard container.contains(.pusherType) else {
-            throw SdkValidationError(
-                field: "pusher_type",
-                code: "required",
-                message: "Validation failed for 'pusher_type': value is required"
-            )
+            throw SdkValidationError(field: "pusher_type", code: "required", message: "Validation failed for 'pusher_type': value is required")
         }
-        ref = try container.sdkDecodeRequired(.ref)
-        refType = try container.sdkDecodeRequired(.refType)
-        fullRef = try container.sdkDecodeRequired(.fullRef)
-        pusherType = try container.sdkDecodeRequired(.pusherType)
+        self.ref = try container.sdkDecodeRequired(.ref)
+        self.refType = try container.sdkDecodeRequired(.refType)
+        self.fullRef = try container.sdkDecodeRequired(.fullRef)
+        self.pusherType = try container.sdkDecodeRequired(.pusherType)
     }
 }
 
-public extension DeleteEvent {
-    init(ref: String, refType: String, fullRef: String, pusherType: String) {
+extension DeleteEvent {
+    public init(ref: String, refType: String, fullRef: String, pusherType: String) {
         (self.ref, self.refType) = (ref, refType)
         (self.fullRef, self.pusherType) = (fullRef, pusherType)
     }
@@ -502,68 +402,42 @@ public struct Discussion: Codable {
         case labels
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Discussion {
-    init(from decoder: Decoder) throws {
+extension Discussion {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        activeLockReason = try container.sdkDecodeIfPresent(.activeLockReason)
-        answerChosenAt = try container.sdkDecodeIfPresent(.answerChosenAt)
-        answerChosenBy = try container.sdkDecodeIfPresent(.answerChosenBy)
-        answerHtmlUrl = try container.sdkDecodeIfPresent(.answerHtmlUrl)
-        body = try container.sdkDecodeRequired(.body)
-        category = try container.sdkDecodeRequired(.category)
-        comments = try container.sdkDecodeRequired(.comments)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        locked = try container.sdkDecodeRequired(.locked)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        number = try container.sdkDecodeRequired(.number)
-        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-        state = try container.sdkDecodeRequired(.state)
-        stateReason = try container.sdkDecodeIfPresent(.stateReason)
-        title = try container.sdkDecodeRequired(.title)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        user = try container.sdkDecodeIfPresent(.user)
-        authorAssociation = try container.sdkDecodeIfPresent(.authorAssociation)
-        reactions = try container.sdkDecodeIfPresent(.reactions)
-        timelineUrl = try container.sdkDecodeIfPresent(.timelineUrl)
-        labels = try container.sdkDecodeIfPresent(.labels)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.activeLockReason = try container.sdkDecodeIfPresent(.activeLockReason)
+        self.answerChosenAt = try container.sdkDecodeIfPresent(.answerChosenAt)
+        self.answerChosenBy = try container.sdkDecodeIfPresent(.answerChosenBy)
+        self.answerHtmlUrl = try container.sdkDecodeIfPresent(.answerHtmlUrl)
+        self.body = try container.sdkDecodeRequired(.body)
+        self.category = try container.sdkDecodeRequired(.category)
+        self.comments = try container.sdkDecodeRequired(.comments)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.locked = try container.sdkDecodeRequired(.locked)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.stateReason = try container.sdkDecodeIfPresent(.stateReason)
+        self.title = try container.sdkDecodeRequired(.title)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.user = try container.sdkDecodeIfPresent(.user)
+        self.authorAssociation = try container.sdkDecodeIfPresent(.authorAssociation)
+        self.reactions = try container.sdkDecodeIfPresent(.reactions)
+        self.timelineUrl = try container.sdkDecodeIfPresent(.timelineUrl)
+        self.labels = try container.sdkDecodeIfPresent(.labels)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension Discussion {
-    init(
-        activeLockReason: String?,
-        answerChosenAt: String?,
-        answerChosenBy: DiscussionAnswerChosenBy?,
-        answerHtmlUrl: String?,
-        body: String,
-        category: DiscussionCategory,
-        comments: Int,
-        createdAt: Date,
-        htmlUrl: String,
-        id: Int,
-        locked: Bool,
-        nodeId: String,
-        number: Int,
-        repositoryUrl: String,
-        state: DiscussionState,
-        stateReason: DiscussionStateReason?,
-        title: String,
-        updatedAt: Date,
-        user: DiscussionUser?,
-        authorAssociation: DiscussionAuthorAssociation? = nil,
-        reactions: DiscussionReactions? = nil,
-        timelineUrl: String? = nil,
-        labels: [Label]? = nil
-    ) throws {
+extension Discussion {
+    public init(activeLockReason: String?, answerChosenAt: String?, answerChosenBy: DiscussionAnswerChosenBy?, answerHtmlUrl: String?, body: String, category: DiscussionCategory, comments: Int, createdAt: Date, htmlUrl: String, id: Int, locked: Bool, nodeId: String, number: Int, repositoryUrl: String, state: DiscussionState, stateReason: DiscussionStateReason?, title: String, updatedAt: Date, user: DiscussionUser?, authorAssociation: DiscussionAuthorAssociation? = nil, reactions: DiscussionReactions? = nil, timelineUrl: String? = nil, labels: [Label]? = nil) throws {
         (self.activeLockReason, self.answerChosenAt) = (activeLockReason, answerChosenAt)
         (self.answerChosenBy, self.answerHtmlUrl) = (answerChosenBy, answerHtmlUrl)
         (self.body, self.category) = (body, category)
@@ -576,7 +450,7 @@ public extension Discussion {
         (self.user, self.authorAssociation) = (user, authorAssociation)
         (self.reactions, self.timelineUrl) = (reactions, timelineUrl)
         self.labels = labels
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }

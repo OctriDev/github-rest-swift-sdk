@@ -6,64 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Gets a health check of the DNS settings for the `CNAME` record configured for a repository's GitHub Pages. The
-    /// first request to this endpoint returns a `202 Accepted` status and starts an asynchronous background task to get
-    /// the results for the domain. After the background task completes, subsequent requests to this endpoint return a
-    /// `200 OK` status with the health check results in the response. The authenticated user must be a repository
-    /// administrator, maintainer, or have the 'manage GitHub Pages settings' permission to use this endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ReposMethods {
+    /// Gets a health check of the DNS settings for the `CNAME` record configured for a repository's GitHub Pages. The first request to this endpoint returns a `202 Accepted` status and starts an asynchronous background task to get the results for the domain. After the background task completes, subsequent requests to this endpoint return a `200 OK` status with the health check results in the response. The authenticated user must be a repository administrator, maintainer, or have the 'manage GitHub Pages settings' permission to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposGetPagesHealthCheck(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> PagesHealthCheck {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/pages/health",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetPagesHealthCheck"
-        )).data
+    public static func reposGetPagesHealthCheck(config: ClientConfig, owner: String, repo: String) async throws -> PagesHealthCheck {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages/health"].joined(), config: config, decoder: .json, operationId: "reposGetPagesHealthCheck")).data
     }
 
-    /// Returns a boolean indicating whether or not private vulnerability reporting is enabled for the repository. For
-    /// more information, see "[Evaluating the security settings of a repository](https://docs.github.com/code-security/security-advisories/working-with-repository-security-advisories/evaluating-the-security-settings-of-a-repository)".
+    /// Returns a boolean indicating whether or not private vulnerability reporting is enabled for the repository. For more information, see "[Evaluating the security settings of a repository](https://docs.github.com/code-security/security-advisories/working-with-repository-security-advisories/evaluating-the-security-settings-of-a-repository)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func reposCheckPrivateVulnerabilityReporting(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ReposCheckPrivateVulnerabilityReportingResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/private-vulnerability-reporting",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposCheckPrivateVulnerabilityReporting"
-        )).data
+    public static func reposCheckPrivateVulnerabilityReporting(config: ClientConfig, owner: String, repo: String) async throws -> ReposCheckPrivateVulnerabilityReportingResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/private-vulnerability-reporting"].joined(), config: config, decoder: .json, operationId: "reposCheckPrivateVulnerabilityReporting")).data
     }
 }

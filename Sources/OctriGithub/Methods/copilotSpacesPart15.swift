@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Add a collaborator to a Copilot Space for a user
     ///
-    /// Adds a collaborator to a specific Copilot Space owned by a user. The authenticated user must be the owner of the
-    /// space or have admin access to the space. Team collaborators are not supported for user-owned Copilot Spaces.
-    /// OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
+    /// Adds a collaborator to a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. Team collaborators are not supported for user-owned Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -21,33 +19,9 @@ public extension CopilotSpacesMethods {
     /// - actorIdentifier: The username of the collaborator. The numeric user ID is
     ///   also accepted.
     /// - role: The role to grant to the collaborator.
-    static func copilotSpacesAddCollaboratorForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int,
-        actorType: CopilotSpacesAddCollaboratorForUserRequestBodyActorType,
-        actorIdentifier: String,
-        role: CopilotSpacesAddCollaboratorForUserRequestBodyRole
-    ) async throws -> CopilotSpaceCollaborator {
-        let requestBody = CopilotSpacesAddCollaboratorForUserRequestBody(
-            actorType: actorType,
-            actorIdentifier: actorIdentifier,
-            role: role
-        )
+    public static func copilotSpacesAddCollaboratorForUser(config: ClientConfig, username: String, spaceNumber: Int, actorType: CopilotSpacesAddCollaboratorForUserRequestBodyActorType, actorIdentifier: String, role: CopilotSpacesAddCollaboratorForUserRequestBodyRole) async throws -> CopilotSpaceCollaborator {
+        let requestBody = CopilotSpacesAddCollaboratorForUserRequestBody(actorType: actorType, actorIdentifier: actorIdentifier, role: role)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/collaborators",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesAddCollaboratorForUser"
-        )).data
+        return try (await sdkRequest("POST", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators"].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesAddCollaboratorForUser")).data
     }
 }

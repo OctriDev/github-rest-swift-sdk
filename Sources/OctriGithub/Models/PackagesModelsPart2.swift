@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Packages domain models
+// Packages domain models
 /// Optional object value serialized in the `license` wire field.
 public struct NullableMinimalRepositoryLicense: Codable {
     /// Optional `string` value serialized in the `key` wire field.
@@ -26,23 +26,23 @@ public struct NullableMinimalRepositoryLicense: Codable {
     }
 
     init() {
-        (key, name, spdxId, url, nodeId) = (nil, nil, nil, nil, nil)
+        (self.key, self.name, self.spdxId, self.url, self.nodeId) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension NullableMinimalRepositoryLicense {
-    init(from decoder: Decoder) throws {
+extension NullableMinimalRepositoryLicense {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        key = try container.sdkDecodeIfPresent(.key)
-        name = try container.sdkDecodeIfPresent(.name)
-        spdxId = try container.sdkDecodeIfPresent(.spdxId)
-        url = try container.sdkDecodeIfPresent(.url)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.key = try container.sdkDecodeIfPresent(.key)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.spdxId = try container.sdkDecodeIfPresent(.spdxId)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
     }
 }
 
-public extension NullableMinimalRepositoryLicense {
-    init(key: String? = nil, name: String? = nil, spdxId: String? = nil, url: String? = nil, nodeId: String? = nil) {
+extension NullableMinimalRepositoryLicense {
+    public init(key: String? = nil, name: String? = nil, spdxId: String? = nil, url: String? = nil, nodeId: String? = nil) {
         self.init()
         (self.key, self.name) = (key, name)
         (self.spdxId, self.url) = (spdxId, url)
@@ -72,23 +72,23 @@ public struct NullableMinimalRepositoryPermissions: Codable {
     }
 
     init() {
-        (admin, maintain, push, triage, pull) = (nil, nil, nil, nil, nil)
+        (self.admin, self.maintain, self.push, self.triage, self.pull) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension NullableMinimalRepositoryPermissions {
-    init(from decoder: Decoder) throws {
+extension NullableMinimalRepositoryPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        admin = try container.sdkDecodeIfPresent(.admin)
-        maintain = try container.sdkDecodeIfPresent(.maintain)
-        push = try container.sdkDecodeIfPresent(.push)
-        triage = try container.sdkDecodeIfPresent(.triage)
-        pull = try container.sdkDecodeIfPresent(.pull)
+        self.admin = try container.sdkDecodeIfPresent(.admin)
+        self.maintain = try container.sdkDecodeIfPresent(.maintain)
+        self.push = try container.sdkDecodeIfPresent(.push)
+        self.triage = try container.sdkDecodeIfPresent(.triage)
+        self.pull = try container.sdkDecodeIfPresent(.pull)
     }
 }
 
-public extension NullableMinimalRepositoryPermissions {
-    init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
+extension NullableMinimalRepositoryPermissions {
+    public init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
         self.init()
         (self.admin, self.maintain) = (admin, maintain)
         (self.push, self.triage) = (push, triage)
@@ -142,52 +142,38 @@ public struct Package: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Package {
-    init(from decoder: Decoder) throws {
+extension Package {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        packageType = try container.sdkDecodeRequired(.packageType)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        versionCount = try container.sdkDecodeRequired(.versionCount)
-        visibility = try container.sdkDecodeRequired(.visibility)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        owner = try container.sdkDecodeIfPresent(.owner)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.packageType = try container.sdkDecodeRequired(.packageType)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.versionCount = try container.sdkDecodeRequired(.versionCount)
+        self.visibility = try container.sdkDecodeRequired(.visibility)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.owner = try container.sdkDecodeIfPresent(.owner)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension Package {
-    init(
-        id: Int,
-        name: String,
-        packageType: PackagePackageType,
-        url: String,
-        htmlUrl: String,
-        versionCount: Int,
-        visibility: PackageVisibility,
-        createdAt: Date,
-        updatedAt: Date,
-        owner: NullableSimpleUser? = nil,
-        repository: NullableMinimalRepository? = nil
-    ) throws {
+extension Package {
+    public init(id: Int, name: String, packageType: PackagePackageType, url: String, htmlUrl: String, versionCount: Int, visibility: PackageVisibility, createdAt: Date, updatedAt: Date, owner: NullableSimpleUser? = nil, repository: NullableMinimalRepository? = nil) throws {
         (self.id, self.name) = (id, name)
         (self.packageType, self.url) = (packageType, url)
         (self.htmlUrl, self.versionCount) = (htmlUrl, versionCount)
         (self.visibility, self.createdAt) = (visibility, createdAt)
         (self.updatedAt, self.owner) = (updatedAt, owner)
         self.repository = repository
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -239,97 +225,59 @@ public struct PackageVersion: Codable {
         case metadata
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PackageVersion {
-    init(from decoder: Decoder) throws {
+extension PackageVersion {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.packageHtmlUrl) else {
-            throw SdkValidationError(
-                field: "package_html_url",
-                code: "required",
-                message: "Validation failed for 'package_html_url': value is required"
-            )
+            throw SdkValidationError(field: "package_html_url", code: "required", message: "Validation failed for 'package_html_url': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        url = try container.sdkDecodeRequired(.url)
-        packageHtmlUrl = try container.sdkDecodeRequired(.packageHtmlUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        license = try container.sdkDecodeIfPresent(.license)
-        description = try container.sdkDecodeIfPresent(.description)
-        deletedAt = try container.sdkDecodeIfPresent(.deletedAt)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = deletedAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.packageHtmlUrl = try container.sdkDecodeRequired(.packageHtmlUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.license = try container.sdkDecodeIfPresent(.license)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.deletedAt = try container.sdkDecodeIfPresent(.deletedAt)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.deletedAt {
             try sdkValidateDateTime("deleted_at", sdkWireString(value))
         }
     }
 }
 
-public extension PackageVersion {
-    init(
-        id: Int,
-        name: String,
-        url: String,
-        packageHtmlUrl: String,
-        createdAt: Date,
-        updatedAt: Date,
-        htmlUrl: String? = nil,
-        license: String? = nil,
-        description: String? = nil,
-        deletedAt: Date? = nil,
-        metadata: PackageVersionMetadata? = nil
-    ) throws {
+extension PackageVersion {
+    public init(id: Int, name: String, url: String, packageHtmlUrl: String, createdAt: Date, updatedAt: Date, htmlUrl: String? = nil, license: String? = nil, description: String? = nil, deletedAt: Date? = nil, metadata: PackageVersionMetadata? = nil) throws {
         (self.id, self.name) = (id, name)
         (self.url, self.packageHtmlUrl) = (url, packageHtmlUrl)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.htmlUrl, self.license) = (htmlUrl, license)
         (self.description, self.deletedAt) = (description, deletedAt)
         self.metadata = metadata
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.deletedAt {
             try sdkValidateDateTime("deleted_at", sdkWireString(value))
         }
@@ -352,34 +300,24 @@ public struct PackageVersionMetadata: Codable {
         case docker
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PackageVersionMetadata {
-    init(from decoder: Decoder) throws {
+extension PackageVersionMetadata {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.packageType) else {
-            throw SdkValidationError(
-                field: "package_type",
-                code: "required",
-                message: "Validation failed for 'package_type': value is required"
-            )
+            throw SdkValidationError(field: "package_type", code: "required", message: "Validation failed for 'package_type': value is required")
         }
-        packageType = try container.sdkDecodeRequired(.packageType)
+        self.packageType = try container.sdkDecodeRequired(.packageType)
         self.container = try container.sdkDecodeIfPresent(.container)
-        docker = try container.sdkDecodeIfPresent(.docker)
+        self.docker = try container.sdkDecodeIfPresent(.docker)
     }
 }
 
-public extension PackageVersionMetadata {
-    init(
-        packageType: PackageVersionMetadataPackageType,
-        container containerValue: PackageVersionMetadataContainer? = nil,
-        docker: PackageVersionMetadataDocker? = nil
-    ) {
-        (self.packageType, container) = (packageType, containerValue)
+extension PackageVersionMetadata {
+    public init(packageType: PackageVersionMetadataPackageType, container containerValue: PackageVersionMetadataContainer? = nil, docker: PackageVersionMetadataDocker? = nil) {
+        (self.packageType, self.container) = (packageType, containerValue)
         self.docker = docker
     }
 }
@@ -393,27 +331,21 @@ public struct PackageVersionMetadataContainer: Codable {
         case tags
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PackageVersionMetadataContainer {
-    init(from decoder: Decoder) throws {
+extension PackageVersionMetadataContainer {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.tags) else {
-            throw SdkValidationError(
-                field: "tags",
-                code: "required",
-                message: "Validation failed for 'tags': value is required"
-            )
+            throw SdkValidationError(field: "tags", code: "required", message: "Validation failed for 'tags': value is required")
         }
-        tags = try container.sdkDecodeRequired(.tags)
+        self.tags = try container.sdkDecodeRequired(.tags)
     }
 }
 
-public extension PackageVersionMetadataContainer {
-    init(tags: [String]) {
+extension PackageVersionMetadataContainer {
+    public init(tags: [String]) {
         self.tags = tags
     }
 }
@@ -428,19 +360,19 @@ public struct PackageVersionMetadataDocker: Codable {
     }
 
     init() {
-        tag = nil
+        self.tag = nil
     }
 }
 
-public extension PackageVersionMetadataDocker {
-    init(from decoder: Decoder) throws {
+extension PackageVersionMetadataDocker {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        tag = try container.sdkDecodeIfPresent(.tag)
+        self.tag = try container.sdkDecodeIfPresent(.tag)
     }
 }
 
-public extension PackageVersionMetadataDocker {
-    init(tag: [String]? = nil) {
+extension PackageVersionMetadataDocker {
+    public init(tag: [String]? = nil) {
         self.init()
         self.tag = tag
     }
@@ -450,10 +382,7 @@ public extension PackageVersionMetadataDocker {
 public struct PackagePackageType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let npm = PackagePackageType(rawValue: "npm")
     public static let maven = PackagePackageType(rawValue: "maven")
     public static let rubygems = PackagePackageType(rawValue: "rubygems")
@@ -463,7 +392,7 @@ public struct PackagePackageType: RawRepresentable, Hashable, Codable, Sendable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -473,21 +402,16 @@ public struct PackagePackageType: RawRepresentable, Hashable, Codable, Sendable,
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct NullableMinimalRepositoryPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableMinimalRepositoryPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = NullableMinimalRepositoryPullRequestCreationPolicy(rawValue: "all")
-    public static let collaboratorsOnly =
-        NullableMinimalRepositoryPullRequestCreationPolicy(rawValue: "collaborators_only")
+    public static let collaboratorsOnly = NullableMinimalRepositoryPullRequestCreationPolicy(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -500,16 +424,13 @@ public struct NullableMinimalRepositoryPullRequestCreationPolicy: RawRepresentab
 public struct PackageVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `private` = PackageVisibility(rawValue: "private")
     public static let `public` = PackageVisibility(rawValue: "public")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -522,10 +443,7 @@ public struct PackageVisibility: RawRepresentable, Hashable, Codable, Sendable, 
 public struct PackageVersionMetadataPackageType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let npm = PackageVersionMetadataPackageType(rawValue: "npm")
     public static let maven = PackageVersionMetadataPackageType(rawValue: "maven")
     public static let rubygems = PackageVersionMetadataPackageType(rawValue: "rubygems")
@@ -535,7 +453,7 @@ public struct PackageVersionMetadataPackageType: RawRepresentable, Hashable, Cod
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

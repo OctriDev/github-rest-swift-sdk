@@ -74,8 +74,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListBlockedByAuthenticatedUserUsersListBlockedByAuthenticatedUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListBlockedByAuthenticatedUserUsersListBlockedByAuthenticatedUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -95,8 +94,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListEmailsForAuthenticatedUserUsersListEmailsForAuthenticatedUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListEmailsForAuthenticatedUserUsersListEmailsForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -116,8 +114,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListFollowedByAuthenticatedUserUsersListFollowedByAuthenticatedUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListFollowedByAuthenticatedUserUsersListFollowedByAuthenticatedUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -137,8 +134,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListFollowersForAuthenticatedUserUsersListFollowersForAuXa4ca047ad9ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListFollowersForAuthenticatedUserUsersListFollowersForAuXa4ca047ad9ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -200,8 +196,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListGpgKeysForAuthenticatedUserUsersListGpgKeysForAuthenticatedUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListGpgKeysForAuthenticatedUserUsersListGpgKeysForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -242,8 +237,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListPublicEmailsForAuthenticatedUserUsersListPublicEmailX2ffa58cfb6ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListPublicEmailsForAuthenticatedUserUsersListPublicEmailX2ffa58cfb6ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -284,8 +278,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListPublicSshKeysForAuthenticatedUserUsersListPublicSshKX3d4d3a559aReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListPublicSshKeysForAuthenticatedUserUsersListPublicSshKX3d4d3a559aReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -305,8 +298,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListSocialAccountsForAuthenticatedUserUsersListSocialAccXd05a324729ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListSocialAccountsForAuthenticatedUserUsersListSocialAccXd05a324729ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -347,8 +339,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersListSshSigningKeysForAuthenticatedUserUsersListSshSigninX9381f06321ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersListSshSigningKeysForAuthenticatedUserUsersListSshSigninX9381f06321ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -389,8 +380,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testUsersSetPrimaryEmailVisibilityForAuthenticatedUserUsersSetPriX395054a42bReachesMockAndDecodesResponse(
-    ) async throws {
+    func testUsersSetPrimaryEmailVisibilityForAuthenticatedUserUsersSetPriX395054a42bReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

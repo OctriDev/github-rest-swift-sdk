@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhooksProject domain models
+// WebhooksProject domain models
 /// Optional object value serialized in the `archived_at` wire field.
 public struct WebhooksProjectChangesArchivedAt: Codable {
     /// Optional `date-time`-formatted value serialized in the `from` wire field.
@@ -17,26 +17,26 @@ public struct WebhooksProjectChangesArchivedAt: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhooksProjectChangesArchivedAt {
-    init(from decoder: Decoder) throws {
+extension WebhooksProjectChangesArchivedAt {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
-        if let value = from {
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
+        if let value = self.from {
             try sdkValidateDateTime("from", sdkWireString(value))
         }
-        if let value = to {
+        if let value = self.to {
             try sdkValidateDateTime("to", sdkWireString(value))
         }
     }
 }
 
-public extension WebhooksProjectChangesArchivedAt {
-    init(from: Date? = nil, to: Date? = nil) throws {
+extension WebhooksProjectChangesArchivedAt {
+    public init(from: Date? = nil, to: Date? = nil) throws {
         self.init()
         (self.from, self.to) = (from, to)
         if let value = self.from {
@@ -81,53 +81,41 @@ public struct WebhooksProjectColumn: Codable {
         case afterId = "after_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksProjectColumn {
-    init(from decoder: Decoder) throws {
+extension WebhooksProjectColumn {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        cardsUrl = try container.sdkDecodeRequired(.cardsUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        projectUrl = try container.sdkDecodeRequired(.projectUrl)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        url = try container.sdkDecodeRequired(.url)
-        afterId = try container.sdkDecodeIfPresent(.afterId)
-        try sdkValidateUri("cards_url", cardsUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateUri("project_url", projectUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("url", url)
+        self.cardsUrl = try container.sdkDecodeRequired(.cardsUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.projectUrl = try container.sdkDecodeRequired(.projectUrl)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.afterId = try container.sdkDecodeIfPresent(.afterId)
+            try sdkValidateUri("cards_url", self.cardsUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhooksProjectColumn {
-    init(
-        cardsUrl: String,
-        createdAt: Date,
-        id: Int,
-        name: String,
-        nodeId: String,
-        projectUrl: String,
-        updatedAt: Date,
-        url: String,
-        afterId: Int? = nil
-    ) throws {
+extension WebhooksProjectColumn {
+    public init(cardsUrl: String, createdAt: Date, id: Int, name: String, nodeId: String, projectUrl: String, updatedAt: Date, url: String, afterId: Int? = nil) throws {
         (self.cardsUrl, self.createdAt) = (cardsUrl, createdAt)
         (self.id, self.name) = (id, name)
         (self.nodeId, self.projectUrl) = (nodeId, projectUrl)
         (self.updatedAt, self.url) = (updatedAt, url)
         self.afterId = afterId
-        try sdkValidateUri("cards_url", self.cardsUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateUri("project_url", self.projectUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("cards_url", self.cardsUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("project_url", self.projectUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -135,16 +123,13 @@ public extension WebhooksProjectColumn {
 public struct WebhooksProjectState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let open = WebhooksProjectState(rawValue: "open")
     public static let closed = WebhooksProjectState(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -157,17 +142,14 @@ public struct WebhooksProjectState: RawRepresentable, Hashable, Codable, Sendabl
 public struct WebhooksProjectCreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhooksProjectCreatorType(rawValue: "Bot")
     public static let user = WebhooksProjectCreatorType(rawValue: "User")
     public static let organization = WebhooksProjectCreatorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -180,17 +162,14 @@ public struct WebhooksProjectCreatorType: RawRepresentable, Hashable, Codable, S
 public struct WebhooksProjectCardCreatorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhooksProjectCardCreatorType(rawValue: "Bot")
     public static let user = WebhooksProjectCardCreatorType(rawValue: "User")
     public static let organization = WebhooksProjectCardCreatorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

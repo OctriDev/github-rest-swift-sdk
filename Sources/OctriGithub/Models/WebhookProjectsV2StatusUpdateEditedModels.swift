@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookProjectsV2StatusUpdateEdited domain models
+// WebhookProjectsV2StatusUpdateEdited domain models
 /// Typed representation of the `WebhookProjectsV2StatusUpdateEdited` API schema.
 public struct WebhookProjectsV2StatusUpdateEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -30,60 +30,35 @@ public struct WebhookProjectsV2StatusUpdateEdited: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectsV2StatusUpdateEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2StatusUpdateEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.projectsV2StatusUpdate) else {
-            throw SdkValidationError(
-                field: "projects_v2_status_update",
-                code: "required",
-                message: "Validation failed for 'projects_v2_status_update': value is required"
-            )
+            throw SdkValidationError(field: "projects_v2_status_update", code: "required", message: "Validation failed for 'projects_v2_status_update': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        organization = try container.sdkDecodeRequired(.organization)
-        projectsV2StatusUpdate = try container.sdkDecodeRequired(.projectsV2StatusUpdate)
-        sender = try container.sdkDecodeRequired(.sender)
-        changes = try container.sdkDecodeIfPresent(.changes)
-        installation = try container.sdkDecodeIfPresent(.installation)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.projectsV2StatusUpdate = try container.sdkDecodeRequired(.projectsV2StatusUpdate)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.changes = try container.sdkDecodeIfPresent(.changes)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEdited {
-    init(
-        action: WebhookProjectsV2StatusUpdateEditedAction,
-        organization: OrganizationSimpleWebhooks,
-        projectsV2StatusUpdate: ProjectsV2StatusUpdate,
-        sender: SimpleUser,
-        changes: WebhookProjectsV2StatusUpdateEditedChanges? = nil,
-        installation: SimpleInstallation? = nil
-    ) {
+extension WebhookProjectsV2StatusUpdateEdited {
+    public init(action: WebhookProjectsV2StatusUpdateEditedAction, organization: OrganizationSimpleWebhooks, projectsV2StatusUpdate: ProjectsV2StatusUpdate, sender: SimpleUser, changes: WebhookProjectsV2StatusUpdateEditedChanges? = nil, installation: SimpleInstallation? = nil) {
         (self.action, self.organization) = (action, organization)
         (self.projectsV2StatusUpdate, self.sender) = (projectsV2StatusUpdate, sender)
         (self.changes, self.installation) = (changes, installation)
@@ -109,27 +84,22 @@ public struct WebhookProjectsV2StatusUpdateEditedChanges: Codable {
     }
 
     init() {
-        (body, status, startDate, targetDate) = (nil, nil, nil, nil)
+        (self.body, self.status, self.startDate, self.targetDate) = (nil, nil, nil, nil)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2StatusUpdateEditedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        body = try container.sdkDecodeIfPresent(.body)
-        status = try container.sdkDecodeIfPresent(.status)
-        startDate = try container.sdkDecodeIfPresent(.startDate)
-        targetDate = try container.sdkDecodeIfPresent(.targetDate)
+        self.body = try container.sdkDecodeIfPresent(.body)
+        self.status = try container.sdkDecodeIfPresent(.status)
+        self.startDate = try container.sdkDecodeIfPresent(.startDate)
+        self.targetDate = try container.sdkDecodeIfPresent(.targetDate)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChanges {
-    init(
-        body: WebhookProjectsV2StatusUpdateEditedChangesBody? = nil,
-        status: WebhookProjectsV2StatusUpdateEditedChangesStatus? = nil,
-        startDate: WebhookProjectsV2StatusUpdateEditedChangesStartDate? = nil,
-        targetDate: WebhookProjectsV2StatusUpdateEditedChangesTargetDate? = nil
-    ) {
+extension WebhookProjectsV2StatusUpdateEditedChanges {
+    public init(body: WebhookProjectsV2StatusUpdateEditedChangesBody? = nil, status: WebhookProjectsV2StatusUpdateEditedChangesStatus? = nil, startDate: WebhookProjectsV2StatusUpdateEditedChangesStartDate? = nil, targetDate: WebhookProjectsV2StatusUpdateEditedChangesTargetDate? = nil) {
         self.init()
         (self.body, self.status) = (body, status)
         (self.startDate, self.targetDate) = (startDate, targetDate)
@@ -149,20 +119,20 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesBody: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesBody {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2StatusUpdateEditedChangesBody {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesBody {
-    init(from: String? = nil, to: String? = nil) {
+extension WebhookProjectsV2StatusUpdateEditedChangesBody {
+    public init(from: String? = nil, to: String? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -181,26 +151,26 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesStartDate: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesStartDate {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2StatusUpdateEditedChangesStartDate {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
-        if let value = from {
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
+        if let value = self.from {
             try sdkValidateDate("from", value)
         }
-        if let value = to {
+        if let value = self.to {
             try sdkValidateDate("to", value)
         }
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesStartDate {
-    init(from: String? = nil, to: String? = nil) throws {
+extension WebhookProjectsV2StatusUpdateEditedChangesStartDate {
+    public init(from: String? = nil, to: String? = nil) throws {
         self.init()
         (self.from, self.to) = (from, to)
         if let value = self.from {
@@ -211,6 +181,10 @@ public extension WebhookProjectsV2StatusUpdateEditedChangesStartDate {
         }
     }
 }
+
+
+
+
 
 /// Optional object value serialized in the `status` wire field.
 public struct WebhookProjectsV2StatusUpdateEditedChangesStatus: Codable {
@@ -225,23 +199,20 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesStatus: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesStatus {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2StatusUpdateEditedChangesStatus {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesStatus {
-    init(
-        from: WebhookProjectsV2StatusUpdateEditedChangesStatusFrom? = nil,
-        to: WebhookProjectsV2StatusUpdateEditedChangesStatusTo? = nil
-    ) {
+extension WebhookProjectsV2StatusUpdateEditedChangesStatus {
+    public init(from: WebhookProjectsV2StatusUpdateEditedChangesStatusFrom? = nil, to: WebhookProjectsV2StatusUpdateEditedChangesStatusTo? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -260,26 +231,26 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesTargetDate: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesTargetDate {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2StatusUpdateEditedChangesTargetDate {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
-        if let value = from {
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
+        if let value = self.from {
             try sdkValidateDate("from", value)
         }
-        if let value = to {
+        if let value = self.to {
             try sdkValidateDate("to", value)
         }
     }
 }
 
-public extension WebhookProjectsV2StatusUpdateEditedChangesTargetDate {
-    init(from: String? = nil, to: String? = nil) throws {
+extension WebhookProjectsV2StatusUpdateEditedChangesTargetDate {
+    public init(from: String? = nil, to: String? = nil) throws {
         self.init()
         (self.from, self.to) = (from, to)
         if let value = self.from {
@@ -292,14 +263,10 @@ public extension WebhookProjectsV2StatusUpdateEditedChangesTargetDate {
 }
 
 /// Optional enumerated value serialized in the `from` wire field.
-public struct WebhookProjectsV2StatusUpdateEditedChangesStatusFrom: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookProjectsV2StatusUpdateEditedChangesStatusFrom: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let inactive = WebhookProjectsV2StatusUpdateEditedChangesStatusFrom(rawValue: "INACTIVE")
     public static let onTrack = WebhookProjectsV2StatusUpdateEditedChangesStatusFrom(rawValue: "ON_TRACK")
     public static let atRisk = WebhookProjectsV2StatusUpdateEditedChangesStatusFrom(rawValue: "AT_RISK")
@@ -308,7 +275,7 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesStatusFrom: RawRepresent
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -318,14 +285,10 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesStatusFrom: RawRepresent
 }
 
 /// Optional enumerated value serialized in the `to` wire field.
-public struct WebhookProjectsV2StatusUpdateEditedChangesStatusTo: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookProjectsV2StatusUpdateEditedChangesStatusTo: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let inactive = WebhookProjectsV2StatusUpdateEditedChangesStatusTo(rawValue: "INACTIVE")
     public static let onTrack = WebhookProjectsV2StatusUpdateEditedChangesStatusTo(rawValue: "ON_TRACK")
     public static let atRisk = WebhookProjectsV2StatusUpdateEditedChangesStatusTo(rawValue: "AT_RISK")
@@ -334,7 +297,7 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesStatusTo: RawRepresentab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -344,19 +307,15 @@ public struct WebhookProjectsV2StatusUpdateEditedChangesStatusTo: RawRepresentab
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookProjectsV2StatusUpdateEditedAction: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookProjectsV2StatusUpdateEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookProjectsV2StatusUpdateEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

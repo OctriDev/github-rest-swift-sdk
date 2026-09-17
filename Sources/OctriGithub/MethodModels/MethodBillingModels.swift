@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical billing operation model declarations
+// Canonical billing operation model declarations
 public enum BillingUpdateBudgetOrgRequestBodyBudgetType {
     case stringValue(String)
     case stringValue1(String)
@@ -15,34 +15,22 @@ public enum BillingUpdateBudgetOrgRequestBodyBudgetType {
 }
 
 extension BillingUpdateBudgetOrgRequestBodyBudgetType: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for BillingUpdateBudgetOrgRequestBodyBudgetType"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for BillingUpdateBudgetOrgRequestBodyBudgetType")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue1(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue2(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue1(value) }
+        if let value = try? container.decode(String.self) { return .stringValue2(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -53,6 +41,7 @@ extension BillingUpdateBudgetOrgRequestBodyBudgetType: Codable {
         case let .stringValue2(value): try container.encode(value); return true
         }
     }
+
 }
 
 public struct BillingUpdateBudgetOrgRequestBodyBudgetAlerting: Codable {
@@ -68,20 +57,20 @@ public struct BillingUpdateBudgetOrgRequestBodyBudgetAlerting: Codable {
     }
 
     init() {
-        (willAlert, alertRecipients) = (nil, nil)
+        (self.willAlert, self.alertRecipients) = (nil, nil)
     }
 }
 
-public extension BillingUpdateBudgetOrgRequestBodyBudgetAlerting {
-    init(from decoder: Decoder) throws {
+extension BillingUpdateBudgetOrgRequestBodyBudgetAlerting {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        willAlert = try container.sdkDecodeIfPresent(.willAlert)
-        alertRecipients = try container.sdkDecodeIfPresent(.alertRecipients)
+        self.willAlert = try container.sdkDecodeIfPresent(.willAlert)
+        self.alertRecipients = try container.sdkDecodeIfPresent(.alertRecipients)
     }
 }
 
-public extension BillingUpdateBudgetOrgRequestBodyBudgetAlerting {
-    init(willAlert: Bool? = nil, alertRecipients: [String]? = nil) {
+extension BillingUpdateBudgetOrgRequestBodyBudgetAlerting {
+    public init(willAlert: Bool? = nil, alertRecipients: [String]? = nil) {
         self.init()
         (self.willAlert, self.alertRecipients) = (willAlert, alertRecipients)
     }
@@ -93,31 +82,21 @@ public enum BillingUpdateBudgetOrgRequestBodyExpiresAt {
 }
 
 extension BillingUpdateBudgetOrgRequestBodyExpiresAt: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for BillingUpdateBudgetOrgRequestBodyExpiresAt"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for BillingUpdateBudgetOrgRequestBodyExpiresAt")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -127,6 +106,7 @@ extension BillingUpdateBudgetOrgRequestBodyExpiresAt: Codable {
         case let .intValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 public struct BillingCreateOrganizationBudgetRequestBodyBudgetAlerting: Codable {
@@ -142,20 +122,20 @@ public struct BillingCreateOrganizationBudgetRequestBodyBudgetAlerting: Codable 
     }
 
     init() {
-        (willAlert, alertRecipients) = (nil, nil)
+        (self.willAlert, self.alertRecipients) = (nil, nil)
     }
 }
 
-public extension BillingCreateOrganizationBudgetRequestBodyBudgetAlerting {
-    init(from decoder: Decoder) throws {
+extension BillingCreateOrganizationBudgetRequestBodyBudgetAlerting {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        willAlert = try container.sdkDecodeIfPresent(.willAlert)
-        alertRecipients = try container.sdkDecodeIfPresent(.alertRecipients)
+        self.willAlert = try container.sdkDecodeIfPresent(.willAlert)
+        self.alertRecipients = try container.sdkDecodeIfPresent(.alertRecipients)
     }
 }
 
-public extension BillingCreateOrganizationBudgetRequestBodyBudgetAlerting {
-    init(willAlert: Bool? = nil, alertRecipients: [String]? = nil) {
+extension BillingCreateOrganizationBudgetRequestBodyBudgetAlerting {
+    public init(willAlert: Bool? = nil, alertRecipients: [String]? = nil) {
         self.init()
         (self.willAlert, self.alertRecipients) = (willAlert, alertRecipients)
     }
@@ -173,21 +153,21 @@ public struct BillingDeleteBudgetOrgResponse: Codable {
     }
 
     init() {
-        (code, message, documentationUrl) = (nil, nil, nil)
+        (self.code, self.message, self.documentationUrl) = (nil, nil, nil)
     }
 }
 
-public extension BillingDeleteBudgetOrgResponse {
-    init(from decoder: Decoder) throws {
+extension BillingDeleteBudgetOrgResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        code = try container.sdkDecodeIfPresent(.code)
-        message = try container.sdkDecodeIfPresent(.message)
-        documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
+        self.code = try container.sdkDecodeIfPresent(.code)
+        self.message = try container.sdkDecodeIfPresent(.message)
+        self.documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
     }
 }
 
-public extension BillingDeleteBudgetOrgResponse {
-    init(code: String? = nil, message: String? = nil, documentationUrl: String? = nil) {
+extension BillingDeleteBudgetOrgResponse {
+    public init(code: String? = nil, message: String? = nil, documentationUrl: String? = nil) {
         self.init()
         (self.code, self.message) = (code, message)
         self.documentationUrl = documentationUrl
@@ -201,34 +181,22 @@ public enum BillingCreateOrganizationBudgetRequestBodyBudgetType {
 }
 
 extension BillingCreateOrganizationBudgetRequestBodyBudgetType: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for BillingCreateOrganizationBudgetRequestBodyBudgetType"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for BillingCreateOrganizationBudgetRequestBodyBudgetType")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue1(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue2(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue1(value) }
+        if let value = try? container.decode(String.self) { return .stringValue2(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -239,4 +207,5 @@ extension BillingCreateOrganizationBudgetRequestBodyBudgetType: Codable {
         case let .stringValue2(value): try container.encode(value); return true
         }
     }
+
 }

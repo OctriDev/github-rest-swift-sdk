@@ -51,10 +51,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try SecretScanningMethods.SecretScanningListAlertsForRepoOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try SecretScanningMethods.SecretScanningListAlertsForRepoOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.state = try decoded("\"open\"")
         options.secretType = try decoded("\"secret_type\"")
         options.excludeSecretTypes = try decoded("\"exclude_secret_types\"")
@@ -89,8 +86,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningListLocationsForAlertSecretScanningListLocationsForAlertReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningListLocationsForAlertSecretScanningListLocationsForAlertReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -113,8 +109,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningListOrgCustomPatternsSecretScanningListOrgCustomPatternsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningListOrgCustomPatternsSecretScanningListOrgCustomPatternsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -139,8 +134,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningListOrgPatternConfigsSecretScanningListOrgPatternConfigsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningListOrgPatternConfigsSecretScanningListOrgPatternConfigsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -159,16 +153,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningListRepoCustomPatternsSecretScanningListRepoCustomPatternsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningListRepoCustomPatternsSecretScanningListRepoCustomPatternsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecretScanningMethods.SecretScanningListRepoCustomPatternsOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try SecretScanningMethods.SecretScanningListRepoCustomPatternsOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.state = try decoded("\"published\"")
         options.pushProtection = try decoded("\"enabled\"")
         options.sort = try decoded("\"created\"")
@@ -194,11 +184,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try SecretScanningMethods.SecretScanningUpdateAlertOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            alertNumber: decoded("1")
-        )
+        var options = try SecretScanningMethods.SecretScanningUpdateAlertOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), alertNumber: decoded("1"))
         options.state = try decoded("\"resolved\"")
         options.resolution = try decoded("\"false_positive\"")
         options.resolutionComment = try decoded("null")
@@ -218,17 +204,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningUpdateOrgCustomPatternSecretScanningUpdateOrgCustomPatternReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningUpdateOrgCustomPatternSecretScanningUpdateOrgCustomPatternReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecretScanningMethods.SecretScanningUpdateOrgCustomPatternOptions(
-            org: decoded("\"org\""),
-            patternId: decoded("1"),
-            customPatternVersion: decoded("\"0ujsswThIGTUYm2K8FjOOfXtY1K\"")
-        )
+        var options = try SecretScanningMethods.SecretScanningUpdateOrgCustomPatternOptions(org: decoded("\"org\""), patternId: decoded("1"), customPatternVersion: decoded("\"0ujsswThIGTUYm2K8FjOOfXtY1K\""))
         options.pattern = try decoded("\"updated_secret_[0-9A-Z]{16}\"")
         options.startDelimiter = try decoded("\"[^0-9A-Za-z]\"")
         options.endDelimiter = try decoded("\"[^0-9A-Za-z]\"")
@@ -248,8 +229,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningUpdateOrgPatternConfigsSecretScanningUpdateOrgPXb050b4783aReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningUpdateOrgPatternConfigsSecretScanningUpdateOrgPXb050b4783aReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -271,18 +251,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningUpdateRepoCustomPatternSecretScanningUpdateRepoXb3a49c7715ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningUpdateRepoCustomPatternSecretScanningUpdateRepoXb3a49c7715ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecretScanningMethods.SecretScanningUpdateRepoCustomPatternOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            patternId: decoded("1"),
-            customPatternVersion: decoded("\"0ujsswThIGTUYm2K8FjOOfXtY1K\"")
-        )
+        var options = try SecretScanningMethods.SecretScanningUpdateRepoCustomPatternOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), patternId: decoded("1"), customPatternVersion: decoded("\"0ujsswThIGTUYm2K8FjOOfXtY1K\""))
         options.pattern = try decoded("\"updated_secret_[0-9A-Z]{16}\"")
         options.startDelimiter = try decoded("\"[^0-9A-Za-z]\"")
         options.endDelimiter = try decoded("\"[^0-9A-Za-z]\"")
@@ -323,18 +297,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesCreatePrivateVulnerabilityReportSecurityAdvXffa0ae23dcReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesCreatePrivateVulnerabilityReportSecurityAdvXffa0ae23dcReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            summary: decoded("\"A newly discovered vulnerability\""),
-            description: decoded("\"A more in-depth description of what the problem is.\"")
-        )
+        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesCreatePrivateVulnerabilityReportOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), summary: decoded("\"A newly discovered vulnerability\""), description: decoded("\"A more in-depth description of what the problem is.\""))
         options.vulnerabilities = try decoded(sdkMethodFixture1129Value1)
         options.cweIds = try decoded("[\"CWE-123\"]")
         options.severity = try decoded("\"high\"")
@@ -354,19 +322,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesCreateRepositoryAdvisorySecurityAdvisoriesCX0c6ccfa16eReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesCreateRepositoryAdvisorySecurityAdvisoriesCX0c6ccfa16eReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesCreateRepositoryAdvisoryOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            summary: decoded("\"A new important advisory\""),
-            description: decoded("\"A more in-depth description of what the problem is.\""),
-            vulnerabilities: decoded(sdkMethodFixture1130Value1)
-        )
+        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesCreateRepositoryAdvisoryOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), summary: decoded("\"A new important advisory\""), description: decoded("\"A more in-depth description of what the problem is.\""), vulnerabilities: decoded(sdkMethodFixture1130Value1))
         options.cveId = try decoded("\"cve_-1\"")
         options.cweIds = try decoded("[\"CWE-1101\",\"CWE-20\"]")
         options.credits = try decoded(sdkMethodFixture1130Value2)
@@ -387,8 +348,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesCreateRepositoryAdvisoryCveRequestSecurityAX2539915bdfReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesCreateRepositoryAdvisoryCveRequestSecurityAX2539915bdfReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -409,8 +369,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesGetGlobalAdvisorySecurityAdvisoriesGetGlobalAdvisoryReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesGetGlobalAdvisorySecurityAdvisoriesGetGlobalAdvisoryReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -429,8 +388,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesGetRepositoryAdvisorySecurityAdvisoriesGetRX83a89cc6ccReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesGetRepositoryAdvisorySecurityAdvisoriesGetRX83a89cc6ccReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -451,8 +409,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesListGlobalAdvisoriesSecurityAdvisoriesListGX40d5c63c74ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesListGlobalAdvisoriesSecurityAdvisoriesListGX40d5c63c74ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -490,8 +447,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesListOrgRepositoryAdvisoriesSecurityAdvisoriXd2cb1bf494ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesListOrgRepositoryAdvisoriesSecurityAdvisoriXd2cb1bf494ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -516,16 +472,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecurityAdvisoriesListRepositoryAdvisoriesSecurityAdvisoriesLXfebda494aeReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecurityAdvisoriesListRepositoryAdvisoriesSecurityAdvisoriesLXfebda494aeReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesListRepositoryAdvisoriesOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try SecurityAdvisoriesMethods.SecurityAdvisoriesListRepositoryAdvisoriesOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.direction = try decoded("\"desc\"")
         options.sort = try decoded("\"created\"")
         options.before = try decoded("\"before\"")

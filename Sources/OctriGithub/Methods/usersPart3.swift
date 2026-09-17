@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// List users blocked by the authenticated user
     ///
     /// List the users you've blocked on your personal account.
@@ -20,12 +20,8 @@ public extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func usersListBlockedByAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [SimpleUser] {
-        try await (sdkRequest("GET", "/user/blocks", config: config, query: [
+    public static func usersListBlockedByAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        return try (await sdkRequest("GET", "/user/blocks", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListBlockedByAuthenticatedUser")).data
@@ -33,18 +29,11 @@ public extension UsersMethods {
 
     /// Check if a user is blocked by the authenticated user
     ///
-    /// Returns a 204 if the given user is blocked by the authenticated user. Returns a 404 if the given user is not
-    /// blocked by the authenticated user, or if the given user account has been identified as spam by GitHub.
+    /// Returns a 204 if the given user is blocked by the authenticated user. Returns a 404 if the given user is not blocked by the authenticated user, or if the given user account has been identified as spam by GitHub.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    static func usersCheckBlocked(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/user/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "usersCheckBlocked"
-        )).data
+    public static func usersCheckBlocked(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("GET", ["/user/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "usersCheckBlocked")).data
     }
 }

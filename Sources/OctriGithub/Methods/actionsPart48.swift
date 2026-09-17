@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists all artifacts for a repository. Anyone with read access to the repository can use this endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private
-    /// repository.
+extension ActionsMethods {
+    /// Lists all artifacts for a repository. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,31 +24,11 @@ public extension ActionsMethods {
     ///   -rest-api)."
     /// - name: The name field of an artifact. When specified, only artifacts with
     ///   this name will be returned.
-    static func actionsListArtifactsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?,
-        name: String?
-    ) async throws -> ActionsListArtifactsForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/artifacts",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("name", value: name),
-            ],
-            decoder: .json,
-            operationId: "actionsListArtifactsForRepo"
-        )).data
+    public static func actionsListArtifactsForRepo(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?, name: String?) async throws -> ActionsListArtifactsForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/artifacts"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("name", value: name),
+        ], decoder: .json, operationId: "actionsListArtifactsForRepo")).data
     }
 }

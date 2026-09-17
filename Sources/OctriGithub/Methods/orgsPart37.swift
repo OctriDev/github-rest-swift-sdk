@@ -6,14 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Invite people to an organization by using their GitHub user ID or their email address. In order to create
-    /// invitations in an organization, the authenticated user must be an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+extension OrgsMethods {
+    /// Invite people to an organization by using their GitHub user ID or their email address. In order to create invitations in an organization, the authenticated user must be an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -31,28 +25,9 @@ public extension OrgsMethods {
     ///   be one of the roles listed above. Only works if the invitee was previously
     ///   part of your organization.
     /// - teamIds: Specify IDs for the teams you want to invite new members to.
-    static func orgsCreateInvitation(
-        config: ClientConfig,
-        org: String,
-        inviteeId: Int?,
-        email: String?,
-        role: OrgsCreateInvitationRequestBodyRole?,
-        teamIds: [Int]?
-    ) async throws -> OrganizationInvitation {
-        let requestBody = OrgsCreateInvitationRequestBody(
-            inviteeId: inviteeId,
-            email: email,
-            role: role,
-            teamIds: teamIds
-        )
+    public static func orgsCreateInvitation(config: ClientConfig, org: String, inviteeId: Int?, email: String?, role: OrgsCreateInvitationRequestBodyRole?, teamIds: [Int]?) async throws -> OrganizationInvitation {
+        let requestBody = OrgsCreateInvitationRequestBody(inviteeId: inviteeId, email: email, role: role, teamIds: teamIds)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/invitations"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsCreateInvitation"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/invitations"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsCreateInvitation")).data
     }
 }

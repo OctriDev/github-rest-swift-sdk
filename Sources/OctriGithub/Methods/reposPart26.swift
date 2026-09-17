@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposUpdatePullRequestReviewProtectionOptions: Codable {
+extension ReposMethods {
+    public struct ReposUpdatePullRequestReviewProtectionOptions: Codable {
         public var owner: String
         public var repo: String
         public var branch: String
@@ -25,13 +25,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. Updating pull request review enforcement requires admin or owner permissions to the repository
-    /// and branch protection to be enabled. > [!NOTE] > Passing new arrays of `users` and `teams` replaces their
-    /// previous values.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Updating pull request review enforcement requires admin or owner permissions to the repository and branch protection to be enabled. > [!NOTE] > Passing new arrays of `users` and `teams` replaces their previous values.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -57,27 +51,9 @@ public extension ReposMethods {
     ///   someone other than the person who pushed it. Default: `false`
     /// - bypassPullRequestAllowances: Allow specific users, teams, or apps to
     ///   bypass pull request requirements.
-    static func reposUpdatePullRequestReviewProtection(
-        config: ClientConfig,
-        options: ReposUpdatePullRequestReviewProtectionOptions
-    ) async throws -> ProtectedBranchPullRequestReview {
+    public static func reposUpdatePullRequestReviewProtection(config: ClientConfig, options: ReposUpdatePullRequestReviewProtectionOptions) async throws -> ProtectedBranchPullRequestReview {
         let requestBody = ReposUpdatePullRequestReviewProtectionRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/branches/",
-                sdkEncodePathSegment(sdkWireString(options.branch)),
-                "/protection/required_pull_request_reviews",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposUpdatePullRequestReviewProtection"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/branches/", sdkEncodePathSegment(sdkWireString(options.branch)), "/protection/required_pull_request_reviews"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdatePullRequestReviewProtection")).data
     }
 }

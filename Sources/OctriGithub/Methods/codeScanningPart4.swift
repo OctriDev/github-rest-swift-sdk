@@ -6,41 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets whether AI Scan is enabled for a
-    /// repository. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this
-    /// endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public
-    /// repositories.
+extension CodeScanningMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets whether AI Scan is enabled for a repository. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func codeScanningGetAiScanEnablement(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> CodeScanningAiScanEnablement {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/ai-scan",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codeScanningGetAiScanEnablement"
-        )).data
+    public static func codeScanningGetAiScanEnablement(config: ClientConfig, owner: String, repo: String) async throws -> CodeScanningAiScanEnablement {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/ai-scan"].joined(), config: config, decoder: .json, operationId: "codeScanningGetAiScanEnablement")).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Updates whether AI Scan is enabled for
-    /// a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint
-    /// with private or public repositories, or the `public_repo` scope to use this endpoint with only public
-    /// repositories.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Updates whether AI Scan is enabled for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -48,27 +26,9 @@ public extension CodeScanningMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - prScan: Whether to enable or disable AI Scan for the repository.
-    static func codeScanningUpdateAiScanEnablement(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        prScan: CodeScanningAiScanEnablementUpdatePrScan?
-    ) async throws -> CodeScanningAiScanEnablement {
+    public static func codeScanningUpdateAiScanEnablement(config: ClientConfig, owner: String, repo: String, prScan: CodeScanningAiScanEnablementUpdatePrScan?) async throws -> CodeScanningAiScanEnablement {
         let requestBody = CodeScanningUpdateAiScanEnablementRequestBody(prScan: prScan)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/ai-scan",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeScanningUpdateAiScanEnablement"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/ai-scan"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningUpdateAiScanEnablement")).data
     }
 }

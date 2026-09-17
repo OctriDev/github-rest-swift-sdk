@@ -6,34 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
-    /// Bulk creates secret scanning custom patterns for an organization. Personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint.
+extension SecretScanningMethods {
+    /// Bulk creates secret scanning custom patterns for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - patterns: The list of custom patterns to create (maximum 100).
-    static func secretScanningBulkCreateOrgCustomPatterns(
-        config: ClientConfig,
-        org: String,
-        patterns: [SecretScanningCustomPatternToCreate]
-    ) async throws -> SecretScanningBulkCreateOrgCustomPatternsResponse {
+    public static func secretScanningBulkCreateOrgCustomPatterns(config: ClientConfig, org: String, patterns: [SecretScanningCustomPatternToCreate]) async throws -> SecretScanningBulkCreateOrgCustomPatternsResponse {
         try validateItems("patterns", patterns, max: 100)
 
         let requestBody = SecretScanningBulkCreateOrgCustomPatternsRequestBody(patterns: patterns)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/custom-patterns"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "secretScanningBulkCreateOrgCustomPatterns"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/custom-patterns"].joined(), config: config, body: requestBody, decoder: .json, operationId: "secretScanningBulkCreateOrgCustomPatterns")).data
     }
 
-    /// Bulk deletes secret scanning custom patterns for an organization. Personal access tokens (classic) need the
-    /// `write:org` scope to use this endpoint.
+    /// Bulk deletes secret scanning custom patterns for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -42,26 +29,11 @@ public extension SecretScanningMethods {
     ///   patterns. `delete_alerts` permanently removes the alerts. `resolve_alerts`
     ///   resolves the alerts as "pattern deleted". Defaults to `delete_alerts` when
     ///   not specified.
-    static func secretScanningBulkDeleteOrgCustomPatterns(
-        config: ClientConfig,
-        org: String,
-        patterns: [SecretScanningCustomPatternToDelete],
-        postDeleteAction: SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction?
-    ) async throws -> SdkEmptyResponse {
+    public static func secretScanningBulkDeleteOrgCustomPatterns(config: ClientConfig, org: String, patterns: [SecretScanningCustomPatternToDelete], postDeleteAction: SecretScanningBulkDeleteOrgCustomPatternsRequestBodyPostDeleteAction?) async throws -> SdkEmptyResponse {
         try validateItems("patterns", patterns, max: 500)
 
-        let requestBody = SecretScanningBulkDeleteOrgCustomPatternsRequestBody(
-            patterns: patterns,
-            postDeleteAction: postDeleteAction
-        )
+        let requestBody = SecretScanningBulkDeleteOrgCustomPatternsRequestBody(patterns: patterns, postDeleteAction: postDeleteAction)
 
-        return try await (sdkRequest(
-            "DELETE",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/custom-patterns"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "secretScanningBulkDeleteOrgCustomPatterns"
-        )).data
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/custom-patterns"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "secretScanningBulkDeleteOrgCustomPatterns")).data
     }
 }

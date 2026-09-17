@@ -9,17 +9,14 @@ import Foundation
 public struct ActionsGetActionsCacheListParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let createdAt = ActionsGetActionsCacheListParameter(rawValue: "created_at")
     public static let lastAccessedAt = ActionsGetActionsCacheListParameter(rawValue: "last_accessed_at")
     public static let sizeInBytes = ActionsGetActionsCacheListParameter(rawValue: "size_in_bytes")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,24 +25,19 @@ public struct ActionsGetActionsCacheListParameter: RawRepresentable, Hashable, C
     }
 }
 
-public struct ApiInsightsGetRouteStatsByActorParameter: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ApiInsightsGetRouteStatsByActorParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let installation = ApiInsightsGetRouteStatsByActorParameter(rawValue: "installation")
     public static let classicPat = ApiInsightsGetRouteStatsByActorParameter(rawValue: "classic_pat")
     public static let fineGrainedPat = ApiInsightsGetRouteStatsByActorParameter(rawValue: "fine_grained_pat")
     public static let oauthApp = ApiInsightsGetRouteStatsByActorParameter(rawValue: "oauth_app")
-    public static let githubAppUserToServer =
-        ApiInsightsGetRouteStatsByActorParameter(rawValue: "github_app_user_to_server")
+    public static let githubAppUserToServer = ApiInsightsGetRouteStatsByActorParameter(rawValue: "github_app_user_to_server")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,27 +46,20 @@ public struct ApiInsightsGetRouteStatsByActorParameter: RawRepresentable, Hashab
     }
 }
 
-public struct ApiInsightsGetRouteStatsByActorParameterItem: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ApiInsightsGetRouteStatsByActorParameterItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let lastRateLimitedTimestamp =
-        ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "last_rate_limited_timestamp")
-    public static let lastRequestTimestamp =
-        ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "last_request_timestamp")
-    public static let rateLimitedRequestCount =
-        ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "rate_limited_request_count")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let lastRateLimitedTimestamp = ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "last_rate_limited_timestamp")
+    public static let lastRequestTimestamp = ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "last_request_timestamp")
+    public static let rateLimitedRequestCount = ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "rate_limited_request_count")
     public static let httpMethod = ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "http_method")
     public static let apiRoute = ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "api_route")
     public static let totalRequestCount = ApiInsightsGetRouteStatsByActorParameterItem(rawValue: "total_request_count")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -83,25 +68,19 @@ public struct ApiInsightsGetRouteStatsByActorParameterItem: RawRepresentable, Ha
     }
 }
 
-public struct ApiInsightsGetSubjectStatsParameterItem: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ApiInsightsGetSubjectStatsParameterItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let lastRateLimitedTimestamp =
-        ApiInsightsGetSubjectStatsParameterItem(rawValue: "last_rate_limited_timestamp")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let lastRateLimitedTimestamp = ApiInsightsGetSubjectStatsParameterItem(rawValue: "last_rate_limited_timestamp")
     public static let lastRequestTimestamp = ApiInsightsGetSubjectStatsParameterItem(rawValue: "last_request_timestamp")
-    public static let rateLimitedRequestCount =
-        ApiInsightsGetSubjectStatsParameterItem(rawValue: "rate_limited_request_count")
+    public static let rateLimitedRequestCount = ApiInsightsGetSubjectStatsParameterItem(rawValue: "rate_limited_request_count")
     public static let subjectName = ApiInsightsGetSubjectStatsParameterItem(rawValue: "subject_name")
     public static let totalRequestCount = ApiInsightsGetSubjectStatsParameterItem(rawValue: "total_request_count")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -110,19 +89,15 @@ public struct ApiInsightsGetSubjectStatsParameterItem: RawRepresentable, Hashabl
     }
 }
 
-public struct DependabotListAlertsForEnterpriseParameterVariant1Item: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotListAlertsForEnterpriseParameterVariant1Item: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let patch = DependabotListAlertsForEnterpriseParameterVariant1Item(rawValue: "patch")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -131,20 +106,16 @@ public struct DependabotListAlertsForEnterpriseParameterVariant1Item: RawReprese
     }
 }
 
-public struct DependabotListAlertsForOrgParameterVariant1Item: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotListAlertsForOrgParameterVariant1Item: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let patch = DependabotListAlertsForOrgParameterVariant1Item(rawValue: "patch")
     public static let deployment = DependabotListAlertsForOrgParameterVariant1Item(rawValue: "deployment")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -153,20 +124,16 @@ public struct DependabotListAlertsForOrgParameterVariant1Item: RawRepresentable,
     }
 }
 
-public struct DependabotListAlertsForEnterpriseParameterX3077b454: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotListAlertsForEnterpriseParameterX3077b454: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let development = DependabotListAlertsForEnterpriseParameterX3077b454(rawValue: "development")
     public static let runtime = DependabotListAlertsForEnterpriseParameterX3077b454(rawValue: "runtime")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -175,21 +142,17 @@ public struct DependabotListAlertsForEnterpriseParameterX3077b454: RawRepresenta
     }
 }
 
-public struct DependabotListAlertsForEnterpriseParameterXfc4ff8f9: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotListAlertsForEnterpriseParameterXfc4ff8f9: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let created = DependabotListAlertsForEnterpriseParameterXfc4ff8f9(rawValue: "created")
     public static let updated = DependabotListAlertsForEnterpriseParameterXfc4ff8f9(rawValue: "updated")
     public static let epssPercentage = DependabotListAlertsForEnterpriseParameterXfc4ff8f9(rawValue: "epss_percentage")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -201,17 +164,14 @@ public struct DependabotListAlertsForEnterpriseParameterXfc4ff8f9: RawRepresenta
 public struct ReposGetOrgRuleSuitesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = ReposGetOrgRuleSuitesParameter(rawValue: "all")
     public static let active = ReposGetOrgRuleSuitesParameter(rawValue: "active")
     public static let evaluate = ReposGetOrgRuleSuitesParameter(rawValue: "evaluate")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -220,20 +180,16 @@ public struct ReposGetOrgRuleSuitesParameter: RawRepresentable, Hashable, Codabl
     }
 }
 
-public struct OrgsEnableOrDisableSecurityProductOnAllOrgReposParameter: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct OrgsEnableOrDisableSecurityProductOnAllOrgReposParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enableAll = OrgsEnableOrDisableSecurityProductOnAllOrgReposParameter(rawValue: "enable_all")
     public static let disableAll = OrgsEnableOrDisableSecurityProductOnAllOrgReposParameter(rawValue: "disable_all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

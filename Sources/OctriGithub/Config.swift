@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-let piiKeys: Set<String> = [
+internal let piiKeys: Set<String> = [
     "authorization",
     "cookie",
     "set_cookie",
@@ -78,14 +78,14 @@ let piiKeys: Set<String> = [
     "request_body",
     "requestbody",
 ]
-let piiRedactionMarker = "[REDACTED]"
+internal let piiRedactionMarker = "[REDACTED]"
 
-func normalizePiiKey(_ key: String) -> String {
+internal func normalizePiiKey(_ key: String) -> String {
     key.lowercased().replacingOccurrences(of: "-", with: "_").replacingOccurrences(of: " ", with: "_")
 }
 
 /// Recursively redacts common credential and direct-identifier fields.
-func sanitizeTelemetry(_ value: Any, enabled: Bool) -> Any {
+internal func sanitizeTelemetry(_ value: Any, enabled: Bool) -> Any {
     guard enabled else { return value }
     if let dictionary = value as? [String: Any] {
         var output: [String: Any] = [:]
@@ -157,19 +157,24 @@ public struct ClientAuthConfig {
     /// Bearer token selected in SDK Studio.
     public var bearer: String?
 
+
     /// Additional headers that will be applied to requests made by the SDK.
     public var headers: [String: String]?
 
     public init(
         bearer: String? = nil,
 
+
         headers: [String: String]? = nil
     ) {
         self.bearer = bearer
 
+
         self.headers = headers
     }
 }
+
+
 
 /// Governs automatic retry behaviour.
 public struct RetryConfig {
@@ -218,16 +223,7 @@ public struct SdkRequest {
     public var attempt: Int
     public var meta: [String: Any]
 
-    public init(
-        method: String,
-        url: String,
-        headers: [String: String] = [:],
-        body: Data? = nil,
-        contentType: String = "application/json",
-        operationId: String = "",
-        attempt: Int = 1,
-        meta: [String: Any] = [:]
-    ) {
+    public init(method: String, url: String, headers: [String: String] = [:], body: Data? = nil, contentType: String = "application/json", operationId: String = "", attempt: Int = 1, meta: [String: Any] = [:]) {
         self.method = method
         self.url = url
         self.headers = headers
@@ -253,8 +249,7 @@ public struct SdkRawResponse {
 /// User-supplied request interceptor. Runs once per HTTP attempt — retries
 /// pass through the chain N times. Compose logging, tracing, caching, etc.
 /// without forking the generator.
-public typealias Middleware = (SdkRequest, @escaping (SdkRequest) async throws -> SdkRawResponse) async throws
-    -> SdkRawResponse
+public typealias Middleware = (SdkRequest, @escaping (SdkRequest) async throws -> SdkRawResponse) async throws -> SdkRawResponse
 
 public struct ClientConfig {
     /// Optional base URL for all generated SDK methods.
@@ -298,9 +293,9 @@ public struct ClientConfig {
 
 // MARK: - Client Configuration
 
-/// `logging` is seeded (not left nil) so the baked reporting endpoint is present
-/// from the start — it stays inert because `enabled` is false until the consumer
-/// opts in. `timeout` carries the SDK Studio reliability default.
+// `logging` is seeded (not left nil) so the baked reporting endpoint is present
+// from the start — it stays inert because `enabled` is false until the consumer
+// opts in. `timeout` carries the SDK Studio reliability default.
 private var _clientConfig = ClientConfig(
     baseUrl: "https://api.github.com",
     logging: LoggingConfig(),
@@ -311,37 +306,21 @@ private var _clientConfig = ClientConfig(
 public func configureClient(_ config: ClientConfig? = nil) -> ClientConfig {
     var merged = _clientConfig
     if let overrides = config {
-        if let baseUrl = overrides.baseUrl {
-            merged.baseUrl = baseUrl
-        }
-        if let auth = overrides.auth {
-            merged.auth = auth
-        }
-        if let logging = overrides.logging {
-            merged.logging = logging
-        }
-        if let retry = overrides.retry {
-            merged.retry = retry
-        }
-        if let idempotency = overrides.idempotency {
-            merged.idempotency = idempotency
-        }
-        if let timeout = overrides.timeout {
-            merged.timeout = timeout
-        }
-        if let onResponse = overrides.onResponse {
-            merged.onResponse = onResponse
-        }
-        if !overrides.middleware.isEmpty {
-            merged.middleware = overrides.middleware
-        }
+        if let baseUrl = overrides.baseUrl { merged.baseUrl = baseUrl }
+        if let auth = overrides.auth { merged.auth = auth }
+        if let logging = overrides.logging { merged.logging = logging }
+        if let retry = overrides.retry { merged.retry = retry }
+        if let idempotency = overrides.idempotency { merged.idempotency = idempotency }
+        if let timeout = overrides.timeout { merged.timeout = timeout }
+        if let onResponse = overrides.onResponse { merged.onResponse = onResponse }
+        if !overrides.middleware.isEmpty { merged.middleware = overrides.middleware }
     }
     _clientConfig = merged
     return _clientConfig
 }
 
 public func getClientConfig() -> ClientConfig {
-    _clientConfig
+    return _clientConfig
 }
 
 /// Turns SDK logging on and configures it in one call.
@@ -358,24 +337,12 @@ public func getClientConfig() -> ClientConfig {
 public func setLoggingConfig(_ config: LoggingConfig? = nil) -> LoggingConfig {
     var current = _clientConfig.logging ?? LoggingConfig()
     if let overrides = config {
-        if let endpoint = overrides.endpoint {
-            current.endpoint = endpoint
-        }
-        if let apiKey = overrides.apiKey {
-            current.apiKey = apiKey
-        }
-        if let environment = overrides.environment {
-            current.environment = environment
-        }
-        if let release = overrides.release {
-            current.release = release
-        }
-        if let user = overrides.user {
-            current.user = user
-        }
-        if let tags = overrides.tags {
-            current.tags = tags
-        }
+        if let endpoint = overrides.endpoint { current.endpoint = endpoint }
+        if let apiKey = overrides.apiKey { current.apiKey = apiKey }
+        if let environment = overrides.environment { current.environment = environment }
+        if let release = overrides.release { current.release = release }
+        if let user = overrides.user { current.user = user }
+        if let tags = overrides.tags { current.tags = tags }
         current.filterPii = overrides.filterPii
     }
     // Opting in IS the point of this call, so `enabled` flips to true unless the

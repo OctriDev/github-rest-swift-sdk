@@ -6,33 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
-    /// To delete a team, the authenticated user must be an organization owner or team maintainer. If you are an
-    /// organization owner, deleting a parent team will delete all of its child teams as well. > [!NOTE] > You can also
-    /// specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}`.
+extension TeamsMethods {
+    /// To delete a team, the authenticated user must be an organization owner or team maintainer. If you are an organization owner, deleting a parent team will delete all of its child teams as well. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - teamSlug: The slug of the team name.
-    static func teamsDeleteInOrg(config: ClientConfig, org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamSlug)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "teamsDeleteInOrg"
-        )).data
+    public static func teamsDeleteInOrg(config: ClientConfig, org: String, teamSlug: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug))].joined(), config: config, decoder: .empty, operationId: "teamsDeleteInOrg")).data
     }
 
-    /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the
-    /// following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee
-    /// is not a GitHub member, the `login` field in the return hash will be `null`. > [!NOTE] > You can also specify a
-    /// team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`.
+    /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -45,29 +29,10 @@ public extension TeamsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func teamsListPendingInvitationsInOrg(
-        config: ClientConfig,
-        org: String,
-        teamSlug: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [OrganizationInvitation] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamSlug)),
-                "/invitations",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "teamsListPendingInvitationsInOrg"
-        )).data
+    public static func teamsListPendingInvitationsInOrg(config: ClientConfig, org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug)), "/invitations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "teamsListPendingInvitationsInOrg")).data
     }
 }

@@ -6,8 +6,7 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testCopilotCopilotOrganizationOneDayUsageMetricsCopilotCopilotOrgX36a09070b3ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotOrganizationOneDayUsageMetricsCopilotCopilotOrgX36a09070b3ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -27,8 +26,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotOrganizationReposOneDayReportCopilotCopilotOrgaX0dc038c725ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotOrganizationReposOneDayReportCopilotCopilotOrgaX0dc038c725ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -48,8 +46,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotOrganizationUsageMetricsCopilotCopilotOrganizatXaf67c63d39ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotOrganizationUsageMetricsCopilotCopilotOrganizatXaf67c63d39ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -68,8 +65,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotOrganizationUsersOneDayUsageMetricsCopilotCopilXd3eafb36cbReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotOrganizationUsersOneDayUsageMetricsCopilotCopilXd3eafb36cbReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -89,8 +85,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotOrganizationUsersUsageMetricsCopilotCopilotOrgaX6b07095c47ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotOrganizationUsersUsageMetricsCopilotCopilotOrgaX6b07095c47ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -109,8 +104,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotOrganizationUserTeamsOneDayReportCopilotCopilotX5f469b8c78ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotOrganizationUserTeamsOneDayReportCopilotCopilotX5f469b8c78ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -130,8 +124,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotCopilotUsersOneDayUsageMetricsCopilotCopilotUsersOneDaX7dc102f448ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotCopilotUsersOneDayUsageMetricsCopilotCopilotUsersOneDaX7dc102f448ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -170,8 +163,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotDisableCopilotCodingAgentForRepositoryInOrganizationCoXb4810ae9e0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotDisableCopilotCodingAgentForRepositoryInOrganizationCoXb4810ae9e0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -183,8 +175,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotEnableCopilotCodingAgentForRepositoryInOrganizationCopX3822d907b3ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotEnableCopilotCodingAgentForRepositoryInOrganizationCopX3822d907b3ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -196,8 +187,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotGetCopilotCloudAgentConfigurationCopilotGetCopilotClouX65cc656a1bReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotGetCopilotCloudAgentConfigurationCopilotGetCopilotClouX65cc656a1bReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -217,8 +207,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotGetCopilotCodingAgentPermissionsOrganizationCopilotGetXa27faac2a0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotGetCopilotCodingAgentPermissionsOrganizationCopilotGetXa27faac2a0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -237,8 +226,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotGetCopilotOrganizationDetailsCopilotGetCopilotOrganizationDetailsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotGetCopilotOrganizationDetailsCopilotGetCopilotOrganizationDetailsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -257,8 +245,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotGetCopilotSeatDetailsForUserCopilotGetCopilotSeatDetailsForUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotGetCopilotSeatDetailsForUserCopilotGetCopilotSeatDetailsForUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -278,8 +265,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotListCopilotCodingAgentSelectedRepositoriesForOrganizatX057dbf9ee2ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotListCopilotCodingAgentSelectedRepositoriesForOrganizatX057dbf9ee2ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -321,8 +307,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyCopiXa04dfe662bReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotRemoveOrganizationsFromEnterpriseCodingAgentPolicyCopiXa04dfe662bReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -335,8 +320,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSetCopilotCodingAgentPermissionsOrganizationCopilotSetX966dc204bfReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSetCopilotCodingAgentPermissionsOrganizationCopilotSetX966dc204bfReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -348,8 +332,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizatiXb541f9b78eReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizatiXb541f9b78eReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -361,8 +344,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSetCopilotContentExclusionForOrganizationCopilotSetCopX3d11fe74e0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSetCopilotContentExclusionForOrganizationCopilotSetCopX3d11fe74e0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -382,8 +364,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSetEnterpriseCodingAgentPolicyCopilotSetEnterpriseCodiX2698d7ef6eReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSetEnterpriseCodingAgentPolicyCopilotSetEnterpriseCodiX2698d7ef6eReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -395,8 +376,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSpacesAddCollaboratorForOrgCopilotSpacesAddCollaboratorForOrgReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSpacesAddCollaboratorForOrgCopilotSpacesAddCollaboratorForOrgReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -419,8 +399,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesAddCollaboratorForUserCopilotSpacesAddCollaboratorForUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSpacesAddCollaboratorForUserCopilotSpacesAddCollaboratorForUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -491,8 +470,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesCreateResourceForOrgCopilotSpacesCreateResourceForOrgReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCopilotSpacesCreateResourceForOrgCopilotSpacesCreateResourceForOrgReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

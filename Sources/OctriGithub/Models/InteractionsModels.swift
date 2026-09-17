@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Interactions domain models
+// Interactions domain models
 /// Limit interactions to a specific type of user for a specified duration
 public struct InteractionLimit: Codable {
     /// The type of GitHub user that can comment, open issues, or create pull requests while the interaction limit
@@ -19,28 +19,22 @@ public struct InteractionLimit: Codable {
         case expiry
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension InteractionLimit {
-    init(from decoder: Decoder) throws {
+extension InteractionLimit {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.limit) else {
-            throw SdkValidationError(
-                field: "limit",
-                code: "required",
-                message: "Validation failed for 'limit': value is required"
-            )
+            throw SdkValidationError(field: "limit", code: "required", message: "Validation failed for 'limit': value is required")
         }
-        limit = try container.sdkDecodeRequired(.limit)
-        expiry = try container.sdkDecodeIfPresent(.expiry)
+        self.limit = try container.sdkDecodeRequired(.limit)
+        self.expiry = try container.sdkDecodeIfPresent(.expiry)
     }
 }
 
-public extension InteractionLimit {
-    init(limit: InteractionGroup, expiry: InteractionExpiry? = nil) {
+extension InteractionLimit {
+    public init(limit: InteractionGroup, expiry: InteractionExpiry? = nil) {
         (self.limit, self.expiry) = (limit, expiry)
     }
 }
@@ -55,27 +49,21 @@ public struct InteractionLimitPullRequestBypassList: Codable {
         case users
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension InteractionLimitPullRequestBypassList {
-    init(from decoder: Decoder) throws {
+extension InteractionLimitPullRequestBypassList {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.users) else {
-            throw SdkValidationError(
-                field: "users",
-                code: "required",
-                message: "Validation failed for 'users': value is required"
-            )
+            throw SdkValidationError(field: "users", code: "required", message: "Validation failed for 'users': value is required")
         }
-        users = try container.sdkDecodeRequired(.users)
+        self.users = try container.sdkDecodeRequired(.users)
     }
 }
 
-public extension InteractionLimitPullRequestBypassList {
-    init(users: [String]) {
+extension InteractionLimitPullRequestBypassList {
+    public init(users: [String]) {
         self.users = users
     }
 }
@@ -99,47 +87,33 @@ public struct InteractionLimitResponse: Codable {
         case expiresAt = "expires_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension InteractionLimitResponse {
-    init(from decoder: Decoder) throws {
+extension InteractionLimitResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.limit) else {
-            throw SdkValidationError(
-                field: "limit",
-                code: "required",
-                message: "Validation failed for 'limit': value is required"
-            )
+            throw SdkValidationError(field: "limit", code: "required", message: "Validation failed for 'limit': value is required")
         }
         guard container.contains(.origin) else {
-            throw SdkValidationError(
-                field: "origin",
-                code: "required",
-                message: "Validation failed for 'origin': value is required"
-            )
+            throw SdkValidationError(field: "origin", code: "required", message: "Validation failed for 'origin': value is required")
         }
         guard container.contains(.expiresAt) else {
-            throw SdkValidationError(
-                field: "expires_at",
-                code: "required",
-                message: "Validation failed for 'expires_at': value is required"
-            )
+            throw SdkValidationError(field: "expires_at", code: "required", message: "Validation failed for 'expires_at': value is required")
         }
-        limit = try container.sdkDecodeRequired(.limit)
-        origin = try container.sdkDecodeRequired(.origin)
-        expiresAt = try container.sdkDecodeRequired(.expiresAt)
-        try sdkValidateDateTime("expires_at", sdkWireString(expiresAt))
+        self.limit = try container.sdkDecodeRequired(.limit)
+        self.origin = try container.sdkDecodeRequired(.origin)
+        self.expiresAt = try container.sdkDecodeRequired(.expiresAt)
+            try sdkValidateDateTime("expires_at", sdkWireString(self.expiresAt))
     }
 }
 
-public extension InteractionLimitResponse {
-    init(limit: InteractionGroup, origin: String, expiresAt: Date) throws {
+extension InteractionLimitResponse {
+    public init(limit: InteractionGroup, origin: String, expiresAt: Date) throws {
         (self.limit, self.origin) = (limit, origin)
         self.expiresAt = expiresAt
-        try sdkValidateDateTime("expires_at", sdkWireString(self.expiresAt))
+            try sdkValidateDateTime("expires_at", sdkWireString(self.expiresAt))
     }
 }
 
@@ -148,17 +122,14 @@ public extension InteractionLimitResponse {
 public struct InteractionGroup: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let existingUsers = InteractionGroup(rawValue: "existing_users")
     public static let contributorsOnly = InteractionGroup(rawValue: "contributors_only")
     public static let collaboratorsOnly = InteractionGroup(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -171,10 +142,7 @@ public struct InteractionGroup: RawRepresentable, Hashable, Codable, Sendable, S
 public struct InteractionExpiry: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let oneDay = InteractionExpiry(rawValue: "one_day")
     public static let threeDays = InteractionExpiry(rawValue: "three_days")
     public static let oneWeek = InteractionExpiry(rawValue: "one_week")
@@ -183,7 +151,7 @@ public struct InteractionExpiry: RawRepresentable, Hashable, Codable, Sendable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

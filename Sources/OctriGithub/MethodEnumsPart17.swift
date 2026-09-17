@@ -8,21 +8,17 @@ import Foundation
 #endif
 /// Which type of organization repositories have access to the organization secret. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the secret.
-public struct AgentsCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentsCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = AgentsCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "all")
     public static let `private` = AgentsCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "private")
     public static let selected = AgentsCreateOrUpdateOrgSecretRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,21 +29,17 @@ public struct AgentsCreateOrUpdateOrgSecretRequestBodyVisibility: RawRepresentab
 
 /// The type of repositories in the organization that can access the variable. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the variable.
-public struct AgentsCreateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentsCreateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = AgentsCreateOrgVariableRequestBodyVisibility(rawValue: "all")
     public static let `private` = AgentsCreateOrgVariableRequestBodyVisibility(rawValue: "private")
     public static let selected = AgentsCreateOrgVariableRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -58,21 +50,17 @@ public struct AgentsCreateOrgVariableRequestBodyVisibility: RawRepresentable, Ha
 
 /// The type of repositories in the organization that can access the variable. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the variable.
-public struct AgentsUpdateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct AgentsUpdateOrgVariableRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = AgentsUpdateOrgVariableRequestBodyVisibility(rawValue: "all")
     public static let `private` = AgentsUpdateOrgVariableRequestBodyVisibility(rawValue: "private")
     public static let selected = AgentsUpdateOrgVariableRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -81,26 +69,18 @@ public struct AgentsUpdateOrgVariableRequestBodyVisibility: RawRepresentable, Ha
     }
 }
 
-public struct OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let criticalResource =
-        OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "critical-resource")
-    public static let internetExposed =
-        OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "internet-exposed")
-    public static let lateralMovement =
-        OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "lateral-movement")
-    public static let sensitiveData =
-        OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "sensitive-data")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let criticalResource = OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "critical-resource")
+    public static let internetExposed = OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "internet-exposed")
+    public static let lateralMovement = OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "lateral-movement")
+    public static let sensitiveData = OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem(rawValue: "sensitive-data")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -110,20 +90,16 @@ public struct OrgsCreateArtifactDeploymentRecordRequestBodyRuntimeRisksItem: Raw
 }
 
 /// The status of the artifact. Can be either deployed or decommissioned.
-public struct OrgsCreateArtifactDeploymentRecordRequestBodyStatus: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct OrgsCreateArtifactDeploymentRecordRequestBodyStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let deployed = OrgsCreateArtifactDeploymentRecordRequestBodyStatus(rawValue: "deployed")
     public static let decommissioned = OrgsCreateArtifactDeploymentRecordRequestBodyStatus(rawValue: "decommissioned")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,26 +108,18 @@ public struct OrgsCreateArtifactDeploymentRecordRequestBodyStatus: RawRepresenta
     }
 }
 
-public struct OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let criticalResource =
-        OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "critical-resource")
-    public static let internetExposed =
-        OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "internet-exposed")
-    public static let lateralMovement =
-        OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "lateral-movement")
-    public static let sensitiveData =
-        OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "sensitive-data")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let criticalResource = OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "critical-resource")
+    public static let internetExposed = OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "internet-exposed")
+    public static let lateralMovement = OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "lateral-movement")
+    public static let sensitiveData = OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b427d92(rawValue: "sensitive-data")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -161,21 +129,16 @@ public struct OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemRuntXd81b
 }
 
 /// The deployment status of the artifact.
-public struct OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemStatus: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let deployed = OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemStatus(rawValue: "deployed")
-    public static let decommissioned =
-        OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemStatus(rawValue: "decommissioned")
+    public static let decommissioned = OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemStatus(rawValue: "decommissioned")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -185,20 +148,16 @@ public struct OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItemStatus: R
 }
 
 /// The reason the deployment failed processing.
-public struct OrgsSetClusterDeploymentRecordsResponseErrorsItemCause: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct OrgsSetClusterDeploymentRecordsResponseErrorsItemCause: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let unauthorized = OrgsSetClusterDeploymentRecordsResponseErrorsItemCause(rawValue: "unauthorized")
     public static let notFound = OrgsSetClusterDeploymentRecordsResponseErrorsItemCause(rawValue: "not_found")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -207,26 +166,18 @@ public struct OrgsSetClusterDeploymentRecordsResponseErrorsItemCause: RawReprese
     }
 }
 
-public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let criticalResource =
-        OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "critical-resource")
-    public static let internetExposed =
-        OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "internet-exposed")
-    public static let lateralMovement =
-        OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "lateral-movement")
-    public static let sensitiveData =
-        OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "sensitive-data")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let criticalResource = OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "critical-resource")
+    public static let internetExposed = OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "internet-exposed")
+    public static let lateralMovement = OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "lateral-movement")
+    public static let sensitiveData = OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1(rawValue: "sensitive-data")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -236,23 +187,16 @@ public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d3
 }
 
 /// The deployment status of the artifact.
-public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus: RawRepresentable, Hashable,
-    Codable,
-    Sendable, SdkWireConvertible {
+public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let deployed =
-        OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus(rawValue: "deployed")
-    public static let decommissioned =
-        OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus(rawValue: "decommissioned")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let deployed = OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus(rawValue: "deployed")
+    public static let decommissioned = OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus(rawValue: "decommissioned")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

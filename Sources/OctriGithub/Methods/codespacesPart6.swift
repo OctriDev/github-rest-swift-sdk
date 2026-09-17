@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    /// Creates or updates an organization development environment secret with an encrypted value. Encrypt your secret
-    /// using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal
-    /// access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension CodespacesMethods {
+    /// Creates or updates an organization development environment secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -37,38 +33,13 @@ public extension CodespacesMethods {
     ///   repository from an organization
     ///   secret](https://docs.github.com/rest/codespaces/organization-secrets#remove-
     ///   selected-repository-from-an-organization-secret) endpoints.
-    static func codespacesCreateOrUpdateOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String,
-        visibility: CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility,
-        encryptedValue: String?,
-        keyId: String?,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> EmptyObject {
-        if let encryptedValue {
+    public static func codespacesCreateOrUpdateOrgSecret(config: ClientConfig, org: String, secretName: String, visibility: CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility, encryptedValue: String?, keyId: String?, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
+        if let encryptedValue = encryptedValue {
             try sdkValidatePattern("encrypted_value", encryptedValue, sdkPattern21db07621cc5)
         }
 
-        let requestBody = CodespacesCreateOrUpdateOrgSecretRequestBody(
-            visibility: visibility,
-            encryptedValue: encryptedValue,
-            keyId: keyId,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+        let requestBody = CodespacesCreateOrUpdateOrgSecretRequestBody(visibility: visibility, encryptedValue: encryptedValue, keyId: keyId, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/codespaces/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codespacesCreateOrUpdateOrgSecret"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "codespacesCreateOrUpdateOrgSecret")).data
     }
 }

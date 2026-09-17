@@ -9,16 +9,13 @@ import Foundation
 public struct ChecksCreateRequestBodyVariant1Status: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = ChecksCreateRequestBodyVariant1Status(rawValue: "queued")
     public static let inProgress = ChecksCreateRequestBodyVariant1Status(rawValue: "in_progress")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,10 +30,7 @@ public struct ChecksCreateRequestBodyVariant1Status: RawRepresentable, Hashable,
 public struct ChecksCreateRequestBodyConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let actionRequired = ChecksCreateRequestBodyConclusion(rawValue: "action_required")
     public static let cancelled = ChecksCreateRequestBodyConclusion(rawValue: "cancelled")
     public static let failure = ChecksCreateRequestBodyConclusion(rawValue: "failure")
@@ -48,7 +42,7 @@ public struct ChecksCreateRequestBodyConclusion: RawRepresentable, Hashable, Cod
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -58,22 +52,17 @@ public struct ChecksCreateRequestBodyConclusion: RawRepresentable, Hashable, Cod
 }
 
 /// The level of the annotation.
-public struct ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel: RawRepresentable, Hashable, Codable,
-    Sendable,
-    SdkWireConvertible {
+public struct ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let notice = ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel(rawValue: "notice")
     public static let warning = ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel(rawValue: "warning")
     public static let failure = ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel(rawValue: "failure")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -87,10 +76,7 @@ public struct ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel: RawRe
 public struct ChecksCreateRequestBodyStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = ChecksCreateRequestBodyStatus(rawValue: "queued")
     public static let inProgress = ChecksCreateRequestBodyStatus(rawValue: "in_progress")
     public static let completed = ChecksCreateRequestBodyStatus(rawValue: "completed")
@@ -100,7 +86,7 @@ public struct ChecksCreateRequestBodyStatus: RawRepresentable, Hashable, Codable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -112,15 +98,12 @@ public struct ChecksCreateRequestBodyStatus: RawRepresentable, Hashable, Codable
 public struct ChecksUpdateRequestBodyVariant0Status: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let completed = ChecksUpdateRequestBodyVariant0Status(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,16 +115,13 @@ public struct ChecksUpdateRequestBodyVariant0Status: RawRepresentable, Hashable,
 public struct ChecksUpdateRequestBodyVariant1Status: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = ChecksUpdateRequestBodyVariant1Status(rawValue: "queued")
     public static let inProgress = ChecksUpdateRequestBodyVariant1Status(rawValue: "in_progress")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -156,10 +136,7 @@ public struct ChecksUpdateRequestBodyVariant1Status: RawRepresentable, Hashable,
 public struct ChecksUpdateRequestBodyConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let actionRequired = ChecksUpdateRequestBodyConclusion(rawValue: "action_required")
     public static let cancelled = ChecksUpdateRequestBodyConclusion(rawValue: "cancelled")
     public static let failure = ChecksUpdateRequestBodyConclusion(rawValue: "failure")
@@ -171,7 +148,7 @@ public struct ChecksUpdateRequestBodyConclusion: RawRepresentable, Hashable, Cod
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -181,22 +158,17 @@ public struct ChecksUpdateRequestBodyConclusion: RawRepresentable, Hashable, Cod
 }
 
 /// The level of the annotation.
-public struct ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel: RawRepresentable, Hashable, Codable,
-    Sendable,
-    SdkWireConvertible {
+public struct ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let notice = ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel(rawValue: "notice")
     public static let warning = ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel(rawValue: "warning")
     public static let failure = ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel(rawValue: "failure")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -210,10 +182,7 @@ public struct ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel: RawRe
 public struct ChecksUpdateRequestBodyStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = ChecksUpdateRequestBodyStatus(rawValue: "queued")
     public static let inProgress = ChecksUpdateRequestBodyStatus(rawValue: "in_progress")
     public static let completed = ChecksUpdateRequestBodyStatus(rawValue: "completed")
@@ -223,7 +192,7 @@ public struct ChecksUpdateRequestBodyStatus: RawRepresentable, Hashable, Codable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

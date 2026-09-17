@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookSecretScanningAlertLocationCreatedFormEncoded domain models
+// WebhookSecretScanningAlertLocationCreatedFormEncoded domain models
 /// Typed representation of the `WebhookSecretScanningAlertLocationCreatedFormEncoded` API schema.
 public struct WebhookSecretScanningAlertLocationCreatedFormEncoded: Codable {
     /// A URL-encoded string of the secret_scanning_alert_location.created JSON payload. The decoded payload is a
@@ -14,27 +14,21 @@ public struct WebhookSecretScanningAlertLocationCreatedFormEncoded: Codable {
         case payload
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookSecretScanningAlertLocationCreatedFormEncoded {
-    init(from decoder: Decoder) throws {
+extension WebhookSecretScanningAlertLocationCreatedFormEncoded {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.payload) else {
-            throw SdkValidationError(
-                field: "payload",
-                code: "required",
-                message: "Validation failed for 'payload': value is required"
-            )
+            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
         }
-        payload = try container.sdkDecodeRequired(.payload)
+        self.payload = try container.sdkDecodeRequired(.payload)
     }
 }
 
-public extension WebhookSecretScanningAlertLocationCreatedFormEncoded {
-    init(payload: String) {
+extension WebhookSecretScanningAlertLocationCreatedFormEncoded {
+    public init(payload: String) {
         self.payload = payload
     }
 }

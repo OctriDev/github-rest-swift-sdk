@@ -6,47 +6,28 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ClassroomMethods {
-    /// Retrieves a classroom assignment by its unique identifier. This operation is closing down and will be removed on
-    /// August 28, 2026.
+extension ClassroomMethods {
+    /// Retrieves a classroom assignment by its unique identifier. This operation is closing down and will be removed on August 28, 2026.
     ///
-    /// > [!WARNING] > **Closed notice:** This operation is no longer available as of August 28, 2026. > For more
-    /// information, see the [GitHub Classroom sunset notice](https://gh.io/classroom-sunset).
+    /// > [!WARNING] > **Closed notice:** This operation is no longer available as of August 28, 2026. > For more information, see the [GitHub Classroom sunset notice](https://gh.io/classroom-sunset).
     ///
     /// - Parameters:
     /// - assignmentId: The unique identifier of the classroom assignment.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func classroomGetAnAssignment(config: ClientConfig, assignmentId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/assignments/", sdkEncodePathSegment(sdkWireString(assignmentId))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "classroomGetAnAssignment"
-        )).data
+    public static func classroomGetAnAssignment(config: ClientConfig, assignmentId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("GET", ["/assignments/", sdkEncodePathSegment(sdkWireString(assignmentId))].joined(), config: config, decoder: .empty, operationId: "classroomGetAnAssignment")).data
     }
 
-    /// Lists the accepted assignments associated with a classroom assignment. This operation is closing down and will
-    /// be removed on August 28, 2026.
+    /// Lists the accepted assignments associated with a classroom assignment. This operation is closing down and will be removed on August 28, 2026.
     ///
-    /// > [!WARNING] > **Closed notice:** This operation is no longer available as of August 28, 2026. > For more
-    /// information, see the [GitHub Classroom sunset notice](https://gh.io/classroom-sunset).
+    /// > [!WARNING] > **Closed notice:** This operation is no longer available as of August 28, 2026. > For more information, see the [GitHub Classroom sunset notice](https://gh.io/classroom-sunset).
     ///
     /// - Parameters:
     /// - assignmentId: The unique identifier of the classroom assignment.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func classroomListAcceptedAssignmentsForAnAssignment(
-        config: ClientConfig,
-        assignmentId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/assignments/", sdkEncodePathSegment(sdkWireString(assignmentId)), "/accepted_assignments"].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "classroomListAcceptedAssignmentsForAnAssignment"
-        )).data
+    public static func classroomListAcceptedAssignmentsForAnAssignment(config: ClientConfig, assignmentId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("GET", ["/assignments/", sdkEncodePathSegment(sdkWireString(assignmentId)), "/accepted_assignments"].joined(), config: config, decoder: .empty, operationId: "classroomListAcceptedAssignmentsForAnAssignment")).data
     }
 }

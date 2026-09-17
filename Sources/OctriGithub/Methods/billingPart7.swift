@@ -6,35 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension BillingMethods {
-    /// Deletes a budget by ID for an organization. The authenticated user must be an organization admin or billing
-    /// manager.
+extension BillingMethods {
+    /// Deletes a budget by ID for an organization. The authenticated user must be an organization admin or billing manager.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - budgetId: The ID corresponding to the budget.
-    static func billingDeleteBudgetOrg(
-        config: ClientConfig,
-        org: String,
-        budgetId: String
-    ) async throws -> DeleteBudget {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/organizations/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/settings/billing/budgets/",
-                sdkEncodePathSegment(sdkWireString(budgetId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "billingDeleteBudgetOrg"
-        )).data
+    public static func billingDeleteBudgetOrg(config: ClientConfig, org: String, budgetId: String) async throws -> DeleteBudget {
+        return try (await sdkRequest("DELETE", ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/budgets/", sdkEncodePathSegment(sdkWireString(budgetId))].joined(), config: config, decoder: .json, operationId: "billingDeleteBudgetOrg")).data
     }
 
-    /// Gets a report of premium request usage for an organization. To use this endpoint, you must be an administrator
-    /// of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months
-    /// is accessible via this endpoint.
+    /// Gets a report of premium request usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -51,31 +33,14 @@ public extension BillingMethods {
     /// - model: The model name to query usage for. The name is not case sensitive.
     /// - product: The product name to query usage for. The name is not case
     ///   sensitive.
-    static func billingGetGithubBillingPremiumRequestUsageReportOrg(
-        config: ClientConfig,
-        org: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        user: String?,
-        model: String?,
-        product: String?
-    ) async throws -> BillingPremiumRequestUsageReportOrg {
-        try await (sdkRequest(
-            "GET",
-            ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/premium_request/usage"]
-                .joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("year", value: year),
-                SdkQueryParameter("month", value: month),
-                SdkQueryParameter("day", value: day),
-                SdkQueryParameter("user", value: user),
-                SdkQueryParameter("model", value: model),
-                SdkQueryParameter("product", value: product),
-            ],
-            decoder: .json,
-            operationId: "billingGetGithubBillingPremiumRequestUsageReportOrg"
-        )).data
+    public static func billingGetGithubBillingPremiumRequestUsageReportOrg(config: ClientConfig, org: String, year: Int?, month: Int?, day: Int?, user: String?, model: String?, product: String?) async throws -> BillingPremiumRequestUsageReportOrg {
+        return try (await sdkRequest("GET", ["/organizations/", sdkEncodePathSegment(sdkWireString(org)), "/settings/billing/premium_request/usage"].joined(), config: config, query: [
+            SdkQueryParameter("year", value: year),
+            SdkQueryParameter("month", value: month),
+            SdkQueryParameter("day", value: day),
+            SdkQueryParameter("user", value: user),
+            SdkQueryParameter("model", value: model),
+            SdkQueryParameter("product", value: product),
+        ], decoder: .json, operationId: "billingGetGithubBillingPremiumRequestUsageReportOrg")).data
     }
 }

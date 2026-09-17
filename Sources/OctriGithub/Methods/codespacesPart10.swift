@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
-    /// Lists the codespaces that a member of an organization has for repositories in that organization. OAuth app
-    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+extension CodespacesMethods {
+    /// Lists the codespaces that a member of an organization has for repositories in that organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,58 +20,20 @@ public extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func codespacesGetCodespacesForUserInOrg(
-        config: ClientConfig,
-        org: String,
-        username: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> CodespacesGetCodespacesForUserInOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/members/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/codespaces",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "codespacesGetCodespacesForUserInOrg"
-        )).data
+    public static func codespacesGetCodespacesForUserInOrg(config: ClientConfig, org: String, username: String, perPage: Int?, page: Int?) async throws -> CodespacesGetCodespacesForUserInOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members/", sdkEncodePathSegment(sdkWireString(username)), "/codespaces"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "codespacesGetCodespacesForUserInOrg")).data
     }
 
-    /// Deletes a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
-    /// use this endpoint.
+    /// Deletes a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
     /// - codespaceName: The name of the codespace.
-    static func codespacesDeleteFromOrganization(
-        config: ClientConfig,
-        org: String,
-        username: String,
-        codespaceName: String
-    ) async throws -> [String: JSONValue] {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/members/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/codespaces/",
-                sdkEncodePathSegment(sdkWireString(codespaceName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codespacesDeleteFromOrganization"
-        )).data
+    public static func codespacesDeleteFromOrganization(config: ClientConfig, org: String, username: String, codespaceName: String) async throws -> [String: JSONValue] {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/members/", sdkEncodePathSegment(sdkWireString(username)), "/codespaces/", sdkEncodePathSegment(sdkWireString(codespaceName))].joined(), config: config, decoder: .json, operationId: "codespacesDeleteFromOrganization")).data
     }
 }

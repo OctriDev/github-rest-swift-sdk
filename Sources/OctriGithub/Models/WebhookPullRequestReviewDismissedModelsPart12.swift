@@ -3,26 +3,20 @@
 
 import Foundation
 
-/// WebhookPullRequestReviewDismissed domain models
+// WebhookPullRequestReviewDismissed domain models
 /// The default value for a squash merge commit title: - `PR_TITLE` - default to the pull request's title. -
 /// `COMMIT_OR_PR_TITLE` - default to the commit's title (if only one commit) or the pull request's title (when
 /// more than one commit).
-public struct WebhookPullRequestReviewDismissedPullRequestBaseRepoSquashMerXef0fc98ef6: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct WebhookPullRequestReviewDismissedPullRequestBaseRepoSquashMerXef0fc98ef6: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let prTitle =
-        WebhookPullRequestReviewDismissedPullRequestBaseRepoSquashMerXef0fc98ef6(rawValue: "PR_TITLE")
-    public static let commitOrPrTitle =
-        WebhookPullRequestReviewDismissedPullRequestBaseRepoSquashMerXef0fc98ef6(rawValue: "COMMIT_OR_PR_TITLE")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let prTitle = WebhookPullRequestReviewDismissedPullRequestBaseRepoSquashMerXef0fc98ef6(rawValue: "PR_TITLE")
+    public static let commitOrPrTitle = WebhookPullRequestReviewDismissedPullRequestBaseRepoSquashMerXef0fc98ef6(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

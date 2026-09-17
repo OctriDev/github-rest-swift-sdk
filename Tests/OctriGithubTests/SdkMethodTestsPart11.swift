@@ -25,8 +25,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsCreateInstallationAccessTokenAppsCreateInstallationAccessTokenReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsCreateInstallationAccessTokenAppsCreateInstallationAccessTokenReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -177,8 +176,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsGetSubscriptionPlanForAccountAppsGetSubscriptionPlanForAccountReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsGetSubscriptionPlanForAccountAppsGetSubscriptionPlanForAccountReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -197,8 +195,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsGetSubscriptionPlanForAccountStubbedAppsGetSubscriptionPlXf468fec37aReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsGetSubscriptionPlanForAccountStubbedAppsGetSubscriptionPlXf468fec37aReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -318,8 +315,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsListInstallationReposForAuthenticatedUserAppsListInstallaX599d1bcd6aReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsListInstallationReposForAuthenticatedUserAppsListInstallaX599d1bcd6aReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -340,8 +336,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsListInstallationRequestsForAuthenticatedAppAppsListInstalX5e0da1ce2eReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsListInstallationRequestsForAuthenticatedAppAppsListInstalX5e0da1ce2eReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -383,8 +378,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsListInstallationsForAuthenticatedUserAppsListInstallationX89b19b427dReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsListInstallationsForAuthenticatedUserAppsListInstallationX89b19b427dReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -444,8 +438,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsListReposAccessibleToInstallationAppsListReposAccessibleTX6f881bfaf7ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsListReposAccessibleToInstallationAppsListReposAccessibleTX6f881bfaf7ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -465,8 +458,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsListSubscriptionsForAuthenticatedUserAppsListSubscriptionXa4c72e00d1ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsListSubscriptionsForAuthenticatedUserAppsListSubscriptionXa4c72e00d1ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -486,8 +478,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testAppsListSubscriptionsForAuthenticatedUserStubbedAppsListSubscX1b8fce26ebReachesMockAndDecodesResponse(
-    ) async throws {
+    func testAppsListSubscriptionsForAuthenticatedUserStubbedAppsListSubscX1b8fce26ebReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

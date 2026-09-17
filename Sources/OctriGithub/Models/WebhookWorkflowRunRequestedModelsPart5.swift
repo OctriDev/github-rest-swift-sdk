@@ -3,23 +3,19 @@
 
 import Foundation
 
-/// WebhookWorkflowRunRequested domain models
+// WebhookWorkflowRunRequested domain models
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookWorkflowRunRequestedWorkflowRunRepositoryOwnerType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookWorkflowRunRequestedWorkflowRunRepositoryOwnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookWorkflowRunRequestedWorkflowRunRepositoryOwnerType(rawValue: "Bot")
     public static let user = WebhookWorkflowRunRequestedWorkflowRunRepositoryOwnerType(rawValue: "User")
     public static let organization = WebhookWorkflowRunRequestedWorkflowRunRepositoryOwnerType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,14 +25,10 @@ public struct WebhookWorkflowRunRequestedWorkflowRunRepositoryOwnerType: RawRepr
 }
 
 /// Required enumerated value serialized in the `status` wire field.
-public struct WebhookWorkflowRunRequestedWorkflowRunStatus: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookWorkflowRunRequestedWorkflowRunStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let requested = WebhookWorkflowRunRequestedWorkflowRunStatus(rawValue: "requested")
     public static let inProgress = WebhookWorkflowRunRequestedWorkflowRunStatus(rawValue: "in_progress")
     public static let completed = WebhookWorkflowRunRequestedWorkflowRunStatus(rawValue: "completed")
@@ -46,7 +38,7 @@ public struct WebhookWorkflowRunRequestedWorkflowRunStatus: RawRepresentable, Ha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

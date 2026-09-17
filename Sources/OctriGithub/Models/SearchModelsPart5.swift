@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Search domain models
+// Search domain models
 /// User Search Result Item
 public struct UserSearchResultItem: Codable {
     /// Required `string` value serialized in the `login` wire field.
@@ -115,91 +115,53 @@ public struct UserSearchResultItem: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension UserSearchResultItem {
-    init(from decoder: Decoder) throws {
+extension UserSearchResultItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        score = try container.sdkDecodeRequired(.score)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        publicRepos = try container.sdkDecodeIfPresent(.publicRepos)
-        publicGists = try container.sdkDecodeIfPresent(.publicGists)
-        followers = try container.sdkDecodeIfPresent(.followers)
-        following = try container.sdkDecodeIfPresent(.following)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        name = try container.sdkDecodeIfPresent(.name)
-        bio = try container.sdkDecodeIfPresent(.bio)
-        email = try container.sdkDecodeIfPresent(.email)
-        location = try container.sdkDecodeIfPresent(.location)
-        hireable = try container.sdkDecodeIfPresent(.hireable)
-        textMatches = try container.sdkDecodeIfPresent(.textMatches)
-        blog = try container.sdkDecodeIfPresent(.blog)
-        company = try container.sdkDecodeIfPresent(.company)
-        suspendedAt = try container.sdkDecodeIfPresent(.suspendedAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.score = try container.sdkDecodeRequired(.score)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.publicRepos = try container.sdkDecodeIfPresent(.publicRepos)
+        self.publicGists = try container.sdkDecodeIfPresent(.publicGists)
+        self.followers = try container.sdkDecodeIfPresent(.followers)
+        self.following = try container.sdkDecodeIfPresent(.following)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.bio = try container.sdkDecodeIfPresent(.bio)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.location = try container.sdkDecodeIfPresent(.location)
+        self.hireable = try container.sdkDecodeIfPresent(.hireable)
+        self.textMatches = try container.sdkDecodeIfPresent(.textMatches)
+        self.blog = try container.sdkDecodeIfPresent(.blog)
+        self.company = try container.sdkDecodeIfPresent(.company)
+        self.suspendedAt = try container.sdkDecodeIfPresent(.suspendedAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension UserSearchResultItem {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        avatarUrl: String,
-        gravatarId: String?,
-        url: String,
-        htmlUrl: String,
-        followersUrl: String,
-        subscriptionsUrl: String,
-        organizationsUrl: String,
-        reposUrl: String,
-        receivedEventsUrl: String,
-        type: String,
-        score: Double,
-        followingUrl: String,
-        gistsUrl: String,
-        starredUrl: String,
-        eventsUrl: String,
-        siteAdmin: Bool,
-        publicRepos: Int? = nil,
-        publicGists: Int? = nil,
-        followers: Int? = nil,
-        following: Int? = nil,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil,
-        name: String? = nil,
-        bio: String? = nil,
-        email: String? = nil,
-        location: String? = nil,
-        hireable: Bool? = nil,
-        textMatches: SearchResultTextMatches? = nil,
-        blog: String? = nil,
-        company: String? = nil,
-        suspendedAt: Date? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension UserSearchResultItem {
+    public init(login: String, id: Int, nodeId: String, avatarUrl: String, gravatarId: String?, url: String, htmlUrl: String, followersUrl: String, subscriptionsUrl: String, organizationsUrl: String, reposUrl: String, receivedEventsUrl: String, type: String, score: Double, followingUrl: String, gistsUrl: String, starredUrl: String, eventsUrl: String, siteAdmin: Bool, publicRepos: Int? = nil, publicGists: Int? = nil, followers: Int? = nil, following: Int? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, name: String? = nil, bio: String? = nil, email: String? = nil, location: String? = nil, hireable: Bool? = nil, textMatches: SearchResultTextMatches? = nil, blog: String? = nil, company: String? = nil, suspendedAt: Date? = nil, userViewType: String? = nil) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
         (self.gravatarId, self.url) = (gravatarId, url)
@@ -224,44 +186,40 @@ public extension UserSearchResultItem {
 
 extension UserSearchResultItem {
     func sdkValidateConstraints() throws {
-        try sdkValidateUri("avatar_url", avatarUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("followers_url", followersUrl)
-        try sdkValidateUri("subscriptions_url", subscriptionsUrl)
-        try sdkValidateUri("organizations_url", organizationsUrl)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("received_events_url", receivedEventsUrl)
-        if let value = createdAt {
+            try sdkValidateUri("avatar_url", self.avatarUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("followers_url", self.followersUrl)
+            try sdkValidateUri("subscriptions_url", self.subscriptionsUrl)
+            try sdkValidateUri("organizations_url", self.organizationsUrl)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("received_events_url", self.receivedEventsUrl)
+        if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = updatedAt {
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = email {
+        if let value = self.email {
             try sdkValidateEmail("email", value)
         }
-        if let value = suspendedAt {
+        if let value = self.suspendedAt {
             try sdkValidateDateTime("suspended_at", sdkWireString(value))
         }
     }
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct RepoSearchResultItemPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct RepoSearchResultItemPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = RepoSearchResultItemPullRequestCreationPolicy(rawValue: "all")
     public static let collaboratorsOnly = RepoSearchResultItemPullRequestCreationPolicy(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

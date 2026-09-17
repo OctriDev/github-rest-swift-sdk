@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
+extension SecretScanningMethods {
     /// Create a push protection bypass
     ///
-    /// Creates a bypass for a previously push protected secret. The authenticated user must be the original author of
-    /// the committed secret. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this
-    /// endpoint.
+    /// Creates a bypass for a previously push protected secret. The authenticated user must be the original author of the committed secret. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -21,64 +19,22 @@ public extension SecretScanningMethods {
     /// - reason: The reason for bypassing push protection.
     /// - placeholderId: The ID of the push protection bypass placeholder. This
     ///   value is returned on any push protected routes.
-    static func secretScanningCreatePushProtectionBypass(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        reason: SecretScanningPushProtectionBypassReason,
-        placeholderId: SecretScanningPushProtectionBypassPlaceholderId
-    ) async throws -> SecretScanningPushProtectionBypass {
-        let requestBody = SecretScanningCreatePushProtectionBypassRequestBody(
-            reason: reason,
-            placeholderId: placeholderId
-        )
+    public static func secretScanningCreatePushProtectionBypass(config: ClientConfig, owner: String, repo: String, reason: SecretScanningPushProtectionBypassReason, placeholderId: SecretScanningPushProtectionBypassPlaceholderId) async throws -> SecretScanningPushProtectionBypass {
+        let requestBody = SecretScanningCreatePushProtectionBypassRequestBody(reason: reason, placeholderId: placeholderId)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/secret-scanning/push-protection-bypasses",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "secretScanningCreatePushProtectionBypass"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/secret-scanning/push-protection-bypasses"].joined(), config: config, body: requestBody, decoder: .json, operationId: "secretScanningCreatePushProtectionBypass")).data
     }
 
     /// Get secret scanning scan history for a repository
     ///
-    /// Lists the latest default incremental and backfill scans by type for a repository. > [!NOTE] > This endpoint
-    /// requires [GitHub Advanced
-    /// Security](https://docs.github.com/get-started/learning-about-github/about-github-advanced-security). OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If
-    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// Lists the latest default incremental and backfill scans by type for a repository. > [!NOTE] > This endpoint requires [GitHub Advanced Security](https://docs.github.com/get-started/learning-about-github/about-github-advanced-security). OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func secretScanningGetScanHistory(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SecretScanningScanHistory {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/secret-scanning/scan-history",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "secretScanningGetScanHistory"
-        )).data
+    public static func secretScanningGetScanHistory(config: ClientConfig, owner: String, repo: String) async throws -> SecretScanningScanHistory {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/secret-scanning/scan-history"].joined(), config: config, decoder: .json, operationId: "secretScanningGetScanHistory")).data
     }
 }

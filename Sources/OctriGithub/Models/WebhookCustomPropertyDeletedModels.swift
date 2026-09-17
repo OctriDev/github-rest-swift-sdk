@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookCustomPropertyDeleted domain models
+// WebhookCustomPropertyDeleted domain models
 /// Typed representation of the `WebhookCustomPropertyDeleted` API schema.
 public struct WebhookCustomPropertyDeleted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -32,46 +32,29 @@ public struct WebhookCustomPropertyDeleted: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCustomPropertyDeleted {
-    init(from decoder: Decoder) throws {
+extension WebhookCustomPropertyDeleted {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.definition) else {
-            throw SdkValidationError(
-                field: "definition",
-                code: "required",
-                message: "Validation failed for 'definition': value is required"
-            )
+            throw SdkValidationError(field: "definition", code: "required", message: "Validation failed for 'definition': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        definition = try container.sdkDecodeRequired(.definition)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.definition = try container.sdkDecodeRequired(.definition)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookCustomPropertyDeleted {
-    init(
-        action: WebhookCustomPropertyDeletedAction,
-        definition: WebhookCustomPropertyDeletedDefinition,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookCustomPropertyDeleted {
+    public init(action: WebhookCustomPropertyDeletedAction, definition: WebhookCustomPropertyDeletedDefinition, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.definition) = (action, definition)
         (self.enterprise, self.installation) = (enterprise, installation)
         (self.organization, self.sender) = (organization, sender)
@@ -87,27 +70,21 @@ public struct WebhookCustomPropertyDeletedDefinition: Codable {
         case propertyName = "property_name"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCustomPropertyDeletedDefinition {
-    init(from decoder: Decoder) throws {
+extension WebhookCustomPropertyDeletedDefinition {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.propertyName) else {
-            throw SdkValidationError(
-                field: "property_name",
-                code: "required",
-                message: "Validation failed for 'property_name': value is required"
-            )
+            throw SdkValidationError(field: "property_name", code: "required", message: "Validation failed for 'property_name': value is required")
         }
-        propertyName = try container.sdkDecodeRequired(.propertyName)
+        self.propertyName = try container.sdkDecodeRequired(.propertyName)
     }
 }
 
-public extension WebhookCustomPropertyDeletedDefinition {
-    init(propertyName: String) {
+extension WebhookCustomPropertyDeletedDefinition {
+    public init(propertyName: String) {
         self.propertyName = propertyName
     }
 }
@@ -116,15 +93,12 @@ public extension WebhookCustomPropertyDeletedDefinition {
 public struct WebhookCustomPropertyDeletedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let deleted = WebhookCustomPropertyDeletedAction(rawValue: "deleted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    struct OrgsCreateArtifactDeploymentRecordOptions: Codable {
+extension OrgsMethods {
+    public struct OrgsCreateArtifactDeploymentRecordOptions: Codable {
         public var org: String
         public var name: String
         public var digest: String
@@ -22,14 +22,7 @@ public extension OrgsMethods {
         public var githubRepository: String?
         public var returnRecords: Bool?
 
-        public init(
-            org: String,
-            name: String,
-            digest: String,
-            status: OrgsCreateArtifactDeploymentRecordRequestBodyStatus,
-            logicalEnvironment: String,
-            deploymentName: String
-        ) {
+        public init(org: String, name: String, digest: String, status: OrgsCreateArtifactDeploymentRecordRequestBodyStatus, logicalEnvironment: String, deploymentName: String) {
             self.org = org
             self.name = name
             self.digest = digest
@@ -39,13 +32,7 @@ public extension OrgsMethods {
         }
     }
 
-    /// Create or update deployment records for an artifact associated with an organization. This endpoint allows you to
-    /// record information about a specific artifact, such as its name, digest, environments, cluster, and deployment.
-    /// The deployment name has to be uniqe within a cluster (i.e a combination of logical, physical environment and
-    /// cluster) as it identifies unique deployment. Multiple requests for the same combination of logical, physical
-    /// environment, cluster and deployment name will only create one record, successive request will update the
-    /// existing record. This allows for a stable tracking of a deployment where the actual deployed artifact can change
-    /// over time.
+    /// Create or update deployment records for an artifact associated with an organization. This endpoint allows you to record information about a specific artifact, such as its name, digest, environments, cluster, and deployment. The deployment name has to be uniqe within a cluster (i.e a combination of logical, physical environment and cluster) as it identifies unique deployment. Multiple requests for the same combination of logical, physical environment, cluster and deployment name will only create one record, successive request will update the existing record. This allows for a stable tracking of a deployment where the actual deployed artifact can change over time.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -71,10 +58,7 @@ public extension OrgsMethods {
     ///   attestation instead of this parameter.
     /// - returnRecords: If true, the endpoint will return the created or updated
     ///   record in the response body.
-    static func orgsCreateArtifactDeploymentRecord(
-        config: ClientConfig,
-        options: OrgsCreateArtifactDeploymentRecordOptions
-    ) async throws -> OrgsCreateArtifactDeploymentRecordResponse {
+    public static func orgsCreateArtifactDeploymentRecord(config: ClientConfig, options: OrgsCreateArtifactDeploymentRecordOptions) async throws -> OrgsCreateArtifactDeploymentRecordResponse {
         try validateLength("name", options.name, min: 1, max: 256)
 
         try validateLength("digest", options.digest, min: 71, max: 71)
@@ -107,14 +91,6 @@ public extension OrgsMethods {
 
         let requestBody = OrgsCreateArtifactDeploymentRecordRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/artifacts/metadata/deployment-record"]
-                .joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsCreateArtifactDeploymentRecord"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/artifacts/metadata/deployment-record"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsCreateArtifactDeploymentRecord")).data
     }
 }

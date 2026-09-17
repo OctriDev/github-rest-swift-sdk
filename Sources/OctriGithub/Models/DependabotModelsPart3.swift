@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Dependabot domain models
+// Dependabot domain models
 /// A GitHub repository.
 public struct NullableSimpleRepository: Codable {
     /// A unique identifier of the repository.
@@ -191,117 +191,68 @@ public struct NullableSimpleRepository: Codable {
         case hooksUrl = "hooks_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension NullableSimpleRepository {
-    init(from decoder: Decoder) throws {
+extension NullableSimpleRepository {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        name = try container.sdkDecodeRequired(.name)
-        fullName = try container.sdkDecodeRequired(.fullName)
-        owner = try container.sdkDecodeRequired(.owner)
-        self.private = try container.sdkDecodeRequired(.private)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        description = try container.sdkDecodeIfPresent(.description)
-        fork = try container.sdkDecodeRequired(.fork)
-        url = try container.sdkDecodeRequired(.url)
-        archiveUrl = try container.sdkDecodeRequired(.archiveUrl)
-        assigneesUrl = try container.sdkDecodeRequired(.assigneesUrl)
-        blobsUrl = try container.sdkDecodeRequired(.blobsUrl)
-        branchesUrl = try container.sdkDecodeRequired(.branchesUrl)
-        collaboratorsUrl = try container.sdkDecodeRequired(.collaboratorsUrl)
-        commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
-        commitsUrl = try container.sdkDecodeRequired(.commitsUrl)
-        compareUrl = try container.sdkDecodeRequired(.compareUrl)
-        contentsUrl = try container.sdkDecodeRequired(.contentsUrl)
-        contributorsUrl = try container.sdkDecodeRequired(.contributorsUrl)
-        deploymentsUrl = try container.sdkDecodeRequired(.deploymentsUrl)
-        downloadsUrl = try container.sdkDecodeRequired(.downloadsUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        forksUrl = try container.sdkDecodeRequired(.forksUrl)
-        gitCommitsUrl = try container.sdkDecodeRequired(.gitCommitsUrl)
-        gitRefsUrl = try container.sdkDecodeRequired(.gitRefsUrl)
-        gitTagsUrl = try container.sdkDecodeRequired(.gitTagsUrl)
-        issueCommentUrl = try container.sdkDecodeRequired(.issueCommentUrl)
-        issueEventsUrl = try container.sdkDecodeRequired(.issueEventsUrl)
-        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        keysUrl = try container.sdkDecodeRequired(.keysUrl)
-        labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
-        languagesUrl = try container.sdkDecodeRequired(.languagesUrl)
-        mergesUrl = try container.sdkDecodeRequired(.mergesUrl)
-        milestonesUrl = try container.sdkDecodeRequired(.milestonesUrl)
-        notificationsUrl = try container.sdkDecodeRequired(.notificationsUrl)
-        pullsUrl = try container.sdkDecodeRequired(.pullsUrl)
-        releasesUrl = try container.sdkDecodeRequired(.releasesUrl)
-        stargazersUrl = try container.sdkDecodeRequired(.stargazersUrl)
-        statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
-        subscribersUrl = try container.sdkDecodeRequired(.subscribersUrl)
-        subscriptionUrl = try container.sdkDecodeRequired(.subscriptionUrl)
-        tagsUrl = try container.sdkDecodeRequired(.tagsUrl)
-        teamsUrl = try container.sdkDecodeRequired(.teamsUrl)
-        treesUrl = try container.sdkDecodeRequired(.treesUrl)
-        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.fullName = try container.sdkDecodeRequired(.fullName)
+        self.owner = try container.sdkDecodeRequired(.owner)
+        self.`private` = try container.sdkDecodeRequired(.`private`)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.fork = try container.sdkDecodeRequired(.fork)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.archiveUrl = try container.sdkDecodeRequired(.archiveUrl)
+        self.assigneesUrl = try container.sdkDecodeRequired(.assigneesUrl)
+        self.blobsUrl = try container.sdkDecodeRequired(.blobsUrl)
+        self.branchesUrl = try container.sdkDecodeRequired(.branchesUrl)
+        self.collaboratorsUrl = try container.sdkDecodeRequired(.collaboratorsUrl)
+        self.commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
+        self.commitsUrl = try container.sdkDecodeRequired(.commitsUrl)
+        self.compareUrl = try container.sdkDecodeRequired(.compareUrl)
+        self.contentsUrl = try container.sdkDecodeRequired(.contentsUrl)
+        self.contributorsUrl = try container.sdkDecodeRequired(.contributorsUrl)
+        self.deploymentsUrl = try container.sdkDecodeRequired(.deploymentsUrl)
+        self.downloadsUrl = try container.sdkDecodeRequired(.downloadsUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.forksUrl = try container.sdkDecodeRequired(.forksUrl)
+        self.gitCommitsUrl = try container.sdkDecodeRequired(.gitCommitsUrl)
+        self.gitRefsUrl = try container.sdkDecodeRequired(.gitRefsUrl)
+        self.gitTagsUrl = try container.sdkDecodeRequired(.gitTagsUrl)
+        self.issueCommentUrl = try container.sdkDecodeRequired(.issueCommentUrl)
+        self.issueEventsUrl = try container.sdkDecodeRequired(.issueEventsUrl)
+        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        self.keysUrl = try container.sdkDecodeRequired(.keysUrl)
+        self.labelsUrl = try container.sdkDecodeRequired(.labelsUrl)
+        self.languagesUrl = try container.sdkDecodeRequired(.languagesUrl)
+        self.mergesUrl = try container.sdkDecodeRequired(.mergesUrl)
+        self.milestonesUrl = try container.sdkDecodeRequired(.milestonesUrl)
+        self.notificationsUrl = try container.sdkDecodeRequired(.notificationsUrl)
+        self.pullsUrl = try container.sdkDecodeRequired(.pullsUrl)
+        self.releasesUrl = try container.sdkDecodeRequired(.releasesUrl)
+        self.stargazersUrl = try container.sdkDecodeRequired(.stargazersUrl)
+        self.statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
+        self.subscribersUrl = try container.sdkDecodeRequired(.subscribersUrl)
+        self.subscriptionUrl = try container.sdkDecodeRequired(.subscriptionUrl)
+        self.tagsUrl = try container.sdkDecodeRequired(.tagsUrl)
+        self.teamsUrl = try container.sdkDecodeRequired(.teamsUrl)
+        self.treesUrl = try container.sdkDecodeRequired(.treesUrl)
+        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
         try sdkValidateConstraintsPart1()
         try sdkValidateConstraintsPart2()
     }
 }
 
-public extension NullableSimpleRepository {
-    init(
-        id: Int,
-        nodeId: String,
-        name: String,
-        fullName: String,
-        owner: SimpleUser,
-        private: Bool,
-        htmlUrl: String,
-        description: String?,
-        fork: Bool,
-        url: String,
-        archiveUrl: String,
-        assigneesUrl: String,
-        blobsUrl: String,
-        branchesUrl: String,
-        collaboratorsUrl: String,
-        commentsUrl: String,
-        commitsUrl: String,
-        compareUrl: String,
-        contentsUrl: String,
-        contributorsUrl: String,
-        deploymentsUrl: String,
-        downloadsUrl: String,
-        eventsUrl: String,
-        forksUrl: String,
-        gitCommitsUrl: String,
-        gitRefsUrl: String,
-        gitTagsUrl: String,
-        issueCommentUrl: String,
-        issueEventsUrl: String,
-        issuesUrl: String,
-        keysUrl: String,
-        labelsUrl: String,
-        languagesUrl: String,
-        mergesUrl: String,
-        milestonesUrl: String,
-        notificationsUrl: String,
-        pullsUrl: String,
-        releasesUrl: String,
-        stargazersUrl: String,
-        statusesUrl: String,
-        subscribersUrl: String,
-        subscriptionUrl: String,
-        tagsUrl: String,
-        teamsUrl: String,
-        treesUrl: String,
-        hooksUrl: String
-    ) throws {
+extension NullableSimpleRepository {
+    public init(id: Int, nodeId: String, name: String, fullName: String, owner: SimpleUser, `private`: Bool, htmlUrl: String, description: String?, fork: Bool, url: String, archiveUrl: String, assigneesUrl: String, blobsUrl: String, branchesUrl: String, collaboratorsUrl: String, commentsUrl: String, commitsUrl: String, compareUrl: String, contentsUrl: String, contributorsUrl: String, deploymentsUrl: String, downloadsUrl: String, eventsUrl: String, forksUrl: String, gitCommitsUrl: String, gitRefsUrl: String, gitTagsUrl: String, issueCommentUrl: String, issueEventsUrl: String, issuesUrl: String, keysUrl: String, labelsUrl: String, languagesUrl: String, mergesUrl: String, milestonesUrl: String, notificationsUrl: String, pullsUrl: String, releasesUrl: String, stargazersUrl: String, statusesUrl: String, subscribersUrl: String, subscriptionUrl: String, tagsUrl: String, teamsUrl: String, treesUrl: String, hooksUrl: String) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.fullName) = (name, fullName)
-        (self.owner, self.private) = (owner, `private`)
+        (self.owner, self.`private`) = (owner, `private`)
         (self.htmlUrl, self.description) = (htmlUrl, description)
         (self.fork, self.url) = (fork, url)
         (self.archiveUrl, self.assigneesUrl) = (archiveUrl, assigneesUrl)
@@ -329,26 +280,26 @@ public extension NullableSimpleRepository {
 
 extension NullableSimpleRepository {
     func sdkValidateConstraintsPart1() throws {
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("contributors_url", contributorsUrl)
-        try sdkValidateUri("deployments_url", deploymentsUrl)
-        try sdkValidateUri("downloads_url", downloadsUrl)
-        try sdkValidateUri("events_url", eventsUrl)
-        try sdkValidateUri("forks_url", forksUrl)
-        try sdkValidateUri("languages_url", languagesUrl)
-        try sdkValidateUri("merges_url", mergesUrl)
-        try sdkValidateUri("stargazers_url", stargazersUrl)
-        try sdkValidateUri("subscribers_url", subscribersUrl)
-        try sdkValidateUri("subscription_url", subscriptionUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("contributors_url", self.contributorsUrl)
+            try sdkValidateUri("deployments_url", self.deploymentsUrl)
+            try sdkValidateUri("downloads_url", self.downloadsUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
+            try sdkValidateUri("forks_url", self.forksUrl)
+            try sdkValidateUri("languages_url", self.languagesUrl)
+            try sdkValidateUri("merges_url", self.mergesUrl)
+            try sdkValidateUri("stargazers_url", self.stargazersUrl)
+            try sdkValidateUri("subscribers_url", self.subscribersUrl)
+            try sdkValidateUri("subscription_url", self.subscriptionUrl)
     }
 }
 
 extension NullableSimpleRepository {
     func sdkValidateConstraintsPart2() throws {
-        try sdkValidateUri("tags_url", tagsUrl)
-        try sdkValidateUri("teams_url", teamsUrl)
-        try sdkValidateUri("hooks_url", hooksUrl)
+            try sdkValidateUri("tags_url", self.tagsUrl)
+            try sdkValidateUri("teams_url", self.teamsUrl)
+            try sdkValidateUri("hooks_url", self.hooksUrl)
     }
 }
 
@@ -375,68 +326,44 @@ public struct OrganizationDependabotSecret: Codable {
         case selectedRepositoriesUrl = "selected_repositories_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationDependabotSecret {
-    init(from decoder: Decoder) throws {
+extension OrganizationDependabotSecret {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
         guard container.contains(.visibility) else {
-            throw SdkValidationError(
-                field: "visibility",
-                code: "required",
-                message: "Validation failed for 'visibility': value is required"
-            )
+            throw SdkValidationError(field: "visibility", code: "required", message: "Validation failed for 'visibility': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        visibility = try container.sdkDecodeRequired(.visibility)
-        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        if let value = selectedRepositoriesUrl {
+        self.name = try container.sdkDecodeRequired(.name)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.visibility = try container.sdkDecodeRequired(.visibility)
+        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
     }
 }
 
-public extension OrganizationDependabotSecret {
-    init(
-        name: String,
-        createdAt: Date,
-        updatedAt: Date,
-        visibility: OrganizationDependabotSecretVisibility,
-        selectedRepositoriesUrl: String? = nil
-    ) throws {
+extension OrganizationDependabotSecret {
+    public init(name: String, createdAt: Date, updatedAt: Date, visibility: OrganizationDependabotSecretVisibility, selectedRepositoriesUrl: String? = nil) throws {
         (self.name, self.createdAt) = (name, createdAt)
         (self.updatedAt, self.visibility) = (updatedAt, visibility)
         self.selectedRepositoriesUrl = selectedRepositoriesUrl
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.selectedRepositoriesUrl {
             try sdkValidateUri("selected_repositories_url", value)
         }
@@ -444,14 +371,10 @@ public extension OrganizationDependabotSecret {
 }
 
 /// The current status of the dismissal request.
-public struct DependabotAlertDismissalRequestSimpleStatus: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotAlertDismissalRequestSimpleStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pending = DependabotAlertDismissalRequestSimpleStatus(rawValue: "pending")
     public static let approved = DependabotAlertDismissalRequestSimpleStatus(rawValue: "approved")
     public static let rejected = DependabotAlertDismissalRequestSimpleStatus(rawValue: "rejected")
@@ -459,7 +382,7 @@ public struct DependabotAlertDismissalRequestSimpleStatus: RawRepresentable, Has
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -469,20 +392,16 @@ public struct DependabotAlertDismissalRequestSimpleStatus: RawRepresentable, Has
 }
 
 /// The default repository access level for Dependabot updates.
-public struct DependabotRepositoryAccessDetailsDefaultLevel: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotRepositoryAccessDetailsDefaultLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `public` = DependabotRepositoryAccessDetailsDefaultLevel(rawValue: "public")
     public static let `internal` = DependabotRepositoryAccessDetailsDefaultLevel(rawValue: "internal")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -492,20 +411,16 @@ public struct DependabotRepositoryAccessDetailsDefaultLevel: RawRepresentable, H
 }
 
 /// The classification of the advisory.
-public struct DependabotAlertSecurityAdvisoryClassification: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotAlertSecurityAdvisoryClassification: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let general = DependabotAlertSecurityAdvisoryClassification(rawValue: "general")
     public static let malware = DependabotAlertSecurityAdvisoryClassification(rawValue: "malware")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -518,10 +433,7 @@ public struct DependabotAlertSecurityAdvisoryClassification: RawRepresentable, H
 public struct DependabotAlertDismissedReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let fixStarted = DependabotAlertDismissedReason(rawValue: "fix_started")
     public static let inaccurate = DependabotAlertDismissedReason(rawValue: "inaccurate")
     public static let noBandwidth = DependabotAlertDismissedReason(rawValue: "no_bandwidth")
@@ -530,7 +442,7 @@ public struct DependabotAlertDismissedReason: RawRepresentable, Hashable, Codabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -540,20 +452,16 @@ public struct DependabotAlertDismissedReason: RawRepresentable, Hashable, Codabl
 }
 
 /// The execution scope of the vulnerable dependency.
-public struct DependabotAlertWithRepositoryDependencyScope: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct DependabotAlertWithRepositoryDependencyScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let development = DependabotAlertWithRepositoryDependencyScope(rawValue: "development")
     public static let runtime = DependabotAlertWithRepositoryDependencyScope(rawValue: "runtime")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -568,10 +476,7 @@ public struct DependabotAlertWithRepositoryDependencyScope: RawRepresentable, Ha
 public struct DependabotAlertDependencyRelationship: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let unknown = DependabotAlertDependencyRelationship(rawValue: "unknown")
     public static let direct = DependabotAlertDependencyRelationship(rawValue: "direct")
     public static let transitive = DependabotAlertDependencyRelationship(rawValue: "transitive")
@@ -579,7 +484,7 @@ public struct DependabotAlertDependencyRelationship: RawRepresentable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -592,16 +497,13 @@ public struct DependabotAlertDependencyRelationship: RawRepresentable, Hashable,
 public struct DependabotAlertDependencyScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let development = DependabotAlertDependencyScope(rawValue: "development")
     public static let runtime = DependabotAlertDependencyScope(rawValue: "runtime")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

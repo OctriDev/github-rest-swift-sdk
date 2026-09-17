@@ -3,12 +3,12 @@
 
 import Foundation
 
-/// Nullable domain models
+// Nullable domain models
 extension NullableRepositoryWebhooksTemplateRepository {
     mutating func sdkDecodeFieldsPart8(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        allowMergeCommit = try container.sdkDecodeIfPresent(.allowMergeCommit)
-        subscribersCount = try container.sdkDecodeIfPresent(.subscribersCount)
-        networkCount = try container.sdkDecodeIfPresent(.networkCount)
+        self.allowMergeCommit = try container.sdkDecodeIfPresent(.allowMergeCommit)
+        self.subscribersCount = try container.sdkDecodeIfPresent(.subscribersCount)
+        self.networkCount = try container.sdkDecodeIfPresent(.networkCount)
     }
 }
 
@@ -73,58 +73,39 @@ public struct NullableRepositoryWebhooksTemplateRepositoryOwner: Codable {
     }
 
     init() {
-        (login, id, nodeId, avatarUrl, gravatarId) = (nil, nil, nil, nil, nil)
-        (url, htmlUrl, followersUrl, followingUrl, gistsUrl) = (nil, nil, nil, nil, nil)
-        (starredUrl, subscriptionsUrl, organizationsUrl, reposUrl, eventsUrl) = (nil, nil, nil, nil, nil)
-        (receivedEventsUrl, type, siteAdmin) = (nil, nil, nil)
+        (self.login, self.id, self.nodeId, self.avatarUrl, self.gravatarId) = (nil, nil, nil, nil, nil)
+        (self.url, self.htmlUrl, self.followersUrl, self.followingUrl, self.gistsUrl) = (nil, nil, nil, nil, nil)
+        (self.starredUrl, self.subscriptionsUrl, self.organizationsUrl, self.reposUrl, self.eventsUrl) = (nil, nil, nil, nil, nil)
+        (self.receivedEventsUrl, self.type, self.siteAdmin) = (nil, nil, nil)
     }
 }
 
-public extension NullableRepositoryWebhooksTemplateRepositoryOwner {
-    init(from decoder: Decoder) throws {
+extension NullableRepositoryWebhooksTemplateRepositoryOwner {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeIfPresent(.login)
-        id = try container.sdkDecodeIfPresent(.id)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeIfPresent(.url)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.login = try container.sdkDecodeIfPresent(.login)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
     }
 }
 
-public extension NullableRepositoryWebhooksTemplateRepositoryOwner {
-    init(
-        login: String? = nil,
-        id: Int? = nil,
-        nodeId: String? = nil,
-        avatarUrl: String? = nil,
-        gravatarId: String? = nil,
-        url: String? = nil,
-        htmlUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        organizationsUrl: String? = nil,
-        reposUrl: String? = nil,
-        eventsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        type: String? = nil,
-        siteAdmin: Bool? = nil
-    ) {
+extension NullableRepositoryWebhooksTemplateRepositoryOwner {
+    public init(login: String? = nil, id: Int? = nil, nodeId: String? = nil, avatarUrl: String? = nil, gravatarId: String? = nil, url: String? = nil, htmlUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, organizationsUrl: String? = nil, reposUrl: String? = nil, eventsUrl: String? = nil, receivedEventsUrl: String? = nil, type: String? = nil, siteAdmin: Bool? = nil) {
         self.init()
         (self.login, self.id) = (login, id)
         (self.nodeId, self.avatarUrl) = (nodeId, avatarUrl)
@@ -160,23 +141,23 @@ public struct NullableRepositoryWebhooksTemplateRepositoryPermissions: Codable {
     }
 
     init() {
-        (admin, maintain, push, triage, pull) = (nil, nil, nil, nil, nil)
+        (self.admin, self.maintain, self.push, self.triage, self.pull) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension NullableRepositoryWebhooksTemplateRepositoryPermissions {
-    init(from decoder: Decoder) throws {
+extension NullableRepositoryWebhooksTemplateRepositoryPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        admin = try container.sdkDecodeIfPresent(.admin)
-        maintain = try container.sdkDecodeIfPresent(.maintain)
-        push = try container.sdkDecodeIfPresent(.push)
-        triage = try container.sdkDecodeIfPresent(.triage)
-        pull = try container.sdkDecodeIfPresent(.pull)
+        self.admin = try container.sdkDecodeIfPresent(.admin)
+        self.maintain = try container.sdkDecodeIfPresent(.maintain)
+        self.push = try container.sdkDecodeIfPresent(.push)
+        self.triage = try container.sdkDecodeIfPresent(.triage)
+        self.pull = try container.sdkDecodeIfPresent(.pull)
     }
 }
 
-public extension NullableRepositoryWebhooksTemplateRepositoryPermissions {
-    init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
+extension NullableRepositoryWebhooksTemplateRepositoryPermissions {
+    public init(admin: Bool? = nil, maintain: Bool? = nil, push: Bool? = nil, triage: Bool? = nil, pull: Bool? = nil) {
         self.init()
         (self.admin, self.maintain) = (admin, maintain)
         (self.push, self.triage) = (push, triage)
@@ -186,21 +167,17 @@ public extension NullableRepositoryWebhooksTemplateRepositoryPermissions {
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct NullableRepositoryWebhooksSquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableRepositoryWebhooksSquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = NullableRepositoryWebhooksSquashMergeCommitMessage(rawValue: "PR_BODY")
     public static let commitMessages = NullableRepositoryWebhooksSquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = NullableRepositoryWebhooksSquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -212,20 +189,16 @@ public struct NullableRepositoryWebhooksSquashMergeCommitMessage: RawRepresentab
 /// The default value for a merge commit title. - `PR_TITLE` - default to the pull request's title. -
 /// `MERGE_MESSAGE` - default to the classic title for a merge message (e.g., Merge pull request #123 from
 /// branch-name).
-public struct NullableRepositoryWebhooksMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableRepositoryWebhooksMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = NullableRepositoryWebhooksMergeCommitTitle(rawValue: "PR_TITLE")
     public static let mergeMessage = NullableRepositoryWebhooksMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -236,21 +209,17 @@ public struct NullableRepositoryWebhooksMergeCommitTitle: RawRepresentable, Hash
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct NullableRepositoryWebhooksTemplateRepositoryMergeCommitMessage: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct NullableRepositoryWebhooksTemplateRepositoryMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = NullableRepositoryWebhooksTemplateRepositoryMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = NullableRepositoryWebhooksTemplateRepositoryMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = NullableRepositoryWebhooksTemplateRepositoryMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -262,21 +231,16 @@ public struct NullableRepositoryWebhooksTemplateRepositoryMergeCommitMessage: Ra
 /// The default value for a squash merge commit title: - `PR_TITLE` - default to the pull request's title. -
 /// `COMMIT_OR_PR_TITLE` - default to the commit's title (if only one commit) or the pull request's title (when
 /// more than one commit).
-public struct NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitTitle: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let commitOrPrTitle =
-        NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
+    public static let commitOrPrTitle = NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -287,22 +251,17 @@ public struct NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitTitle
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessage: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "PR_BODY")
-    public static let commitMessages =
-        NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
+    public static let commitMessages = NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -312,21 +271,16 @@ public struct NullableRepositoryWebhooksTemplateRepositorySquashMergeCommitMessa
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct NullableRepositoryWebhooksPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableRepositoryWebhooksPullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = NullableRepositoryWebhooksPullRequestCreationPolicy(rawValue: "all")
-    public static let collaboratorsOnly =
-        NullableRepositoryWebhooksPullRequestCreationPolicy(rawValue: "collaborators_only")
+    public static let collaboratorsOnly = NullableRepositoryWebhooksPullRequestCreationPolicy(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -337,21 +291,17 @@ public struct NullableRepositoryWebhooksPullRequestCreationPolicy: RawRepresenta
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct NullableRepositoryWebhooksMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableRepositoryWebhooksMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = NullableRepositoryWebhooksMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = NullableRepositoryWebhooksMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = NullableRepositoryWebhooksMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -363,20 +313,16 @@ public struct NullableRepositoryWebhooksMergeCommitMessage: RawRepresentable, Ha
 /// The default value for a squash merge commit title: - `PR_TITLE` - default to the pull request's title. -
 /// `COMMIT_OR_PR_TITLE` - default to the commit's title (if only one commit) or the pull request's title (when
 /// more than one commit).
-public struct NullableRepositoryWebhooksSquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct NullableRepositoryWebhooksSquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = NullableRepositoryWebhooksSquashMergeCommitTitle(rawValue: "PR_TITLE")
     public static let commitOrPrTitle = NullableRepositoryWebhooksSquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -388,21 +334,16 @@ public struct NullableRepositoryWebhooksSquashMergeCommitTitle: RawRepresentable
 /// The default value for a merge commit title. - `PR_TITLE` - default to the pull request's title. -
 /// `MERGE_MESSAGE` - default to the classic title for a merge message (e.g., Merge pull request #123 from
 /// branch-name).
-public struct NullableRepositoryWebhooksTemplateRepositoryMergeCommitTitle: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct NullableRepositoryWebhooksTemplateRepositoryMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = NullableRepositoryWebhooksTemplateRepositoryMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let mergeMessage =
-        NullableRepositoryWebhooksTemplateRepositoryMergeCommitTitle(rawValue: "MERGE_MESSAGE")
+    public static let mergeMessage = NullableRepositoryWebhooksTemplateRepositoryMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

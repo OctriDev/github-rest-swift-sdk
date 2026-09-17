@@ -11,12 +11,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ChecksMethods.ChecksCreateOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            name: decoded("\"mighty_readme\""),
-            headSha: decoded("\"ce587453ced02b1526dfb4cb910479d431683101\"")
-        )
+        var options = try ChecksMethods.ChecksCreateOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), name: decoded("\"mighty_readme\""), headSha: decoded("\"ce587453ced02b1526dfb4cb910479d431683101\""))
         options.detailsUrl = try decoded("null")
         options.externalId = try decoded("\"42\"")
         options.status = try decoded("\"completed\"")
@@ -130,11 +125,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ChecksMethods.ChecksListForRefOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            ref: decoded("\"ref\"")
-        )
+        var options = try ChecksMethods.ChecksListForRefOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), ref: decoded("\"ref\""))
         options.checkName = try decoded("\"Example Name\"")
         options.status = try decoded("\"queued\"")
         options.filter = try decoded("\"latest\"")
@@ -160,11 +151,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ChecksMethods.ChecksListForSuiteOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            checkSuiteId: decoded("1")
-        )
+        var options = try ChecksMethods.ChecksListForSuiteOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), checkSuiteId: decoded("1"))
         options.checkName = try decoded("\"Example Name\"")
         options.status = try decoded("\"queued\"")
         options.filter = try decoded("\"latest\"")
@@ -277,11 +264,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ChecksMethods.ChecksUpdateOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            checkRunId: decoded("1")
-        )
+        var options = try ChecksMethods.ChecksUpdateOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), checkRunId: decoded("1"))
         options.name = try decoded("\"mighty_readme\"")
         options.detailsUrl = try decoded("null")
         options.externalId = try decoded("null")
@@ -440,8 +423,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeScanningCreateVariantAnalysisCodeScanningCreateVariantAnalysisReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeScanningCreateVariantAnalysisCodeScanningCreateVariantAnalysisReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -488,8 +470,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeScanningDeleteCodeqlDatabaseCodeScanningDeleteCodeqlDatabaseReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeScanningDeleteCodeqlDatabaseCodeScanningDeleteCodeqlDatabaseReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -522,8 +503,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodeScanningGetAiScanEnablementForOrgCodeScanningGetAiScanEnaXc6ebd061a7ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testCodeScanningGetAiScanEnablementForOrgCodeScanningGetAiScanEnaXc6ebd061a7ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

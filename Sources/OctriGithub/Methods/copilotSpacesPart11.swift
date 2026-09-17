@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Create a Copilot Space for a user
     ///
-    /// Creates a new Copilot Space owned by a user. Only the authenticated user can create spaces for their own
-    /// account. Users can create personal Copilot Spaces for their individual use. OAuth app tokens and personal access
-    /// tokens (classic) need the `read:user` scope to use this endpoint.
+    /// Creates a new Copilot Space owned by a user. Only the authenticated user can create spaces for their own account. Users can create personal Copilot Spaces for their individual use. OAuth app tokens and personal access tokens (classic) need the `read:user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -23,34 +21,13 @@ public extension CopilotSpacesMethods {
     ///   publicly readable Note: User spaces do not support writer or admin base
     ///   roles.
     /// - resourcesAttributes: Resources to attach to the space.
-    static func copilotSpacesCreateForUser(
-        config: ClientConfig,
-        username: String,
-        name: String,
-        description: String?,
-        generalInstructions: String?,
-        baseRole: CopilotSpacesCreateForUserRequestBodyBaseRole?,
-        resourcesAttributes: [CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem]?
-    ) async throws -> CopilotSpace {
-        if let generalInstructions {
+    public static func copilotSpacesCreateForUser(config: ClientConfig, username: String, name: String, description: String?, generalInstructions: String?, baseRole: CopilotSpacesCreateForUserRequestBodyBaseRole?, resourcesAttributes: [CopilotSpacesCreateForUserRequestBodyResourcesAttributesItem]?) async throws -> CopilotSpace {
+        if let generalInstructions = generalInstructions {
             try validateLength("general_instructions", generalInstructions, max: 4000)
         }
 
-        let requestBody = CopilotSpacesCreateForUserRequestBody(
-            name: name,
-            description: description,
-            generalInstructions: generalInstructions,
-            baseRole: baseRole,
-            resourcesAttributes: resourcesAttributes
-        )
+        let requestBody = CopilotSpacesCreateForUserRequestBody(name: name, description: description, generalInstructions: generalInstructions, baseRole: baseRole, resourcesAttributes: resourcesAttributes)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesCreateForUser"
-        )).data
+        return try (await sdkRequest("POST", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces"].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesCreateForUser")).data
     }
 }

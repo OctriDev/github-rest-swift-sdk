@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
-    /// Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you
-    /// are watching the repository of the thread, you will still receive notifications. To ignore future notifications
-    /// for a repository you are watching, use the [Set a thread
-    /// subscription](https://docs.github.com/rest/activity/notifications#set-a-thread-subscription) endpoint and set
-    /// `ignore` to `true`.
+extension ActivityMethods {
+    /// Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/activity/notifications#set-a-thread-subscription) endpoint and set `ignore` to `true`.
     ///
     /// - Parameters:
     /// - threadId: The unique identifier of the notification thread. This
@@ -19,18 +15,11 @@ public extension ActivityMethods {
     ///   notifications (for example with the [`GET /notifications`
     ///   operation](https://docs.github.com/rest/activity/notifications#list-notifica
     ///   tions-for-the-authenticated-user)).
-    static func activityDeleteThreadSubscription(config: ClientConfig, threadId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId)), "/subscription"].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "activityDeleteThreadSubscription"
-        )).data
+    public static func activityDeleteThreadSubscription(config: ClientConfig, threadId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId)), "/subscription"].joined(), config: config, decoder: .empty, operationId: "activityDeleteThreadSubscription")).data
     }
 
-    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can
-    /// be anywhere from 30s to 6h.
+    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -42,22 +31,10 @@ public extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func activityListPublicOrgEvents(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Event] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/events"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "activityListPublicOrgEvents"
-        )).data
+    public static func activityListPublicOrgEvents(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/events"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "activityListPublicOrgEvents")).data
     }
 }

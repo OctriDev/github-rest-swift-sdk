@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReactionsMethods {
-    /// Lists the reactions attached to an issue in a repository. Use `content` to filter the results to one reaction
-    /// type, or omit it to return all reactions, and use `page` and `per_page` to paginate the results.
+extension ReactionsMethods {
+    /// Lists the reactions attached to an issue in a repository. Use `content` to filter the results to one reaction type, or omit it to return all reactions, and use `page` and `per_page` to paginate the results.
     ///
     /// List the reactions to an [issue](https://docs.github.com/rest/issues/issues#get-an-issue).
     ///
@@ -29,34 +28,11 @@ public extension ReactionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reactionsListForIssue(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        content: ReactionsListForIssueParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Reaction] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/reactions",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("content", value: content),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reactionsListForIssue"
-        )).data
+    public static func reactionsListForIssue(config: ClientConfig, owner: String, repo: String, issueNumber: Int, content: ReactionsListForIssueParameter?, perPage: Int?, page: Int?) async throws -> [Reaction] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/reactions"].joined(), config: config, query: [
+            SdkQueryParameter("content", value: content),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reactionsListForIssue")).data
     }
 }

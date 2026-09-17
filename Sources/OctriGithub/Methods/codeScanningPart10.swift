@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// Commits an autofix for a code scanning alert from the repository's default branch. If an autofix is committed as
-    /// a result of this request, then this endpoint will return a 201 Created response. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the
-    /// `public_repo` scope to use this endpoint with only public repositories.
+extension CodeScanningMethods {
+    /// Commits an autofix for a code scanning alert from the repository's default branch. If an autofix is committed as a result of this request, then this endpoint will return a 201 Created response. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,31 +23,9 @@ public extension CodeScanningMethods {
     ///   References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in
     ///   the Git documentation.
     /// - message: Commit message to be used.
-    static func codeScanningCommitAutofix(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber,
-        targetRef: String?,
-        message: String?
-    ) async throws -> CodeScanningAutofixCommitsResponse {
+    public static func codeScanningCommitAutofix(config: ClientConfig, owner: String, repo: String, alertNumber: AlertNumber, targetRef: String?, message: String?) async throws -> CodeScanningAutofixCommitsResponse {
         let requestBody = CodeScanningCommitAutofixRequestBody(targetRef: targetRef, message: message)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/alerts/",
-                sdkEncodePathSegment(sdkWireString(alertNumber)),
-                "/autofix/commits",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeScanningCommitAutofix"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/alerts/", sdkEncodePathSegment(sdkWireString(alertNumber)), "/autofix/commits"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeScanningCommitAutofix")).data
     }
 }

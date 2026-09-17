@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Returns all active rules that apply to the specified branch. The branch does not need to exist; rules that would
-    /// apply to a branch with that name will be returned. All active rules that apply will be returned, regardless of
-    /// the level at which they are configured (e.g. repository or organization). Rules in rulesets with "evaluate" or
-    /// "disabled" enforcement statuses are not returned.
+extension ReposMethods {
+    /// Returns all active rules that apply to the specified branch. The branch does not need to exist; rules that would apply to a branch with that name will be returned. All active rules that apply will be returned, regardless of the level at which they are configured (e.g. repository or organization). Rules in rulesets with "evaluate" or "disabled" enforcement statuses are not returned.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,31 +25,10 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposGetBranchRules(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        branch: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [RepositoryRuleDetailed] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/rules/branches/",
-                sdkEncodePathSegment(sdkWireString(branch)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposGetBranchRules"
-        )).data
+    public static func reposGetBranchRules(config: ClientConfig, owner: String, repo: String, branch: String, perPage: Int?, page: Int?) async throws -> [RepositoryRuleDetailed] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rules/branches/", sdkEncodePathSegment(sdkWireString(branch))].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposGetBranchRules")).data
     }
 }

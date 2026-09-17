@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists all self-hosted runners configured in an organization. Authenticated users must have admin access to the
-    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`
-    /// scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+extension ActionsMethods {
+    /// Lists all self-hosted runners configured in an organization. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -22,51 +20,20 @@ public extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func actionsListSelfHostedRunnersForOrg(
-        config: ClientConfig,
-        org: String,
-        name: String?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> ActionsListSelfHostedRunnersForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runners"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("name", value: name),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "actionsListSelfHostedRunnersForOrg"
-        )).data
+    public static func actionsListSelfHostedRunnersForOrg(config: ClientConfig, org: String, name: String?, perPage: Int?, page: Int?) async throws -> ActionsListSelfHostedRunnersForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runners"].joined(), config: config, query: [
+            SdkQueryParameter("name", value: name),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "actionsListSelfHostedRunnersForOrg")).data
     }
 
-    /// Gets the end-of-life schedule for a specific runner version in an organization. Returns the runner version and
-    /// the dates when registration and runtime support will end. Authenticated users must have admin access to the
-    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`
-    /// scope to use this endpoint.
+    /// Gets the end-of-life schedule for a specific runner version in an organization. Returns the runner version and the dates when registration and runtime support will end. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - version: The runner version to look up.
-    static func actionsGetRunnerVersionDeprecationForOrg(
-        config: ClientConfig,
-        org: String,
-        version: String
-    ) async throws -> ActionsGetRunnerVersionDeprecationForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/runners/deprecations/",
-                sdkEncodePathSegment(sdkWireString(version)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetRunnerVersionDeprecationForOrg"
-        )).data
+    public static func actionsGetRunnerVersionDeprecationForOrg(config: ClientConfig, org: String, version: String) async throws -> ActionsGetRunnerVersionDeprecationForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runners/deprecations/", sdkEncodePathSegment(sdkWireString(version))].joined(), config: config, decoder: .json, operationId: "actionsGetRunnerVersionDeprecationForOrg")).data
     }
 }

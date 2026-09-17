@@ -11,18 +11,14 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try IssuesMethods.IssuesUpdateOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            issueNumber: decoded("1")
-        )
+        var options = try IssuesMethods.IssuesUpdateOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), issueNumber: decoded("1"))
         options.title = try decoded("\"Found a bug\"")
         options.body = try decoded("\"sample\"")
         options.assignee = try decoded("null")
         options.state = try decoded("\"open\"")
         options.stateReason = try decoded("null")
         options.duplicateIssueId = try decoded("null")
-        options.milestone = try decoded("\"1\"")
+        options.milestone = try decoded("1")
         options.labels = try decoded("[\"bug\"]")
         options.assignees = try decoded("[\"octocat\"]")
         options.issueFieldValues = try decoded("null")
@@ -201,7 +197,7 @@ extension SdkMethodTests {
         }
         _ = client
         let actual = try await client.markdown.renderRaw(
-            body: decoded("\"[object Object]\"")
+            body: decoded("\"string\"")
         )
         let expected = try JSONSerialization.jsonObject(
             with: Data(sdkMethodFixture658Expected.utf8),
@@ -220,7 +216,7 @@ extension SdkMethodTests {
         }
         _ = client
         let actual = try await client.markdown.renderRaw(
-            body: decoded("\"[object Object]\"")
+            body: decoded("\"string\"")
         )
         let expected = try JSONSerialization.jsonObject(
             with: Data(sdkMethodFixture659Expected.utf8),
@@ -332,8 +328,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testMigrationsDeleteArchiveForAuthenticatedUserMigrationsDeleteArXd065ae2b61ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testMigrationsDeleteArchiveForAuthenticatedUserMigrationsDeleteArXd065ae2b61ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -417,8 +412,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testMigrationsGetStatusForAuthenticatedUserMigrationsGetStatusForX864b3ffec2ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testMigrationsGetStatusForAuthenticatedUserMigrationsGetStatusForX864b3ffec2ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -459,8 +453,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testMigrationsListForAuthenticatedUserMigrationsListForAuthenticatedUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testMigrationsListForAuthenticatedUserMigrationsListForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -502,8 +495,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testMigrationsListReposForAuthenticatedUserMigrationsListReposForX02eb98f7a9ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testMigrationsListReposForAuthenticatedUserMigrationsListReposForX02eb98f7a9ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

@@ -6,17 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PackagesMethods {
-    /// Restores a specific package version in an organization. You can restore a deleted package under the following
-    /// conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still
-    /// available and not reused for a new package. If the same package namespace is not available, you will not be able
-    /// to restore your package. In this scenario, to restore the deleted package, you must delete the new package that
-    /// uses the deleted package's namespace first. The authenticated user must have admin permissions in the
-    /// organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports
-    /// granular permissions, the authenticated user must also have admin permissions to the package. For the list of
-    /// these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
-    /// OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to
-    /// use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+extension PackagesMethods {
+    /// Restores a specific package version in an organization. You can restore a deleted package under the following conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first. The authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)." OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -28,45 +19,14 @@ public extension PackagesMethods {
     /// - packageName: The name of the package.
     /// - org: The organization name. The name is not case sensitive.
     /// - packageVersionId: Unique identifier of the package version.
-    static func packagesRestorePackageVersionForOrg(
-        config: ClientConfig,
-        packageType: PackagesDeletePackageForOrgParameter,
-        packageName: String,
-        org: String,
-        packageVersionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/packages/",
-                sdkEncodePathSegment(sdkWireString(packageType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(packageName)),
-                "/versions/",
-                sdkEncodePathSegment(sdkWireString(packageVersionId)),
-                "/restore",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "packagesRestorePackageVersionForOrg"
-        )).data
+    public static func packagesRestorePackageVersionForOrg(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, packageVersionId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName)), "/versions/", sdkEncodePathSegment(sdkWireString(packageVersionId)), "/restore"].joined(), config: config, decoder: .empty, operationId: "packagesRestorePackageVersionForOrg")).data
     }
 
     /// Get list of conflicting packages during Docker migration for authenticated-user
     ///
-    /// Lists all packages that are owned by the authenticated user within the user's namespace, and that encountered a
-    /// conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the
-    /// `read:packages` scope to use this endpoint.
-    static func packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(config: ClientConfig) async throws
-        -> [Package] {
-        try await (sdkRequest(
-            "GET",
-            "/user/docker/conflicts",
-            config: config,
-            decoder: .json,
-            operationId: "packagesListDockerMigrationConflictingPackagesForAuthenticatedUser"
-        )).data
+    /// Lists all packages that are owned by the authenticated user within the user's namespace, and that encountered a conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint.
+    public static func packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(config: ClientConfig) async throws -> [Package] {
+        return try (await sdkRequest("GET", "/user/docker/conflicts", config: config, decoder: .json, operationId: "packagesListDockerMigrationConflictingPackagesForAuthenticatedUser")).data
     }
 }

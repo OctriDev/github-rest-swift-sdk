@@ -6,75 +6,31 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Create a resource for a Copilot Space for a user
     ///
-    /// Creates a new resource in a specific Copilot Space owned by a user. The authenticated user must have write
-    /// permissions on the space. The following resource types are supported: `repository`, `github_file`, `free_text`,
-    /// `github_issue`, `github_pull_request`. The `uploaded_text_file` and `media_content` types are not supported via
-    /// this endpoint. For `github_file` resources, if a resource with the same repository, file path, and SHA already
-    /// exists, the existing resource is returned with a `200` status. OAuth app tokens and personal access tokens
-    /// (classic) need the `write:user` scope to use this endpoint.
+    /// Creates a new resource in a specific Copilot Space owned by a user. The authenticated user must have write permissions on the space. The following resource types are supported: `repository`, `github_file`, `free_text`, `github_issue`, `github_pull_request`. The `uploaded_text_file` and `media_content` types are not supported via this endpoint. For `github_file` resources, if a resource with the same repository, file path, and SHA already exists, the existing resource is returned with a `200` status. OAuth app tokens and personal access tokens (classic) need the `write:user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
     /// - resourceType: The type of resource to create.
     /// - metadata: Resource-specific metadata.
-    static func copilotSpacesCreateResourceForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int,
-        resourceType: CopilotSpacesCreateResourceForUserRequestBodyResourceType,
-        metadata: [String: JSONValue]
-    ) async throws -> CopilotSpaceResource {
+    public static func copilotSpacesCreateResourceForUser(config: ClientConfig, username: String, spaceNumber: Int, resourceType: CopilotSpacesCreateResourceForUserRequestBodyResourceType, metadata: [String: JSONValue]) async throws -> CopilotSpaceResource {
         let requestBody = CopilotSpacesCreateResourceForUserRequestBody(resourceType: resourceType, metadata: metadata)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/resources",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesCreateResourceForUser"
-        )).data
+        return try (await sdkRequest("POST", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/resources"].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesCreateResourceForUser")).data
     }
 
     /// Get a resource for a Copilot Space for a user
     ///
-    /// Gets a specific resource attached to a Copilot Space owned by a user. The authenticated user must have
-    /// appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the
-    /// `read:user` scope to use this endpoint.
+    /// Gets a specific resource attached to a Copilot Space owned by a user. The authenticated user must have appropriate permissions to view the space. OAuth app tokens and personal access tokens (classic) need the `read:user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
     /// - spaceResourceId: The unique identifier of the resource.
-    static func copilotSpacesGetResourceForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int,
-        spaceResourceId: Int
-    ) async throws -> CopilotSpaceResource {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/resources/",
-                sdkEncodePathSegment(sdkWireString(spaceResourceId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotSpacesGetResourceForUser"
-        )).data
+    public static func copilotSpacesGetResourceForUser(config: ClientConfig, username: String, spaceNumber: Int, spaceResourceId: Int) async throws -> CopilotSpaceResource {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/resources/", sdkEncodePathSegment(sdkWireString(spaceResourceId))].joined(), config: config, decoder: .json, operationId: "copilotSpacesGetResourceForUser")).data
     }
 }

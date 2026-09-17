@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookCheckRunRerequestedFormEncoded domain models
+// WebhookCheckRunRerequestedFormEncoded domain models
 /// The check_run.rerequested webhook encoded with URL encoding
 public struct WebhookCheckRunRerequestedFormEncoded: Codable {
     /// A URL-encoded string of the check_run.rerequested JSON payload. The decoded payload is a JSON object.
@@ -13,27 +13,21 @@ public struct WebhookCheckRunRerequestedFormEncoded: Codable {
         case payload
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookCheckRunRerequestedFormEncoded {
-    init(from decoder: Decoder) throws {
+extension WebhookCheckRunRerequestedFormEncoded {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.payload) else {
-            throw SdkValidationError(
-                field: "payload",
-                code: "required",
-                message: "Validation failed for 'payload': value is required"
-            )
+            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
         }
-        payload = try container.sdkDecodeRequired(.payload)
+        self.payload = try container.sdkDecodeRequired(.payload)
     }
 }
 
-public extension WebhookCheckRunRerequestedFormEncoded {
-    init(payload: String) {
+extension WebhookCheckRunRerequestedFormEncoded {
+    public init(payload: String) {
         self.payload = payload
     }
 }

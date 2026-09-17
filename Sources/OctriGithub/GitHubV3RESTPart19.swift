@@ -3,119 +3,38 @@
 
 import Foundation
 
-public extension BillingNamespace {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for an
-    /// organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an
-    /// organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
-    func billingGetGithubUsageSummaryReportOrg(
-        org: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        repository: String?,
-        product: String?,
-        sku: String?
-    ) async throws -> BillingUsageSummaryReportOrg {
-        try await BillingMethods.billingGetGithubBillingUsageSummaryReportOrg(
-            config: config,
-            org: org,
-            year: year,
-            month: month,
-            day: day,
-            repository: repository,
-            product: product,
-            sku: sku
-        )
+extension BillingNamespace {
+/// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
+    public func billingGetGithubUsageSummaryReportOrg(org: String, year: Int?, month: Int?, day: Int?, repository: String?, product: String?, sku: String?) async throws -> BillingUsageSummaryReportOrg {
+        return try await BillingMethods.billingGetGithubBillingUsageSummaryReportOrg(config: config, org: org, year: year, month: month, day: day, repository: repository, product: product, sku: sku)
     }
 
-    /// Get billing AI credit usage report for a user
+/// Get billing AI credit usage report for a user
     ///
-    /// Gets a report of AI credit usage for a user. **Note:** Only data from the past 24 months is accessible via this
-    /// endpoint.
-    func billingGetGithubAiCreditUsageReportUser(
-        username: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        model: String?,
-        product: String?
-    ) async throws -> BillingAiCreditUsageReportUser {
-        try await BillingMethods.billingGetGithubBillingAiCreditUsageReportUser(
-            config: config,
-            username: username,
-            year: year,
-            month: month,
-            day: day,
-            model: model,
-            product: product
-        )
+    /// Gets a report of AI credit usage for a user. **Note:** Only data from the past 24 months is accessible via this endpoint.
+    public func billingGetGithubAiCreditUsageReportUser(username: String, year: Int?, month: Int?, day: Int?, model: String?, product: String?) async throws -> BillingAiCreditUsageReportUser {
+        return try await BillingMethods.billingGetGithubBillingAiCreditUsageReportUser(config: config, username: username, year: year, month: month, day: day, model: model, product: product)
     }
 
-    /// Get billing premium request usage report for a user
+/// Get billing premium request usage report for a user
     ///
-    /// Gets a report of premium request usage for a user. **Note:** Only data from the past 24 months is accessible via
-    /// this endpoint.
-    func billingGetGithubPremiumRequestUsageReportUser(
-        username: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        model: String?,
-        product: String?
-    ) async throws -> BillingPremiumRequestUsageReportUser {
-        try await BillingMethods.billingGetGithubBillingPremiumRequestUsageReportUser(
-            config: config,
-            username: username,
-            year: year,
-            month: month,
-            day: day,
-            model: model,
-            product: product
-        )
+    /// Gets a report of premium request usage for a user. **Note:** Only data from the past 24 months is accessible via this endpoint.
+    public func billingGetGithubPremiumRequestUsageReportUser(username: String, year: Int?, month: Int?, day: Int?, model: String?, product: String?) async throws -> BillingPremiumRequestUsageReportUser {
+        return try await BillingMethods.billingGetGithubBillingPremiumRequestUsageReportUser(config: config, username: username, year: year, month: month, day: day, model: model, product: product)
     }
 
-    /// Get billing usage report for a user
+/// Get billing usage report for a user
     ///
-    /// Gets a report of the total usage for a user. **Note:** This endpoint is only available to users with access to
-    /// the enhanced billing platform.
-    func billingGetGithubUsageReportUser(
-        username: String,
-        year: Int?,
-        month: Int?,
-        day: Int?
-    ) async throws -> BillingUsageReportUser {
-        try await BillingMethods.billingGetGithubBillingUsageReportUser(
-            config: config,
-            username: username,
-            year: year,
-            month: month,
-            day: day
-        )
+    /// Gets a report of the total usage for a user. **Note:** This endpoint is only available to users with access to the enhanced billing platform.
+    public func billingGetGithubUsageReportUser(username: String, year: Int?, month: Int?, day: Int?) async throws -> BillingUsageReportUser {
+        return try await BillingMethods.billingGetGithubBillingUsageReportUser(config: config, username: username, year: year, month: month, day: day)
     }
 
-    /// Get billing usage summary for a user
+/// Get billing usage summary for a user
     ///
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for a
-    /// user. **Note:** Only data from the past 24 months is accessible via this endpoint.
-    func billingGetGithubUsageSummaryReportUser(
-        username: String,
-        year: Int?,
-        month: Int?,
-        day: Int?,
-        repository: String?,
-        product: String?,
-        sku: String?
-    ) async throws -> BillingUsageSummaryReportUser {
-        try await BillingMethods.billingGetGithubBillingUsageSummaryReportUser(
-            config: config,
-            username: username,
-            year: year,
-            month: month,
-            day: day,
-            repository: repository,
-            product: product,
-            sku: sku
-        )
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets a summary report of usage for a user. **Note:** Only data from the past 24 months is accessible via this endpoint.
+    public func billingGetGithubUsageSummaryReportUser(username: String, year: Int?, month: Int?, day: Int?, repository: String?, product: String?, sku: String?) async throws -> BillingUsageSummaryReportUser {
+        return try await BillingMethods.billingGetGithubBillingUsageSummaryReportUser(config: config, username: username, year: year, month: month, day: day, repository: repository, product: product, sku: sku)
     }
 }
 
@@ -125,462 +44,167 @@ public class AgentsNamespace {
         self.config = config
     }
 
-    /// Lists all secrets available in an organization without revealing their encrypted values. Authenticated users
-    /// must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal
-    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the
-    /// `repo` scope is also required.
+/// Lists all secrets available in an organization without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     public func listOrgSecrets(org: String, perPage: Int?, page: Int?) async throws -> AgentsListOrgSecretsResponse {
-        try await AgentsMethods.agentsListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
+        return try await AgentsMethods.agentsListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
     }
 
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. Authenticated users must have collaborator access to a repository to create, update, or read
-    /// secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    /// If the repository is private, the `repo` scope is also required.
+/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     public func getOrgPublicKey(org: String) async throws -> ActionsPublicKey {
-        try await AgentsMethods.agentsGetOrgPublicKey(config: config, org: org)
+        return try await AgentsMethods.agentsGetOrgPublicKey(config: config, org: org)
     }
 
-    /// Gets a single organization secret without revealing its encrypted value. The authenticated user must have
-    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
-    /// (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+/// Gets a single organization secret without revealing its encrypted value. The authenticated user must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     public func getOrgSecret(org: String, secretName: String) async throws -> OrganizationActionsSecret {
-        try await AgentsMethods.agentsGetOrgSecret(config: config, org: org, secretName: secretName)
+        return try await AgentsMethods.agentsGetOrgSecret(config: config, org: org, secretName: secretName)
     }
 
-    /// Creates or updates an organization secret with an encrypted value. Encrypt your secret using
-    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have
-    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
-    /// (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createOrUpdateOrgSecret(
-        org: String,
-        secretName: String,
-        encryptedValue: String,
-        keyId: String,
-        visibility: AgentsCreateOrUpdateOrgSecretRequestBodyVisibility,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> EmptyObject {
-        try await AgentsMethods.agentsCreateOrUpdateOrgSecret(
-            config: config,
-            org: org,
-            secretName: secretName,
-            encryptedValue: encryptedValue,
-            keyId: keyId,
-            visibility: visibility,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+/// Creates or updates an organization secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createOrUpdateOrgSecret(org: String, secretName: String, encryptedValue: String, keyId: String, visibility: AgentsCreateOrUpdateOrgSecretRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
+        return try await AgentsMethods.agentsCreateOrUpdateOrgSecret(config: config, org: org, secretName: secretName, encryptedValue: encryptedValue, keyId: keyId, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
     }
 
-    /// Deletes a secret in an organization using the secret name. Authenticated users must have collaborator access to
-    /// a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the
-    /// `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+/// Deletes a secret in an organization using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     public func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsDeleteOrgSecret(config: config, org: org, secretName: secretName)
+        return try await AgentsMethods.agentsDeleteOrgSecret(config: config, org: org, secretName: secretName)
     }
 
-    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to
-    /// `selected`. Authenticated users must have collaborator access to a repository to create, update, or read
-    /// secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    /// If the repository is private, the `repo` scope is also required.
-    public func listSelectedReposForOrgSecret(
-        org: String,
-        secretName: String,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> AgentsListSelectedReposForOrgSecretResponse {
-        try await AgentsMethods.agentsListSelectedReposForOrgSecret(
-            config: config,
-            org: org,
-            secretName: secretName,
-            page: page,
-            perPage: perPage
-        )
+/// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func listSelectedReposForOrgSecret(org: String, secretName: String, page: Int?, perPage: Int?) async throws -> AgentsListSelectedReposForOrgSecretResponse {
+        return try await AgentsMethods.agentsListSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, page: page, perPage: perPage)
     }
 
-    /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to
-    /// `selected`. The visibility is set when you [Create or update an organization
-    /// secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated
-    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
-    /// the `repo` scope is also required.
-    public func setSelectedReposForOrgSecret(
-        org: String,
-        secretName: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsSetSelectedReposForOrgSecret(
-            config: config,
-            org: org,
-            secretName: secretName,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+/// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func setSelectedReposForOrgSecret(org: String, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsSetSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, selectedRepositoryIds: selectedRepositoryIds)
     }
 
-    /// Adds a repository to the selected repository list for an organization secret. Use this operation only when the
-    /// secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth tokens
-    /// and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is private.
+/// Adds a repository to the selected repository list for an organization secret. Use this operation only when the secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth tokens and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is private.
     ///
-    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`.
-    /// For more information about setting the visibility, see [Create or update an organization
-    /// secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated
-    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
-    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func addSelectedRepoToOrgSecret(
-        org: String,
-        secretName: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsAddSelectedRepoToOrgSecret(
-            config: config,
-            org: org,
-            secretName: secretName,
-            repositoryId: repositoryId
-        )
+    /// Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. For more information about setting the visibility, see [Create or update an organization secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func addSelectedRepoToOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsAddSelectedRepoToOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
     }
 }
 
-public extension AgentsNamespace {
-    /// Removes a repository from the selected repository list for an organization secret. Use this operation only when
-    /// the secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth
-    /// app tokens and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is
-    /// private.
+extension AgentsNamespace {
+/// Removes a repository from the selected repository list for an organization secret. Use this operation only when the secret's `visibility` is set to `selected`, and authenticate with the required organization access. OAuth app tokens and classic personal access tokens require the `admin:org` scope, plus `repo` when the repository is private.
     ///
-    /// Removes a repository from an organization secret when the `visibility` for repository access is set to
-    /// `selected`. The visibility is set when you [Create or update an organization
-    /// secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated
-    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
-    /// the `repo` scope is also required.
-    func removeSelectedRepoFromOrgSecret(
-        org: String,
-        secretName: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsRemoveSelectedRepoFromOrgSecret(
-            config: config,
-            org: org,
-            secretName: secretName,
-            repositoryId: repositoryId
-        )
+    /// Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/agents/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func removeSelectedRepoFromOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsRemoveSelectedRepoFromOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
     }
 
-    /// Lists all agent variables available in an organization. Returned variables include their values. Authenticated
-    /// users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
-    /// the `repo` scope is also required.
-    func listOrgVariables(org: String, perPage: Int?, page: Int?) async throws -> AgentsListOrgVariablesResponse {
-        try await AgentsMethods.agentsListOrgVariables(config: config, org: org, perPage: perPage, page: page)
+/// Lists all agent variables available in an organization. Returned variables include their values. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func listOrgVariables(org: String, perPage: Int?, page: Int?) async throws -> AgentsListOrgVariablesResponse {
+        return try await AgentsMethods.agentsListOrgVariables(config: config, org: org, perPage: perPage, page: page)
     }
 
-    /// Creates an organization agent variable that you can reference in a GitHub Actions workflow. Authenticated users
-    /// must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal
-    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    func createOrgVariable(
-        org: String,
-        name: String,
-        value: String,
-        visibility: AgentsCreateOrgVariableRequestBodyVisibility,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> EmptyObject {
-        try await AgentsMethods.agentsCreateOrgVariable(
-            config: config,
-            org: org,
-            name: name,
-            value: value,
-            visibility: visibility,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+/// Creates an organization agent variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createOrgVariable(org: String, name: String, value: String, visibility: AgentsCreateOrgVariableRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
+        return try await AgentsMethods.agentsCreateOrgVariable(config: config, org: org, name: name, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
     }
 
-    /// Gets a specific agent variable in an organization. The authenticated user must have collaborator access to a
-    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the
-    /// `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
-    func getOrgVariable(org: String, name: String) async throws -> OrganizationActionsVariable {
-        try await AgentsMethods.agentsGetOrgVariable(config: config, org: org, name: name)
+/// Gets a specific agent variable in an organization. The authenticated user must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func getOrgVariable(org: String, name: String) async throws -> OrganizationActionsVariable {
+        return try await AgentsMethods.agentsGetOrgVariable(config: config, org: org, name: name)
     }
 
-    /// Updates an organization agent variable that you can reference in a GitHub Actions workflow. Authenticated users
-    /// must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
-    /// the `repo` scope is also required.
-    func updateOrgVariable(
-        org: String,
-        name: String,
-        name2: String?,
-        value: String?,
-        visibility: AgentsUpdateOrgVariableRequestBodyVisibility?,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsUpdateOrgVariable(
-            config: config,
-            org: org,
-            name: name,
-            name2: name2,
-            value: value,
-            visibility: visibility,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+/// Updates an organization agent variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func updateOrgVariable(org: String, name: String, name2: String?, value: String?, visibility: AgentsUpdateOrgVariableRequestBodyVisibility?, selectedRepositoryIds: [Int]?) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsUpdateOrgVariable(config: config, org: org, name: name, name2: name2, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
     }
 
-    /// Deletes an organization agent variable using the variable name. Authenticated users must have collaborator
-    /// access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic)
-    /// need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access
-    /// tokens (classic) need the `repo` scope to use this endpoint.
-    func deleteOrgVariable(org: String, name: String) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsDeleteOrgVariable(config: config, org: org, name: name)
+/// Deletes an organization agent variable using the variable name. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func deleteOrgVariable(org: String, name: String) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsDeleteOrgVariable(config: config, org: org, name: name)
     }
 
-    /// Lists all repositories that can access an organization agent variable that is available to selected
-    /// repositories. Authenticated users must have collaborator access to a repository to create, update, or read
-    /// variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
-    /// endpoint. If the repository is private, the `repo` scope is also required.
-    func listSelectedReposForOrgVariable(
-        org: String,
-        name: String,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> AgentsListSelectedReposForOrgVariableResponse {
-        try await AgentsMethods.agentsListSelectedReposForOrgVariable(
-            config: config,
-            org: org,
-            name: name,
-            page: page,
-            perPage: perPage
-        )
+/// Lists all repositories that can access an organization agent variable that is available to selected repositories. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func listSelectedReposForOrgVariable(org: String, name: String, page: Int?, perPage: Int?) async throws -> AgentsListSelectedReposForOrgVariableResponse {
+        return try await AgentsMethods.agentsListSelectedReposForOrgVariable(config: config, org: org, name: name, page: page, perPage: perPage)
     }
 
-    /// Replaces all repositories for an organization agent variable that is available to selected repositories.
-    /// Organization variables that are available to selected repositories have their `visibility` field set to
-    /// `selected`. Authenticated users must have collaborator access to a repository to create, update, or read
-    /// variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
-    /// endpoint. If the repository is private, the `repo` scope is also required.
-    func setSelectedReposForOrgVariable(
-        org: String,
-        name: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsSetSelectedReposForOrgVariable(
-            config: config,
-            org: org,
-            name: name,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+/// Replaces all repositories for an organization agent variable that is available to selected repositories. Organization variables that are available to selected repositories have their `visibility` field set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func setSelectedReposForOrgVariable(org: String, name: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsSetSelectedReposForOrgVariable(config: config, org: org, name: name, selectedRepositoryIds: selectedRepositoryIds)
     }
 }
 
-public extension AgentsNamespace {
-    /// Adds a repository to an organization agent variable that is available to selected repositories. Use `org`,
-    /// `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable
-    /// visibility is set to `selected`. Use an OAuth token or classic personal access token with the `admin:org` scope,
-    /// and add the `repo` scope when the repository is private.
+extension AgentsNamespace {
+/// Adds a repository to an organization agent variable that is available to selected repositories. Use `org`, `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable visibility is set to `selected`. Use an OAuth token or classic personal access token with the `admin:org` scope, and add the `repo` scope when the repository is private.
     ///
-    /// Adds a repository to an organization agent variable that is available to selected repositories. Organization
-    /// variables that are available to selected repositories have their `visibility` field set to `selected`.
-    /// Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth
-    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository
-    /// is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    func addSelectedRepoToOrgVariable(org: String, name: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsAddSelectedRepoToOrgVariable(
-            config: config,
-            org: org,
-            name: name,
-            repositoryId: repositoryId
-        )
+    /// Adds a repository to an organization agent variable that is available to selected repositories. Organization variables that are available to selected repositories have their `visibility` field set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func addSelectedRepoToOrgVariable(org: String, name: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsAddSelectedRepoToOrgVariable(config: config, org: org, name: name, repositoryId: repositoryId)
     }
 
-    /// Deletes a repository from an organization agent variable that is available to selected repositories. Use `org`,
-    /// `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable
-    /// visibility is set to `selected`. Use an OAuth app token or classic personal access token with the `admin:org`
-    /// scope, and add the `repo` scope when the repository is private.
+/// Deletes a repository from an organization agent variable that is available to selected repositories. Use `org`, `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable visibility is set to `selected`. Use an OAuth app token or classic personal access token with the `admin:org` scope, and add the `repo` scope when the repository is private.
     ///
-    /// Removes a repository from an organization agent variable that is available to selected repositories.
-    /// Organization variables that are available to selected repositories have their `visibility` field set to
-    /// `selected`. Authenticated users must have collaborator access to a repository to create, update, or read
-    /// variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
-    /// endpoint. If the repository is private, the `repo` scope is also required.
-    func removeSelectedRepoFromOrgVariable(
-        org: String,
-        name: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsRemoveSelectedRepoFromOrgVariable(
-            config: config,
-            org: org,
-            name: name,
-            repositoryId: repositoryId
-        )
+    /// Removes a repository from an organization agent variable that is available to selected repositories. Organization variables that are available to selected repositories have their `visibility` field set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    public func removeSelectedRepoFromOrgVariable(org: String, name: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsRemoveSelectedRepoFromOrgVariable(config: config, org: org, name: name, repositoryId: repositoryId)
     }
 
-    /// Lists all organization secrets shared with a repository without revealing their encrypted values. Authenticated
-    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
-    func listRepoOrganizationSecrets(
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AgentsListRepoOrganizationSecretsResponse {
-        try await AgentsMethods.agentsListRepoOrganizationSecrets(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+/// Lists all organization secrets shared with a repository without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func listRepoOrganizationSecrets(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> AgentsListRepoOrganizationSecretsResponse {
+        return try await AgentsMethods.agentsListRepoOrganizationSecrets(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Lists all organization variables shared with a repository. Authenticated users must have collaborator access to
-    /// a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need
-    /// the `repo` scope to use this endpoint.
-    func listRepoOrganizationVariables(
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AgentsListRepoOrganizationVariablesResponse {
-        try await AgentsMethods.agentsListRepoOrganizationVariables(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+/// Lists all organization variables shared with a repository. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func listRepoOrganizationVariables(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> AgentsListRepoOrganizationVariablesResponse {
+        return try await AgentsMethods.agentsListRepoOrganizationVariables(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Lists all secrets available in a repository without revealing their encrypted values. Authenticated users must
-    /// have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` scope to use this endpoint.
-    func listRepoSecrets(
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AgentsListRepoSecretsResponse {
-        try await AgentsMethods.agentsListRepoSecrets(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+/// Lists all secrets available in a repository without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func listRepoSecrets(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> AgentsListRepoSecretsResponse {
+        return try await AgentsMethods.agentsListRepoSecrets(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private,
-    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    func getRepoPublicKey(owner: String, repo: String) async throws -> ActionsPublicKey {
-        try await AgentsMethods.agentsGetRepoPublicKey(config: config, owner: owner, repo: repo)
+/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func getRepoPublicKey(owner: String, repo: String) async throws -> ActionsPublicKey {
+        return try await AgentsMethods.agentsGetRepoPublicKey(config: config, owner: owner, repo: repo)
     }
 
-    /// Gets a single repository secret without revealing its encrypted value. The authenticated user must have
-    /// collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
-    func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> ActionsSecret {
-        try await AgentsMethods.agentsGetRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+/// Gets a single repository secret without revealing its encrypted value. The authenticated user must have collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> ActionsSecret {
+        return try await AgentsMethods.agentsGetRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
     }
 
-    /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
-    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have
-    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
-    func createOrUpdateRepoSecret(
-        owner: String,
-        repo: String,
-        secretName: String,
-        encryptedValue: String,
-        keyId: String
-    ) async throws -> EmptyObject {
-        try await AgentsMethods.agentsCreateOrUpdateRepoSecret(
-            config: config,
-            owner: owner,
-            repo: repo,
-            secretName: secretName,
-            encryptedValue: encryptedValue,
-            keyId: keyId
-        )
+/// Creates or updates a repository secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createOrUpdateRepoSecret(owner: String, repo: String, secretName: String, encryptedValue: String, keyId: String) async throws -> EmptyObject {
+        return try await AgentsMethods.agentsCreateOrUpdateRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName, encryptedValue: encryptedValue, keyId: keyId)
     }
 }
 
-public extension AgentsNamespace {
-    /// Deletes a secret in a repository using the secret name. Authenticated users must have collaborator access to a
-    /// repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo`
-    /// scope to use this endpoint.
-    func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsDeleteRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+extension AgentsNamespace {
+/// Deletes a secret in a repository using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsDeleteRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
     }
 
-    /// Lists all repository variables. Authenticated users must have collaborator access to a repository to create,
-    /// update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use
-    /// this endpoint.
-    func listRepoVariables(
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> AgentsListRepoVariablesResponse {
-        try await AgentsMethods.agentsListRepoVariables(
-            config: config,
-            owner: owner,
-            repo: repo,
-            perPage: perPage,
-            page: page
-        )
+/// Lists all repository variables. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func listRepoVariables(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> AgentsListRepoVariablesResponse {
+        return try await AgentsMethods.agentsListRepoVariables(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Creates a repository variable that you can reference in a GitHub Actions workflow. Authenticated users must have
-    /// collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access
-    /// tokens (classic) need the `repo` scope to use this endpoint.
-    func createRepoVariable(owner: String, repo: String, name: String, value: String) async throws -> EmptyObject {
-        try await AgentsMethods.agentsCreateRepoVariable(
-            config: config,
-            owner: owner,
-            repo: repo,
-            name: name,
-            value: value
-        )
+/// Creates a repository variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func createRepoVariable(owner: String, repo: String, name: String, value: String) async throws -> EmptyObject {
+        return try await AgentsMethods.agentsCreateRepoVariable(config: config, owner: owner, repo: repo, name: name, value: value)
     }
 
-    /// Gets a specific variable in a repository. The authenticated user must have collaborator access to the repository
-    /// to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this
-    /// endpoint.
-    func getRepoVariable(owner: String, repo: String, name: String) async throws -> ActionsVariable {
-        try await AgentsMethods.agentsGetRepoVariable(config: config, owner: owner, repo: repo, name: name)
+/// Gets a specific variable in a repository. The authenticated user must have collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func getRepoVariable(owner: String, repo: String, name: String) async throws -> ActionsVariable {
+        return try await AgentsMethods.agentsGetRepoVariable(config: config, owner: owner, repo: repo, name: name)
     }
 
-    /// Updates a repository variable that you can reference in a GitHub Actions workflow. Authenticated users must have
-    /// collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access
-    /// tokens (classic) need the `repo` scope to use this endpoint.
-    func updateRepoVariable(
-        owner: String,
-        repo: String,
-        name: String,
-        name2: String?,
-        value: String?
-    ) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsUpdateRepoVariable(
-            config: config,
-            owner: owner,
-            repo: repo,
-            name: name,
-            name2: name2,
-            value: value
-        )
+/// Updates a repository variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func updateRepoVariable(owner: String, repo: String, name: String, name2: String?, value: String?) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsUpdateRepoVariable(config: config, owner: owner, repo: repo, name: name, name2: name2, value: value)
     }
 
-    /// Deletes a repository variable using the variable name. Authenticated users must have collaborator access to a
-    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the
-    /// `repo` scope to use this endpoint.
-    func deleteRepoVariable(owner: String, repo: String, name: String) async throws -> SdkEmptyResponse {
-        try await AgentsMethods.agentsDeleteRepoVariable(config: config, owner: owner, repo: repo, name: name)
+/// Deletes a repository variable using the variable name. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    public func deleteRepoVariable(owner: String, repo: String, name: String) async throws -> SdkEmptyResponse {
+        return try await AgentsMethods.agentsDeleteRepoVariable(config: config, owner: owner, repo: repo, name: name)
     }
 }

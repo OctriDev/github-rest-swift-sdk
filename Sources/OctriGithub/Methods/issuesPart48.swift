@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
+extension IssuesMethods {
     /// Gets a milestone using the given milestone number.
     ///
     /// - Parameters:
@@ -15,25 +15,7 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - milestoneNumber: The number that identifies the milestone.
-    static func issuesGetMilestone(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        milestoneNumber: Int
-    ) async throws -> Milestone {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/milestones/",
-                sdkEncodePathSegment(sdkWireString(milestoneNumber)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "issuesGetMilestone"
-        )).data
+    public static func issuesGetMilestone(config: ClientConfig, owner: String, repo: String, milestoneNumber: Int) async throws -> Milestone {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/milestones/", sdkEncodePathSegment(sdkWireString(milestoneNumber))].joined(), config: config, decoder: .json, operationId: "issuesGetMilestone")).data
     }
 }

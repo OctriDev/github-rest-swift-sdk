@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Adds one or more labels to an issue while preserving its existing labels. Identify the issue with `owner`,
-    /// `repo`, and `issue_number`, then provide labels as an object, an array of label names, or an array of label
-    /// objects. Label objects can include `rationale`, `suggest`, and `confidence` to describe or defer the label
-    /// decision.
+extension IssuesMethods {
+    /// Adds one or more labels to an issue while preserving its existing labels. Identify the issue with `owner`, `repo`, and `issue_number`, then provide labels as an object, an array of label names, or an array of label objects. Label objects can include `rationale`, `suggest`, and `confidence` to describe or defer the label decision.
     ///
     /// Adds labels to an issue.
     ///
@@ -20,34 +17,11 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    static func issuesAddLabels(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        body: IssuesAddLabelsRequestBody?
-    ) async throws -> [Label] {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/labels",
-            ].joined(),
-            config: config,
-            rawBody: (body.map { try sdkJsonEncoder().encode($0) }),
-            decoder: .json,
-            operationId: "issuesAddLabels"
-        )).data
+    public static func issuesAddLabels(config: ClientConfig, owner: String, repo: String, issueNumber: Int, body: IssuesAddLabelsRequestBody?) async throws -> [Label] {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/labels"].joined(), config: config, rawBody: (try body.map { try sdkJsonEncoder().encode($0) }), decoder: .json, operationId: "issuesAddLabels")).data
     }
 
-    /// Replaces the labels assigned to an issue with the labels in the request. Identify the issue with `owner`,
-    /// `repo`, and `issue_number`, and provide label names through the supported object or array forms. Send an empty
-    /// `labels` array to remove every label from the issue.
+    /// Replaces the labels assigned to an issue with the labels in the request. Identify the issue with `owner`, `repo`, and `issue_number`, and provide label names through the supported object or array forms. Send an empty `labels` array to remove every label from the issue.
     ///
     /// Removes any previous labels and sets the new labels for an issue.
     ///
@@ -57,28 +31,7 @@ public extension IssuesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
-    static func issuesSetLabels(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        body: IssuesSetLabelsRequestBody?
-    ) async throws -> [Label] {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/labels",
-            ].joined(),
-            config: config,
-            rawBody: (body.map { try sdkJsonEncoder().encode($0) }),
-            decoder: .json,
-            operationId: "issuesSetLabels"
-        )).data
+    public static func issuesSetLabels(config: ClientConfig, owner: String, repo: String, issueNumber: Int, body: IssuesSetLabelsRequestBody?) async throws -> [Label] {
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/labels"].joined(), config: config, rawBody: (try body.map { try sdkJsonEncoder().encode($0) }), decoder: .json, operationId: "issuesSetLabels")).data
     }
 }

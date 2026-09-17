@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical apps operation model declarations
+// Canonical apps operation model declarations
 public struct AppsCreateFromManifestResponse: Codable {
     /// Unique identifier of the GitHub app
     /// - Example: 37
@@ -74,58 +74,38 @@ public struct AppsCreateFromManifestResponse: Codable {
         case installationsCount = "installations_count"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AppsCreateFromManifestResponse {
-    init(from decoder: Decoder) throws {
+extension AppsCreateFromManifestResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        clientId = try container.sdkDecodeRequired(.clientId)
-        owner = try container.sdkDecodeRequired(.owner)
-        name = try container.sdkDecodeRequired(.name)
-        description = try container.sdkDecodeIfPresent(.description)
-        externalUrl = try container.sdkDecodeRequired(.externalUrl)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        permissions = try container.sdkDecodeRequired(.permissions)
-        events = try container.sdkDecodeRequired(.events)
-        clientSecret = try container.sdkDecodeRequired(.clientSecret)
-        webhookSecret = try container.sdkDecodeIfPresent(.webhookSecret)
-        pem = try container.sdkDecodeRequired(.pem)
-        slug = try container.sdkDecodeIfPresent(.slug)
-        installationsCount = try container.sdkDecodeIfPresent(.installationsCount)
-        try sdkValidateUri("external_url", externalUrl)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.clientId = try container.sdkDecodeRequired(.clientId)
+        self.owner = try container.sdkDecodeRequired(.owner)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.externalUrl = try container.sdkDecodeRequired(.externalUrl)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.permissions = try container.sdkDecodeRequired(.permissions)
+        self.events = try container.sdkDecodeRequired(.events)
+        self.clientSecret = try container.sdkDecodeRequired(.clientSecret)
+        self.webhookSecret = try container.sdkDecodeIfPresent(.webhookSecret)
+        self.pem = try container.sdkDecodeRequired(.pem)
+        self.slug = try container.sdkDecodeIfPresent(.slug)
+        self.installationsCount = try container.sdkDecodeIfPresent(.installationsCount)
+            try sdkValidateUri("external_url", self.externalUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension AppsCreateFromManifestResponse {
-    init(
-        id: Int,
-        nodeId: String,
-        clientId: String,
-        owner: IntegrationOwner,
-        name: String,
-        description: String?,
-        externalUrl: String,
-        htmlUrl: String,
-        createdAt: Date,
-        updatedAt: Date,
-        permissions: IntegrationPermissions,
-        events: [String],
-        clientSecret: String,
-        webhookSecret: String?,
-        pem: String,
-        slug: String? = nil,
-        installationsCount: Int? = nil
-    ) throws {
+extension AppsCreateFromManifestResponse {
+    public init(id: Int, nodeId: String, clientId: String, owner: IntegrationOwner, name: String, description: String?, externalUrl: String, htmlUrl: String, createdAt: Date, updatedAt: Date, permissions: IntegrationPermissions, events: [String], clientSecret: String, webhookSecret: String?, pem: String, slug: String? = nil, installationsCount: Int? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.clientId, self.owner) = (clientId, owner)
         (self.name, self.description) = (name, description)
@@ -135,15 +115,14 @@ public extension AppsCreateFromManifestResponse {
         (self.clientSecret, self.webhookSecret) = (clientSecret, webhookSecret)
         (self.pem, self.slug) = (pem, slug)
         self.installationsCount = installationsCount
-        try sdkValidateUri("external_url", self.externalUrl)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("external_url", self.externalUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public typealias AppsListReposAccessibleToInstallationResponseRepositoriesList =
-    [AppsListReposAccessibleToInstallationResponseRepositoriesItem]
+public typealias AppsListReposAccessibleToInstallationResponseRepositoriesList = [AppsListReposAccessibleToInstallationResponseRepositoriesItem]
 
 public struct AppsListReposAccessibleToInstallationResponse: Codable {
     public var totalCount: Int
@@ -157,40 +136,26 @@ public struct AppsListReposAccessibleToInstallationResponse: Codable {
         case repositorySelection = "repository_selection"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AppsListReposAccessibleToInstallationResponse {
-    init(from decoder: Decoder) throws {
+extension AppsListReposAccessibleToInstallationResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.repositories) else {
-            throw SdkValidationError(
-                field: "repositories",
-                code: "required",
-                message: "Validation failed for 'repositories': value is required"
-            )
+            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        repositories = try container.sdkDecodeRequired(.repositories)
-        repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.repositories = try container.sdkDecodeRequired(.repositories)
+        self.repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
     }
 }
 
-public extension AppsListReposAccessibleToInstallationResponse {
-    init(
-        totalCount: Int,
-        repositories: AppsListReposAccessibleToInstallationResponseRepositoriesList,
-        repositorySelection: String? = nil
-    ) {
+extension AppsListReposAccessibleToInstallationResponse {
+    public init(totalCount: Int, repositories: AppsListReposAccessibleToInstallationResponseRepositoriesList, repositorySelection: String? = nil) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
         self.repositorySelection = repositorySelection
     }
@@ -206,19 +171,19 @@ public struct AppsListReposAccessibleToInstallationResponseRepositoriesItemVaria
     }
 
     init() {
-        customProperties = nil
+        self.customProperties = nil
     }
 }
 
-public extension AppsListReposAccessibleToInstallationResponseRepositoriesItemVariant1 {
-    init(from decoder: Decoder) throws {
+extension AppsListReposAccessibleToInstallationResponseRepositoriesItemVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        customProperties = try container.sdkDecodeIfPresent(.customProperties)
+        self.customProperties = try container.sdkDecodeIfPresent(.customProperties)
     }
 }
 
-public extension AppsListReposAccessibleToInstallationResponseRepositoriesItemVariant1 {
-    init(customProperties: [String: JSONValue]? = nil) {
+extension AppsListReposAccessibleToInstallationResponseRepositoriesItemVariant1 {
+    public init(customProperties: [String: JSONValue]? = nil) {
         self.init()
         self.customProperties = customProperties
     }
@@ -233,35 +198,25 @@ public struct AppsListInstallationsForAuthenticatedUserResponse: Codable {
         case installations
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AppsListInstallationsForAuthenticatedUserResponse {
-    init(from decoder: Decoder) throws {
+extension AppsListInstallationsForAuthenticatedUserResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.installations) else {
-            throw SdkValidationError(
-                field: "installations",
-                code: "required",
-                message: "Validation failed for 'installations': value is required"
-            )
+            throw SdkValidationError(field: "installations", code: "required", message: "Validation failed for 'installations': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        installations = try container.sdkDecodeRequired(.installations)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.installations = try container.sdkDecodeRequired(.installations)
     }
 }
 
-public extension AppsListInstallationsForAuthenticatedUserResponse {
-    init(totalCount: Int, installations: [Installation]) {
+extension AppsListInstallationsForAuthenticatedUserResponse {
+    public init(totalCount: Int, installations: [Installation]) {
         (self.totalCount, self.installations) = (totalCount, installations)
     }
 }
@@ -279,58 +234,39 @@ public struct AppsCreateFromManifestResponseVariant1: Codable {
         case pem
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AppsCreateFromManifestResponseVariant1 {
-    init(from decoder: Decoder) throws {
+extension AppsCreateFromManifestResponseVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.clientId) else {
-            throw SdkValidationError(
-                field: "client_id",
-                code: "required",
-                message: "Validation failed for 'client_id': value is required"
-            )
+            throw SdkValidationError(field: "client_id", code: "required", message: "Validation failed for 'client_id': value is required")
         }
         guard container.contains(.clientSecret) else {
-            throw SdkValidationError(
-                field: "client_secret",
-                code: "required",
-                message: "Validation failed for 'client_secret': value is required"
-            )
+            throw SdkValidationError(field: "client_secret", code: "required", message: "Validation failed for 'client_secret': value is required")
         }
         guard container.contains(.webhookSecret) else {
-            throw SdkValidationError(
-                field: "webhook_secret",
-                code: "required",
-                message: "Validation failed for 'webhook_secret': value is required"
-            )
+            throw SdkValidationError(field: "webhook_secret", code: "required", message: "Validation failed for 'webhook_secret': value is required")
         }
         guard container.contains(.pem) else {
-            throw SdkValidationError(
-                field: "pem",
-                code: "required",
-                message: "Validation failed for 'pem': value is required"
-            )
+            throw SdkValidationError(field: "pem", code: "required", message: "Validation failed for 'pem': value is required")
         }
-        clientId = try container.sdkDecodeRequired(.clientId)
-        clientSecret = try container.sdkDecodeRequired(.clientSecret)
-        webhookSecret = try container.sdkDecodeIfPresent(.webhookSecret)
-        pem = try container.sdkDecodeRequired(.pem)
+        self.clientId = try container.sdkDecodeRequired(.clientId)
+        self.clientSecret = try container.sdkDecodeRequired(.clientSecret)
+        self.webhookSecret = try container.sdkDecodeIfPresent(.webhookSecret)
+        self.pem = try container.sdkDecodeRequired(.pem)
     }
 }
 
-public extension AppsCreateFromManifestResponseVariant1 {
-    init(clientId: String, clientSecret: String, webhookSecret: String?, pem: String) {
+extension AppsCreateFromManifestResponseVariant1 {
+    public init(clientId: String, clientSecret: String, webhookSecret: String?, pem: String) {
         (self.clientId, self.clientSecret) = (clientId, clientSecret)
         (self.webhookSecret, self.pem) = (webhookSecret, pem)
     }
 }
 
-public typealias AppsListInstallationReposForAuthenticatedUserResponseRepositoriesList =
-    [AppsListInstallationReposForAuthenticatedUserResponseRepositoriesItem]
+public typealias AppsListInstallationReposForAuthenticatedUserResponseRepositoriesList = [AppsListInstallationReposForAuthenticatedUserResponseRepositoriesItem]
 
 public struct AppsListInstallationReposForAuthenticatedUserResponse: Codable {
     public var totalCount: Int
@@ -343,40 +279,26 @@ public struct AppsListInstallationReposForAuthenticatedUserResponse: Codable {
         case repositorySelection = "repository_selection"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension AppsListInstallationReposForAuthenticatedUserResponse {
-    init(from decoder: Decoder) throws {
+extension AppsListInstallationReposForAuthenticatedUserResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.repositories) else {
-            throw SdkValidationError(
-                field: "repositories",
-                code: "required",
-                message: "Validation failed for 'repositories': value is required"
-            )
+            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        repositories = try container.sdkDecodeRequired(.repositories)
-        repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.repositories = try container.sdkDecodeRequired(.repositories)
+        self.repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
     }
 }
 
-public extension AppsListInstallationReposForAuthenticatedUserResponse {
-    init(
-        totalCount: Int,
-        repositories: AppsListInstallationReposForAuthenticatedUserResponseRepositoriesList,
-        repositorySelection: String? = nil
-    ) {
+extension AppsListInstallationReposForAuthenticatedUserResponse {
+    public init(totalCount: Int, repositories: AppsListInstallationReposForAuthenticatedUserResponseRepositoriesList, repositorySelection: String? = nil) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
         self.repositorySelection = repositorySelection
     }
@@ -392,19 +314,19 @@ public struct AppsListInstallationReposForAuthenticatedUserResponseRepositoXbb69
     }
 
     init() {
-        customProperties = nil
+        self.customProperties = nil
     }
 }
 
-public extension AppsListInstallationReposForAuthenticatedUserResponseRepositoXbb6993d784 {
-    init(from decoder: Decoder) throws {
+extension AppsListInstallationReposForAuthenticatedUserResponseRepositoXbb6993d784 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        customProperties = try container.sdkDecodeIfPresent(.customProperties)
+        self.customProperties = try container.sdkDecodeIfPresent(.customProperties)
     }
 }
 
-public extension AppsListInstallationReposForAuthenticatedUserResponseRepositoXbb6993d784 {
-    init(customProperties: [String: JSONValue]? = nil) {
+extension AppsListInstallationReposForAuthenticatedUserResponseRepositoXbb6993d784 {
+    public init(customProperties: [String: JSONValue]? = nil) {
         self.init()
         self.customProperties = customProperties
     }

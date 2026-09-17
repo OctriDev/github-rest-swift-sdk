@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// List all notifications for the current user, sorted by most recently updated.
     ///
     /// - Parameters:
@@ -27,24 +27,16 @@ public extension ActivityMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func activityListNotificationsForAuthenticatedUser(
-        config: ClientConfig,
-        all: Bool?,
-        participating: Bool?,
-        since: Date?,
-        before: Date?,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> [Thread] {
-        if let since {
+    public static func activityListNotificationsForAuthenticatedUser(config: ClientConfig, all: Bool?, participating: Bool?, since: Date?, before: Date?, page: Int?, perPage: Int?) async throws -> [Thread] {
+        if let since = since {
             try sdkValidateDateTime("since", since)
         }
 
-        if let before {
+        if let before = before {
             try sdkValidateDateTime("before", before)
         }
 
-        return try await (sdkRequest("GET", "/notifications", config: config, query: [
+        return try (await sdkRequest("GET", "/notifications", config: config, query: [
             SdkQueryParameter("all", value: all),
             SdkQueryParameter("participating", value: participating),
             SdkQueryParameter("since", value: since),

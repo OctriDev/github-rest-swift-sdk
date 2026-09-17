@@ -6,8 +6,7 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testReposCheckPrivateVulnerabilityReportingReposCheckPrivateVulneX7a2d473e10ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposCheckPrivateVulnerabilityReportingReposCheckPrivateVulneX7a2d473e10ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -152,8 +151,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposCreateCommitSignatureProtectionReposCreateCommitSignatureProtectionReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposCreateCommitSignatureProtectionReposCreateCommitSignatureProtectionReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -227,11 +225,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposCreateDeploymentOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            ref: decoded("\"topic-branch\"")
-        )
+        var options = try ReposMethods.ReposCreateDeploymentOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), ref: decoded("\"topic-branch\""))
         options.task = try decoded("null")
         options.autoMerge = try decoded("null")
         options.requiredContexts = try decoded("null")
@@ -254,8 +248,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposCreateDeploymentBranchPolicyReposCreateDeploymentBranchPolicyReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposCreateDeploymentBranchPolicyReposCreateDeploymentBranchPolicyReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -278,8 +271,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposCreateDeploymentProtectionRuleReposCreateDeploymentProtectionRuleReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposCreateDeploymentProtectionRuleReposCreateDeploymentProtectionRuleReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -306,12 +298,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposCreateDeploymentStatusOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            deploymentId: decoded("1"),
-            state: decoded("\"success\"")
-        )
+        var options = try ReposMethods.ReposCreateDeploymentStatusOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), deploymentId: decoded("1"), state: decoded("\"success\""))
         options.targetUrl = try decoded("null")
         options.logUrl = try decoded("\"https://example.com/deployment/42/output\"")
         options.description = try decoded("\"Deployment finished successfully.\"")
@@ -415,10 +402,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposCreateInOrgOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"Hello-World\"")
-        )
+        var options = try ReposMethods.ReposCreateInOrgOptions(org: decoded("\"org\""), name: decoded("\"Hello-World\""))
         options.description = try decoded("\"This is your first repository\"")
         options.homepage = try decoded("\"https://github.com\"")
         options.visibility = try decoded("null")
@@ -511,13 +495,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposCreateOrUpdateFileContentsOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            path: decoded("\"path\""),
-            message: decoded("\"my commit message\""),
-            content: decoded("\"bXkgbmV3IGZpbGUgY29udGVudHM=\"")
-        )
+        var options = try ReposMethods.ReposCreateOrUpdateFileContentsOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), path: decoded("\"path\""), message: decoded("\"my commit message\""), content: decoded("\"bXkgbmV3IGZpbGUgY29udGVudHM=\""))
         options.sha = try decoded("null")
         options.branch = try decoded("null")
         options.committer = try decoded("{\"name\":\"Monalisa Octocat\",\"email\":\"octocat@github.com\"}")

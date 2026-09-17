@@ -50,14 +50,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testMigrationsStartForAuthenticatedUserMigrationsStartForAuthenticatedUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testMigrationsStartForAuthenticatedUserMigrationsStartForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try MigrationsMethods
-            .MigrationsStartForAuthenticatedUserOptions(repositories: decoded("[\"octocat/Hello-World\"]"))
+        var options = try MigrationsMethods.MigrationsStartForAuthenticatedUserOptions(repositories: decoded("[\"octocat/Hello-World\"]"))
         options.lockRepositories = try decoded("true")
         options.excludeMetadata = try decoded("null")
         options.excludeGitData = try decoded("null")
@@ -85,10 +83,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try MigrationsMethods.MigrationsStartForOrgOptions(
-            org: decoded("\"org\""),
-            repositories: decoded("[\"github/Hello-World\"]")
-        )
+        var options = try MigrationsMethods.MigrationsStartForOrgOptions(org: decoded("\"org\""), repositories: decoded("[\"github/Hello-World\"]"))
         options.lockRepositories = try decoded("true")
         options.excludeMetadata = try decoded("null")
         options.excludeGitData = try decoded("null")
@@ -136,8 +131,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testMigrationsUnlockRepoForAuthenticatedUserMigrationsUnlockRepoFX8c3ea8acb8ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testMigrationsUnlockRepoForAuthenticatedUserMigrationsUnlockRepoFX8c3ea8acb8ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -186,8 +180,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOidcCreateOidcCustomPropertyInclusionForEnterpriseOidcCreateOX0c0e63f2a5ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcCreateOidcCustomPropertyInclusionForEnterpriseOidcCreateOX0c0e63f2a5ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -207,8 +200,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOidcCreateOidcCustomPropertyInclusionForOrgOidcCreateOidcCustX31c708ef27ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcCreateOidcCustomPropertyInclusionForOrgOidcCreateOidcCustX31c708ef27ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -228,8 +220,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOidcDeleteOidcCustomPropertyInclusionForEnterpriseOidcDeleteOX8551652eccReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcDeleteOidcCustomPropertyInclusionForEnterpriseOidcDeleteOX8551652eccReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -241,8 +232,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOidcDeleteOidcCustomPropertyInclusionForOrgOidcDeleteOidcCustX3054c7b537ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcDeleteOidcCustomPropertyInclusionForOrgOidcDeleteOidcCustX3054c7b537ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -254,8 +244,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOidcGetOidcCustomSubTemplateForOrgOidcGetOidcCustomSubTemplateForOrgReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcGetOidcCustomSubTemplateForOrgOidcGetOidcCustomSubTemplateForOrgReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -274,8 +263,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOidcListOidcCustomPropertyInclusionsForEnterpriseOidcListOidcXc4876d84c4ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcListOidcCustomPropertyInclusionsForEnterpriseOidcListOidcXc4876d84c4ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -294,8 +282,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOidcListOidcCustomPropertyInclusionsForOrgOidcListOidcCustomPXa005c04653ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcListOidcCustomPropertyInclusionsForOrgOidcListOidcCustomPXa005c04653ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -314,8 +301,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOidcUpdateOidcCustomSubTemplateForOrgOidcUpdateOidcCustomSubTX3af5a65e40ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOidcUpdateOidcCustomSubTemplateForOrgOidcUpdateOidcCustomSubTX3af5a65e40ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -422,8 +408,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsCheckPublicMembershipForUserOrgsCheckPublicMembershipForUserReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCheckPublicMembershipForUserOrgsCheckPublicMembershipForUserReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -435,8 +420,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsConvertMemberToOutsideCollaboratorOrgsConvertMemberToOutsX417c213574ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsConvertMemberToOutsideCollaboratorOrgsConvertMemberToOutsX417c213574ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -457,20 +441,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsCreateArtifactDeploymentRecordOrgsCreateArtifactDeploymentRecordReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCreateArtifactDeploymentRecordOrgsCreateArtifactDeploymentRecordReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try OrgsMethods.OrgsCreateArtifactDeploymentRecordOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"awesome-image\""),
-            digest: decoded(sdkMethodFixture702Value1),
-            status: decoded("\"deployed\""),
-            logicalEnvironment: decoded("\"prod\""),
-            deploymentName: decoded("\"deployment-pod\"")
-        )
+        var options = try OrgsMethods.OrgsCreateArtifactDeploymentRecordOptions(org: decoded("\"org\""), name: decoded("\"awesome-image\""), digest: decoded(sdkMethodFixture702Value1), status: decoded("\"deployed\""), logicalEnvironment: decoded("\"prod\""), deploymentName: decoded("\"deployment-pod\""))
         options.version = try decoded("null")
         options.physicalEnvironment = try decoded("\"pacific-east\"")
         options.cluster = try decoded("\"moda-1\"")
@@ -497,12 +473,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try OrgsMethods.OrgsCreateArtifactStorageRecordOptions(
-            org: decoded("\"org\""),
-            name: decoded("\"libfoo\""),
-            digest: decoded(sdkMethodFixture703Value1),
-            registryUrl: decoded("\"https://reg.example.com/artifactory/\"")
-        )
+        var options = try OrgsMethods.OrgsCreateArtifactStorageRecordOptions(org: decoded("\"org\""), name: decoded("\"libfoo\""), digest: decoded(sdkMethodFixture703Value1), registryUrl: decoded("\"https://reg.example.com/artifactory/\""))
         options.version = try decoded("\"1.2.3\"")
         options.artifactUrl = try decoded("\"https://reg.example.com/artifactory/bar/libfoo-1.2.3\"")
         options.path = try decoded("null")

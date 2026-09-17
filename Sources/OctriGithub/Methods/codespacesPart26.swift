@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodespacesMethods {
+extension CodespacesMethods {
     /// Set selected repositories for a user secret
     ///
-    /// Select the repositories that will use a user's development environment secret. The authenticated user must have
-    /// Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// Select the repositories that will use a user's development environment secret. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - secretName: The name of the secret.
@@ -24,50 +22,19 @@ public extension CodespacesMethods {
     ///   itory-to-a-user-secret), and [Remove a selected repository from a user
     ///   secret](https://docs.github.com/rest/codespaces/secrets#remove-a-selected-re
     ///   pository-from-a-user-secret) endpoints.
-    static func codespacesSetRepositoriesForSecretForAuthenticatedUser(
-        config: ClientConfig,
-        secretName: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
-        let requestBody =
-            CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody(
-                selectedRepositoryIds: selectedRepositoryIds
-            )
+    public static func codespacesSetRepositoriesForSecretForAuthenticatedUser(config: ClientConfig, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+        let requestBody = CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "codespacesSetRepositoriesForSecretForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("PUT", ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "codespacesSetRepositoriesForSecretForAuthenticatedUser")).data
     }
 
     /// Add a selected repository to a user secret
     ///
-    /// Adds a repository to the selected repositories for a user's development environment secret. The authenticated
-    /// user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic)
-    /// need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    /// Adds a repository to the selected repositories for a user's development environment secret. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - secretName: The name of the secret.
-    static func codespacesAddRepositoryForSecretForAuthenticatedUser(
-        config: ClientConfig,
-        secretName: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/user/codespaces/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-                "/repositories/",
-                sdkEncodePathSegment(sdkWireString(repositoryId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "codespacesAddRepositoryForSecretForAuthenticatedUser"
-        )).data
+    public static func codespacesAddRepositoryForSecretForAuthenticatedUser(config: ClientConfig, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/user/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "codespacesAddRepositoryForSecretForAuthenticatedUser")).data
     }
 }

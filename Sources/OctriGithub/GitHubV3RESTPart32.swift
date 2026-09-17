@@ -3,265 +3,164 @@
 
 import Foundation
 
-public extension ReposNamespace {
-    /// Lists suites of rule evaluations at the repository level. For more information, see "[Managing rulesets for a repository](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository#viewing-insights-for-rulesets)."
-    func getRepoRuleSuites(options: ReposMethods.ReposGetRepoRuleSuitesOptions) async throws -> RuleSuites {
-        try await ReposMethods.reposGetRepoRuleSuites(config: config, options: options)
+extension ReposNamespace {
+/// Lists suites of rule evaluations at the repository level. For more information, see "[Managing rulesets for a repository](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository#viewing-insights-for-rulesets)."
+    public func getRepoRuleSuites(options: ReposMethods.ReposGetRepoRuleSuitesOptions) async throws -> RuleSuites {
+        return try await ReposMethods.reposGetRepoRuleSuites(config: config, options: options)
     }
 
-    /// Gets information about a suite of rule evaluations from within a repository. For more information, see
-    /// "[Managing rulesets for a repository](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository#viewing-insights-for-rulesets)."
-    func getRepoRuleSuite(owner: String, repo: String, ruleSuiteId: Int) async throws -> RuleSuite {
-        try await ReposMethods.reposGetRepoRuleSuite(config: config, owner: owner, repo: repo, ruleSuiteId: ruleSuiteId)
+/// Gets information about a suite of rule evaluations from within a repository. For more information, see "[Managing rulesets for a repository](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository#viewing-insights-for-rulesets)."
+    public func getRepoRuleSuite(owner: String, repo: String, ruleSuiteId: Int) async throws -> RuleSuite {
+        return try await ReposMethods.reposGetRepoRuleSuite(config: config, owner: owner, repo: repo, ruleSuiteId: ruleSuiteId)
     }
 
-    /// Get a ruleset for a repository. **Note:** To prevent leaking sensitive information, the `bypass_actors` property
-    /// is only returned if the user making the API request has write access to the ruleset.
-    func getRepoRuleset(
-        owner: String,
-        repo: String,
-        rulesetId: Int,
-        includesParents: Bool?
-    ) async throws -> RepositoryRuleset {
-        try await ReposMethods.reposGetRepoRuleset(
-            config: config,
-            owner: owner,
-            repo: repo,
-            rulesetId: rulesetId,
-            includesParents: includesParents
-        )
+/// Get a ruleset for a repository. **Note:** To prevent leaking sensitive information, the `bypass_actors` property is only returned if the user making the API request has write access to the ruleset.
+    public func getRepoRuleset(owner: String, repo: String, rulesetId: Int, includesParents: Bool?) async throws -> RepositoryRuleset {
+        return try await ReposMethods.reposGetRepoRuleset(config: config, owner: owner, repo: repo, rulesetId: rulesetId, includesParents: includesParents)
     }
 
-    /// Updates a repository ruleset identified by its repository and ruleset ID. Supply only the ruleset properties you
-    /// want to change, including its `name`, `target`, `enforcement`, bypass actors, conditions, or rules. The updated
-    /// ruleset response includes its current configuration and timestamps.
+/// Updates a repository ruleset identified by its repository and ruleset ID. Supply only the ruleset properties you want to change, including its `name`, `target`, `enforcement`, bypass actors, conditions, or rules. The updated ruleset response includes its current configuration and timestamps.
     ///
     /// Update a ruleset for a repository.
-    func updateRepoRuleset(options: ReposMethods.ReposUpdateRepoRulesetOptions) async throws -> RepositoryRuleset {
-        try await ReposMethods.reposUpdateRepoRuleset(config: config, options: options)
+    public func updateRepoRuleset(options: ReposMethods.ReposUpdateRepoRulesetOptions) async throws -> RepositoryRuleset {
+        return try await ReposMethods.reposUpdateRepoRuleset(config: config, options: options)
     }
 
-    /// Deletes a repository ruleset identified by its repository and ruleset ID. Use this operation when you no longer
-    /// want the ruleset and its associated protections applied to the repository. A successful response contains no
-    /// response body.
+/// Deletes a repository ruleset identified by its repository and ruleset ID. Use this operation when you no longer want the ruleset and its associated protections applied to the repository. A successful response contains no response body.
     ///
     /// Delete a ruleset for a repository.
-    func deleteRepoRuleset(owner: String, repo: String, rulesetId: Int) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDeleteRepoRuleset(config: config, owner: owner, repo: repo, rulesetId: rulesetId)
+    public func deleteRepoRuleset(owner: String, repo: String, rulesetId: Int) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDeleteRepoRuleset(config: config, owner: owner, repo: repo, rulesetId: rulesetId)
     }
 
-    /// Lists the historical versions of a repository ruleset. Use `page` and `per_page` to paginate the results. Each
-    /// result identifies the previous version, the actor who updated it, and the update timestamp.
+/// Lists the historical versions of a repository ruleset. Use `page` and `per_page` to paginate the results. Each result identifies the previous version, the actor who updated it, and the update timestamp.
     ///
     /// Get the history of a repository ruleset.
-    func getRepoRulesetHistory(
-        owner: String,
-        repo: String,
-        rulesetId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [RulesetVersion] {
-        try await ReposMethods.reposGetRepoRulesetHistory(
-            config: config,
-            owner: owner,
-            repo: repo,
-            rulesetId: rulesetId,
-            perPage: perPage,
-            page: page
-        )
+    public func getRepoRulesetHistory(owner: String, repo: String, rulesetId: Int, perPage: Int?, page: Int?) async throws -> [RulesetVersion] {
+        return try await ReposMethods.reposGetRepoRulesetHistory(config: config, owner: owner, repo: repo, rulesetId: rulesetId, perPage: perPage, page: page)
     }
 
-    /// Retrieves a specific historical version of a repository ruleset. Identify the repository, ruleset, and
-    /// historical version with `owner`, `repo`, `ruleset_id`, and `version_id`. The response includes the version
-    /// metadata and the ruleset state recorded for that version.
+/// Retrieves a specific historical version of a repository ruleset. Identify the repository, ruleset, and historical version with `owner`, `repo`, `ruleset_id`, and `version_id`. The response includes the version metadata and the ruleset state recorded for that version.
     ///
     /// Get a version of a repository ruleset.
-    func getRepoRulesetVersion(
-        owner: String,
-        repo: String,
-        rulesetId: Int,
-        versionId: Int
-    ) async throws -> RulesetVersionWithState {
-        try await ReposMethods.reposGetRepoRulesetVersion(
-            config: config,
-            owner: owner,
-            repo: repo,
-            rulesetId: rulesetId,
-            versionId: versionId
-        )
+    public func getRepoRulesetVersion(owner: String, repo: String, rulesetId: Int, versionId: Int) async throws -> RulesetVersionWithState {
+        return try await ReposMethods.reposGetRepoRulesetVersion(config: config, owner: owner, repo: repo, rulesetId: rulesetId, versionId: versionId)
     }
 
-    /// Get the weekly commit activity
+/// Get the weekly commit activity
     ///
-    /// Returns a weekly aggregate of the number of additions and deletions pushed to a repository. > [!NOTE] > This
-    /// endpoint can only be used for repositories with fewer than 10,000 commits. If the repository contains 10,000 or
-    /// more commits, a 422 status code will be returned.
-    func getCodeFrequencyStats(owner: String, repo: String) async throws -> [CodeFrequencyStat] {
-        try await ReposMethods.reposGetCodeFrequencyStats(config: config, owner: owner, repo: repo)
+    /// Returns a weekly aggregate of the number of additions and deletions pushed to a repository. > [!NOTE] > This endpoint can only be used for repositories with fewer than 10,000 commits. If the repository contains 10,000 or more commits, a 422 status code will be returned.
+    public func getCodeFrequencyStats(owner: String, repo: String) async throws -> [CodeFrequencyStat] {
+        return try await ReposMethods.reposGetCodeFrequencyStats(config: config, owner: owner, repo: repo)
     }
 }
 
-public extension ReposNamespace {
-    /// Get the last year of commit activity
+extension ReposNamespace {
+/// Get the last year of commit activity
     ///
-    /// Returns the last year of commit activity grouped by week. The `days` array is a group of commits per day,
-    /// starting on `Sunday`.
-    func getCommitActivityStats(owner: String, repo: String) async throws -> [CommitActivity] {
-        try await ReposMethods.reposGetCommitActivityStats(config: config, owner: owner, repo: repo)
+    /// Returns the last year of commit activity grouped by week. The `days` array is a group of commits per day, starting on `Sunday`.
+    public func getCommitActivityStats(owner: String, repo: String) async throws -> [CommitActivity] {
+        return try await ReposMethods.reposGetCommitActivityStats(config: config, owner: owner, repo: repo)
     }
 
-    /// Get all contributor commit activity
+/// Get all contributor commit activity
     ///
-    /// Returns the `total` number of commits authored by the contributor. In addition, the response includes a Weekly
-    /// Hash (`weeks` array) with the following information: * `w` - Start of the week, given as a [Unix
-    /// timestamp](https://en.wikipedia.org/wiki/Unix_time). * `a` - Number of additions * `d` - Number of deletions *
-    /// `c` - Number of commits > [!NOTE] > This endpoint will return `0` values for all addition and deletion counts in
-    /// repositories with 10,000 or more commits.
-    func getContributorsStats(owner: String, repo: String) async throws -> [ContributorActivity] {
-        try await ReposMethods.reposGetContributorsStats(config: config, owner: owner, repo: repo)
+    /// Returns the `total` number of commits authored by the contributor. In addition, the response includes a Weekly Hash (`weeks` array) with the following information: * `w` - Start of the week, given as a [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time). * `a` - Number of additions * `d` - Number of deletions * `c` - Number of commits > [!NOTE] > This endpoint will return `0` values for all addition and deletion counts in repositories with 10,000 or more commits.
+    public func getContributorsStats(owner: String, repo: String) async throws -> [ContributorActivity] {
+        return try await ReposMethods.reposGetContributorsStats(config: config, owner: owner, repo: repo)
     }
 
-    /// Get the weekly commit count
+/// Get the weekly commit count
     ///
-    /// Returns the total commit counts for the `owner` and total commit counts in `all`. `all` is everyone combined,
-    /// including the `owner` in the last 52 weeks. If you'd like to get the commit counts for non-owners, you can
-    /// subtract `owner` from `all`. The array order is oldest week (index 0) to most recent week. The most recent week
-    /// is seven days ago at UTC midnight to today at UTC midnight.
-    func getParticipationStats(owner: String, repo: String) async throws -> ParticipationStats {
-        try await ReposMethods.reposGetParticipationStats(config: config, owner: owner, repo: repo)
+    /// Returns the total commit counts for the `owner` and total commit counts in `all`. `all` is everyone combined, including the `owner` in the last 52 weeks. If you'd like to get the commit counts for non-owners, you can subtract `owner` from `all`. The array order is oldest week (index 0) to most recent week. The most recent week is seven days ago at UTC midnight to today at UTC midnight.
+    public func getParticipationStats(owner: String, repo: String) async throws -> ParticipationStats {
+        return try await ReposMethods.reposGetParticipationStats(config: config, owner: owner, repo: repo)
     }
 
-    /// Get the hourly commit count for each day
+/// Get the hourly commit count for each day
     ///
-    /// Each array contains the day number, hour number, and number of commits: * `0-6`: Sunday - Saturday * `0-23`:
-    /// Hour of day * Number of commits For example, `[2, 14, 25]` indicates that there were 25 total commits, during
-    /// the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
-    func getPunchCardStats(owner: String, repo: String) async throws -> [CodeFrequencyStat] {
-        try await ReposMethods.reposGetPunchCardStats(config: config, owner: owner, repo: repo)
+    /// Each array contains the day number, hour number, and number of commits: * `0-6`: Sunday - Saturday * `0-23`: Hour of day * Number of commits For example, `[2, 14, 25]` indicates that there were 25 total commits, during the 2:00pm hour on Tuesdays. All times are based on the time zone of individual commits.
+    public func getPunchCardStats(owner: String, repo: String) async throws -> [CodeFrequencyStat] {
+        return try await ReposMethods.reposGetPunchCardStats(config: config, owner: owner, repo: repo)
     }
 
-    /// Create a commit status
+/// Create a commit status
     ///
-    /// Users with push access in a repository can create commit statuses for a given SHA. Note: there is a limit of
-    /// 1000 statuses per `sha` and `context` within a repository. Attempts to create more than 1000 statuses will
-    /// result in a validation error.
-    func createCommitStatus(
-        owner: String,
-        repo: String,
-        sha: String,
-        state: ReposCreateCommitStatusRequestBodyState,
-        targetUrl: SdkOptional<String>?,
-        description: SdkOptional<String>?,
-        context: String?
-    ) async throws -> Status {
-        try await ReposMethods.reposCreateCommitStatus(
-            config: config,
-            owner: owner,
-            repo: repo,
-            sha: sha,
-            state: state,
-            targetUrl: targetUrl,
-            description: description,
-            context: context
-        )
+    /// Users with push access in a repository can create commit statuses for a given SHA. Note: there is a limit of 1000 statuses per `sha` and `context` within a repository. Attempts to create more than 1000 statuses will result in a validation error.
+    public func createCommitStatus(owner: String, repo: String, sha: String, state: ReposCreateCommitStatusRequestBodyState, targetUrl: SdkOptional<String>?, description: SdkOptional<String>?, context: String?) async throws -> Status {
+        return try await ReposMethods.reposCreateCommitStatus(config: config, owner: owner, repo: repo, sha: sha, state: state, targetUrl: targetUrl, description: description, context: context)
     }
 
-    /// List repository tags
-    func listTags(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Tag] {
-        try await ReposMethods.reposListTags(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+/// List repository tags
+    public func listTags(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Tag] {
+        return try await ReposMethods.reposListTags(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 
-    /// Download a repository archive (tar)
+/// Download a repository archive (tar)
     ///
-    /// Gets a redirect URL to download a tar archive for a repository. If you omit `:ref`, the repository’s default
-    /// branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or
-    /// you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories,
-    /// these links are temporary and expire after five minutes.
-    func downloadTarballArchive(owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposDownloadTarballArchive(config: config, owner: owner, repo: repo, ref: ref)
+    /// Gets a redirect URL to download a tar archive for a repository. If you omit `:ref`, the repository’s default branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories, these links are temporary and expire after five minutes.
+    public func downloadTarballArchive(owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposDownloadTarballArchive(config: config, owner: owner, repo: repo, ref: ref)
     }
 
-    /// List repository teams
+/// List repository teams
     ///
-    /// Lists the teams that have access to the specified repository and that are also visible to the authenticated
-    /// user. For a public repository, a team is listed only if that team added the public repository explicitly. OAuth
-    /// app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to use this endpoint with
-    /// a public repository, and `repo` scope to use this endpoint with a private repository.
-    func listTeams(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Team] {
-        try await ReposMethods.reposListTeams(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Lists the teams that have access to the specified repository and that are also visible to the authenticated user. For a public repository, a team is listed only if that team added the public repository explicitly. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to use this endpoint with a public repository, and `repo` scope to use this endpoint with a private repository.
+    public func listTeams(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Team] {
+        return try await ReposMethods.reposListTeams(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
     }
 }
 
-public extension ReposNamespace {
-    /// Get all repository topics
-    func getAllTopics(owner: String, repo: String, page: Int?, perPage: Int?) async throws -> Topic {
-        try await ReposMethods.reposGetAllTopics(config: config, owner: owner, repo: repo, page: page, perPage: perPage)
+extension ReposNamespace {
+/// Get all repository topics
+    public func getAllTopics(owner: String, repo: String, page: Int?, perPage: Int?) async throws -> Topic {
+        return try await ReposMethods.reposGetAllTopics(config: config, owner: owner, repo: repo, page: page, perPage: perPage)
     }
 
-    /// Replace all repository topics
-    func replaceAllTopics(owner: String, repo: String, names: [String]) async throws -> Topic {
-        try await ReposMethods.reposReplaceAllTopics(config: config, owner: owner, repo: repo, names: names)
+/// Replace all repository topics
+    public func replaceAllTopics(owner: String, repo: String, names: [String]) async throws -> Topic {
+        return try await ReposMethods.reposReplaceAllTopics(config: config, owner: owner, repo: repo, names: names)
     }
 
-    /// Get repository clones
+/// Get repository clones
     ///
-    /// Get the total number of clones and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC
-    /// midnight of the beginning of the day or week. Week begins on Monday.
-    func getClones(owner: String, repo: String, per: ReposGetClonesParameter?) async throws -> CloneTraffic {
-        try await ReposMethods.reposGetClones(config: config, owner: owner, repo: repo, per: per)
+    /// Get the total number of clones and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
+    public func getClones(owner: String, repo: String, per: ReposGetClonesParameter?) async throws -> CloneTraffic {
+        return try await ReposMethods.reposGetClones(config: config, owner: owner, repo: repo, per: per)
     }
 
-    /// Get top referral paths
+/// Get top referral paths
     ///
     /// Get the top 10 popular contents over the last 14 days.
-    func getTopPaths(owner: String, repo: String) async throws -> [ContentTraffic] {
-        try await ReposMethods.reposGetTopPaths(config: config, owner: owner, repo: repo)
+    public func getTopPaths(owner: String, repo: String) async throws -> [ContentTraffic] {
+        return try await ReposMethods.reposGetTopPaths(config: config, owner: owner, repo: repo)
     }
 
-    /// Get top referral sources
+/// Get top referral sources
     ///
     /// Get the top 10 referrers over the last 14 days.
-    func getTopReferrers(owner: String, repo: String) async throws -> [ReferrerTraffic] {
-        try await ReposMethods.reposGetTopReferrers(config: config, owner: owner, repo: repo)
+    public func getTopReferrers(owner: String, repo: String) async throws -> [ReferrerTraffic] {
+        return try await ReposMethods.reposGetTopReferrers(config: config, owner: owner, repo: repo)
     }
 
-    /// Get page views
+/// Get page views
     ///
-    /// Get the total number of views and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC
-    /// midnight of the beginning of the day or week. Week begins on Monday.
-    func getViews(owner: String, repo: String, per: ReposGetClonesParameter?) async throws -> ViewTraffic {
-        try await ReposMethods.reposGetViews(config: config, owner: owner, repo: repo, per: per)
+    /// Get the total number of views and breakdown per day or week for the last 14 days. Timestamps are aligned to UTC midnight of the beginning of the day or week. Week begins on Monday.
+    public func getViews(owner: String, repo: String, per: ReposGetClonesParameter?) async throws -> ViewTraffic {
+        return try await ReposMethods.reposGetViews(config: config, owner: owner, repo: repo, per: per)
     }
 
-    /// Transfer a repository
+/// Transfer a repository
     ///
-    /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another
-    /// user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more
-    /// details on the requirements to transfer personal and organization-owned repositories, see [about repository
-    /// transfers](https://docs.github.com/articles/about-repository-transfers/).
-    func transfer(
-        owner: String,
-        repo: String,
-        newOwner: String,
-        newName: String?,
-        teamIds: [Int]?
-    ) async throws -> MinimalRepository {
-        try await ReposMethods.reposTransfer(
-            config: config,
-            owner: owner,
-            repo: repo,
-            newOwner: newOwner,
-            newName: newName,
-            teamIds: teamIds
-        )
+    /// A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
+    public func transfer(owner: String, repo: String, newOwner: String, newName: String?, teamIds: [Int]?) async throws -> MinimalRepository {
+        return try await ReposMethods.reposTransfer(config: config, owner: owner, repo: repo, newOwner: newOwner, newName: newName, teamIds: teamIds)
     }
 
-    /// Check if vulnerability alerts are enabled for a repository
+/// Check if vulnerability alerts are enabled for a repository
     ///
-    /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin
-    /// read access to the repository. For more information, see "[About security alerts for vulnerable
-    /// dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
-    func checkVulnerabilityAlerts(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        try await ReposMethods.reposCheckVulnerabilityAlerts(config: config, owner: owner, repo: repo)
+    /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin read access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
+    public func checkVulnerabilityAlerts(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try await ReposMethods.reposCheckVulnerabilityAlerts(config: config, owner: owner, repo: repo)
     }
 }

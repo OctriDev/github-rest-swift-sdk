@@ -6,39 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private,
-    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsGetRepoPublicKey(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActionsPublicKey {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/secrets/public-key",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetRepoPublicKey"
-        )).data
+    public static func actionsGetRepoPublicKey(config: ClientConfig, owner: String, repo: String) async throws -> ActionsPublicKey {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "actionsGetRepoPublicKey")).data
     }
 
-    /// Gets a single repository secret without revealing its encrypted value. The authenticated user must have
-    /// collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+    /// Gets a single repository secret without revealing its encrypted value. The authenticated user must have collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -46,25 +26,7 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - secretName: The name of the secret.
-    static func actionsGetRepoSecret(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        secretName: String
-    ) async throws -> ActionsSecret {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetRepoSecret"
-        )).data
+    public static func actionsGetRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String) async throws -> ActionsSecret {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "actionsGetRepoSecret")).data
     }
 }

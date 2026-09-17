@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// Gets a single code scanning alert. OAuth app tokens and personal access tokens (classic) need the
-    /// `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to
-    /// use this endpoint with only public repositories.
+extension CodeScanningMethods {
+    /// Gets a single code scanning alert. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,25 +18,7 @@ public extension CodeScanningMethods {
     ///   end of the URL for a code scanning alert within GitHub, and in the `number`
     ///   field in the response from the `GET
     ///   /repos/{owner}/{repo}/code-scanning/alerts` operation.
-    static func codeScanningGetAlert(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber
-    ) async throws -> CodeScanningAlert {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/alerts/",
-                sdkEncodePathSegment(sdkWireString(alertNumber)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codeScanningGetAlert"
-        )).data
+    public static func codeScanningGetAlert(config: ClientConfig, owner: String, repo: String, alertNumber: AlertNumber) async throws -> CodeScanningAlert {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/alerts/", sdkEncodePathSegment(sdkWireString(alertNumber))].joined(), config: config, decoder: .json, operationId: "codeScanningGetAlert")).data
     }
 }

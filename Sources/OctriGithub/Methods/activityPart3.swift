@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
-    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can
-    /// be anywhere from 30s to 6h.
+extension ActivityMethods {
+    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,29 +22,10 @@ public extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func activityListPublicEventsForRepoNetwork(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Event] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/networks/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/events",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "activityListPublicEventsForRepoNetwork"
-        )).data
+    public static func activityListPublicEventsForRepoNetwork(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        return try (await sdkRequest("GET", ["/networks/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/events"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "activityListPublicEventsForRepoNetwork")).data
     }
 }

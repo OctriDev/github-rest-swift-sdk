@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists jobs for a workflow run. You can use parameters to narrow the list of results. For more information about
-    /// using parameters, see
-    /// [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read
-    /// access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `repo` scope to use this endpoint with a private repository.
+extension ActionsMethods {
+    /// Lists jobs for a workflow run. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -30,34 +26,11 @@ public extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func actionsListJobsForWorkflowRun(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        runId: Int,
-        filter: ActionsListJobsForWorkflowRunParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> ActionsListJobsForWorkflowRunResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runs/",
-                sdkEncodePathSegment(sdkWireString(runId)),
-                "/jobs",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("filter", value: filter),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "actionsListJobsForWorkflowRun"
-        )).data
+    public static func actionsListJobsForWorkflowRun(config: ClientConfig, owner: String, repo: String, runId: Int, filter: ActionsListJobsForWorkflowRunParameter?, perPage: Int?, page: Int?) async throws -> ActionsListJobsForWorkflowRunResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/jobs"].joined(), config: config, query: [
+            SdkQueryParameter("filter", value: filter),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "actionsListJobsForWorkflowRun")).data
     }
 }

@@ -6,35 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// Delete a repository subscription
     ///
-    /// This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive
-    /// notifications from a repository, [set the repository's subscription
-    /// manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
+    /// This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func activityDeleteRepoSubscription(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/subscription",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "activityDeleteRepoSubscription"
-        )).data
+    public static func activityDeleteRepoSubscription(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/subscription"].joined(), config: config, decoder: .empty, operationId: "activityDeleteRepoSubscription")).data
     }
 }

@@ -6,20 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Deletes an organization and all its repositories. The organization login will be unavailable for 90 days after
-    /// deletion. Please review the Terms of Service regarding account deletion before using this endpoint:
-    /// https://docs.github.com/site-policy/github-terms/github-terms-of-service
+extension OrgsMethods {
+    /// Deletes an organization and all its repositories. The organization login will be unavailable for 90 days after deletion. Please review the Terms of Service regarding account deletion before using this endpoint: https://docs.github.com/site-policy/github-terms/github-terms-of-service
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func orgsDelete(config: ClientConfig, org: String) async throws -> [String: JSONValue] {
-        try await (sdkRequest(
-            "DELETE",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsDelete"
-        )).data
+    public static func orgsDelete(config: ClientConfig, org: String) async throws -> [String: JSONValue] {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, decoder: .json, operationId: "orgsDelete")).data
     }
 }

@@ -9,10 +9,7 @@ import Foundation
 public struct ReposListForOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = ReposListForOrgParameter(rawValue: "all")
     public static let `public` = ReposListForOrgParameter(rawValue: "public")
     public static let `private` = ReposListForOrgParameter(rawValue: "private")
@@ -22,7 +19,7 @@ public struct ReposListForOrgParameter: RawRepresentable, Hashable, Codable, Sen
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -34,10 +31,7 @@ public struct ReposListForOrgParameter: RawRepresentable, Hashable, Codable, Sen
 public struct ReposListForOrgParameterX0727468a: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let created = ReposListForOrgParameterX0727468a(rawValue: "created")
     public static let updated = ReposListForOrgParameterX0727468a(rawValue: "updated")
     public static let pushed = ReposListForOrgParameterX0727468a(rawValue: "pushed")
@@ -45,7 +39,7 @@ public struct ReposListForOrgParameterX0727468a: RawRepresentable, Hashable, Cod
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -57,16 +51,13 @@ public struct ReposListForOrgParameterX0727468a: RawRepresentable, Hashable, Cod
 public struct ReposListForOrgParameterX03d095bc: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let asc = ReposListForOrgParameterX03d095bc(rawValue: "asc")
     public static let desc = ReposListForOrgParameterX03d095bc(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,21 +68,17 @@ public struct ReposListForOrgParameterX03d095bc: RawRepresentable, Hashable, Cod
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct ReposCreateInOrgRequestBodyMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateInOrgRequestBodyMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = ReposCreateInOrgRequestBodyMergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = ReposCreateInOrgRequestBodyMergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = ReposCreateInOrgRequestBodyMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -103,20 +90,16 @@ public struct ReposCreateInOrgRequestBodyMergeCommitMessage: RawRepresentable, H
 /// Required when using `merge_commit_message`. The default value for a merge commit title. - `PR_TITLE` -
 /// default to the pull request's title. - `MERGE_MESSAGE` - default to the classic title for a merge message
 /// (e.g., Merge pull request #123 from branch-name).
-public struct ReposCreateInOrgRequestBodyMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateInOrgRequestBodyMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = ReposCreateInOrgRequestBodyMergeCommitTitle(rawValue: "PR_TITLE")
     public static let mergeMessage = ReposCreateInOrgRequestBodyMergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -127,21 +110,17 @@ public struct ReposCreateInOrgRequestBodyMergeCommitTitle: RawRepresentable, Has
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct ReposCreateInOrgRequestBodySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateInOrgRequestBodySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = ReposCreateInOrgRequestBodySquashMergeCommitMessage(rawValue: "PR_BODY")
     public static let commitMessages = ReposCreateInOrgRequestBodySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = ReposCreateInOrgRequestBodySquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -153,21 +132,16 @@ public struct ReposCreateInOrgRequestBodySquashMergeCommitMessage: RawRepresenta
 /// Required when using `squash_merge_commit_message`. The default value for a squash merge commit title: -
 /// `PR_TITLE` - default to the pull request's title. - `COMMIT_OR_PR_TITLE` - default to the commit's title (if
 /// only one commit) or the pull request's title (when more than one commit).
-public struct ReposCreateInOrgRequestBodySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateInOrgRequestBodySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = ReposCreateInOrgRequestBodySquashMergeCommitTitle(rawValue: "PR_TITLE")
-    public static let commitOrPrTitle =
-        ReposCreateInOrgRequestBodySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
+    public static let commitOrPrTitle = ReposCreateInOrgRequestBodySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -180,16 +154,13 @@ public struct ReposCreateInOrgRequestBodySquashMergeCommitTitle: RawRepresentabl
 public struct ReposCreateInOrgRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `public` = ReposCreateInOrgRequestBodyVisibility(rawValue: "public")
     public static let `private` = ReposCreateInOrgRequestBodyVisibility(rawValue: "private")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -199,14 +170,10 @@ public struct ReposCreateInOrgRequestBodyVisibility: RawRepresentable, Hashable,
 }
 
 /// The target of the ruleset
-public struct ReposCreateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposCreateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let branch = ReposCreateOrgRulesetRequestBodyTarget(rawValue: "branch")
     public static let tag = ReposCreateOrgRulesetRequestBodyTarget(rawValue: "tag")
     public static let push = ReposCreateOrgRulesetRequestBodyTarget(rawValue: "push")
@@ -214,7 +181,7 @@ public struct ReposCreateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -224,14 +191,10 @@ public struct ReposCreateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable
 }
 
 /// The target of the ruleset
-public struct ReposUpdateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposUpdateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let branch = ReposUpdateOrgRulesetRequestBodyTarget(rawValue: "branch")
     public static let tag = ReposUpdateOrgRulesetRequestBodyTarget(rawValue: "tag")
     public static let push = ReposUpdateOrgRulesetRequestBodyTarget(rawValue: "push")
@@ -239,7 +202,7 @@ public struct ReposUpdateOrgRulesetRequestBodyTarget: RawRepresentable, Hashable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

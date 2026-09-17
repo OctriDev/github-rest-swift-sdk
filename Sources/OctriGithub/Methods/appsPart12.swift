@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Returns user and organization accounts associated with the specified plan, including free plans. For per-seat
-    /// pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased.
-    /// When someone submits a plan change that won't be processed until the end of their billing cycle, you will also
-    /// see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication)
-    /// with their client ID and client secret to access this endpoint.
+extension AppsMethods {
+    /// Returns user and organization accounts associated with the specified plan, including free plans. For per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication) with their client ID and client secret to access this endpoint.
     ///
     /// - Parameters:
     /// - planId: The unique identifier of the plan.
@@ -27,47 +22,20 @@ public extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func appsListAccountsForPlan(
-        config: ClientConfig,
-        planId: Int,
-        sort: AppsListAccountsForPlanParameter?,
-        direction: AppsListAccountsForPlanParameterXfe431365?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MarketplacePurchase] {
-        try await (sdkRequest(
-            "GET",
-            ["/marketplace_listing/plans/", sdkEncodePathSegment(sdkWireString(planId)), "/accounts"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("sort", value: sort),
-                SdkQueryParameter("direction", value: direction),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "appsListAccountsForPlan"
-        )).data
+    public static func appsListAccountsForPlan(config: ClientConfig, planId: Int, sort: AppsListAccountsForPlanParameter?, direction: AppsListAccountsForPlanParameterXfe431365?, perPage: Int?, page: Int?) async throws -> [MarketplacePurchase] {
+        return try (await sdkRequest("GET", ["/marketplace_listing/plans/", sdkEncodePathSegment(sdkWireString(planId)), "/accounts"].joined(), config: config, query: [
+            SdkQueryParameter("sort", value: sort),
+            SdkQueryParameter("direction", value: direction),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "appsListAccountsForPlan")).data
     }
 
-    /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub
-    /// App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will
-    /// also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
-    /// to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication)
-    /// with their client ID and client secret to access this endpoint.
+    /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication) with their client ID and client secret to access this endpoint.
     ///
     /// - Parameters:
     /// - accountId: account_id parameter
-    static func appsGetSubscriptionPlanForAccountStubbed(
-        config: ClientConfig,
-        accountId: Int
-    ) async throws -> MarketplacePurchase {
-        try await (sdkRequest(
-            "GET",
-            ["/marketplace_listing/stubbed/accounts/", sdkEncodePathSegment(sdkWireString(accountId))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "appsGetSubscriptionPlanForAccountStubbed"
-        )).data
+    public static func appsGetSubscriptionPlanForAccountStubbed(config: ClientConfig, accountId: Int) async throws -> MarketplacePurchase {
+        return try (await sdkRequest("GET", ["/marketplace_listing/stubbed/accounts/", sdkEncodePathSegment(sdkWireString(accountId))].joined(), config: config, decoder: .json, operationId: "appsGetSubscriptionPlanForAccountStubbed")).data
     }
 }

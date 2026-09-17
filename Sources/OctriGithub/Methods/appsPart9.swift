@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
-    /// Use a non-scoped user access token to create a repository-scoped and/or permission-scoped user access token. You
-    /// can specify which repositories the token can access and which permissions are granted to the token. Invalid
-    /// tokens will return `404 NOT FOUND`.
+extension AppsMethods {
+    /// Use a non-scoped user access token to create a repository-scoped and/or permission-scoped user access token. You can specify which repositories the token can access and which permissions are granted to the token. Invalid tokens will return `404 NOT FOUND`.
     ///
     /// - Parameters:
     /// - clientId: The client ID of the GitHub app.
@@ -23,47 +21,16 @@ public extension AppsMethods {
     /// - repositoryIds: The list of repository IDs to scope the user access token
     ///   to. `repository_ids` may not be specified if `repositories` is specified.
     /// - permissions: The permissions granted to the fine-grained access token.
-    static func appsScopeToken(
-        config: ClientConfig,
-        clientId: String,
-        accessToken: String,
-        target: String?,
-        targetId: Int?,
-        repositories: [String]?,
-        repositoryIds: [Int]?,
-        permissions: AppPermissions?
-    ) async throws -> Authorization {
-        let requestBody = AppsScopeTokenRequestBody(
-            accessToken: accessToken,
-            target: target,
-            targetId: targetId,
-            repositories: repositories,
-            repositoryIds: repositoryIds,
-            permissions: permissions
-        )
+    public static func appsScopeToken(config: ClientConfig, clientId: String, accessToken: String, target: String?, targetId: Int?, repositories: [String]?, repositoryIds: [Int]?, permissions: AppPermissions?) async throws -> Authorization {
+        let requestBody = AppsScopeTokenRequestBody(accessToken: accessToken, target: target, targetId: targetId, repositories: repositories, repositoryIds: repositoryIds, permissions: permissions)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token/scoped"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "appsScopeToken"
-        )).data
+        return try (await sdkRequest("POST", ["/applications/", sdkEncodePathSegment(sdkWireString(clientId)), "/token/scoped"].joined(), config: config, body: requestBody, decoder: .json, operationId: "appsScopeToken")).data
     }
 
-    /// Retrieves a GitHub App by its URL-friendly slug. Use `app_slug` from the GitHub App settings URL to identify the
-    /// app and inspect its metadata, permissions, events, and installation count when available.
+    /// Retrieves a GitHub App by its URL-friendly slug. Use `app_slug` from the GitHub App settings URL to identify the app and inspect its metadata, permissions, events, and installation count when available.
     ///
-    /// > [!NOTE] > The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings
-    /// page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).
-    static func appsGetBySlug(config: ClientConfig, appSlug: String) async throws -> Integration {
-        try await (sdkRequest(
-            "GET",
-            ["/apps/", sdkEncodePathSegment(sdkWireString(appSlug))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "appsGetBySlug"
-        )).data
+    /// > [!NOTE] > The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).
+    public static func appsGetBySlug(config: ClientConfig, appSlug: String) async throws -> Integration {
+        return try (await sdkRequest("GET", ["/apps/", sdkEncodePathSegment(sdkWireString(appSlug))].joined(), config: config, decoder: .json, operationId: "appsGetBySlug")).data
     }
 }

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ChecksMethods {
-    struct ChecksListForRefOptions: Codable {
+extension ChecksMethods {
+    public struct ChecksListForRefOptions: Codable {
         public var owner: String
         public var repo: String
         public var ref: String
@@ -25,20 +25,9 @@ public extension ChecksMethods {
         }
     }
 
-    /// Lists check runs associated with a commit reference in a repository. Use `ref` to identify a commit SHA, branch,
-    /// or tag, and use `check_name`, `status`, `filter`, or `app_id` to narrow the results; use `page` and `per_page`
-    /// to paginate the results. When a reference has more than 1,000 check suites, results are limited to the 1,000
-    /// most recent suites, so use the check-suite endpoints to retrieve all check runs.
+    /// Lists check runs associated with a commit reference in a repository. Use `ref` to identify a commit SHA, branch, or tag, and use `check_name`, `status`, `filter`, or `app_id` to narrow the results; use `page` and `per_page` to paginate the results. When a reference has more than 1,000 check suites, results are limited to the 1,000 most recent suites, so use the check-suite endpoints to retrieve all check runs.
     ///
-    /// Lists check runs for a commit ref. The `ref` can be a SHA, branch name, or a tag name. > [!NOTE] > The endpoints
-    /// to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes
-    /// to a branch in a forked repository are not detected and return an empty `pull_requests` array. If there are more
-    /// than 1000 check suites on a single git reference, this endpoint will limit check runs to the 1000 most recent
-    /// check suites. To iterate over all possible check runs, use the [List check suites for a Git
-    /// reference](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference) endpoint and
-    /// provide the `check_suite_id` parameter to the [List check runs in a check
-    /// suite](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite) endpoint. OAuth app
-    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository.
+    /// Lists check runs for a commit ref. The `ref` can be a SHA, branch name, or a tag name. > [!NOTE] > The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array. If there are more than 1000 check suites on a single git reference, this endpoint will limit check runs to the 1000 most recent check suites. To iterate over all possible check runs, use the [List check suites for a Git reference](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference) endpoint and provide the `check_suite_id` parameter to the [List check runs in a check suite](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite) endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -62,32 +51,14 @@ public extension ChecksMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func checksListForRef(
-        config: ClientConfig,
-        options: ChecksListForRefOptions
-    ) async throws -> ChecksListForRefResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/commits/",
-                sdkEncodePathSegment(sdkWireString(options.ref)),
-                "/check-runs",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("check_name", value: options.checkName),
-                SdkQueryParameter("status", value: options.status),
-                SdkQueryParameter("filter", value: options.filter),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("app_id", value: options.appId),
-            ],
-            decoder: .json,
-            operationId: "checksListForRef"
-        )).data
+    public static func checksListForRef(config: ClientConfig, options: ChecksListForRefOptions) async throws -> ChecksListForRefResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/commits/", sdkEncodePathSegment(sdkWireString(options.ref)), "/check-runs"].joined(), config: config, query: [
+            SdkQueryParameter("check_name", value: options.checkName),
+            SdkQueryParameter("status", value: options.status),
+            SdkQueryParameter("filter", value: options.filter),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("app_id", value: options.appId),
+        ], decoder: .json, operationId: "checksListForRef")).data
     }
 }

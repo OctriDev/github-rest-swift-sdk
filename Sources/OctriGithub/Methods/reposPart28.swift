@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. When authenticated with admin or owner permissions to the repository, you can use this endpoint
-    /// to require signed commits on a branch. You must enable branch protection to require signed commits.
+extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. When authenticated with admin or owner permissions to the repository, you can use this endpoint to require signed commits on a branch. You must enable branch protection to require signed commits.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,35 +17,11 @@ public extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    static func reposCreateCommitSignatureProtection(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        branch: String
-    ) async throws -> ProtectedBranchAdminEnforced {
-        try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/branches/",
-                sdkEncodePathSegment(sdkWireString(branch)),
-                "/protection/required_signatures",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposCreateCommitSignatureProtection"
-        )).data
+    public static func reposCreateCommitSignatureProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> ProtectedBranchAdminEnforced {
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/required_signatures"].joined(), config: config, decoder: .json, operationId: "reposCreateCommitSignatureProtection")).data
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
-    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-    /// Server. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. When authenticated with admin or owner permissions to the repository, you can use this endpoint
-    /// to disable required signed commits on a branch. You must enable branch protection to require signed commits.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. When authenticated with admin or owner permissions to the repository, you can use this endpoint to disable required signed commits on a branch. You must enable branch protection to require signed commits.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -60,26 +31,7 @@ public extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    static func reposDeleteCommitSignatureProtection(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        branch: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/branches/",
-                sdkEncodePathSegment(sdkWireString(branch)),
-                "/protection/required_signatures",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteCommitSignatureProtection"
-        )).data
+    public static func reposDeleteCommitSignatureProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/required_signatures"].joined(), config: config, decoder: .empty, operationId: "reposDeleteCommitSignatureProtection")).data
     }
 }

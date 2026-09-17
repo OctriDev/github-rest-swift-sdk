@@ -33,11 +33,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposCreateReleaseOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            tagName: decoded("\"v1.0.0\"")
-        )
+        var options = try ReposMethods.ReposCreateReleaseOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), tagName: decoded("\"v1.0.0\""))
         options.targetCommitish = try decoded("\"master\"")
         options.name = try decoded("\"v1.0.0\"")
         options.body = try decoded("\"sample\"")
@@ -65,12 +61,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposCreateRepoRulesetOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            name: decoded("\"super cool ruleset\""),
-            enforcement: decoded("\"active\"")
-        )
+        var options = try ReposMethods.ReposCreateRepoRulesetOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), name: decoded("\"super cool ruleset\""), enforcement: decoded("\"active\""))
         options.target = try decoded("\"branch\"")
         options.bypassActors = try decoded(sdkMethodFixture937Value1)
         options.conditions = try decoded(sdkMethodFixture937Value2)
@@ -138,8 +129,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesReX6b1375d7fcReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposCustomPropertiesForReposCreateOrUpdateRepositoryValuesReX6b1375d7fcReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -152,8 +142,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposCustomPropertiesForReposGetRepositoryValuesReposCustomPrXe6d0b1b365ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposCustomPropertiesForReposGetRepositoryValuesReposCustomPrXe6d0b1b365ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -173,8 +162,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposDeclineInvitationForAuthenticatedUserReposDeclineInvitatX8731767dc1ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDeclineInvitationForAuthenticatedUserReposDeclineInvitatX8731767dc1ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -210,8 +198,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDeleteAdminBranchProtectionReposDeleteAdminBranchProtectionReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDeleteAdminBranchProtectionReposDeleteAdminBranchProtectionReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -276,8 +263,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDeleteCommitSignatureProtectionReposDeleteCommitSignatureProtectionReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDeleteCommitSignatureProtectionReposDeleteCommitSignatureProtectionReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -316,8 +302,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDeleteDeploymentBranchPolicyReposDeleteDeploymentBranchPolicyReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDeleteDeploymentBranchPolicyReposDeleteDeploymentBranchPolicyReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -336,13 +321,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposDeleteFileOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            path: decoded("\"path\""),
-            message: decoded("\"my commit message\""),
-            sha: decoded("\"329688480d39049927147c162b9d2deaf885005f\"")
-        )
+        var options = try ReposMethods.ReposDeleteFileOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), path: decoded("\"path\""), message: decoded("\"my commit message\""), sha: decoded("\"329688480d39049927147c162b9d2deaf885005f\""))
         options.branch = try decoded("null")
         options.committer = try decoded("{\"name\":\"Monalisa Octocat\",\"email\":\"octocat@github.com\"}")
         options.author = try decoded("null")
@@ -397,8 +376,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDeletePullRequestReviewProtectionReposDeletePullRequestRX64f0575479ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDeletePullRequestReviewProtectionReposDeletePullRequestRX64f0575479ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -463,8 +441,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDisableAutomatedSecurityFixesReposDisableAutomatedSecurityFixesReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDisableAutomatedSecurityFixesReposDisableAutomatedSecurityFixesReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -476,8 +453,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDisableDeploymentProtectionRuleReposDisableDeploymentProtectionRuleReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDisableDeploymentProtectionRuleReposDisableDeploymentProtectionRuleReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -503,8 +479,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposDisablePrivateVulnerabilityReportingReposDisablePrivateVX8c9ea9dc85ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposDisablePrivateVulnerabilityReportingReposDisablePrivateVX8c9ea9dc85ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

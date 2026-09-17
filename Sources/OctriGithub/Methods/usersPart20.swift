@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// Delete attestations by ID
     ///
     /// Delete an artifact attestation by unique ID that is associated with a repository owned by a user.
@@ -14,22 +14,7 @@ public extension UsersMethods {
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - attestationId: Attestation ID
-    static func usersDeleteAttestationsById(
-        config: ClientConfig,
-        username: String,
-        attestationId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/attestations/",
-                sdkEncodePathSegment(sdkWireString(attestationId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "usersDeleteAttestationsById"
-        )).data
+    public static func usersDeleteAttestationsById(config: ClientConfig, username: String, attestationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/", sdkEncodePathSegment(sdkWireString(attestationId))].joined(), config: config, decoder: .empty, operationId: "usersDeleteAttestationsById")).data
     }
 }

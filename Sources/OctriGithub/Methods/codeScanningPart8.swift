@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    /// Gets the status and description of an autofix for a code scanning alert on the repository's default branch.
-    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with
-    /// private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+extension CodeScanningMethods {
+    /// Gets the status and description of an autofix for a code scanning alert on the repository's default branch. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,26 +18,7 @@ public extension CodeScanningMethods {
     ///   end of the URL for a code scanning alert within GitHub, and in the `number`
     ///   field in the response from the `GET
     ///   /repos/{owner}/{repo}/code-scanning/alerts` operation.
-    static func codeScanningGetAutofix(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        alertNumber: AlertNumber
-    ) async throws -> CodeScanningAutofix {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/code-scanning/alerts/",
-                sdkEncodePathSegment(sdkWireString(alertNumber)),
-                "/autofix",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "codeScanningGetAutofix"
-        )).data
+    public static func codeScanningGetAutofix(config: ClientConfig, owner: String, repo: String, alertNumber: AlertNumber) async throws -> CodeScanningAutofix {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/alerts/", sdkEncodePathSegment(sdkWireString(alertNumber)), "/autofix"].joined(), config: config, decoder: .json, operationId: "codeScanningGetAutofix")).data
     }
 }

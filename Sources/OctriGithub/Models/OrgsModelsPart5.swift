@@ -3,85 +3,51 @@
 
 import Foundation
 
-/// Orgs domain models
-public extension OrganizationRole {
-    init(from decoder: Decoder) throws {
+// Orgs domain models
+extension OrganizationRole {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.permissions) else {
-            throw SdkValidationError(
-                field: "permissions",
-                code: "required",
-                message: "Validation failed for 'permissions': value is required"
-            )
+            throw SdkValidationError(field: "permissions", code: "required", message: "Validation failed for 'permissions': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        permissions = try container.sdkDecodeRequired(.permissions)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        description = try container.sdkDecodeIfPresent(.description)
-        baseRole = try container.sdkDecodeIfPresent(.baseRole)
-        source = try container.sdkDecodeIfPresent(.source)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.permissions = try container.sdkDecodeRequired(.permissions)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.baseRole = try container.sdkDecodeIfPresent(.baseRole)
+        self.source = try container.sdkDecodeIfPresent(.source)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension OrganizationRole {
-    init(
-        id: Int,
-        name: String,
-        permissions: [String],
-        organization: NullableSimpleUser?,
-        createdAt: Date,
-        updatedAt: Date,
-        description: String? = nil,
-        baseRole: OrganizationRoleBaseRole? = nil,
-        source: OrganizationRoleSource? = nil
-    ) throws {
+extension OrganizationRole {
+    public init(id: Int, name: String, permissions: [String], organization: NullableSimpleUser?, createdAt: Date, updatedAt: Date, description: String? = nil, baseRole: OrganizationRoleBaseRole? = nil, source: OrganizationRoleSource? = nil) throws {
         (self.id, self.name) = (id, name)
         (self.permissions, self.organization) = (permissions, organization)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.description, self.baseRole) = (description, baseRole)
         self.source = source
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -109,27 +75,22 @@ public struct OrganizationUpdateIssueField: Codable {
     }
 
     init() {
-        (name, description, visibility, options) = (nil, nil, nil, nil)
+        (self.name, self.description, self.visibility, self.options) = (nil, nil, nil, nil)
     }
 }
 
-public extension OrganizationUpdateIssueField {
-    init(from decoder: Decoder) throws {
+extension OrganizationUpdateIssueField {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.sdkDecodeIfPresent(.name)
-        description = try container.sdkDecodeIfPresent(.description)
-        visibility = try container.sdkDecodeIfPresent(.visibility)
-        options = try container.sdkDecodeIfPresent(.options)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.visibility = try container.sdkDecodeIfPresent(.visibility)
+        self.options = try container.sdkDecodeIfPresent(.options)
     }
 }
 
-public extension OrganizationUpdateIssueField {
-    init(
-        name: String? = nil,
-        description: String? = nil,
-        visibility: OrganizationUpdateIssueFieldVisibility? = nil,
-        options: [OrganizationUpdateIssueFieldOptionsItem]? = nil
-    ) {
+extension OrganizationUpdateIssueField {
+    public init(name: String? = nil, description: String? = nil, visibility: OrganizationUpdateIssueFieldVisibility? = nil, options: [OrganizationUpdateIssueFieldOptionsItem]? = nil) {
         self.init()
         (self.name, self.description) = (name, description)
         (self.visibility, self.options) = (visibility, options)
@@ -157,51 +118,31 @@ public struct OrganizationUpdateIssueFieldOptionsItem: Codable {
         case description
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationUpdateIssueFieldOptionsItem {
-    init(from decoder: Decoder) throws {
+extension OrganizationUpdateIssueFieldOptionsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.color) else {
-            throw SdkValidationError(
-                field: "color",
-                code: "required",
-                message: "Validation failed for 'color': value is required"
-            )
+            throw SdkValidationError(field: "color", code: "required", message: "Validation failed for 'color': value is required")
         }
         guard container.contains(.priority) else {
-            throw SdkValidationError(
-                field: "priority",
-                code: "required",
-                message: "Validation failed for 'priority': value is required"
-            )
+            throw SdkValidationError(field: "priority", code: "required", message: "Validation failed for 'priority': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        color = try container.sdkDecodeRequired(.color)
-        priority = try container.sdkDecodeRequired(.priority)
-        id = try container.sdkDecodeIfPresent(.id)
-        description = try container.sdkDecodeIfPresent(.description)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.color = try container.sdkDecodeRequired(.color)
+        self.priority = try container.sdkDecodeRequired(.priority)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
-public extension OrganizationUpdateIssueFieldOptionsItem {
-    init(
-        name: String,
-        color: OrganizationUpdateIssueFieldOptionsItemColor,
-        priority: Int,
-        id: Int? = nil,
-        description: String? = nil
-    ) {
+extension OrganizationUpdateIssueFieldOptionsItem {
+    public init(name: String, color: OrganizationUpdateIssueFieldOptionsItemColor, priority: Int, id: Int? = nil, description: String? = nil) {
         (self.name, self.color) = (name, color)
         (self.priority, self.id) = (priority, id)
         self.description = description
@@ -226,37 +167,27 @@ public struct OrganizationUpdateIssueType: Codable {
         case color
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension OrganizationUpdateIssueType {
-    init(from decoder: Decoder) throws {
+extension OrganizationUpdateIssueType {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.isEnabled) else {
-            throw SdkValidationError(
-                field: "is_enabled",
-                code: "required",
-                message: "Validation failed for 'is_enabled': value is required"
-            )
+            throw SdkValidationError(field: "is_enabled", code: "required", message: "Validation failed for 'is_enabled': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        isEnabled = try container.sdkDecodeRequired(.isEnabled)
-        description = try container.sdkDecodeIfPresent(.description)
-        color = try container.sdkDecodeIfPresent(.color)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.isEnabled = try container.sdkDecodeRequired(.isEnabled)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.color = try container.sdkDecodeIfPresent(.color)
     }
 }
 
-public extension OrganizationUpdateIssueType {
-    init(name: String, isEnabled: Bool, description: String? = nil, color: OrganizationUpdateIssueTypeColor? = nil) {
+extension OrganizationUpdateIssueType {
+    public init(name: String, isEnabled: Bool, description: String? = nil, color: OrganizationUpdateIssueTypeColor? = nil) {
         (self.name, self.isEnabled) = (name, isEnabled)
         (self.description, self.color) = (description, color)
     }
@@ -326,59 +257,38 @@ public struct TeamRoleAssignment: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamRoleAssignment {
-    init(from decoder: Decoder) throws {
+extension TeamRoleAssignment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        name = try container.sdkDecodeRequired(.name)
-        slug = try container.sdkDecodeRequired(.slug)
-        description = try container.sdkDecodeIfPresent(.description)
-        permission = try container.sdkDecodeRequired(.permission)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        parent = try container.sdkDecodeIfPresent(.parent)
-        type = try container.sdkDecodeRequired(.type)
-        assignment = try container.sdkDecodeIfPresent(.assignment)
-        privacy = try container.sdkDecodeIfPresent(.privacy)
-        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-        permissions = try container.sdkDecodeIfPresent(.permissions)
-        organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.parent = try container.sdkDecodeIfPresent(.parent)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.assignment = try container.sdkDecodeIfPresent(.assignment)
+        self.privacy = try container.sdkDecodeIfPresent(.privacy)
+        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        self.permissions = try container.sdkDecodeIfPresent(.permissions)
+        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
-public extension TeamRoleAssignment {
-    init(
-        id: Int,
-        nodeId: String,
-        name: String,
-        slug: String,
-        description: String?,
-        permission: String,
-        url: String,
-        htmlUrl: String,
-        membersUrl: String,
-        repositoriesUrl: String,
-        parent: NullableTeamSimple?,
-        type: TeamRoleAssignmentType,
-        assignment: TeamRoleAssignmentAssignment? = nil,
-        privacy: String? = nil,
-        notificationSetting: String? = nil,
-        permissions: TeamRoleAssignmentPermissions? = nil,
-        organizationId: Int? = nil,
-        enterpriseId: Int? = nil
-    ) throws {
+extension TeamRoleAssignment {
+    public init(id: Int, nodeId: String, name: String, slug: String, description: String?, permission: String, url: String, htmlUrl: String, membersUrl: String, repositoriesUrl: String, parent: NullableTeamSimple?, type: TeamRoleAssignmentType, assignment: TeamRoleAssignmentAssignment? = nil, privacy: String? = nil, notificationSetting: String? = nil, permissions: TeamRoleAssignmentPermissions? = nil, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.slug) = (name, slug)
         (self.description, self.permission) = (description, permission)
@@ -388,9 +298,9 @@ public extension TeamRoleAssignment {
         (self.assignment, self.privacy) = (assignment, privacy)
         (self.notificationSetting, self.permissions) = (notificationSetting, permissions)
         (self.organizationId, self.enterpriseId) = (organizationId, enterpriseId)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
@@ -415,59 +325,37 @@ public struct TeamRoleAssignmentPermissions: Codable {
         case admin
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamRoleAssignmentPermissions {
-    init(from decoder: Decoder) throws {
+extension TeamRoleAssignmentPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.pull) else {
-            throw SdkValidationError(
-                field: "pull",
-                code: "required",
-                message: "Validation failed for 'pull': value is required"
-            )
+            throw SdkValidationError(field: "pull", code: "required", message: "Validation failed for 'pull': value is required")
         }
         guard container.contains(.triage) else {
-            throw SdkValidationError(
-                field: "triage",
-                code: "required",
-                message: "Validation failed for 'triage': value is required"
-            )
+            throw SdkValidationError(field: "triage", code: "required", message: "Validation failed for 'triage': value is required")
         }
         guard container.contains(.push) else {
-            throw SdkValidationError(
-                field: "push",
-                code: "required",
-                message: "Validation failed for 'push': value is required"
-            )
+            throw SdkValidationError(field: "push", code: "required", message: "Validation failed for 'push': value is required")
         }
         guard container.contains(.maintain) else {
-            throw SdkValidationError(
-                field: "maintain",
-                code: "required",
-                message: "Validation failed for 'maintain': value is required"
-            )
+            throw SdkValidationError(field: "maintain", code: "required", message: "Validation failed for 'maintain': value is required")
         }
         guard container.contains(.admin) else {
-            throw SdkValidationError(
-                field: "admin",
-                code: "required",
-                message: "Validation failed for 'admin': value is required"
-            )
+            throw SdkValidationError(field: "admin", code: "required", message: "Validation failed for 'admin': value is required")
         }
-        pull = try container.sdkDecodeRequired(.pull)
-        triage = try container.sdkDecodeRequired(.triage)
-        push = try container.sdkDecodeRequired(.push)
-        maintain = try container.sdkDecodeRequired(.maintain)
-        admin = try container.sdkDecodeRequired(.admin)
+        self.pull = try container.sdkDecodeRequired(.pull)
+        self.triage = try container.sdkDecodeRequired(.triage)
+        self.push = try container.sdkDecodeRequired(.push)
+        self.maintain = try container.sdkDecodeRequired(.maintain)
+        self.admin = try container.sdkDecodeRequired(.admin)
     }
 }
 
-public extension TeamRoleAssignmentPermissions {
-    init(pull: Bool, triage: Bool, push: Bool, maintain: Bool, admin: Bool) {
+extension TeamRoleAssignmentPermissions {
+    public init(pull: Bool, triage: Bool, push: Bool, maintain: Bool, admin: Bool) {
         (self.pull, self.triage) = (pull, triage)
         (self.push, self.maintain) = (push, maintain)
         self.admin = admin
@@ -572,38 +460,36 @@ public struct UserRoleAssignment: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension UserRoleAssignment {
-    init(from decoder: Decoder) throws {
+extension UserRoleAssignment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        followersUrl = try container.sdkDecodeRequired(.followersUrl)
-        followingUrl = try container.sdkDecodeRequired(.followingUrl)
-        gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
-        starredUrl = try container.sdkDecodeRequired(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
-        organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
-        type = try container.sdkDecodeRequired(.type)
-        siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
-        assignment = try container.sdkDecodeIfPresent(.assignment)
-        inheritedFrom = try container.sdkDecodeIfPresent(.inheritedFrom)
-        name = try container.sdkDecodeIfPresent(.name)
-        email = try container.sdkDecodeIfPresent(.email)
-        starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.followersUrl = try container.sdkDecodeRequired(.followersUrl)
+        self.followingUrl = try container.sdkDecodeRequired(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeRequired(.gistsUrl)
+        self.starredUrl = try container.sdkDecodeRequired(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeRequired(.subscriptionsUrl)
+        self.organizationsUrl = try container.sdkDecodeRequired(.organizationsUrl)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeRequired(.receivedEventsUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.siteAdmin = try container.sdkDecodeRequired(.siteAdmin)
+        self.assignment = try container.sdkDecodeIfPresent(.assignment)
+        self.inheritedFrom = try container.sdkDecodeIfPresent(.inheritedFrom)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }

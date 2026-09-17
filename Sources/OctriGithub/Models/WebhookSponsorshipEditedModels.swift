@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookSponsorshipEdited domain models
+// WebhookSponsorshipEdited domain models
 /// Typed representation of the `WebhookSponsorshipEdited` API schema.
 public struct WebhookSponsorshipEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,64 +39,37 @@ public struct WebhookSponsorshipEdited: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookSponsorshipEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookSponsorshipEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
         guard container.contains(.sponsorship) else {
-            throw SdkValidationError(
-                field: "sponsorship",
-                code: "required",
-                message: "Validation failed for 'sponsorship': value is required"
-            )
+            throw SdkValidationError(field: "sponsorship", code: "required", message: "Validation failed for 'sponsorship': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        sender = try container.sdkDecodeRequired(.sender)
-        sponsorship = try container.sdkDecodeRequired(.sponsorship)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.sponsorship = try container.sdkDecodeRequired(.sponsorship)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
     }
 }
 
-public extension WebhookSponsorshipEdited {
-    init(
-        action: WebhookSponsorshipEditedAction,
-        changes: WebhookSponsorshipEditedChanges,
-        sender: SimpleUser,
-        sponsorship: WebhooksSponsorship,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: RepositoryWebhooks? = nil
-    ) {
+extension WebhookSponsorshipEdited {
+    public init(action: WebhookSponsorshipEditedAction, changes: WebhookSponsorshipEditedChanges, sender: SimpleUser, sponsorship: WebhooksSponsorship, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.sender, self.sponsorship) = (sender, sponsorship)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -114,19 +87,19 @@ public struct WebhookSponsorshipEditedChanges: Codable {
     }
 
     init() {
-        privacyLevel = nil
+        self.privacyLevel = nil
     }
 }
 
-public extension WebhookSponsorshipEditedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookSponsorshipEditedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        privacyLevel = try container.sdkDecodeIfPresent(.privacyLevel)
+        self.privacyLevel = try container.sdkDecodeIfPresent(.privacyLevel)
     }
 }
 
-public extension WebhookSponsorshipEditedChanges {
-    init(privacyLevel: WebhookSponsorshipEditedChangesPrivacyLevel? = nil) {
+extension WebhookSponsorshipEditedChanges {
+    public init(privacyLevel: WebhookSponsorshipEditedChangesPrivacyLevel? = nil) {
         self.init()
         self.privacyLevel = privacyLevel
     }
@@ -142,27 +115,21 @@ public struct WebhookSponsorshipEditedChangesPrivacyLevel: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookSponsorshipEditedChangesPrivacyLevel {
-    init(from decoder: Decoder) throws {
+extension WebhookSponsorshipEditedChangesPrivacyLevel {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeRequired(.from)
+        self.from = try container.sdkDecodeRequired(.from)
     }
 }
 
-public extension WebhookSponsorshipEditedChangesPrivacyLevel {
-    init(from: String) {
+extension WebhookSponsorshipEditedChangesPrivacyLevel {
+    public init(from: String) {
         self.from = from
     }
 }
@@ -171,15 +138,12 @@ public extension WebhookSponsorshipEditedChangesPrivacyLevel {
 public struct WebhookSponsorshipEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookSponsorshipEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

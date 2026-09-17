@@ -86,8 +86,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testIssuesCheckUserCanBeAssignedToIssueIssuesCheckUserCanBeAssignedToIssueReachesMockAndDecodesResponse(
-    ) async throws {
+    func testIssuesCheckUserCanBeAssignedToIssueIssuesCheckUserCanBeAssignedToIssueReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -106,14 +105,10 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try IssuesMethods.IssuesCreateOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            title: decoded("\"Found a bug\"")
-        )
+        var options = try IssuesMethods.IssuesCreateOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), title: decoded("\"Found a bug\""))
         options.body = try decoded("\"sample\"")
         options.assignee = try decoded("null")
-        options.milestone = try decoded("\"1\"")
+        options.milestone = try decoded("1")
         options.labels = try decoded("[\"bug\"]")
         options.assignees = try decoded("[\"octocat\"]")
         options.issueFieldValues = try decoded("null")

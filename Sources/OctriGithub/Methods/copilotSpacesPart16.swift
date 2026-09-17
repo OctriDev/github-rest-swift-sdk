@@ -6,12 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Set a collaborator role for a Copilot Space for a user
     ///
-    /// Updates the role of a collaborator for a specific Copilot Space owned by a user. The authenticated user must be
-    /// the owner of the space or have admin access to the space. OAuth app tokens and personal access tokens (classic)
-    /// need the `user` scope to use this endpoint.
+    /// Updates the role of a collaborator for a specific Copilot Space owned by a user. The authenticated user must be the owner of the space or have admin access to the space. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -22,32 +20,9 @@ public extension CopilotSpacesMethods {
     ///   also accepted.
     /// - role: The new role to grant to the collaborator. Use `no_access` to remove
     ///   the collaborator.
-    static func copilotSpacesUpdateCollaboratorForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int,
-        actorType: CopilotSpacesUpdateCollaboratorForUserParameter,
-        actorIdentifier: String,
-        role: CopilotSpacesUpdateCollaboratorForUserRequestBodyRole
-    ) async throws -> CopilotSpaceCollaborator {
+    public static func copilotSpacesUpdateCollaboratorForUser(config: ClientConfig, username: String, spaceNumber: Int, actorType: CopilotSpacesUpdateCollaboratorForUserParameter, actorIdentifier: String, role: CopilotSpacesUpdateCollaboratorForUserRequestBodyRole) async throws -> CopilotSpaceCollaborator {
         let requestBody = CopilotSpacesUpdateCollaboratorForUserRequestBody(role: role)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-                "/collaborators/",
-                sdkEncodePathSegment(sdkWireString(actorType)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(actorIdentifier)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "copilotSpacesUpdateCollaboratorForUser"
-        )).data
+        return try (await sdkRequest("PUT", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators/", sdkEncodePathSegment(sdkWireString(actorType)), "/", sdkEncodePathSegment(sdkWireString(actorIdentifier))].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesUpdateCollaboratorForUser")).data
     }
 }

@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
+extension TeamsMethods {
     /// Lists all teams in an organization that are visible to the authenticated user.
     ///
     /// - Parameters:
@@ -23,24 +23,11 @@ public extension TeamsMethods {
     ///   "[What kind of team should I
     ///   use?](https://docs.github.com/enterprise-cloud@latest/admin/concepts/enterpr
     ///   ise-fundamentals/teams-in-an-enterprise#what-kind-of-team-should-i-use)"
-    static func teamsList(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        teamType: TeamsListParameter?
-    ) async throws -> [Team] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("team_type", value: teamType),
-            ],
-            decoder: .json,
-            operationId: "teamsList"
-        )).data
+    public static func teamsList(config: ClientConfig, org: String, perPage: Int?, page: Int?, teamType: TeamsListParameter?) async throws -> [Team] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("team_type", value: teamType),
+        ], decoder: .json, operationId: "teamsList")).data
     }
 }

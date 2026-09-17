@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension AppsMethods {
+extension AppsMethods {
     /// Lists all the pending installation requests for the authenticated GitHub App.
     ///
     /// - Parameters:
@@ -18,12 +18,8 @@ public extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func appsListInstallationRequestsForAuthenticatedApp(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [IntegrationInstallationRequest] {
-        try await (sdkRequest("GET", "/app/installation-requests", config: config, query: [
+    public static func appsListInstallationRequestsForAuthenticatedApp(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [IntegrationInstallationRequest] {
+        return try (await sdkRequest("GET", "/app/installation-requests", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "appsListInstallationRequestsForAuthenticatedApp")).data

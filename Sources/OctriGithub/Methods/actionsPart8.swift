@@ -6,72 +6,30 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// List custom images for an organization. OAuth tokens and personal access tokens (classic) need the
-    /// `manage_runners:org` scope to use this endpoint.
+extension ActionsMethods {
+    /// List custom images for an organization. OAuth tokens and personal access tokens (classic) need the `manage_runners:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsListCustomImagesForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> ActionsListCustomImagesForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/custom"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsListCustomImagesForOrg"
-        )).data
+    public static func actionsListCustomImagesForOrg(config: ClientConfig, org: String) async throws -> ActionsListCustomImagesForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/custom"].joined(), config: config, decoder: .json, operationId: "actionsListCustomImagesForOrg")).data
     }
 
-    /// Get a custom image definition for GitHub Actions Hosted Runners. OAuth tokens and personal access tokens
-    /// (classic) need the `manage_runners:org` scope to use this endpoint.
+    /// Get a custom image definition for GitHub Actions Hosted Runners. OAuth tokens and personal access tokens (classic) need the `manage_runners:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - imageDefinitionId: Image definition ID of custom image
-    static func actionsGetCustomImageForOrg(
-        config: ClientConfig,
-        org: String,
-        imageDefinitionId: Int
-    ) async throws -> ActionsHostedRunnerCustomImage {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/hosted-runners/images/custom/",
-                sdkEncodePathSegment(sdkWireString(imageDefinitionId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetCustomImageForOrg"
-        )).data
+    public static func actionsGetCustomImageForOrg(config: ClientConfig, org: String, imageDefinitionId: Int) async throws -> ActionsHostedRunnerCustomImage {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/custom/", sdkEncodePathSegment(sdkWireString(imageDefinitionId))].joined(), config: config, decoder: .json, operationId: "actionsGetCustomImageForOrg")).data
     }
 
-    /// Delete a custom image from the organization. OAuth tokens and personal access tokens (classic) need the
-    /// `manage_runners:org` scope to use this endpoint.
+    /// Delete a custom image from the organization. OAuth tokens and personal access tokens (classic) need the `manage_runners:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - imageDefinitionId: Image definition ID of custom image
-    static func actionsDeleteCustomImageFromOrg(
-        config: ClientConfig,
-        org: String,
-        imageDefinitionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/hosted-runners/images/custom/",
-                sdkEncodePathSegment(sdkWireString(imageDefinitionId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsDeleteCustomImageFromOrg"
-        )).data
+    public static func actionsDeleteCustomImageFromOrg(config: ClientConfig, org: String, imageDefinitionId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/hosted-runners/images/custom/", sdkEncodePathSegment(sdkWireString(imageDefinitionId))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteCustomImageFromOrg")).data
     }
 }

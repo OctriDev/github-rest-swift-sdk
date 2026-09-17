@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ReposCommit domain models
+// ReposCommit domain models
 /// Commit Activity
 public struct CommitActivity: Codable {
     /// Required array value serialized in the `days` wire field.
@@ -22,43 +22,29 @@ public struct CommitActivity: Codable {
         case week
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CommitActivity {
-    init(from decoder: Decoder) throws {
+extension CommitActivity {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.days) else {
-            throw SdkValidationError(
-                field: "days",
-                code: "required",
-                message: "Validation failed for 'days': value is required"
-            )
+            throw SdkValidationError(field: "days", code: "required", message: "Validation failed for 'days': value is required")
         }
         guard container.contains(.total) else {
-            throw SdkValidationError(
-                field: "total",
-                code: "required",
-                message: "Validation failed for 'total': value is required"
-            )
+            throw SdkValidationError(field: "total", code: "required", message: "Validation failed for 'total': value is required")
         }
         guard container.contains(.week) else {
-            throw SdkValidationError(
-                field: "week",
-                code: "required",
-                message: "Validation failed for 'week': value is required"
-            )
+            throw SdkValidationError(field: "week", code: "required", message: "Validation failed for 'week': value is required")
         }
-        days = try container.sdkDecodeRequired(.days)
-        total = try container.sdkDecodeRequired(.total)
-        week = try container.sdkDecodeRequired(.week)
+        self.days = try container.sdkDecodeRequired(.days)
+        self.total = try container.sdkDecodeRequired(.total)
+        self.week = try container.sdkDecodeRequired(.week)
     }
 }
 
-public extension CommitActivity {
-    init(days: [Int], total: Int, week: Int) {
+extension CommitActivity {
+    public init(days: [Int], total: Int, week: Int) {
         (self.days, self.total) = (days, total)
         self.week = week
     }
@@ -120,51 +106,35 @@ public struct CommitComparison: Codable {
         case files
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension CommitComparison {
-    init(from decoder: Decoder) throws {
+extension CommitComparison {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        permalinkUrl = try container.sdkDecodeRequired(.permalinkUrl)
-        diffUrl = try container.sdkDecodeRequired(.diffUrl)
-        patchUrl = try container.sdkDecodeRequired(.patchUrl)
-        baseCommit = try container.sdkDecodeRequired(.baseCommit)
-        mergeBaseCommit = try container.sdkDecodeRequired(.mergeBaseCommit)
-        status = try container.sdkDecodeRequired(.status)
-        aheadBy = try container.sdkDecodeRequired(.aheadBy)
-        behindBy = try container.sdkDecodeRequired(.behindBy)
-        totalCommits = try container.sdkDecodeRequired(.totalCommits)
-        commits = try container.sdkDecodeRequired(.commits)
-        files = try container.sdkDecodeIfPresent(.files)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("permalink_url", permalinkUrl)
-        try sdkValidateUri("diff_url", diffUrl)
-        try sdkValidateUri("patch_url", patchUrl)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.permalinkUrl = try container.sdkDecodeRequired(.permalinkUrl)
+        self.diffUrl = try container.sdkDecodeRequired(.diffUrl)
+        self.patchUrl = try container.sdkDecodeRequired(.patchUrl)
+        self.baseCommit = try container.sdkDecodeRequired(.baseCommit)
+        self.mergeBaseCommit = try container.sdkDecodeRequired(.mergeBaseCommit)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.aheadBy = try container.sdkDecodeRequired(.aheadBy)
+        self.behindBy = try container.sdkDecodeRequired(.behindBy)
+        self.totalCommits = try container.sdkDecodeRequired(.totalCommits)
+        self.commits = try container.sdkDecodeRequired(.commits)
+        self.files = try container.sdkDecodeIfPresent(.files)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("permalink_url", self.permalinkUrl)
+            try sdkValidateUri("diff_url", self.diffUrl)
+            try sdkValidateUri("patch_url", self.patchUrl)
     }
 }
 
-public extension CommitComparison {
-    init(
-        url: String,
-        htmlUrl: String,
-        permalinkUrl: String,
-        diffUrl: String,
-        patchUrl: String,
-        baseCommit: Commit,
-        mergeBaseCommit: Commit,
-        status: CommitComparisonStatus,
-        aheadBy: Int,
-        behindBy: Int,
-        totalCommits: Int,
-        commits: [Commit],
-        files: [DiffEntry]? = nil
-    ) throws {
+extension CommitComparison {
+    public init(url: String, htmlUrl: String, permalinkUrl: String, diffUrl: String, patchUrl: String, baseCommit: Commit, mergeBaseCommit: Commit, status: CommitComparisonStatus, aheadBy: Int, behindBy: Int, totalCommits: Int, commits: [Commit], files: [DiffEntry]? = nil) throws {
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.permalinkUrl, self.diffUrl) = (permalinkUrl, diffUrl)
         (self.patchUrl, self.baseCommit) = (patchUrl, baseCommit)
@@ -172,11 +142,11 @@ public extension CommitComparison {
         (self.aheadBy, self.behindBy) = (aheadBy, behindBy)
         (self.totalCommits, self.commits) = (totalCommits, commits)
         self.files = files
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("permalink_url", self.permalinkUrl)
-        try sdkValidateUri("diff_url", self.diffUrl)
-        try sdkValidateUri("patch_url", self.patchUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("permalink_url", self.permalinkUrl)
+            try sdkValidateUri("diff_url", self.diffUrl)
+            try sdkValidateUri("patch_url", self.patchUrl)
     }
 }
 
@@ -184,10 +154,7 @@ public extension CommitComparison {
 public struct CommitComparisonStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let diverged = CommitComparisonStatus(rawValue: "diverged")
     public static let ahead = CommitComparisonStatus(rawValue: "ahead")
     public static let behind = CommitComparisonStatus(rawValue: "behind")
@@ -195,7 +162,7 @@ public struct CommitComparisonStatus: RawRepresentable, Hashable, Codable, Senda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

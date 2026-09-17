@@ -6,27 +6,20 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// Unfollow a user
     ///
     /// OAuth app tokens and personal access tokens (classic) need the `user:follow` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    static func usersUnfollow(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/user/following/", sdkEncodePathSegment(sdkWireString(username))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "usersUnfollow"
-        )).data
+    public static func usersUnfollow(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/user/following/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "usersUnfollow")).data
     }
 
     /// List GPG keys for the authenticated user
     ///
-    /// Lists the current user's GPG keys. OAuth app tokens and personal access tokens (classic) need the `read:gpg_key`
-    /// scope to use this endpoint.
+    /// Lists the current user's GPG keys. OAuth app tokens and personal access tokens (classic) need the `read:gpg_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -37,12 +30,8 @@ public extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func usersListGpgKeysForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [GpgKey] {
-        try await (sdkRequest("GET", "/user/gpg_keys", config: config, query: [
+    public static func usersListGpgKeysForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [GpgKey] {
+        return try (await sdkRequest("GET", "/user/gpg_keys", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListGpgKeysForAuthenticatedUser")).data

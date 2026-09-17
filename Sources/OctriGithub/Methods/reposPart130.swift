@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Users with push access to the repository can delete a release.
     ///
     /// - Parameters:
@@ -15,25 +15,7 @@ public extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - releaseId: The unique identifier of the release.
-    static func reposDeleteRelease(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        releaseId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases/",
-                sdkEncodePathSegment(sdkWireString(releaseId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteRelease"
-        )).data
+    public static func reposDeleteRelease(config: ClientConfig, owner: String, repo: String, releaseId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/", sdkEncodePathSegment(sdkWireString(releaseId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteRelease")).data
     }
 }

@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
-    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
-    /// "[Encrypting secrets for the REST
-    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have
-    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,32 +21,11 @@ public extension ActionsMethods {
     ///   key](https://docs.github.com/rest/actions/secrets#get-a-repository-public-ke
     ///   y) endpoint.
     /// - keyId: ID of the key you used to encrypt the secret.
-    static func actionsCreateOrUpdateRepoSecret(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        secretName: String,
-        encryptedValue: String,
-        keyId: String
-    ) async throws -> EmptyObject {
+    public static func actionsCreateOrUpdateRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String, encryptedValue: String, keyId: String) async throws -> EmptyObject {
         try sdkValidatePattern("encrypted_value", encryptedValue, sdkPattern21db07621cc5)
 
         let requestBody = ActionsCreateOrUpdateRepoSecretRequestBody(encryptedValue: encryptedValue, keyId: keyId)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsCreateOrUpdateRepoSecret"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateOrUpdateRepoSecret")).data
     }
 }

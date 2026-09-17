@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Delete a webhook for an organization. The authenticated user must be a repository owner, or have admin access in
-    /// the repository, to delete the webhook.
+extension ReposMethods {
+    /// Delete a webhook for an organization. The authenticated user must be a repository owner, or have admin access in the repository, to delete the webhook.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,31 +16,11 @@ public extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func reposDeleteWebhook(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        hookId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reposDeleteWebhook"
-        )).data
+    public static func reposDeleteWebhook(config: ClientConfig, owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteWebhook")).data
     }
 
-    /// Returns the webhook configuration for a repository. To get more information about the webhook, including the
-    /// `active` state and `events`, use "Get a repository webhook." OAuth app tokens and personal access tokens
-    /// (classic) need the `read:repo_hook` or `repo` scope to use this endpoint.
+    /// Returns the webhook configuration for a repository. To get more information about the webhook, including the `active` state and `events`, use "Get a repository webhook." OAuth app tokens and personal access tokens (classic) need the `read:repo_hook` or `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -50,26 +29,7 @@ public extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    static func reposGetWebhookConfigForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        hookId: Int
-    ) async throws -> WebhookConfig {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-                "/config",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetWebhookConfigForRepo"
-        )).data
+    public static func reposGetWebhookConfigForRepo(config: ClientConfig, owner: String, repo: String, hookId: Int) async throws -> WebhookConfig {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/config"].joined(), config: config, decoder: .json, operationId: "reposGetWebhookConfigForRepo")).data
     }
 }

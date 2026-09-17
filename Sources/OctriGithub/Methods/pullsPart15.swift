@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension PullsMethods {
-    struct PullsMergeAsyncOptions: Codable {
+extension PullsMethods {
+    public struct PullsMergeAsyncOptions: Codable {
         public var owner: String
         public var repo: String
         public var pullNumber: Int
@@ -24,18 +24,7 @@ public extension PullsMethods {
         }
     }
 
-    /// Merges a pull request into the base branch in the background. Merging in this way allows certain types of errors
-    /// to be retried, and avoids the risk of timeouts for particularly complex merges. This is the required method for
-    /// merging stacked PRs, but also supports unstacked PRs. When using this endpoint to merge a stacked pull request,
-    /// all pull requests in the stack up to and including the requested PR will be merged into the base branch. The
-    /// response includes a UUID that can be used to fetch the result of the merge. If another asynchronous merge
-    /// request has already been made for this pull request, the UUID of that request will be returned instead with a
-    /// 409 response status to indicate that the merge options may be different from those that were requested. If there
-    /// isn't an existing asynchronous merge request, a 202 response status is used. If the pull request is already
-    /// merged, the merge commit OID will be returned immediately with a 200 status. If the pull request cannot be
-    /// merged (e.g. because it is closed, or still a draft) this result will be returned immediately with a 400
-    /// response status. Branch protection rules and repository rules are not run at this stage, only basic pull request
-    /// state checks are performed.
+    /// Merges a pull request into the base branch in the background. Merging in this way allows certain types of errors to be retried, and avoids the risk of timeouts for particularly complex merges. This is the required method for merging stacked PRs, but also supports unstacked PRs. When using this endpoint to merge a stacked pull request, all pull requests in the stack up to and including the requested PR will be merged into the base branch. The response includes a UUID that can be used to fetch the result of the merge. If another asynchronous merge request has already been made for this pull request, the UUID of that request will be returned instead with a 409 response status to indicate that the merge options may be different from those that were requested. If there isn't an existing asynchronous merge request, a 202 response status is used. If the pull request is already merged, the merge commit OID will be returned immediately with a 200 status. If the pull request cannot be merged (e.g. because it is closed, or still a draft) this result will be returned immediately with a 400 response status. Branch protection rules and repository rules are not run at this stage, only basic pull request state checks are performed.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -54,27 +43,9 @@ public extension PullsMethods {
     ///   `direct_merge` merges the pull request directly without using a merge queue;
     ///   `merge_queue` adds the pull request to a merge queue; `default` selects the
     ///   most appropriate option.
-    static func pullsMergeAsync(
-        config: ClientConfig,
-        options: PullsMergeAsyncOptions
-    ) async throws -> PullRequestMergeAsyncResult {
+    public static func pullsMergeAsync(config: ClientConfig, options: PullsMergeAsyncOptions) async throws -> PullRequestMergeAsyncResult {
         let requestBody = PullsMergeAsyncRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/pulls/",
-                sdkEncodePathSegment(sdkWireString(options.pullNumber)),
-                "/merge-async",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "pullsMergeAsync"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(options.pullNumber)), "/merge-async"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsMergeAsync")).data
     }
 }

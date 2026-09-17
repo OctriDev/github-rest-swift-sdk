@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    /// List files larger than 100MB found during the import > [!WARNING] > **Endpoint closing down notice:** Due to
-    /// very low levels of usage and available alternatives, this endpoint is closing down and will no longer be
-    /// available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the
-    /// [changelog](https://gh.io/source-imports-api-deprecation).
+extension MigrationsMethods {
+    /// List files larger than 100MB found during the import > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,32 +16,11 @@ public extension MigrationsMethods {
     ///   not case sensitive.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func migrationsGetLargeFiles(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> [PorterLargeFile] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/import/large_files",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "migrationsGetLargeFiles"
-        )).data
+    public static func migrationsGetLargeFiles(config: ClientConfig, owner: String, repo: String) async throws -> [PorterLargeFile] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import/large_files"].joined(), config: config, decoder: .json, operationId: "migrationsGetLargeFiles")).data
     }
 
-    /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This
-    /// ability is powered by [Git LFS](https://git-lfs.com). You can learn more about our LFS feature and working with
-    /// large files [on our help site](https://docs.github.com/repositories/working-with-files/managing-large-files). >
-    /// [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this
-    /// endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and
-    /// alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
+    /// You can import repositories from Subversion, Mercurial, and TFS that include files larger than 100MB. This ability is powered by [Git LFS](https://git-lfs.com). You can learn more about our LFS feature and working with large files [on our help site](https://docs.github.com/repositories/working-with-files/managing-large-files). > [!WARNING] > **Endpoint closing down notice:** Due to very low levels of usage and available alternatives, this endpoint is closing down and will no longer be available from 00:00 UTC on April 12, 2024. For more details and alternatives, see the [changelog](https://gh.io/source-imports-api-deprecation).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -56,27 +32,9 @@ public extension MigrationsMethods {
     ///   be removed during the import.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func migrationsSetLfsPreference(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        useLfs: MigrationsSetLfsPreferenceRequestBodyUseLfs
-    ) async throws -> Import {
+    public static func migrationsSetLfsPreference(config: ClientConfig, owner: String, repo: String, useLfs: MigrationsSetLfsPreferenceRequestBodyUseLfs) async throws -> Import {
         let requestBody = MigrationsSetLfsPreferenceRequestBody(useLfs: useLfs)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/import/lfs",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "migrationsSetLfsPreference"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/import/lfs"].joined(), config: config, body: requestBody, decoder: .json, operationId: "migrationsSetLfsPreference")).data
     }
 }

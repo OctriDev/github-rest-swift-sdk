@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    struct IssuesListOptions: Codable {
+extension IssuesMethods {
+    public struct IssuesListOptions: Codable {
         public var filter: IssuesListParameter?
         public var state: IssuesListParameterX722c7f46?
         public var labels: String?
@@ -24,26 +24,9 @@ public extension IssuesMethods {
         public init() {}
     }
 
-    /// Lists issues visible to the authenticated user across owned, member, and organization repositories. Use
-    /// `filter`, `state`, `labels`, and the sorting parameters to control participation, issue state, filtering, and
-    /// ordering; responses can include both issues and pull requests. Use `page` and `per_page` to paginate the
-    /// results.
+    /// Lists issues visible to the authenticated user across owned, member, and organization repositories. Use `filter`, `state`, `labels`, and the sorting parameters to control participation, issue state, filtering, and ordering; responses can include both issues and pull requests. Use `page` and `per_page` to paginate the results.
     ///
-    /// List issues assigned to the authenticated user across all visible repositories including owned repositories,
-    /// member repositories, and organization repositories. You can use the `filter` query parameter to fetch issues
-    /// that are not necessarily assigned to you. > [!NOTE] > GitHub's REST API considers every pull request an issue,
-    /// but not every issue is a pull request. For this reason, "Issues" endpoints may return both issues and pull
-    /// requests in the response. You can identify pull requests by the `pull_request` key. Be aware that the `id` of a
-    /// pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull request id, use the
-    /// "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint. This endpoint
-    /// supports the following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
-    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
-    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
-    /// only representation of the markdown body. Response will include `body_text`. -
-    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
-    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
-    /// will include `body`, `body_text`, and `body_html`.
+    /// List issues assigned to the authenticated user across all visible repositories including owned repositories, member repositories, and organization repositories. You can use the `filter` query parameter to fetch issues that are not necessarily assigned to you. > [!NOTE] > GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - filter: Indicates which sorts of issues to return. `assigned` means issues
@@ -66,12 +49,12 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesList(config: ClientConfig, options: IssuesListOptions) async throws -> [Issue] {
+    public static func issuesList(config: ClientConfig, options: IssuesListOptions) async throws -> [Issue] {
         if let since = options.since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try await (sdkRequest("GET", "/issues", config: config, query: [
+        return try (await sdkRequest("GET", "/issues", config: config, query: [
             SdkQueryParameter("filter", value: options.filter),
             SdkQueryParameter("state", value: options.state),
             SdkQueryParameter("labels", value: options.labels),

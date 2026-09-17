@@ -3,52 +3,39 @@
 
 import Foundation
 
-/// Misc domain models
-public extension OrganizationSimpleWebhooks {
-    init(from decoder: Decoder) throws {
+// Misc domain models
+extension OrganizationSimpleWebhooks {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        login = try container.sdkDecodeRequired(.login)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        reposUrl = try container.sdkDecodeRequired(.reposUrl)
-        eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
-        hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
-        issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
-        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        description = try container.sdkDecodeIfPresent(.description)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("repos_url", reposUrl)
-        try sdkValidateUri("events_url", eventsUrl)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.reposUrl = try container.sdkDecodeRequired(.reposUrl)
+        self.eventsUrl = try container.sdkDecodeRequired(.eventsUrl)
+        self.hooksUrl = try container.sdkDecodeRequired(.hooksUrl)
+        self.issuesUrl = try container.sdkDecodeRequired(.issuesUrl)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.publicMembersUrl = try container.sdkDecodeRequired(.publicMembersUrl)
+        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        self.description = try container.sdkDecodeIfPresent(.description)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
     }
 }
 
-public extension OrganizationSimpleWebhooks {
-    init(
-        login: String,
-        id: Int,
-        nodeId: String,
-        url: String,
-        reposUrl: String,
-        eventsUrl: String,
-        hooksUrl: String,
-        issuesUrl: String,
-        membersUrl: String,
-        publicMembersUrl: String,
-        avatarUrl: String,
-        description: String?
-    ) throws {
+extension OrganizationSimpleWebhooks {
+    public init(login: String, id: Int, nodeId: String, url: String, reposUrl: String, eventsUrl: String, hooksUrl: String, issuesUrl: String, membersUrl: String, publicMembersUrl: String, avatarUrl: String, description: String?) throws {
         (self.login, self.id) = (login, id)
         (self.nodeId, self.url) = (nodeId, url)
         (self.reposUrl, self.eventsUrl) = (reposUrl, eventsUrl)
         (self.hooksUrl, self.issuesUrl) = (hooksUrl, issuesUrl)
         (self.membersUrl, self.publicMembersUrl) = (membersUrl, publicMembersUrl)
         (self.avatarUrl, self.description) = (avatarUrl, description)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("repos_url", self.reposUrl)
-        try sdkValidateUri("events_url", self.eventsUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("repos_url", self.reposUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
     }
 }
 
@@ -107,48 +94,31 @@ public struct PersonalAccessTokenRequest: Codable {
         case tokenLastUsedAt = "token_last_used_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PersonalAccessTokenRequest {
-    init(from decoder: Decoder) throws {
+extension PersonalAccessTokenRequest {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        owner = try container.sdkDecodeRequired(.owner)
-        permissionsAdded = try container.sdkDecodeRequired(.permissionsAdded)
-        permissionsUpgraded = try container.sdkDecodeRequired(.permissionsUpgraded)
-        permissionsResult = try container.sdkDecodeRequired(.permissionsResult)
-        repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
-        repositoryCount = try container.sdkDecodeIfPresent(.repositoryCount)
-        repositories = try container.sdkDecodeIfPresent(.repositories)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        tokenId = try container.sdkDecodeRequired(.tokenId)
-        tokenName = try container.sdkDecodeRequired(.tokenName)
-        tokenExpired = try container.sdkDecodeRequired(.tokenExpired)
-        tokenExpiresAt = try container.sdkDecodeIfPresent(.tokenExpiresAt)
-        tokenLastUsedAt = try container.sdkDecodeIfPresent(.tokenLastUsedAt)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.owner = try container.sdkDecodeRequired(.owner)
+        self.permissionsAdded = try container.sdkDecodeRequired(.permissionsAdded)
+        self.permissionsUpgraded = try container.sdkDecodeRequired(.permissionsUpgraded)
+        self.permissionsResult = try container.sdkDecodeRequired(.permissionsResult)
+        self.repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
+        self.repositoryCount = try container.sdkDecodeIfPresent(.repositoryCount)
+        self.repositories = try container.sdkDecodeIfPresent(.repositories)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.tokenId = try container.sdkDecodeRequired(.tokenId)
+        self.tokenName = try container.sdkDecodeRequired(.tokenName)
+        self.tokenExpired = try container.sdkDecodeRequired(.tokenExpired)
+        self.tokenExpiresAt = try container.sdkDecodeIfPresent(.tokenExpiresAt)
+        self.tokenLastUsedAt = try container.sdkDecodeIfPresent(.tokenLastUsedAt)
     }
 }
 
-public extension PersonalAccessTokenRequest {
-    init(
-        id: Int,
-        owner: SimpleUser,
-        permissionsAdded: PersonalAccessTokenRequestPermissionsAdded,
-        permissionsUpgraded: PersonalAccessTokenRequestPermissionsUpgraded,
-        permissionsResult: PersonalAccessTokenRequestPermissionsResult,
-        repositorySelection: PersonalAccessTokenRequestRepositorySelection,
-        repositoryCount: Int?,
-        repositories: [PersonalAccessTokenRequestRepositoriesItem]?,
-        createdAt: String,
-        tokenId: Int,
-        tokenName: String,
-        tokenExpired: Bool,
-        tokenExpiresAt: String?,
-        tokenLastUsedAt: String?
-    ) {
+extension PersonalAccessTokenRequest {
+    public init(id: Int, owner: SimpleUser, permissionsAdded: PersonalAccessTokenRequestPermissionsAdded, permissionsUpgraded: PersonalAccessTokenRequestPermissionsUpgraded, permissionsResult: PersonalAccessTokenRequestPermissionsResult, repositorySelection: PersonalAccessTokenRequestRepositorySelection, repositoryCount: Int?, repositories: [PersonalAccessTokenRequestRepositoriesItem]?, createdAt: String, tokenId: Int, tokenName: String, tokenExpired: Bool, tokenExpiresAt: String?, tokenLastUsedAt: String?) {
         (self.id, self.owner) = (id, owner)
         (self.permissionsAdded, self.permissionsUpgraded) = (permissionsAdded, permissionsUpgraded)
         (self.permissionsResult, self.repositorySelection) = (permissionsResult, repositorySelection)
@@ -175,21 +145,21 @@ public struct PersonalAccessTokenRequestPermissionsAdded: Codable {
     }
 
     init() {
-        (organization, repository, other) = (nil, nil, nil)
+        (self.organization, self.repository, self.other) = (nil, nil, nil)
     }
 }
 
-public extension PersonalAccessTokenRequestPermissionsAdded {
-    init(from decoder: Decoder) throws {
+extension PersonalAccessTokenRequestPermissionsAdded {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        other = try container.sdkDecodeIfPresent(.other)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.other = try container.sdkDecodeIfPresent(.other)
     }
 }
 
-public extension PersonalAccessTokenRequestPermissionsAdded {
-    init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
+extension PersonalAccessTokenRequestPermissionsAdded {
+    public init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
         self.init()
         (self.organization, self.repository) = (organization, repository)
         self.other = other
@@ -213,21 +183,21 @@ public struct PersonalAccessTokenRequestPermissionsResult: Codable {
     }
 
     init() {
-        (organization, repository, other) = (nil, nil, nil)
+        (self.organization, self.repository, self.other) = (nil, nil, nil)
     }
 }
 
-public extension PersonalAccessTokenRequestPermissionsResult {
-    init(from decoder: Decoder) throws {
+extension PersonalAccessTokenRequestPermissionsResult {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        other = try container.sdkDecodeIfPresent(.other)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.other = try container.sdkDecodeIfPresent(.other)
     }
 }
 
-public extension PersonalAccessTokenRequestPermissionsResult {
-    init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
+extension PersonalAccessTokenRequestPermissionsResult {
+    public init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
         self.init()
         (self.organization, self.repository) = (organization, repository)
         self.other = other
@@ -251,21 +221,21 @@ public struct PersonalAccessTokenRequestPermissionsUpgraded: Codable {
     }
 
     init() {
-        (organization, repository, other) = (nil, nil, nil)
+        (self.organization, self.repository, self.other) = (nil, nil, nil)
     }
 }
 
-public extension PersonalAccessTokenRequestPermissionsUpgraded {
-    init(from decoder: Decoder) throws {
+extension PersonalAccessTokenRequestPermissionsUpgraded {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        other = try container.sdkDecodeIfPresent(.other)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.other = try container.sdkDecodeIfPresent(.other)
     }
 }
 
-public extension PersonalAccessTokenRequestPermissionsUpgraded {
-    init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
+extension PersonalAccessTokenRequestPermissionsUpgraded {
+    public init(organization: [String: String]? = nil, repository: [String: String]? = nil, other: [String: String]? = nil) {
         self.init()
         (self.organization, self.repository) = (organization, repository)
         self.other = other
@@ -293,62 +263,40 @@ public struct PersonalAccessTokenRequestRepositoriesItem: Codable {
         case `private`
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PersonalAccessTokenRequestRepositoriesItem {
-    init(from decoder: Decoder) throws {
+extension PersonalAccessTokenRequestRepositoriesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.fullName) else {
-            throw SdkValidationError(
-                field: "full_name",
-                code: "required",
-                message: "Validation failed for 'full_name': value is required"
-            )
+            throw SdkValidationError(field: "full_name", code: "required", message: "Validation failed for 'full_name': value is required")
         }
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(
-                field: "node_id",
-                code: "required",
-                message: "Validation failed for 'node_id': value is required"
-            )
+            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
         }
-        guard container.contains(.private) else {
-            throw SdkValidationError(
-                field: "private",
-                code: "required",
-                message: "Validation failed for 'private': value is required"
-            )
+        guard container.contains(.`private`) else {
+            throw SdkValidationError(field: "private", code: "required", message: "Validation failed for 'private': value is required")
         }
-        fullName = try container.sdkDecodeRequired(.fullName)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.private = try container.sdkDecodeRequired(.private)
+        self.fullName = try container.sdkDecodeRequired(.fullName)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.`private` = try container.sdkDecodeRequired(.`private`)
     }
 }
 
-public extension PersonalAccessTokenRequestRepositoriesItem {
-    init(fullName: String, id: Int, name: String, nodeId: String, private: Bool) {
+extension PersonalAccessTokenRequestRepositoriesItem {
+    public init(fullName: String, id: Int, name: String, nodeId: String, `private`: Bool) {
         (self.fullName, self.id) = (fullName, id)
         (self.name, self.nodeId) = (name, nodeId)
-        self.private = `private`
+        self.`private` = `private`
     }
 }
 
@@ -570,7 +518,5 @@ public struct PullRequestWebhook: Codable {
         case useSquashPrTitleAsDefault = "use_squash_pr_title_as_default"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

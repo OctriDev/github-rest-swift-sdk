@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposListDeploymentsOptions: Codable {
+extension ReposMethods {
+    public struct ReposListDeploymentsOptions: Codable {
         public var owner: String
         public var repo: String
         public var sha: String?
@@ -44,30 +44,14 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListDeployments(
-        config: ClientConfig,
-        options: ReposListDeploymentsOptions
-    ) async throws -> [Deployment] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/deployments",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("sha", value: options.sha),
-                SdkQueryParameter("ref", value: options.ref),
-                SdkQueryParameter("task", value: options.task),
-                SdkQueryParameter("environment", value: options.environment),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("page", value: options.page),
-            ],
-            decoder: .json,
-            operationId: "reposListDeployments"
-        )).data
+    public static func reposListDeployments(config: ClientConfig, options: ReposListDeploymentsOptions) async throws -> [Deployment] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/deployments"].joined(), config: config, query: [
+            SdkQueryParameter("sha", value: options.sha),
+            SdkQueryParameter("ref", value: options.ref),
+            SdkQueryParameter("task", value: options.task),
+            SdkQueryParameter("environment", value: options.environment),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("page", value: options.page),
+        ], decoder: .json, operationId: "reposListDeployments")).data
     }
 }

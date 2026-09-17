@@ -3,452 +3,180 @@
 
 import Foundation
 
-public extension OrgsNamespace {
-    /// List a collection of artifact attestations with a given subject digest that are associated with repositories
-    /// owned by an organization. The collection of attestations returned by this endpoint is filtered according to the
-    /// authenticated user's permissions; if the authenticated user cannot read a repository, the attestations
-    /// associated with that repository will not be included in the response. In addition, when using a fine-grained
-    /// access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful
-    /// security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the
-    /// identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI
-    /// `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see
-    /// [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
-    func listAttestations(
-        org: String,
-        subjectDigest: String,
-        perPage: Int?,
-        before: String?,
-        after: String?,
-        predicateType: String?
-    ) async throws -> OrgsListAttestationsResponse {
-        try await OrgsMethods.orgsListAttestations(
-            config: config,
-            org: org,
-            subjectDigest: subjectDigest,
-            perPage: perPage,
-            before: before,
-            after: after,
-            predicateType: predicateType
-        )
+extension OrgsNamespace {
+/// List a collection of artifact attestations with a given subject digest that are associated with repositories owned by an organization. The collection of attestations returned by this endpoint is filtered according to the authenticated user's permissions; if the authenticated user cannot read a repository, the attestations associated with that repository will not be included in the response. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    public func listAttestations(org: String, subjectDigest: String, perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> OrgsListAttestationsResponse {
+        return try await OrgsMethods.orgsListAttestations(config: config, org: org, subjectDigest: subjectDigest, perPage: perPage, before: before, after: after, predicateType: predicateType)
     }
 
-    /// Lists the users blocked by an organization. Use `org` to identify the organization and `page` and `per_page` to
-    /// paginate the results.
+/// Lists the users blocked by an organization. Use `org` to identify the organization and `page` and `per_page` to paginate the results.
     ///
     /// List the users blocked by an organization.
-    func listBlockedUsers(org: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        try await OrgsMethods.orgsListBlockedUsers(config: config, org: org, perPage: perPage, page: page)
+    public func listBlockedUsers(org: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        return try await OrgsMethods.orgsListBlockedUsers(config: config, org: org, perPage: perPage, page: page)
     }
 
-    /// Returns a 204 if the given user is blocked by the given organization. Returns a 404 if the organization is not
-    /// blocking the user, or if the user account has been identified as spam by GitHub.
-    func checkBlockedUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsCheckBlockedUser(config: config, org: org, username: username)
+/// Returns a 204 if the given user is blocked by the given organization. Returns a 404 if the organization is not blocking the user, or if the user account has been identified as spam by GitHub.
+    public func checkBlockedUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsCheckBlockedUser(config: config, org: org, username: username)
     }
 
-    /// Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot
-    /// block the given user a 422 is returned.
-    func blockUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsBlockUser(config: config, org: org, username: username)
+/// Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot block the given user a 422 is returned.
+    public func blockUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsBlockUser(config: config, org: org, username: username)
     }
 
-    /// Unblocks the given user on behalf of the specified organization.
-    func unblockUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsUnblockUser(config: config, org: org, username: username)
+/// Unblocks the given user on behalf of the specified organization.
+    public func unblockUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsUnblockUser(config: config, org: org, username: username)
     }
 
-    /// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation
-    /// failed and the reason for the failure.
-    func listFailedInvitations(org: String, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
-        try await OrgsMethods.orgsListFailedInvitations(config: config, org: org, perPage: perPage, page: page)
+/// The return hash contains `failed_at` and `failed_reason` fields which represent the time at which the invitation failed and the reason for the failure.
+    public func listFailedInvitations(org: String, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
+        return try await OrgsMethods.orgsListFailedInvitations(config: config, org: org, perPage: perPage, page: page)
     }
 
-    /// List webhooks for an organization. The authenticated user must be an organization owner to use this endpoint.
-    /// OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view,
-    /// or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by
-    /// OAuth apps.
-    func listWebhooks(org: String, perPage: Int?, page: Int?) async throws -> [OrgHook] {
-        try await OrgsMethods.orgsListWebhooks(config: config, org: org, perPage: perPage, page: page)
+/// List webhooks for an organization. The authenticated user must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func listWebhooks(org: String, perPage: Int?, page: Int?) async throws -> [OrgHook] {
+        return try await OrgsMethods.orgsListWebhooks(config: config, org: org, perPage: perPage, page: page)
     }
 
-    /// Create a hook that posts payloads in JSON format. You must be an organization owner to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or
-    /// edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth
-    /// apps.
-    func createWebhook(
-        org: String,
-        name: String,
-        config: OrgsCreateWebhookRequestBodyConfig,
-        events: [String]?,
-        active: Bool?
-    ) async throws -> OrgHook {
-        try await OrgsMethods.orgsCreateWebhook(
-            config: self.config,
-            org: org,
-            name: name,
-            config2: config,
-            events: events,
-            active: active
-        )
+/// Create a hook that posts payloads in JSON format. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func createWebhook(org: String, name: String, config: OrgsCreateWebhookRequestBodyConfig, events: [String]?, active: Bool?) async throws -> OrgHook {
+        return try await OrgsMethods.orgsCreateWebhook(config: self.config, org: org, name: name, config2: config, events: events, active: active)
     }
 }
 
-public extension OrgsNamespace {
-    /// Returns a webhook configured in an organization. To get only the webhook `config` properties, see "Get a webhook
-    /// configuration for an organization. You must be an organization owner to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks
-    /// that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
-    func getWebhook(org: String, hookId: Int) async throws -> OrgHook {
-        try await OrgsMethods.orgsGetWebhook(config: config, org: org, hookId: hookId)
+extension OrgsNamespace {
+/// Returns a webhook configured in an organization. To get only the webhook `config` properties, see "Get a webhook configuration for an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func getWebhook(org: String, hookId: Int) async throws -> OrgHook {
+        return try await OrgsMethods.orgsGetWebhook(config: config, org: org, hookId: hookId)
     }
 
-    /// Updates a webhook configured in an organization. Supply the webhook fields you want to change, and include
-    /// `config.url` whenever `config` is provided because the URL is required within that object. Updating the webhook
-    /// overwrites its `secret`; provide the existing secret to retain it or provide a new secret to replace it.
+/// Updates a webhook configured in an organization. Supply the webhook fields you want to change, and include `config.url` whenever `config` is provided because the URL is required within that object. Updating the webhook overwrites its `secret`; provide the existing secret to retain it or provide a new secret to replace it.
     ///
-    /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If
-    /// you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will
-    /// be removed. If you are only updating individual webhook `config` properties, use "Update a webhook configuration
-    /// for an organization". You must be an organization owner to use this endpoint. OAuth app tokens and personal
-    /// access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they
-    /// did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
-    func updateWebhook(
-        org: String,
-        hookId: Int,
-        config: OrgsUpdateWebhookRequestBodyConfig?,
-        events: [String]?,
-        active: Bool?,
-        name: String?
-    ) async throws -> OrgHook {
-        try await OrgsMethods.orgsUpdateWebhook(
-            config: self.config,
-            org: org,
-            hookId: hookId,
-            config2: config,
-            events: events,
-            active: active,
-            name: name
-        )
+    /// Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "Update a webhook configuration for an organization". You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func updateWebhook(org: String, hookId: Int, config: OrgsUpdateWebhookRequestBodyConfig?, events: [String]?, active: Bool?, name: String?) async throws -> OrgHook {
+        return try await OrgsMethods.orgsUpdateWebhook(config: self.config, org: org, hookId: hookId, config2: config, events: events, active: active, name: name)
     }
 
-    /// Delete a webhook for an organization. The authenticated user must be an organization owner to use this endpoint.
-    /// OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view,
-    /// or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by
-    /// OAuth apps.
-    func deleteWebhook(org: String, hookId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsDeleteWebhook(config: config, org: org, hookId: hookId)
+/// Delete a webhook for an organization. The authenticated user must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func deleteWebhook(org: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsDeleteWebhook(config: config, org: org, hookId: hookId)
     }
 
-    /// Returns the webhook configuration for an organization. To get more information about the webhook, including the
-    /// `active` state and `events`, use "Get an organization webhook ." You must be an organization owner to use this
-    /// endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot
-    /// list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were
-    /// created by OAuth apps.
-    func getWebhookConfigForOrg(org: String, hookId: Int) async throws -> WebhookConfig {
-        try await OrgsMethods.orgsGetWebhookConfigForOrg(config: config, org: org, hookId: hookId)
+/// Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "Get an organization webhook ." You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func getWebhookConfigForOrg(org: String, hookId: Int) async throws -> WebhookConfig {
+        return try await OrgsMethods.orgsGetWebhookConfigForOrg(config: config, org: org, hookId: hookId)
     }
 
-    /// Updates the delivery configuration for an organization webhook. Supply only the configuration fields you want to
-    /// change, including `url`, `content_type`, `secret`, or `insecure_ssl`. You must be an organization owner and use
-    /// a token with the required webhook-management scope.
+/// Updates the delivery configuration for an organization webhook. Supply only the configuration fields you want to change, including `url`, `content_type`, `secret`, or `insecure_ssl`. You must be an organization owner and use a token with the required webhook-management scope.
     ///
-    /// Updates the webhook configuration for an organization. To update more information about the webhook, including
-    /// the `active` state and `events`, use "Update an organization webhook ." You must be an organization owner to use
-    /// this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps
-    /// cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that
-    /// were created by OAuth apps.
-    func updateWebhookConfigForOrg(
-        org: String,
-        hookId: Int,
-        url: WebhookConfigUrl?,
-        contentType: WebhookConfigContentType?,
-        secret: WebhookConfigSecret?,
-        insecureSsl: WebhookConfigInsecureSsl?
-    ) async throws -> WebhookConfig {
-        try await OrgsMethods.orgsUpdateWebhookConfigForOrg(
-            config: config,
-            org: org,
-            hookId: hookId,
-            url: url,
-            contentType: contentType,
-            secret: secret,
-            insecureSsl: insecureSsl
-        )
+    /// Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "Update an organization webhook ." You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func updateWebhookConfigForOrg(org: String, hookId: Int, url: WebhookConfigUrl?, contentType: WebhookConfigContentType?, secret: WebhookConfigSecret?, insecureSsl: WebhookConfigInsecureSsl?) async throws -> WebhookConfig {
+        return try await OrgsMethods.orgsUpdateWebhookConfigForOrg(config: config, org: org, hookId: hookId, url: url, contentType: contentType, secret: secret, insecureSsl: insecureSsl)
     }
 
-    /// Returns a list of webhook deliveries for a webhook configured in an organization. You must be an organization
-    /// owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope.
-    /// OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit
-    /// webhooks that were created by OAuth apps.
-    func listWebhookDeliveries(
-        org: String,
-        hookId: Int,
-        perPage: Int?,
-        cursor: String?,
-        status: AppsListWebhookDeliveriesParameter?
-    ) async throws -> [HookDeliveryItem] {
-        try await OrgsMethods.orgsListWebhookDeliveries(
-            config: config,
-            org: org,
-            hookId: hookId,
-            perPage: perPage,
-            cursor: cursor,
-            status: status
-        )
+/// Returns a list of webhook deliveries for a webhook configured in an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func listWebhookDeliveries(org: String, hookId: Int, perPage: Int?, cursor: String?, status: AppsListWebhookDeliveriesParameter?) async throws -> [HookDeliveryItem] {
+        return try await OrgsMethods.orgsListWebhookDeliveries(config: config, org: org, hookId: hookId, perPage: perPage, cursor: cursor, status: status)
     }
 
-    /// Retrieves a specific delivery made by an organization webhook. Use `org`, `hook_id`, and `delivery_id` to
-    /// identify the organization webhook and delivery whose event, status, request, and response details you need. You
-    /// must be an organization owner and have permission to view the webhook.
+/// Retrieves a specific delivery made by an organization webhook. Use `org`, `hook_id`, and `delivery_id` to identify the organization webhook and delivery whose event, status, request, and response details you need. You must be an organization owner and have permission to view the webhook.
     ///
-    /// Returns a delivery for a webhook configured in an organization. You must be an organization owner to use this
-    /// endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot
-    /// list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were
-    /// created by OAuth apps.
-    func getWebhookDelivery(org: String, hookId: Int, deliveryId: Int) async throws -> HookDelivery {
-        try await OrgsMethods.orgsGetWebhookDelivery(config: config, org: org, hookId: hookId, deliveryId: deliveryId)
+    /// Returns a delivery for a webhook configured in an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func getWebhookDelivery(org: String, hookId: Int, deliveryId: Int) async throws -> HookDelivery {
+        return try await OrgsMethods.orgsGetWebhookDelivery(config: config, org: org, hookId: hookId, deliveryId: deliveryId)
     }
 
-    /// Triggers a redelivery attempt for a specific delivery made by an organization webhook. Use `org`, `hook_id`, and
-    /// `delivery_id` to identify the organization webhook delivery to send again. The redelivery is processed
-    /// asynchronously, so a 202 response confirms acceptance rather than completion.
+/// Triggers a redelivery attempt for a specific delivery made by an organization webhook. Use `org`, `hook_id`, and `delivery_id` to identify the organization webhook delivery to send again. The redelivery is processed asynchronously, so a 202 response confirms acceptance rather than completion.
     ///
-    /// Redeliver a delivery for a webhook configured in an organization. You must be an organization owner to use this
-    /// endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot
-    /// list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were
-    /// created by OAuth apps.
-    func redeliverWebhookDelivery(org: String, hookId: Int, deliveryId: Int) async throws -> [String: JSONValue] {
-        try await OrgsMethods.orgsRedeliverWebhookDelivery(
-            config: config,
-            org: org,
-            hookId: hookId,
-            deliveryId: deliveryId
-        )
+    /// Redeliver a delivery for a webhook configured in an organization. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func redeliverWebhookDelivery(org: String, hookId: Int, deliveryId: Int) async throws -> [String: JSONValue] {
+        return try await OrgsMethods.orgsRedeliverWebhookDelivery(config: config, org: org, hookId: hookId, deliveryId: deliveryId)
     }
 }
 
-public extension OrgsNamespace {
-    /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook. You must
-    /// be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need
-    /// `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot
-    /// list, view, or edit webhooks that were created by OAuth apps.
-    func pingWebhook(org: String, hookId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsPingWebhook(config: config, org: org, hookId: hookId)
+extension OrgsNamespace {
+/// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+    public func pingWebhook(org: String, hookId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsPingWebhook(config: config, org: org, hookId: hookId)
     }
 
-    /// Get API request count statistics for an actor broken down by route within a specified time frame. Under normal
-    /// conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or
-    /// periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetRouteStatsByActor(options: OrgsMethods
-        .ApiInsightsGetRouteStatsByActorOptions) async throws -> ApiInsightsRouteStats {
-        try await OrgsMethods.apiInsightsGetRouteStatsByActor(config: config, options: options)
+/// Get API request count statistics for an actor broken down by route within a specified time frame. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetRouteStatsByActor(options: OrgsMethods.ApiInsightsGetRouteStatsByActorOptions) async throws -> ApiInsightsRouteStats {
+        return try await OrgsMethods.apiInsightsGetRouteStatsByActor(config: config, options: options)
     }
 
-    /// Get API request statistics for all subjects within an organization within a specified time frame. Subjects can
-    /// be users or GitHub Apps. Under normal conditions, you can expect API data to appear within 4–6 hours after
-    /// making a request. During incidents or periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetSubjectStats(options: OrgsMethods
-        .ApiInsightsGetSubjectStatsOptions) async throws -> ApiInsightsSubjectStats {
-        try await OrgsMethods.apiInsightsGetSubjectStats(config: config, options: options)
+/// Get API request statistics for all subjects within an organization within a specified time frame. Subjects can be users or GitHub Apps. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetSubjectStats(options: OrgsMethods.ApiInsightsGetSubjectStatsOptions) async throws -> ApiInsightsSubjectStats {
+        return try await OrgsMethods.apiInsightsGetSubjectStats(config: config, options: options)
     }
 
-    /// Get overall statistics of API requests made within an organization by all users and apps within a specified time
-    /// frame. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request.
-    /// During incidents or periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetSummaryStats(
-        org: String,
-        minTimestamp: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsSummaryStats {
-        try await OrgsMethods.apiInsightsGetSummaryStats(
-            config: config,
-            org: org,
-            minTimestamp: minTimestamp,
-            maxTimestamp: maxTimestamp
-        )
+/// Get overall statistics of API requests made within an organization by all users and apps within a specified time frame. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetSummaryStats(org: String, minTimestamp: String, maxTimestamp: String?) async throws -> ApiInsightsSummaryStats {
+        return try await OrgsMethods.apiInsightsGetSummaryStats(config: config, org: org, minTimestamp: minTimestamp, maxTimestamp: maxTimestamp)
     }
 
-    /// Get overall statistics of API requests within the organization for a user. Under normal conditions, you can
-    /// expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high
-    /// volume, it may take longer to show up.
-    func apiInsightsGetSummaryStatsByUser(
-        org: String,
-        userId: String,
-        minTimestamp: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsSummaryStats {
-        try await OrgsMethods.apiInsightsGetSummaryStatsByUser(
-            config: config,
-            org: org,
-            userId: userId,
-            minTimestamp: minTimestamp,
-            maxTimestamp: maxTimestamp
-        )
+/// Get overall statistics of API requests within the organization for a user. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetSummaryStatsByUser(org: String, userId: String, minTimestamp: String, maxTimestamp: String?) async throws -> ApiInsightsSummaryStats {
+        return try await OrgsMethods.apiInsightsGetSummaryStatsByUser(config: config, org: org, userId: userId, minTimestamp: minTimestamp, maxTimestamp: maxTimestamp)
     }
 
-    /// Get overall statistics of API requests within the organization made by a specific actor. Actors can be GitHub
-    /// App installations, OAuth apps or other tokens on behalf of a user. Under normal conditions, you can expect API
-    /// data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it
-    /// may take longer to show up.
-    func apiInsightsGetSummaryStatsByActor(
-        org: String,
-        actorType: ApiInsightsGetRouteStatsByActorParameter,
-        actorId: Int,
-        minTimestamp: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsSummaryStats {
-        try await OrgsMethods.apiInsightsGetSummaryStatsByActor(
-            config: config,
-            org: org,
-            actorType: actorType,
-            actorId: actorId,
-            minTimestamp: minTimestamp,
-            maxTimestamp: maxTimestamp
-        )
+/// Get overall statistics of API requests within the organization made by a specific actor. Actors can be GitHub App installations, OAuth apps or other tokens on behalf of a user. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetSummaryStatsByActor(org: String, actorType: ApiInsightsGetRouteStatsByActorParameter, actorId: Int, minTimestamp: String, maxTimestamp: String?) async throws -> ApiInsightsSummaryStats {
+        return try await OrgsMethods.apiInsightsGetSummaryStatsByActor(config: config, org: org, actorType: actorType, actorId: actorId, minTimestamp: minTimestamp, maxTimestamp: maxTimestamp)
     }
 
-    /// Get the number of API requests and rate-limited requests made within an organization over a specified time
-    /// period. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request.
-    /// During incidents or periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetTimeStats(
-        org: String,
-        minTimestamp: String,
-        timestampIncrement: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsTimeStats {
-        try await OrgsMethods.apiInsightsGetTimeStats(
-            config: config,
-            org: org,
-            minTimestamp: minTimestamp,
-            timestampIncrement: timestampIncrement,
-            maxTimestamp: maxTimestamp
-        )
+/// Get the number of API requests and rate-limited requests made within an organization over a specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetTimeStats(org: String, minTimestamp: String, timestampIncrement: String, maxTimestamp: String?) async throws -> ApiInsightsTimeStats {
+        return try await OrgsMethods.apiInsightsGetTimeStats(config: config, org: org, minTimestamp: minTimestamp, timestampIncrement: timestampIncrement, maxTimestamp: maxTimestamp)
     }
 
-    /// Get the number of API requests and rate-limited requests made within an organization by a specific user over a
-    /// specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after making
-    /// a request. During incidents or periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetTimeStatsByUser(
-        org: String,
-        userId: String,
-        minTimestamp: String,
-        timestampIncrement: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsTimeStats {
-        try await OrgsMethods.apiInsightsGetTimeStatsByUser(
-            config: config,
-            org: org,
-            userId: userId,
-            minTimestamp: minTimestamp,
-            timestampIncrement: timestampIncrement,
-            maxTimestamp: maxTimestamp
-        )
+/// Get the number of API requests and rate-limited requests made within an organization by a specific user over a specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetTimeStatsByUser(org: String, userId: String, minTimestamp: String, timestampIncrement: String, maxTimestamp: String?) async throws -> ApiInsightsTimeStats {
+        return try await OrgsMethods.apiInsightsGetTimeStatsByUser(config: config, org: org, userId: userId, minTimestamp: minTimestamp, timestampIncrement: timestampIncrement, maxTimestamp: maxTimestamp)
     }
 }
 
-public extension OrgsNamespace {
-    /// Get the number of API requests and rate-limited requests made within an organization by a specific actor within
-    /// a specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after
-    /// making a request. During incidents or periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetTimeStatsByActor(
-        org: String,
-        actorType: ApiInsightsGetRouteStatsByActorParameter,
-        actorId: Int,
-        minTimestamp: String,
-        timestampIncrement: String,
-        maxTimestamp: String?
-    ) async throws -> ApiInsightsTimeStats {
-        try await OrgsMethods.apiInsightsGetTimeStatsByActor(
-            config: config,
-            org: org,
-            actorType: actorType,
-            actorId: actorId,
-            minTimestamp: minTimestamp,
-            timestampIncrement: timestampIncrement,
-            maxTimestamp: maxTimestamp
-        )
+extension OrgsNamespace {
+/// Get the number of API requests and rate-limited requests made within an organization by a specific actor within a specified time period. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetTimeStatsByActor(org: String, actorType: ApiInsightsGetRouteStatsByActorParameter, actorId: Int, minTimestamp: String, timestampIncrement: String, maxTimestamp: String?) async throws -> ApiInsightsTimeStats {
+        return try await OrgsMethods.apiInsightsGetTimeStatsByActor(config: config, org: org, actorType: actorType, actorId: actorId, minTimestamp: minTimestamp, timestampIncrement: timestampIncrement, maxTimestamp: maxTimestamp)
     }
 
-    /// Get API usage statistics within an organization for a user broken down by the type of access. Under normal
-    /// conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or
-    /// periods of unusually high volume, it may take longer to show up.
-    func apiInsightsGetUserStats(options: OrgsMethods
-        .ApiInsightsGetUserStatsOptions) async throws -> ApiInsightsUserStats {
-        try await OrgsMethods.apiInsightsGetUserStats(config: config, options: options)
+/// Get API usage statistics within an organization for a user broken down by the type of access. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+    public func apiInsightsGetUserStats(options: OrgsMethods.ApiInsightsGetUserStatsOptions) async throws -> ApiInsightsUserStats {
+        return try await OrgsMethods.apiInsightsGetUserStats(config: config, options: options)
     }
 
-    /// Lists all GitHub Apps in an organization. The installation count includes all GitHub Apps installed on
-    /// repositories in the organization. The authenticated user must be an organization owner to use this endpoint.
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:read` scope to use this endpoint.
-    func listAppInstallations(org: String, perPage: Int?, page: Int?) async throws -> OrgsListAppInstallationsResponse {
-        try await OrgsMethods.orgsListAppInstallations(config: config, org: org, perPage: perPage, page: page)
+/// Lists all GitHub Apps in an organization. The installation count includes all GitHub Apps installed on repositories in the organization. The authenticated user must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:read` scope to use this endpoint.
+    public func listAppInstallations(org: String, perPage: Int?, page: Int?) async throws -> OrgsListAppInstallationsResponse {
+        return try await OrgsMethods.orgsListAppInstallations(config: config, org: org, perPage: perPage, page: page)
     }
 
-    /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the
-    /// following values: `direct_member`, `admin`, `billing_manager`, or `hiring_manager`. If the invitee is not a
-    /// GitHub member, the `login` field in the return hash will be `null`.
-    func listPendingInvitations(
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        role: OrgsListPendingInvitationsParameter?,
-        invitationSource: OrgsListPendingInvitationsParameterXd649578f?
-    ) async throws -> [OrganizationInvitation] {
-        try await OrgsMethods.orgsListPendingInvitations(
-            config: config,
-            org: org,
-            perPage: perPage,
-            page: page,
-            role: role,
-            invitationSource: invitationSource
-        )
+/// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, or `hiring_manager`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
+    public func listPendingInvitations(org: String, perPage: Int?, page: Int?, role: OrgsListPendingInvitationsParameter?, invitationSource: OrgsListPendingInvitationsParameterXd649578f?) async throws -> [OrganizationInvitation] {
+        return try await OrgsMethods.orgsListPendingInvitations(config: config, org: org, perPage: perPage, page: page, role: role, invitationSource: invitationSource)
     }
 
-    /// Invite people to an organization by using their GitHub user ID or their email address. In order to create
-    /// invitations in an organization, the authenticated user must be an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
-    /// see "[Rate limits for the
-    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
-    /// and "[Best practices for using the REST
-    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
-    func createInvitation(
-        org: String,
-        inviteeId: Int?,
-        email: String?,
-        role: OrgsCreateInvitationRequestBodyRole?,
-        teamIds: [Int]?
-    ) async throws -> OrganizationInvitation {
-        try await OrgsMethods.orgsCreateInvitation(
-            config: config,
-            org: org,
-            inviteeId: inviteeId,
-            email: email,
-            role: role,
-            teamIds: teamIds
-        )
+/// Invite people to an organization by using their GitHub user ID or their email address. In order to create invitations in an organization, the authenticated user must be an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+    public func createInvitation(org: String, inviteeId: Int?, email: String?, role: OrgsCreateInvitationRequestBodyRole?, teamIds: [Int]?) async throws -> OrganizationInvitation {
+        return try await OrgsMethods.orgsCreateInvitation(config: config, org: org, inviteeId: inviteeId, email: email, role: role, teamIds: teamIds)
     }
 
-    /// Cancel an organization invitation. In order to cancel an organization invitation, the authenticated user must be
-    /// an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
-    func cancelInvitation(org: String, invitationId: Int) async throws -> SdkEmptyResponse {
-        try await OrgsMethods.orgsCancelInvitation(config: config, org: org, invitationId: invitationId)
+/// Cancel an organization invitation. In order to cancel an organization invitation, the authenticated user must be an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    public func cancelInvitation(org: String, invitationId: Int) async throws -> SdkEmptyResponse {
+        return try await OrgsMethods.orgsCancelInvitation(config: config, org: org, invitationId: invitationId)
     }
 
-    /// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated
-    /// user must be an organization owner.
-    func listInvitationTeams(org: String, invitationId: Int, perPage: Int?, page: Int?) async throws -> [Team] {
-        try await OrgsMethods.orgsListInvitationTeams(
-            config: config,
-            org: org,
-            invitationId: invitationId,
-            perPage: perPage,
-            page: page
-        )
+/// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated user must be an organization owner.
+    public func listInvitationTeams(org: String, invitationId: Int, perPage: Int?, page: Int?) async throws -> [Team] {
+        return try await OrgsMethods.orgsListInvitationTeams(config: config, org: org, invitationId: invitationId, perPage: perPage, page: page)
     }
 
-    /// Lists all issue fields for an organization. OAuth app tokens and personal access tokens (classic) need the
-    /// read:org scope to use this endpoint.
-    func listIssueFields(org: String) async throws -> [IssueField?] {
-        try await OrgsMethods.orgsListIssueFields(config: config, org: org)
+/// Lists all issue fields for an organization. OAuth app tokens and personal access tokens (classic) need the read:org scope to use this endpoint.
+    public func listIssueFields(org: String) async throws -> [IssueField?] {
+        return try await OrgsMethods.orgsListIssueFields(config: config, org: org)
     }
 }

@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension UsersMethods {
+extension UsersMethods {
     /// List social accounts for the authenticated user
     ///
     /// Lists all of your social accounts.
@@ -20,12 +20,8 @@ public extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func usersListSocialAccountsForAuthenticatedUser(
-        config: ClientConfig,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [SocialAccount] {
-        try await (sdkRequest("GET", "/user/social_accounts", config: config, query: [
+    public static func usersListSocialAccountsForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [SocialAccount] {
+        return try (await sdkRequest("GET", "/user/social_accounts", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListSocialAccountsForAuthenticatedUser")).data
@@ -33,24 +29,13 @@ public extension UsersMethods {
 
     /// Add social accounts for the authenticated user
     ///
-    /// Add one or more social accounts to the authenticated user's profile. OAuth app tokens and personal access tokens
-    /// (classic) need the `user` scope to use this endpoint.
+    /// Add one or more social accounts to the authenticated user's profile. OAuth app tokens and personal access tokens (classic) need the `user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - accountUrls: Full URLs for the social media profiles to add.
-    static func usersAddSocialAccountForAuthenticatedUser(
-        config: ClientConfig,
-        accountUrls: [String]
-    ) async throws -> [SocialAccount] {
+    public static func usersAddSocialAccountForAuthenticatedUser(config: ClientConfig, accountUrls: [String]) async throws -> [SocialAccount] {
         let requestBody = UsersAddSocialAccountForAuthenticatedUserRequestBody(accountUrls: accountUrls)
 
-        return try await (sdkRequest(
-            "POST",
-            "/user/social_accounts",
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "usersAddSocialAccountForAuthenticatedUser"
-        )).data
+        return try (await sdkRequest("POST", "/user/social_accounts", config: config, body: requestBody, decoder: .json, operationId: "usersAddSocialAccountForAuthenticatedUser")).data
     }
 }

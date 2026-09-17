@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    struct ActionsCreateSelfHostedRunnerGroupForOrgOptions: Codable {
+extension ActionsMethods {
+    public struct ActionsCreateSelfHostedRunnerGroupForOrgOptions: Codable {
         public var org: String
         public var name: String
         public var visibility: ActionsCreateSelfHostedRunnerGroupForOrgRequestBodyVisibility?
@@ -24,8 +24,7 @@ public extension ActionsMethods {
         }
     }
 
-    /// Creates a new self-hosted runner group for an organization. OAuth tokens and personal access tokens (classic)
-    /// need the `admin:org` scope to use this endpoint.
+    /// Creates a new self-hosted runner group for an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -44,19 +43,9 @@ public extension ActionsMethods {
     ///   `true`.
     /// - networkConfigurationId: The identifier of a hosted compute network
     ///   configuration.
-    static func actionsCreateSelfHostedRunnerGroupForOrg(
-        config: ClientConfig,
-        options: ActionsCreateSelfHostedRunnerGroupForOrgOptions
-    ) async throws -> RunnerGroupsOrg {
+    public static func actionsCreateSelfHostedRunnerGroupForOrg(config: ClientConfig, options: ActionsCreateSelfHostedRunnerGroupForOrgOptions) async throws -> RunnerGroupsOrg {
         let requestBody = ActionsCreateSelfHostedRunnerGroupForOrgRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/actions/runner-groups"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsCreateSelfHostedRunnerGroupForOrg"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/actions/runner-groups"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateSelfHostedRunnerGroupForOrg")).data
     }
 }

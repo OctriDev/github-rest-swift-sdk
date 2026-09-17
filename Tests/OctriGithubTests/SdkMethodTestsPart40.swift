@@ -123,10 +123,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposGetRepoRuleSuitesOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try ReposMethods.ReposGetRepoRuleSuitesOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.ref = try decoded("\"ref\"")
         options.timePeriod = try decoded("\"day\"")
         options.actorName = try decoded("\"Example Name\"")
@@ -169,8 +166,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetTeamsWithAccessToProtectedBranchReposGetTeamsWithAcceX4070f384efReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposGetTeamsWithAccessToProtectedBranchReposGetTeamsWithAcceX4070f384efReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -231,8 +227,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetUsersWithAccessToProtectedBranchReposGetUsersWithAcceXa1423911d0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposGetUsersWithAccessToProtectedBranchReposGetUsersWithAcceXa1423911d0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -343,10 +338,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposListActivitiesOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\"")
-        )
+        var options = try ReposMethods.ReposListActivitiesOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
         options.direction = try decoded("\"desc\"")
         options.perPage = try decoded("30")
         options.before = try decoded("\"before\"")

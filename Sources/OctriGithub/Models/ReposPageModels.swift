@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ReposPage domain models
+// ReposPage domain models
 /// The configuration for GitHub Pages for a repository.
 public struct Page: Codable {
     /// The API address for accessing this Page resource.
@@ -56,93 +56,58 @@ public struct Page: Codable {
         case httpsEnforced = "https_enforced"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Page {
-    init(from decoder: Decoder) throws {
+extension Page {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.status) else {
-            throw SdkValidationError(
-                field: "status",
-                code: "required",
-                message: "Validation failed for 'status': value is required"
-            )
+            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
         }
         guard container.contains(.cname) else {
-            throw SdkValidationError(
-                field: "cname",
-                code: "required",
-                message: "Validation failed for 'cname': value is required"
-            )
+            throw SdkValidationError(field: "cname", code: "required", message: "Validation failed for 'cname': value is required")
         }
         guard container.contains(.custom404) else {
-            throw SdkValidationError(
-                field: "custom_404",
-                code: "required",
-                message: "Validation failed for 'custom_404': value is required"
-            )
+            throw SdkValidationError(field: "custom_404", code: "required", message: "Validation failed for 'custom_404': value is required")
         }
-        guard container.contains(.public) else {
-            throw SdkValidationError(
-                field: "public",
-                code: "required",
-                message: "Validation failed for 'public': value is required"
-            )
+        guard container.contains(.`public`) else {
+            throw SdkValidationError(field: "public", code: "required", message: "Validation failed for 'public': value is required")
         }
-        url = try container.sdkDecodeRequired(.url)
-        status = try container.sdkDecodeIfPresent(.status)
-        cname = try container.sdkDecodeIfPresent(.cname)
-        custom404 = try container.sdkDecodeRequired(.custom404)
-        self.public = try container.sdkDecodeRequired(.public)
-        protectedDomainState = try container.sdkDecodeIfPresent(.protectedDomainState)
-        pendingDomainUnverifiedAt = try container.sdkDecodeIfPresent(.pendingDomainUnverifiedAt)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        buildType = try container.sdkDecodeIfPresent(.buildType)
-        source = try container.sdkDecodeIfPresent(.source)
-        httpsCertificate = try container.sdkDecodeIfPresent(.httpsCertificate)
-        httpsEnforced = try container.sdkDecodeIfPresent(.httpsEnforced)
-        try sdkValidateUri("url", url)
-        if let value = pendingDomainUnverifiedAt {
+        self.url = try container.sdkDecodeRequired(.url)
+        self.status = try container.sdkDecodeIfPresent(.status)
+        self.cname = try container.sdkDecodeIfPresent(.cname)
+        self.custom404 = try container.sdkDecodeRequired(.custom404)
+        self.`public` = try container.sdkDecodeRequired(.`public`)
+        self.protectedDomainState = try container.sdkDecodeIfPresent(.protectedDomainState)
+        self.pendingDomainUnverifiedAt = try container.sdkDecodeIfPresent(.pendingDomainUnverifiedAt)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.buildType = try container.sdkDecodeIfPresent(.buildType)
+        self.source = try container.sdkDecodeIfPresent(.source)
+        self.httpsCertificate = try container.sdkDecodeIfPresent(.httpsCertificate)
+        self.httpsEnforced = try container.sdkDecodeIfPresent(.httpsEnforced)
+            try sdkValidateUri("url", self.url)
+        if let value = self.pendingDomainUnverifiedAt {
             try sdkValidateDateTime("pending_domain_unverified_at", sdkWireString(value))
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-public extension Page {
-    init(
-        url: String,
-        status: PageStatus?,
-        cname: String?,
-        custom404: Bool,
-        public: Bool,
-        protectedDomainState: PageProtectedDomainState? = nil,
-        pendingDomainUnverifiedAt: Date? = nil,
-        htmlUrl: String? = nil,
-        buildType: PageBuildType? = nil,
-        source: PagesSourceHash? = nil,
-        httpsCertificate: PagesHttpsCertificate? = nil,
-        httpsEnforced: Bool? = nil
-    ) throws {
+extension Page {
+    public init(url: String, status: PageStatus?, cname: String?, custom404: Bool, `public`: Bool, protectedDomainState: PageProtectedDomainState? = nil, pendingDomainUnverifiedAt: Date? = nil, htmlUrl: String? = nil, buildType: PageBuildType? = nil, source: PagesSourceHash? = nil, httpsCertificate: PagesHttpsCertificate? = nil, httpsEnforced: Bool? = nil) throws {
         (self.url, self.status) = (url, status)
         (self.cname, self.custom404) = (cname, custom404)
-        (self.public, self.protectedDomainState) = (`public`, protectedDomainState)
+        (self.`public`, self.protectedDomainState) = (`public`, protectedDomainState)
         (self.pendingDomainUnverifiedAt, self.htmlUrl) = (pendingDomainUnverifiedAt, htmlUrl)
         (self.buildType, self.source) = (buildType, source)
         (self.httpsCertificate, self.httpsEnforced) = (httpsCertificate, httpsEnforced)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
         if let value = self.pendingDomainUnverifiedAt {
             try sdkValidateDateTime("pending_domain_unverified_at", sdkWireString(value))
         }
@@ -182,46 +147,35 @@ public struct PageBuild: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PageBuild {
-    init(from decoder: Decoder) throws {
+extension PageBuild {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.sdkDecodeRequired(.url)
-        status = try container.sdkDecodeRequired(.status)
-        error = try container.sdkDecodeRequired(.error)
-        pusher = try container.sdkDecodeIfPresent(.pusher)
-        commit = try container.sdkDecodeRequired(.commit)
-        duration = try container.sdkDecodeRequired(.duration)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        try sdkValidateUri("url", url)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.url = try container.sdkDecodeRequired(.url)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.error = try container.sdkDecodeRequired(.error)
+        self.pusher = try container.sdkDecodeIfPresent(.pusher)
+        self.commit = try container.sdkDecodeRequired(.commit)
+        self.duration = try container.sdkDecodeRequired(.duration)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension PageBuild {
-    init(
-        url: String,
-        status: String,
-        error: PageBuildError,
-        pusher: NullableSimpleUser?,
-        commit: String,
-        duration: Int,
-        createdAt: Date,
-        updatedAt: Date
-    ) throws {
+extension PageBuild {
+    public init(url: String, status: String, error: PageBuildError, pusher: NullableSimpleUser?, commit: String, duration: Int, createdAt: Date, updatedAt: Date) throws {
         (self.url, self.status) = (url, status)
         (self.error, self.pusher) = (error, pusher)
         (self.commit, self.duration) = (commit, duration)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -234,27 +188,21 @@ public struct PageBuildError: Codable {
         case message
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PageBuildError {
-    init(from decoder: Decoder) throws {
+extension PageBuildError {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.message) else {
-            throw SdkValidationError(
-                field: "message",
-                code: "required",
-                message: "Validation failed for 'message': value is required"
-            )
+            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
         }
-        message = try container.sdkDecodeIfPresent(.message)
+        self.message = try container.sdkDecodeIfPresent(.message)
     }
 }
 
-public extension PageBuildError {
-    init(message: String?) {
+extension PageBuildError {
+    public init(message: String?) {
         self.message = message
     }
 }
@@ -273,38 +221,28 @@ public struct PageBuildStatus: Codable {
         case status
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PageBuildStatus {
-    init(from decoder: Decoder) throws {
+extension PageBuildStatus {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
         guard container.contains(.status) else {
-            throw SdkValidationError(
-                field: "status",
-                code: "required",
-                message: "Validation failed for 'status': value is required"
-            )
+            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
         }
-        url = try container.sdkDecodeRequired(.url)
-        status = try container.sdkDecodeRequired(.status)
-        try sdkValidateUri("url", url)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.status = try container.sdkDecodeRequired(.status)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension PageBuildStatus {
-    init(url: String, status: String) throws {
+extension PageBuildStatus {
+    public init(url: String, status: String) throws {
         (self.url, self.status) = (url, status)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -330,53 +268,39 @@ public struct PageDeployment: Codable {
         case previewUrl = "preview_url"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension PageDeployment {
-    init(from decoder: Decoder) throws {
+extension PageDeployment {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.statusUrl) else {
-            throw SdkValidationError(
-                field: "status_url",
-                code: "required",
-                message: "Validation failed for 'status_url': value is required"
-            )
+            throw SdkValidationError(field: "status_url", code: "required", message: "Validation failed for 'status_url': value is required")
         }
         guard container.contains(.pageUrl) else {
-            throw SdkValidationError(
-                field: "page_url",
-                code: "required",
-                message: "Validation failed for 'page_url': value is required"
-            )
+            throw SdkValidationError(field: "page_url", code: "required", message: "Validation failed for 'page_url': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        statusUrl = try container.sdkDecodeRequired(.statusUrl)
-        pageUrl = try container.sdkDecodeRequired(.pageUrl)
-        previewUrl = try container.sdkDecodeIfPresent(.previewUrl)
-        try sdkValidateUri("status_url", statusUrl)
-        try sdkValidateUri("page_url", pageUrl)
-        if let value = previewUrl {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.statusUrl = try container.sdkDecodeRequired(.statusUrl)
+        self.pageUrl = try container.sdkDecodeRequired(.pageUrl)
+        self.previewUrl = try container.sdkDecodeIfPresent(.previewUrl)
+            try sdkValidateUri("status_url", self.statusUrl)
+            try sdkValidateUri("page_url", self.pageUrl)
+        if let value = self.previewUrl {
             try sdkValidateUri("preview_url", value)
         }
     }
 }
 
-public extension PageDeployment {
-    init(id: PageDeploymentId, statusUrl: String, pageUrl: String, previewUrl: String? = nil) throws {
+extension PageDeployment {
+    public init(id: PageDeploymentId, statusUrl: String, pageUrl: String, previewUrl: String? = nil) throws {
         (self.id, self.statusUrl) = (id, statusUrl)
         (self.pageUrl, self.previewUrl) = (pageUrl, previewUrl)
-        try sdkValidateUri("status_url", self.statusUrl)
-        try sdkValidateUri("page_url", self.pageUrl)
+            try sdkValidateUri("status_url", self.statusUrl)
+            try sdkValidateUri("page_url", self.pageUrl)
         if let value = self.previewUrl {
             try sdkValidateUri("preview_url", value)
         }
@@ -389,31 +313,21 @@ public enum PageDeploymentId {
 }
 
 extension PageDeploymentId: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for PageDeploymentId"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for PageDeploymentId")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -423,23 +337,21 @@ extension PageDeploymentId: Codable {
         case let .stringValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// The status of the most recent build of the Page.
 public struct PageStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let built = PageStatus(rawValue: "built")
     public static let building = PageStatus(rawValue: "building")
     public static let errored = PageStatus(rawValue: "errored")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -452,16 +364,13 @@ public struct PageStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWire
 public struct PageBuildType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let legacy = PageBuildType(rawValue: "legacy")
     public static let workflow = PageBuildType(rawValue: "workflow")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -474,17 +383,14 @@ public struct PageBuildType: RawRepresentable, Hashable, Codable, Sendable, SdkW
 public struct PageProtectedDomainState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let pending = PageProtectedDomainState(rawValue: "pending")
     public static let verified = PageProtectedDomainState(rawValue: "verified")
     public static let unverified = PageProtectedDomainState(rawValue: "unverified")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

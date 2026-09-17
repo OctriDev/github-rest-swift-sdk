@@ -3,193 +3,193 @@
 
 import Foundation
 
-/// WebhookPackagePublished domain models
+// WebhookPackagePublished domain models
 extension WebhookPackagePublishedPackagePackageVersionNpmMetadata {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        keywords = try container.sdkDecodeIfPresent(.keywords)
-        files = try container.sdkDecodeIfPresent(.files)
-        bin = try container.sdkDecodeIfPresent(.bin)
-        man = try container.sdkDecodeIfPresent(.man)
-        directories = try container.sdkDecodeIfPresent(.directories)
-        os = try container.sdkDecodeIfPresent(.os)
-        cpu = try container.sdkDecodeIfPresent(.cpu)
-        readme = try container.sdkDecodeIfPresent(.readme)
-        installationCommand = try container.sdkDecodeIfPresent(.installationCommand)
-        releaseId = try container.sdkDecodeIfPresent(.releaseId)
-        commitOid = try container.sdkDecodeIfPresent(.commitOid)
-        publishedViaActions = try container.sdkDecodeIfPresent(.publishedViaActions)
+        self.keywords = try container.sdkDecodeIfPresent(.keywords)
+        self.files = try container.sdkDecodeIfPresent(.files)
+        self.bin = try container.sdkDecodeIfPresent(.bin)
+        self.man = try container.sdkDecodeIfPresent(.man)
+        self.directories = try container.sdkDecodeIfPresent(.directories)
+        self.os = try container.sdkDecodeIfPresent(.os)
+        self.cpu = try container.sdkDecodeIfPresent(.cpu)
+        self.readme = try container.sdkDecodeIfPresent(.readme)
+        self.installationCommand = try container.sdkDecodeIfPresent(.installationCommand)
+        self.releaseId = try container.sdkDecodeIfPresent(.releaseId)
+        self.commitOid = try container.sdkDecodeIfPresent(.commitOid)
+        self.publishedViaActions = try container.sdkDecodeIfPresent(.publishedViaActions)
     }
 }
 
 extension WebhookPackagePublishedPackagePackageVersionNpmMetadata {
     mutating func sdkDecodeFieldsPart4(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        deletedById = try container.sdkDecodeIfPresent(.deletedById)
+        self.deletedById = try container.sdkDecodeIfPresent(.deletedById)
     }
 }
 
 /// Optional object value serialized in the `author` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataAuthor: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataAuthor {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataAuthor {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `bin` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataBin: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataBin {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataBin {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `bugs` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataBugs: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataBugs {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataBugs {
+    public init() {
+    }
 }
 
 /// Required object value serialized in the `contributors[]` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataContributorsItem: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataContributorsItem {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataContributorsItem {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `dependencies` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataDependencies: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDependencies {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDependencies {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `dev_dependencies` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataDevDependencies: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDevDependencies {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDevDependencies {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `directories` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataDirectories: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDirectories {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDirectories {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `dist` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataDist: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDist {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataDist {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `engines` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataEngines: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataEngines {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataEngines {
+    public init() {
+    }
 }
 
 /// Required object value serialized in the `maintainers[]` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataMaintainersItem: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataMaintainersItem {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataMaintainersItem {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `man` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataMan: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataMan {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataMan {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `optional_dependencies` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataOptionX648fad9045: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataOptionX648fad9045 {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataOptionX648fad9045 {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `peer_dependencies` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataPeerDependencies: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataPeerDependencies {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataPeerDependencies {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `repository` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataRepository: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataRepository {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataRepository {
+    public init() {
+    }
 }
 
 /// Optional object value serialized in the `scripts` wire field.
 public struct WebhookPackagePublishedPackagePackageVersionNpmMetadataScripts: Codable {
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNpmMetadataScripts {
-    init() {}
+extension WebhookPackagePublishedPackagePackageVersionNpmMetadataScripts {
+    public init() {
+    }
 }
 
 /// Required object value serialized in the `nuget_metadata[]` wire field.
@@ -208,25 +208,21 @@ public struct WebhookPackagePublishedPackagePackageVersionNugetMetadataItem: Cod
     }
 
     init() {
-        (id, name, value) = (nil, nil, nil)
+        (self.id, self.name, self.value) = (nil, nil, nil)
     }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItem {
-    init(from decoder: Decoder) throws {
+extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        name = try container.sdkDecodeIfPresent(.name)
-        value = try container.sdkDecodeIfPresent(.value)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.value = try container.sdkDecodeIfPresent(.value)
     }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItem {
-    init(
-        id: WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId? = nil,
-        name: String? = nil,
-        value: WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue? = nil
-    ) {
+extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItem {
+    public init(id: WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId? = nil, name: String? = nil, value: WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         self.value = value
@@ -239,31 +235,21 @@ public enum WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId {
 }
 
 extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -273,6 +259,7 @@ extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemId: Codab
         case let .stringValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 public enum WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue {
@@ -285,39 +272,27 @@ public enum WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue {
 }
 
 extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Bool.self) {
-            return .boolValue(value)
-        }
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
+        if let value = try? container.decode(Bool.self) { return .boolValue(value) }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
         if let value = try? container.decode(
             WebhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1.self
         ) {
-            return .webhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1(value)
+            return             .webhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1(value)
         }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -326,10 +301,10 @@ extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemValue: Co
         case let .boolValue(value): try container.encode(value); return true
         case let .stringValue(value): try container.encode(value); return true
         case let .intValue(value): try container.encode(value); return true
-        case let .webhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1(value): try container
-            .encode(value); return true
+        case let .webhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Optional object value serialized in the `value` wire field.
@@ -351,22 +326,22 @@ public struct WebhookPackagePublishedPackagePackageVersionNugetMetadataItemX6913
     }
 
     init() {
-        (url, branch, commit, type) = (nil, nil, nil, nil)
+        (self.url, self.branch, self.commit, self.type) = (nil, nil, nil, nil)
     }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1 {
-    init(from decoder: Decoder) throws {
+extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.sdkDecodeIfPresent(.url)
-        branch = try container.sdkDecodeIfPresent(.branch)
-        commit = try container.sdkDecodeIfPresent(.commit)
-        type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.branch = try container.sdkDecodeIfPresent(.branch)
+        self.commit = try container.sdkDecodeIfPresent(.commit)
+        self.type = try container.sdkDecodeIfPresent(.type)
     }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1 {
-    init(url: String? = nil, branch: String? = nil, commit: String? = nil, type: String? = nil) {
+extension WebhookPackagePublishedPackagePackageVersionNugetMetadataItemX69135351c1 {
+    public init(url: String? = nil, branch: String? = nil, commit: String? = nil, type: String? = nil) {
         self.init()
         (self.url, self.branch) = (url, branch)
         (self.commit, self.type) = (commit, type)
@@ -412,50 +387,36 @@ public struct WebhookPackagePublishedPackagePackageVersionPackageFilesItem: Coda
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionPackageFilesItem {
-    init(from decoder: Decoder) throws {
+extension WebhookPackagePublishedPackagePackageVersionPackageFilesItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        contentType = try container.sdkDecodeRequired(.contentType)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        downloadUrl = try container.sdkDecodeRequired(.downloadUrl)
-        id = try container.sdkDecodeRequired(.id)
-        md5 = try container.sdkDecodeIfPresent(.md5)
-        name = try container.sdkDecodeRequired(.name)
-        sha1 = try container.sdkDecodeIfPresent(.sha1)
-        sha256 = try container.sdkDecodeIfPresent(.sha256)
-        size = try container.sdkDecodeRequired(.size)
-        state = try container.sdkDecodeIfPresent(.state)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        try sdkValidateUri("download_url", downloadUrl)
+        self.contentType = try container.sdkDecodeRequired(.contentType)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.downloadUrl = try container.sdkDecodeRequired(.downloadUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.md5 = try container.sdkDecodeIfPresent(.md5)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.sha1 = try container.sdkDecodeIfPresent(.sha1)
+        self.sha256 = try container.sdkDecodeIfPresent(.sha256)
+        self.size = try container.sdkDecodeRequired(.size)
+        self.state = try container.sdkDecodeIfPresent(.state)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+            try sdkValidateUri("download_url", self.downloadUrl)
     }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionPackageFilesItem {
-    init(
-        contentType: String,
-        createdAt: String,
-        downloadUrl: String,
-        id: Int,
-        md5: String?,
-        name: String,
-        sha1: String?,
-        sha256: String?,
-        size: Int,
-        state: String?,
-        updatedAt: String
-    ) throws {
+extension WebhookPackagePublishedPackagePackageVersionPackageFilesItem {
+    public init(contentType: String, createdAt: String, downloadUrl: String, id: Int, md5: String?, name: String, sha1: String?, sha256: String?, size: Int, state: String?, updatedAt: String) throws {
         (self.contentType, self.createdAt) = (contentType, createdAt)
         (self.downloadUrl, self.id) = (downloadUrl, id)
         (self.md5, self.name) = (md5, name)
         (self.sha1, self.sha256) = (sha1, sha256)
         (self.size, self.state) = (size, state)
         self.updatedAt = updatedAt
-        try sdkValidateUri("download_url", self.downloadUrl)
+            try sdkValidateUri("download_url", self.downloadUrl)
     }
 }
 
@@ -498,52 +459,38 @@ public struct WebhookPackagePublishedPackagePackageVersionRelease: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionRelease {
-    init(from decoder: Decoder) throws {
+extension WebhookPackagePublishedPackagePackageVersionRelease {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        author = try container.sdkDecodeIfPresent(.author)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        draft = try container.sdkDecodeRequired(.draft)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeIfPresent(.name)
-        prerelease = try container.sdkDecodeRequired(.prerelease)
-        publishedAt = try container.sdkDecodeRequired(.publishedAt)
-        tagName = try container.sdkDecodeRequired(.tagName)
-        targetCommitish = try container.sdkDecodeRequired(.targetCommitish)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("url", url)
+        self.author = try container.sdkDecodeIfPresent(.author)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.draft = try container.sdkDecodeRequired(.draft)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.prerelease = try container.sdkDecodeRequired(.prerelease)
+        self.publishedAt = try container.sdkDecodeRequired(.publishedAt)
+        self.tagName = try container.sdkDecodeRequired(.tagName)
+        self.targetCommitish = try container.sdkDecodeRequired(.targetCommitish)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookPackagePublishedPackagePackageVersionRelease {
-    init(
-        author: WebhookPackagePublishedPackagePackageVersionReleaseAuthor?,
-        createdAt: String,
-        draft: Bool,
-        htmlUrl: String,
-        id: Int,
-        name: String?,
-        prerelease: Bool,
-        publishedAt: String,
-        tagName: String,
-        targetCommitish: String,
-        url: String
-    ) throws {
+extension WebhookPackagePublishedPackagePackageVersionRelease {
+    public init(author: WebhookPackagePublishedPackagePackageVersionReleaseAuthor?, createdAt: String, draft: Bool, htmlUrl: String, id: Int, name: String?, prerelease: Bool, publishedAt: String, tagName: String, targetCommitish: String, url: String) throws {
         (self.author, self.createdAt) = (author, createdAt)
         (self.draft, self.htmlUrl) = (draft, htmlUrl)
         (self.id, self.name) = (id, name)
         (self.prerelease, self.publishedAt) = (prerelease, publishedAt)
         (self.tagName, self.targetCommitish) = (tagName, targetCommitish)
         self.url = url
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -619,7 +566,5 @@ public struct WebhookPackagePublishedPackagePackageVersionReleaseAuthor: Codable
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

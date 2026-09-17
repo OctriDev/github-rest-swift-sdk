@@ -6,34 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Cancel an organization invitation. In order to cancel an organization invitation, the authenticated user must be
-    /// an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+extension OrgsMethods {
+    /// Cancel an organization invitation. In order to cancel an organization invitation, the authenticated user must be an organization owner. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - invitationId: The unique identifier of the invitation.
-    static func orgsCancelInvitation(
-        config: ClientConfig,
-        org: String,
-        invitationId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/invitations/",
-                sdkEncodePathSegment(sdkWireString(invitationId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "orgsCancelInvitation"
-        )).data
+    public static func orgsCancelInvitation(config: ClientConfig, org: String, invitationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/invitations/", sdkEncodePathSegment(sdkWireString(invitationId))].joined(), config: config, decoder: .empty, operationId: "orgsCancelInvitation")).data
     }
 
-    /// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated
-    /// user must be an organization owner.
+    /// List all teams associated with an invitation. In order to see invitations in an organization, the authenticated user must be an organization owner.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -46,29 +29,10 @@ public extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func orgsListInvitationTeams(
-        config: ClientConfig,
-        org: String,
-        invitationId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Team] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/invitations/",
-                sdkEncodePathSegment(sdkWireString(invitationId)),
-                "/teams",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "orgsListInvitationTeams"
-        )).data
+    public static func orgsListInvitationTeams(config: ClientConfig, org: String, invitationId: Int, perPage: Int?, page: Int?) async throws -> [Team] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/invitations/", sdkEncodePathSegment(sdkWireString(invitationId)), "/teams"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "orgsListInvitationTeams")).data
     }
 }

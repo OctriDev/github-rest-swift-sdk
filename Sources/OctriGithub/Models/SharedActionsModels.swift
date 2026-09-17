@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SharedActions domain models
+// SharedActions domain models
 /// The public key used for setting Actions Secrets.
 public struct ActionsPublicKey: Codable {
     /// The identifier for the key.
@@ -34,46 +34,29 @@ public struct ActionsPublicKey: Codable {
         case createdAt = "created_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ActionsPublicKey {
-    init(from decoder: Decoder) throws {
+extension ActionsPublicKey {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.keyId) else {
-            throw SdkValidationError(
-                field: "key_id",
-                code: "required",
-                message: "Validation failed for 'key_id': value is required"
-            )
+            throw SdkValidationError(field: "key_id", code: "required", message: "Validation failed for 'key_id': value is required")
         }
         guard container.contains(.key) else {
-            throw SdkValidationError(
-                field: "key",
-                code: "required",
-                message: "Validation failed for 'key': value is required"
-            )
+            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
         }
-        keyId = try container.sdkDecodeRequired(.keyId)
-        key = try container.sdkDecodeRequired(.key)
-        id = try container.sdkDecodeIfPresent(.id)
-        url = try container.sdkDecodeIfPresent(.url)
-        title = try container.sdkDecodeIfPresent(.title)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.keyId = try container.sdkDecodeRequired(.keyId)
+        self.key = try container.sdkDecodeRequired(.key)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.title = try container.sdkDecodeIfPresent(.title)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
     }
 }
 
-public extension ActionsPublicKey {
-    init(
-        keyId: String,
-        key: String,
-        id: Int? = nil,
-        url: String? = nil,
-        title: String? = nil,
-        createdAt: String? = nil
-    ) {
+extension ActionsPublicKey {
+    public init(keyId: String, key: String, id: Int? = nil, url: String? = nil, title: String? = nil, createdAt: String? = nil) {
         (self.keyId, self.key) = (keyId, key)
         (self.id, self.url) = (id, url)
         (self.title, self.createdAt) = (title, createdAt)
@@ -96,49 +79,35 @@ public struct ActionsSecret: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ActionsSecret {
-    init(from decoder: Decoder) throws {
+extension ActionsSecret {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.name = try container.sdkDecodeRequired(.name)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension ActionsSecret {
-    init(name: String, createdAt: Date, updatedAt: Date) throws {
+extension ActionsSecret {
+    public init(name: String, createdAt: Date, updatedAt: Date) throws {
         (self.name, self.createdAt) = (name, createdAt)
         self.updatedAt = updatedAt
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -164,56 +133,38 @@ public struct ActionsVariable: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension ActionsVariable {
-    init(from decoder: Decoder) throws {
+extension ActionsVariable {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.value) else {
-            throw SdkValidationError(
-                field: "value",
-                code: "required",
-                message: "Validation failed for 'value': value is required"
-            )
+            throw SdkValidationError(field: "value", code: "required", message: "Validation failed for 'value': value is required")
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(
-                field: "created_at",
-                code: "required",
-                message: "Validation failed for 'created_at': value is required"
-            )
+            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(
-                field: "updated_at",
-                code: "required",
-                message: "Validation failed for 'updated_at': value is required"
-            )
+            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        value = try container.sdkDecodeRequired(.value)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        self.name = try container.sdkDecodeRequired(.name)
+        self.value = try container.sdkDecodeRequired(.value)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
-public extension ActionsVariable {
-    init(name: String, value: String, createdAt: Date, updatedAt: Date) throws {
+extension ActionsVariable {
+    public init(name: String, value: String, createdAt: Date, updatedAt: Date) throws {
         (self.name, self.value) = (name, value)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }

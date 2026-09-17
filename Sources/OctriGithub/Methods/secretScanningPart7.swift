@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SecretScanningMethods {
-    struct SecretScanningListAlertsForRepoOptions: Codable {
+extension SecretScanningMethods {
+    public struct SecretScanningListAlertsForRepoOptions: Codable {
         public var owner: String
         public var repo: String
         public var state: SecretScanningListAlertsForOrgParameterX7011b583?
@@ -37,10 +37,7 @@ public extension SecretScanningMethods {
         }
     }
 
-    /// Lists secret scanning alerts for an eligible repository, from newest to oldest. The authenticated user must be
-    /// an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
-    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
-    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// Lists secret scanning alerts for an eligible repository, from newest to oldest. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -124,44 +121,28 @@ public extension SecretScanningMethods {
     ///   hex-encoded SHA-256 hash of the email address to match (for example, the
     ///   SHA-256 of `user@example.com`). Only alerts that have an `owner_email`
     ///   metadata value whose SHA-256 hash equals this parameter are returned.
-    static func secretScanningListAlertsForRepo(
-        config: ClientConfig,
-        options: SecretScanningListAlertsForRepoOptions
-    ) async throws -> [SecretScanningAlert] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/secret-scanning/alerts",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("state", value: options.state),
-                SdkQueryParameter("secret_type", value: options.secretType),
-                SdkQueryParameter("exclude_secret_types", value: options.excludeSecretTypes),
-                SdkQueryParameter("exclude_providers", value: options.excludeProviders),
-                SdkQueryParameter("providers", value: options.providers),
-                SdkQueryParameter("resolution", value: options.resolution),
-                SdkQueryParameter("assignee", value: options.assignee),
-                SdkQueryParameter("sort", value: options.sort),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("before", value: options.before),
-                SdkQueryParameter("after", value: options.after),
-                SdkQueryParameter("validity", value: options.validity),
-                SdkQueryParameter("is_publicly_leaked", value: options.isPubliclyLeaked),
-                SdkQueryParameter("is_multi_repo", value: options.isMultiRepo),
-                SdkQueryParameter("hide_secret", value: options.hideSecret),
-                SdkQueryParameter("is_bypassed", value: options.isBypassed),
-                SdkQueryParameter("included_metadata", value: options.includedMetadata),
-                SdkQueryParameter("owner_email_hash", value: options.ownerEmailHash),
-            ],
-            decoder: .json,
-            operationId: "secretScanningListAlertsForRepo"
-        )).data
+    public static func secretScanningListAlertsForRepo(config: ClientConfig, options: SecretScanningListAlertsForRepoOptions) async throws -> [SecretScanningAlert] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/secret-scanning/alerts"].joined(), config: config, query: [
+            SdkQueryParameter("state", value: options.state),
+            SdkQueryParameter("secret_type", value: options.secretType),
+            SdkQueryParameter("exclude_secret_types", value: options.excludeSecretTypes),
+            SdkQueryParameter("exclude_providers", value: options.excludeProviders),
+            SdkQueryParameter("providers", value: options.providers),
+            SdkQueryParameter("resolution", value: options.resolution),
+            SdkQueryParameter("assignee", value: options.assignee),
+            SdkQueryParameter("sort", value: options.sort),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("before", value: options.before),
+            SdkQueryParameter("after", value: options.after),
+            SdkQueryParameter("validity", value: options.validity),
+            SdkQueryParameter("is_publicly_leaked", value: options.isPubliclyLeaked),
+            SdkQueryParameter("is_multi_repo", value: options.isMultiRepo),
+            SdkQueryParameter("hide_secret", value: options.hideSecret),
+            SdkQueryParameter("is_bypassed", value: options.isBypassed),
+            SdkQueryParameter("included_metadata", value: options.includedMetadata),
+            SdkQueryParameter("owner_email_hash", value: options.ownerEmailHash),
+        ], decoder: .json, operationId: "secretScanningListAlertsForRepo")).data
     }
 }

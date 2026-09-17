@@ -3,16 +3,12 @@
 
 import Foundation
 
-/// WebhookDeploymentReviewApproved domain models
+// WebhookDeploymentReviewApproved domain models
 /// Required enumerated value serialized in the `status` wire field.
-public struct WebhookDeploymentReviewApprovedWorkflowRunStatus: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookDeploymentReviewApprovedWorkflowRunStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let requested = WebhookDeploymentReviewApprovedWorkflowRunStatus(rawValue: "requested")
     public static let inProgress = WebhookDeploymentReviewApprovedWorkflowRunStatus(rawValue: "in_progress")
     public static let completed = WebhookDeploymentReviewApprovedWorkflowRunStatus(rawValue: "completed")
@@ -22,7 +18,7 @@ public struct WebhookDeploymentReviewApprovedWorkflowRunStatus: RawRepresentable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,22 +28,17 @@ public struct WebhookDeploymentReviewApprovedWorkflowRunStatus: RawRepresentable
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType(rawValue: "Bot")
     public static let user = WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType(rawValue: "User")
-    public static let organization =
-        WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType(rawValue: "Organization")
+    public static let organization = WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -57,21 +48,17 @@ public struct WebhookDeploymentReviewApprovedWorkflowRunTriggeringActorType: Raw
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct WebhookDeploymentReviewApprovedWorkflowRunActorType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookDeploymentReviewApprovedWorkflowRunActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookDeploymentReviewApprovedWorkflowRunActorType(rawValue: "Bot")
     public static let user = WebhookDeploymentReviewApprovedWorkflowRunActorType(rawValue: "User")
     public static let organization = WebhookDeploymentReviewApprovedWorkflowRunActorType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

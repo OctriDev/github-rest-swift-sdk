@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposCreateInOrgOptions: Codable {
+extension ReposMethods {
+    public struct ReposCreateInOrgOptions: Codable {
         public var org: String
         public var name: String
         public var description: String?
@@ -41,9 +41,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Creates a new repository in the specified organization. The authenticated user must be a member of the
-    /// organization. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to
-    /// create a public repository, and `repo` scope to create a private repository.
+    /// Creates a new repository in the specified organization. The authenticated user must be a member of the organization. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private repository.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -110,19 +108,9 @@ public extension ReposMethods {
     /// - customProperties: The custom properties for the new repository. The keys
     ///   are the custom property names, and the values are the corresponding custom
     ///   property values.
-    static func reposCreateInOrg(
-        config: ClientConfig,
-        options: ReposCreateInOrgOptions
-    ) async throws -> FullRepository {
+    public static func reposCreateInOrg(config: ClientConfig, options: ReposCreateInOrgOptions) async throws -> FullRepository {
         let requestBody = ReposCreateInOrgRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/repos"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposCreateInOrg"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/repos"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateInOrg")).data
     }
 }

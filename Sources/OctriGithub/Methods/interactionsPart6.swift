@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension InteractionsMethods {
-    /// Removes users from the pull request creation cap bypass list for a repository. Removed users will be subject to
-    /// any configured pull request creation cap. Only users with maintainer permissions can modify the bypass list. You
-    /// can remove a maximum of 100 users per request.
+extension InteractionsMethods {
+    /// Removes users from the pull request creation cap bypass list for a repository. Removed users will be subject to any configured pull request creation cap. Only users with maintainer permissions can modify the bypass list. You can remove a maximum of 100 users per request.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,56 +15,20 @@ public extension InteractionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - users: A list of user logins to add or remove from the bypass list.
-    static func interactionsRemovePullRequestBypassListForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        users: [String]
-    ) async throws -> SdkEmptyResponse {
+    public static func interactionsRemovePullRequestBypassListForRepo(config: ClientConfig, owner: String, repo: String, users: [String]) async throws -> SdkEmptyResponse {
         let requestBody = InteractionsRemovePullRequestBypassListForRepoRequestBody(users: users)
 
-        return try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/interaction-limits/pulls/bypass-list",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "interactionsRemovePullRequestBypassListForRepo"
-        )).data
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/interaction-limits/pulls/bypass-list"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "interactionsRemovePullRequestBypassListForRepo")).data
     }
 
-    /// Gets the pull request creation cap configuration for a repository. The cap limits the number of open pull
-    /// requests a user can have at one time. Only users with admin access to the repository can view the cap
-    /// configuration.
+    /// Gets the pull request creation cap configuration for a repository. The cap limits the number of open pull requests a user can have at one time. Only users with admin access to the repository can view the cap configuration.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func interactionsGetPullRequestCreationCapForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> InteractionsGetPullRequestCreationCapForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/interaction-limits/pulls/creation-cap",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "interactionsGetPullRequestCreationCapForRepo"
-        )).data
+    public static func interactionsGetPullRequestCreationCapForRepo(config: ClientConfig, owner: String, repo: String) async throws -> InteractionsGetPullRequestCreationCapForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/interaction-limits/pulls/creation-cap"].joined(), config: config, decoder: .json, operationId: "interactionsGetPullRequestCreationCapForRepo")).data
     }
 }

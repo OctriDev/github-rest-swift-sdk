@@ -6,26 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Returns the contents of a single commit reference. You must have `read` access for the repository to use this
-    /// endpoint. > [!NOTE] > If there are more than 300 files in the commit diff and the default JSON media type is
-    /// requested, the response will include pagination link headers for the remaining files, up to a limit of 3000
-    /// files. Each page contains the static commit information, and the only changes are to the file listing. This
-    /// endpoint supports the following custom media types. For more information, see "[Media
-    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
-    /// Pagination query parameters are not supported for these media types. - **`application/vnd.github.diff`**:
-    /// Returns the diff of the commit. Larger diffs may time out and return a 5xx status code. -
-    /// **`application/vnd.github.patch`**: Returns the patch of the commit. Diffs with binary data will have no `patch`
-    /// property. Larger diffs may time out and return a 5xx status code. - **`application/vnd.github.sha`**: Returns
-    /// the commit's SHA-1 hash. You can use this endpoint to check if a remote reference's SHA-1 hash is the same as
-    /// your local reference's SHA-1 hash by providing the local SHA-1 reference as the ETag. **Signature verification
-    /// object** The response will include a `verification` object that describes the result of verifying the commit's
-    /// signature. The following fields are included in the `verification` object: | Name | Type | Description | | ----
-    /// | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this
-    /// commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their
-    /// meanings are enumerated in table below. | | `signature` | `string` | The signature that was extracted from the
-    /// commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the
-    /// signature was verified by GitHub. | These are the possible values for `reason` in…
+extension ReposMethods {
+    /// Returns the contents of a single commit reference. You must have `read` access for the repository to use this endpoint. > [!NOTE] > If there are more than 300 files in the commit diff and the default JSON media type is requested, the response will include pagination link headers for the remaining files, up to a limit of 3000 files. Each page contains the static commit information, and the only changes are to the file listing. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." Pagination query parameters are not supported for these media types. - **`application/vnd.github.diff`**: Returns the diff of the commit. Larger diffs may time out and return a 5xx status code. - **`application/vnd.github.patch`**: Returns the patch of the commit. Diffs with binary data will have no `patch` property. Larger diffs may time out and return a 5xx status code. - **`application/vnd.github.sha`**: Returns the commit's SHA-1 hash. You can use this endpoint to check if a remote reference's SHA-1 hash is the same as your local reference's SHA-1 hash by providing the local SHA-1 reference as the ETag. **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -45,31 +27,10 @@ public extension ReposMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposGetCommit(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        ref: String,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> Commit {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/commits/",
-                sdkEncodePathSegment(sdkWireString(ref)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "reposGetCommit"
-        )).data
+    public static func reposGetCommit(config: ClientConfig, owner: String, repo: String, ref: String, page: Int?, perPage: Int?) async throws -> Commit {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/commits/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, query: [
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "reposGetCommit")).data
     }
 }

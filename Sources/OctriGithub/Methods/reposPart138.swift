@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Get a ruleset for a repository. **Note:** To prevent leaking sensitive information, the `bypass_actors` property
-    /// is only returned if the user making the API request has write access to the ruleset.
+extension ReposMethods {
+    /// Get a ruleset for a repository. **Note:** To prevent leaking sensitive information, the `bypass_actors` property is only returned if the user making the API request has write access to the ruleset.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,29 +17,9 @@ public extension ReposMethods {
     /// - rulesetId: The ID of the ruleset.
     /// - includesParents: Include rulesets configured at higher levels that apply
     ///   to this repository
-    static func reposGetRepoRuleset(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        rulesetId: Int,
-        includesParents: Bool?
-    ) async throws -> RepositoryRuleset {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/rulesets/",
-                sdkEncodePathSegment(sdkWireString(rulesetId)),
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("includes_parents", value: includesParents),
-            ],
-            decoder: .json,
-            operationId: "reposGetRepoRuleset"
-        )).data
+    public static func reposGetRepoRuleset(config: ClientConfig, owner: String, repo: String, rulesetId: Int, includesParents: Bool?) async throws -> RepositoryRuleset {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId))].joined(), config: config, query: [
+            SdkQueryParameter("includes_parents", value: includesParents),
+        ], decoder: .json, operationId: "reposGetRepoRuleset")).data
     }
 }

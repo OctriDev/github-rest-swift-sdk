@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookMetaDeleted domain models
+// WebhookMetaDeleted domain models
 /// Typed representation of the `WebhookMetaDeleted` API schema.
 public struct WebhookMetaDeleted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -40,57 +40,34 @@ public struct WebhookMetaDeleted: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMetaDeleted {
-    init(from decoder: Decoder) throws {
+extension WebhookMetaDeleted {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.hook) else {
-            throw SdkValidationError(
-                field: "hook",
-                code: "required",
-                message: "Validation failed for 'hook': value is required"
-            )
+            throw SdkValidationError(field: "hook", code: "required", message: "Validation failed for 'hook': value is required")
         }
         guard container.contains(.hookId) else {
-            throw SdkValidationError(
-                field: "hook_id",
-                code: "required",
-                message: "Validation failed for 'hook_id': value is required"
-            )
+            throw SdkValidationError(field: "hook_id", code: "required", message: "Validation failed for 'hook_id': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        hook = try container.sdkDecodeRequired(.hook)
-        hookId = try container.sdkDecodeRequired(.hookId)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.hook = try container.sdkDecodeRequired(.hook)
+        self.hookId = try container.sdkDecodeRequired(.hookId)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookMetaDeleted {
-    init(
-        action: WebhookMetaDeletedAction,
-        hook: WebhookMetaDeletedHook,
-        hookId: Int,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: NullableRepositoryWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookMetaDeleted {
+    public init(action: WebhookMetaDeletedAction, hook: WebhookMetaDeletedHook, hookId: Int, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: NullableRepositoryWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.hook) = (action, hook)
         (self.hookId, self.enterprise) = (hookId, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -129,36 +106,25 @@ public struct WebhookMetaDeletedHook: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMetaDeletedHook {
-    init(from decoder: Decoder) throws {
+extension WebhookMetaDeletedHook {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        active = try container.sdkDecodeRequired(.active)
-        config = try container.sdkDecodeRequired(.config)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        events = try container.sdkDecodeRequired(.events)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        type = try container.sdkDecodeRequired(.type)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.active = try container.sdkDecodeRequired(.active)
+        self.config = try container.sdkDecodeRequired(.config)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.events = try container.sdkDecodeRequired(.events)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
     }
 }
 
-public extension WebhookMetaDeletedHook {
-    init(
-        active: Bool,
-        config: WebhookMetaDeletedHookConfig,
-        createdAt: String,
-        events: [WebhookMetaDeletedHookEventsItem],
-        id: Int,
-        name: String,
-        type: String,
-        updatedAt: String
-    ) {
+extension WebhookMetaDeletedHook {
+    public init(active: Bool, config: WebhookMetaDeletedHookConfig, createdAt: String, events: [WebhookMetaDeletedHookEventsItem], id: Int, name: String, type: String, updatedAt: String) {
         (self.active, self.config) = (active, config)
         (self.createdAt, self.events) = (createdAt, events)
         (self.id, self.name) = (id, name)
@@ -184,53 +150,34 @@ public struct WebhookMetaDeletedHookConfig: Codable {
         case secret
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookMetaDeletedHookConfig {
-    init(from decoder: Decoder) throws {
+extension WebhookMetaDeletedHookConfig {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.contentType) else {
-            throw SdkValidationError(
-                field: "content_type",
-                code: "required",
-                message: "Validation failed for 'content_type': value is required"
-            )
+            throw SdkValidationError(field: "content_type", code: "required", message: "Validation failed for 'content_type': value is required")
         }
         guard container.contains(.insecureSsl) else {
-            throw SdkValidationError(
-                field: "insecure_ssl",
-                code: "required",
-                message: "Validation failed for 'insecure_ssl': value is required"
-            )
+            throw SdkValidationError(field: "insecure_ssl", code: "required", message: "Validation failed for 'insecure_ssl': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
-        contentType = try container.sdkDecodeRequired(.contentType)
-        insecureSsl = try container.sdkDecodeRequired(.insecureSsl)
-        url = try container.sdkDecodeRequired(.url)
-        secret = try container.sdkDecodeIfPresent(.secret)
-        try sdkValidateUri("url", url)
+        self.contentType = try container.sdkDecodeRequired(.contentType)
+        self.insecureSsl = try container.sdkDecodeRequired(.insecureSsl)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.secret = try container.sdkDecodeIfPresent(.secret)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookMetaDeletedHookConfig {
-    init(
-        contentType: WebhookMetaDeletedHookConfigContentType,
-        insecureSsl: String,
-        url: String,
-        secret: String? = nil
-    ) throws {
+extension WebhookMetaDeletedHookConfig {
+    public init(contentType: WebhookMetaDeletedHookConfigContentType, insecureSsl: String, url: String, secret: String? = nil) throws {
         (self.contentType, self.insecureSsl) = (contentType, insecureSsl)
         (self.url, self.secret) = (url, secret)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -238,15 +185,12 @@ public extension WebhookMetaDeletedHookConfig {
 public struct WebhookMetaDeletedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let deleted = WebhookMetaDeletedAction(rawValue: "deleted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -259,10 +203,7 @@ public struct WebhookMetaDeletedAction: RawRepresentable, Hashable, Codable, Sen
 public struct WebhookMetaDeletedHookEventsItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let unknown = WebhookMetaDeletedHookEventsItem(rawValue: "*")
     public static let branchProtectionRule = WebhookMetaDeletedHookEventsItem(rawValue: "branch_protection_rule")
     public static let checkRun = WebhookMetaDeletedHookEventsItem(rawValue: "check_run")
@@ -295,19 +236,16 @@ public struct WebhookMetaDeletedHookEventsItem: RawRepresentable, Hashable, Coda
     public static let `public` = WebhookMetaDeletedHookEventsItem(rawValue: "public")
     public static let pullRequest = WebhookMetaDeletedHookEventsItem(rawValue: "pull_request")
     public static let pullRequestReview = WebhookMetaDeletedHookEventsItem(rawValue: "pull_request_review")
-    public static let pullRequestReviewComment =
-        WebhookMetaDeletedHookEventsItem(rawValue: "pull_request_review_comment")
+    public static let pullRequestReviewComment = WebhookMetaDeletedHookEventsItem(rawValue: "pull_request_review_comment")
     public static let pullRequestReviewThread = WebhookMetaDeletedHookEventsItem(rawValue: "pull_request_review_thread")
     public static let push = WebhookMetaDeletedHookEventsItem(rawValue: "push")
     public static let registryPackage = WebhookMetaDeletedHookEventsItem(rawValue: "registry_package")
     public static let release = WebhookMetaDeletedHookEventsItem(rawValue: "release")
     public static let repository = WebhookMetaDeletedHookEventsItem(rawValue: "repository")
     public static let repositoryImport = WebhookMetaDeletedHookEventsItem(rawValue: "repository_import")
-    public static let repositoryVulnerabilityAlert =
-        WebhookMetaDeletedHookEventsItem(rawValue: "repository_vulnerability_alert")
+    public static let repositoryVulnerabilityAlert = WebhookMetaDeletedHookEventsItem(rawValue: "repository_vulnerability_alert")
     public static let secretScanningAlert = WebhookMetaDeletedHookEventsItem(rawValue: "secret_scanning_alert")
-    public static let secretScanningAlertLocation =
-        WebhookMetaDeletedHookEventsItem(rawValue: "secret_scanning_alert_location")
+    public static let secretScanningAlertLocation = WebhookMetaDeletedHookEventsItem(rawValue: "secret_scanning_alert_location")
     public static let securityAndAnalysis = WebhookMetaDeletedHookEventsItem(rawValue: "security_and_analysis")
     public static let star = WebhookMetaDeletedHookEventsItem(rawValue: "star")
     public static let status = WebhookMetaDeletedHookEventsItem(rawValue: "status")
@@ -321,7 +259,7 @@ public struct WebhookMetaDeletedHookEventsItem: RawRepresentable, Hashable, Coda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -331,20 +269,16 @@ public struct WebhookMetaDeletedHookEventsItem: RawRepresentable, Hashable, Coda
 }
 
 /// Required enumerated value serialized in the `content_type` wire field.
-public struct WebhookMetaDeletedHookConfigContentType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookMetaDeletedHookConfigContentType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let json = WebhookMetaDeletedHookConfigContentType(rawValue: "json")
     public static let form = WebhookMetaDeletedHookConfigContentType(rawValue: "form")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

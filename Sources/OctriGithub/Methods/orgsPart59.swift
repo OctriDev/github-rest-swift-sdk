@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    struct OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions: Codable {
+extension OrgsMethods {
+    public struct OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions: Codable {
         public var org: String
         public var customPropertyName: String
         public var valueType: CustomPropertySetPayloadValueType
@@ -25,9 +25,7 @@ public extension OrgsMethods {
         }
     }
 
-    /// Creates a new or updates an existing custom property that is defined for an organization. To use this endpoint,
-    /// the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team,
-    /// with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
+    /// Creates a new or updates an existing custom property that is defined for an organization. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_definitions_manager` in the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -40,25 +38,10 @@ public extension OrgsMethods {
     ///   property can have up to 200 allowed values.
     /// - valuesEditableBy: Who can edit the values of the property
     /// - requireExplicitValues: Whether setting properties values is mandatory
-    static func orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(
-        config: ClientConfig,
-        options: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions
-    ) async throws -> CustomProperty {
+    public static func orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition(config: ClientConfig, options: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions) async throws -> CustomProperty {
         let requestBody = OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitXc13a54ec18(options: options)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(options.org)),
-                "/properties/schema/",
-                sdkEncodePathSegment(sdkWireString(options.customPropertyName)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/properties/schema/", sdkEncodePathSegment(sdkWireString(options.customPropertyName))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinition")).data
     }
 
     private struct OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitXc13a54ec18: Encodable {
@@ -72,23 +55,23 @@ public extension OrgsMethods {
 
         func encode(to encoder: Encoder) throws {
             var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-            try keyedContainer.encode(valueType, forKey: SdkCodingKey("value_type"))
-            try keyedContainer.encodeIfPresent(required, forKey: SdkCodingKey("required"))
-            try keyedContainer.encodeIfPresent(defaultValue, forKey: SdkCodingKey("default_value"))
-            try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-            try keyedContainer.encodeIfPresent(allowedValues, forKey: SdkCodingKey("allowed_values"))
-            try keyedContainer.encodeIfPresent(valuesEditableBy, forKey: SdkCodingKey("values_editable_by"))
-            try keyedContainer.encodeIfPresent(requireExplicitValues, forKey: SdkCodingKey("require_explicit_values"))
+            try keyedContainer.encode(self.valueType, forKey: SdkCodingKey("value_type"))
+            try keyedContainer.encodeIfPresent(self.required, forKey: SdkCodingKey("required"))
+            try keyedContainer.encodeIfPresent(self.defaultValue, forKey: SdkCodingKey("default_value"))
+            try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+            try keyedContainer.encodeIfPresent(self.allowedValues, forKey: SdkCodingKey("allowed_values"))
+            try keyedContainer.encodeIfPresent(self.valuesEditableBy, forKey: SdkCodingKey("values_editable_by"))
+            try keyedContainer.encodeIfPresent(self.requireExplicitValues, forKey: SdkCodingKey("require_explicit_values"))
         }
 
         init(options: OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions) {
-            valueType = options.valueType
-            required = options.required
-            defaultValue = options.defaultValue
-            description = options.description
-            allowedValues = options.allowedValues
-            valuesEditableBy = options.valuesEditableBy
-            requireExplicitValues = options.requireExplicitValues
+            self.valueType = options.valueType
+            self.required = options.required
+            self.defaultValue = options.defaultValue
+            self.description = options.description
+            self.allowedValues = options.allowedValues
+            self.valuesEditableBy = options.valuesEditableBy
+            self.requireExplicitValues = options.requireExplicitValues
         }
     }
 }

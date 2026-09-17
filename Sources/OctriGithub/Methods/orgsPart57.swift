@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can use this
-    /// endpoint.
+extension OrgsMethods {
+    /// Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,46 +20,18 @@ public extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func orgsListPatGrantRepositories(
-        config: ClientConfig,
-        org: String,
-        patId: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [MinimalRepository] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/personal-access-tokens/",
-                sdkEncodePathSegment(sdkWireString(patId)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "orgsListPatGrantRepositories"
-        )).data
+    public static func orgsListPatGrantRepositories(config: ClientConfig, org: String, patId: Int, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-tokens/", sdkEncodePathSegment(sdkWireString(patId)), "/repositories"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "orgsListPatGrantRepositories")).data
     }
 
     /// Gets all custom properties defined for an organization. Organization members can read these properties.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func orgsCustomPropertiesForReposGetOrganizationDefinitions(
-        config: ClientConfig,
-        org: String
-    ) async throws -> [CustomProperty] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/properties/schema"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsCustomPropertiesForReposGetOrganizationDefinitions"
-        )).data
+    public static func orgsCustomPropertiesForReposGetOrganizationDefinitions(config: ClientConfig, org: String) async throws -> [CustomProperty] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/properties/schema"].joined(), config: config, decoder: .json, operationId: "orgsCustomPropertiesForReposGetOrganizationDefinitions")).data
     }
 }

@@ -6,62 +6,30 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
-    /// Updates the access organization members have to organization resources via fine-grained personal access tokens.
-    /// Limited to revoking a token's existing access. Only GitHub Apps can use this endpoint.
+extension OrgsMethods {
+    /// Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - action: Action to apply to the fine-grained personal access token.
     /// - patIds: The IDs of the fine-grained personal access tokens.
-    static func orgsUpdatePatAccesses(
-        config: ClientConfig,
-        org: String,
-        action: OrgsUpdatePatAccessesRequestBodyAction,
-        patIds: [Int]
-    ) async throws -> [String: JSONValue] {
+    public static func orgsUpdatePatAccesses(config: ClientConfig, org: String, action: OrgsUpdatePatAccessesRequestBodyAction, patIds: [Int]) async throws -> [String: JSONValue] {
         try validateItems("pat_ids", patIds, min: 1, max: 100)
 
         let requestBody = OrgsUpdatePatAccessesRequestBody(action: action, patIds: patIds)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-tokens"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "orgsUpdatePatAccesses"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-tokens"].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdatePatAccesses")).data
     }
 
-    /// Updates the access an organization member has to organization resources via a fine-grained personal access
-    /// token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only
-    /// GitHub Apps can use this endpoint.
+    /// Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - patId: The unique identifier of the fine-grained personal access token.
     /// - action: Action to apply to the fine-grained personal access token.
-    static func orgsUpdatePatAccess(
-        config: ClientConfig,
-        org: String,
-        patId: Int,
-        action: OrgsUpdatePatAccessRequestBodyAction
-    ) async throws -> SdkEmptyResponse {
+    public static func orgsUpdatePatAccess(config: ClientConfig, org: String, patId: Int, action: OrgsUpdatePatAccessRequestBodyAction) async throws -> SdkEmptyResponse {
         let requestBody = OrgsUpdatePatAccessRequestBody(action: action)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/personal-access-tokens/",
-                sdkEncodePathSegment(sdkWireString(patId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "orgsUpdatePatAccess"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/personal-access-tokens/", sdkEncodePathSegment(sdkWireString(patId))].joined(), config: config, body: requestBody, decoder: .empty, operationId: "orgsUpdatePatAccess")).data
     }
 }

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposUpdateReleaseOptions: Codable {
+extension ReposMethods {
+    public struct ReposUpdateReleaseOptions: Codable {
         public var owner: String
         public var repo: String
         public var releaseId: Int
@@ -27,15 +27,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Users with push access to the repository can edit a release. > [!NOTE] > If the resolved target commit (the new
-    /// value of `target_commitish` if you are changing it, otherwise the existing target) adds or modifies any file
-    /// under `.github/workflows/` relative to the repository's default branch, the authenticating token must be
-    /// authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some authentication paths
-    /// surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal access tokens
-    /// (classic) need the `workflow` scope when the resolved target commit modifies workflow files. Fine-grained access
-    /// tokens and GitHub App installation tokens also need the "Workflows" repository permission (write). The
-    /// `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see "[Automatic
-    /// token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)".
+    /// Users with push access to the repository can edit a release. > [!NOTE] > If the resolved target commit (the new value of `target_commitish` if you are changing it, otherwise the existing target) adds or modifies any file under `.github/workflows/` relative to the repository's default branch, the authenticating token must be authorized to modify workflows. Otherwise, this endpoint returns `404 Not Found`; some authentication paths surface `403 Resource not accessible by integration` instead. OAuth app tokens and personal access tokens (classic) need the `workflow` scope when the resolved target commit modifies workflow files. Fine-grained access tokens and GitHub App installation tokens also need the "Workflows" repository permission (write). The `GITHUB_TOKEN` available to GitHub Actions cannot be authorized for this; for more information, see "[Automatic token authentication](https://docs.github.com/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -65,23 +57,9 @@ public extension ReposMethods {
     ///   "[Managing categories for discussions in your
     ///   repository](https://docs.github.com/discussions/managing-discussions-for-you
     ///   r-community/managing-categories-for-discussions-in-your-repository)."
-    static func reposUpdateRelease(config: ClientConfig, options: ReposUpdateReleaseOptions) async throws -> Release {
+    public static func reposUpdateRelease(config: ClientConfig, options: ReposUpdateReleaseOptions) async throws -> Release {
         let requestBody = ReposUpdateReleaseRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/releases/",
-                sdkEncodePathSegment(sdkWireString(options.releaseId)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reposUpdateRelease"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/releases/", sdkEncodePathSegment(sdkWireString(options.releaseId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateRelease")).data
     }
 }

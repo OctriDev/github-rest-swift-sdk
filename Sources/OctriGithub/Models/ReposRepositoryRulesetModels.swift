@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// ReposRepositoryRuleset domain models
+// ReposRepositoryRuleset domain models
 /// A set of rules to apply when specified conditions are met.
 public struct RepositoryRuleset: Codable {
     /// The ID of the ruleset
@@ -54,82 +54,49 @@ public struct RepositoryRuleset: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryRuleset {
-    init(from decoder: Decoder) throws {
+extension RepositoryRuleset {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.source) else {
-            throw SdkValidationError(
-                field: "source",
-                code: "required",
-                message: "Validation failed for 'source': value is required"
-            )
+            throw SdkValidationError(field: "source", code: "required", message: "Validation failed for 'source': value is required")
         }
         guard container.contains(.enforcement) else {
-            throw SdkValidationError(
-                field: "enforcement",
-                code: "required",
-                message: "Validation failed for 'enforcement': value is required"
-            )
+            throw SdkValidationError(field: "enforcement", code: "required", message: "Validation failed for 'enforcement': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        source = try container.sdkDecodeRequired(.source)
-        enforcement = try container.sdkDecodeRequired(.enforcement)
-        target = try container.sdkDecodeIfPresent(.target)
-        sourceType = try container.sdkDecodeIfPresent(.sourceType)
-        bypassActors = try container.sdkDecodeIfPresent(.bypassActors)
-        currentUserCanBypass = try container.sdkDecodeIfPresent(.currentUserCanBypass)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        links = try container.sdkDecodeIfPresent(.links)
-        conditions = try container.sdkDecodeIfPresent(.conditions)
-        rules = try container.sdkDecodeIfPresent(.rules)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        if let value = createdAt {
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.source = try container.sdkDecodeRequired(.source)
+        self.enforcement = try container.sdkDecodeRequired(.enforcement)
+        self.target = try container.sdkDecodeIfPresent(.target)
+        self.sourceType = try container.sdkDecodeIfPresent(.sourceType)
+        self.bypassActors = try container.sdkDecodeIfPresent(.bypassActors)
+        self.currentUserCanBypass = try container.sdkDecodeIfPresent(.currentUserCanBypass)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.links = try container.sdkDecodeIfPresent(.links)
+        self.conditions = try container.sdkDecodeIfPresent(.conditions)
+        self.rules = try container.sdkDecodeIfPresent(.rules)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = updatedAt {
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension RepositoryRuleset {
-    init(
-        id: Int,
-        name: String,
-        source: String,
-        enforcement: RepositoryRuleEnforcement,
-        target: RepositoryRulesetTarget? = nil,
-        sourceType: RepositoryRulesetSourceType? = nil,
-        bypassActors: [RepositoryRulesetBypassActor]? = nil,
-        currentUserCanBypass: RepositoryRulesetCurrentUserCanBypass? = nil,
-        nodeId: String? = nil,
-        links: RepositoryRulesetLinks? = nil,
-        conditions: RepositoryRulesetConditionsX2b5003d4? = nil,
-        rules: [RepositoryRule]? = nil,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil
-    ) throws {
+extension RepositoryRuleset {
+    public init(id: Int, name: String, source: String, enforcement: RepositoryRuleEnforcement, target: RepositoryRulesetTarget? = nil, sourceType: RepositoryRulesetSourceType? = nil, bypassActors: [RepositoryRulesetBypassActor]? = nil, currentUserCanBypass: RepositoryRulesetCurrentUserCanBypass? = nil, nodeId: String? = nil, links: RepositoryRulesetLinks? = nil, conditions: RepositoryRulesetConditionsX2b5003d4? = nil, rules: [RepositoryRule]? = nil, createdAt: Date? = nil, updatedAt: Date? = nil) throws {
         (self.id, self.name) = (id, name)
         (self.source, self.enforcement) = (source, enforcement)
         (self.target, self.sourceType) = (target, sourceType)
@@ -159,20 +126,20 @@ public struct RepositoryRulesetLinks: Codable {
     }
 
     init() {
-        (self.`self`, html) = (nil, nil)
+        (self.`self`, self.html) = (nil, nil)
     }
 }
 
-public extension RepositoryRulesetLinks {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetLinks {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.`self` = try container.sdkDecodeIfPresent(.`self`)
-        html = try container.sdkDecodeIfPresent(.html)
+        self.html = try container.sdkDecodeIfPresent(.html)
     }
 }
 
-public extension RepositoryRulesetLinks {
-    init(self selfValue: RepositoryRulesetLinksSelf? = nil, html: RepositoryRulesetLinksHtml? = nil) {
+extension RepositoryRulesetLinks {
+    public init(`self` selfValue: RepositoryRulesetLinksSelf? = nil, html: RepositoryRulesetLinksHtml? = nil) {
         self.init()
         (self.`self`, self.html) = (selfValue, html)
     }
@@ -188,19 +155,19 @@ public struct RepositoryRulesetLinksHtml: Codable {
     }
 
     init() {
-        href = nil
+        self.href = nil
     }
 }
 
-public extension RepositoryRulesetLinksHtml {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetLinksHtml {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        href = try container.sdkDecodeIfPresent(.href)
+        self.href = try container.sdkDecodeIfPresent(.href)
     }
 }
 
-public extension RepositoryRulesetLinksHtml {
-    init(href: String? = nil) {
+extension RepositoryRulesetLinksHtml {
+    public init(href: String? = nil) {
         self.init()
         self.href = href
     }
@@ -216,19 +183,19 @@ public struct RepositoryRulesetLinksSelf: Codable {
     }
 
     init() {
-        href = nil
+        self.href = nil
     }
 }
 
-public extension RepositoryRulesetLinksSelf {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetLinksSelf {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        href = try container.sdkDecodeIfPresent(.href)
+        self.href = try container.sdkDecodeIfPresent(.href)
     }
 }
 
-public extension RepositoryRulesetLinksSelf {
-    init(href: String? = nil) {
+extension RepositoryRulesetLinksSelf {
+    public init(href: String? = nil) {
         self.init()
         self.href = href
     }
@@ -240,32 +207,21 @@ public enum RepositoryRulesetConditionsX2b5003d4 {
 }
 
 extension RepositoryRulesetConditionsX2b5003d4: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for RepositoryRulesetConditionsX2b5003d4"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for RepositoryRulesetConditionsX2b5003d4")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container
-            .decode(RepositoryRulesetConditions.self) {
-            return .repositoryRulesetConditions(value)
-        }
-        if let value = try? container.decode(OrgRulesetConditions.self) {
-            return .orgRulesetConditions(value)
-        }
+        if let value = try? container.decode(RepositoryRulesetConditions.self) { return .repositoryRulesetConditions(value) }
+        if let value = try? container.decode(OrgRulesetConditions.self) { return .orgRulesetConditions(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -275,6 +231,7 @@ extension RepositoryRulesetConditionsX2b5003d4: Codable {
         case let .orgRulesetConditions(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// An actor that can bypass rules in a ruleset
@@ -297,33 +254,23 @@ public struct RepositoryRulesetBypassActor: Codable {
         case bypassMode = "bypass_mode"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryRulesetBypassActor {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetBypassActor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.actorType) else {
-            throw SdkValidationError(
-                field: "actor_type",
-                code: "required",
-                message: "Validation failed for 'actor_type': value is required"
-            )
+            throw SdkValidationError(field: "actor_type", code: "required", message: "Validation failed for 'actor_type': value is required")
         }
-        actorType = try container.sdkDecodeRequired(.actorType)
-        actorId = try container.sdkDecodeIfPresent(.actorId)
-        bypassMode = try container.sdkDecodeIfPresent(.bypassMode)
+        self.actorType = try container.sdkDecodeRequired(.actorType)
+        self.actorId = try container.sdkDecodeIfPresent(.actorId)
+        self.bypassMode = try container.sdkDecodeIfPresent(.bypassMode)
     }
 }
 
-public extension RepositoryRulesetBypassActor {
-    init(
-        actorType: RepositoryRulesetBypassActorActorType,
-        actorId: Int? = nil,
-        bypassMode: RepositoryRulesetBypassActorBypassMode? = nil
-    ) {
+extension RepositoryRulesetBypassActor {
+    public init(actorType: RepositoryRulesetBypassActorActorType, actorId: Int? = nil, bypassMode: RepositoryRulesetBypassActorBypassMode? = nil) {
         (self.actorType, self.actorId) = (actorType, actorId)
         self.bypassMode = bypassMode
     }
@@ -339,19 +286,19 @@ public struct RepositoryRulesetConditions: Codable {
     }
 
     init() {
-        refName = nil
+        self.refName = nil
     }
 }
 
-public extension RepositoryRulesetConditions {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        refName = try container.sdkDecodeIfPresent(.refName)
+        self.refName = try container.sdkDecodeIfPresent(.refName)
     }
 }
 
-public extension RepositoryRulesetConditions {
-    init(refName: RepositoryRulesetConditionsRefName? = nil) {
+extension RepositoryRulesetConditions {
+    public init(refName: RepositoryRulesetConditionsRefName? = nil) {
         self.init()
         self.refName = refName
     }
@@ -371,20 +318,20 @@ public struct RepositoryRulesetConditionsRefName: Codable {
     }
 
     init() {
-        (include, exclude) = (nil, nil)
+        (self.include, self.exclude) = (nil, nil)
     }
 }
 
-public extension RepositoryRulesetConditionsRefName {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRefName {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        include = try container.sdkDecodeIfPresent(.include)
-        exclude = try container.sdkDecodeIfPresent(.exclude)
+        self.include = try container.sdkDecodeIfPresent(.include)
+        self.exclude = try container.sdkDecodeIfPresent(.exclude)
     }
 }
 
-public extension RepositoryRulesetConditionsRefName {
-    init(include: [String]? = nil, exclude: [String]? = nil) {
+extension RepositoryRulesetConditionsRefName {
+    public init(include: [String]? = nil, exclude: [String]? = nil) {
         self.init()
         (self.include, self.exclude) = (include, exclude)
     }
@@ -399,27 +346,21 @@ public struct RepositoryRulesetConditionsRepositoryIdTarget: Codable {
         case repositoryId = "repository_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryRulesetConditionsRepositoryIdTarget {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryIdTarget {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryId) else {
-            throw SdkValidationError(
-                field: "repository_id",
-                code: "required",
-                message: "Validation failed for 'repository_id': value is required"
-            )
+            throw SdkValidationError(field: "repository_id", code: "required", message: "Validation failed for 'repository_id': value is required")
         }
-        repositoryId = try container.sdkDecodeRequired(.repositoryId)
+        self.repositoryId = try container.sdkDecodeRequired(.repositoryId)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryIdTarget {
-    init(repositoryId: RepositoryRulesetConditionsRepositoryIdTargetRepositoryId) {
+extension RepositoryRulesetConditionsRepositoryIdTarget {
+    public init(repositoryId: RepositoryRulesetConditionsRepositoryIdTargetRepositoryId) {
         self.repositoryId = repositoryId
     }
 }
@@ -434,19 +375,19 @@ public struct RepositoryRulesetConditionsRepositoryIdTargetRepositoryId: Codable
     }
 
     init() {
-        repositoryIds = nil
+        self.repositoryIds = nil
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryIdTargetRepositoryId {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryIdTargetRepositoryId {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        repositoryIds = try container.sdkDecodeIfPresent(.repositoryIds)
+        self.repositoryIds = try container.sdkDecodeIfPresent(.repositoryIds)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryIdTargetRepositoryId {
-    init(repositoryIds: [Int]? = nil) {
+extension RepositoryRulesetConditionsRepositoryIdTargetRepositoryId {
+    public init(repositoryIds: [Int]? = nil) {
         self.init()
         self.repositoryIds = repositoryIds
     }
@@ -461,27 +402,21 @@ public struct RepositoryRulesetConditionsRepositoryNameTarget: Codable {
         case repositoryName = "repository_name"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryRulesetConditionsRepositoryNameTarget {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryNameTarget {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryName) else {
-            throw SdkValidationError(
-                field: "repository_name",
-                code: "required",
-                message: "Validation failed for 'repository_name': value is required"
-            )
+            throw SdkValidationError(field: "repository_name", code: "required", message: "Validation failed for 'repository_name': value is required")
         }
-        repositoryName = try container.sdkDecodeRequired(.repositoryName)
+        self.repositoryName = try container.sdkDecodeRequired(.repositoryName)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryNameTarget {
-    init(repositoryName: RepositoryRulesetConditionsRepositoryNameTargetRepositoryName) {
+extension RepositoryRulesetConditionsRepositoryNameTarget {
+    public init(repositoryName: RepositoryRulesetConditionsRepositoryNameTargetRepositoryName) {
         self.repositoryName = repositoryName
     }
 }
@@ -504,21 +439,21 @@ public struct RepositoryRulesetConditionsRepositoryNameTargetRepositoryName: Cod
     }
 
     init() {
-        (include, exclude, protected) = (nil, nil, nil)
+        (self.include, self.exclude, self.protected) = (nil, nil, nil)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryNameTargetRepositoryName {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryNameTargetRepositoryName {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        include = try container.sdkDecodeIfPresent(.include)
-        exclude = try container.sdkDecodeIfPresent(.exclude)
-        protected = try container.sdkDecodeIfPresent(.protected)
+        self.include = try container.sdkDecodeIfPresent(.include)
+        self.exclude = try container.sdkDecodeIfPresent(.exclude)
+        self.protected = try container.sdkDecodeIfPresent(.protected)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryNameTargetRepositoryName {
-    init(include: [String]? = nil, exclude: [String]? = nil, protected: Bool? = nil) {
+extension RepositoryRulesetConditionsRepositoryNameTargetRepositoryName {
+    public init(include: [String]? = nil, exclude: [String]? = nil, protected: Bool? = nil) {
         self.init()
         (self.include, self.exclude) = (include, exclude)
         self.protected = protected
@@ -540,40 +475,26 @@ public struct RepositoryRulesetConditionsRepositoryPropertySpec: Codable {
         case source
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryRulesetConditionsRepositoryPropertySpec {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryPropertySpec {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.propertyValues) else {
-            throw SdkValidationError(
-                field: "property_values",
-                code: "required",
-                message: "Validation failed for 'property_values': value is required"
-            )
+            throw SdkValidationError(field: "property_values", code: "required", message: "Validation failed for 'property_values': value is required")
         }
-        name = try container.sdkDecodeRequired(.name)
-        propertyValues = try container.sdkDecodeRequired(.propertyValues)
-        source = try container.sdkDecodeIfPresent(.source)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.propertyValues = try container.sdkDecodeRequired(.propertyValues)
+        self.source = try container.sdkDecodeIfPresent(.source)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryPropertySpec {
-    init(
-        name: String,
-        propertyValues: [String],
-        source: RepositoryRulesetConditionsRepositoryPropertySpecSource? = nil
-    ) {
+extension RepositoryRulesetConditionsRepositoryPropertySpec {
+    public init(name: String, propertyValues: [String], source: RepositoryRulesetConditionsRepositoryPropertySpecSource? = nil) {
         (self.name, self.propertyValues) = (name, propertyValues)
         self.source = source
     }
@@ -588,27 +509,21 @@ public struct RepositoryRulesetConditionsRepositoryPropertyTarget: Codable {
         case repositoryProperty = "repository_property"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension RepositoryRulesetConditionsRepositoryPropertyTarget {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryPropertyTarget {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.repositoryProperty) else {
-            throw SdkValidationError(
-                field: "repository_property",
-                code: "required",
-                message: "Validation failed for 'repository_property': value is required"
-            )
+            throw SdkValidationError(field: "repository_property", code: "required", message: "Validation failed for 'repository_property': value is required")
         }
-        repositoryProperty = try container.sdkDecodeRequired(.repositoryProperty)
+        self.repositoryProperty = try container.sdkDecodeRequired(.repositoryProperty)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryPropertyTarget {
-    init(repositoryProperty: RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryProperty) {
+extension RepositoryRulesetConditionsRepositoryPropertyTarget {
+    public init(repositoryProperty: RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryProperty) {
         self.repositoryProperty = repositoryProperty
     }
 }
@@ -628,14 +543,14 @@ public struct RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryPrope
     }
 
     init() {
-        (include, exclude) = (nil, nil)
+        (self.include, self.exclude) = (nil, nil)
     }
 }
 
-public extension RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryProperty {
-    init(from decoder: Decoder) throws {
+extension RepositoryRulesetConditionsRepositoryPropertyTargetRepositoryProperty {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        include = try container.sdkDecodeIfPresent(.include)
-        exclude = try container.sdkDecodeIfPresent(.exclude)
+        self.include = try container.sdkDecodeIfPresent(.include)
+        self.exclude = try container.sdkDecodeIfPresent(.exclude)
     }
 }

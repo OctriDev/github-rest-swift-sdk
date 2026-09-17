@@ -16,21 +16,21 @@ struct ReposUpdateOrgRulesetRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(target, forKey: SdkCodingKey("target"))
-        try keyedContainer.encodeIfPresent(enforcement, forKey: SdkCodingKey("enforcement"))
-        try keyedContainer.encodeIfPresent(bypassActors, forKey: SdkCodingKey("bypass_actors"))
-        try keyedContainer.encodeIfPresent(conditions, forKey: SdkCodingKey("conditions"))
-        try keyedContainer.encodeIfPresent(rules, forKey: SdkCodingKey("rules"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.target, forKey: SdkCodingKey("target"))
+        try keyedContainer.encodeIfPresent(self.enforcement, forKey: SdkCodingKey("enforcement"))
+        try keyedContainer.encodeIfPresent(self.bypassActors, forKey: SdkCodingKey("bypass_actors"))
+        try keyedContainer.encodeIfPresent(self.conditions, forKey: SdkCodingKey("conditions"))
+        try keyedContainer.encodeIfPresent(self.rules, forKey: SdkCodingKey("rules"))
     }
 
     init(options: ReposMethods.ReposUpdateOrgRulesetOptions) {
-        name = options.name
-        target = options.target
-        enforcement = options.enforcement
-        bypassActors = options.bypassActors
-        conditions = options.conditions
-        rules = options.rules
+        self.name = options.name
+        self.target = options.target
+        self.enforcement = options.enforcement
+        self.bypassActors = options.bypassActors
+        self.conditions = options.conditions
+        self.rules = options.rules
     }
 }
 
@@ -65,75 +65,63 @@ struct ReposUpdateRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(homepage, forKey: SdkCodingKey("homepage"))
-        try keyedContainer.encodeIfPresent(self.private, forKey: SdkCodingKey("private"))
-        try keyedContainer.encodeIfPresent(visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(securityAndAnalysis, forKey: SdkCodingKey("security_and_analysis"))
-        try keyedContainer.encodeIfPresent(hasIssues, forKey: SdkCodingKey("has_issues"))
-        try keyedContainer.encodeIfPresent(hasProjects, forKey: SdkCodingKey("has_projects"))
-        try keyedContainer.encodeIfPresent(hasWiki, forKey: SdkCodingKey("has_wiki"))
-        try keyedContainer.encodeIfPresent(hasPullRequests, forKey: SdkCodingKey("has_pull_requests"))
-        try keyedContainer.encodeIfPresent(
-            pullRequestCreationPolicy,
-            forKey: SdkCodingKey("pull_request_creation_policy")
-        )
-        try keyedContainer.encodeIfPresent(isTemplate, forKey: SdkCodingKey("is_template"))
-        try keyedContainer.encodeIfPresent(defaultBranch, forKey: SdkCodingKey("default_branch"))
-        try keyedContainer.encodeIfPresent(allowSquashMerge, forKey: SdkCodingKey("allow_squash_merge"))
-        try keyedContainer.encodeIfPresent(allowMergeCommit, forKey: SdkCodingKey("allow_merge_commit"))
-        try keyedContainer.encodeIfPresent(allowRebaseMerge, forKey: SdkCodingKey("allow_rebase_merge"))
-        try keyedContainer.encodeIfPresent(allowAutoMerge, forKey: SdkCodingKey("allow_auto_merge"))
-        try keyedContainer.encodeIfPresent(deleteBranchOnMerge, forKey: SdkCodingKey("delete_branch_on_merge"))
-        try keyedContainer.encodeIfPresent(allowUpdateBranch, forKey: SdkCodingKey("allow_update_branch"))
-        try keyedContainer.encodeIfPresent(
-            useSquashPrTitleAsDefault,
-            forKey: SdkCodingKey("use_squash_pr_title_as_default")
-        )
-        try keyedContainer.encodeIfPresent(squashMergeCommitTitle, forKey: SdkCodingKey("squash_merge_commit_title"))
-        try keyedContainer.encodeIfPresent(
-            squashMergeCommitMessage,
-            forKey: SdkCodingKey("squash_merge_commit_message")
-        )
-        try keyedContainer.encodeIfPresent(mergeCommitTitle, forKey: SdkCodingKey("merge_commit_title"))
-        try keyedContainer.encodeIfPresent(mergeCommitMessage, forKey: SdkCodingKey("merge_commit_message"))
-        try keyedContainer.encodeIfPresent(archived, forKey: SdkCodingKey("archived"))
-        try keyedContainer.encodeIfPresent(allowForking, forKey: SdkCodingKey("allow_forking"))
-        try keyedContainer.encodeIfPresent(
-            webCommitSignoffRequired,
-            forKey: SdkCodingKey("web_commit_signoff_required")
-        )
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.homepage, forKey: SdkCodingKey("homepage"))
+        try keyedContainer.encodeIfPresent(self.`private`, forKey: SdkCodingKey("private"))
+        try keyedContainer.encodeIfPresent(self.visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(self.securityAndAnalysis, forKey: SdkCodingKey("security_and_analysis"))
+        try keyedContainer.encodeIfPresent(self.hasIssues, forKey: SdkCodingKey("has_issues"))
+        try keyedContainer.encodeIfPresent(self.hasProjects, forKey: SdkCodingKey("has_projects"))
+        try keyedContainer.encodeIfPresent(self.hasWiki, forKey: SdkCodingKey("has_wiki"))
+        try keyedContainer.encodeIfPresent(self.hasPullRequests, forKey: SdkCodingKey("has_pull_requests"))
+        try keyedContainer.encodeIfPresent(self.pullRequestCreationPolicy, forKey: SdkCodingKey("pull_request_creation_policy"))
+        try keyedContainer.encodeIfPresent(self.isTemplate, forKey: SdkCodingKey("is_template"))
+        try keyedContainer.encodeIfPresent(self.defaultBranch, forKey: SdkCodingKey("default_branch"))
+        try keyedContainer.encodeIfPresent(self.allowSquashMerge, forKey: SdkCodingKey("allow_squash_merge"))
+        try keyedContainer.encodeIfPresent(self.allowMergeCommit, forKey: SdkCodingKey("allow_merge_commit"))
+        try keyedContainer.encodeIfPresent(self.allowRebaseMerge, forKey: SdkCodingKey("allow_rebase_merge"))
+        try keyedContainer.encodeIfPresent(self.allowAutoMerge, forKey: SdkCodingKey("allow_auto_merge"))
+        try keyedContainer.encodeIfPresent(self.deleteBranchOnMerge, forKey: SdkCodingKey("delete_branch_on_merge"))
+        try keyedContainer.encodeIfPresent(self.allowUpdateBranch, forKey: SdkCodingKey("allow_update_branch"))
+        try keyedContainer.encodeIfPresent(self.useSquashPrTitleAsDefault, forKey: SdkCodingKey("use_squash_pr_title_as_default"))
+        try keyedContainer.encodeIfPresent(self.squashMergeCommitTitle, forKey: SdkCodingKey("squash_merge_commit_title"))
+        try keyedContainer.encodeIfPresent(self.squashMergeCommitMessage, forKey: SdkCodingKey("squash_merge_commit_message"))
+        try keyedContainer.encodeIfPresent(self.mergeCommitTitle, forKey: SdkCodingKey("merge_commit_title"))
+        try keyedContainer.encodeIfPresent(self.mergeCommitMessage, forKey: SdkCodingKey("merge_commit_message"))
+        try keyedContainer.encodeIfPresent(self.archived, forKey: SdkCodingKey("archived"))
+        try keyedContainer.encodeIfPresent(self.allowForking, forKey: SdkCodingKey("allow_forking"))
+        try keyedContainer.encodeIfPresent(self.webCommitSignoffRequired, forKey: SdkCodingKey("web_commit_signoff_required"))
     }
 
     init(options: ReposMethods.ReposUpdateOptions) {
-        name = options.name
-        description = options.description
-        homepage = options.homepage
-        self.private = options.private
-        visibility = options.visibility
-        securityAndAnalysis = options.securityAndAnalysis
-        hasIssues = options.hasIssues
-        hasProjects = options.hasProjects
-        hasWiki = options.hasWiki
-        hasPullRequests = options.hasPullRequests
-        pullRequestCreationPolicy = options.pullRequestCreationPolicy
-        isTemplate = options.isTemplate
-        defaultBranch = options.defaultBranch
-        allowSquashMerge = options.allowSquashMerge
-        allowMergeCommit = options.allowMergeCommit
-        allowRebaseMerge = options.allowRebaseMerge
-        allowAutoMerge = options.allowAutoMerge
-        deleteBranchOnMerge = options.deleteBranchOnMerge
-        allowUpdateBranch = options.allowUpdateBranch
-        useSquashPrTitleAsDefault = options.useSquashPrTitleAsDefault
-        squashMergeCommitTitle = options.squashMergeCommitTitle
-        squashMergeCommitMessage = options.squashMergeCommitMessage
-        mergeCommitTitle = options.mergeCommitTitle
-        mergeCommitMessage = options.mergeCommitMessage
-        archived = options.archived
-        allowForking = options.allowForking
-        webCommitSignoffRequired = options.webCommitSignoffRequired
+        self.name = options.name
+        self.description = options.description
+        self.homepage = options.homepage
+        self.`private` = options.`private`
+        self.visibility = options.visibility
+        self.securityAndAnalysis = options.securityAndAnalysis
+        self.hasIssues = options.hasIssues
+        self.hasProjects = options.hasProjects
+        self.hasWiki = options.hasWiki
+        self.hasPullRequests = options.hasPullRequests
+        self.pullRequestCreationPolicy = options.pullRequestCreationPolicy
+        self.isTemplate = options.isTemplate
+        self.defaultBranch = options.defaultBranch
+        self.allowSquashMerge = options.allowSquashMerge
+        self.allowMergeCommit = options.allowMergeCommit
+        self.allowRebaseMerge = options.allowRebaseMerge
+        self.allowAutoMerge = options.allowAutoMerge
+        self.deleteBranchOnMerge = options.deleteBranchOnMerge
+        self.allowUpdateBranch = options.allowUpdateBranch
+        self.useSquashPrTitleAsDefault = options.useSquashPrTitleAsDefault
+        self.squashMergeCommitTitle = options.squashMergeCommitTitle
+        self.squashMergeCommitMessage = options.squashMergeCommitMessage
+        self.mergeCommitTitle = options.mergeCommitTitle
+        self.mergeCommitMessage = options.mergeCommitMessage
+        self.archived = options.archived
+        self.allowForking = options.allowForking
+        self.webCommitSignoffRequired = options.webCommitSignoffRequired
     }
 }
 
@@ -142,7 +130,7 @@ struct ReposCreateAttestationRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(bundle, forKey: SdkCodingKey("bundle"))
+        try keyedContainer.encode(self.bundle, forKey: SdkCodingKey("bundle"))
     }
 }
 
@@ -153,9 +141,9 @@ struct ReposCreateAutolinkRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(keyPrefix, forKey: SdkCodingKey("key_prefix"))
-        try keyedContainer.encode(urlTemplate, forKey: SdkCodingKey("url_template"))
-        try keyedContainer.encodeIfPresent(isAlphanumeric, forKey: SdkCodingKey("is_alphanumeric"))
+        try keyedContainer.encode(self.keyPrefix, forKey: SdkCodingKey("key_prefix"))
+        try keyedContainer.encode(self.urlTemplate, forKey: SdkCodingKey("url_template"))
+        try keyedContainer.encodeIfPresent(self.isAlphanumeric, forKey: SdkCodingKey("is_alphanumeric"))
     }
 }
 
@@ -174,34 +162,31 @@ struct ReposUpdateBranchProtectionRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(requiredStatusChecks, forKey: SdkCodingKey("required_status_checks"))
-        try keyedContainer.encode(enforceAdmins, forKey: SdkCodingKey("enforce_admins"))
-        try keyedContainer.encode(requiredPullRequestReviews, forKey: SdkCodingKey("required_pull_request_reviews"))
-        try keyedContainer.encode(restrictions, forKey: SdkCodingKey("restrictions"))
-        try keyedContainer.encodeIfPresent(requiredLinearHistory, forKey: SdkCodingKey("required_linear_history"))
-        try keyedContainer.encodeIfPresent(allowForcePushes, forKey: SdkCodingKey("allow_force_pushes"))
-        try keyedContainer.encodeIfPresent(allowDeletions, forKey: SdkCodingKey("allow_deletions"))
-        try keyedContainer.encodeIfPresent(blockCreations, forKey: SdkCodingKey("block_creations"))
-        try keyedContainer.encodeIfPresent(
-            requiredConversationResolution,
-            forKey: SdkCodingKey("required_conversation_resolution")
-        )
-        try keyedContainer.encodeIfPresent(lockBranch, forKey: SdkCodingKey("lock_branch"))
-        try keyedContainer.encodeIfPresent(allowForkSyncing, forKey: SdkCodingKey("allow_fork_syncing"))
+        try keyedContainer.encode(self.requiredStatusChecks, forKey: SdkCodingKey("required_status_checks"))
+        try keyedContainer.encode(self.enforceAdmins, forKey: SdkCodingKey("enforce_admins"))
+        try keyedContainer.encode(self.requiredPullRequestReviews, forKey: SdkCodingKey("required_pull_request_reviews"))
+        try keyedContainer.encode(self.restrictions, forKey: SdkCodingKey("restrictions"))
+        try keyedContainer.encodeIfPresent(self.requiredLinearHistory, forKey: SdkCodingKey("required_linear_history"))
+        try keyedContainer.encodeIfPresent(self.allowForcePushes, forKey: SdkCodingKey("allow_force_pushes"))
+        try keyedContainer.encodeIfPresent(self.allowDeletions, forKey: SdkCodingKey("allow_deletions"))
+        try keyedContainer.encodeIfPresent(self.blockCreations, forKey: SdkCodingKey("block_creations"))
+        try keyedContainer.encodeIfPresent(self.requiredConversationResolution, forKey: SdkCodingKey("required_conversation_resolution"))
+        try keyedContainer.encodeIfPresent(self.lockBranch, forKey: SdkCodingKey("lock_branch"))
+        try keyedContainer.encodeIfPresent(self.allowForkSyncing, forKey: SdkCodingKey("allow_fork_syncing"))
     }
 
     init(options: ReposMethods.ReposUpdateBranchProtectionOptions) {
-        requiredStatusChecks = options.requiredStatusChecks
-        enforceAdmins = options.enforceAdmins
-        requiredPullRequestReviews = options.requiredPullRequestReviews
-        restrictions = options.restrictions
-        requiredLinearHistory = options.requiredLinearHistory
-        allowForcePushes = options.allowForcePushes
-        allowDeletions = options.allowDeletions
-        blockCreations = options.blockCreations
-        requiredConversationResolution = options.requiredConversationResolution
-        lockBranch = options.lockBranch
-        allowForkSyncing = options.allowForkSyncing
+        self.requiredStatusChecks = options.requiredStatusChecks
+        self.enforceAdmins = options.enforceAdmins
+        self.requiredPullRequestReviews = options.requiredPullRequestReviews
+        self.restrictions = options.restrictions
+        self.requiredLinearHistory = options.requiredLinearHistory
+        self.allowForcePushes = options.allowForcePushes
+        self.allowDeletions = options.allowDeletions
+        self.blockCreations = options.blockCreations
+        self.requiredConversationResolution = options.requiredConversationResolution
+        self.lockBranch = options.lockBranch
+        self.allowForkSyncing = options.allowForkSyncing
     }
 }
 
@@ -215,26 +200,20 @@ struct ReposUpdatePullRequestReviewProtectionRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(dismissalRestrictions, forKey: SdkCodingKey("dismissal_restrictions"))
-        try keyedContainer.encodeIfPresent(dismissStaleReviews, forKey: SdkCodingKey("dismiss_stale_reviews"))
-        try keyedContainer.encodeIfPresent(requireCodeOwnerReviews, forKey: SdkCodingKey("require_code_owner_reviews"))
-        try keyedContainer.encodeIfPresent(
-            requiredApprovingReviewCount,
-            forKey: SdkCodingKey("required_approving_review_count")
-        )
-        try keyedContainer.encodeIfPresent(requireLastPushApproval, forKey: SdkCodingKey("require_last_push_approval"))
-        try keyedContainer.encodeIfPresent(
-            bypassPullRequestAllowances,
-            forKey: SdkCodingKey("bypass_pull_request_allowances")
-        )
+        try keyedContainer.encodeIfPresent(self.dismissalRestrictions, forKey: SdkCodingKey("dismissal_restrictions"))
+        try keyedContainer.encodeIfPresent(self.dismissStaleReviews, forKey: SdkCodingKey("dismiss_stale_reviews"))
+        try keyedContainer.encodeIfPresent(self.requireCodeOwnerReviews, forKey: SdkCodingKey("require_code_owner_reviews"))
+        try keyedContainer.encodeIfPresent(self.requiredApprovingReviewCount, forKey: SdkCodingKey("required_approving_review_count"))
+        try keyedContainer.encodeIfPresent(self.requireLastPushApproval, forKey: SdkCodingKey("require_last_push_approval"))
+        try keyedContainer.encodeIfPresent(self.bypassPullRequestAllowances, forKey: SdkCodingKey("bypass_pull_request_allowances"))
     }
 
     init(options: ReposMethods.ReposUpdatePullRequestReviewProtectionOptions) {
-        dismissalRestrictions = options.dismissalRestrictions
-        dismissStaleReviews = options.dismissStaleReviews
-        requireCodeOwnerReviews = options.requireCodeOwnerReviews
-        requiredApprovingReviewCount = options.requiredApprovingReviewCount
-        requireLastPushApproval = options.requireLastPushApproval
-        bypassPullRequestAllowances = options.bypassPullRequestAllowances
+        self.dismissalRestrictions = options.dismissalRestrictions
+        self.dismissStaleReviews = options.dismissStaleReviews
+        self.requireCodeOwnerReviews = options.requireCodeOwnerReviews
+        self.requiredApprovingReviewCount = options.requiredApprovingReviewCount
+        self.requireLastPushApproval = options.requireLastPushApproval
+        self.bypassPullRequestAllowances = options.bypassPullRequestAllowances
     }
 }

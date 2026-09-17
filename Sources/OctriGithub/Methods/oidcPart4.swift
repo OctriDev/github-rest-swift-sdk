@@ -6,24 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OidcMethods {
-    /// Gets the customization template for an OpenID Connect (OIDC) subject claim. OAuth app tokens and personal access
-    /// tokens (classic) need the `read:org` scope to use this endpoint.
+extension OidcMethods {
+    /// Gets the customization template for an OpenID Connect (OIDC) subject claim. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func oidcGetOidcCustomSubTemplateForOrg(config: ClientConfig, org: String) async throws -> OidcCustomSub {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/oidc/customization/sub"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "oidcGetOidcCustomSubTemplateForOrg"
-        )).data
+    public static func oidcGetOidcCustomSubTemplateForOrg(config: ClientConfig, org: String) async throws -> OidcCustomSub {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/oidc/customization/sub"].joined(), config: config, decoder: .json, operationId: "oidcGetOidcCustomSubTemplateForOrg")).data
     }
 
-    /// Creates or updates the customization template for an OpenID Connect (OIDC) subject claim. OAuth app tokens and
-    /// personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    /// Creates or updates the customization template for an OpenID Connect (OIDC) subject claim. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -32,24 +24,9 @@ public extension OidcMethods {
     /// - useImmutableSubject: Whether to opt in to the immutable OIDC subject claim
     ///   format for the organization. When `true`, new OIDC tokens will use a stable,
     ///   repository-ID-based `sub` claim instead of the name-based format.
-    static func oidcUpdateOidcCustomSubTemplateForOrg(
-        config: ClientConfig,
-        org: String,
-        includeClaimKeys: [String]?,
-        useImmutableSubject: Bool?
-    ) async throws -> EmptyObject {
-        let requestBody = OidcUpdateOidcCustomSubTemplateForOrgRequestBody(
-            includeClaimKeys: includeClaimKeys,
-            useImmutableSubject: useImmutableSubject
-        )
+    public static func oidcUpdateOidcCustomSubTemplateForOrg(config: ClientConfig, org: String, includeClaimKeys: [String]?, useImmutableSubject: Bool?) async throws -> EmptyObject {
+        let requestBody = OidcUpdateOidcCustomSubTemplateForOrgRequestBody(includeClaimKeys: includeClaimKeys, useImmutableSubject: useImmutableSubject)
 
-        return try await (sdkRequest(
-            "PUT",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/oidc/customization/sub"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "oidcUpdateOidcCustomSubTemplateForOrg"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/oidc/customization/sub"].joined(), config: config, body: requestBody, decoder: .json, operationId: "oidcUpdateOidcCustomSubTemplateForOrg")).data
     }
 }

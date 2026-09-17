@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to
-    /// `selected`. The visibility is set when you [Create or update an organization
-    /// secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated
-    /// users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
-    /// the `repo` scope is also required.
+extension ActionsMethods {
+    /// Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -26,27 +21,9 @@ public extension ActionsMethods {
     ///   organization
     ///   secret](https://docs.github.com/rest/actions/secrets#remove-selected-reposit
     ///   ory-from-an-organization-secret) endpoints.
-    static func actionsSetSelectedReposForOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
+    public static func actionsSetSelectedReposForOrgSecret(config: ClientConfig, org: String, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
         let requestBody = ActionsSetSelectedReposForOrgSecretRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetSelectedReposForOrgSecret"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets/", sdkEncodePathSegment(sdkWireString(secretName)), "/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetSelectedReposForOrgSecret")).data
     }
 }

@@ -6,39 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets the GitHub Actions permissions policy for a repository, including whether GitHub Actions is enabled and the
-    /// actions and reusable workflows allowed to run in the repository. OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Gets the GitHub Actions permissions policy for a repository, including whether GitHub Actions is enabled and the actions and reusable workflows allowed to run in the repository. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsGetGithubActionsPermissionsRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActionsRepositoryPermissions {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetGithubActionsPermissionsRepository"
-        )).data
+    public static func actionsGetGithubActionsPermissionsRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsRepositoryPermissions {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions"].joined(), config: config, decoder: .json, operationId: "actionsGetGithubActionsPermissionsRepository")).data
     }
 
-    /// Sets the GitHub Actions permissions policy for enabling GitHub Actions and allowed actions and reusable
-    /// workflows in the repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use
-    /// this endpoint.
+    /// Sets the GitHub Actions permissions policy for enabling GitHub Actions and allowed actions and reusable workflows in the repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -50,33 +30,9 @@ public extension ActionsMethods {
     ///   reusable workflows that are allowed to run.
     /// - shaPinningRequired: Whether actions must be pinned to a full-length commit
     ///   SHA.
-    static func actionsSetGithubActionsPermissionsRepository(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        enabled: ActionsEnabled,
-        allowedActions: AllowedActions?,
-        shaPinningRequired: ShaPinningRequired?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetGithubActionsPermissionsRepositoryRequestBody(
-            enabled: enabled,
-            allowedActions: allowedActions,
-            shaPinningRequired: shaPinningRequired
-        )
+    public static func actionsSetGithubActionsPermissionsRepository(config: ClientConfig, owner: String, repo: String, enabled: ActionsEnabled, allowedActions: AllowedActions?, shaPinningRequired: ShaPinningRequired?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetGithubActionsPermissionsRepositoryRequestBody(enabled: enabled, allowedActions: allowedActions, shaPinningRequired: shaPinningRequired)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/permissions",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetGithubActionsPermissionsRepository"
-        )).data
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetGithubActionsPermissionsRepository")).data
     }
 }

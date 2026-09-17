@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Lists branches for a repository, including each branch's commit, protection status, and protection details. Use
-    /// `protected` to filter by branch protection status, and use `page` and `per_page` to paginate the results.
+extension ReposMethods {
+    /// Lists branches for a repository, including each branch's commit, protection status, and protection details. Use `protected` to filter by branch protection status, and use `page` and `per_page` to paginate the results.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,31 +25,11 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListBranches(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        protected: Bool?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [ShortBranch] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/branches",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("protected", value: protected),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposListBranches"
-        )).data
+    public static func reposListBranches(config: ClientConfig, owner: String, repo: String, protected: Bool?, perPage: Int?, page: Int?) async throws -> [ShortBranch] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches"].joined(), config: config, query: [
+            SdkQueryParameter("protected", value: protected),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposListBranches")).data
     }
 }

@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets a specific workflow. You can replace `workflow_id` with the workflow file name. For example, you could use
-    /// `main.yaml`. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal
-    /// access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+extension ActionsMethods {
+    /// Gets a specific workflow. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,31 +16,11 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - workflowId: The ID of the workflow. You can also pass the workflow file
     ///   name as a string.
-    static func actionsGetWorkflow(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        workflowId: ActionsGetWorkflowParameter
-    ) async throws -> Workflow {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/workflows/",
-                sdkEncodePathSegment(sdkWireString(workflowId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetWorkflow"
-        )).data
+    public static func actionsGetWorkflow(config: ClientConfig, owner: String, repo: String, workflowId: ActionsGetWorkflowParameter) async throws -> Workflow {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/workflows/", sdkEncodePathSegment(sdkWireString(workflowId))].joined(), config: config, decoder: .json, operationId: "actionsGetWorkflow")).data
     }
 
-    /// Disables a workflow and sets the `state` of the workflow to `disabled_manually`. You can replace `workflow_id`
-    /// with the workflow file name. For example, you could use `main.yaml`. OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+    /// Disables a workflow and sets the `state` of the workflow to `disabled_manually`. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -51,26 +29,7 @@ public extension ActionsMethods {
     ///   not case sensitive.
     /// - workflowId: The ID of the workflow. You can also pass the workflow file
     ///   name as a string.
-    static func actionsDisableWorkflow(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        workflowId: ActionsGetWorkflowParameter
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/workflows/",
-                sdkEncodePathSegment(sdkWireString(workflowId)),
-                "/disable",
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsDisableWorkflow"
-        )).data
+    public static func actionsDisableWorkflow(config: ClientConfig, owner: String, repo: String, workflowId: ActionsGetWorkflowParameter) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/workflows/", sdkEncodePathSegment(sdkWireString(workflowId)), "/disable"].joined(), config: config, decoder: .empty, operationId: "actionsDisableWorkflow")).data
     }
 }

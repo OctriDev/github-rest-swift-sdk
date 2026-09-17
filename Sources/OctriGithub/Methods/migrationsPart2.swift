@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    /// Lists the most recent migrations, including both exports (which can be started through the REST API) and imports
-    /// (which cannot be started using the REST API). A list of `repositories` is only returned for export migrations.
+extension MigrationsMethods {
+    /// Lists the most recent migrations, including both exports (which can be started through the REST API) and imports (which cannot be started using the REST API). A list of `repositories` is only returned for export migrations.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -21,24 +20,11 @@ public extension MigrationsMethods {
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
     /// - exclude: Exclude attributes from the API response to improve performance
-    static func migrationsListForOrg(
-        config: ClientConfig,
-        org: String,
-        perPage: Int?,
-        page: Int?,
-        exclude: [MigrationsListForOrgParameterItem]?
-    ) async throws -> [Migration] {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("exclude", values: exclude, style: "form", explode: true),
-            ],
-            decoder: .json,
-            operationId: "migrationsListForOrg"
-        )).data
+    public static func migrationsListForOrg(config: ClientConfig, org: String, perPage: Int?, page: Int?, exclude: [MigrationsListForOrgParameterItem]?) async throws -> [Migration] {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("exclude", values: exclude, style: "form", explode: true),
+        ], decoder: .json, operationId: "migrationsListForOrg")).data
     }
 }

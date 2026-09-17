@@ -3,108 +3,9 @@
 
 import Foundation
 
-/// WebhookPullRequestReviewRequested domain models
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
-    init(
-        archiveUrl: String,
-        archived: Bool,
-        assigneesUrl: String,
-        blobsUrl: String,
-        branchesUrl: String,
-        cloneUrl: String,
-        collaboratorsUrl: String,
-        commentsUrl: String,
-        commitsUrl: String,
-        compareUrl: String,
-        contentsUrl: String,
-        contributorsUrl: String,
-        createdAt: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedAt,
-        defaultBranch: String,
-        deploymentsUrl: String,
-        description: String?,
-        downloadsUrl: String,
-        eventsUrl: String,
-        fork: Bool,
-        forks: Int,
-        forksCount: Int,
-        forksUrl: String,
-        fullName: String,
-        gitCommitsUrl: String,
-        gitRefsUrl: String,
-        gitTagsUrl: String,
-        gitUrl: String,
-        hasDownloads: Bool,
-        hasIssues: Bool,
-        hasPages: Bool,
-        hasProjects: Bool,
-        hasWiki: Bool,
-        hasDiscussions: Bool,
-        homepage: String?,
-        hooksUrl: String,
-        htmlUrl: String,
-        id: Int,
-        issueCommentUrl: String,
-        issueEventsUrl: String,
-        issuesUrl: String,
-        keysUrl: String,
-        labelsUrl: String,
-        language: String?,
-        languagesUrl: String,
-        license: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense?,
-        mergesUrl: String,
-        milestonesUrl: String,
-        mirrorUrl: String?,
-        name: String,
-        nodeId: String,
-        notificationsUrl: String,
-        openIssues: Int,
-        openIssuesCount: Int,
-        owner: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner?,
-        private: Bool,
-        pullsUrl: String,
-        pushedAt: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt?,
-        releasesUrl: String,
-        size: Int,
-        sshUrl: String,
-        stargazersCount: Int,
-        stargazersUrl: String,
-        statusesUrl: String,
-        subscribersUrl: String,
-        subscriptionUrl: String,
-        svnUrl: String,
-        tagsUrl: String,
-        teamsUrl: String,
-        topics: [String],
-        treesUrl: String,
-        updatedAt: Date,
-        url: String,
-        visibility: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoVisibility,
-        watchers: Int,
-        watchersCount: Int,
-        allowAutoMerge: Bool? = nil,
-        allowForking: Bool? = nil,
-        allowMergeCommit: Bool? = nil,
-        allowRebaseMerge: Bool? = nil,
-        allowSquashMerge: Bool? = nil,
-        allowUpdateBranch: Bool? = nil,
-        deleteBranchOnMerge: Bool? = nil,
-        disabled: Bool? = nil,
-        hasPullRequests: Bool? = nil,
-        pullRequestCreationPolicy: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPX30edb8fc34? = nil,
-        isTemplate: Bool? = nil,
-        primaryBranch: String? = nil,
-        mergeCommitMessage: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoMXab5cd7c75e? = nil,
-        mergeCommitTitle: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoMX2b1ed74c82? = nil,
-        organization: String? = nil,
-        permissions: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermissions? = nil,
-        public: Bool? = nil,
-        roleName: String? = nil,
-        squashMergeCommitMessage: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoSX2b203c9876? = nil,
-        squashMergeCommitTitle: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoSX3c5d6c30e1? = nil,
-        stargazers: Int? = nil,
-        useSquashPrTitleAsDefault: Bool? = nil,
-        webCommitSignoffRequired: Bool? = nil
-    ) throws {
+// WebhookPullRequestReviewRequested domain models
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
+    public init(archiveUrl: String, archived: Bool, assigneesUrl: String, blobsUrl: String, branchesUrl: String, cloneUrl: String, collaboratorsUrl: String, commentsUrl: String, commitsUrl: String, compareUrl: String, contentsUrl: String, contributorsUrl: String, createdAt: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedAt, defaultBranch: String, deploymentsUrl: String, description: String?, downloadsUrl: String, eventsUrl: String, fork: Bool, forks: Int, forksCount: Int, forksUrl: String, fullName: String, gitCommitsUrl: String, gitRefsUrl: String, gitTagsUrl: String, gitUrl: String, hasDownloads: Bool, hasIssues: Bool, hasPages: Bool, hasProjects: Bool, hasWiki: Bool, hasDiscussions: Bool, homepage: String?, hooksUrl: String, htmlUrl: String, id: Int, issueCommentUrl: String, issueEventsUrl: String, issuesUrl: String, keysUrl: String, labelsUrl: String, language: String?, languagesUrl: String, license: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense?, mergesUrl: String, milestonesUrl: String, mirrorUrl: String?, name: String, nodeId: String, notificationsUrl: String, openIssues: Int, openIssuesCount: Int, owner: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner?, `private`: Bool, pullsUrl: String, pushedAt: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt?, releasesUrl: String, size: Int, sshUrl: String, stargazersCount: Int, stargazersUrl: String, statusesUrl: String, subscribersUrl: String, subscriptionUrl: String, svnUrl: String, tagsUrl: String, teamsUrl: String, topics: [String], treesUrl: String, updatedAt: Date, url: String, visibility: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoVisibility, watchers: Int, watchersCount: Int, allowAutoMerge: Bool? = nil, allowForking: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowSquashMerge: Bool? = nil, allowUpdateBranch: Bool? = nil, deleteBranchOnMerge: Bool? = nil, disabled: Bool? = nil, hasPullRequests: Bool? = nil, pullRequestCreationPolicy: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPX30edb8fc34? = nil, isTemplate: Bool? = nil, primaryBranch: String? = nil, mergeCommitMessage: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoMXab5cd7c75e? = nil, mergeCommitTitle: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoMX2b1ed74c82? = nil, organization: String? = nil, permissions: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermissions? = nil, `public`: Bool? = nil, roleName: String? = nil, squashMergeCommitMessage: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoSX2b203c9876? = nil, squashMergeCommitTitle: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoSX3c5d6c30e1? = nil, stargazers: Int? = nil, useSquashPrTitleAsDefault: Bool? = nil, webCommitSignoffRequired: Bool? = nil) throws {
         (self.archiveUrl, self.archived) = (archiveUrl, archived)
         (self.assigneesUrl, self.blobsUrl) = (assigneesUrl, blobsUrl)
         (self.branchesUrl, self.cloneUrl) = (branchesUrl, cloneUrl)
@@ -132,7 +33,7 @@ public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
         (self.name, self.nodeId) = (name, nodeId)
         (self.notificationsUrl, self.openIssues) = (notificationsUrl, openIssues)
         (self.openIssuesCount, self.owner) = (openIssuesCount, owner)
-        (self.private, self.pullsUrl) = (`private`, pullsUrl)
+        (self.`private`, self.pullsUrl) = (`private`, pullsUrl)
         (self.pushedAt, self.releasesUrl) = (pushedAt, releasesUrl)
         (self.size, self.sshUrl) = (size, sshUrl)
         (self.stargazersCount, self.stargazersUrl) = (stargazersCount, stargazersUrl)
@@ -150,7 +51,7 @@ public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
         (self.pullRequestCreationPolicy, self.isTemplate) = (pullRequestCreationPolicy, isTemplate)
         (self.primaryBranch, self.mergeCommitMessage) = (primaryBranch, mergeCommitMessage)
         (self.mergeCommitTitle, self.organization) = (mergeCommitTitle, organization)
-        (self.permissions, self.public) = (permissions, `public`)
+        (self.permissions, self.`public`) = (permissions, `public`)
         (self.roleName, self.squashMergeCommitMessage) = (roleName, squashMergeCommitMessage)
         (self.squashMergeCommitTitle, self.stargazers) = (squashMergeCommitTitle, stargazers)
         self.useSquashPrTitleAsDefault = useSquashPrTitleAsDefault
@@ -162,18 +63,18 @@ public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
 
 extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
     func sdkValidateConstraintsPart1() throws {
-        try sdkValidateUri("clone_url", cloneUrl)
-        try sdkValidateUri("contributors_url", contributorsUrl)
-        try sdkValidateUri("deployments_url", deploymentsUrl)
-        try sdkValidateUri("downloads_url", downloadsUrl)
-        try sdkValidateUri("events_url", eventsUrl)
-        try sdkValidateUri("forks_url", forksUrl)
-        try sdkValidateUri("git_url", gitUrl)
-        try sdkValidateUri("hooks_url", hooksUrl)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("languages_url", languagesUrl)
-        try sdkValidateUri("merges_url", mergesUrl)
-        if let value = mirrorUrl {
+            try sdkValidateUri("clone_url", self.cloneUrl)
+            try sdkValidateUri("contributors_url", self.contributorsUrl)
+            try sdkValidateUri("deployments_url", self.deploymentsUrl)
+            try sdkValidateUri("downloads_url", self.downloadsUrl)
+            try sdkValidateUri("events_url", self.eventsUrl)
+            try sdkValidateUri("forks_url", self.forksUrl)
+            try sdkValidateUri("git_url", self.gitUrl)
+            try sdkValidateUri("hooks_url", self.hooksUrl)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("languages_url", self.languagesUrl)
+            try sdkValidateUri("merges_url", self.mergesUrl)
+        if let value = self.mirrorUrl {
             try sdkValidateUri("mirror_url", value)
         }
     }
@@ -181,14 +82,14 @@ extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
 
 extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepo {
     func sdkValidateConstraintsPart2() throws {
-        try sdkValidateUri("stargazers_url", stargazersUrl)
-        try sdkValidateUri("subscribers_url", subscribersUrl)
-        try sdkValidateUri("subscription_url", subscriptionUrl)
-        try sdkValidateUri("svn_url", svnUrl)
-        try sdkValidateUri("tags_url", tagsUrl)
-        try sdkValidateUri("teams_url", teamsUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("url", url)
+            try sdkValidateUri("stargazers_url", self.stargazersUrl)
+            try sdkValidateUri("subscribers_url", self.subscribersUrl)
+            try sdkValidateUri("subscription_url", self.subscriptionUrl)
+            try sdkValidateUri("svn_url", self.svnUrl)
+            try sdkValidateUri("tags_url", self.tagsUrl)
+            try sdkValidateUri("teams_url", self.teamsUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -198,31 +99,21 @@ public enum WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedA
 }
 
 extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedAt: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedAt"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedAt")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container.decode(Date.self) {
-            return .date(value)
-        }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(Date.self) { return .date(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -232,6 +123,7 @@ extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoCreatedAt:
         case let .date(value): try container.encode(value); return true
         }
     }
+
 }
 
 public struct WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense: Codable {
@@ -249,62 +141,40 @@ public struct WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicens
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.key) else {
-            throw SdkValidationError(
-                field: "key",
-                code: "required",
-                message: "Validation failed for 'key': value is required"
-            )
+            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.nodeId) else {
-            throw SdkValidationError(
-                field: "node_id",
-                code: "required",
-                message: "Validation failed for 'node_id': value is required"
-            )
+            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
         }
         guard container.contains(.spdxId) else {
-            throw SdkValidationError(
-                field: "spdx_id",
-                code: "required",
-                message: "Validation failed for 'spdx_id': value is required"
-            )
+            throw SdkValidationError(field: "spdx_id", code: "required", message: "Validation failed for 'spdx_id': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
-        key = try container.sdkDecodeRequired(.key)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        spdxId = try container.sdkDecodeRequired(.spdxId)
-        url = try container.sdkDecodeIfPresent(.url)
-        if let value = url {
+        self.key = try container.sdkDecodeRequired(.key)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.spdxId = try container.sdkDecodeRequired(.spdxId)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense {
-    init(key: String, name: String, nodeId: String, spdxId: String, url: String?) throws {
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoLicense {
+    public init(key: String, name: String, nodeId: String, spdxId: String, url: String?) throws {
         (self.key, self.name) = (key, name)
         (self.nodeId, self.spdxId) = (nodeId, spdxId)
         self.url = url
@@ -363,79 +233,46 @@ public struct WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner:
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(
-                field: "login",
-                code: "required",
-                message: "Validation failed for 'login': value is required"
-            )
+            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        login = try container.sdkDecodeRequired(.login)
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
-        userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.login = try container.sdkDecodeRequired(.login)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
+        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner {
-    init(
-        id: Int,
-        login: String,
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwnerType? = nil,
-        url: String? = nil,
-        userViewType: String? = nil
-    ) throws {
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner {
+    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwnerType? = nil, url: String? = nil, userViewType: String? = nil) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -453,28 +290,28 @@ public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwn
 
 extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoOwner {
     func sdkValidateConstraints() throws {
-        if let value = avatarUrl {
+        if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = followersUrl {
+        if let value = self.followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = htmlUrl {
+        if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = organizationsUrl {
+        if let value = self.organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = receivedEventsUrl {
+        if let value = self.receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = reposUrl {
+        if let value = self.reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = subscriptionsUrl {
+        if let value = self.subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = url {
+        if let value = self.url {
             try sdkValidateUri("url", value)
         }
     }
@@ -495,45 +332,31 @@ public struct WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermis
         case triage
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermissions {
-    init(from decoder: Decoder) throws {
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.admin) else {
-            throw SdkValidationError(
-                field: "admin",
-                code: "required",
-                message: "Validation failed for 'admin': value is required"
-            )
+            throw SdkValidationError(field: "admin", code: "required", message: "Validation failed for 'admin': value is required")
         }
         guard container.contains(.pull) else {
-            throw SdkValidationError(
-                field: "pull",
-                code: "required",
-                message: "Validation failed for 'pull': value is required"
-            )
+            throw SdkValidationError(field: "pull", code: "required", message: "Validation failed for 'pull': value is required")
         }
         guard container.contains(.push) else {
-            throw SdkValidationError(
-                field: "push",
-                code: "required",
-                message: "Validation failed for 'push': value is required"
-            )
+            throw SdkValidationError(field: "push", code: "required", message: "Validation failed for 'push': value is required")
         }
-        admin = try container.sdkDecodeRequired(.admin)
-        pull = try container.sdkDecodeRequired(.pull)
-        push = try container.sdkDecodeRequired(.push)
-        maintain = try container.sdkDecodeIfPresent(.maintain)
-        triage = try container.sdkDecodeIfPresent(.triage)
+        self.admin = try container.sdkDecodeRequired(.admin)
+        self.pull = try container.sdkDecodeRequired(.pull)
+        self.push = try container.sdkDecodeRequired(.push)
+        self.maintain = try container.sdkDecodeIfPresent(.maintain)
+        self.triage = try container.sdkDecodeIfPresent(.triage)
     }
 }
 
-public extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermissions {
-    init(admin: Bool, pull: Bool, push: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
+extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPermissions {
+    public init(admin: Bool, pull: Bool, push: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
         (self.admin, self.pull) = (admin, pull)
         (self.push, self.maintain) = (push, maintain)
         self.triage = triage
@@ -546,31 +369,21 @@ public enum WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt
 }
 
 extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container.decode(Date.self) {
-            return .date(value)
-        }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(Date.self) { return .date(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -580,6 +393,7 @@ extension WebhookPullRequestReviewRequestedVariant0PullRequestBaseRepoPushedAt: 
         case let .date(value): try container.encode(value); return true
         }
     }
+
 }
 
 public struct WebhookPullRequestReviewRequestedVariant0PullRequestBaseUser: Codable {
@@ -631,7 +445,5 @@ public struct WebhookPullRequestReviewRequestedVariant0PullRequestBaseUser: Coda
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }

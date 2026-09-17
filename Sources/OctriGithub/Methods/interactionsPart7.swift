@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension InteractionsMethods {
-    /// Updates the pull request creation cap for a repository. The cap limits the number of open pull requests a user
-    /// can have at one time. Only users with admin access to the repository can configure the cap.
+extension InteractionsMethods {
+    /// Updates the pull request creation cap for a repository. The cap limits the number of open pull requests a user can have at one time. Only users with admin access to the repository can configure the cap.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,49 +17,20 @@ public extension InteractionsMethods {
     /// - enabled: Whether the pull request creation cap is enabled
     /// - maxOpenPullRequests: The maximum number of open pull requests a user can
     ///   have at one time
-    static func interactionsUpdatePullRequestCreationCapForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        enabled: Bool,
-        maxOpenPullRequests: Int?
-    ) async throws -> InteractionsUpdatePullRequestCreationCapForRepoResponse {
-        if let maxOpenPullRequests {
+    public static func interactionsUpdatePullRequestCreationCapForRepo(config: ClientConfig, owner: String, repo: String, enabled: Bool, maxOpenPullRequests: Int?) async throws -> InteractionsUpdatePullRequestCreationCapForRepoResponse {
+        if let maxOpenPullRequests = maxOpenPullRequests {
             try validateRange("max_open_pull_requests", Double(maxOpenPullRequests), min: 1, max: 1000)
         }
 
-        let requestBody = InteractionsUpdatePullRequestCreationCapForRepoRequestBody(
-            enabled: enabled,
-            maxOpenPullRequests: maxOpenPullRequests
-        )
+        let requestBody = InteractionsUpdatePullRequestCreationCapForRepoRequestBody(enabled: enabled, maxOpenPullRequests: maxOpenPullRequests)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/interaction-limits/pulls/creation-cap",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "interactionsUpdatePullRequestCreationCapForRepo"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/interaction-limits/pulls/creation-cap"].joined(), config: config, body: requestBody, decoder: .json, operationId: "interactionsUpdatePullRequestCreationCapForRepo")).data
     }
 
     /// Get interaction restrictions for your public repositories
     ///
     /// Shows which type of GitHub user can interact with your public repositories and when the restriction expires.
-    static func interactionsGetRestrictionsForAuthenticatedUser(config: ClientConfig) async throws
-        -> InteractionsGetRestrictionsForAuthenticatedUserResponse {
-        try await (sdkRequest(
-            "GET",
-            "/user/interaction-limits",
-            config: config,
-            decoder: .json,
-            operationId: "interactionsGetRestrictionsForAuthenticatedUser"
-        )).data
+    public static func interactionsGetRestrictionsForAuthenticatedUser(config: ClientConfig) async throws -> InteractionsGetRestrictionsForAuthenticatedUserResponse {
+        return try (await sdkRequest("GET", "/user/interaction-limits", config: config, decoder: .json, operationId: "interactionsGetRestrictionsForAuthenticatedUser")).data
     }
 }

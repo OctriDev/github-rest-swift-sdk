@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// CodeScanningCodeScanningDefault domain models
+// CodeScanningCodeScanningDefault domain models
 /// Configuration for code scanning default setup.
 public struct CodeScanningDefaultSetup: Codable {
     /// Code scanning default setup has been configured or not.
@@ -39,39 +39,30 @@ public struct CodeScanningDefaultSetup: Codable {
     }
 
     init() {
-        (state, languages, runnerType, runnerLabel, querySuite) = (nil, nil, nil, nil, nil)
-        (threatModel, updatedAt, schedule) = (nil, nil, nil)
+        (self.state, self.languages, self.runnerType, self.runnerLabel, self.querySuite) = (nil, nil, nil, nil, nil)
+        (self.threatModel, self.updatedAt, self.schedule) = (nil, nil, nil)
     }
 }
 
-public extension CodeScanningDefaultSetup {
-    init(from decoder: Decoder) throws {
+extension CodeScanningDefaultSetup {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        state = try container.sdkDecodeIfPresent(.state)
-        languages = try container.sdkDecodeIfPresent(.languages)
-        runnerType = try container.sdkDecodeIfPresent(.runnerType)
-        runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
-        querySuite = try container.sdkDecodeIfPresent(.querySuite)
-        threatModel = try container.sdkDecodeIfPresent(.threatModel)
-        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        schedule = try container.sdkDecodeIfPresent(.schedule)
-        if let value = updatedAt {
+        self.state = try container.sdkDecodeIfPresent(.state)
+        self.languages = try container.sdkDecodeIfPresent(.languages)
+        self.runnerType = try container.sdkDecodeIfPresent(.runnerType)
+        self.runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
+        self.querySuite = try container.sdkDecodeIfPresent(.querySuite)
+        self.threatModel = try container.sdkDecodeIfPresent(.threatModel)
+        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        self.schedule = try container.sdkDecodeIfPresent(.schedule)
+        if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-public extension CodeScanningDefaultSetup {
-    init(
-        state: CodeScanningDefaultSetupState? = nil,
-        languages: [CodeScanningDefaultSetupLanguagesItem]? = nil,
-        runnerType: CodeScanningDefaultSetupRunnerType? = nil,
-        runnerLabel: String? = nil,
-        querySuite: CodeScanningDefaultSetupQuerySuite? = nil,
-        threatModel: CodeScanningDefaultSetupThreatModel? = nil,
-        updatedAt: Date? = nil,
-        schedule: CodeScanningDefaultSetupSchedule? = nil
-    ) throws {
+extension CodeScanningDefaultSetup {
+    public init(state: CodeScanningDefaultSetupState? = nil, languages: [CodeScanningDefaultSetupLanguagesItem]? = nil, runnerType: CodeScanningDefaultSetupRunnerType? = nil, runnerLabel: String? = nil, querySuite: CodeScanningDefaultSetupQuerySuite? = nil, threatModel: CodeScanningDefaultSetupThreatModel? = nil, updatedAt: Date? = nil, schedule: CodeScanningDefaultSetupSchedule? = nil) throws {
         self.init()
         (self.state, self.languages) = (state, languages)
         (self.runnerType, self.runnerLabel) = (runnerType, runnerLabel)
@@ -82,6 +73,16 @@ public extension CodeScanningDefaultSetup {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 /// Configuration for code scanning default setup.
 public struct CodeScanningDefaultSetupUpdate: Codable {
@@ -111,32 +112,25 @@ public struct CodeScanningDefaultSetupUpdate: Codable {
     }
 
     init() {
-        (state, runnerType, runnerLabel, querySuite, threatModel) = (nil, nil, nil, nil, nil)
-        languages = nil
+        (self.state, self.runnerType, self.runnerLabel, self.querySuite, self.threatModel) = (nil, nil, nil, nil, nil)
+        self.languages = nil
     }
 }
 
-public extension CodeScanningDefaultSetupUpdate {
-    init(from decoder: Decoder) throws {
+extension CodeScanningDefaultSetupUpdate {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        state = try container.sdkDecodeIfPresent(.state)
-        runnerType = try container.sdkDecodeIfPresent(.runnerType)
-        runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
-        querySuite = try container.sdkDecodeIfPresent(.querySuite)
-        threatModel = try container.sdkDecodeIfPresent(.threatModel)
-        languages = try container.sdkDecodeIfPresent(.languages)
+        self.state = try container.sdkDecodeIfPresent(.state)
+        self.runnerType = try container.sdkDecodeIfPresent(.runnerType)
+        self.runnerLabel = try container.sdkDecodeIfPresent(.runnerLabel)
+        self.querySuite = try container.sdkDecodeIfPresent(.querySuite)
+        self.threatModel = try container.sdkDecodeIfPresent(.threatModel)
+        self.languages = try container.sdkDecodeIfPresent(.languages)
     }
 }
 
-public extension CodeScanningDefaultSetupUpdate {
-    init(
-        state: CodeScanningDefaultSetupUpdateState? = nil,
-        runnerType: CodeScanningDefaultSetupUpdateRunnerType? = nil,
-        runnerLabel: String? = nil,
-        querySuite: CodeScanningDefaultSetupUpdateQuerySuite? = nil,
-        threatModel: CodeScanningDefaultSetupUpdateThreatModel? = nil,
-        languages: [CodeScanningDefaultSetupUpdateLanguagesItem]? = nil
-    ) {
+extension CodeScanningDefaultSetupUpdate {
+    public init(state: CodeScanningDefaultSetupUpdateState? = nil, runnerType: CodeScanningDefaultSetupUpdateRunnerType? = nil, runnerLabel: String? = nil, querySuite: CodeScanningDefaultSetupUpdateQuerySuite? = nil, threatModel: CodeScanningDefaultSetupUpdateThreatModel? = nil, languages: [CodeScanningDefaultSetupUpdateLanguagesItem]? = nil) {
         self.init()
         (self.state, self.runnerType) = (state, runnerType)
         (self.runnerLabel, self.querySuite) = (runnerLabel, querySuite)
@@ -158,20 +152,20 @@ public struct CodeScanningDefaultSetupUpdateResponse: Codable {
     }
 
     init() {
-        (runId, runUrl) = (nil, nil)
+        (self.runId, self.runUrl) = (nil, nil)
     }
 }
 
-public extension CodeScanningDefaultSetupUpdateResponse {
-    init(from decoder: Decoder) throws {
+extension CodeScanningDefaultSetupUpdateResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        runId = try container.sdkDecodeIfPresent(.runId)
-        runUrl = try container.sdkDecodeIfPresent(.runUrl)
+        self.runId = try container.sdkDecodeIfPresent(.runId)
+        self.runUrl = try container.sdkDecodeIfPresent(.runUrl)
     }
 }
 
-public extension CodeScanningDefaultSetupUpdateResponse {
-    init(runId: Int? = nil, runUrl: String? = nil) {
+extension CodeScanningDefaultSetupUpdateResponse {
+    public init(runId: Int? = nil, runUrl: String? = nil) {
         self.init()
         (self.runId, self.runUrl) = (runId, runUrl)
     }
@@ -180,20 +174,16 @@ public extension CodeScanningDefaultSetupUpdateResponse {
 /// Threat model to be used for code scanning analysis. Use `remote` to analyze only network sources and
 /// `remote_and_local` to include local sources like filesystem access, command-line arguments, database reads,
 /// environment variable and standard input.
-public struct CodeScanningDefaultSetupUpdateThreatModel: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningDefaultSetupUpdateThreatModel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let remote = CodeScanningDefaultSetupUpdateThreatModel(rawValue: "remote")
     public static let remoteAndLocal = CodeScanningDefaultSetupUpdateThreatModel(rawValue: "remote_and_local")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -208,16 +198,13 @@ public struct CodeScanningDefaultSetupUpdateThreatModel: RawRepresentable, Hasha
 public struct CodeScanningDefaultSetupThreatModel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let remote = CodeScanningDefaultSetupThreatModel(rawValue: "remote")
     public static let remoteAndLocal = CodeScanningDefaultSetupThreatModel(rawValue: "remote_and_local")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -230,16 +217,13 @@ public struct CodeScanningDefaultSetupThreatModel: RawRepresentable, Hashable, C
 public struct CodeScanningDefaultSetupUpdateState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let configured = CodeScanningDefaultSetupUpdateState(rawValue: "configured")
     public static let notConfigured = CodeScanningDefaultSetupUpdateState(rawValue: "not-configured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -252,16 +236,13 @@ public struct CodeScanningDefaultSetupUpdateState: RawRepresentable, Hashable, C
 public struct CodeScanningDefaultSetupState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let configured = CodeScanningDefaultSetupState(rawValue: "configured")
     public static let notConfigured = CodeScanningDefaultSetupState(rawValue: "not-configured")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -271,20 +252,16 @@ public struct CodeScanningDefaultSetupState: RawRepresentable, Hashable, Codable
 }
 
 /// CodeQL query suite to be used.
-public struct CodeScanningDefaultSetupUpdateQuerySuite: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningDefaultSetupUpdateQuerySuite: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `default` = CodeScanningDefaultSetupUpdateQuerySuite(rawValue: "default")
     public static let extended = CodeScanningDefaultSetupUpdateQuerySuite(rawValue: "extended")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -297,15 +274,12 @@ public struct CodeScanningDefaultSetupUpdateQuerySuite: RawRepresentable, Hashab
 public struct CodeScanningDefaultSetupSchedule: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let weekly = CodeScanningDefaultSetupSchedule(rawValue: "weekly")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -315,28 +289,23 @@ public struct CodeScanningDefaultSetupSchedule: RawRepresentable, Hashable, Coda
 }
 
 /// Required enumerated value serialized in the `languages[]` wire field.
-public struct CodeScanningDefaultSetupUpdateLanguagesItem: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningDefaultSetupUpdateLanguagesItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let actions = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "actions")
     public static let cCpp = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "c-cpp")
     public static let csharp = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "csharp")
     public static let go = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "go")
     public static let javaKotlin = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "java-kotlin")
-    public static let javascriptTypescript =
-        CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "javascript-typescript")
+    public static let javascriptTypescript = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "javascript-typescript")
     public static let python = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "python")
     public static let ruby = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "ruby")
     public static let swift = CodeScanningDefaultSetupUpdateLanguagesItem(rawValue: "swift")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -349,16 +318,13 @@ public struct CodeScanningDefaultSetupUpdateLanguagesItem: RawRepresentable, Has
 public struct CodeScanningDefaultSetupRunnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let standard = CodeScanningDefaultSetupRunnerType(rawValue: "standard")
     public static let labeled = CodeScanningDefaultSetupRunnerType(rawValue: "labeled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -371,16 +337,13 @@ public struct CodeScanningDefaultSetupRunnerType: RawRepresentable, Hashable, Co
 public struct CodeScanningDefaultSetupQuerySuite: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `default` = CodeScanningDefaultSetupQuerySuite(rawValue: "default")
     public static let extended = CodeScanningDefaultSetupQuerySuite(rawValue: "extended")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -390,20 +353,16 @@ public struct CodeScanningDefaultSetupQuerySuite: RawRepresentable, Hashable, Co
 }
 
 /// Runner type to be used.
-public struct CodeScanningDefaultSetupUpdateRunnerType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeScanningDefaultSetupUpdateRunnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let standard = CodeScanningDefaultSetupUpdateRunnerType(rawValue: "standard")
     public static let labeled = CodeScanningDefaultSetupUpdateRunnerType(rawValue: "labeled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -416,10 +375,7 @@ public struct CodeScanningDefaultSetupUpdateRunnerType: RawRepresentable, Hashab
 public struct CodeScanningDefaultSetupLanguagesItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let actions = CodeScanningDefaultSetupLanguagesItem(rawValue: "actions")
     public static let cCpp = CodeScanningDefaultSetupLanguagesItem(rawValue: "c-cpp")
     public static let csharp = CodeScanningDefaultSetupLanguagesItem(rawValue: "csharp")
@@ -434,7 +390,7 @@ public struct CodeScanningDefaultSetupLanguagesItem: RawRepresentable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

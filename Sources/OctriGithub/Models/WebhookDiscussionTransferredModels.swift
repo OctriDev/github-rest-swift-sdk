@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookDiscussionTransferred domain models
+// WebhookDiscussionTransferred domain models
 /// Typed representation of the `WebhookDiscussionTransferred` API schema.
 public struct WebhookDiscussionTransferred: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,71 +39,40 @@ public struct WebhookDiscussionTransferred: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDiscussionTransferred {
-    init(from decoder: Decoder) throws {
+extension WebhookDiscussionTransferred {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.discussion) else {
-            throw SdkValidationError(
-                field: "discussion",
-                code: "required",
-                message: "Validation failed for 'discussion': value is required"
-            )
+            throw SdkValidationError(field: "discussion", code: "required", message: "Validation failed for 'discussion': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        discussion = try container.sdkDecodeRequired(.discussion)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.discussion = try container.sdkDecodeRequired(.discussion)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookDiscussionTransferred {
-    init(
-        action: WebhookDiscussionTransferredAction,
-        changes: WebhookDiscussionTransferredChanges,
-        discussion: Discussion,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookDiscussionTransferred {
+    public init(action: WebhookDiscussionTransferredAction, changes: WebhookDiscussionTransferredChanges, discussion: Discussion, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.discussion, self.repository) = (discussion, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -124,35 +93,25 @@ public struct WebhookDiscussionTransferredChanges: Codable {
         case newRepository = "new_repository"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDiscussionTransferredChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookDiscussionTransferredChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.newDiscussion) else {
-            throw SdkValidationError(
-                field: "new_discussion",
-                code: "required",
-                message: "Validation failed for 'new_discussion': value is required"
-            )
+            throw SdkValidationError(field: "new_discussion", code: "required", message: "Validation failed for 'new_discussion': value is required")
         }
         guard container.contains(.newRepository) else {
-            throw SdkValidationError(
-                field: "new_repository",
-                code: "required",
-                message: "Validation failed for 'new_repository': value is required"
-            )
+            throw SdkValidationError(field: "new_repository", code: "required", message: "Validation failed for 'new_repository': value is required")
         }
-        newDiscussion = try container.sdkDecodeRequired(.newDiscussion)
-        newRepository = try container.sdkDecodeRequired(.newRepository)
+        self.newDiscussion = try container.sdkDecodeRequired(.newDiscussion)
+        self.newRepository = try container.sdkDecodeRequired(.newRepository)
     }
 }
 
-public extension WebhookDiscussionTransferredChanges {
-    init(newDiscussion: Discussion, newRepository: RepositoryWebhooks) {
+extension WebhookDiscussionTransferredChanges {
+    public init(newDiscussion: Discussion, newRepository: RepositoryWebhooks) {
         (self.newDiscussion, self.newRepository) = (newDiscussion, newRepository)
     }
 }
@@ -161,15 +120,12 @@ public extension WebhookDiscussionTransferredChanges {
 public struct WebhookDiscussionTransferredAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let transferred = WebhookDiscussionTransferredAction(rawValue: "transferred")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

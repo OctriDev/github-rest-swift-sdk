@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
-    /// Marks a thread as "read." Marking a thread as "read" is equivalent to clicking a notification in your
-    /// notification inbox on GitHub: https://github.com/notifications.
+extension ActivityMethods {
+    /// Marks a thread as "read." Marking a thread as "read" is equivalent to clicking a notification in your notification inbox on GitHub: https://github.com/notifications.
     ///
     /// - Parameters:
     /// - threadId: The unique identifier of the notification thread. This
@@ -16,18 +15,11 @@ public extension ActivityMethods {
     ///   notifications (for example with the [`GET /notifications`
     ///   operation](https://docs.github.com/rest/activity/notifications#list-notifica
     ///   tions-for-the-authenticated-user)).
-    static func activityMarkThreadAsRead(config: ClientConfig, threadId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PATCH",
-            ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "activityMarkThreadAsRead"
-        )).data
+    public static func activityMarkThreadAsRead(config: ClientConfig, threadId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PATCH", ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId))].joined(), config: config, decoder: .empty, operationId: "activityMarkThreadAsRead")).data
     }
 
-    /// Marks a thread as "done." Marking a thread as "done" is equivalent to marking a notification in your
-    /// notification inbox on GitHub as done: https://github.com/notifications.
+    /// Marks a thread as "done." Marking a thread as "done" is equivalent to marking a notification in your notification inbox on GitHub as done: https://github.com/notifications.
     ///
     /// - Parameters:
     /// - threadId: The unique identifier of the notification thread. This
@@ -35,13 +27,7 @@ public extension ActivityMethods {
     ///   notifications (for example with the [`GET /notifications`
     ///   operation](https://docs.github.com/rest/activity/notifications#list-notifica
     ///   tions-for-the-authenticated-user)).
-    static func activityMarkThreadAsDone(config: ClientConfig, threadId: Int) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId))].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "activityMarkThreadAsDone"
-        )).data
+    public static func activityMarkThreadAsDone(config: ClientConfig, threadId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/notifications/threads/", sdkEncodePathSegment(sdkWireString(threadId))].joined(), config: config, decoder: .empty, operationId: "activityMarkThreadAsDone")).data
     }
 }

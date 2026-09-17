@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    struct ReposGetOrgRuleSuitesOptions: Codable {
+extension ReposMethods {
+    public struct ReposGetOrgRuleSuitesOptions: Codable {
         public var org: String
         public var ref: String?
         public var repositoryName: String?
@@ -23,8 +23,7 @@ public extension ReposMethods {
         }
     }
 
-    /// Lists suites of rule evaluations at the organization level. For more information, see "[Managing rulesets for
-    /// repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
+    /// Lists suites of rule evaluations at the organization level. For more information, see "[Managing rulesets for repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -54,26 +53,16 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposGetOrgRuleSuites(
-        config: ClientConfig,
-        options: ReposGetOrgRuleSuitesOptions
-    ) async throws -> RuleSuites {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/rulesets/rule-suites"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("ref", value: options.ref),
-                SdkQueryParameter("repository_name", value: options.repositoryName),
-                SdkQueryParameter("time_period", value: options.timePeriod),
-                SdkQueryParameter("actor_name", value: options.actorName),
-                SdkQueryParameter("rule_suite_result", value: options.ruleSuiteResult),
-                SdkQueryParameter("evaluate_status", value: options.evaluateStatus),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("page", value: options.page),
-            ],
-            decoder: .json,
-            operationId: "reposGetOrgRuleSuites"
-        )).data
+    public static func reposGetOrgRuleSuites(config: ClientConfig, options: ReposGetOrgRuleSuitesOptions) async throws -> RuleSuites {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/rulesets/rule-suites"].joined(), config: config, query: [
+            SdkQueryParameter("ref", value: options.ref),
+            SdkQueryParameter("repository_name", value: options.repositoryName),
+            SdkQueryParameter("time_period", value: options.timePeriod),
+            SdkQueryParameter("actor_name", value: options.actorName),
+            SdkQueryParameter("rule_suite_result", value: options.ruleSuiteResult),
+            SdkQueryParameter("evaluate_status", value: options.evaluateStatus),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("page", value: options.page),
+        ], decoder: .json, operationId: "reposGetOrgRuleSuites")).data
     }
 }

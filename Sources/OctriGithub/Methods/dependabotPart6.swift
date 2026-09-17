@@ -6,69 +6,37 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    /// Lists repositories that organization admins have allowed Dependabot to access when updating dependencies. >
-    /// [!NOTE] > This operation supports both server-to-server and user-to-server access. Unauthorized users will not
-    /// see the existence of this endpoint.
+extension DependabotMethods {
+    /// Lists repositories that organization admins have allowed Dependabot to access when updating dependencies. > [!NOTE] > This operation supports both server-to-server and user-to-server access. Unauthorized users will not see the existence of this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - page: The page number of results to fetch.
     /// - perPage: Number of results per page.
-    static func dependabotRepositoryAccessForOrg(
-        config: ClientConfig,
-        org: String,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> DependabotRepositoryAccessDetails {
-        if let page {
+    public static func dependabotRepositoryAccessForOrg(config: ClientConfig, org: String, page: Int?, perPage: Int?) async throws -> DependabotRepositoryAccessDetails {
+        if let page = page {
             try validateRange("page", Double(page), min: 1)
         }
 
-        if let perPage {
+        if let perPage = perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 100)
         }
 
-        return try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/repository-access"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "dependabotRepositoryAccessForOrg"
-        )).data
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/repository-access"].joined(), config: config, query: [
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "dependabotRepositoryAccessForOrg")).data
     }
 
-    /// Updates repositories according to the list of repositories that organization admins have given Dependabot access
-    /// to when they've updated dependencies. > [!NOTE] > This operation supports both server-to-server and
-    /// user-to-server access. Unauthorized users will not see the existence of this endpoint. **Example request body:**
-    /// ```json { "repository_ids_to_add": [123, 456], "repository_ids_to_remove": [789] } ```
+    /// Updates repositories according to the list of repositories that organization admins have given Dependabot access to when they've updated dependencies. > [!NOTE] > This operation supports both server-to-server and user-to-server access. Unauthorized users will not see the existence of this endpoint. **Example request body:** ```json { "repository_ids_to_add": [123, 456], "repository_ids_to_remove": [789] } ```
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryIdsToAdd: List of repository IDs to add.
     /// - repositoryIdsToRemove: List of repository IDs to remove.
-    static func dependabotUpdateRepositoryAccessForOrg(
-        config: ClientConfig,
-        org: String,
-        repositoryIdsToAdd: [Int]?,
-        repositoryIdsToRemove: [Int]?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = DependabotUpdateRepositoryAccessForOrgRequestBody(
-            repositoryIdsToAdd: repositoryIdsToAdd,
-            repositoryIdsToRemove: repositoryIdsToRemove
-        )
+    public static func dependabotUpdateRepositoryAccessForOrg(config: ClientConfig, org: String, repositoryIdsToAdd: [Int]?, repositoryIdsToRemove: [Int]?) async throws -> SdkEmptyResponse {
+        let requestBody = DependabotUpdateRepositoryAccessForOrgRequestBody(repositoryIdsToAdd: repositoryIdsToAdd, repositoryIdsToRemove: repositoryIdsToRemove)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/repository-access"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "dependabotUpdateRepositoryAccessForOrg"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/dependabot/repository-access"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "dependabotUpdateRepositoryAccessForOrg")).data
     }
 }

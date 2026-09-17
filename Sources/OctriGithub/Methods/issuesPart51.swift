@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Lists the labels associated with issues in a repository milestone. Use `page` and `per_page` to paginate the
-    /// results. The response contains label metadata such as names, descriptions, colors, and archive information.
+extension IssuesMethods {
+    /// Lists the labels associated with issues in a repository milestone. Use `page` and `per_page` to paginate the results. The response contains label metadata such as names, descriptions, colors, and archive information.
     ///
     /// Lists labels for issues in a milestone.
     ///
@@ -26,32 +25,10 @@ public extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func issuesListLabelsForMilestone(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        milestoneNumber: Int,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Label] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/milestones/",
-                sdkEncodePathSegment(sdkWireString(milestoneNumber)),
-                "/labels",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "issuesListLabelsForMilestone"
-        )).data
+    public static func issuesListLabelsForMilestone(config: ClientConfig, owner: String, repo: String, milestoneNumber: Int, perPage: Int?, page: Int?) async throws -> [Label] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/milestones/", sdkEncodePathSegment(sdkWireString(milestoneNumber)), "/labels"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "issuesListLabelsForMilestone")).data
     }
 }

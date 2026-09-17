@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookIssuesFieldRemoved domain models
+// WebhookIssuesFieldRemoved domain models
 /// Typed representation of the `WebhookIssuesFieldRemoved` API schema.
 public struct WebhookIssuesFieldRemoved: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -42,73 +42,41 @@ public struct WebhookIssuesFieldRemoved: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookIssuesFieldRemoved {
-    init(from decoder: Decoder) throws {
+extension WebhookIssuesFieldRemoved {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.issue) else {
-            throw SdkValidationError(
-                field: "issue",
-                code: "required",
-                message: "Validation failed for 'issue': value is required"
-            )
+            throw SdkValidationError(field: "issue", code: "required", message: "Validation failed for 'issue': value is required")
         }
         guard container.contains(.issueField) else {
-            throw SdkValidationError(
-                field: "issue_field",
-                code: "required",
-                message: "Validation failed for 'issue_field': value is required"
-            )
+            throw SdkValidationError(field: "issue_field", code: "required", message: "Validation failed for 'issue_field': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        issue = try container.sdkDecodeRequired(.issue)
-        issueField = try container.sdkDecodeRequired(.issueField)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        issueFieldValue = try container.sdkDecodeIfPresent(.issueFieldValue)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.issue = try container.sdkDecodeRequired(.issue)
+        self.issueField = try container.sdkDecodeRequired(.issueField)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.issueFieldValue = try container.sdkDecodeIfPresent(.issueFieldValue)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookIssuesFieldRemoved {
-    init(
-        action: WebhookIssuesFieldRemovedAction,
-        issue: WebhooksIssue,
-        issueField: WebhookIssuesFieldRemovedIssueField,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        issueFieldValue: WebhookIssuesFieldRemovedIssueFieldValue? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookIssuesFieldRemoved {
+    public init(action: WebhookIssuesFieldRemovedAction, issue: WebhooksIssue, issueField: WebhookIssuesFieldRemovedIssueField, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, issueFieldValue: WebhookIssuesFieldRemovedIssueFieldValue? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.issue) = (action, issue)
         (self.issueField, self.repository) = (issueField, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -132,43 +100,29 @@ public struct WebhookIssuesFieldRemovedIssueField: Codable {
         case fieldType = "field_type"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookIssuesFieldRemovedIssueField {
-    init(from decoder: Decoder) throws {
+extension WebhookIssuesFieldRemovedIssueField {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.fieldType) else {
-            throw SdkValidationError(
-                field: "field_type",
-                code: "required",
-                message: "Validation failed for 'field_type': value is required"
-            )
+            throw SdkValidationError(field: "field_type", code: "required", message: "Validation failed for 'field_type': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        fieldType = try container.sdkDecodeRequired(.fieldType)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.fieldType = try container.sdkDecodeRequired(.fieldType)
     }
 }
 
-public extension WebhookIssuesFieldRemovedIssueField {
-    init(id: Int, name: String, fieldType: WebhookIssuesFieldRemovedIssueFieldFieldType) {
+extension WebhookIssuesFieldRemovedIssueField {
+    public init(id: Int, name: String, fieldType: WebhookIssuesFieldRemovedIssueFieldFieldType) {
         (self.id, self.name) = (id, name)
         self.fieldType = fieldType
     }
@@ -198,39 +152,26 @@ public struct WebhookIssuesFieldRemovedIssueFieldValue: Codable {
         case options
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookIssuesFieldRemovedIssueFieldValue {
-    init(from decoder: Decoder) throws {
+extension WebhookIssuesFieldRemovedIssueFieldValue {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(
-                field: "id",
-                code: "required",
-                message: "Validation failed for 'id': value is required"
-            )
+            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
         }
-        id = try container.sdkDecodeRequired(.id)
-        value = try container.sdkDecodeIfPresent(.value)
-        valueId = try container.sdkDecodeIfPresent(.valueId)
-        option = try container.sdkDecodeIfPresent(.option)
-        valueIds = try container.sdkDecodeIfPresent(.valueIds)
-        options = try container.sdkDecodeIfPresent(.options)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.value = try container.sdkDecodeIfPresent(.value)
+        self.valueId = try container.sdkDecodeIfPresent(.valueId)
+        self.option = try container.sdkDecodeIfPresent(.option)
+        self.valueIds = try container.sdkDecodeIfPresent(.valueIds)
+        self.options = try container.sdkDecodeIfPresent(.options)
     }
 }
 
-public extension WebhookIssuesFieldRemovedIssueFieldValue {
-    init(
-        id: Int,
-        value: WebhookIssuesFieldRemovedIssueFieldValueValue? = nil,
-        valueId: Int? = nil,
-        option: WebhookIssuesFieldRemovedIssueFieldValueOption? = nil,
-        valueIds: [Int]? = nil,
-        options: [WebhookIssuesFieldRemovedIssueFieldValueOptionsItem]? = nil
-    ) {
+extension WebhookIssuesFieldRemovedIssueFieldValue {
+    public init(id: Int, value: WebhookIssuesFieldRemovedIssueFieldValueValue? = nil, valueId: Int? = nil, option: WebhookIssuesFieldRemovedIssueFieldValueOption? = nil, valueIds: [Int]? = nil, options: [WebhookIssuesFieldRemovedIssueFieldValueOptionsItem]? = nil) {
         (self.id, self.value) = (id, value)
         (self.valueId, self.option) = (valueId, option)
         (self.valueIds, self.options) = (valueIds, options)
@@ -256,22 +197,22 @@ public struct WebhookIssuesFieldRemovedIssueFieldValueOption: Codable {
     }
 
     init() {
-        (id, name, color, description) = (nil, nil, nil, nil)
+        (self.id, self.name, self.color, self.description) = (nil, nil, nil, nil)
     }
 }
 
-public extension WebhookIssuesFieldRemovedIssueFieldValueOption {
-    init(from decoder: Decoder) throws {
+extension WebhookIssuesFieldRemovedIssueFieldValueOption {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        name = try container.sdkDecodeIfPresent(.name)
-        color = try container.sdkDecodeIfPresent(.color)
-        description = try container.sdkDecodeIfPresent(.description)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.color = try container.sdkDecodeIfPresent(.color)
+        self.description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
-public extension WebhookIssuesFieldRemovedIssueFieldValueOption {
-    init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
+extension WebhookIssuesFieldRemovedIssueFieldValueOption {
+    public init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
@@ -297,22 +238,22 @@ public struct WebhookIssuesFieldRemovedIssueFieldValueOptionsItem: Codable {
     }
 
     init() {
-        (id, name, color, description) = (nil, nil, nil, nil)
+        (self.id, self.name, self.color, self.description) = (nil, nil, nil, nil)
     }
 }
 
-public extension WebhookIssuesFieldRemovedIssueFieldValueOptionsItem {
-    init(from decoder: Decoder) throws {
+extension WebhookIssuesFieldRemovedIssueFieldValueOptionsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeIfPresent(.id)
-        name = try container.sdkDecodeIfPresent(.name)
-        color = try container.sdkDecodeIfPresent(.color)
-        description = try container.sdkDecodeIfPresent(.description)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.color = try container.sdkDecodeIfPresent(.color)
+        self.description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
-public extension WebhookIssuesFieldRemovedIssueFieldValueOptionsItem {
-    init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
+extension WebhookIssuesFieldRemovedIssueFieldValueOptionsItem {
+    public init(id: Int? = nil, name: String? = nil, color: String? = nil, description: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.color, self.description) = (color, description)
@@ -326,34 +267,22 @@ public enum WebhookIssuesFieldRemovedIssueFieldValueValue {
 }
 
 extension WebhookIssuesFieldRemovedIssueFieldValueValue: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookIssuesFieldRemovedIssueFieldValueValue"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookIssuesFieldRemovedIssueFieldValueValue")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(Double.self) {
-            return .doubleValue(value)
-        }
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Double.self) { return .doubleValue(value) }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -364,21 +293,19 @@ extension WebhookIssuesFieldRemovedIssueFieldValueValue: Codable {
         case let .intValue(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Required enumerated value serialized in the `action` wire field.
 public struct WebhookIssuesFieldRemovedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let fieldRemoved = WebhookIssuesFieldRemovedAction(rawValue: "field_removed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -388,14 +315,10 @@ public struct WebhookIssuesFieldRemovedAction: RawRepresentable, Hashable, Codab
 }
 
 /// The data type of the issue field.
-public struct WebhookIssuesFieldRemovedIssueFieldFieldType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookIssuesFieldRemovedIssueFieldFieldType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let text = WebhookIssuesFieldRemovedIssueFieldFieldType(rawValue: "text")
     public static let date = WebhookIssuesFieldRemovedIssueFieldFieldType(rawValue: "date")
     public static let singleSelect = WebhookIssuesFieldRemovedIssueFieldFieldType(rawValue: "single_select")
@@ -404,7 +327,7 @@ public struct WebhookIssuesFieldRemovedIssueFieldFieldType: RawRepresentable, Ha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

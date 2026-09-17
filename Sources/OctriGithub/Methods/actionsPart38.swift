@@ -6,49 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
-    /// update secrets. The authenticated user must have collaborator access to a repository to create, update, or read
-    /// secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If
-    /// the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
-    /// endpoint.
+extension ActionsMethods {
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. The authenticated user must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func actionsGetOrgPublicKey(config: ClientConfig, org: String) async throws -> ActionsPublicKey {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets/public-key"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetOrgPublicKey"
-        )).data
+    public static func actionsGetOrgPublicKey(config: ClientConfig, org: String) async throws -> ActionsPublicKey {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "actionsGetOrgPublicKey")).data
     }
 
-    /// Gets a single organization secret without revealing its encrypted value. The authenticated user must have
-    /// collaborator access to a repository to create, update, or read secrets OAuth tokens and personal access tokens
-    /// (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets a single organization secret without revealing its encrypted value. The authenticated user must have collaborator access to a repository to create, update, or read secrets OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    static func actionsGetOrgSecret(
-        config: ClientConfig,
-        org: String,
-        secretName: String
-    ) async throws -> OrganizationActionsSecret {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/secrets/",
-                sdkEncodePathSegment(sdkWireString(secretName)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetOrgSecret"
-        )).data
+    public static func actionsGetOrgSecret(config: ClientConfig, org: String, secretName: String) async throws -> OrganizationActionsSecret {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "actionsGetOrgSecret")).data
     }
 }

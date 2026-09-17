@@ -3,23 +3,19 @@
 
 import Foundation
 
-/// CodeSecurity domain models
+// CodeSecurity domain models
 /// The enablement status of Dependabot alerts
-public struct CodeSecurityConfigurationDependabotAlerts: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeSecurityConfigurationDependabotAlerts: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeSecurityConfigurationDependabotAlerts(rawValue: "enabled")
     public static let disabled = CodeSecurityConfigurationDependabotAlerts(rawValue: "disabled")
     public static let notSet = CodeSecurityConfigurationDependabotAlerts(rawValue: "not_set")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,21 +25,17 @@ public struct CodeSecurityConfigurationDependabotAlerts: RawRepresentable, Hasha
 }
 
 /// The enablement status of code scanning delegated alert dismissal
-public struct CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal(rawValue: "enabled")
     public static let disabled = CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal(rawValue: "disabled")
     public static let notSet = CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal(rawValue: "not_set")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -53,14 +45,10 @@ public struct CodeSecurityConfigurationCodeScanningDelegatedAlertDismissal: RawR
 }
 
 /// The enablement status of GitHub Advanced Security
-public struct CodeSecurityConfigurationAdvancedSecurity: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeSecurityConfigurationAdvancedSecurity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeSecurityConfigurationAdvancedSecurity(rawValue: "enabled")
     public static let disabled = CodeSecurityConfigurationAdvancedSecurity(rawValue: "disabled")
     public static let codeSecurity = CodeSecurityConfigurationAdvancedSecurity(rawValue: "code_security")
@@ -68,7 +56,7 @@ public struct CodeSecurityConfigurationAdvancedSecurity: RawRepresentable, Hasha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -78,21 +66,17 @@ public struct CodeSecurityConfigurationAdvancedSecurity: RawRepresentable, Hasha
 }
 
 /// The enablement status of secret scanning delegated bypass
-public struct CodeSecurityConfigurationSecretScanningDelegatedBypass: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct CodeSecurityConfigurationSecretScanningDelegatedBypass: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enabled = CodeSecurityConfigurationSecretScanningDelegatedBypass(rawValue: "enabled")
     public static let disabled = CodeSecurityConfigurationSecretScanningDelegatedBypass(rawValue: "disabled")
     public static let notSet = CodeSecurityConfigurationSecretScanningDelegatedBypass(rawValue: "not_set")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

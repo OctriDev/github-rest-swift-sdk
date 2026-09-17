@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookStatus domain models
+// WebhookStatus domain models
 /// Required API value serialized in the `author` wire field.
 public struct WebhookStatusCommitCommitAuthor: Codable {
     /// Required `string` value serialized in the `date` wire field.
@@ -22,44 +22,30 @@ public struct WebhookStatusCommitCommitAuthor: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitAuthor {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitAuthor {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.date) else {
-            throw SdkValidationError(
-                field: "date",
-                code: "required",
-                message: "Validation failed for 'date': value is required"
-            )
+            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        date = try container.sdkDecodeRequired(.date)
-        email = try container.sdkDecodeRequired(.email)
-        name = try container.sdkDecodeRequired(.name)
-        username = try container.sdkDecodeIfPresent(.username)
+        self.date = try container.sdkDecodeRequired(.date)
+        self.email = try container.sdkDecodeRequired(.email)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.username = try container.sdkDecodeIfPresent(.username)
     }
 }
 
-public extension WebhookStatusCommitCommitAuthor {
-    init(date: String, email: String, name: String, username: String? = nil) {
+extension WebhookStatusCommitCommitAuthor {
+    public init(date: String, email: String, name: String, username: String? = nil) {
         (self.date, self.email) = (date, email)
         (self.name, self.username) = (name, username)
     }
@@ -83,43 +69,33 @@ public struct WebhookStatusCommitCommitAuthorVariant0: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitAuthorVariant0 {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitAuthorVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        email = try container.sdkDecodeIfPresent(.email)
-        name = try container.sdkDecodeRequired(.name)
-        date = try container.sdkDecodeIfPresent(.date)
-        username = try container.sdkDecodeIfPresent(.username)
-        if let value = email {
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.date = try container.sdkDecodeIfPresent(.date)
+        self.username = try container.sdkDecodeIfPresent(.username)
+        if let value = self.email {
             try sdkValidateEmail("email", value)
         }
-        if let value = date {
+        if let value = self.date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-public extension WebhookStatusCommitCommitAuthorVariant0 {
-    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+extension WebhookStatusCommitCommitAuthorVariant0 {
+    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -146,29 +122,23 @@ public struct WebhookStatusCommitCommitAuthorVariant1: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitAuthorVariant1 {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitAuthorVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.date) else {
-            throw SdkValidationError(
-                field: "date",
-                code: "required",
-                message: "Validation failed for 'date': value is required"
-            )
+            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
         }
-        date = try container.sdkDecodeRequired(.date)
-        email = try container.sdkDecodeIfPresent(.email)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.date = try container.sdkDecodeRequired(.date)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension WebhookStatusCommitCommitAuthorVariant1 {
-    init(date: String, email: String? = nil, name: String? = nil) {
+extension WebhookStatusCommitCommitAuthorVariant1 {
+    public init(date: String, email: String? = nil, name: String? = nil) {
         (self.date, self.email) = (date, email)
         self.name = name
     }
@@ -192,44 +162,30 @@ public struct WebhookStatusCommitCommitCommitter: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitCommitter {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitCommitter {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.date) else {
-            throw SdkValidationError(
-                field: "date",
-                code: "required",
-                message: "Validation failed for 'date': value is required"
-            )
+            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        date = try container.sdkDecodeRequired(.date)
-        email = try container.sdkDecodeRequired(.email)
-        name = try container.sdkDecodeRequired(.name)
-        username = try container.sdkDecodeIfPresent(.username)
+        self.date = try container.sdkDecodeRequired(.date)
+        self.email = try container.sdkDecodeRequired(.email)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.username = try container.sdkDecodeIfPresent(.username)
     }
 }
 
-public extension WebhookStatusCommitCommitCommitter {
-    init(date: String, email: String, name: String, username: String? = nil) {
+extension WebhookStatusCommitCommitCommitter {
+    public init(date: String, email: String, name: String, username: String? = nil) {
         (self.date, self.email) = (date, email)
         (self.name, self.username) = (name, username)
     }
@@ -253,43 +209,33 @@ public struct WebhookStatusCommitCommitCommitterVariant0: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitCommitterVariant0 {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitCommitterVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.email) else {
-            throw SdkValidationError(
-                field: "email",
-                code: "required",
-                message: "Validation failed for 'email': value is required"
-            )
+            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
-        email = try container.sdkDecodeIfPresent(.email)
-        name = try container.sdkDecodeRequired(.name)
-        date = try container.sdkDecodeIfPresent(.date)
-        username = try container.sdkDecodeIfPresent(.username)
-        if let value = email {
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.date = try container.sdkDecodeIfPresent(.date)
+        self.username = try container.sdkDecodeIfPresent(.username)
+        if let value = self.email {
             try sdkValidateEmail("email", value)
         }
-        if let value = date {
+        if let value = self.date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-public extension WebhookStatusCommitCommitCommitterVariant0 {
-    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+extension WebhookStatusCommitCommitCommitterVariant0 {
+    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -316,29 +262,23 @@ public struct WebhookStatusCommitCommitCommitterVariant1: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitCommitterVariant1 {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitCommitterVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.date) else {
-            throw SdkValidationError(
-                field: "date",
-                code: "required",
-                message: "Validation failed for 'date': value is required"
-            )
+            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
         }
-        date = try container.sdkDecodeRequired(.date)
-        email = try container.sdkDecodeIfPresent(.email)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.date = try container.sdkDecodeRequired(.date)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-public extension WebhookStatusCommitCommitCommitterVariant1 {
-    init(date: String, email: String? = nil, name: String? = nil) {
+extension WebhookStatusCommitCommitCommitterVariant1 {
+    public init(date: String, email: String? = nil, name: String? = nil) {
         (self.date, self.email) = (date, email)
         self.name = name
     }
@@ -356,38 +296,28 @@ public struct WebhookStatusCommitCommitTree: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitTree {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitTree {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.sha) else {
-            throw SdkValidationError(
-                field: "sha",
-                code: "required",
-                message: "Validation failed for 'sha': value is required"
-            )
+            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(
-                field: "url",
-                code: "required",
-                message: "Validation failed for 'url': value is required"
-            )
+            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
         }
-        sha = try container.sdkDecodeRequired(.sha)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("url", url)
+        self.sha = try container.sdkDecodeRequired(.sha)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhookStatusCommitCommitTree {
-    init(sha: String, url: String) throws {
+extension WebhookStatusCommitCommitTree {
+    public init(sha: String, url: String) throws {
         (self.sha, self.url) = (sha, url)
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -412,65 +342,37 @@ public struct WebhookStatusCommitCommitVerification: Codable {
         case verifiedAt = "verified_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookStatusCommitCommitVerification {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitVerification {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.payload) else {
-            throw SdkValidationError(
-                field: "payload",
-                code: "required",
-                message: "Validation failed for 'payload': value is required"
-            )
+            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
         }
         guard container.contains(.reason) else {
-            throw SdkValidationError(
-                field: "reason",
-                code: "required",
-                message: "Validation failed for 'reason': value is required"
-            )
+            throw SdkValidationError(field: "reason", code: "required", message: "Validation failed for 'reason': value is required")
         }
         guard container.contains(.signature) else {
-            throw SdkValidationError(
-                field: "signature",
-                code: "required",
-                message: "Validation failed for 'signature': value is required"
-            )
+            throw SdkValidationError(field: "signature", code: "required", message: "Validation failed for 'signature': value is required")
         }
         guard container.contains(.verified) else {
-            throw SdkValidationError(
-                field: "verified",
-                code: "required",
-                message: "Validation failed for 'verified': value is required"
-            )
+            throw SdkValidationError(field: "verified", code: "required", message: "Validation failed for 'verified': value is required")
         }
         guard container.contains(.verifiedAt) else {
-            throw SdkValidationError(
-                field: "verified_at",
-                code: "required",
-                message: "Validation failed for 'verified_at': value is required"
-            )
+            throw SdkValidationError(field: "verified_at", code: "required", message: "Validation failed for 'verified_at': value is required")
         }
-        payload = try container.sdkDecodeIfPresent(.payload)
-        reason = try container.sdkDecodeRequired(.reason)
-        signature = try container.sdkDecodeIfPresent(.signature)
-        verified = try container.sdkDecodeRequired(.verified)
-        verifiedAt = try container.sdkDecodeIfPresent(.verifiedAt)
+        self.payload = try container.sdkDecodeIfPresent(.payload)
+        self.reason = try container.sdkDecodeRequired(.reason)
+        self.signature = try container.sdkDecodeIfPresent(.signature)
+        self.verified = try container.sdkDecodeRequired(.verified)
+        self.verifiedAt = try container.sdkDecodeIfPresent(.verifiedAt)
     }
 }
 
-public extension WebhookStatusCommitCommitVerification {
-    init(
-        payload: String?,
-        reason: WebhookStatusCommitCommitVerificationReason,
-        signature: String?,
-        verified: Bool,
-        verifiedAt: String?
-    ) {
+extension WebhookStatusCommitCommitVerification {
+    public init(payload: String?, reason: WebhookStatusCommitCommitVerificationReason, signature: String?, verified: Bool, verifiedAt: String?) {
         (self.payload, self.reason) = (payload, reason)
         (self.signature, self.verified) = (signature, verified)
         self.verifiedAt = verifiedAt
@@ -547,16 +449,16 @@ public struct WebhookStatusCommitCommitter: Codable {
     }
 
     init() {
-        (avatarUrl, deleted, email, eventsUrl, followersUrl) = (nil, nil, nil, nil, nil)
-        (followingUrl, gistsUrl, gravatarId, htmlUrl, id) = (nil, nil, nil, nil, nil)
-        (login, name, nodeId, organizationsUrl, receivedEventsUrl) = (nil, nil, nil, nil, nil)
-        (reposUrl, siteAdmin, starredUrl, subscriptionsUrl, type) = (nil, nil, nil, nil, nil)
-        url = nil
+        (self.avatarUrl, self.deleted, self.email, self.eventsUrl, self.followersUrl) = (nil, nil, nil, nil, nil)
+        (self.followingUrl, self.gistsUrl, self.gravatarId, self.htmlUrl, self.id) = (nil, nil, nil, nil, nil)
+        (self.login, self.name, self.nodeId, self.organizationsUrl, self.receivedEventsUrl) = (nil, nil, nil, nil, nil)
+        (self.reposUrl, self.siteAdmin, self.starredUrl, self.subscriptionsUrl, self.type) = (nil, nil, nil, nil, nil)
+        self.url = nil
     }
 }
 
-public extension WebhookStatusCommitCommitter {
-    init(from decoder: Decoder) throws {
+extension WebhookStatusCommitCommitter {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init()
         try sdkDecodeFieldsPart1(container)
@@ -565,30 +467,8 @@ public extension WebhookStatusCommitCommitter {
     }
 }
 
-public extension WebhookStatusCommitCommitter {
-    init(
-        avatarUrl: String? = nil,
-        deleted: Bool? = nil,
-        email: String? = nil,
-        eventsUrl: String? = nil,
-        followersUrl: String? = nil,
-        followingUrl: String? = nil,
-        gistsUrl: String? = nil,
-        gravatarId: String? = nil,
-        htmlUrl: String? = nil,
-        id: Int? = nil,
-        login: String? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        organizationsUrl: String? = nil,
-        receivedEventsUrl: String? = nil,
-        reposUrl: String? = nil,
-        siteAdmin: Bool? = nil,
-        starredUrl: String? = nil,
-        subscriptionsUrl: String? = nil,
-        type: WebhookStatusCommitCommitterType? = nil,
-        url: String? = nil
-    ) throws {
+extension WebhookStatusCommitCommitter {
+    public init(avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, id: Int? = nil, login: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhookStatusCommitCommitterType? = nil, url: String? = nil) throws {
         self.init()
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -607,31 +487,31 @@ public extension WebhookStatusCommitCommitter {
 
 extension WebhookStatusCommitCommitter {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        deleted = try container.sdkDecodeIfPresent(.deleted)
-        email = try container.sdkDecodeIfPresent(.email)
-        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        id = try container.sdkDecodeIfPresent(.id)
-        login = try container.sdkDecodeIfPresent(.login)
-        name = try container.sdkDecodeIfPresent(.name)
+        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        self.deleted = try container.sdkDecodeIfPresent(.deleted)
+        self.email = try container.sdkDecodeIfPresent(.email)
+        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.login = try container.sdkDecodeIfPresent(.login)
+        self.name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
 extension WebhookStatusCommitCommitter {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        type = try container.sdkDecodeIfPresent(.type)
-        url = try container.sdkDecodeIfPresent(.url)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        self.type = try container.sdkDecodeIfPresent(.type)
+        self.url = try container.sdkDecodeIfPresent(.url)
     }
 }

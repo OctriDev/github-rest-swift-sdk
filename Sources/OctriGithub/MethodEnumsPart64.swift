@@ -34,57 +34,57 @@ struct PrivateRegistriesCreateOrgPrivateRegistryRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(registryType, forKey: SdkCodingKey("registry_type"))
-        try keyedContainer.encode(url, forKey: SdkCodingKey("url"))
-        try keyedContainer.encode(visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(username, forKey: SdkCodingKey("username"))
-        try keyedContainer.encodeIfPresent(replacesBase, forKey: SdkCodingKey("replaces_base"))
-        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(keyId, forKey: SdkCodingKey("key_id"))
-        try keyedContainer.encodeIfPresent(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
-        try keyedContainer.encodeIfPresent(authType, forKey: SdkCodingKey("auth_type"))
-        try keyedContainer.encodeIfPresent(tenantId, forKey: SdkCodingKey("tenant_id"))
-        try keyedContainer.encodeIfPresent(clientId, forKey: SdkCodingKey("client_id"))
-        try keyedContainer.encodeIfPresent(awsRegion, forKey: SdkCodingKey("aws_region"))
-        try keyedContainer.encodeIfPresent(accountId, forKey: SdkCodingKey("account_id"))
-        try keyedContainer.encodeIfPresent(roleName, forKey: SdkCodingKey("role_name"))
-        try keyedContainer.encodeIfPresent(domain, forKey: SdkCodingKey("domain"))
-        try keyedContainer.encodeIfPresent(domainOwner, forKey: SdkCodingKey("domain_owner"))
-        try keyedContainer.encodeIfPresent(jfrogOidcProviderName, forKey: SdkCodingKey("jfrog_oidc_provider_name"))
-        try keyedContainer.encodeIfPresent(audience, forKey: SdkCodingKey("audience"))
-        try keyedContainer.encodeIfPresent(identityMappingName, forKey: SdkCodingKey("identity_mapping_name"))
-        try keyedContainer.encodeIfPresent(namespace, forKey: SdkCodingKey("namespace"))
-        try keyedContainer.encodeIfPresent(serviceSlug, forKey: SdkCodingKey("service_slug"))
-        try keyedContainer.encodeIfPresent(apiHost, forKey: SdkCodingKey("api_host"))
-        try keyedContainer.encodeIfPresent(workloadIdentityProvider, forKey: SdkCodingKey("workload_identity_provider"))
-        try keyedContainer.encodeIfPresent(serviceAccount, forKey: SdkCodingKey("service_account"))
+        try keyedContainer.encode(self.registryType, forKey: SdkCodingKey("registry_type"))
+        try keyedContainer.encode(self.url, forKey: SdkCodingKey("url"))
+        try keyedContainer.encode(self.visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(self.username, forKey: SdkCodingKey("username"))
+        try keyedContainer.encodeIfPresent(self.replacesBase, forKey: SdkCodingKey("replaces_base"))
+        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(self.keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encodeIfPresent(self.authType, forKey: SdkCodingKey("auth_type"))
+        try keyedContainer.encodeIfPresent(self.tenantId, forKey: SdkCodingKey("tenant_id"))
+        try keyedContainer.encodeIfPresent(self.clientId, forKey: SdkCodingKey("client_id"))
+        try keyedContainer.encodeIfPresent(self.awsRegion, forKey: SdkCodingKey("aws_region"))
+        try keyedContainer.encodeIfPresent(self.accountId, forKey: SdkCodingKey("account_id"))
+        try keyedContainer.encodeIfPresent(self.roleName, forKey: SdkCodingKey("role_name"))
+        try keyedContainer.encodeIfPresent(self.domain, forKey: SdkCodingKey("domain"))
+        try keyedContainer.encodeIfPresent(self.domainOwner, forKey: SdkCodingKey("domain_owner"))
+        try keyedContainer.encodeIfPresent(self.jfrogOidcProviderName, forKey: SdkCodingKey("jfrog_oidc_provider_name"))
+        try keyedContainer.encodeIfPresent(self.audience, forKey: SdkCodingKey("audience"))
+        try keyedContainer.encodeIfPresent(self.identityMappingName, forKey: SdkCodingKey("identity_mapping_name"))
+        try keyedContainer.encodeIfPresent(self.namespace, forKey: SdkCodingKey("namespace"))
+        try keyedContainer.encodeIfPresent(self.serviceSlug, forKey: SdkCodingKey("service_slug"))
+        try keyedContainer.encodeIfPresent(self.apiHost, forKey: SdkCodingKey("api_host"))
+        try keyedContainer.encodeIfPresent(self.workloadIdentityProvider, forKey: SdkCodingKey("workload_identity_provider"))
+        try keyedContainer.encodeIfPresent(self.serviceAccount, forKey: SdkCodingKey("service_account"))
     }
 
     init(options: PrivateRegistriesMethods.PrivateRegistriesCreateOrgPrivateRegistryOptions) {
-        registryType = options.registryType
-        url = options.url
-        visibility = options.visibility
-        username = options.username
-        replacesBase = options.replacesBase
-        encryptedValue = options.encryptedValue
-        keyId = options.keyId
-        selectedRepositoryIds = options.selectedRepositoryIds
-        authType = options.authType
-        tenantId = options.tenantId
-        clientId = options.clientId
-        awsRegion = options.awsRegion
-        accountId = options.accountId
-        roleName = options.roleName
-        domain = options.domain
-        domainOwner = options.domainOwner
-        jfrogOidcProviderName = options.jfrogOidcProviderName
-        audience = options.audience
-        identityMappingName = options.identityMappingName
-        namespace = options.namespace
-        serviceSlug = options.serviceSlug
-        apiHost = options.apiHost
-        workloadIdentityProvider = options.workloadIdentityProvider
-        serviceAccount = options.serviceAccount
+        self.registryType = options.registryType
+        self.url = options.url
+        self.visibility = options.visibility
+        self.username = options.username
+        self.replacesBase = options.replacesBase
+        self.encryptedValue = options.encryptedValue
+        self.keyId = options.keyId
+        self.selectedRepositoryIds = options.selectedRepositoryIds
+        self.authType = options.authType
+        self.tenantId = options.tenantId
+        self.clientId = options.clientId
+        self.awsRegion = options.awsRegion
+        self.accountId = options.accountId
+        self.roleName = options.roleName
+        self.domain = options.domain
+        self.domainOwner = options.domainOwner
+        self.jfrogOidcProviderName = options.jfrogOidcProviderName
+        self.audience = options.audience
+        self.identityMappingName = options.identityMappingName
+        self.namespace = options.namespace
+        self.serviceSlug = options.serviceSlug
+        self.apiHost = options.apiHost
+        self.workloadIdentityProvider = options.workloadIdentityProvider
+        self.serviceAccount = options.serviceAccount
     }
 }
 
@@ -116,57 +116,57 @@ struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(registryType, forKey: SdkCodingKey("registry_type"))
-        try keyedContainer.encodeIfPresent(url, forKey: SdkCodingKey("url"))
-        try keyedContainer.encodeIfPresent(username, forKey: SdkCodingKey("username"))
-        try keyedContainer.encodeIfPresent(replacesBase, forKey: SdkCodingKey("replaces_base"))
-        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(keyId, forKey: SdkCodingKey("key_id"))
-        try keyedContainer.encodeIfPresent(visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
-        try keyedContainer.encodeIfPresent(authType, forKey: SdkCodingKey("auth_type"))
-        try keyedContainer.encodeIfPresent(tenantId, forKey: SdkCodingKey("tenant_id"))
-        try keyedContainer.encodeIfPresent(clientId, forKey: SdkCodingKey("client_id"))
-        try keyedContainer.encodeIfPresent(awsRegion, forKey: SdkCodingKey("aws_region"))
-        try keyedContainer.encodeIfPresent(accountId, forKey: SdkCodingKey("account_id"))
-        try keyedContainer.encodeIfPresent(roleName, forKey: SdkCodingKey("role_name"))
-        try keyedContainer.encodeIfPresent(domain, forKey: SdkCodingKey("domain"))
-        try keyedContainer.encodeIfPresent(domainOwner, forKey: SdkCodingKey("domain_owner"))
-        try keyedContainer.encodeIfPresent(jfrogOidcProviderName, forKey: SdkCodingKey("jfrog_oidc_provider_name"))
-        try keyedContainer.encodeIfPresent(audience, forKey: SdkCodingKey("audience"))
-        try keyedContainer.encodeIfPresent(identityMappingName, forKey: SdkCodingKey("identity_mapping_name"))
-        try keyedContainer.encodeIfPresent(namespace, forKey: SdkCodingKey("namespace"))
-        try keyedContainer.encodeIfPresent(serviceSlug, forKey: SdkCodingKey("service_slug"))
-        try keyedContainer.encodeIfPresent(apiHost, forKey: SdkCodingKey("api_host"))
-        try keyedContainer.encodeIfPresent(workloadIdentityProvider, forKey: SdkCodingKey("workload_identity_provider"))
-        try keyedContainer.encodeIfPresent(serviceAccount, forKey: SdkCodingKey("service_account"))
+        try keyedContainer.encodeIfPresent(self.registryType, forKey: SdkCodingKey("registry_type"))
+        try keyedContainer.encodeIfPresent(self.url, forKey: SdkCodingKey("url"))
+        try keyedContainer.encodeIfPresent(self.username, forKey: SdkCodingKey("username"))
+        try keyedContainer.encodeIfPresent(self.replacesBase, forKey: SdkCodingKey("replaces_base"))
+        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(self.keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(self.visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encodeIfPresent(self.authType, forKey: SdkCodingKey("auth_type"))
+        try keyedContainer.encodeIfPresent(self.tenantId, forKey: SdkCodingKey("tenant_id"))
+        try keyedContainer.encodeIfPresent(self.clientId, forKey: SdkCodingKey("client_id"))
+        try keyedContainer.encodeIfPresent(self.awsRegion, forKey: SdkCodingKey("aws_region"))
+        try keyedContainer.encodeIfPresent(self.accountId, forKey: SdkCodingKey("account_id"))
+        try keyedContainer.encodeIfPresent(self.roleName, forKey: SdkCodingKey("role_name"))
+        try keyedContainer.encodeIfPresent(self.domain, forKey: SdkCodingKey("domain"))
+        try keyedContainer.encodeIfPresent(self.domainOwner, forKey: SdkCodingKey("domain_owner"))
+        try keyedContainer.encodeIfPresent(self.jfrogOidcProviderName, forKey: SdkCodingKey("jfrog_oidc_provider_name"))
+        try keyedContainer.encodeIfPresent(self.audience, forKey: SdkCodingKey("audience"))
+        try keyedContainer.encodeIfPresent(self.identityMappingName, forKey: SdkCodingKey("identity_mapping_name"))
+        try keyedContainer.encodeIfPresent(self.namespace, forKey: SdkCodingKey("namespace"))
+        try keyedContainer.encodeIfPresent(self.serviceSlug, forKey: SdkCodingKey("service_slug"))
+        try keyedContainer.encodeIfPresent(self.apiHost, forKey: SdkCodingKey("api_host"))
+        try keyedContainer.encodeIfPresent(self.workloadIdentityProvider, forKey: SdkCodingKey("workload_identity_provider"))
+        try keyedContainer.encodeIfPresent(self.serviceAccount, forKey: SdkCodingKey("service_account"))
     }
 
     init(options: PrivateRegistriesMethods.PrivateRegistriesUpdateOrgPrivateRegistryOptions) {
-        registryType = options.registryType
-        url = options.url
-        username = options.username
-        replacesBase = options.replacesBase
-        encryptedValue = options.encryptedValue
-        keyId = options.keyId
-        visibility = options.visibility
-        selectedRepositoryIds = options.selectedRepositoryIds
-        authType = options.authType
-        tenantId = options.tenantId
-        clientId = options.clientId
-        awsRegion = options.awsRegion
-        accountId = options.accountId
-        roleName = options.roleName
-        domain = options.domain
-        domainOwner = options.domainOwner
-        jfrogOidcProviderName = options.jfrogOidcProviderName
-        audience = options.audience
-        identityMappingName = options.identityMappingName
-        namespace = options.namespace
-        serviceSlug = options.serviceSlug
-        apiHost = options.apiHost
-        workloadIdentityProvider = options.workloadIdentityProvider
-        serviceAccount = options.serviceAccount
+        self.registryType = options.registryType
+        self.url = options.url
+        self.username = options.username
+        self.replacesBase = options.replacesBase
+        self.encryptedValue = options.encryptedValue
+        self.keyId = options.keyId
+        self.visibility = options.visibility
+        self.selectedRepositoryIds = options.selectedRepositoryIds
+        self.authType = options.authType
+        self.tenantId = options.tenantId
+        self.clientId = options.clientId
+        self.awsRegion = options.awsRegion
+        self.accountId = options.accountId
+        self.roleName = options.roleName
+        self.domain = options.domain
+        self.domainOwner = options.domainOwner
+        self.jfrogOidcProviderName = options.jfrogOidcProviderName
+        self.audience = options.audience
+        self.identityMappingName = options.identityMappingName
+        self.namespace = options.namespace
+        self.serviceSlug = options.serviceSlug
+        self.apiHost = options.apiHost
+        self.workloadIdentityProvider = options.workloadIdentityProvider
+        self.serviceAccount = options.serviceAccount
     }
 }
 
@@ -176,8 +176,8 @@ struct ProjectsCreateDraftItemForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(title, forKey: SdkCodingKey("title"))
-        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(self.title, forKey: SdkCodingKey("title"))
+        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
     }
 }
 
@@ -190,11 +190,11 @@ struct ProjectsAddItemForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(type, forKey: SdkCodingKey("type"))
-        try keyedContainer.encodeIfPresent(id, forKey: SdkCodingKey("id"))
-        try keyedContainer.encodeIfPresent(owner, forKey: SdkCodingKey("owner"))
-        try keyedContainer.encodeIfPresent(repo, forKey: SdkCodingKey("repo"))
-        try keyedContainer.encodeIfPresent(number, forKey: SdkCodingKey("number"))
+        try keyedContainer.encode(self.type, forKey: SdkCodingKey("type"))
+        try keyedContainer.encodeIfPresent(self.id, forKey: SdkCodingKey("id"))
+        try keyedContainer.encodeIfPresent(self.owner, forKey: SdkCodingKey("owner"))
+        try keyedContainer.encodeIfPresent(self.repo, forKey: SdkCodingKey("repo"))
+        try keyedContainer.encodeIfPresent(self.number, forKey: SdkCodingKey("number"))
     }
 }
 
@@ -203,6 +203,6 @@ struct ProjectsUpdateItemForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(fields, forKey: SdkCodingKey("fields"))
+        try keyedContainer.encode(self.fields, forKey: SdkCodingKey("fields"))
     }
 }

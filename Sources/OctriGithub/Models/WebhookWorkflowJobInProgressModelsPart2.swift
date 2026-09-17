@@ -3,76 +3,44 @@
 
 import Foundation
 
-/// WebhookWorkflowJobInProgress domain models
-public extension WebhookWorkflowJobInProgressWorkflowJobVariant1 {
-    init(from decoder: Decoder) throws {
+// WebhookWorkflowJobInProgress domain models
+extension WebhookWorkflowJobInProgressWorkflowJobVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.status) else {
-            throw SdkValidationError(
-                field: "status",
-                code: "required",
-                message: "Validation failed for 'status': value is required"
-            )
+            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
         }
         guard container.contains(.steps) else {
-            throw SdkValidationError(
-                field: "steps",
-                code: "required",
-                message: "Validation failed for 'steps': value is required"
-            )
+            throw SdkValidationError(field: "steps", code: "required", message: "Validation failed for 'steps': value is required")
         }
-        status = try container.sdkDecodeRequired(.status)
-        steps = try container.sdkDecodeRequired(.steps)
-        checkRunUrl = try container.sdkDecodeIfPresent(.checkRunUrl)
-        completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        headSha = try container.sdkDecodeIfPresent(.headSha)
-        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        id = try container.sdkDecodeIfPresent(.id)
-        labels = try container.sdkDecodeIfPresent(.labels)
-        name = try container.sdkDecodeIfPresent(.name)
-        nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        runAttempt = try container.sdkDecodeIfPresent(.runAttempt)
-        runId = try container.sdkDecodeIfPresent(.runId)
-        runUrl = try container.sdkDecodeIfPresent(.runUrl)
-        runnerGroupId = try container.sdkDecodeIfPresent(.runnerGroupId)
-        runnerGroupName = try container.sdkDecodeIfPresent(.runnerGroupName)
-        runnerId = try container.sdkDecodeIfPresent(.runnerId)
-        runnerName = try container.sdkDecodeIfPresent(.runnerName)
-        startedAt = try container.sdkDecodeIfPresent(.startedAt)
-        headBranch = try container.sdkDecodeIfPresent(.headBranch)
-        workflowName = try container.sdkDecodeIfPresent(.workflowName)
-        url = try container.sdkDecodeIfPresent(.url)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.steps = try container.sdkDecodeRequired(.steps)
+        self.checkRunUrl = try container.sdkDecodeIfPresent(.checkRunUrl)
+        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        self.headSha = try container.sdkDecodeIfPresent(.headSha)
+        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        self.id = try container.sdkDecodeIfPresent(.id)
+        self.labels = try container.sdkDecodeIfPresent(.labels)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        self.runAttempt = try container.sdkDecodeIfPresent(.runAttempt)
+        self.runId = try container.sdkDecodeIfPresent(.runId)
+        self.runUrl = try container.sdkDecodeIfPresent(.runUrl)
+        self.runnerGroupId = try container.sdkDecodeIfPresent(.runnerGroupId)
+        self.runnerGroupName = try container.sdkDecodeIfPresent(.runnerGroupName)
+        self.runnerId = try container.sdkDecodeIfPresent(.runnerId)
+        self.runnerName = try container.sdkDecodeIfPresent(.runnerName)
+        self.startedAt = try container.sdkDecodeIfPresent(.startedAt)
+        self.headBranch = try container.sdkDecodeIfPresent(.headBranch)
+        self.workflowName = try container.sdkDecodeIfPresent(.workflowName)
+        self.url = try container.sdkDecodeIfPresent(.url)
     }
 }
 
-public extension WebhookWorkflowJobInProgressWorkflowJobVariant1 {
-    init(
-        status: WebhookWorkflowJobInProgressWorkflowJobVariant1Status,
-        steps: [WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem],
-        checkRunUrl: String? = nil,
-        completedAt: String? = nil,
-        conclusion: String? = nil,
-        createdAt: String? = nil,
-        headSha: String? = nil,
-        htmlUrl: String? = nil,
-        id: Int? = nil,
-        labels: [String]? = nil,
-        name: String? = nil,
-        nodeId: String? = nil,
-        runAttempt: Int? = nil,
-        runId: Int? = nil,
-        runUrl: String? = nil,
-        runnerGroupId: Double? = nil,
-        runnerGroupName: String? = nil,
-        runnerId: Double? = nil,
-        runnerName: String? = nil,
-        startedAt: String? = nil,
-        headBranch: String? = nil,
-        workflowName: String? = nil,
-        url: String? = nil
-    ) {
+extension WebhookWorkflowJobInProgressWorkflowJobVariant1 {
+    public init(status: WebhookWorkflowJobInProgressWorkflowJobVariant1Status, steps: [WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem], checkRunUrl: String? = nil, completedAt: String? = nil, conclusion: String? = nil, createdAt: String? = nil, headSha: String? = nil, htmlUrl: String? = nil, id: Int? = nil, labels: [String]? = nil, name: String? = nil, nodeId: String? = nil, runAttempt: Int? = nil, runId: Int? = nil, runUrl: String? = nil, runnerGroupId: Double? = nil, runnerGroupName: String? = nil, runnerId: Double? = nil, runnerName: String? = nil, startedAt: String? = nil, headBranch: String? = nil, workflowName: String? = nil, url: String? = nil) {
         (self.status, self.steps) = (status, steps)
         (self.checkRunUrl, self.completedAt) = (checkRunUrl, completedAt)
         (self.conclusion, self.createdAt) = (conclusion, createdAt)
@@ -112,74 +80,41 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem: Codable 
         case status
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem {
-    init(from decoder: Decoder) throws {
+extension WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.completedAt) else {
-            throw SdkValidationError(
-                field: "completed_at",
-                code: "required",
-                message: "Validation failed for 'completed_at': value is required"
-            )
+            throw SdkValidationError(field: "completed_at", code: "required", message: "Validation failed for 'completed_at': value is required")
         }
         guard container.contains(.conclusion) else {
-            throw SdkValidationError(
-                field: "conclusion",
-                code: "required",
-                message: "Validation failed for 'conclusion': value is required"
-            )
+            throw SdkValidationError(field: "conclusion", code: "required", message: "Validation failed for 'conclusion': value is required")
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(
-                field: "name",
-                code: "required",
-                message: "Validation failed for 'name': value is required"
-            )
+            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
         }
         guard container.contains(.number) else {
-            throw SdkValidationError(
-                field: "number",
-                code: "required",
-                message: "Validation failed for 'number': value is required"
-            )
+            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
         }
         guard container.contains(.startedAt) else {
-            throw SdkValidationError(
-                field: "started_at",
-                code: "required",
-                message: "Validation failed for 'started_at': value is required"
-            )
+            throw SdkValidationError(field: "started_at", code: "required", message: "Validation failed for 'started_at': value is required")
         }
         guard container.contains(.status) else {
-            throw SdkValidationError(
-                field: "status",
-                code: "required",
-                message: "Validation failed for 'status': value is required"
-            )
+            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
         }
-        completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        name = try container.sdkDecodeRequired(.name)
-        number = try container.sdkDecodeRequired(.number)
-        startedAt = try container.sdkDecodeIfPresent(.startedAt)
-        status = try container.sdkDecodeRequired(.status)
+        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.number = try container.sdkDecodeRequired(.number)
+        self.startedAt = try container.sdkDecodeIfPresent(.startedAt)
+        self.status = try container.sdkDecodeRequired(.status)
     }
 }
 
-public extension WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem {
-    init(
-        completedAt: String?,
-        conclusion: String?,
-        name: String,
-        number: Int,
-        startedAt: String?,
-        status: WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus
-    ) {
+extension WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem {
+    public init(completedAt: String?, conclusion: String?, name: String, number: Int, startedAt: String?, status: WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus) {
         (self.completedAt, self.conclusion) = (completedAt, conclusion)
         (self.name, self.number) = (name, number)
         (self.startedAt, self.status) = (startedAt, status)
@@ -187,21 +122,17 @@ public extension WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItem {
 }
 
 /// The current status of the job. Can be `queued`, `in_progress`, or `completed`.
-public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Status: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Status: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let queued = WebhookWorkflowJobInProgressWorkflowJobVariant0Status(rawValue: "queued")
     public static let inProgress = WebhookWorkflowJobInProgressWorkflowJobVariant0Status(rawValue: "in_progress")
     public static let completed = WebhookWorkflowJobInProgressWorkflowJobVariant0Status(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -211,14 +142,10 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Status: RawRepresen
 }
 
 /// Required enumerated value serialized in the `conclusion` wire field.
-public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let success = WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion(rawValue: "success")
     public static let failure = WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion(rawValue: "failure")
     public static let cancelled = WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion(rawValue: "cancelled")
@@ -226,7 +153,7 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion: RawRepr
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -236,21 +163,17 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant0Conclusion: RawRepr
 }
 
 /// Required enumerated value serialized in the `status` wire field.
-public struct WebhookWorkflowJobInProgressWorkflowJobVariant1Status: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct WebhookWorkflowJobInProgressWorkflowJobVariant1Status: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let inProgress = WebhookWorkflowJobInProgressWorkflowJobVariant1Status(rawValue: "in_progress")
     public static let completed = WebhookWorkflowJobInProgressWorkflowJobVariant1Status(rawValue: "completed")
     public static let queued = WebhookWorkflowJobInProgressWorkflowJobVariant1Status(rawValue: "queued")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -260,23 +183,18 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant1Status: RawRepresen
 }
 
 /// Required enumerated value serialized in the `conclusion` wire field.
-public struct WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let failure = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion(rawValue: "failure")
     public static let skipped = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion(rawValue: "skipped")
     public static let success = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion(rawValue: "success")
-    public static let cancelled =
-        WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion(rawValue: "cancelled")
+    public static let cancelled = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion(rawValue: "cancelled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -286,23 +204,18 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemConclusion
 }
 
 /// Required enumerated value serialized in the `status` wire field.
-public struct WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let inProgress =
-        WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus(rawValue: "in_progress")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let inProgress = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus(rawValue: "in_progress")
     public static let completed = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus(rawValue: "completed")
     public static let queued = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus(rawValue: "queued")
     public static let pending = WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus(rawValue: "pending")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -312,23 +225,18 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant0StepsItemStatus: Ra
 }
 
 /// Required enumerated value serialized in the `status` wire field.
-public struct WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let inProgress =
-        WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus(rawValue: "in_progress")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let inProgress = WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus(rawValue: "in_progress")
     public static let completed = WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus(rawValue: "completed")
     public static let pending = WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus(rawValue: "pending")
     public static let queued = WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus(rawValue: "queued")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -341,15 +249,12 @@ public struct WebhookWorkflowJobInProgressWorkflowJobVariant1StepsItemStatus: Ra
 public struct WebhookWorkflowJobInProgressAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let inProgress = WebhookWorkflowJobInProgressAction(rawValue: "in_progress")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

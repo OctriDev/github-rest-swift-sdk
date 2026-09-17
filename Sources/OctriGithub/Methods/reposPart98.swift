@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
+extension ReposMethods {
     /// Returns a list of webhook deliveries for a webhook configured in a repository.
     ///
     /// - Parameters:
@@ -28,34 +28,11 @@ public extension ReposMethods {
     ///   deliveries with a `status_code` in the 200-399 range (inclusive). A `status`
     ///   of `failure` returns deliveries with a `status_code` in the 400-599 range
     ///   (inclusive).
-    static func reposListWebhookDeliveries(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        hookId: Int,
-        perPage: Int?,
-        cursor: String?,
-        status: AppsListWebhookDeliveriesParameter?
-    ) async throws -> [HookDeliveryItem] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/hooks/",
-                sdkEncodePathSegment(sdkWireString(hookId)),
-                "/deliveries",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("cursor", value: cursor),
-                SdkQueryParameter("status", value: status),
-            ],
-            decoder: .json,
-            operationId: "reposListWebhookDeliveries"
-        )).data
+    public static func reposListWebhookDeliveries(config: ClientConfig, owner: String, repo: String, hookId: Int, perPage: Int?, cursor: String?, status: AppsListWebhookDeliveriesParameter?) async throws -> [HookDeliveryItem] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/deliveries"].joined(), config: config, query: [
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("cursor", value: cursor),
+            SdkQueryParameter("status", value: status),
+        ], decoder: .json, operationId: "reposListWebhookDeliveries")).data
     }
 }

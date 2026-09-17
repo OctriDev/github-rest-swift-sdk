@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReactionsMethods {
-    /// Create a reaction to a [release](https://docs.github.com/rest/releases/releases#get-a-release). A response with
-    /// a `Status: 200 OK` means that you already added the reaction type to this release.
+extension ReactionsMethods {
+    /// Create a reaction to a [release](https://docs.github.com/rest/releases/releases#get-a-release). A response with a `Status: 200 OK` means that you already added the reaction type to this release.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,36 +18,13 @@ public extension ReactionsMethods {
     /// - content: The [reaction
     ///   type](https://docs.github.com/rest/reactions/reactions#about-reactions) to
     ///   add to the release.
-    static func reactionsCreateForRelease(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        releaseId: Int,
-        content: ReactionsCreateForReleaseRequestBodyContent
-    ) async throws -> Reaction {
+    public static func reactionsCreateForRelease(config: ClientConfig, owner: String, repo: String, releaseId: Int, content: ReactionsCreateForReleaseRequestBodyContent) async throws -> Reaction {
         let requestBody = ReactionsCreateForReleaseRequestBody(content: content)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases/",
-                sdkEncodePathSegment(sdkWireString(releaseId)),
-                "/reactions",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "reactionsCreateForRelease"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/", sdkEncodePathSegment(sdkWireString(releaseId)), "/reactions"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reactionsCreateForRelease")).data
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete
-    /// /repositories/:repository_id/releases/:release_id/reactions/:reaction_id`. Delete a reaction to a
-    /// [release](https://docs.github.com/rest/releases/releases#get-a-release).
+    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE delete /repositories/:repository_id/releases/:release_id/reactions/:reaction_id`. Delete a reaction to a [release](https://docs.github.com/rest/releases/releases#get-a-release).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -57,28 +33,7 @@ public extension ReactionsMethods {
     ///   not case sensitive.
     /// - releaseId: The unique identifier of the release.
     /// - reactionId: The unique identifier of the reaction.
-    static func reactionsDeleteForRelease(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        releaseId: Int,
-        reactionId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/releases/",
-                sdkEncodePathSegment(sdkWireString(releaseId)),
-                "/reactions/",
-                sdkEncodePathSegment(sdkWireString(reactionId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "reactionsDeleteForRelease"
-        )).data
+    public static func reactionsDeleteForRelease(config: ClientConfig, owner: String, repo: String, releaseId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/", sdkEncodePathSegment(sdkWireString(releaseId)), "/reactions/", sdkEncodePathSegment(sdkWireString(reactionId))].joined(), config: config, decoder: .empty, operationId: "reactionsDeleteForRelease")).data
     }
 }

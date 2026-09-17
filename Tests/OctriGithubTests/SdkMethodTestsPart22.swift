@@ -304,12 +304,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try GitMethods.GitCreateCommitOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            message: decoded("\"my commit message\""),
-            tree: decoded("\"827efc6d56897b048c772eb4087f854f46256132\"")
-        )
+        var options = try GitMethods.GitCreateCommitOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), message: decoded("\"my commit message\""), tree: decoded("\"827efc6d56897b048c772eb4087f854f46256132\""))
         options.parents = try decoded("[\"7d1b31e74ee336d15cbd21741bc88a537ed063a0\"]")
         options.author = try decoded(sdkMethodFixture560Value1)
         options.committer = try decoded("null")

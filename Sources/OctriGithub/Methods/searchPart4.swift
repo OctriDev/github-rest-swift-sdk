@@ -6,23 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension SearchMethods {
+extension SearchMethods {
     /// Search issues and pull requests
     ///
-    /// Find issues by state and keyword. This method returns up to 100 results [per
-    /// page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for issues, you can
-    /// get text match metadata for the issue **title**, issue **body**, and issue **comment body** fields when you pass
-    /// the `text-match` media type. For more details about how to receive highlighted search results, see [Text match
-    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to find the
-    /// oldest unresolved Python bugs on Windows. Your query might look something like this.
-    /// `q=windows+label:bug+language:python+state:open&sort=created&order=asc` This query searches for the keyword
-    /// `windows`, within any open issue that is labeled as `bug`. The search runs across repositories whose primary
-    /// language is Python. The results are sorted by creation date in ascending order, which means the oldest issues
-    /// appear first in the search results. > [!NOTE] > For requests made by GitHub Apps with a user access token, you
-    /// can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the
-    /// `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get
-    /// results for both issues and pull requests, you must send separate queries for issues and pull requests. For more
-    /// information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
+    /// Find issues by state and keyword. This method returns up to 100 results [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for issues, you can get text match metadata for the issue **title**, issue **body**, and issue **comment body** fields when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to find the oldest unresolved Python bugs on Windows. Your query might look something like this. `q=windows+label:bug+language:python+state:open&sort=created&order=asc` This query searches for the keyword `windows`, within any open issue that is labeled as `bug`. The search runs across repositories whose primary language is Python. The results are sorted by creation date in ascending order, which means the oldest issues appear first in the search results. > [!NOTE] > For requests made by GitHub Apps with a user access token, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
     ///
     /// - Parameters:
     /// - q: The query contains one or more search keywords and qualifiers.
@@ -58,17 +45,8 @@ public extension SearchMethods {
     ///   semantic search with lexical search for best results. Semantic and hybrid
     ///   search require authentication and are rate limited to 10 requests per
     ///   minute. Only applies to issue searches (`/search/issues`).
-    static func searchIssuesAndPullRequests(
-        config: ClientConfig,
-        q: String,
-        sort: SearchIssuesAndPullRequestsParameterX0ca61b63?,
-        order: SearchCommitsParameter?,
-        perPage: Int?,
-        page: Int?,
-        advancedSearch: String?,
-        searchType: SearchIssuesAndPullRequestsParameter?
-    ) async throws -> SearchIssuesAndPullRequestsResponse {
-        try await (sdkRequest("GET", "/search/issues", config: config, query: [
+    public static func searchIssuesAndPullRequests(config: ClientConfig, q: String, sort: SearchIssuesAndPullRequestsParameterX0ca61b63?, order: SearchCommitsParameter?, perPage: Int?, page: Int?, advancedSearch: String?, searchType: SearchIssuesAndPullRequestsParameter?) async throws -> SearchIssuesAndPullRequestsResponse {
+        return try (await sdkRequest("GET", "/search/issues", config: config, query: [
             SdkQueryParameter("q", value: q),
             SdkQueryParameter("sort", value: sort),
             SdkQueryParameter("order", value: order),

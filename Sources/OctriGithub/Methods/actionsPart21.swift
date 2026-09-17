@@ -6,88 +6,34 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Sets repositories that are allowed to use self-hosted runners in an organization. OAuth app tokens and personal
-    /// access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this
-    /// endpoint.
+extension ActionsMethods {
+    /// Sets repositories that are allowed to use self-hosted runners in an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - selectedRepositoryIds: IDs of repositories that can use repository-level
     ///   self-hosted runners
-    static func actionsSetSelectedRepositoriesSelfHostedRunnersOrganization(
-        config: ClientConfig,
-        org: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
-        let requestBody =
-            ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody(
-                selectedRepositoryIds: selectedRepositoryIds
-            )
+    public static func actionsSetSelectedRepositoriesSelfHostedRunnersOrganization(config: ClientConfig, org: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetSelectedRepositoriesSelfHostedRunnersOrganizationRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/permissions/self-hosted-runners/repositories",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetSelectedRepositoriesSelfHostedRunnersOrganization"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetSelectedRepositoriesSelfHostedRunnersOrganization")).data
     }
 
-    /// Adds a repository to the list of repositories that are allowed to use self-hosted runners in an organization.
-    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies"
-    /// fine-grained permission to use this endpoint.
+    /// Adds a repository to the list of repositories that are allowed to use self-hosted runners in an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryId: The unique identifier of the repository.
-    static func actionsEnableSelectedRepositorySelfHostedRunnersOrganization(
-        config: ClientConfig,
-        org: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/permissions/self-hosted-runners/repositories/",
-                sdkEncodePathSegment(sdkWireString(repositoryId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsEnableSelectedRepositorySelfHostedRunnersOrganization"
-        )).data
+    public static func actionsEnableSelectedRepositorySelfHostedRunnersOrganization(config: ClientConfig, org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "actionsEnableSelectedRepositorySelfHostedRunnersOrganization")).data
     }
 
-    /// Removes a repository from the list of repositories that are allowed to use self-hosted runners in an
-    /// organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions
-    /// policies" fine-grained permission to use this endpoint.
+    /// Removes a repository from the list of repositories that are allowed to use self-hosted runners in an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryId: The unique identifier of the repository.
-    static func actionsDisableSelectedRepositorySelfHostedRunnersOrganization(
-        config: ClientConfig,
-        org: String,
-        repositoryId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/permissions/self-hosted-runners/repositories/",
-                sdkEncodePathSegment(sdkWireString(repositoryId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsDisableSelectedRepositorySelfHostedRunnersOrganization"
-        )).data
+    public static func actionsDisableSelectedRepositorySelfHostedRunnersOrganization(config: ClientConfig, org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "actionsDisableSelectedRepositorySelfHostedRunnersOrganization")).data
     }
 }

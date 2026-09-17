@@ -14,10 +14,10 @@ struct ReposCreateCommitStatusRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(targetUrl, forKey: SdkCodingKey("target_url"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(context, forKey: SdkCodingKey("context"))
+        try keyedContainer.encode(self.state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.targetUrl, forKey: SdkCodingKey("target_url"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.context, forKey: SdkCodingKey("context"))
     }
 }
 
@@ -26,7 +26,7 @@ struct ReposReplaceAllTopicsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(names, forKey: SdkCodingKey("names"))
+        try keyedContainer.encode(self.names, forKey: SdkCodingKey("names"))
     }
 }
 
@@ -37,9 +37,9 @@ struct ReposTransferRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(newOwner, forKey: SdkCodingKey("new_owner"))
-        try keyedContainer.encodeIfPresent(newName, forKey: SdkCodingKey("new_name"))
-        try keyedContainer.encodeIfPresent(teamIds, forKey: SdkCodingKey("team_ids"))
+        try keyedContainer.encode(self.newOwner, forKey: SdkCodingKey("new_owner"))
+        try keyedContainer.encodeIfPresent(self.newName, forKey: SdkCodingKey("new_name"))
+        try keyedContainer.encodeIfPresent(self.teamIds, forKey: SdkCodingKey("team_ids"))
     }
 }
 
@@ -52,11 +52,11 @@ struct ReposCreateUsingTemplateRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(owner, forKey: SdkCodingKey("owner"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(includeAllBranches, forKey: SdkCodingKey("include_all_branches"))
-        try keyedContainer.encodeIfPresent(self.private, forKey: SdkCodingKey("private"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.owner, forKey: SdkCodingKey("owner"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.includeAllBranches, forKey: SdkCodingKey("include_all_branches"))
+        try keyedContainer.encodeIfPresent(self.`private`, forKey: SdkCodingKey("private"))
     }
 }
 
@@ -87,58 +87,55 @@ struct ReposCreateForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(homepage, forKey: SdkCodingKey("homepage"))
-        try keyedContainer.encodeIfPresent(self.private, forKey: SdkCodingKey("private"))
-        try keyedContainer.encodeIfPresent(hasIssues, forKey: SdkCodingKey("has_issues"))
-        try keyedContainer.encodeIfPresent(hasProjects, forKey: SdkCodingKey("has_projects"))
-        try keyedContainer.encodeIfPresent(hasWiki, forKey: SdkCodingKey("has_wiki"))
-        try keyedContainer.encodeIfPresent(hasDiscussions, forKey: SdkCodingKey("has_discussions"))
-        try keyedContainer.encodeIfPresent(teamId, forKey: SdkCodingKey("team_id"))
-        try keyedContainer.encodeIfPresent(autoInit, forKey: SdkCodingKey("auto_init"))
-        try keyedContainer.encodeIfPresent(gitignoreTemplate, forKey: SdkCodingKey("gitignore_template"))
-        try keyedContainer.encodeIfPresent(licenseTemplate, forKey: SdkCodingKey("license_template"))
-        try keyedContainer.encodeIfPresent(allowSquashMerge, forKey: SdkCodingKey("allow_squash_merge"))
-        try keyedContainer.encodeIfPresent(allowMergeCommit, forKey: SdkCodingKey("allow_merge_commit"))
-        try keyedContainer.encodeIfPresent(allowRebaseMerge, forKey: SdkCodingKey("allow_rebase_merge"))
-        try keyedContainer.encodeIfPresent(allowAutoMerge, forKey: SdkCodingKey("allow_auto_merge"))
-        try keyedContainer.encodeIfPresent(deleteBranchOnMerge, forKey: SdkCodingKey("delete_branch_on_merge"))
-        try keyedContainer.encodeIfPresent(squashMergeCommitTitle, forKey: SdkCodingKey("squash_merge_commit_title"))
-        try keyedContainer.encodeIfPresent(
-            squashMergeCommitMessage,
-            forKey: SdkCodingKey("squash_merge_commit_message")
-        )
-        try keyedContainer.encodeIfPresent(mergeCommitTitle, forKey: SdkCodingKey("merge_commit_title"))
-        try keyedContainer.encodeIfPresent(mergeCommitMessage, forKey: SdkCodingKey("merge_commit_message"))
-        try keyedContainer.encodeIfPresent(hasDownloads, forKey: SdkCodingKey("has_downloads"))
-        try keyedContainer.encodeIfPresent(isTemplate, forKey: SdkCodingKey("is_template"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.homepage, forKey: SdkCodingKey("homepage"))
+        try keyedContainer.encodeIfPresent(self.`private`, forKey: SdkCodingKey("private"))
+        try keyedContainer.encodeIfPresent(self.hasIssues, forKey: SdkCodingKey("has_issues"))
+        try keyedContainer.encodeIfPresent(self.hasProjects, forKey: SdkCodingKey("has_projects"))
+        try keyedContainer.encodeIfPresent(self.hasWiki, forKey: SdkCodingKey("has_wiki"))
+        try keyedContainer.encodeIfPresent(self.hasDiscussions, forKey: SdkCodingKey("has_discussions"))
+        try keyedContainer.encodeIfPresent(self.teamId, forKey: SdkCodingKey("team_id"))
+        try keyedContainer.encodeIfPresent(self.autoInit, forKey: SdkCodingKey("auto_init"))
+        try keyedContainer.encodeIfPresent(self.gitignoreTemplate, forKey: SdkCodingKey("gitignore_template"))
+        try keyedContainer.encodeIfPresent(self.licenseTemplate, forKey: SdkCodingKey("license_template"))
+        try keyedContainer.encodeIfPresent(self.allowSquashMerge, forKey: SdkCodingKey("allow_squash_merge"))
+        try keyedContainer.encodeIfPresent(self.allowMergeCommit, forKey: SdkCodingKey("allow_merge_commit"))
+        try keyedContainer.encodeIfPresent(self.allowRebaseMerge, forKey: SdkCodingKey("allow_rebase_merge"))
+        try keyedContainer.encodeIfPresent(self.allowAutoMerge, forKey: SdkCodingKey("allow_auto_merge"))
+        try keyedContainer.encodeIfPresent(self.deleteBranchOnMerge, forKey: SdkCodingKey("delete_branch_on_merge"))
+        try keyedContainer.encodeIfPresent(self.squashMergeCommitTitle, forKey: SdkCodingKey("squash_merge_commit_title"))
+        try keyedContainer.encodeIfPresent(self.squashMergeCommitMessage, forKey: SdkCodingKey("squash_merge_commit_message"))
+        try keyedContainer.encodeIfPresent(self.mergeCommitTitle, forKey: SdkCodingKey("merge_commit_title"))
+        try keyedContainer.encodeIfPresent(self.mergeCommitMessage, forKey: SdkCodingKey("merge_commit_message"))
+        try keyedContainer.encodeIfPresent(self.hasDownloads, forKey: SdkCodingKey("has_downloads"))
+        try keyedContainer.encodeIfPresent(self.isTemplate, forKey: SdkCodingKey("is_template"))
     }
 
     init(options: ReposMethods.ReposCreateForAuthenticatedUserOptions) {
-        name = options.name
-        description = options.description
-        homepage = options.homepage
-        self.private = options.private
-        hasIssues = options.hasIssues
-        hasProjects = options.hasProjects
-        hasWiki = options.hasWiki
-        hasDiscussions = options.hasDiscussions
-        teamId = options.teamId
-        autoInit = options.autoInit
-        gitignoreTemplate = options.gitignoreTemplate
-        licenseTemplate = options.licenseTemplate
-        allowSquashMerge = options.allowSquashMerge
-        allowMergeCommit = options.allowMergeCommit
-        allowRebaseMerge = options.allowRebaseMerge
-        allowAutoMerge = options.allowAutoMerge
-        deleteBranchOnMerge = options.deleteBranchOnMerge
-        squashMergeCommitTitle = options.squashMergeCommitTitle
-        squashMergeCommitMessage = options.squashMergeCommitMessage
-        mergeCommitTitle = options.mergeCommitTitle
-        mergeCommitMessage = options.mergeCommitMessage
-        hasDownloads = options.hasDownloads
-        isTemplate = options.isTemplate
+        self.name = options.name
+        self.description = options.description
+        self.homepage = options.homepage
+        self.`private` = options.`private`
+        self.hasIssues = options.hasIssues
+        self.hasProjects = options.hasProjects
+        self.hasWiki = options.hasWiki
+        self.hasDiscussions = options.hasDiscussions
+        self.teamId = options.teamId
+        self.autoInit = options.autoInit
+        self.gitignoreTemplate = options.gitignoreTemplate
+        self.licenseTemplate = options.licenseTemplate
+        self.allowSquashMerge = options.allowSquashMerge
+        self.allowMergeCommit = options.allowMergeCommit
+        self.allowRebaseMerge = options.allowRebaseMerge
+        self.allowAutoMerge = options.allowAutoMerge
+        self.deleteBranchOnMerge = options.deleteBranchOnMerge
+        self.squashMergeCommitTitle = options.squashMergeCommitTitle
+        self.squashMergeCommitMessage = options.squashMergeCommitMessage
+        self.mergeCommitTitle = options.mergeCommitTitle
+        self.mergeCommitMessage = options.mergeCommitMessage
+        self.hasDownloads = options.hasDownloads
+        self.isTemplate = options.isTemplate
     }
 }
 
@@ -147,7 +144,7 @@ struct SecretScanningBulkCreateOrgCustomPatternsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(patterns, forKey: SdkCodingKey("patterns"))
+        try keyedContainer.encode(self.patterns, forKey: SdkCodingKey("patterns"))
     }
 }
 
@@ -157,8 +154,8 @@ struct SecretScanningBulkDeleteOrgCustomPatternsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(patterns, forKey: SdkCodingKey("patterns"))
-        try keyedContainer.encodeIfPresent(postDeleteAction, forKey: SdkCodingKey("post_delete_action"))
+        try keyedContainer.encode(self.patterns, forKey: SdkCodingKey("patterns"))
+        try keyedContainer.encodeIfPresent(self.postDeleteAction, forKey: SdkCodingKey("post_delete_action"))
     }
 }
 
@@ -172,21 +169,21 @@ struct SecretScanningUpdateOrgCustomPatternRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(customPatternVersion, forKey: SdkCodingKey("custom_pattern_version"))
-        try keyedContainer.encodeIfPresent(pattern, forKey: SdkCodingKey("pattern"))
-        try keyedContainer.encodeIfPresent(startDelimiter, forKey: SdkCodingKey("start_delimiter"))
-        try keyedContainer.encodeIfPresent(endDelimiter, forKey: SdkCodingKey("end_delimiter"))
-        try keyedContainer.encodeIfPresent(mustMatch, forKey: SdkCodingKey("must_match"))
-        try keyedContainer.encodeIfPresent(mustNotMatch, forKey: SdkCodingKey("must_not_match"))
+        try keyedContainer.encode(self.customPatternVersion, forKey: SdkCodingKey("custom_pattern_version"))
+        try keyedContainer.encodeIfPresent(self.pattern, forKey: SdkCodingKey("pattern"))
+        try keyedContainer.encodeIfPresent(self.startDelimiter, forKey: SdkCodingKey("start_delimiter"))
+        try keyedContainer.encodeIfPresent(self.endDelimiter, forKey: SdkCodingKey("end_delimiter"))
+        try keyedContainer.encodeIfPresent(self.mustMatch, forKey: SdkCodingKey("must_match"))
+        try keyedContainer.encodeIfPresent(self.mustNotMatch, forKey: SdkCodingKey("must_not_match"))
     }
 
     init(options: SecretScanningMethods.SecretScanningUpdateOrgCustomPatternOptions) {
-        customPatternVersion = options.customPatternVersion
-        pattern = options.pattern
-        startDelimiter = options.startDelimiter
-        endDelimiter = options.endDelimiter
-        mustMatch = options.mustMatch
-        mustNotMatch = options.mustNotMatch
+        self.customPatternVersion = options.customPatternVersion
+        self.pattern = options.pattern
+        self.startDelimiter = options.startDelimiter
+        self.endDelimiter = options.endDelimiter
+        self.mustMatch = options.mustMatch
+        self.mustNotMatch = options.mustNotMatch
     }
 }
 
@@ -197,8 +194,8 @@ struct SecretScanningUpdateOrgPatternConfigsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(patternConfigVersion, forKey: SdkCodingKey("pattern_config_version"))
-        try keyedContainer.encodeIfPresent(providerPatternSettings, forKey: SdkCodingKey("provider_pattern_settings"))
-        try keyedContainer.encodeIfPresent(customPatternSettings, forKey: SdkCodingKey("custom_pattern_settings"))
+        try keyedContainer.encodeIfPresent(self.patternConfigVersion, forKey: SdkCodingKey("pattern_config_version"))
+        try keyedContainer.encodeIfPresent(self.providerPatternSettings, forKey: SdkCodingKey("provider_pattern_settings"))
+        try keyedContainer.encodeIfPresent(self.customPatternSettings, forKey: SdkCodingKey("custom_pattern_settings"))
     }
 }

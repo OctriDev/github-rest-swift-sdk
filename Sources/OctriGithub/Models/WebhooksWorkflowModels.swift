@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhooksWorkflow domain models
+// WebhooksWorkflow domain models
 /// Typed representation of the `WebhooksWorkflow` API schema.
 public struct WebhooksWorkflow: Codable {
     /// Required `uri`-formatted value serialized in the `badge_url` wire field.
@@ -40,55 +40,42 @@ public struct WebhooksWorkflow: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksWorkflow {
-    init(from decoder: Decoder) throws {
+extension WebhooksWorkflow {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        badgeUrl = try container.sdkDecodeRequired(.badgeUrl)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeRequired(.name)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        path = try container.sdkDecodeRequired(.path)
-        state = try container.sdkDecodeRequired(.state)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        url = try container.sdkDecodeRequired(.url)
-        try sdkValidateUri("badge_url", badgeUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
-        try sdkValidateUri("url", url)
+        self.badgeUrl = try container.sdkDecodeRequired(.badgeUrl)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.path = try container.sdkDecodeRequired(.path)
+        self.state = try container.sdkDecodeRequired(.state)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.url = try container.sdkDecodeRequired(.url)
+            try sdkValidateUri("badge_url", self.badgeUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
-public extension WebhooksWorkflow {
-    init(
-        badgeUrl: String,
-        createdAt: Date,
-        htmlUrl: String,
-        id: Int,
-        name: String,
-        nodeId: String,
-        path: String,
-        state: String,
-        updatedAt: Date,
-        url: String
-    ) throws {
+extension WebhooksWorkflow {
+    public init(badgeUrl: String, createdAt: Date, htmlUrl: String, id: Int, name: String, nodeId: String, path: String, state: String, updatedAt: Date, url: String) throws {
         (self.badgeUrl, self.createdAt) = (badgeUrl, createdAt)
         (self.htmlUrl, self.id) = (htmlUrl, id)
         (self.name, self.nodeId) = (name, nodeId)
         (self.path, self.state) = (path, state)
         (self.updatedAt, self.url) = (updatedAt, url)
-        try sdkValidateUri("badge_url", self.badgeUrl)
-        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        try sdkValidateUri("url", self.url)
+            try sdkValidateUri("badge_url", self.badgeUrl)
+            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+            try sdkValidateUri("url", self.url)
     }
 }
 
@@ -122,36 +109,25 @@ public struct WebhooksWorkflowJobRun: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhooksWorkflowJobRun {
-    init(from decoder: Decoder) throws {
+extension WebhooksWorkflowJobRun {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        createdAt = try container.sdkDecodeRequired(.createdAt)
-        environment = try container.sdkDecodeRequired(.environment)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        id = try container.sdkDecodeRequired(.id)
-        name = try container.sdkDecodeIfPresent(.name)
-        status = try container.sdkDecodeRequired(.status)
-        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        self.createdAt = try container.sdkDecodeRequired(.createdAt)
+        self.environment = try container.sdkDecodeRequired(.environment)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.status = try container.sdkDecodeRequired(.status)
+        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
     }
 }
 
-public extension WebhooksWorkflowJobRun {
-    init(
-        conclusion: JSONValue?,
-        createdAt: String,
-        environment: String,
-        htmlUrl: String,
-        id: Int,
-        name: JSONValue?,
-        status: String,
-        updatedAt: String
-    ) {
+extension WebhooksWorkflowJobRun {
+    public init(conclusion: JSONValue?, createdAt: String, environment: String, htmlUrl: String, id: Int, name: JSONValue?, status: String, updatedAt: String) {
         (self.conclusion, self.createdAt) = (conclusion, createdAt)
         (self.environment, self.htmlUrl) = (environment, htmlUrl)
         (self.id, self.name) = (id, name)

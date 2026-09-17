@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Gets information about a suite of rule evaluations from within a repository. For more information, see
-    /// "[Managing rulesets for a repository](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository#viewing-insights-for-rulesets)."
+extension ReposMethods {
+    /// Gets information about a suite of rule evaluations from within a repository. For more information, see "[Managing rulesets for a repository](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository#viewing-insights-for-rulesets)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -21,25 +20,7 @@ public extension ReposMethods {
     ///   os/rule-suites#list-repository-rule-suites) for repositories and [GET
     ///   /orgs/{org}/rulesets/rule-suites](https://docs.github.com/rest/orgs/rule-sui
     ///   tes#list-organization-rule-suites) for organizations.
-    static func reposGetRepoRuleSuite(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        ruleSuiteId: Int
-    ) async throws -> RuleSuite {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/rulesets/rule-suites/",
-                sdkEncodePathSegment(sdkWireString(ruleSuiteId)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "reposGetRepoRuleSuite"
-        )).data
+    public static func reposGetRepoRuleSuite(config: ClientConfig, owner: String, repo: String, ruleSuiteId: Int) async throws -> RuleSuite {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rulesets/rule-suites/", sdkEncodePathSegment(sdkWireString(ruleSuiteId))].joined(), config: config, decoder: .json, operationId: "reposGetRepoRuleSuite")).data
     }
 }

@@ -6,32 +6,25 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MetaMethods {
+extension MetaMethods {
     /// Get Hypermedia links to resources accessible in GitHub's REST API
-    static func metaRoot(config: ClientConfig) async throws -> Root {
-        try await (sdkRequest("GET", "/", config: config, decoder: .json, operationId: "metaRoot")).data
+    public static func metaRoot(config: ClientConfig) async throws -> Root {
+        return try (await sdkRequest("GET", "/", config: config, decoder: .json, operationId: "metaRoot")).data
     }
 
-    /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see
-    /// "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)." The API's
-    /// response also includes a list of GitHub's domain names, and the public keys used by GitHub to sign commits made
-    /// through the web UI. The values shown in the documentation's response are example values. You must always query
-    /// the API directly to get the latest values. > [!NOTE] > This endpoint returns both IPv4 and IPv6 addresses.
-    /// However, not all features support IPv6. You should refer to the specific documentation for each feature to
-    /// determine if IPv6 is supported.
-    static func metaGet(config: ClientConfig) async throws -> ApiOverview {
-        try await (sdkRequest("GET", "/meta", config: config, decoder: .json, operationId: "metaGet")).data
+    /// Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)." The API's response also includes a list of GitHub's domain names, and the public keys used by GitHub to sign commits made through the web UI. The values shown in the documentation's response are example values. You must always query the API directly to get the latest values. > [!NOTE] > This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
+    public static func metaGet(config: ClientConfig) async throws -> ApiOverview {
+        return try (await sdkRequest("GET", "/meta", config: config, decoder: .json, operationId: "metaGet")).data
     }
 
-    /// Returns Octocat ASCII art, optionally including custom words in its speech bubble. Use `s` to specify the words
-    /// to display, or omit it to request the default Octocat artwork.
+    /// Returns Octocat ASCII art, optionally including custom words in its speech bubble. Use `s` to specify the words to display, or omit it to request the default Octocat artwork.
     ///
     /// Get the octocat as ASCII art
     ///
     /// - Parameters:
     /// - s: The words to show in Octocat's speech bubble
-    static func metaGetOctocat(config: ClientConfig, s: String?) async throws -> String {
-        try await (sdkRequest("GET", "/octocat", config: config, query: [
+    public static func metaGetOctocat(config: ClientConfig, s: String?) async throws -> String {
+        return try (await sdkRequest("GET", "/octocat", config: config, query: [
             SdkQueryParameter("s", value: s),
         ], decoder: .text, operationId: "metaGetOctocat")).data
     }
@@ -39,8 +32,7 @@ public extension MetaMethods {
     /// Get all API versions
     ///
     /// Get all supported GitHub API versions.
-    static func metaGetAllVersions(config: ClientConfig) async throws -> [String] {
-        try await (sdkRequest("GET", "/versions", config: config, decoder: .json, operationId: "metaGetAllVersions"))
-            .data
+    public static func metaGetAllVersions(config: ClientConfig) async throws -> [String] {
+        return try (await sdkRequest("GET", "/versions", config: config, decoder: .json, operationId: "metaGetAllVersions")).data
     }
 }

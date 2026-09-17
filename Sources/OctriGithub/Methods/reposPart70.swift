@@ -6,13 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ReposMethods {
-    /// Lists contributors to the specified repository and sorts them by the number of commits per contributor in
-    /// descending order. This endpoint may return information that is a few hours old because the GitHub REST API
-    /// caches contributor data to improve performance. GitHub identifies contributors by author email address. This
-    /// endpoint groups contribution counts by GitHub user, which includes all associated email addresses. To improve
-    /// performance, only the first 500 author email addresses in the repository link to GitHub users. The rest will
-    /// appear as anonymous contributors without associated GitHub user information.
+extension ReposMethods {
+    /// Lists contributors to the specified repository and sorts them by the number of commits per contributor in descending order. This endpoint may return information that is a few hours old because the GitHub REST API caches contributor data to improve performance. GitHub identifies contributors by author email address. This endpoint groups contribution counts by GitHub user, which includes all associated email addresses. To improve performance, only the first 500 author email addresses in the repository link to GitHub users. The rest will appear as anonymous contributors without associated GitHub user information.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,31 +23,11 @@ public extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func reposListContributors(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        anon: String?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [Contributor] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/contributors",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("anon", value: anon),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "reposListContributors"
-        )).data
+    public static func reposListContributors(config: ClientConfig, owner: String, repo: String, anon: String?, perPage: Int?, page: Int?) async throws -> [Contributor] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/contributors"].joined(), config: config, query: [
+            SdkQueryParameter("anon", value: anon),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "reposListContributors")).data
     }
 }

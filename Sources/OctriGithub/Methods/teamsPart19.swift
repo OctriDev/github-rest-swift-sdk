@@ -6,78 +6,30 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension TeamsMethods {
+extension TeamsMethods {
     /// Remove team member (Legacy)
     ///
-    /// The "Remove team member" endpoint (described below) is closing down. We recommend using the [Remove team
-    /// membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint
-    /// instead. It allows you to remove both active and pending memberships. Team synchronization is available for
-    /// organizations using GitHub Enterprise Cloud. For more information, see [GitHub's
-    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
-    /// documentation. To remove a team member, the authenticated user must have 'admin' permissions to the team or be
-    /// an owner of the org that the team is associated with. Removing a team member does not delete the user, it just
-    /// removes them from the team. > [!NOTE] > When you have team synchronization set up for a team with your
-    /// organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes
-    /// to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team
-    /// membership through your identity provider, which automatically adds and removes team members in an organization.
-    /// For more information, see "[Synchronizing teams between your identity provider and
-    /// GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// The "Remove team member" endpoint (described below) is closing down. We recommend using the [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships. Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. To remove a team member, the authenticated user must have 'admin' permissions to the team or be an owner of the org that the team is associated with. Removing a team member does not delete the user, it just removes them from the team. > [!NOTE] > When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
     /// - username: The handle for the GitHub user account.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func teamsRemoveMemberLegacy(
-        config: ClientConfig,
-        teamId: Int,
-        username: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamId)),
-                "/members/",
-                sdkEncodePathSegment(sdkWireString(username)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "teamsRemoveMemberLegacy"
-        )).data
+    public static func teamsRemoveMemberLegacy(config: ClientConfig, teamId: Int, username: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/members/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "teamsRemoveMemberLegacy")).data
     }
 
     /// Get team membership for a user (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
-    /// the Teams API. We recommend migrating your existing code to use the new [Get team membership for a
-    /// user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint. Team members will
-    /// include the members of child teams. To get a user's membership with a team, the team must be visible to the
-    /// authenticated user. **Note:** The response contains the `state` of the membership and the member's `role`. The
-    /// `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see
-    /// [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint. Team members will include the members of child teams. To get a user's membership with a team, the team must be visible to the authenticated user. **Note:** The response contains the `state` of the membership and the member's `role`. The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
     /// - username: The handle for the GitHub user account.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    static func teamsGetMembershipForUserLegacy(
-        config: ClientConfig,
-        teamId: Int,
-        username: String
-    ) async throws -> TeamMembership {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(teamId)),
-                "/memberships/",
-                sdkEncodePathSegment(sdkWireString(username)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "teamsGetMembershipForUserLegacy"
-        )).data
+    public static func teamsGetMembershipForUserLegacy(config: ClientConfig, teamId: Int, username: String) async throws -> TeamMembership {
+        return try (await sdkRequest("GET", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .json, operationId: "teamsGetMembershipForUserLegacy")).data
     }
 }

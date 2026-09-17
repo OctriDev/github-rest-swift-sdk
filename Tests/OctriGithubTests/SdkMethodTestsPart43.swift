@@ -32,17 +32,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposUpdatePullRequestReviewProtectionReposUpdatePullRequestRX3b2b2babd5ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposUpdatePullRequestReviewProtectionReposUpdatePullRequestRX3b2b2babd5ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposUpdatePullRequestReviewProtectionOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            branch: decoded("\"branch\"")
-        )
+        var options = try ReposMethods.ReposUpdatePullRequestReviewProtectionOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), branch: decoded("\"branch\""))
         options.dismissalRestrictions = try decoded(sdkMethodFixture1096Value1)
         options.dismissStaleReviews = try decoded("true")
         options.requireCodeOwnerReviews = try decoded("true")
@@ -68,11 +63,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposUpdateReleaseOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            releaseId: decoded("1")
-        )
+        var options = try ReposMethods.ReposUpdateReleaseOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), releaseId: decoded("1"))
         options.tagName = try decoded("\"v1.0.0\"")
         options.targetCommitish = try decoded("\"master\"")
         options.name = try decoded("\"v1.0.0\"")
@@ -124,11 +115,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposUpdateRepoRulesetOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            rulesetId: decoded("1")
-        )
+        var options = try ReposMethods.ReposUpdateRepoRulesetOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), rulesetId: decoded("1"))
         options.name = try decoded("\"super cool ruleset\"")
         options.target = try decoded("\"branch\"")
         options.enforcement = try decoded("\"active\"")
@@ -149,8 +136,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposUpdateStatusCheckProtectionReposUpdateStatusCheckProtectionReachesMockAndDecodesResponse(
-    ) async throws {
+    func testReposUpdateStatusCheckProtectionReposUpdateStatusCheckProtectionReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -179,11 +165,7 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try ReposMethods.ReposUpdateWebhookOptions(
-            owner: decoded("\"owner\""),
-            repo: decoded("\"repo\""),
-            hookId: decoded("1")
-        )
+        var options = try ReposMethods.ReposUpdateWebhookOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), hookId: decoded("1"))
         options.config = try decoded("null")
         options.events = try decoded("null")
         options.addEvents = try decoded("[\"pull_request\"]")
@@ -414,8 +396,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningBulkCreateOrgCustomPatternsSecretScanningBulkCrX1538568927ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningBulkCreateOrgCustomPatternsSecretScanningBulkCrX1538568927ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -435,8 +416,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningBulkCreateRepoCustomPatternsSecretScanningBulkCX4511bfb679ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningBulkCreateRepoCustomPatternsSecretScanningBulkCX4511bfb679ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -457,8 +437,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testSecretScanningBulkDeleteOrgCustomPatternsSecretScanningBulkDeX4f781a0ea6ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningBulkDeleteOrgCustomPatternsSecretScanningBulkDeX4f781a0ea6ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -471,8 +450,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testSecretScanningBulkDeleteRepoCustomPatternsSecretScanningBulkDX6614eb889cReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningBulkDeleteRepoCustomPatternsSecretScanningBulkDX6614eb889cReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -486,8 +464,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testSecretScanningCreatePushProtectionBypassSecretScanningCreatePX3d4cea889cReachesMockAndDecodesResponse(
-    ) async throws {
+    func testSecretScanningCreatePushProtectionBypassSecretScanningCreatePX3d4cea889cReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

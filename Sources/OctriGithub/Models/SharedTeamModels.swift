@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// SharedTeam domain models
+// SharedTeam domain models
 /// Groups of organization members that gives permissions on specified repositories.
 public struct Team: Codable {
     /// Required `integer` value serialized in the `id` wire field.
@@ -69,59 +69,38 @@ public struct Team: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension Team {
-    init(from decoder: Decoder) throws {
+extension Team {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        name = try container.sdkDecodeRequired(.name)
-        slug = try container.sdkDecodeRequired(.slug)
-        description = try container.sdkDecodeIfPresent(.description)
-        permission = try container.sdkDecodeRequired(.permission)
-        url = try container.sdkDecodeRequired(.url)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        type = try container.sdkDecodeRequired(.type)
-        parent = try container.sdkDecodeIfPresent(.parent)
-        privacy = try container.sdkDecodeIfPresent(.privacy)
-        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-        permissions = try container.sdkDecodeIfPresent(.permissions)
-        accessSource = try container.sdkDecodeIfPresent(.accessSource)
-        organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.parent = try container.sdkDecodeIfPresent(.parent)
+        self.privacy = try container.sdkDecodeIfPresent(.privacy)
+        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        self.permissions = try container.sdkDecodeIfPresent(.permissions)
+        self.accessSource = try container.sdkDecodeIfPresent(.accessSource)
+        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
-public extension Team {
-    init(
-        id: Int,
-        nodeId: String,
-        name: String,
-        slug: String,
-        description: String?,
-        permission: String,
-        url: String,
-        htmlUrl: String,
-        membersUrl: String,
-        repositoriesUrl: String,
-        type: TeamType,
-        parent: NullableTeamSimple?,
-        privacy: String? = nil,
-        notificationSetting: String? = nil,
-        permissions: TeamPermissions? = nil,
-        accessSource: TeamAccessSource? = nil,
-        organizationId: Int? = nil,
-        enterpriseId: Int? = nil
-    ) throws {
+extension Team {
+    public init(id: Int, nodeId: String, name: String, slug: String, description: String?, permission: String, url: String, htmlUrl: String, membersUrl: String, repositoriesUrl: String, type: TeamType, parent: NullableTeamSimple?, privacy: String? = nil, notificationSetting: String? = nil, permissions: TeamPermissions? = nil, accessSource: TeamAccessSource? = nil, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.slug) = (name, slug)
         (self.description, self.permission) = (description, permission)
@@ -131,9 +110,9 @@ public extension Team {
         (self.privacy, self.notificationSetting) = (privacy, notificationSetting)
         (self.permissions, self.accessSource) = (permissions, accessSource)
         (self.organizationId, self.enterpriseId) = (organizationId, enterpriseId)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
@@ -158,59 +137,37 @@ public struct TeamPermissions: Codable {
         case admin
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamPermissions {
-    init(from decoder: Decoder) throws {
+extension TeamPermissions {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.pull) else {
-            throw SdkValidationError(
-                field: "pull",
-                code: "required",
-                message: "Validation failed for 'pull': value is required"
-            )
+            throw SdkValidationError(field: "pull", code: "required", message: "Validation failed for 'pull': value is required")
         }
         guard container.contains(.triage) else {
-            throw SdkValidationError(
-                field: "triage",
-                code: "required",
-                message: "Validation failed for 'triage': value is required"
-            )
+            throw SdkValidationError(field: "triage", code: "required", message: "Validation failed for 'triage': value is required")
         }
         guard container.contains(.push) else {
-            throw SdkValidationError(
-                field: "push",
-                code: "required",
-                message: "Validation failed for 'push': value is required"
-            )
+            throw SdkValidationError(field: "push", code: "required", message: "Validation failed for 'push': value is required")
         }
         guard container.contains(.maintain) else {
-            throw SdkValidationError(
-                field: "maintain",
-                code: "required",
-                message: "Validation failed for 'maintain': value is required"
-            )
+            throw SdkValidationError(field: "maintain", code: "required", message: "Validation failed for 'maintain': value is required")
         }
         guard container.contains(.admin) else {
-            throw SdkValidationError(
-                field: "admin",
-                code: "required",
-                message: "Validation failed for 'admin': value is required"
-            )
+            throw SdkValidationError(field: "admin", code: "required", message: "Validation failed for 'admin': value is required")
         }
-        pull = try container.sdkDecodeRequired(.pull)
-        triage = try container.sdkDecodeRequired(.triage)
-        push = try container.sdkDecodeRequired(.push)
-        maintain = try container.sdkDecodeRequired(.maintain)
-        admin = try container.sdkDecodeRequired(.admin)
+        self.pull = try container.sdkDecodeRequired(.pull)
+        self.triage = try container.sdkDecodeRequired(.triage)
+        self.push = try container.sdkDecodeRequired(.push)
+        self.maintain = try container.sdkDecodeRequired(.maintain)
+        self.admin = try container.sdkDecodeRequired(.admin)
     }
 }
 
-public extension TeamPermissions {
-    init(pull: Bool, triage: Bool, push: Bool, maintain: Bool, admin: Bool) {
+extension TeamPermissions {
+    public init(pull: Bool, triage: Bool, push: Bool, maintain: Bool, admin: Bool) {
         (self.pull, self.triage) = (pull, triage)
         (self.push, self.maintain) = (push, maintain)
         self.admin = admin
@@ -286,55 +243,36 @@ public struct TeamSimple: Codable {
         case enterpriseId = "enterprise_id"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension TeamSimple {
-    init(from decoder: Decoder) throws {
+extension TeamSimple {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.sdkDecodeRequired(.id)
-        nodeId = try container.sdkDecodeRequired(.nodeId)
-        url = try container.sdkDecodeRequired(.url)
-        membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        name = try container.sdkDecodeRequired(.name)
-        description = try container.sdkDecodeIfPresent(.description)
-        permission = try container.sdkDecodeRequired(.permission)
-        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
-        slug = try container.sdkDecodeRequired(.slug)
-        type = try container.sdkDecodeRequired(.type)
-        privacy = try container.sdkDecodeIfPresent(.privacy)
-        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-        ldapDn = try container.sdkDecodeIfPresent(.ldapDn)
-        organizationId = try container.sdkDecodeIfPresent(.organizationId)
-        enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
-        try sdkValidateUri("url", url)
-        try sdkValidateUri("html_url", htmlUrl)
-        try sdkValidateUri("repositories_url", repositoriesUrl)
+        self.id = try container.sdkDecodeRequired(.id)
+        self.nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.url = try container.sdkDecodeRequired(.url)
+        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        self.name = try container.sdkDecodeRequired(.name)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.permission = try container.sdkDecodeRequired(.permission)
+        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        self.repositoriesUrl = try container.sdkDecodeRequired(.repositoriesUrl)
+        self.slug = try container.sdkDecodeRequired(.slug)
+        self.type = try container.sdkDecodeRequired(.type)
+        self.privacy = try container.sdkDecodeIfPresent(.privacy)
+        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        self.ldapDn = try container.sdkDecodeIfPresent(.ldapDn)
+        self.organizationId = try container.sdkDecodeIfPresent(.organizationId)
+        self.enterpriseId = try container.sdkDecodeIfPresent(.enterpriseId)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
-public extension TeamSimple {
-    init(
-        id: Int,
-        nodeId: String,
-        url: String,
-        membersUrl: String,
-        name: String,
-        description: String?,
-        permission: String,
-        htmlUrl: String,
-        repositoriesUrl: String,
-        slug: String,
-        type: TeamSimpleType,
-        privacy: String? = nil,
-        notificationSetting: String? = nil,
-        ldapDn: String? = nil,
-        organizationId: Int? = nil,
-        enterpriseId: Int? = nil
-    ) throws {
+extension TeamSimple {
+    public init(id: Int, nodeId: String, url: String, membersUrl: String, name: String, description: String?, permission: String, htmlUrl: String, repositoriesUrl: String, slug: String, type: TeamSimpleType, privacy: String? = nil, notificationSetting: String? = nil, ldapDn: String? = nil, organizationId: Int? = nil, enterpriseId: Int? = nil) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.membersUrl) = (url, membersUrl)
         (self.name, self.description) = (name, description)
@@ -343,9 +281,9 @@ public extension TeamSimple {
         (self.type, self.privacy) = (type, privacy)
         (self.notificationSetting, self.ldapDn) = (notificationSetting, ldapDn)
         (self.organizationId, self.enterpriseId) = (organizationId, enterpriseId)
-        try sdkValidateUri("url", self.url)
-        try sdkValidateUri("html_url", self.htmlUrl)
-        try sdkValidateUri("repositories_url", self.repositoriesUrl)
+            try sdkValidateUri("url", self.url)
+            try sdkValidateUri("html_url", self.htmlUrl)
+            try sdkValidateUri("repositories_url", self.repositoriesUrl)
     }
 }
 
@@ -354,17 +292,14 @@ public extension TeamSimple {
 public struct TeamAccessSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let direct = TeamAccessSource(rawValue: "direct")
     public static let organization = TeamAccessSource(rawValue: "organization")
     public static let enterprise = TeamAccessSource(rawValue: "enterprise")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -377,16 +312,13 @@ public struct TeamAccessSource: RawRepresentable, Hashable, Codable, Sendable, S
 public struct TeamType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enterprise = TeamType(rawValue: "enterprise")
     public static let organization = TeamType(rawValue: "organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -399,16 +331,13 @@ public struct TeamType: RawRepresentable, Hashable, Codable, Sendable, SdkWireCo
 public struct TeamSimpleType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let enterprise = TeamSimpleType(rawValue: "enterprise")
     public static let organization = TeamSimpleType(rawValue: "organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

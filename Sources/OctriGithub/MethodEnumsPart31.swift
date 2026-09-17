@@ -7,22 +7,16 @@ import Foundation
     import FoundationNetworking
 #endif
 /// The bypass mode for the reviewer
-public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let always =
-        ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d(rawValue: "ALWAYS")
-    public static let exempt =
-        ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d(rawValue: "EXEMPT")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let always = ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d(rawValue: "ALWAYS")
+    public static let exempt = ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX70789a6b5d(rawValue: "EXEMPT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,20 +26,16 @@ public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX7078
 }
 
 /// The type of the bypass reviewer
-public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c890b5a38: RawRepresentable, Hashable,
-    Codable, Sendable, SdkWireConvertible {
+public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c890b5a38: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let team = ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c890b5a38(rawValue: "TEAM")
     public static let role = ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c890b5a38(rawValue: "ROLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -56,21 +46,17 @@ public struct ReposUpdateRequestBodySecurityAndAnalysisSecretScanningDelegaX4c89
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct ReposUpdateRequestBodySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposUpdateRequestBodySquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prBody = ReposUpdateRequestBodySquashMergeCommitMessage(rawValue: "PR_BODY")
     public static let commitMessages = ReposUpdateRequestBodySquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = ReposUpdateRequestBodySquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -82,20 +68,16 @@ public struct ReposUpdateRequestBodySquashMergeCommitMessage: RawRepresentable, 
 /// Required when using `squash_merge_commit_message`. The default value for a squash merge commit title: -
 /// `PR_TITLE` - default to the pull request's title. - `COMMIT_OR_PR_TITLE` - default to the commit's title (if
 /// only one commit) or the pull request's title (when more than one commit).
-public struct ReposUpdateRequestBodySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ReposUpdateRequestBodySquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let prTitle = ReposUpdateRequestBodySquashMergeCommitTitle(rawValue: "PR_TITLE")
     public static let commitOrPrTitle = ReposUpdateRequestBodySquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -108,16 +90,13 @@ public struct ReposUpdateRequestBodySquashMergeCommitTitle: RawRepresentable, Ha
 public struct ReposUpdateRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `public` = ReposUpdateRequestBodyVisibility(rawValue: "public")
     public static let `private` = ReposUpdateRequestBodyVisibility(rawValue: "private")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -126,20 +105,16 @@ public struct ReposUpdateRequestBodyVisibility: RawRepresentable, Hashable, Coda
     }
 }
 
-public struct ActionsListJobsForWorkflowRunParameter: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ActionsListJobsForWorkflowRunParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let latest = ActionsListJobsForWorkflowRunParameter(rawValue: "latest")
     public static let all = ActionsListJobsForWorkflowRunParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -149,20 +124,16 @@ public struct ActionsListJobsForWorkflowRunParameter: RawRepresentable, Hashable
 }
 
 /// Whether to approve or reject deployment to the specified environments.
-public struct ActionsReviewPendingDeploymentsForRunRequestBodyState: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ActionsReviewPendingDeploymentsForRunRequestBodyState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let approved = ActionsReviewPendingDeploymentsForRunRequestBodyState(rawValue: "approved")
     public static let rejected = ActionsReviewPendingDeploymentsForRunRequestBodyState(rawValue: "rejected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -174,10 +145,7 @@ public struct ActionsReviewPendingDeploymentsForRunRequestBodyState: RawRepresen
 public struct ReposListActivitiesParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let day = ReposListActivitiesParameter(rawValue: "day")
     public static let week = ReposListActivitiesParameter(rawValue: "week")
     public static let month = ReposListActivitiesParameter(rawValue: "month")
@@ -186,7 +154,7 @@ public struct ReposListActivitiesParameter: RawRepresentable, Hashable, Codable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -198,10 +166,7 @@ public struct ReposListActivitiesParameter: RawRepresentable, Hashable, Codable,
 public struct ReposListActivitiesParameterXff737e90: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let push = ReposListActivitiesParameterXff737e90(rawValue: "push")
     public static let forcePush = ReposListActivitiesParameterXff737e90(rawValue: "force_push")
     public static let branchCreation = ReposListActivitiesParameterXff737e90(rawValue: "branch_creation")
@@ -211,7 +176,7 @@ public struct ReposListActivitiesParameterXff737e90: RawRepresentable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -223,15 +188,12 @@ public struct ReposListActivitiesParameterXff737e90: RawRepresentable, Hashable,
 public struct ChecksCreateRequestBodyVariant0Status: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let completed = ChecksCreateRequestBodyVariant0Status(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

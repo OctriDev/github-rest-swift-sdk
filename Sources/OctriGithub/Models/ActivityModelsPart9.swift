@@ -3,22 +3,19 @@
 
 import Foundation
 
-/// Activity domain models
+// Activity domain models
 /// Optional enumerated value serialized in the `type` wire field.
 public struct DiscussionAnswerChosenByType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = DiscussionAnswerChosenByType(rawValue: "Bot")
     public static let user = DiscussionAnswerChosenByType(rawValue: "User")
     public static let organization = DiscussionAnswerChosenByType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,20 +25,16 @@ public struct DiscussionAnswerChosenByType: RawRepresentable, Hashable, Codable,
 }
 
 /// The policy controlling who can create pull requests: all or collaborators_only.
-public struct ForkEventForkeePullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct ForkEventForkeePullRequestCreationPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let all = ForkEventForkeePullRequestCreationPolicy(rawValue: "all")
     public static let collaboratorsOnly = ForkEventForkeePullRequestCreationPolicy(rawValue: "collaborators_only")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,17 +47,14 @@ public struct ForkEventForkeePullRequestCreationPolicy: RawRepresentable, Hashab
 public struct DiscussionUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = DiscussionUserType(rawValue: "Bot")
     public static let user = DiscussionUserType(rawValue: "User")
     public static let organization = DiscussionUserType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,10 +67,7 @@ public struct DiscussionUserType: RawRepresentable, Hashable, Codable, Sendable,
 public struct DiscussionAuthorAssociation: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let collaborator = DiscussionAuthorAssociation(rawValue: "COLLABORATOR")
     public static let contributor = DiscussionAuthorAssociation(rawValue: "CONTRIBUTOR")
     public static let firstTimer = DiscussionAuthorAssociation(rawValue: "FIRST_TIMER")
@@ -92,7 +79,7 @@ public struct DiscussionAuthorAssociation: RawRepresentable, Hashable, Codable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

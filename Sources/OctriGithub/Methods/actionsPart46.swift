@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Lists all repositories that can access an organization variable that is available to selected repositories.
-    /// Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth
-    /// app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the
-    /// repository is private, the `repo` scope is also required.
+extension ActionsMethods {
+    /// Lists all repositories that can access an organization variable that is available to selected repositories. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -23,64 +20,23 @@ public extension ActionsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func actionsListSelectedReposForOrgVariable(
-        config: ClientConfig,
-        org: String,
-        name: String,
-        page: Int?,
-        perPage: Int?
-    ) async throws -> ActionsListSelectedReposForOrgVariableResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/variables/",
-                sdkEncodePathSegment(sdkWireString(name)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("page", value: page),
-                SdkQueryParameter("per_page", value: perPage),
-            ],
-            decoder: .json,
-            operationId: "actionsListSelectedReposForOrgVariable"
-        )).data
+    public static func actionsListSelectedReposForOrgVariable(config: ClientConfig, org: String, name: String, page: Int?, perPage: Int?) async throws -> ActionsListSelectedReposForOrgVariableResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables/", sdkEncodePathSegment(sdkWireString(name)), "/repositories"].joined(), config: config, query: [
+            SdkQueryParameter("page", value: page),
+            SdkQueryParameter("per_page", value: perPage),
+        ], decoder: .json, operationId: "actionsListSelectedReposForOrgVariable")).data
     }
 
-    /// Replaces all repositories for an organization variable that is available to selected repositories. Organization
-    /// variables that are available to selected repositories have their `visibility` field set to `selected`.
-    /// Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth
-    /// app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the
-    /// repository is private, the `repo` scope is also required.
+    /// Replaces all repositories for an organization variable that is available to selected repositories. Organization variables that are available to selected repositories have their `visibility` field set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - name: The name of the variable.
     /// - selectedRepositoryIds: The IDs of the repositories that can access the
     ///   organization variable.
-    static func actionsSetSelectedReposForOrgVariable(
-        config: ClientConfig,
-        org: String,
-        name: String,
-        selectedRepositoryIds: [Int]
-    ) async throws -> SdkEmptyResponse {
+    public static func actionsSetSelectedReposForOrgVariable(config: ClientConfig, org: String, name: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
         let requestBody = ActionsSetSelectedReposForOrgVariableRequestBody(selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PUT",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/variables/",
-                sdkEncodePathSegment(sdkWireString(name)),
-                "/repositories",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsSetSelectedReposForOrgVariable"
-        )).data
+        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables/", sdkEncodePathSegment(sdkWireString(name)), "/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetSelectedReposForOrgVariable")).data
     }
 }

@@ -47,10 +47,10 @@ final class SdkBehaviorTests: XCTestCase {
 
     private func decoder(for kind: String) -> SdkResponseDecoder {
         switch kind {
-        case "text": .text
-        case "bytes": .bytes
-        case "empty": .empty
-        default: .json
+        case "text": return .text
+        case "bytes": return .bytes
+        case "empty": return .empty
+        default: return .json
         }
     }
 
@@ -94,9 +94,7 @@ final class SdkBehaviorTests: XCTestCase {
             let fakeTransport: Middleware = { request, _ in
                 await captured.store(request)
                 var headers: [String: String] = [:]
-                if let mediaType {
-                    headers["content-type"] = mediaType
-                }
+                if let mediaType { headers["content-type"] = mediaType }
                 return SdkRawResponse(
                     statusCode: status,
                     statusText: "",
@@ -197,9 +195,7 @@ final class SdkBehaviorTests: XCTestCase {
                 "\(id) url query"
             )
             var sentHeaders: [String: String] = [:]
-            for (name, value) in sent.headers {
-                sentHeaders[name.lowercased()] = value
-            }
+            for (name, value) in sent.headers { sentHeaders[name.lowercased()] = value }
             let multipart = expectation["multipartFields"] is [Any]
             for (name, value) in (expectation["headers"] as? [String: String]) ?? [:] {
                 let actual = sentHeaders[name.lowercased()] ?? ""
@@ -226,22 +222,16 @@ final class SdkBehaviorTests: XCTestCase {
 actor SdkRequestBox {
     private var request: SdkRequest?
 
-    func store(_ value: SdkRequest) {
-        request = value
-    }
+    func store(_ value: SdkRequest) { request = value }
 
-    var value: SdkRequest? {
-        request
-    }
+    var value: SdkRequest? { request }
 }
 
 private func scalarString(_ value: Any) -> String {
     switch value {
     case let text as String: return text
     case let number as NSNumber:
-        if CFGetTypeID(number) == CFBooleanGetTypeID() {
-            return number.boolValue ? "true" : "false"
-        }
+        if CFGetTypeID(number) == CFBooleanGetTypeID() { return number.boolValue ? "true" : "false" }
         if number.doubleValue == number.doubleValue.rounded() {
             return String(number.intValue)
         }

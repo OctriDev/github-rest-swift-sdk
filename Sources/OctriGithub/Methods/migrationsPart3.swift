@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension MigrationsMethods {
-    struct MigrationsStartForOrgOptions: Codable {
+extension MigrationsMethods {
+    public struct MigrationsStartForOrgOptions: Codable {
         public var org: String
         public var repositories: [String]
         public var lockRepositories: Bool?
@@ -25,10 +25,7 @@ public extension MigrationsMethods {
         }
     }
 
-    /// Starts an organization migration and initiates generation of a migration archive. Supply `repositories` with the
-    /// repositories to migrate, or set `org_metadata_only` to migrate only organization metadata; optional flags
-    /// control repository locking and archive contents. A 201 response returns the migration record and its current
-    /// state.
+    /// Starts an organization migration and initiates generation of a migration archive. Supply `repositories` with the repositories to migrate, or set `org_metadata_only` to migrate only organization metadata; optional flags control repository locking and archive contents. A 201 response returns the migration record and its current state.
     ///
     /// Initiates the generation of a migration archive.
     ///
@@ -52,19 +49,9 @@ public extension MigrationsMethods {
     ///   metadata (repositories array should be empty and will ignore other flags).
     /// - exclude: Exclude related items from being returned in the response in
     ///   order to improve performance of the request.
-    static func migrationsStartForOrg(
-        config: ClientConfig,
-        options: MigrationsStartForOrgOptions
-    ) async throws -> Migration {
+    public static func migrationsStartForOrg(config: ClientConfig, options: MigrationsStartForOrgOptions) async throws -> Migration {
         let requestBody = MigrationsStartForOrgRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/migrations"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "migrationsStartForOrg"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/migrations"].joined(), config: config, body: requestBody, decoder: .json, operationId: "migrationsStartForOrg")).data
     }
 }

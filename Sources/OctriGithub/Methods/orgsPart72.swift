@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension OrgsMethods {
+extension OrgsMethods {
     /// List organization memberships for the authenticated user
     ///
     /// Lists all of the authenticated user's organization memberships.
@@ -22,13 +22,8 @@ public extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func orgsListMembershipsForAuthenticatedUser(
-        config: ClientConfig,
-        state: OrgsListMembershipsForAuthenticatedUserParameter?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [OrgMembership] {
-        try await (sdkRequest("GET", "/user/memberships/orgs", config: config, query: [
+    public static func orgsListMembershipsForAuthenticatedUser(config: ClientConfig, state: OrgsListMembershipsForAuthenticatedUserParameter?, perPage: Int?, page: Int?) async throws -> [OrgMembership] {
+        return try (await sdkRequest("GET", "/user/memberships/orgs", config: config, query: [
             SdkQueryParameter("state", value: state),
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
@@ -37,19 +32,11 @@ public extension OrgsMethods {
 
     /// Get an organization membership for the authenticated user
     ///
-    /// If the authenticated user is an active or pending member of the organization, this endpoint will return the
-    /// user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This
-    /// endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
+    /// If the authenticated user is an active or pending member of the organization, this endpoint will return the user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func orgsGetMembershipForAuthenticatedUser(config: ClientConfig, org: String) async throws -> OrgMembership {
-        try await (sdkRequest(
-            "GET",
-            ["/user/memberships/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "orgsGetMembershipForAuthenticatedUser"
-        )).data
+    public static func orgsGetMembershipForAuthenticatedUser(config: ClientConfig, org: String) async throws -> OrgMembership {
+        return try (await sdkRequest("GET", ["/user/memberships/orgs/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, decoder: .json, operationId: "orgsGetMembershipForAuthenticatedUser")).data
     }
 }

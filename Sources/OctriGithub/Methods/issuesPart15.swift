@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
+extension IssuesMethods {
     /// Adds up to 10 assignees to an issue. Users already assigned to an issue are not replaced.
     ///
     /// - Parameters:
@@ -18,30 +18,9 @@ public extension IssuesMethods {
     /// - assignees: Usernames of people to assign this issue to. _NOTE: Only users
     ///   with push access can add assignees to an issue. Assignees are silently
     ///   ignored otherwise._
-    static func issuesAddAssignees(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        issueNumber: Int,
-        assignees: [IssuesAddAssigneesRequestBodyAssigneesItem]?
-    ) async throws -> Issue {
+    public static func issuesAddAssignees(config: ClientConfig, owner: String, repo: String, issueNumber: Int, assignees: [IssuesAddAssigneesRequestBodyAssigneesItem]?) async throws -> Issue {
         let requestBody = IssuesAddAssigneesRequestBody(assignees: assignees)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/issues/",
-                sdkEncodePathSegment(sdkWireString(issueNumber)),
-                "/assignees",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "issuesAddAssignees"
-        )).data
+        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/assignees"].joined(), config: config, body: requestBody, decoder: .json, operationId: "issuesAddAssignees")).data
     }
 }

@@ -6,34 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActivityMethods {
+extension ActivityMethods {
     /// Get stargazer count
     ///
-    /// Gets the current number of users who have starred the repository. Users who previously starred the repository
-    /// but later removed their star are not included.
+    /// Gets the current number of users who have starred the repository. Users who previously starred the repository but later removed their star are not included.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func activityGetStargazerCountForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> ActivityGetStargazerCountForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/stargazers/count",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "activityGetStargazerCountForRepo"
-        )).data
+    public static func activityGetStargazerCountForRepo(config: ClientConfig, owner: String, repo: String) async throws -> ActivityGetStargazerCountForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stargazers/count"].joined(), config: config, decoder: .json, operationId: "activityGetStargazerCountForRepo")).data
     }
 }

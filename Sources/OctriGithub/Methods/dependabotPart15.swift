@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension DependabotMethods {
-    struct DependabotUpdateAlertOptions: Codable {
+extension DependabotMethods {
+    public struct DependabotUpdateAlertOptions: Codable {
         public var owner: String
         public var repo: String
         public var alertNumber: AlertNumber
@@ -24,15 +24,9 @@ public extension DependabotMethods {
         }
     }
 
-    /// Updates the state, dismissal details, assignees, or agent assignment for a Dependabot alert. Supply `state` to
-    /// change the alert state or `assignees` to replace its assignee set; when `state` is `dismissed`, also provide
-    /// `dismissed_reason`, and use `agent_assignment` only when assigning an agent bot. The response returns the
-    /// updated alert, including its current security advisory and assignment-related state.
+    /// Updates the state, dismissal details, assignees, or agent assignment for a Dependabot alert. Supply `state` to change the alert state or `assignees` to replace its assignee set; when `state` is `dismissed`, also provide `dismissed_reason`, and use `agent_assignment` only when assigning an agent bot. The response returns the updated alert, including its current security advisory and assignment-related state.
     ///
-    /// The authenticated user must have access to security alerts for the repository to use this endpoint. For more
-    /// information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)."
-    /// OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If
-    /// this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// The authenticated user must have access to security alerts for the repository to use this endpoint. For more information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)." OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -56,30 +50,13 @@ public extension DependabotMethods {
     /// - agentAssignment: Parameters for AI agent assignment. Only used when an
     ///   agent bot login is included in `assignees`. Ignored when no agent is being
     ///   assigned.
-    static func dependabotUpdateAlert(
-        config: ClientConfig,
-        options: DependabotUpdateAlertOptions
-    ) async throws -> DependabotAlert {
+    public static func dependabotUpdateAlert(config: ClientConfig, options: DependabotUpdateAlertOptions) async throws -> DependabotAlert {
         if let dismissedComment = options.dismissedComment {
             try validateLength("dismissed_comment", dismissedComment, max: 280)
         }
 
         let requestBody = DependabotUpdateAlertRequestBody(options: options)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/dependabot/alerts/",
-                sdkEncodePathSegment(sdkWireString(options.alertNumber)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "dependabotUpdateAlert"
-        )).data
+        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/dependabot/alerts/", sdkEncodePathSegment(sdkWireString(options.alertNumber))].joined(), config: config, body: requestBody, decoder: .json, operationId: "dependabotUpdateAlert")).data
     }
 }

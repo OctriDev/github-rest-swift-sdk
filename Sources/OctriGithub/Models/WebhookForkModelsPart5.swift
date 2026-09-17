@@ -3,22 +3,19 @@
 
 import Foundation
 
-/// WebhookFork domain models
+// WebhookFork domain models
 /// Optional enumerated value serialized in the `type` wire field.
 public struct WebhookForkForkeeVariant0OwnerType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let bot = WebhookForkForkeeVariant0OwnerType(rawValue: "Bot")
     public static let user = WebhookForkForkeeVariant0OwnerType(rawValue: "User")
     public static let organization = WebhookForkForkeeVariant0OwnerType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,17 +28,14 @@ public struct WebhookForkForkeeVariant0OwnerType: RawRepresentable, Hashable, Co
 public struct WebhookForkForkeeVariant0Visibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let `public` = WebhookForkForkeeVariant0Visibility(rawValue: "public")
     public static let `private` = WebhookForkForkeeVariant0Visibility(rawValue: "private")
     public static let `internal` = WebhookForkForkeeVariant0Visibility(rawValue: "internal")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

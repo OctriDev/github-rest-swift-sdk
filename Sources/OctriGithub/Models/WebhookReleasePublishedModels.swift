@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookReleasePublished domain models
+// WebhookReleasePublished domain models
 /// Typed representation of the `WebhookReleasePublished` API schema.
 public struct WebhookReleasePublished: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,55 +36,33 @@ public struct WebhookReleasePublished: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookReleasePublished {
-    init(from decoder: Decoder) throws {
+extension WebhookReleasePublished {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.release) else {
-            throw SdkValidationError(
-                field: "release",
-                code: "required",
-                message: "Validation failed for 'release': value is required"
-            )
+            throw SdkValidationError(field: "release", code: "required", message: "Validation failed for 'release': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        release = try container.sdkDecodeRequired(.release)
-        repository = try container.sdkDecodeRequired(.repository)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        sender = try container.sdkDecodeIfPresent(.sender)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.release = try container.sdkDecodeRequired(.release)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.sender = try container.sdkDecodeIfPresent(.sender)
     }
 }
 
-public extension WebhookReleasePublished {
-    init(
-        action: WebhookReleasePublishedAction,
-        release: WebhooksRelease1,
-        repository: RepositoryWebhooks,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        sender: SimpleUser? = nil
-    ) {
+extension WebhookReleasePublished {
+    public init(action: WebhookReleasePublishedAction, release: WebhooksRelease1, repository: RepositoryWebhooks, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
         (self.action, self.release) = (action, release)
         (self.repository, self.enterprise) = (repository, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -96,15 +74,12 @@ public extension WebhookReleasePublished {
 public struct WebhookReleasePublishedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let published = WebhookReleasePublishedAction(rawValue: "published")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

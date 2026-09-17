@@ -11,7 +11,7 @@ struct AgentsSetSelectedReposForOrgVariableRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -21,8 +21,8 @@ struct AgentsCreateOrUpdateRepoSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encode(keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encode(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encode(self.keyId, forKey: SdkCodingKey("key_id"))
     }
 }
 
@@ -32,8 +32,8 @@ struct AgentsCreateRepoVariableRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(value, forKey: SdkCodingKey("value"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(self.value, forKey: SdkCodingKey("value"))
     }
 }
 
@@ -43,8 +43,8 @@ struct AgentsUpdateRepoVariableRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name2, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(value, forKey: SdkCodingKey("value"))
+        try keyedContainer.encodeIfPresent(self.name2, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.value, forKey: SdkCodingKey("value"))
     }
 }
 
@@ -60,25 +60,25 @@ struct CampaignsCreateCampaignRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encode(endsAt, forKey: SdkCodingKey("ends_at"))
-        try keyedContainer.encodeIfPresent(managers, forKey: SdkCodingKey("managers"))
-        try keyedContainer.encodeIfPresent(teamManagers, forKey: SdkCodingKey("team_managers"))
-        try keyedContainer.encodeIfPresent(contactLink, forKey: SdkCodingKey("contact_link"))
-        try keyedContainer.encodeIfPresent(codeScanningAlerts, forKey: SdkCodingKey("code_scanning_alerts"))
-        try keyedContainer.encodeIfPresent(generateIssues, forKey: SdkCodingKey("generate_issues"))
+        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encode(self.endsAt, forKey: SdkCodingKey("ends_at"))
+        try keyedContainer.encodeIfPresent(self.managers, forKey: SdkCodingKey("managers"))
+        try keyedContainer.encodeIfPresent(self.teamManagers, forKey: SdkCodingKey("team_managers"))
+        try keyedContainer.encodeIfPresent(self.contactLink, forKey: SdkCodingKey("contact_link"))
+        try keyedContainer.encodeIfPresent(self.codeScanningAlerts, forKey: SdkCodingKey("code_scanning_alerts"))
+        try keyedContainer.encodeIfPresent(self.generateIssues, forKey: SdkCodingKey("generate_issues"))
     }
 
     init(options: CampaignsMethods.CampaignsCreateCampaignOptions) {
-        name = options.name
-        description = options.description
-        endsAt = options.endsAt
-        managers = options.managers
-        teamManagers = options.teamManagers
-        contactLink = options.contactLink
-        codeScanningAlerts = options.codeScanningAlerts
-        generateIssues = options.generateIssues
+        self.name = options.name
+        self.description = options.description
+        self.endsAt = options.endsAt
+        self.managers = options.managers
+        self.teamManagers = options.teamManagers
+        self.contactLink = options.contactLink
+        self.codeScanningAlerts = options.codeScanningAlerts
+        self.generateIssues = options.generateIssues
     }
 }
 
@@ -93,23 +93,23 @@ struct CampaignsUpdateCampaignRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(managers, forKey: SdkCodingKey("managers"))
-        try keyedContainer.encodeIfPresent(teamManagers, forKey: SdkCodingKey("team_managers"))
-        try keyedContainer.encodeIfPresent(endsAt, forKey: SdkCodingKey("ends_at"))
-        try keyedContainer.encodeIfPresent(contactLink, forKey: SdkCodingKey("contact_link"))
-        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(self.managers, forKey: SdkCodingKey("managers"))
+        try keyedContainer.encodeIfPresent(self.teamManagers, forKey: SdkCodingKey("team_managers"))
+        try keyedContainer.encodeIfPresent(self.endsAt, forKey: SdkCodingKey("ends_at"))
+        try keyedContainer.encodeIfPresent(self.contactLink, forKey: SdkCodingKey("contact_link"))
+        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
     }
 
     init(options: CampaignsMethods.CampaignsUpdateCampaignOptions) {
-        name = options.name
-        description = options.description
-        managers = options.managers
-        teamManagers = options.teamManagers
-        endsAt = options.endsAt
-        contactLink = options.contactLink
-        state = options.state
+        self.name = options.name
+        self.description = options.description
+        self.managers = options.managers
+        self.teamManagers = options.teamManagers
+        self.endsAt = options.endsAt
+        self.contactLink = options.contactLink
+        self.state = options.state
     }
 }
 
@@ -118,7 +118,7 @@ struct CodeScanningUpdateAiScanEnablementForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(prScan, forKey: SdkCodingKey("pr_scan"))
+        try keyedContainer.encodeIfPresent(self.prScan, forKey: SdkCodingKey("pr_scan"))
     }
 }
 
@@ -127,7 +127,7 @@ struct CodeScanningUpdateAiScanEnablementRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(prScan, forKey: SdkCodingKey("pr_scan"))
+        try keyedContainer.encodeIfPresent(self.prScan, forKey: SdkCodingKey("pr_scan"))
     }
 }
 
@@ -140,19 +140,19 @@ struct CodeScanningUpdateAlertRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(dismissedReason, forKey: SdkCodingKey("dismissed_reason"))
-        try keyedContainer.encodeIfPresent(dismissedComment, forKey: SdkCodingKey("dismissed_comment"))
-        try keyedContainer.encodeIfPresent(createRequest, forKey: SdkCodingKey("create_request"))
-        try keyedContainer.encodeIfPresent(assignees, forKey: SdkCodingKey("assignees"))
+        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.dismissedReason, forKey: SdkCodingKey("dismissed_reason"))
+        try keyedContainer.encodeIfPresent(self.dismissedComment, forKey: SdkCodingKey("dismissed_comment"))
+        try keyedContainer.encodeIfPresent(self.createRequest, forKey: SdkCodingKey("create_request"))
+        try keyedContainer.encodeIfPresent(self.assignees, forKey: SdkCodingKey("assignees"))
     }
 
     init(options: CodeScanningMethods.CodeScanningUpdateAlertOptions) {
-        state = options.state
-        dismissedReason = options.dismissedReason
-        dismissedComment = options.dismissedComment
-        createRequest = options.createRequest
-        assignees = options.assignees
+        self.state = options.state
+        self.dismissedReason = options.dismissedReason
+        self.dismissedComment = options.dismissedComment
+        self.createRequest = options.createRequest
+        self.assignees = options.assignees
     }
 }
 
@@ -162,8 +162,8 @@ struct CodeScanningCommitAutofixRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(targetRef, forKey: SdkCodingKey("target_ref"))
-        try keyedContainer.encodeIfPresent(message, forKey: SdkCodingKey("message"))
+        try keyedContainer.encodeIfPresent(self.targetRef, forKey: SdkCodingKey("target_ref"))
+        try keyedContainer.encodeIfPresent(self.message, forKey: SdkCodingKey("message"))
     }
 }
 
@@ -176,11 +176,11 @@ struct CodeScanningCreateVariantAnalysisRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(language, forKey: SdkCodingKey("language"))
-        try keyedContainer.encode(queryPack, forKey: SdkCodingKey("query_pack"))
-        try keyedContainer.encodeIfPresent(repositories, forKey: SdkCodingKey("repositories"))
-        try keyedContainer.encodeIfPresent(repositoryLists, forKey: SdkCodingKey("repository_lists"))
-        try keyedContainer.encodeIfPresent(repositoryOwners, forKey: SdkCodingKey("repository_owners"))
+        try keyedContainer.encode(self.language, forKey: SdkCodingKey("language"))
+        try keyedContainer.encode(self.queryPack, forKey: SdkCodingKey("query_pack"))
+        try keyedContainer.encodeIfPresent(self.repositories, forKey: SdkCodingKey("repositories"))
+        try keyedContainer.encodeIfPresent(self.repositoryLists, forKey: SdkCodingKey("repository_lists"))
+        try keyedContainer.encodeIfPresent(self.repositoryOwners, forKey: SdkCodingKey("repository_owners"))
     }
 }
 
@@ -194,20 +194,20 @@ struct CodeScanningUpdateDefaultSetupRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(runnerType, forKey: SdkCodingKey("runner_type"))
-        try keyedContainer.encodeIfPresent(runnerLabel, forKey: SdkCodingKey("runner_label"))
-        try keyedContainer.encodeIfPresent(querySuite, forKey: SdkCodingKey("query_suite"))
-        try keyedContainer.encodeIfPresent(threatModel, forKey: SdkCodingKey("threat_model"))
-        try keyedContainer.encodeIfPresent(languages, forKey: SdkCodingKey("languages"))
+        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(self.runnerType, forKey: SdkCodingKey("runner_type"))
+        try keyedContainer.encodeIfPresent(self.runnerLabel, forKey: SdkCodingKey("runner_label"))
+        try keyedContainer.encodeIfPresent(self.querySuite, forKey: SdkCodingKey("query_suite"))
+        try keyedContainer.encodeIfPresent(self.threatModel, forKey: SdkCodingKey("threat_model"))
+        try keyedContainer.encodeIfPresent(self.languages, forKey: SdkCodingKey("languages"))
     }
 
     init(options: CodeScanningMethods.CodeScanningUpdateDefaultSetupOptions) {
-        state = options.state
-        runnerType = options.runnerType
-        runnerLabel = options.runnerLabel
-        querySuite = options.querySuite
-        threatModel = options.threatModel
-        languages = options.languages
+        self.state = options.state
+        self.runnerType = options.runnerType
+        self.runnerLabel = options.runnerLabel
+        self.querySuite = options.querySuite
+        self.threatModel = options.threatModel
+        self.languages = options.languages
     }
 }

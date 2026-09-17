@@ -6,85 +6,40 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension InteractionsMethods {
-    /// Gets the pull request creation cap configuration for an organization. The cap limits the total number of open
-    /// pull requests a user can have across all public repositories in the organization at one time. Only users with
-    /// admin access to the organization can view the cap configuration.
+extension InteractionsMethods {
+    /// Gets the pull request creation cap configuration for an organization. The cap limits the total number of open pull requests a user can have across all public repositories in the organization at one time. Only users with admin access to the organization can view the cap configuration.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    static func interactionsGetPullRequestCreationCapForOrg(
-        config: ClientConfig,
-        org: String
-    ) async throws -> InteractionsGetPullRequestCreationCapForOrgResponse {
-        try await (sdkRequest(
-            "GET",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/interaction-limits/pulls/creation-cap"].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "interactionsGetPullRequestCreationCapForOrg"
-        )).data
+    public static func interactionsGetPullRequestCreationCapForOrg(config: ClientConfig, org: String) async throws -> InteractionsGetPullRequestCreationCapForOrgResponse {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/interaction-limits/pulls/creation-cap"].joined(), config: config, decoder: .json, operationId: "interactionsGetPullRequestCreationCapForOrg")).data
     }
 
-    /// Updates the pull request creation cap for an organization. The cap limits the total number of open pull requests
-    /// a user can have across all public repositories in the organization at one time. Only users with admin access to
-    /// the organization can configure the cap.
+    /// Updates the pull request creation cap for an organization. The cap limits the total number of open pull requests a user can have across all public repositories in the organization at one time. Only users with admin access to the organization can configure the cap.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - enabled: Whether the pull request creation cap is enabled
     /// - maxOpenPullRequests: The maximum number of open pull requests a user can
     ///   have at one time
-    static func interactionsUpdatePullRequestCreationCapForOrg(
-        config: ClientConfig,
-        org: String,
-        enabled: Bool,
-        maxOpenPullRequests: Int?
-    ) async throws -> InteractionsUpdatePullRequestCreationCapForOrgResponse {
-        if let maxOpenPullRequests {
+    public static func interactionsUpdatePullRequestCreationCapForOrg(config: ClientConfig, org: String, enabled: Bool, maxOpenPullRequests: Int?) async throws -> InteractionsUpdatePullRequestCreationCapForOrgResponse {
+        if let maxOpenPullRequests = maxOpenPullRequests {
             try validateRange("max_open_pull_requests", Double(maxOpenPullRequests), min: 1, max: 1000)
         }
 
-        let requestBody = InteractionsUpdatePullRequestCreationCapForOrgRequestBody(
-            enabled: enabled,
-            maxOpenPullRequests: maxOpenPullRequests
-        )
+        let requestBody = InteractionsUpdatePullRequestCreationCapForOrgRequestBody(enabled: enabled, maxOpenPullRequests: maxOpenPullRequests)
 
-        return try await (sdkRequest(
-            "PATCH",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/interaction-limits/pulls/creation-cap"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "interactionsUpdatePullRequestCreationCapForOrg"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/interaction-limits/pulls/creation-cap"].joined(), config: config, body: requestBody, decoder: .json, operationId: "interactionsUpdatePullRequestCreationCapForOrg")).data
     }
 
-    /// Shows which type of GitHub user can interact with this repository and when the restriction expires. If there are
-    /// no restrictions, you will see an empty response.
+    /// Shows which type of GitHub user can interact with this repository and when the restriction expires. If there are no restrictions, you will see an empty response.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func interactionsGetRestrictionsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> InteractionsGetRestrictionsForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/interaction-limits",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "interactionsGetRestrictionsForRepo"
-        )).data
+    public static func interactionsGetRestrictionsForRepo(config: ClientConfig, owner: String, repo: String) async throws -> InteractionsGetRestrictionsForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/interaction-limits"].joined(), config: config, decoder: .json, operationId: "interactionsGetRestrictionsForRepo")).data
     }
 }

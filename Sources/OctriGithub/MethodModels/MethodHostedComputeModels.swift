@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-/// Canonical hostedCompute operation model declarations
+// Canonical hostedCompute operation model declarations
 public struct HostedComputeListNetworkConfigurationsForOrgResponse: Codable {
     public var totalCount: Int
     public var networkConfigurations: [NetworkConfiguration]
@@ -17,35 +17,25 @@ public struct HostedComputeListNetworkConfigurationsForOrgResponse: Codable {
         case networkConfigurations = "network_configurations"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension HostedComputeListNetworkConfigurationsForOrgResponse {
-    init(from decoder: Decoder) throws {
+extension HostedComputeListNetworkConfigurationsForOrgResponse {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.totalCount) else {
-            throw SdkValidationError(
-                field: "total_count",
-                code: "required",
-                message: "Validation failed for 'total_count': value is required"
-            )
+            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
         }
         guard container.contains(.networkConfigurations) else {
-            throw SdkValidationError(
-                field: "network_configurations",
-                code: "required",
-                message: "Validation failed for 'network_configurations': value is required"
-            )
+            throw SdkValidationError(field: "network_configurations", code: "required", message: "Validation failed for 'network_configurations': value is required")
         }
-        totalCount = try container.sdkDecodeRequired(.totalCount)
-        networkConfigurations = try container.sdkDecodeRequired(.networkConfigurations)
+        self.totalCount = try container.sdkDecodeRequired(.totalCount)
+        self.networkConfigurations = try container.sdkDecodeRequired(.networkConfigurations)
     }
 }
 
-public extension HostedComputeListNetworkConfigurationsForOrgResponse {
-    init(totalCount: Int, networkConfigurations: [NetworkConfiguration]) {
+extension HostedComputeListNetworkConfigurationsForOrgResponse {
+    public init(totalCount: Int, networkConfigurations: [NetworkConfiguration]) {
         (self.totalCount, self.networkConfigurations) = (totalCount, networkConfigurations)
     }
 }

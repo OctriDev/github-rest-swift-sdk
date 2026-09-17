@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Creates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must
-    /// have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access
-    /// tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and
-    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+extension ActionsMethods {
+    /// Creates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -22,55 +19,18 @@ public extension ActionsMethods {
     /// - selectedRepositoryIds: An array of repository ids that can access the
     ///   organization variable. You can only provide a list of repository ids when
     ///   the `visibility` is set to `selected`.
-    static func actionsCreateOrgVariable(
-        config: ClientConfig,
-        org: String,
-        name: String,
-        value: String,
-        visibility: ActionsCreateOrgVariableRequestBodyVisibility,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> EmptyObject {
-        let requestBody = ActionsCreateOrgVariableRequestBody(
-            name: name,
-            value: value,
-            visibility: visibility,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+    public static func actionsCreateOrgVariable(config: ClientConfig, org: String, name: String, value: String, visibility: ActionsCreateOrgVariableRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
+        let requestBody = ActionsCreateOrgVariableRequestBody(name: name, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "POST",
-            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables"].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "actionsCreateOrgVariable"
-        )).data
+        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateOrgVariable")).data
     }
 
-    /// Gets a specific variable in an organization. The authenticated user must have collaborator access to a
-    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need
-    /// the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+    /// Gets a specific variable in an organization. The authenticated user must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - name: The name of the variable.
-    static func actionsGetOrgVariable(
-        config: ClientConfig,
-        org: String,
-        name: String
-    ) async throws -> OrganizationActionsVariable {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/variables/",
-                sdkEncodePathSegment(sdkWireString(name)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetOrgVariable"
-        )).data
+    public static func actionsGetOrgVariable(config: ClientConfig, org: String, name: String) async throws -> OrganizationActionsVariable {
+        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "actionsGetOrgVariable")).data
     }
 }

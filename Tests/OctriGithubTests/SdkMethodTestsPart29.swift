@@ -171,8 +171,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsListArtifactDeploymentRecordsOrgsListArtifactDeploymentRecordsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsListArtifactDeploymentRecordsOrgsListArtifactDeploymentRecordsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -449,8 +448,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsListMembershipsForAuthenticatedUserOrgsListMembershipsForX9a565164f2ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsListMembershipsForAuthenticatedUserOrgsListMembershipsForX9a565164f2ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

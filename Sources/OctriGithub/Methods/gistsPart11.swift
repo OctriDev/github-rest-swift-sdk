@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension GistsMethods {
+extension GistsMethods {
     /// List gists for a user
     ///
     /// Lists public gists for the specified user:
@@ -24,28 +24,15 @@ public extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func gistsListForUser(
-        config: ClientConfig,
-        username: String,
-        since: Date?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [BaseGist] {
-        if let since {
+    public static func gistsListForUser(config: ClientConfig, username: String, since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
+        if let since = since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try await (sdkRequest(
-            "GET",
-            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/gists"].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("since", value: since),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "gistsListForUser"
-        )).data
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/gists"].joined(), config: config, query: [
+            SdkQueryParameter("since", value: since),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "gistsListForUser")).data
     }
 }

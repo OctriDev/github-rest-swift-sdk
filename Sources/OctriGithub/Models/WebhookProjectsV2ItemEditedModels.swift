@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookProjectsV2ItemEdited domain models
+// WebhookProjectsV2ItemEdited domain models
 /// Typed representation of the `WebhookProjectsV2ItemEdited` API schema.
 public struct WebhookProjectsV2ItemEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -32,60 +32,35 @@ public struct WebhookProjectsV2ItemEdited: Codable {
         case installation
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectsV2ItemEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.organization) else {
-            throw SdkValidationError(
-                field: "organization",
-                code: "required",
-                message: "Validation failed for 'organization': value is required"
-            )
+            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
         }
         guard container.contains(.projectsV2Item) else {
-            throw SdkValidationError(
-                field: "projects_v2_item",
-                code: "required",
-                message: "Validation failed for 'projects_v2_item': value is required"
-            )
+            throw SdkValidationError(field: "projects_v2_item", code: "required", message: "Validation failed for 'projects_v2_item': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        organization = try container.sdkDecodeRequired(.organization)
-        projectsV2Item = try container.sdkDecodeRequired(.projectsV2Item)
-        sender = try container.sdkDecodeRequired(.sender)
-        changes = try container.sdkDecodeIfPresent(.changes)
-        installation = try container.sdkDecodeIfPresent(.installation)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.organization = try container.sdkDecodeRequired(.organization)
+        self.projectsV2Item = try container.sdkDecodeRequired(.projectsV2Item)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.changes = try container.sdkDecodeIfPresent(.changes)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
     }
 }
 
-public extension WebhookProjectsV2ItemEdited {
-    init(
-        action: WebhookProjectsV2ItemEditedAction,
-        organization: OrganizationSimpleWebhooks,
-        projectsV2Item: ProjectsV2Item,
-        sender: SimpleUser,
-        changes: WebhookProjectsV2ItemEditedChanges? = nil,
-        installation: SimpleInstallation? = nil
-    ) {
+extension WebhookProjectsV2ItemEdited {
+    public init(action: WebhookProjectsV2ItemEditedAction, organization: OrganizationSimpleWebhooks, projectsV2Item: ProjectsV2Item, sender: SimpleUser, changes: WebhookProjectsV2ItemEditedChanges? = nil, installation: SimpleInstallation? = nil) {
         (self.action, self.organization) = (action, organization)
         (self.projectsV2Item, self.sender) = (projectsV2Item, sender)
         (self.changes, self.installation) = (changes, installation)
@@ -98,35 +73,29 @@ public enum WebhookProjectsV2ItemEditedChanges {
 }
 
 extension WebhookProjectsV2ItemEditedChanges: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookProjectsV2ItemEditedChanges"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookProjectsV2ItemEditedChanges")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
         if let value = try? container.decode(
             WebhookProjectsV2ItemEditedChangesVariant0.self
         ) {
-            return .webhookProjectsV2ItemEditedChangesVariant0(value)
+            return             .webhookProjectsV2ItemEditedChangesVariant0(value)
         }
         if let value = try? container.decode(
             WebhookProjectsV2ItemEditedChangesVariant1.self
         ) {
-            return .webhookProjectsV2ItemEditedChangesVariant1(value)
+            return             .webhookProjectsV2ItemEditedChangesVariant1(value)
         }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -136,6 +105,7 @@ extension WebhookProjectsV2ItemEditedChanges: Codable {
         case let .webhookProjectsV2ItemEditedChangesVariant1(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Optional object value serialized in the `changes` wire field.
@@ -147,27 +117,21 @@ public struct WebhookProjectsV2ItemEditedChangesVariant0: Codable {
         case fieldValue = "field_value"
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant0 {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemEditedChangesVariant0 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.fieldValue) else {
-            throw SdkValidationError(
-                field: "field_value",
-                code: "required",
-                message: "Validation failed for 'field_value': value is required"
-            )
+            throw SdkValidationError(field: "field_value", code: "required", message: "Validation failed for 'field_value': value is required")
         }
-        fieldValue = try container.sdkDecodeRequired(.fieldValue)
+        self.fieldValue = try container.sdkDecodeRequired(.fieldValue)
     }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant0 {
-    init(fieldValue: WebhookProjectsV2ItemEditedChangesVariant0FieldValue) {
+extension WebhookProjectsV2ItemEditedChangesVariant0 {
+    public init(fieldValue: WebhookProjectsV2ItemEditedChangesVariant0FieldValue) {
         self.fieldValue = fieldValue
     }
 }
@@ -197,32 +161,25 @@ public struct WebhookProjectsV2ItemEditedChangesVariant0FieldValue: Codable {
     }
 
     init() {
-        (fieldNodeId, fieldType, fieldName, projectNumber, from) = (nil, nil, nil, nil, nil)
-        to = nil
+        (self.fieldNodeId, self.fieldType, self.fieldName, self.projectNumber, self.from) = (nil, nil, nil, nil, nil)
+        self.to = nil
     }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant0FieldValue {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemEditedChangesVariant0FieldValue {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        fieldNodeId = try container.sdkDecodeIfPresent(.fieldNodeId)
-        fieldType = try container.sdkDecodeIfPresent(.fieldType)
-        fieldName = try container.sdkDecodeIfPresent(.fieldName)
-        projectNumber = try container.sdkDecodeIfPresent(.projectNumber)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.fieldNodeId = try container.sdkDecodeIfPresent(.fieldNodeId)
+        self.fieldType = try container.sdkDecodeIfPresent(.fieldType)
+        self.fieldName = try container.sdkDecodeIfPresent(.fieldName)
+        self.projectNumber = try container.sdkDecodeIfPresent(.projectNumber)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant0FieldValue {
-    init(
-        fieldNodeId: String? = nil,
-        fieldType: String? = nil,
-        fieldName: String? = nil,
-        projectNumber: Int? = nil,
-        from: WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom? = nil,
-        to: WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo? = nil
-    ) {
+extension WebhookProjectsV2ItemEditedChangesVariant0FieldValue {
+    public init(fieldNodeId: String? = nil, fieldType: String? = nil, fieldName: String? = nil, projectNumber: Int? = nil, from: WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom? = nil, to: WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo? = nil) {
         self.init()
         (self.fieldNodeId, self.fieldType) = (fieldNodeId, fieldType)
         (self.fieldName, self.projectNumber) = (fieldName, projectNumber)
@@ -238,39 +195,23 @@ public enum WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom {
 }
 
 extension WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container
-            .decode(ProjectsV2SingleSelectOption.self) {
-            return .projectsV2SingleSelectOption(value)
-        }
-        if let value = try? container
-            .decode(ProjectsV2IterationSetting.self) {
-            return .projectsV2IterationSetting(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(ProjectsV2SingleSelectOption.self) { return .projectsV2SingleSelectOption(value) }
+        if let value = try? container.decode(ProjectsV2IterationSetting.self) { return .projectsV2IterationSetting(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -282,6 +223,7 @@ extension WebhookProjectsV2ItemEditedChangesVariant0FieldValueFrom: Codable {
         case let .projectsV2IterationSetting(value): try container.encode(value); return true
         }
     }
+
 }
 
 public enum WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo {
@@ -292,39 +234,23 @@ public enum WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo {
 }
 
 extension WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo: Codable {
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) {
-            self = value; return
-        }
-        throw DecodingError.dataCorruptedError(
-            in: container,
-            debugDescription: "No variant matched for WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo"
-        )
+        if let value = Self.decodeGroup1(from: container) { self = value; return }
+        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo")
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) {
-            return .stringValue(value)
-        }
-        if let value = try? container.decode(Int.self) {
-            return .intValue(value)
-        }
-        if let value = try? container
-            .decode(ProjectsV2SingleSelectOption.self) {
-            return .projectsV2SingleSelectOption(value)
-        }
-        if let value = try? container
-            .decode(ProjectsV2IterationSetting.self) {
-            return .projectsV2IterationSetting(value)
-        }
+        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Int.self) { return .intValue(value) }
+        if let value = try? container.decode(ProjectsV2SingleSelectOption.self) { return .projectsV2SingleSelectOption(value) }
+        if let value = try? container.decode(ProjectsV2IterationSetting.self) { return .projectsV2IterationSetting(value) }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) {
-            return
-        }
+        if try encodeGroup1(to: encoder) { return }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -336,6 +262,7 @@ extension WebhookProjectsV2ItemEditedChangesVariant0FieldValueTo: Codable {
         case let .projectsV2IterationSetting(value): try container.encode(value); return true
         }
     }
+
 }
 
 /// Optional object value serialized in the `changes` wire field.
@@ -347,27 +274,21 @@ public struct WebhookProjectsV2ItemEditedChangesVariant1: Codable {
         case body
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant1 {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemEditedChangesVariant1 {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.body) else {
-            throw SdkValidationError(
-                field: "body",
-                code: "required",
-                message: "Validation failed for 'body': value is required"
-            )
+            throw SdkValidationError(field: "body", code: "required", message: "Validation failed for 'body': value is required")
         }
-        body = try container.sdkDecodeRequired(.body)
+        self.body = try container.sdkDecodeRequired(.body)
     }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant1 {
-    init(body: WebhookProjectsV2ItemEditedChangesVariant1Body) {
+extension WebhookProjectsV2ItemEditedChangesVariant1 {
+    public init(body: WebhookProjectsV2ItemEditedChangesVariant1Body) {
         self.body = body
     }
 }
@@ -385,20 +306,20 @@ public struct WebhookProjectsV2ItemEditedChangesVariant1Body: Codable {
     }
 
     init() {
-        (from, to) = (nil, nil)
+        (self.from, self.to) = (nil, nil)
     }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant1Body {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectsV2ItemEditedChangesVariant1Body {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        from = try container.sdkDecodeIfPresent(.from)
-        to = try container.sdkDecodeIfPresent(.to)
+        self.from = try container.sdkDecodeIfPresent(.from)
+        self.to = try container.sdkDecodeIfPresent(.to)
     }
 }
 
-public extension WebhookProjectsV2ItemEditedChangesVariant1Body {
-    init(from: String? = nil, to: String? = nil) {
+extension WebhookProjectsV2ItemEditedChangesVariant1Body {
+    public init(from: String? = nil, to: String? = nil) {
         self.init()
         (self.from, self.to) = (from, to)
     }
@@ -408,15 +329,12 @@ public extension WebhookProjectsV2ItemEditedChangesVariant1Body {
 public struct WebhookProjectsV2ItemEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookProjectsV2ItemEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

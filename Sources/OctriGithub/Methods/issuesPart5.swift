@@ -6,38 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension IssuesMethods {
-    /// Verifies whether a user can be assigned to issues in a repository. Pass `owner`, `repo`, and `assignee` to check
-    /// the user's assignment eligibility; a successful check returns no response content.
+extension IssuesMethods {
+    /// Verifies whether a user can be assigned to issues in a repository. Pass `owner`, `repo`, and `assignee` to check the user's assignment eligibility; a successful check returns no response content.
     ///
-    /// Checks if a user has permission to be assigned to an issue in this repository. If the `assignee` can be assigned
-    /// to issues in the repository, a `204` header with no content is returned. Otherwise a `404` status code is
-    /// returned.
+    /// Checks if a user has permission to be assigned to an issue in this repository. If the `assignee` can be assigned to issues in the repository, a `204` header with no content is returned. Otherwise a `404` status code is returned.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func issuesCheckUserCanBeAssigned(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        assignee: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/assignees/",
-                sdkEncodePathSegment(sdkWireString(assignee)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "issuesCheckUserCanBeAssigned"
-        )).data
+    public static func issuesCheckUserCanBeAssigned(config: ClientConfig, owner: String, repo: String, assignee: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/assignees/", sdkEncodePathSegment(sdkWireString(assignee))].joined(), config: config, decoder: .empty, operationId: "issuesCheckUserCanBeAssigned")).data
     }
 }

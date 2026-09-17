@@ -6,10 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension GistsMethods {
-    /// List public gists sorted by most recently updated to least recently updated. Note: With
-    /// [pagination](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api), you can fetch up to 3000
-    /// gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page.
+extension GistsMethods {
+    /// List public gists sorted by most recently updated to least recently updated. Note: With [pagination](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api), you can fetch up to 3000 gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page.
     ///
     /// - Parameters:
     /// - since: Only show results that were last updated after the given time. This
@@ -23,17 +21,12 @@ public extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func gistsListPublic(
-        config: ClientConfig,
-        since: Date?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> [BaseGist] {
-        if let since {
+    public static func gistsListPublic(config: ClientConfig, since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
+        if let since = since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try await (sdkRequest("GET", "/gists/public", config: config, query: [
+        return try (await sdkRequest("GET", "/gists/public", config: config, query: [
             SdkQueryParameter("since", value: since),
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),

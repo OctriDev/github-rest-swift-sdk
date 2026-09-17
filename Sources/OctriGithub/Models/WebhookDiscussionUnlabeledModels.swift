@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookDiscussionUnlabeled domain models
+// WebhookDiscussionUnlabeled domain models
 /// Typed representation of the `WebhookDiscussionUnlabeled` API schema.
 public struct WebhookDiscussionUnlabeled: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,71 +39,40 @@ public struct WebhookDiscussionUnlabeled: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookDiscussionUnlabeled {
-    init(from decoder: Decoder) throws {
+extension WebhookDiscussionUnlabeled {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.discussion) else {
-            throw SdkValidationError(
-                field: "discussion",
-                code: "required",
-                message: "Validation failed for 'discussion': value is required"
-            )
+            throw SdkValidationError(field: "discussion", code: "required", message: "Validation failed for 'discussion': value is required")
         }
         guard container.contains(.label) else {
-            throw SdkValidationError(
-                field: "label",
-                code: "required",
-                message: "Validation failed for 'label': value is required"
-            )
+            throw SdkValidationError(field: "label", code: "required", message: "Validation failed for 'label': value is required")
         }
         guard container.contains(.repository) else {
-            throw SdkValidationError(
-                field: "repository",
-                code: "required",
-                message: "Validation failed for 'repository': value is required"
-            )
+            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        discussion = try container.sdkDecodeRequired(.discussion)
-        label = try container.sdkDecodeRequired(.label)
-        repository = try container.sdkDecodeRequired(.repository)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.discussion = try container.sdkDecodeRequired(.discussion)
+        self.label = try container.sdkDecodeRequired(.label)
+        self.repository = try container.sdkDecodeRequired(.repository)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
     }
 }
 
-public extension WebhookDiscussionUnlabeled {
-    init(
-        action: WebhookDiscussionUnlabeledAction,
-        discussion: Discussion,
-        label: WebhooksLabel,
-        repository: RepositoryWebhooks,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil
-    ) {
+extension WebhookDiscussionUnlabeled {
+    public init(action: WebhookDiscussionUnlabeledAction, discussion: Discussion, label: WebhooksLabel, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
         (self.action, self.discussion) = (action, discussion)
         (self.label, self.repository) = (label, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -115,15 +84,12 @@ public extension WebhookDiscussionUnlabeled {
 public struct WebhookDiscussionUnlabeledAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let unlabeled = WebhookDiscussionUnlabeledAction(rawValue: "unlabeled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

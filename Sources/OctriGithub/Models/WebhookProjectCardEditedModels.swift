@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookProjectCardEdited domain models
+// WebhookProjectCardEdited domain models
 /// Typed representation of the `WebhookProjectCardEdited` API schema.
 public struct WebhookProjectCardEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,64 +39,37 @@ public struct WebhookProjectCardEdited: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectCardEdited {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectCardEdited {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.action) else {
-            throw SdkValidationError(
-                field: "action",
-                code: "required",
-                message: "Validation failed for 'action': value is required"
-            )
+            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
         }
         guard container.contains(.changes) else {
-            throw SdkValidationError(
-                field: "changes",
-                code: "required",
-                message: "Validation failed for 'changes': value is required"
-            )
+            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
         }
         guard container.contains(.projectCard) else {
-            throw SdkValidationError(
-                field: "project_card",
-                code: "required",
-                message: "Validation failed for 'project_card': value is required"
-            )
+            throw SdkValidationError(field: "project_card", code: "required", message: "Validation failed for 'project_card': value is required")
         }
         guard container.contains(.sender) else {
-            throw SdkValidationError(
-                field: "sender",
-                code: "required",
-                message: "Validation failed for 'sender': value is required"
-            )
+            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
         }
-        action = try container.sdkDecodeRequired(.action)
-        changes = try container.sdkDecodeRequired(.changes)
-        projectCard = try container.sdkDecodeRequired(.projectCard)
-        sender = try container.sdkDecodeRequired(.sender)
-        enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        installation = try container.sdkDecodeIfPresent(.installation)
-        organization = try container.sdkDecodeIfPresent(.organization)
-        repository = try container.sdkDecodeIfPresent(.repository)
+        self.action = try container.sdkDecodeRequired(.action)
+        self.changes = try container.sdkDecodeRequired(.changes)
+        self.projectCard = try container.sdkDecodeRequired(.projectCard)
+        self.sender = try container.sdkDecodeRequired(.sender)
+        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        self.installation = try container.sdkDecodeIfPresent(.installation)
+        self.organization = try container.sdkDecodeIfPresent(.organization)
+        self.repository = try container.sdkDecodeIfPresent(.repository)
     }
 }
 
-public extension WebhookProjectCardEdited {
-    init(
-        action: WebhookProjectCardEditedAction,
-        changes: WebhookProjectCardEditedChanges,
-        projectCard: WebhooksProjectCard,
-        sender: SimpleUser,
-        enterprise: EnterpriseWebhooks? = nil,
-        installation: SimpleInstallation? = nil,
-        organization: OrganizationSimpleWebhooks? = nil,
-        repository: RepositoryWebhooks? = nil
-    ) {
+extension WebhookProjectCardEdited {
+    public init(action: WebhookProjectCardEditedAction, changes: WebhookProjectCardEditedChanges, projectCard: WebhooksProjectCard, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
         (self.action, self.changes) = (action, changes)
         (self.projectCard, self.sender) = (projectCard, sender)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -113,27 +86,21 @@ public struct WebhookProjectCardEditedChanges: Codable {
         case note
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectCardEditedChanges {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectCardEditedChanges {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.note) else {
-            throw SdkValidationError(
-                field: "note",
-                code: "required",
-                message: "Validation failed for 'note': value is required"
-            )
+            throw SdkValidationError(field: "note", code: "required", message: "Validation failed for 'note': value is required")
         }
-        note = try container.sdkDecodeRequired(.note)
+        self.note = try container.sdkDecodeRequired(.note)
     }
 }
 
-public extension WebhookProjectCardEditedChanges {
-    init(note: WebhookProjectCardEditedChangesNote) {
+extension WebhookProjectCardEditedChanges {
+    public init(note: WebhookProjectCardEditedChangesNote) {
         self.note = note
     }
 }
@@ -147,27 +114,21 @@ public struct WebhookProjectCardEditedChangesNote: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) {
-        self = value
-    }
+    private init(sdkCopy value: Self) { self = value }
 }
 
-public extension WebhookProjectCardEditedChangesNote {
-    init(from decoder: Decoder) throws {
+extension WebhookProjectCardEditedChangesNote {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.from) else {
-            throw SdkValidationError(
-                field: "from",
-                code: "required",
-                message: "Validation failed for 'from': value is required"
-            )
+            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
         }
-        from = try container.sdkDecodeIfPresent(.from)
+        self.from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
-public extension WebhookProjectCardEditedChangesNote {
-    init(from: String?) {
+extension WebhookProjectCardEditedChangesNote {
+    public init(from: String?) {
         self.from = from
     }
 }
@@ -176,15 +137,12 @@ public extension WebhookProjectCardEditedChangesNote {
 public struct WebhookProjectCardEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let edited = WebhookProjectCardEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

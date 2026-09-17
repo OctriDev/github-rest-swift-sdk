@@ -28,8 +28,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsListPatGrantRequestRepositoriesOrgsListPatGrantRequestRepositoriesReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsListPatGrantRequestRepositoriesOrgsListPatGrantRequestRepositoriesReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -287,8 +286,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsRemovePublicMembershipForAuthenticatedUserOrgsRemovePubliX1c179765a0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsRemovePublicMembershipForAuthenticatedUserOrgsRemovePubliX1c179765a0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -326,8 +324,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsReviewPatGrantRequestsInBulkOrgsReviewPatGrantRequestsInBulkReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsReviewPatGrantRequestsInBulkOrgsReviewPatGrantRequestsInBulkReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -424,8 +421,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsSetImmutableReleasesSettingsOrgsSetImmutableReleasesSettingsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsSetImmutableReleasesSettingsOrgsSetImmutableReleasesSettingsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -438,8 +434,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsSetImmutableReleasesSettingsRepositoriesOrgsSetImmutableRX3c6533e047ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsSetImmutableReleasesSettingsRepositoriesOrgsSetImmutableRX3c6533e047ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -472,8 +467,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsSetPublicMembershipForAuthenticatedUserOrgsSetPublicMembeX6b7ecd497dReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsSetPublicMembershipForAuthenticatedUserOrgsSetPublicMembeX6b7ecd497dReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

@@ -9,15 +9,12 @@ import Foundation
 public struct SearchCodeParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let indexed = SearchCodeParameter(rawValue: "indexed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -29,16 +26,13 @@ public struct SearchCodeParameter: RawRepresentable, Hashable, Codable, Sendable
 public struct SearchCodeParameterX5b868389: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let desc = SearchCodeParameterX5b868389(rawValue: "desc")
     public static let asc = SearchCodeParameterX5b868389(rawValue: "asc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,16 +44,13 @@ public struct SearchCodeParameterX5b868389: RawRepresentable, Hashable, Codable,
 public struct SearchCommitsParameterX4b556b74: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let authorDate = SearchCommitsParameterX4b556b74(rawValue: "author-date")
     public static let committerDate = SearchCommitsParameterX4b556b74(rawValue: "committer-date")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -68,21 +59,16 @@ public struct SearchCommitsParameterX4b556b74: RawRepresentable, Hashable, Codab
     }
 }
 
-public struct SearchIssuesAndPullRequestsParameterX0ca61b63: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct SearchIssuesAndPullRequestsParameterX0ca61b63: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let comments = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "comments")
     public static let reactions = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions")
     public static let reactionsPlus1 = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions-+1")
     public static let reactionsMinus1 = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions--1")
     public static let reactionsSmile = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions-smile")
-    public static let reactionsThinkingFace =
-        SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions-thinking_face")
+    public static let reactionsThinkingFace = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions-thinking_face")
     public static let reactionsHeart = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions-heart")
     public static let reactionsTada = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "reactions-tada")
     public static let interactions = SearchIssuesAndPullRequestsParameterX0ca61b63(rawValue: "interactions")
@@ -91,7 +77,7 @@ public struct SearchIssuesAndPullRequestsParameterX0ca61b63: RawRepresentable, H
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -100,33 +86,22 @@ public struct SearchIssuesAndPullRequestsParameterX0ca61b63: RawRepresentable, H
     }
 }
 
-public struct SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem: RawRepresentable, Hashable, Codable,
-    Sendable, SdkWireConvertible {
+public struct SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let noTextTerms =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "no_text_terms")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let noTextTerms = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "no_text_terms")
     public static let quotedText = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "quoted_text")
-    public static let nonIssueTarget =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "non_issue_target")
-    public static let orBooleanNotSupported =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "or_boolean_not_supported")
-    public static let noAccessibleRepos =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "no_accessible_repos")
-    public static let serverError =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "server_error")
-    public static let onlyNonSemanticFieldsRequested =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "only_non_semantic_fields_requested")
-    public static let serviceUnavailable =
-        SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "service_unavailable")
+    public static let nonIssueTarget = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "non_issue_target")
+    public static let orBooleanNotSupported = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "or_boolean_not_supported")
+    public static let noAccessibleRepos = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "no_accessible_repos")
+    public static let serverError = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "server_error")
+    public static let onlyNonSemanticFieldsRequested = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "only_non_semantic_fields_requested")
+    public static let serviceUnavailable = SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem(rawValue: "service_unavailable")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -136,21 +111,17 @@ public struct SearchIssuesAndPullRequestsResponseLexicalFallbackReasonItem: RawR
 }
 
 /// The type of search that was performed. Possible values are `lexical`, `semantic`, or `hybrid`.
-public struct SearchIssuesAndPullRequestsResponseSearchType: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct SearchIssuesAndPullRequestsResponseSearchType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let lexical = SearchIssuesAndPullRequestsResponseSearchType(rawValue: "lexical")
     public static let semantic = SearchIssuesAndPullRequestsResponseSearchType(rawValue: "semantic")
     public static let hybrid = SearchIssuesAndPullRequestsResponseSearchType(rawValue: "hybrid")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -162,16 +133,13 @@ public struct SearchIssuesAndPullRequestsResponseSearchType: RawRepresentable, H
 public struct SearchLabelsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let created = SearchLabelsParameter(rawValue: "created")
     public static let updated = SearchLabelsParameter(rawValue: "updated")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -183,10 +151,7 @@ public struct SearchLabelsParameter: RawRepresentable, Hashable, Codable, Sendab
 public struct SearchReposParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let stars = SearchReposParameter(rawValue: "stars")
     public static let forks = SearchReposParameter(rawValue: "forks")
     public static let helpWantedIssues = SearchReposParameter(rawValue: "help-wanted-issues")
@@ -194,7 +159,7 @@ public struct SearchReposParameter: RawRepresentable, Hashable, Codable, Sendabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -206,17 +171,14 @@ public struct SearchReposParameter: RawRepresentable, Hashable, Codable, Sendabl
 public struct SearchUsersParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
+    public init(rawValue: String) { self.rawValue = rawValue }
     public static let followers = SearchUsersParameter(rawValue: "followers")
     public static let repositories = SearchUsersParameter(rawValue: "repositories")
     public static let joined = SearchUsersParameter(rawValue: "joined")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -228,22 +190,16 @@ public struct SearchUsersParameter: RawRepresentable, Hashable, Codable, Sendabl
 /// The notification setting the team has chosen. Editing teams without specifying this parameter leaves
 /// `notification_setting` intact. The options are: * `notifications_enabled` - team members receive
 /// notifications when the team is @mentioned. * `notifications_disabled` - no one receives notifications.
-public struct TeamsUpdateLegacyRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable,
-    SdkWireConvertible {
+public struct TeamsUpdateLegacyRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public static let notificationsEnabled =
-        TeamsUpdateLegacyRequestBodyNotificationSetting(rawValue: "notifications_enabled")
-    public static let notificationsDisabled =
-        TeamsUpdateLegacyRequestBodyNotificationSetting(rawValue: "notifications_disabled")
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public static let notificationsEnabled = TeamsUpdateLegacyRequestBodyNotificationSetting(rawValue: "notifications_enabled")
+    public static let notificationsDisabled = TeamsUpdateLegacyRequestBodyNotificationSetting(rawValue: "notifications_disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        try self.init(rawValue: container.decode(String.self))
+        self.init(rawValue: try container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

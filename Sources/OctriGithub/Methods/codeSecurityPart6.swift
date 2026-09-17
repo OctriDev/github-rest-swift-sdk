@@ -6,65 +6,25 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeSecurityMethods {
-    /// Deletes a code security configuration from an enterprise. Repositories attached to the configuration will retain
-    /// their settings but will no longer be associated with the configuration. The authenticated user must be an
-    /// administrator for the enterprise to use this endpoint. OAuth app tokens and personal access tokens (classic)
-    /// need the `admin:enterprise` scope to use this endpoint.
+extension CodeSecurityMethods {
+    /// Deletes a code security configuration from an enterprise. Repositories attached to the configuration will retain their settings but will no longer be associated with the configuration. The authenticated user must be an administrator for the enterprise to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
     /// - configurationId: The unique identifier of the code security configuration.
-    static func codeSecurityDeleteConfigurationForEnterprise(
-        config: ClientConfig,
-        enterprise: String,
-        configurationId: Int
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/code-security/configurations/",
-                sdkEncodePathSegment(sdkWireString(configurationId)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "codeSecurityDeleteConfigurationForEnterprise"
-        )).data
+    public static func codeSecurityDeleteConfigurationForEnterprise(config: ClientConfig, enterprise: String, configurationId: Int) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId))].joined(), config: config, decoder: .empty, operationId: "codeSecurityDeleteConfigurationForEnterprise")).data
     }
 
-    /// Attaches an enterprise code security configuration to repositories. If the repositories specified are already
-    /// attached to a configuration, they will be re-attached to the provided configuration. If insufficient GHAS
-    /// licenses are available to attach the configuration to a repository, only free features will be enabled. The
-    /// authenticated user must be an administrator for the enterprise to use this endpoint. OAuth app tokens and
-    /// personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint.
+    /// Attaches an enterprise code security configuration to repositories. If the repositories specified are already attached to a configuration, they will be re-attached to the provided configuration. If insufficient GHAS licenses are available to attach the configuration to a repository, only free features will be enabled. The authenticated user must be an administrator for the enterprise to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
     /// - configurationId: The unique identifier of the code security configuration.
     /// - scope: The type of repositories to attach the configuration to.
-    static func codeSecurityAttachEnterpriseConfiguration(
-        config: ClientConfig,
-        enterprise: String,
-        configurationId: Int,
-        scope: CodeSecurityAttachEnterpriseConfigurationRequestBodyScope
-    ) async throws -> [String: JSONValue] {
+    public static func codeSecurityAttachEnterpriseConfiguration(config: ClientConfig, enterprise: String, configurationId: Int, scope: CodeSecurityAttachEnterpriseConfigurationRequestBodyScope) async throws -> [String: JSONValue] {
         let requestBody = CodeSecurityAttachEnterpriseConfigurationRequestBody(scope: scope)
 
-        return try await (sdkRequest(
-            "POST",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/code-security/configurations/",
-                sdkEncodePathSegment(sdkWireString(configurationId)),
-                "/attach",
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .json,
-            operationId: "codeSecurityAttachEnterpriseConfiguration"
-        )).data
+        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId)), "/attach"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeSecurityAttachEnterpriseConfiguration")).data
     }
 }

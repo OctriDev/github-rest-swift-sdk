@@ -6,8 +6,7 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testOrgsCreateClusterDeploymentRecordsJobOrgsCreateClusterDeploymX410ffa5721ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCreateClusterDeploymentRecordsJobOrgsCreateClusterDeploymX410ffa5721ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -123,17 +122,12 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitXad4e51920dReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitXad4e51920dReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try OrgsMethods.OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions(
-            org: decoded("\"org\""),
-            customPropertyName: decoded("\"Example Name\""),
-            valueType: decoded("\"single_select\"")
-        )
+        var options = try OrgsMethods.OrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitionOptions(org: decoded("\"org\""), customPropertyName: decoded("\"Example Name\""), valueType: decoded("\"single_select\""))
         options.required = try decoded("true")
         options.defaultValue = try decoded("\"production\"")
         options.description = try decoded("\"Prod or dev environment\"")
@@ -154,8 +148,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitXda477d7b17ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposCreateOrUpdateOrganizationDefinitXda477d7b17ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -175,8 +168,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesOXe57f22c19cReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesOXe57f22c19cReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -189,8 +181,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsCustomPropertiesForReposDeleteOrganizationDefinitionOrgsCX4fb8297294ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposDeleteOrganizationDefinitionOrgsCX4fb8297294ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -202,8 +193,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsCustomPropertiesForReposGetOrganizationDefinitionOrgsCustX89f6c26d4aReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposGetOrganizationDefinitionOrgsCustX89f6c26d4aReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -223,8 +213,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsCustomPropertiesForReposGetOrganizationDefinitionsOrgsCusX581c72281dReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposGetOrganizationDefinitionsOrgsCusX581c72281dReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -243,8 +232,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsCustomPropertiesForReposGetOrganizationValuesOrgsCustomPrXff84b0066fReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsCustomPropertiesForReposGetOrganizationValuesOrgsCustomPrXff84b0066fReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -309,8 +297,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsDeleteAttestationsBySubjectDigestOrgsDeleteAttestationsByX982e984306ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsDeleteAttestationsBySubjectDigestOrgsDeleteAttestationsByX982e984306ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -358,8 +345,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsDisableSelectedRepositoryImmutableReleasesOrganizationOrgX852d0815e0ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsDisableSelectedRepositoryImmutableReleasesOrganizationOrgX852d0815e0ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -371,8 +357,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsEnableOrDisableSecurityProductOnAllOrgReposOrgsEnableOrDiX929803fa2eReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsEnableOrDisableSecurityProductOnAllOrgReposOrgsEnableOrDiX929803fa2eReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -386,8 +371,7 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testOrgsEnableSelectedRepositoryImmutableReleasesOrganizationOrgsX85652218c7ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsEnableSelectedRepositoryImmutableReleasesOrganizationOrgsX85652218c7ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -418,8 +402,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsGetClusterDeploymentRecordsJobOrgsGetClusterDeploymentRecordsJobReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsGetClusterDeploymentRecordsJobOrgsGetClusterDeploymentRecordsJobReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -440,8 +423,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsGetImmutableReleasesSettingsOrgsGetImmutableReleasesSettingsReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsGetImmutableReleasesSettingsOrgsGetImmutableReleasesSettingsReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -460,8 +442,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsGetImmutableReleasesSettingsRepositoriesOrgsGetImmutableRXab97ff44acReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsGetImmutableReleasesSettingsRepositoriesOrgsGetImmutableRXab97ff44acReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -482,8 +463,7 @@ extension SdkMethodTests {
         )
     }
 
-    func testOrgsGetMembershipForAuthenticatedUserOrgsGetMembershipForAuthX872b581936ReachesMockAndDecodesResponse(
-    ) async throws {
+    func testOrgsGetMembershipForAuthenticatedUserOrgsGetMembershipForAuthX872b581936ReachesMockAndDecodesResponse() async throws {
         guard let client = configuredClient() else {
             return
         }

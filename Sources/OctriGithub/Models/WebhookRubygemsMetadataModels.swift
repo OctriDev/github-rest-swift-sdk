@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// WebhookRubygemsMetadata domain models
+// WebhookRubygemsMetadata domain models
 /// Typed representation of the `WebhookRubygemsMetadata` API schema.
 public struct WebhookRubygemsMetadata: Codable {
     /// Optional `string` value serialized in the `name` wire field.
@@ -41,40 +41,29 @@ public struct WebhookRubygemsMetadata: Codable {
     }
 
     init() {
-        (name, description, readme, homepage, versionInfo) = (nil, nil, nil, nil, nil)
-        (platform, metadata, repo, dependencies, commitOid) = (nil, nil, nil, nil, nil)
+        (self.name, self.description, self.readme, self.homepage, self.versionInfo) = (nil, nil, nil, nil, nil)
+        (self.platform, self.metadata, self.repo, self.dependencies, self.commitOid) = (nil, nil, nil, nil, nil)
     }
 }
 
-public extension WebhookRubygemsMetadata {
-    init(from decoder: Decoder) throws {
+extension WebhookRubygemsMetadata {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.sdkDecodeIfPresent(.name)
-        description = try container.sdkDecodeIfPresent(.description)
-        readme = try container.sdkDecodeIfPresent(.readme)
-        homepage = try container.sdkDecodeIfPresent(.homepage)
-        versionInfo = try container.sdkDecodeIfPresent(.versionInfo)
-        platform = try container.sdkDecodeIfPresent(.platform)
-        metadata = try container.sdkDecodeIfPresent(.metadata)
-        repo = try container.sdkDecodeIfPresent(.repo)
-        dependencies = try container.sdkDecodeIfPresent(.dependencies)
-        commitOid = try container.sdkDecodeIfPresent(.commitOid)
+        self.name = try container.sdkDecodeIfPresent(.name)
+        self.description = try container.sdkDecodeIfPresent(.description)
+        self.readme = try container.sdkDecodeIfPresent(.readme)
+        self.homepage = try container.sdkDecodeIfPresent(.homepage)
+        self.versionInfo = try container.sdkDecodeIfPresent(.versionInfo)
+        self.platform = try container.sdkDecodeIfPresent(.platform)
+        self.metadata = try container.sdkDecodeIfPresent(.metadata)
+        self.repo = try container.sdkDecodeIfPresent(.repo)
+        self.dependencies = try container.sdkDecodeIfPresent(.dependencies)
+        self.commitOid = try container.sdkDecodeIfPresent(.commitOid)
     }
 }
 
-public extension WebhookRubygemsMetadata {
-    init(
-        name: String? = nil,
-        description: String? = nil,
-        readme: String? = nil,
-        homepage: String? = nil,
-        versionInfo: WebhookRubygemsMetadataVersionInfo? = nil,
-        platform: String? = nil,
-        metadata: [String: String]? = nil,
-        repo: String? = nil,
-        dependencies: [[String: String]]? = nil,
-        commitOid: String? = nil
-    ) {
+extension WebhookRubygemsMetadata {
+    public init(name: String? = nil, description: String? = nil, readme: String? = nil, homepage: String? = nil, versionInfo: WebhookRubygemsMetadataVersionInfo? = nil, platform: String? = nil, metadata: [String: String]? = nil, repo: String? = nil, dependencies: [[String: String]]? = nil, commitOid: String? = nil) {
         self.init()
         (self.name, self.description) = (name, description)
         (self.readme, self.homepage) = (readme, homepage)
@@ -94,19 +83,19 @@ public struct WebhookRubygemsMetadataVersionInfo: Codable {
     }
 
     init() {
-        version = nil
+        self.version = nil
     }
 }
 
-public extension WebhookRubygemsMetadataVersionInfo {
-    init(from decoder: Decoder) throws {
+extension WebhookRubygemsMetadataVersionInfo {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        version = try container.sdkDecodeIfPresent(.version)
+        self.version = try container.sdkDecodeIfPresent(.version)
     }
 }
 
-public extension WebhookRubygemsMetadataVersionInfo {
-    init(version: String? = nil) {
+extension WebhookRubygemsMetadataVersionInfo {
+    public init(version: String? = nil) {
         self.init()
         self.version = version
     }

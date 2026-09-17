@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CodeScanningMethods {
-    struct CodeScanningListRecentAnalysesOptions: Codable {
+extension CodeScanningMethods {
+    public struct CodeScanningListRecentAnalysesOptions: Codable {
         public var owner: String
         public var repo: String
         public var toolName: CodeScanningAnalysisToolName?
@@ -26,15 +26,7 @@ public extension CodeScanningMethods {
         }
     }
 
-    /// Lists the details of all code scanning analyses for a repository, starting with the most recent. The response is
-    /// paginated and you can use the `page` and `per_page` parameters to list the analyses you're interested in. By
-    /// default 30 analyses are listed per page. The `rules_count` field in the response give the number of rules that
-    /// were run in the analysis. For very old analyses this data is not available, and `0` is returned in this field. >
-    /// [!WARNING] > **Closing down notice:** The `tool_name` field is closing down and will, in future, not be included
-    /// in the response for this endpoint. The example response reflects this change. The tool name can now be found
-    /// inside the `tool` field. OAuth app tokens and personal access tokens (classic) need the `security_events` scope
-    /// to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with
-    /// only public repositories.
+    /// Lists the details of all code scanning analyses for a repository, starting with the most recent. The response is paginated and you can use the `page` and `per_page` parameters to list the analyses you're interested in. By default 30 analyses are listed per page. The `rules_count` field in the response give the number of rules that were run in the analysis. For very old analyses this data is not available, and `0` is returned in this field. > [!WARNING] > **Closing down notice:** The `tool_name` field is closing down and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -63,33 +55,17 @@ public extension CodeScanningMethods {
     /// - sarifId: Filter analyses belonging to the same SARIF upload.
     /// - direction: The direction to sort the results by.
     /// - sort: The property by which to sort the results.
-    static func codeScanningListRecentAnalyses(
-        config: ClientConfig,
-        options: CodeScanningListRecentAnalysesOptions
-    ) async throws -> [CodeScanningAnalysis] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(options.owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(options.repo)),
-                "/code-scanning/analyses",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("tool_name", value: options.toolName),
-                SdkQueryParameter("tool_guid", value: options.toolGuid),
-                SdkQueryParameter("page", value: options.page),
-                SdkQueryParameter("per_page", value: options.perPage),
-                SdkQueryParameter("pr", value: options.pr),
-                SdkQueryParameter("ref", value: options.ref),
-                SdkQueryParameter("sarif_id", value: options.sarifId),
-                SdkQueryParameter("direction", value: options.direction),
-                SdkQueryParameter("sort", value: options.sort),
-            ],
-            decoder: .json,
-            operationId: "codeScanningListRecentAnalyses"
-        )).data
+    public static func codeScanningListRecentAnalyses(config: ClientConfig, options: CodeScanningListRecentAnalysesOptions) async throws -> [CodeScanningAnalysis] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/code-scanning/analyses"].joined(), config: config, query: [
+            SdkQueryParameter("tool_name", value: options.toolName),
+            SdkQueryParameter("tool_guid", value: options.toolGuid),
+            SdkQueryParameter("page", value: options.page),
+            SdkQueryParameter("per_page", value: options.perPage),
+            SdkQueryParameter("pr", value: options.pr),
+            SdkQueryParameter("ref", value: options.ref),
+            SdkQueryParameter("sarif_id", value: options.sarifId),
+            SdkQueryParameter("direction", value: options.direction),
+            SdkQueryParameter("sort", value: options.sort),
+        ], decoder: .json, operationId: "codeScanningListRecentAnalyses")).data
     }
 }

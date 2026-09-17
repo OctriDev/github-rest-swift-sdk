@@ -6,9 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension EnterpriseTeamOrganizationsMethods {
-    /// Assigns an enterprise team to an organization. Provide the enterprise slug, enterprise team slug or ID, and
-    /// organization name to create the assignment.
+extension EnterpriseTeamOrganizationsMethods {
+    /// Assigns an enterprise team to an organization. Provide the enterprise slug, enterprise team slug or ID, and organization name to create the assignment.
     ///
     /// Assign an enterprise team to an organization.
     ///
@@ -17,30 +16,11 @@ public extension EnterpriseTeamOrganizationsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - org: The organization name. The name is not case sensitive.
-    static func enterpriseTeamOrganizationsAdd(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        org: String
-    ) async throws -> OrganizationSimple {
-        try await (sdkRequest(
-            "PUT",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/organizations/",
-                sdkEncodePathSegment(sdkWireString(org)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "enterpriseTeamOrganizationsAdd"
-        )).data
+    public static func enterpriseTeamOrganizationsAdd(config: ClientConfig, enterprise: String, enterpriseTeam: String, org: String) async throws -> OrganizationSimple {
+        return try (await sdkRequest("PUT", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/organizations/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, decoder: .json, operationId: "enterpriseTeamOrganizationsAdd")).data
     }
 
-    /// Deletes an assignment between an enterprise team and an organization. Provide the enterprise, enterprise team,
-    /// and organization identifiers that define the assignment to remove.
+    /// Deletes an assignment between an enterprise team and an organization. Provide the enterprise, enterprise team, and organization identifiers that define the assignment to remove.
     ///
     /// Unassign an enterprise team from an organization.
     ///
@@ -49,25 +29,7 @@ public extension EnterpriseTeamOrganizationsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - org: The organization name. The name is not case sensitive.
-    static func enterpriseTeamOrganizationsDelete(
-        config: ClientConfig,
-        enterprise: String,
-        enterpriseTeam: String,
-        org: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/enterprises/",
-                sdkEncodePathSegment(sdkWireString(enterprise)),
-                "/teams/",
-                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
-                "/organizations/",
-                sdkEncodePathSegment(sdkWireString(org)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "enterpriseTeamOrganizationsDelete"
-        )).data
+    public static func enterpriseTeamOrganizationsDelete(config: ClientConfig, enterprise: String, enterpriseTeam: String, org: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/organizations/", sdkEncodePathSegment(sdkWireString(org))].joined(), config: config, decoder: .empty, operationId: "enterpriseTeamOrganizationsDelete")).data
     }
 }

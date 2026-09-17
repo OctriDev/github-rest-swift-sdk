@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Updates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must
-    /// have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal
-    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the
-    /// `repo` scope is also required.
+extension ActionsMethods {
+    /// Updates an organization variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -23,61 +20,18 @@ public extension ActionsMethods {
     /// - selectedRepositoryIds: An array of repository ids that can access the
     ///   organization variable. You can only provide a list of repository ids when
     ///   the `visibility` is set to `selected`.
-    static func actionsUpdateOrgVariable(
-        config: ClientConfig,
-        org: String,
-        name: String,
-        name2: String?,
-        value: String?,
-        visibility: ActionsUpdateOrgVariableRequestBodyVisibility?,
-        selectedRepositoryIds: [Int]?
-    ) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsUpdateOrgVariableRequestBody(
-            name2: name2,
-            value: value,
-            visibility: visibility,
-            selectedRepositoryIds: selectedRepositoryIds
-        )
+    public static func actionsUpdateOrgVariable(config: ClientConfig, org: String, name: String, name2: String?, value: String?, visibility: ActionsUpdateOrgVariableRequestBodyVisibility?, selectedRepositoryIds: [Int]?) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsUpdateOrgVariableRequestBody(name2: name2, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
 
-        return try await (sdkRequest(
-            "PATCH",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/variables/",
-                sdkEncodePathSegment(sdkWireString(name)),
-            ].joined(),
-            config: config,
-            body: requestBody,
-            decoder: .empty,
-            operationId: "actionsUpdateOrgVariable"
-        )).data
+        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsUpdateOrgVariable")).data
     }
 
-    /// Deletes an organization variable using the variable name. Authenticated users must have collaborator access to a
-    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need
-    /// the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
-    /// (classic) need the `repo` scope to use this endpoint.
+    /// Deletes an organization variable using the variable name. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the`admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - name: The name of the variable.
-    static func actionsDeleteOrgVariable(
-        config: ClientConfig,
-        org: String,
-        name: String
-    ) async throws -> SdkEmptyResponse {
-        try await (sdkRequest(
-            "DELETE",
-            [
-                "/orgs/",
-                sdkEncodePathSegment(sdkWireString(org)),
-                "/actions/variables/",
-                sdkEncodePathSegment(sdkWireString(name)),
-            ].joined(),
-            config: config,
-            decoder: .empty,
-            operationId: "actionsDeleteOrgVariable"
-        )).data
+    public static func actionsDeleteOrgVariable(config: ClientConfig, org: String, name: String) async throws -> SdkEmptyResponse {
+        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteOrgVariable")).data
     }
 }

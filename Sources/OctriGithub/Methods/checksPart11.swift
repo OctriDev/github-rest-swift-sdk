@@ -6,12 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ChecksMethods {
-    /// Lists check suites for a commit `ref`. The `ref` can be a SHA, branch name, or a tag name. > [!NOTE] > The
-    /// endpoints to manage checks only look for pushes in the repository where the check suite or check run were
-    /// created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array
-    /// and a `null` value for `head_branch`. OAuth app tokens and personal access tokens (classic) need the `repo`
-    /// scope to use this endpoint on a private repository.
+extension ChecksMethods {
+    /// Lists check suites for a commit `ref`. The `ref` can be a SHA, branch name, or a tag name. > [!NOTE] > The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -33,36 +29,12 @@ public extension ChecksMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    static func checksListSuitesForRef(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        ref: String,
-        appId: Int?,
-        checkName: String?,
-        perPage: Int?,
-        page: Int?
-    ) async throws -> ChecksListSuitesForRefResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/commits/",
-                sdkEncodePathSegment(sdkWireString(ref)),
-                "/check-suites",
-            ].joined(),
-            config: config,
-            query: [
-                SdkQueryParameter("app_id", value: appId),
-                SdkQueryParameter("check_name", value: checkName),
-                SdkQueryParameter("per_page", value: perPage),
-                SdkQueryParameter("page", value: page),
-            ],
-            decoder: .json,
-            operationId: "checksListSuitesForRef"
-        )).data
+    public static func checksListSuitesForRef(config: ClientConfig, owner: String, repo: String, ref: String, appId: Int?, checkName: String?, perPage: Int?, page: Int?) async throws -> ChecksListSuitesForRefResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/commits/", sdkEncodePathSegment(sdkWireString(ref)), "/check-suites"].joined(), config: config, query: [
+            SdkQueryParameter("app_id", value: appId),
+            SdkQueryParameter("check_name", value: checkName),
+            SdkQueryParameter("per_page", value: perPage),
+            SdkQueryParameter("page", value: page),
+        ], decoder: .json, operationId: "checksListSuitesForRef")).data
     }
 }

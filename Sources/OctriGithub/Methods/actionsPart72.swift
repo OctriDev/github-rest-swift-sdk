@@ -6,11 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension ActionsMethods {
-    /// Gets the end-of-life schedule for a specific runner version in a repository. Returns the runner version and the
-    /// dates when registration and runtime support will end. Authenticated users must have admin access to the
-    /// repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
-    /// use this endpoint.
+extension ActionsMethods {
+    /// Gets the end-of-life schedule for a specific runner version in a repository. Returns the runner version and the dates when registration and runtime support will end. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,54 +15,18 @@ public extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - version: The runner version to look up.
-    static func actionsGetRunnerVersionDeprecationForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String,
-        version: String
-    ) async throws -> ActionsGetRunnerVersionDeprecationForRepoResponse {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/deprecations/",
-                sdkEncodePathSegment(sdkWireString(version)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsGetRunnerVersionDeprecationForRepo"
-        )).data
+    public static func actionsGetRunnerVersionDeprecationForRepo(config: ClientConfig, owner: String, repo: String, version: String) async throws -> ActionsGetRunnerVersionDeprecationForRepoResponse {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/deprecations/", sdkEncodePathSegment(sdkWireString(version))].joined(), config: config, decoder: .json, operationId: "actionsGetRunnerVersionDeprecationForRepo")).data
     }
 
-    /// Lists binaries for the runner application that you can download and run. Authenticated users must have admin
-    /// access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
-    /// `repo` scope to use this endpoint.
+    /// Lists binaries for the runner application that you can download and run. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    static func actionsListRunnerApplicationsForRepo(
-        config: ClientConfig,
-        owner: String,
-        repo: String
-    ) async throws -> [RunnerApplication] {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/repos/",
-                sdkEncodePathSegment(sdkWireString(owner)),
-                "/",
-                sdkEncodePathSegment(sdkWireString(repo)),
-                "/actions/runners/downloads",
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "actionsListRunnerApplicationsForRepo"
-        )).data
+    public static func actionsListRunnerApplicationsForRepo(config: ClientConfig, owner: String, repo: String) async throws -> [RunnerApplication] {
+        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runners/downloads"].joined(), config: config, decoder: .json, operationId: "actionsListRunnerApplicationsForRepo")).data
     }
 }

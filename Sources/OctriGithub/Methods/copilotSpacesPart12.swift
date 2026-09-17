@@ -6,33 +6,15 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public extension CopilotSpacesMethods {
+extension CopilotSpacesMethods {
     /// Get a Copilot Space for a user
     ///
-    /// Gets details about a specific Copilot Space owned by a user. The authenticated user must have read access to the
-    /// Space. Private user spaces require the authenticated user to be the owner of the space. Public user spaces are
-    /// accessible to any authenticated user. OAuth app tokens and personal access tokens (classic) need the `repo`
-    /// scope to use this endpoint.
+    /// Gets details about a specific Copilot Space owned by a user. The authenticated user must have read access to the Space. Private user spaces require the authenticated user to be the owner of the space. Public user spaces are accessible to any authenticated user. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
     /// - spaceNumber: The unique identifier of the Copilot Space.
-    static func copilotSpacesGetForUser(
-        config: ClientConfig,
-        username: String,
-        spaceNumber: Int
-    ) async throws -> CopilotSpace {
-        try await (sdkRequest(
-            "GET",
-            [
-                "/users/",
-                sdkEncodePathSegment(sdkWireString(username)),
-                "/copilot-spaces/",
-                sdkEncodePathSegment(sdkWireString(spaceNumber)),
-            ].joined(),
-            config: config,
-            decoder: .json,
-            operationId: "copilotSpacesGetForUser"
-        )).data
+    public static func copilotSpacesGetForUser(config: ClientConfig, username: String, spaceNumber: Int) async throws -> CopilotSpace {
+        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber))].joined(), config: config, decoder: .json, operationId: "copilotSpacesGetForUser")).data
     }
 }
