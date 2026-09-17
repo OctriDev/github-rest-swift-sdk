@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSecurityAndAnalysis domain models
+/// WebhookSecurityAndAnalysis domain models
 /// Typed representation of the `WebhookSecurityAndAnalysis` API schema.
 public struct WebhookSecurityAndAnalysis: Codable {
     /// Required object value serialized in the `changes` wire field.
@@ -32,29 +32,46 @@ public struct WebhookSecurityAndAnalysis: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookSecurityAndAnalysis {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookSecurityAndAnalysis {
-    public init(changes: WebhookSecurityAndAnalysisChanges, repository: FullRepository, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
+public extension WebhookSecurityAndAnalysis {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        changes = try container.sdkDecodeRequired(.changes)
+        repository = try container.sdkDecodeRequired(.repository)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookSecurityAndAnalysis {
+    init(
+        changes: WebhookSecurityAndAnalysisChanges,
+        repository: FullRepository,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.changes, self.repository) = (changes, repository)
         (self.enterprise, self.installation) = (enterprise, installation)
         (self.organization, self.sender) = (organization, sender)
@@ -71,19 +88,19 @@ public struct WebhookSecurityAndAnalysisChanges: Codable {
     }
 
     init() {
-        self.from = nil
+        from = nil
     }
 }
 
-extension WebhookSecurityAndAnalysisChanges {
-    public init(from decoder: Decoder) throws {
+public extension WebhookSecurityAndAnalysisChanges {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.from = try container.sdkDecodeIfPresent(.from)
+        from = try container.sdkDecodeIfPresent(.from)
     }
 }
 
-extension WebhookSecurityAndAnalysisChanges {
-    public init(from: WebhookSecurityAndAnalysisChangesFrom? = nil) {
+public extension WebhookSecurityAndAnalysisChanges {
+    init(from: WebhookSecurityAndAnalysisChangesFrom? = nil) {
         self.init()
         self.from = from
     }
@@ -99,19 +116,19 @@ public struct WebhookSecurityAndAnalysisChangesFrom: Codable {
     }
 
     init() {
-        self.securityAndAnalysis = nil
+        securityAndAnalysis = nil
     }
 }
 
-extension WebhookSecurityAndAnalysisChangesFrom {
-    public init(from decoder: Decoder) throws {
+public extension WebhookSecurityAndAnalysisChangesFrom {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.securityAndAnalysis = try container.sdkDecodeIfPresent(.securityAndAnalysis)
+        securityAndAnalysis = try container.sdkDecodeIfPresent(.securityAndAnalysis)
     }
 }
 
-extension WebhookSecurityAndAnalysisChangesFrom {
-    public init(securityAndAnalysis: SecurityAndAnalysis? = nil) {
+public extension WebhookSecurityAndAnalysisChangesFrom {
+    init(securityAndAnalysis: SecurityAndAnalysis? = nil) {
         self.init()
         self.securityAndAnalysis = securityAndAnalysis
     }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSecretScanningScanCompleted domain models
+/// WebhookSecretScanningScanCompleted domain models
 /// Typed representation of the `WebhookSecretScanningScanCompleted` API schema.
 public struct WebhookSecretScanningScanCompleted: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -54,47 +54,83 @@ public struct WebhookSecretScanningScanCompleted: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookSecretScanningScanCompleted {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        guard container.contains(.source) else {
-            throw SdkValidationError(field: "source", code: "required", message: "Validation failed for 'source': value is required")
-        }
-        guard container.contains(.startedAt) else {
-            throw SdkValidationError(field: "started_at", code: "required", message: "Validation failed for 'started_at': value is required")
-        }
-        guard container.contains(.completedAt) else {
-            throw SdkValidationError(field: "completed_at", code: "required", message: "Validation failed for 'completed_at': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.source = try container.sdkDecodeRequired(.source)
-        self.startedAt = try container.sdkDecodeRequired(.startedAt)
-        self.completedAt = try container.sdkDecodeRequired(.completedAt)
-        self.secretTypes = try container.sdkDecodeIfPresent(.secretTypes)
-        self.customPatternName = try container.sdkDecodeIfPresent(.customPatternName)
-        self.customPatternScope = try container.sdkDecodeIfPresent(.customPatternScope)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
-            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
-            try sdkValidateDateTime("completed_at", sdkWireString(self.completedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookSecretScanningScanCompleted {
-    public init(action: WebhookSecretScanningScanCompletedAction, type: WebhookSecretScanningScanCompletedType, source: WebhookSecretScanningScanCompletedSource, startedAt: Date, completedAt: Date, secretTypes: [String]? = nil, customPatternName: String? = nil, customPatternScope: WebhookSecretScanningScanCompletedCustomPatternScope? = nil, repository: RepositoryWebhooks? = nil, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) throws {
+public extension WebhookSecretScanningScanCompleted {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        guard container.contains(.source) else {
+            throw SdkValidationError(
+                field: "source",
+                code: "required",
+                message: "Validation failed for 'source': value is required"
+            )
+        }
+        guard container.contains(.startedAt) else {
+            throw SdkValidationError(
+                field: "started_at",
+                code: "required",
+                message: "Validation failed for 'started_at': value is required"
+            )
+        }
+        guard container.contains(.completedAt) else {
+            throw SdkValidationError(
+                field: "completed_at",
+                code: "required",
+                message: "Validation failed for 'completed_at': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        type = try container.sdkDecodeRequired(.type)
+        source = try container.sdkDecodeRequired(.source)
+        startedAt = try container.sdkDecodeRequired(.startedAt)
+        completedAt = try container.sdkDecodeRequired(.completedAt)
+        secretTypes = try container.sdkDecodeIfPresent(.secretTypes)
+        customPatternName = try container.sdkDecodeIfPresent(.customPatternName)
+        customPatternScope = try container.sdkDecodeIfPresent(.customPatternScope)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        sender = try container.sdkDecodeIfPresent(.sender)
+        try sdkValidateDateTime("started_at", sdkWireString(startedAt))
+        try sdkValidateDateTime("completed_at", sdkWireString(completedAt))
+    }
+}
+
+public extension WebhookSecretScanningScanCompleted {
+    init(
+        action: WebhookSecretScanningScanCompletedAction,
+        type: WebhookSecretScanningScanCompletedType,
+        source: WebhookSecretScanningScanCompletedSource,
+        startedAt: Date,
+        completedAt: Date,
+        secretTypes: [String]? = nil,
+        customPatternName: String? = nil,
+        customPatternScope: WebhookSecretScanningScanCompletedCustomPatternScope? = nil,
+        repository: RepositoryWebhooks? = nil,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) throws {
         (self.action, self.type) = (action, type)
         (self.source, self.startedAt) = (source, startedAt)
         (self.completedAt, self.secretTypes) = (completedAt, secretTypes)
@@ -102,21 +138,25 @@ extension WebhookSecretScanningScanCompleted {
         (self.repository, self.enterprise) = (repository, enterprise)
         (self.installation, self.organization) = (installation, organization)
         self.sender = sender
-            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
-            try sdkValidateDateTime("completed_at", sdkWireString(self.completedAt))
+        try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
+        try sdkValidateDateTime("completed_at", sdkWireString(self.completedAt))
     }
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookSecretScanningScanCompletedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSecretScanningScanCompletedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let completed = WebhookSecretScanningScanCompletedAction(rawValue: "completed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -126,10 +166,14 @@ public struct WebhookSecretScanningScanCompletedAction: RawRepresentable, Hashab
 }
 
 /// What type of content was scanned
-public struct WebhookSecretScanningScanCompletedSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSecretScanningScanCompletedSource: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let git = WebhookSecretScanningScanCompletedSource(rawValue: "git")
     public static let issues = WebhookSecretScanningScanCompletedSource(rawValue: "issues")
     public static let pullRequests = WebhookSecretScanningScanCompletedSource(rawValue: "pull-requests")
@@ -138,7 +182,7 @@ public struct WebhookSecretScanningScanCompletedSource: RawRepresentable, Hashab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -148,17 +192,21 @@ public struct WebhookSecretScanningScanCompletedSource: RawRepresentable, Hashab
 }
 
 /// If the scan was triggered by a custom pattern update, this will be the scope of the pattern that was updated
-public struct WebhookSecretScanningScanCompletedCustomPatternScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSecretScanningScanCompletedCustomPatternScope: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let repository = WebhookSecretScanningScanCompletedCustomPatternScope(rawValue: "repository")
     public static let organization = WebhookSecretScanningScanCompletedCustomPatternScope(rawValue: "organization")
     public static let enterprise = WebhookSecretScanningScanCompletedCustomPatternScope(rawValue: "enterprise")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -168,17 +216,23 @@ public struct WebhookSecretScanningScanCompletedCustomPatternScope: RawRepresent
 }
 
 /// What type of scan was completed
-public struct WebhookSecretScanningScanCompletedType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSecretScanningScanCompletedType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let backfill = WebhookSecretScanningScanCompletedType(rawValue: "backfill")
-    public static let customPatternBackfill = WebhookSecretScanningScanCompletedType(rawValue: "custom-pattern-backfill")
-    public static let patternVersionBackfill = WebhookSecretScanningScanCompletedType(rawValue: "pattern-version-backfill")
+    public static let customPatternBackfill =
+        WebhookSecretScanningScanCompletedType(rawValue: "custom-pattern-backfill")
+    public static let patternVersionBackfill =
+        WebhookSecretScanningScanCompletedType(rawValue: "pattern-version-backfill")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

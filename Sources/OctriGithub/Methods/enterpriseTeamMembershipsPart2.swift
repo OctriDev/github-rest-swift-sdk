@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension EnterpriseTeamMembershipsMethods {
-    /// Lists all enterprise teams that a user is a member of. This endpoint is available only for enterprises using the new enterprise teams experience. The authenticated user must be an enterprise owner or have the `enterprise_teams:read` permission.
+public extension EnterpriseTeamMembershipsMethods {
+    /// Lists all enterprise teams that a user is a member of. This endpoint is available only for enterprises using the
+    /// new enterprise teams experience. The authenticated user must be an enterprise owner or have the
+    /// `enterprise_teams:read` permission.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
@@ -20,10 +22,29 @@ extension EnterpriseTeamMembershipsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func enterpriseTeamMembershipsListTeamsForUser(config: ClientConfig, enterprise: String, username: String, perPage: Int?, page: Int?) async throws -> [EnterpriseTeam] {
-        return try (await sdkRequest("GET", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/members/", sdkEncodePathSegment(sdkWireString(username)), "/teams"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "enterpriseTeamMembershipsListTeamsForUser")).data
+    static func enterpriseTeamMembershipsListTeamsForUser(
+        config: ClientConfig,
+        enterprise: String,
+        username: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [EnterpriseTeam] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/members/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/teams",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "enterpriseTeamMembershipsListTeamsForUser"
+        )).data
     }
 }

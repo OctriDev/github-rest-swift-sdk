@@ -3,31 +3,43 @@
 
 import Foundation
 
-// Projects domain models
-extension ProjectsV2FieldIterationConfigurationIterationsItem {
-    public init(from decoder: Decoder) throws {
+/// Projects domain models
+public extension ProjectsV2FieldIterationConfigurationIterationsItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
         }
         guard container.contains(.startDate) else {
-            throw SdkValidationError(field: "start_date", code: "required", message: "Validation failed for 'start_date': value is required")
+            throw SdkValidationError(
+                field: "start_date",
+                code: "required",
+                message: "Validation failed for 'start_date': value is required"
+            )
         }
         guard container.contains(.duration) else {
-            throw SdkValidationError(field: "duration", code: "required", message: "Validation failed for 'duration': value is required")
+            throw SdkValidationError(
+                field: "duration",
+                code: "required",
+                message: "Validation failed for 'duration': value is required"
+            )
         }
-        self.title = try container.sdkDecodeRequired(.title)
-        self.startDate = try container.sdkDecodeRequired(.startDate)
-        self.duration = try container.sdkDecodeRequired(.duration)
-            try sdkValidateDate("start_date", self.startDate)
+        title = try container.sdkDecodeRequired(.title)
+        startDate = try container.sdkDecodeRequired(.startDate)
+        duration = try container.sdkDecodeRequired(.duration)
+        try sdkValidateDate("start_date", startDate)
     }
 }
 
-extension ProjectsV2FieldIterationConfigurationIterationsItem {
-    public init(title: String, startDate: String, duration: Int) throws {
+public extension ProjectsV2FieldIterationConfigurationIterationsItem {
+    init(title: String, startDate: String, duration: Int) throws {
         (self.title, self.startDate) = (title, startDate)
         self.duration = duration
-            try sdkValidateDate("start_date", self.startDate)
+        try sdkValidateDate("start_date", self.startDate)
     }
 }
 
@@ -47,21 +59,21 @@ public struct ProjectsV2FieldSingleSelectOption: Codable {
     }
 
     init() {
-        (self.name, self.color, self.description) = (nil, nil, nil)
+        (name, color, description) = (nil, nil, nil)
     }
 }
 
-extension ProjectsV2FieldSingleSelectOption {
-    public init(from decoder: Decoder) throws {
+public extension ProjectsV2FieldSingleSelectOption {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
-        self.description = try container.sdkDecodeIfPresent(.description)
+        name = try container.sdkDecodeIfPresent(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+        description = try container.sdkDecodeIfPresent(.description)
     }
 }
 
-extension ProjectsV2FieldSingleSelectOption {
-    public init(name: String? = nil, color: ProjectsV2FieldSingleSelectOptionColor? = nil, description: String? = nil) {
+public extension ProjectsV2FieldSingleSelectOption {
+    init(name: String? = nil, color: ProjectsV2FieldSingleSelectOptionColor? = nil, description: String? = nil) {
         self.init()
         (self.name, self.color) = (name, color)
         self.description = description
@@ -104,56 +116,92 @@ public struct ProjectsV2Item: Codable {
         case creator
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension ProjectsV2Item {
-    public init(from decoder: Decoder) throws {
+public extension ProjectsV2Item {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.contentNodeId) else {
-            throw SdkValidationError(field: "content_node_id", code: "required", message: "Validation failed for 'content_node_id': value is required")
+            throw SdkValidationError(
+                field: "content_node_id",
+                code: "required",
+                message: "Validation failed for 'content_node_id': value is required"
+            )
         }
         guard container.contains(.contentType) else {
-            throw SdkValidationError(field: "content_type", code: "required", message: "Validation failed for 'content_type': value is required")
+            throw SdkValidationError(
+                field: "content_type",
+                code: "required",
+                message: "Validation failed for 'content_type': value is required"
+            )
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
         }
         guard container.contains(.archivedAt) else {
-            throw SdkValidationError(field: "archived_at", code: "required", message: "Validation failed for 'archived_at': value is required")
+            throw SdkValidationError(
+                field: "archived_at",
+                code: "required",
+                message: "Validation failed for 'archived_at': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.contentNodeId = try container.sdkDecodeRequired(.contentNodeId)
-        self.contentType = try container.sdkDecodeRequired(.contentType)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.projectNodeId = try container.sdkDecodeIfPresent(.projectNodeId)
-        self.creator = try container.sdkDecodeIfPresent(.creator)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.archivedAt {
+        id = try container.sdkDecodeRequired(.id)
+        contentNodeId = try container.sdkDecodeRequired(.contentNodeId)
+        contentType = try container.sdkDecodeRequired(.contentType)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        projectNodeId = try container.sdkDecodeIfPresent(.projectNodeId)
+        creator = try container.sdkDecodeIfPresent(.creator)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
     }
 }
 
-extension ProjectsV2Item {
-    public init(id: Double, contentNodeId: String, contentType: ProjectsV2ItemContentType, createdAt: Date, updatedAt: Date, archivedAt: Date?, nodeId: String? = nil, projectNodeId: String? = nil, creator: SimpleUser? = nil) throws {
+public extension ProjectsV2Item {
+    init(
+        id: Double,
+        contentNodeId: String,
+        contentType: ProjectsV2ItemContentType,
+        createdAt: Date,
+        updatedAt: Date,
+        archivedAt: Date?,
+        nodeId: String? = nil,
+        projectNodeId: String? = nil,
+        creator: SimpleUser? = nil
+    ) throws {
         (self.id, self.contentNodeId) = (id, contentNodeId)
         (self.contentType, self.createdAt) = (contentType, createdAt)
         (self.updatedAt, self.archivedAt) = (updatedAt, archivedAt)
         (self.nodeId, self.projectNodeId) = (nodeId, projectNodeId)
         self.creator = creator
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
@@ -199,60 +247,93 @@ public struct ProjectsV2ItemSimple: Codable {
         case itemUrl = "item_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension ProjectsV2ItemSimple {
-    public init(from decoder: Decoder) throws {
+public extension ProjectsV2ItemSimple {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.contentType) else {
-            throw SdkValidationError(field: "content_type", code: "required", message: "Validation failed for 'content_type': value is required")
+            throw SdkValidationError(
+                field: "content_type",
+                code: "required",
+                message: "Validation failed for 'content_type': value is required"
+            )
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
         }
         guard container.contains(.archivedAt) else {
-            throw SdkValidationError(field: "archived_at", code: "required", message: "Validation failed for 'archived_at': value is required")
+            throw SdkValidationError(
+                field: "archived_at",
+                code: "required",
+                message: "Validation failed for 'archived_at': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.contentType = try container.sdkDecodeRequired(.contentType)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.content = try container.sdkDecodeIfPresent(.content)
-        self.creator = try container.sdkDecodeIfPresent(.creator)
-        self.projectUrl = try container.sdkDecodeIfPresent(.projectUrl)
-        self.itemUrl = try container.sdkDecodeIfPresent(.itemUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.archivedAt {
+        id = try container.sdkDecodeRequired(.id)
+        contentType = try container.sdkDecodeRequired(.contentType)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        content = try container.sdkDecodeIfPresent(.content)
+        creator = try container.sdkDecodeIfPresent(.creator)
+        projectUrl = try container.sdkDecodeIfPresent(.projectUrl)
+        itemUrl = try container.sdkDecodeIfPresent(.itemUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
-        if let value = self.projectUrl {
+        if let value = projectUrl {
             try sdkValidateUri("project_url", value)
         }
-        if let value = self.itemUrl {
+        if let value = itemUrl {
             try sdkValidateUri("item_url", value)
         }
     }
 }
 
-extension ProjectsV2ItemSimple {
-    public init(id: Double, contentType: ProjectsV2ItemContentType, createdAt: Date, updatedAt: Date, archivedAt: Date?, nodeId: String? = nil, content: ProjectsV2ItemSimpleContent? = nil, creator: SimpleUser? = nil, projectUrl: String? = nil, itemUrl: String? = nil) throws {
+public extension ProjectsV2ItemSimple {
+    init(
+        id: Double,
+        contentType: ProjectsV2ItemContentType,
+        createdAt: Date,
+        updatedAt: Date,
+        archivedAt: Date?,
+        nodeId: String? = nil,
+        content: ProjectsV2ItemSimpleContent? = nil,
+        creator: SimpleUser? = nil,
+        projectUrl: String? = nil,
+        itemUrl: String? = nil
+    ) throws {
         (self.id, self.contentType) = (id, contentType)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.archivedAt, self.nodeId) = (archivedAt, nodeId)
         (self.content, self.creator) = (content, creator)
         (self.projectUrl, self.itemUrl) = (projectUrl, itemUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
@@ -272,22 +353,34 @@ public enum ProjectsV2ItemSimpleContent {
 }
 
 extension ProjectsV2ItemSimpleContent: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for ProjectsV2ItemSimpleContent")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for ProjectsV2ItemSimpleContent"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Issue.self) { return .issue(value) }
-        if let value = try? container.decode(PullRequestSimple.self) { return .pullRequestSimple(value) }
-        if let value = try? container.decode(ProjectsV2DraftIssue.self) { return .projectsV2DraftIssue(value) }
+        if let value = try? container.decode(Issue.self) {
+            return .issue(value)
+        }
+        if let value = try? container.decode(PullRequestSimple.self) {
+            return .pullRequestSimple(value)
+        }
+        if let value = try? container.decode(ProjectsV2DraftIssue.self) {
+            return .projectsV2DraftIssue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -298,7 +391,6 @@ extension ProjectsV2ItemSimpleContent: Codable {
         case let .projectsV2DraftIssue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// An item belonging to a project
@@ -345,62 +437,96 @@ public struct ProjectsV2ItemWithContent: Codable {
         case fields
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension ProjectsV2ItemWithContent {
-    public init(from decoder: Decoder) throws {
+public extension ProjectsV2ItemWithContent {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.contentType) else {
-            throw SdkValidationError(field: "content_type", code: "required", message: "Validation failed for 'content_type': value is required")
+            throw SdkValidationError(
+                field: "content_type",
+                code: "required",
+                message: "Validation failed for 'content_type': value is required"
+            )
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
         }
         guard container.contains(.archivedAt) else {
-            throw SdkValidationError(field: "archived_at", code: "required", message: "Validation failed for 'archived_at': value is required")
+            throw SdkValidationError(
+                field: "archived_at",
+                code: "required",
+                message: "Validation failed for 'archived_at': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.contentType = try container.sdkDecodeRequired(.contentType)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.projectUrl = try container.sdkDecodeIfPresent(.projectUrl)
-        self.content = try container.sdkDecodeIfPresent(.content)
-        self.creator = try container.sdkDecodeIfPresent(.creator)
-        self.itemUrl = try container.sdkDecodeIfPresent(.itemUrl)
-        self.fields = try container.sdkDecodeIfPresent(.fields)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.archivedAt {
+        id = try container.sdkDecodeRequired(.id)
+        contentType = try container.sdkDecodeRequired(.contentType)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        archivedAt = try container.sdkDecodeIfPresent(.archivedAt)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        projectUrl = try container.sdkDecodeIfPresent(.projectUrl)
+        content = try container.sdkDecodeIfPresent(.content)
+        creator = try container.sdkDecodeIfPresent(.creator)
+        itemUrl = try container.sdkDecodeIfPresent(.itemUrl)
+        fields = try container.sdkDecodeIfPresent(.fields)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
-        if let value = self.projectUrl {
+        if let value = projectUrl {
             try sdkValidateUri("project_url", value)
         }
-        if let value = self.itemUrl {
+        if let value = itemUrl {
             try sdkValidateUri("item_url", value)
         }
     }
 }
 
-extension ProjectsV2ItemWithContent {
-    public init(id: Double, contentType: ProjectsV2ItemContentType, createdAt: Date, updatedAt: Date, archivedAt: Date?, nodeId: String? = nil, projectUrl: String? = nil, content: [String: JSONValue]? = nil, creator: SimpleUser? = nil, itemUrl: String? = nil, fields: [[String: JSONValue]]? = nil) throws {
+public extension ProjectsV2ItemWithContent {
+    init(
+        id: Double,
+        contentType: ProjectsV2ItemContentType,
+        createdAt: Date,
+        updatedAt: Date,
+        archivedAt: Date?,
+        nodeId: String? = nil,
+        projectUrl: String? = nil,
+        content: [String: JSONValue]? = nil,
+        creator: SimpleUser? = nil,
+        itemUrl: String? = nil,
+        fields: [[String: JSONValue]]? = nil
+    ) throws {
         (self.id, self.contentType) = (id, contentType)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.archivedAt, self.nodeId) = (archivedAt, nodeId)
         (self.projectUrl, self.content) = (projectUrl, content)
         (self.creator, self.itemUrl) = (creator, itemUrl)
         self.fields = fields
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.archivedAt {
             try sdkValidateDateTime("archived_at", sdkWireString(value))
         }
@@ -437,29 +563,46 @@ public struct ProjectsV2IterationSetting: Codable {
         case completed
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ProjectsV2IterationSetting {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.titleHtml = try container.sdkDecodeIfPresent(.titleHtml)
-        self.duration = try container.sdkDecodeIfPresent(.duration)
-        self.startDate = try container.sdkDecodeIfPresent(.startDate)
-        self.completed = try container.sdkDecodeIfPresent(.completed)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ProjectsV2IterationSetting {
-    public init(id: String, title: String, titleHtml: String? = nil, duration: Double? = nil, startDate: String? = nil, completed: Bool? = nil) {
+public extension ProjectsV2IterationSetting {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        title = try container.sdkDecodeRequired(.title)
+        titleHtml = try container.sdkDecodeIfPresent(.titleHtml)
+        duration = try container.sdkDecodeIfPresent(.duration)
+        startDate = try container.sdkDecodeIfPresent(.startDate)
+        completed = try container.sdkDecodeIfPresent(.completed)
+    }
+}
+
+public extension ProjectsV2IterationSetting {
+    init(
+        id: String,
+        title: String,
+        titleHtml: String? = nil,
+        duration: Double? = nil,
+        startDate: String? = nil,
+        completed: Bool? = nil
+    ) {
         (self.id, self.title) = (id, title)
         (self.titleHtml, self.duration) = (titleHtml, duration)
         (self.startDate, self.completed) = (startDate, completed)
@@ -487,5 +630,7 @@ public struct ProjectsV2IterationSettings: Codable {
         case completed
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

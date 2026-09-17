@@ -9,187 +9,463 @@ public class CodespacesNamespace {
         self.config = config
     }
 
-/// Lists the codespaces associated to a specified organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func listInOrganization(org: String, perPage: Int?, page: Int?) async throws -> CodespacesListInOrganizationResponse {
-        return try await CodespacesMethods.codespacesListInOrganization(config: config, org: org, perPage: perPage, page: page)
+    /// Lists the codespaces associated to a specified organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
+    public func listInOrganization(
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListInOrganizationResponse {
+        try await CodespacesMethods.codespacesListInOrganization(config: config, org: org, perPage: perPage, page: page)
     }
 
-/// Sets which users can access codespaces in an organization. This is synonymous with granting or revoking codespaces access permissions for users according to the visibility. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Sets which users can access codespaces in an organization. This is synonymous with granting or revoking
+    /// codespaces access permissions for users according to the visibility. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func codespacesSetAccess(org: String, visibility: CodespacesSetCodespacesAccessRequestBodyVisibility, selectedUsernames: [String]?) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesSetCodespacesAccess(config: config, org: org, visibility: visibility, selectedUsernames: selectedUsernames)
+    public func codespacesSetAccess(
+        org: String,
+        visibility: CodespacesSetCodespacesAccessRequestBodyVisibility,
+        selectedUsernames: [String]?
+    ) async throws -> SdkEmptyResponse {
+        try await CodespacesMethods.codespacesSetCodespacesAccess(
+            config: config,
+            org: org,
+            visibility: visibility,
+            selectedUsernames: selectedUsernames
+        )
     }
 
-/// Codespaces for the specified users will be billed to the organization. To use this endpoint, the access settings for the organization must be set to `selected_members`. For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Codespaces for the specified users will be billed to the organization. To use this endpoint, the access settings
+    /// for the organization must be set to `selected_members`. For information on how to change this setting, see
+    /// "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
     public func codespacesSetAccessUsers(org: String, selectedUsernames: [String]) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesSetCodespacesAccessUsers(config: config, org: org, selectedUsernames: selectedUsernames)
+        try await CodespacesMethods.codespacesSetCodespacesAccessUsers(
+            config: config,
+            org: org,
+            selectedUsernames: selectedUsernames
+        )
     }
 
-/// Codespaces for the specified users will no longer be billed to the organization. To use this endpoint, the access settings for the organization must be set to `selected_members`. For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Codespaces for the specified users will no longer be billed to the organization. To use this endpoint, the
+    /// access settings for the organization must be set to `selected_members`. For information on how to change this
+    /// setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
     public func codespacesDeleteAccessUsers(org: String, selectedUsernames: [String]) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesDeleteCodespacesAccessUsers(config: config, org: org, selectedUsernames: selectedUsernames)
+        try await CodespacesMethods.codespacesDeleteCodespacesAccessUsers(
+            config: config,
+            org: org,
+            selectedUsernames: selectedUsernames
+        )
     }
 
-/// Lists all Codespaces development environment secrets available at the organization-level without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func listOrgSecrets(org: String, perPage: Int?, page: Int?) async throws -> CodespacesListOrgSecretsResponse {
-        return try await CodespacesMethods.codespacesListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
+    /// Lists all Codespaces development environment secrets available at the organization-level without revealing their
+    /// encrypted values. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
+    public func listOrgSecrets(
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListOrgSecretsResponse {
+        try await CodespacesMethods.codespacesListOrgSecrets(config: config, org: org, perPage: perPage, page: page)
     }
 
-/// Gets a public key for an organization, which is required in order to encrypt secrets. You need to encrypt the value of a secret before you can create or update secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Gets a public key for an organization, which is required in order to encrypt secrets. You need to encrypt the
+    /// value of a secret before you can create or update secrets. OAuth app tokens and personal access tokens (classic)
+    /// need the `admin:org` scope to use this endpoint.
     public func getOrgPublicKey(org: String) async throws -> CodespacesPublicKey {
-        return try await CodespacesMethods.codespacesGetOrgPublicKey(config: config, org: org)
+        try await CodespacesMethods.codespacesGetOrgPublicKey(config: config, org: org)
     }
 
-/// Gets an organization development environment secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Gets an organization development environment secret without revealing its encrypted value. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     public func getOrgSecret(org: String, secretName: String) async throws -> CodespacesOrgSecret {
-        return try await CodespacesMethods.codespacesGetOrgSecret(config: config, org: org, secretName: secretName)
+        try await CodespacesMethods.codespacesGetOrgSecret(config: config, org: org, secretName: secretName)
     }
 
-/// Creates or updates an organization development environment secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func createOrUpdateOrgSecret(org: String, secretName: String, visibility: CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility, encryptedValue: String?, keyId: String?, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
-        return try await CodespacesMethods.codespacesCreateOrUpdateOrgSecret(config: config, org: org, secretName: secretName, visibility: visibility, encryptedValue: encryptedValue, keyId: keyId, selectedRepositoryIds: selectedRepositoryIds)
-    }
-}
-
-extension CodespacesNamespace {
-/// Deletes an organization development environment secret using the secret name. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesDeleteOrgSecret(config: config, org: org, secretName: secretName)
-    }
-
-/// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to `selected`. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func listSelectedReposForOrgSecret(org: String, secretName: String, page: Int?, perPage: Int?) async throws -> CodespacesListSelectedReposForOrgSecretResponse {
-        return try await CodespacesMethods.codespacesListSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, page: page, perPage: perPage)
-    }
-
-/// Replaces all repositories for an organization development environment secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func setSelectedReposForOrgSecret(org: String, secretName: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesSetSelectedReposForOrgSecret(config: config, org: org, secretName: secretName, selectedRepositoryIds: selectedRepositoryIds)
-    }
-
-/// Adds a repository to an organization development environment secret's selected repository list. Use this operation when the secret's `visibility` is set to `selected`; OAuth app tokens and personal access tokens (classic) require the `admin:org` scope.
-    ///
-    /// Adds a repository to an organization development environment secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func addSelectedRepoToOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesAddSelectedRepoToOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
-    }
-
-/// Removes a repository from an organization development environment secret's selected repository list. Use this operation when the secret's `visibility` is set to `selected`; OAuth app tokens and personal access tokens (classic) require the `admin:org` scope.
-    ///
-    /// Removes a repository from an organization development environment secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func removeSelectedRepoFromOrgSecret(org: String, secretName: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesRemoveSelectedRepoFromOrgSecret(config: config, org: org, secretName: secretName, repositoryId: repositoryId)
-    }
-
-/// Lists the codespaces that a member of an organization has for repositories in that organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func codespacesGetForUserInOrg(org: String, username: String, perPage: Int?, page: Int?) async throws -> CodespacesGetCodespacesForUserInOrgResponse {
-        return try await CodespacesMethods.codespacesGetCodespacesForUserInOrg(config: config, org: org, username: username, perPage: perPage, page: page)
-    }
-
-/// Deletes a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func deleteFromOrganization(org: String, username: String, codespaceName: String) async throws -> [String: JSONValue] {
-        return try await CodespacesMethods.codespacesDeleteFromOrganization(config: config, org: org, username: username, codespaceName: codespaceName)
-    }
-
-/// Stops a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func stopInOrganization(org: String, username: String, codespaceName: String) async throws -> Codespace {
-        return try await CodespacesMethods.codespacesStopInOrganization(config: config, org: org, username: username, codespaceName: codespaceName)
+    /// Creates or updates an organization development environment secret with an encrypted value. Encrypt your secret
+    /// using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint.
+    public func createOrUpdateOrgSecret(
+        org: String,
+        secretName: String,
+        visibility: CodespacesCreateOrUpdateOrgSecretRequestBodyVisibility,
+        encryptedValue: String?,
+        keyId: String?,
+        selectedRepositoryIds: [Int]?
+    ) async throws -> EmptyObject {
+        try await CodespacesMethods.codespacesCreateOrUpdateOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            visibility: visibility,
+            encryptedValue: encryptedValue,
+            keyId: keyId,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 }
 
-extension CodespacesNamespace {
-/// Lists the codespaces associated to a specified repository and the authenticated user. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func listInRepositoryForAuthenticatedUser(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> CodespacesListInRepositoryForAuthenticatedUserResponse {
-        return try await CodespacesMethods.codespacesListInRepositoryForAuthenticatedUser(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+public extension CodespacesNamespace {
+    /// Deletes an organization development environment secret using the secret name. OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func deleteOrgSecret(org: String, secretName: String) async throws -> SdkEmptyResponse {
+        try await CodespacesMethods.codespacesDeleteOrgSecret(config: config, org: org, secretName: secretName)
     }
 
-/// Creates a codespace owned by the authenticated user in the specified repository. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func createWithRepoForAuthenticatedUser(options: CodespacesMethods.CodespacesCreateWithRepoForAuthenticatedUserOptions) async throws -> Codespace {
-        return try await CodespacesMethods.codespacesCreateWithRepoForAuthenticatedUser(config: config, options: options)
+    /// Lists all repositories that have been selected when the `visibility` for repository access to a secret is set to
+    /// `selected`. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
+    func listSelectedReposForOrgSecret(
+        org: String,
+        secretName: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> CodespacesListSelectedReposForOrgSecretResponse {
+        try await CodespacesMethods.codespacesListSelectedReposForOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Lists the devcontainer.json files associated with a specified repository and the authenticated user. These files specify launchpoint configurations for codespaces created within the repository. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func listDevcontainersInRepositoryForAuthenticatedUser(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> CodespacesListDevcontainersInRepositoryForAuthenticatedUserResponse {
-        return try await CodespacesMethods.codespacesListDevcontainersInRepositoryForAuthenticatedUser(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Replaces all repositories for an organization development environment secret when the `visibility` for
+    /// repository access is set to `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret).
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func setSelectedReposForOrgSecret(
+        org: String,
+        secretName: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        try await CodespacesMethods.codespacesSetSelectedReposForOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 
-/// List the machine types available for a given repository based on its configuration. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func repoMachinesForAuthenticatedUser(owner: String, repo: String, location: String?, clientIp: String?, ref: String?) async throws -> CodespacesRepoMachinesForAuthenticatedUserResponse {
-        return try await CodespacesMethods.codespacesRepoMachinesForAuthenticatedUser(config: config, owner: owner, repo: repo, location: location, clientIp: clientIp, ref: ref)
+    /// Adds a repository to an organization development environment secret's selected repository list. Use this
+    /// operation when the secret's `visibility` is set to `selected`; OAuth app tokens and personal access tokens
+    /// (classic) require the `admin:org` scope.
+    ///
+    /// Adds a repository to an organization development environment secret when the `visibility` for repository access
+    /// is set to `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret).
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func addSelectedRepoToOrgSecret(
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await CodespacesMethods.codespacesAddSelectedRepoToOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            repositoryId: repositoryId
+        )
     }
 
-/// Gets the default attributes for codespaces created by the user with the repository. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func preFlightWithRepoForAuthenticatedUser(owner: String, repo: String, ref: String?, clientIp: String?) async throws -> CodespacesPreFlightWithRepoForAuthenticatedUserResponse {
-        return try await CodespacesMethods.codespacesPreFlightWithRepoForAuthenticatedUser(config: config, owner: owner, repo: repo, ref: ref, clientIp: clientIp)
+    /// Removes a repository from an organization development environment secret's selected repository list. Use this
+    /// operation when the secret's `visibility` is set to `selected`; OAuth app tokens and personal access tokens
+    /// (classic) require the `admin:org` scope.
+    ///
+    /// Removes a repository from an organization development environment secret when the `visibility` for repository
+    /// access is set to `selected`. The visibility is set when you [Create or update an organization
+    /// secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret).
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func removeSelectedRepoFromOrgSecret(
+        org: String,
+        secretName: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await CodespacesMethods.codespacesRemoveSelectedRepoFromOrgSecret(
+            config: config,
+            org: org,
+            secretName: secretName,
+            repositoryId: repositoryId
+        )
     }
 
-/// Checks whether the permissions defined by a given devcontainer configuration have been accepted by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func checkPermissionsForDevcontainer(owner: String, repo: String, ref: String, devcontainerPath: String) async throws -> CodespacesPermissionsCheckForDevcontainer {
-        return try await CodespacesMethods.codespacesCheckPermissionsForDevcontainer(config: config, owner: owner, repo: repo, ref: ref, devcontainerPath: devcontainerPath)
+    /// Lists the codespaces that a member of an organization has for repositories in that organization. OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func codespacesGetForUserInOrg(
+        org: String,
+        username: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesGetCodespacesForUserInOrgResponse {
+        try await CodespacesMethods.codespacesGetCodespacesForUserInOrg(
+            config: config,
+            org: org,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Lists all development environment secrets available in a repository without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listRepoSecrets(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> CodespacesListRepoSecretsResponse {
-        return try await CodespacesMethods.codespacesListRepoSecrets(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Deletes a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint.
+    func deleteFromOrganization(
+        org: String,
+        username: String,
+        codespaceName: String
+    ) async throws -> [String: JSONValue] {
+        try await CodespacesMethods.codespacesDeleteFromOrganization(
+            config: config,
+            org: org,
+            username: username,
+            codespaceName: codespaceName
+        )
     }
 
-/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. If the repository is private, OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getRepoPublicKey(owner: String, repo: String) async throws -> CodespacesPublicKey {
-        return try await CodespacesMethods.codespacesGetRepoPublicKey(config: config, owner: owner, repo: repo)
+    /// Stops a user's codespace. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint.
+    func stopInOrganization(org: String, username: String, codespaceName: String) async throws -> Codespace {
+        try await CodespacesMethods.codespacesStopInOrganization(
+            config: config,
+            org: org,
+            username: username,
+            codespaceName: codespaceName
+        )
     }
 }
 
-extension CodespacesNamespace {
-/// Gets a single repository development environment secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> RepoCodespacesSecret {
-        return try await CodespacesMethods.codespacesGetRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+public extension CodespacesNamespace {
+    /// Lists the codespaces associated to a specified repository and the authenticated user. OAuth app tokens and
+    /// personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    func listInRepositoryForAuthenticatedUser(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListInRepositoryForAuthenticatedUserResponse {
+        try await CodespacesMethods.codespacesListInRepositoryForAuthenticatedUser(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Creates or updates a repository development environment secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. The associated user must be a repository admin.
-    public func createOrUpdateRepoSecret(owner: String, repo: String, secretName: String, encryptedValue: String?, keyId: String?) async throws -> EmptyObject {
-        return try await CodespacesMethods.codespacesCreateOrUpdateRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName, encryptedValue: encryptedValue, keyId: keyId)
+    /// Creates a codespace owned by the authenticated user in the specified repository. OAuth app tokens and personal
+    /// access tokens (classic) need the `codespace` scope to use this endpoint.
+    func createWithRepoForAuthenticatedUser(options: CodespacesMethods
+        .CodespacesCreateWithRepoForAuthenticatedUserOptions) async throws -> Codespace {
+        try await CodespacesMethods.codespacesCreateWithRepoForAuthenticatedUser(config: config, options: options)
     }
 
-/// Deletes a development environment secret in a repository using the secret name. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. The associated user must be a repository admin.
-    public func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try await CodespacesMethods.codespacesDeleteRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+    /// Lists the devcontainer.json files associated with a specified repository and the authenticated user. These files
+    /// specify launchpoint configurations for codespaces created within the repository. OAuth app tokens and personal
+    /// access tokens (classic) need the `codespace` scope to use this endpoint.
+    func listDevcontainersInRepositoryForAuthenticatedUser(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListDevcontainersInRepositoryForAuthenticatedUserResponse {
+        try await CodespacesMethods.codespacesListDevcontainersInRepositoryForAuthenticatedUser(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Creates a codespace owned by the authenticated user for the specified pull request. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func createWithPrForAuthenticatedUser(options: CodespacesMethods.CodespacesCreateWithPrForAuthenticatedUserOptions) async throws -> Codespace {
-        return try await CodespacesMethods.codespacesCreateWithPrForAuthenticatedUser(config: config, options: options)
+    /// List the machine types available for a given repository based on its configuration. OAuth app tokens and
+    /// personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    func repoMachinesForAuthenticatedUser(
+        owner: String,
+        repo: String,
+        location: String?,
+        clientIp: String?,
+        ref: String?
+    ) async throws -> CodespacesRepoMachinesForAuthenticatedUserResponse {
+        try await CodespacesMethods.codespacesRepoMachinesForAuthenticatedUser(
+            config: config,
+            owner: owner,
+            repo: repo,
+            location: location,
+            clientIp: clientIp,
+            ref: ref
+        )
     }
 
-/// List codespaces for the authenticated user
+    /// Gets the default attributes for codespaces created by the user with the repository. OAuth app tokens and
+    /// personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    func preFlightWithRepoForAuthenticatedUser(
+        owner: String,
+        repo: String,
+        ref: String?,
+        clientIp: String?
+    ) async throws -> CodespacesPreFlightWithRepoForAuthenticatedUserResponse {
+        try await CodespacesMethods.codespacesPreFlightWithRepoForAuthenticatedUser(
+            config: config,
+            owner: owner,
+            repo: repo,
+            ref: ref,
+            clientIp: clientIp
+        )
+    }
+
+    /// Checks whether the permissions defined by a given devcontainer configuration have been accepted by the
+    /// authenticated user. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this
+    /// endpoint.
+    func checkPermissionsForDevcontainer(
+        owner: String,
+        repo: String,
+        ref: String,
+        devcontainerPath: String
+    ) async throws -> CodespacesPermissionsCheckForDevcontainer {
+        try await CodespacesMethods.codespacesCheckPermissionsForDevcontainer(
+            config: config,
+            owner: owner,
+            repo: repo,
+            ref: ref,
+            devcontainerPath: devcontainerPath
+        )
+    }
+
+    /// Lists all development environment secrets available in a repository without revealing their encrypted values.
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func listRepoSecrets(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListRepoSecretsResponse {
+        try await CodespacesMethods.codespacesListRepoSecrets(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
+    }
+
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. If the repository is private, OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
+    func getRepoPublicKey(owner: String, repo: String) async throws -> CodespacesPublicKey {
+        try await CodespacesMethods.codespacesGetRepoPublicKey(config: config, owner: owner, repo: repo)
+    }
+}
+
+public extension CodespacesNamespace {
+    /// Gets a single repository development environment secret without revealing its encrypted value. OAuth app tokens
+    /// and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> RepoCodespacesSecret {
+        try await CodespacesMethods.codespacesGetRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName
+        )
+    }
+
+    /// Creates or updates a repository development environment secret with an encrypted value. Encrypt your secret
+    /// using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint. The associated user must be a repository
+    /// admin.
+    func createOrUpdateRepoSecret(
+        owner: String,
+        repo: String,
+        secretName: String,
+        encryptedValue: String?,
+        keyId: String?
+    ) async throws -> EmptyObject {
+        try await CodespacesMethods.codespacesCreateOrUpdateRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName,
+            encryptedValue: encryptedValue,
+            keyId: keyId
+        )
+    }
+
+    /// Deletes a development environment secret in a repository using the secret name. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint. The associated user must be a repository
+    /// admin.
+    func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
+        try await CodespacesMethods.codespacesDeleteRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName
+        )
+    }
+
+    /// Creates a codespace owned by the authenticated user for the specified pull request. OAuth app tokens and
+    /// personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    func createWithPrForAuthenticatedUser(options: CodespacesMethods
+        .CodespacesCreateWithPrForAuthenticatedUserOptions) async throws -> Codespace {
+        try await CodespacesMethods.codespacesCreateWithPrForAuthenticatedUser(config: config, options: options)
+    }
+
+    /// List codespaces for the authenticated user
     ///
-    /// Lists the authenticated user's codespaces. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func listForAuthenticatedUser(perPage: Int?, page: Int?, repositoryId: Int?) async throws -> CodespacesListForAuthenticatedUserResponse {
-        return try await CodespacesMethods.codespacesListForAuthenticatedUser(config: config, perPage: perPage, page: page, repositoryId: repositoryId)
+    /// Lists the authenticated user's codespaces. OAuth app tokens and personal access tokens (classic) need the
+    /// `codespace` scope to use this endpoint.
+    func listForAuthenticatedUser(
+        perPage: Int?,
+        page: Int?,
+        repositoryId: Int?
+    ) async throws -> CodespacesListForAuthenticatedUserResponse {
+        try await CodespacesMethods.codespacesListForAuthenticatedUser(
+            config: config,
+            perPage: perPage,
+            page: page,
+            repositoryId: repositoryId
+        )
     }
 
-/// Create a codespace for the authenticated user
+    /// Create a codespace for the authenticated user
     ///
-    /// Creates a new codespace, owned by the authenticated user. This endpoint requires either a `repository_id` OR a `pull_request` but not both. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public func createForAuthenticatedUser(body: CodespacesCreateForAuthenticatedUserRequestBody) async throws -> Codespace {
-        return try await CodespacesMethods.codespacesCreateForAuthenticatedUser(config: config, body: body)
+    /// Creates a new codespace, owned by the authenticated user. This endpoint requires either a `repository_id` OR a
+    /// `pull_request` but not both. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to
+    /// use this endpoint.
+    func createForAuthenticatedUser(body: CodespacesCreateForAuthenticatedUserRequestBody) async throws -> Codespace {
+        try await CodespacesMethods.codespacesCreateForAuthenticatedUser(config: config, body: body)
     }
 
-/// List secrets for the authenticated user
+    /// List secrets for the authenticated user
     ///
-    /// Lists all development environment secrets available for a user's codespaces without revealing their encrypted values. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
-    public func listSecretsForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> CodespacesListSecretsForAuthenticatedUserResponse {
-        return try await CodespacesMethods.codespacesListSecretsForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    /// Lists all development environment secrets available for a user's codespaces without revealing their encrypted
+    /// values. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    func listSecretsForAuthenticatedUser(
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListSecretsForAuthenticatedUserResponse {
+        try await CodespacesMethods.codespacesListSecretsForAuthenticatedUser(
+            config: config,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Get public key for the authenticated user
+    /// Get public key for the authenticated user
     ///
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
-    public func getPublicKeyForAuthenticatedUser() async throws -> CodespacesUserPublicKey {
-        return try await CodespacesMethods.codespacesGetPublicKeyForAuthenticatedUser(config: config)
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. The authenticated user must have Codespaces access to use this endpoint. OAuth app tokens and
+    /// personal access tokens (classic) need the `codespace` or `codespace:secrets` scope to use this endpoint.
+    func getPublicKeyForAuthenticatedUser() async throws -> CodespacesUserPublicKey {
+        try await CodespacesMethods.codespacesGetPublicKeyForAuthenticatedUser(config: config)
     }
 }

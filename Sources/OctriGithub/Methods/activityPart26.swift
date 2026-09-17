@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
+public extension ActivityMethods {
     /// List repositories starred by a user
     ///
-    /// Lists repositories a user has starred. If the specified user has a [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint returns an empty list unless the request is authenticated as that user. A request authenticated as the specified user returns starred repositories visible to the token even if the token has no OAuth scopes. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
+    /// Lists repositories a user has starred. If the specified user has a [private
+    /// profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint
+    /// returns an empty list unless the request is authenticated as that user. A request authenticated as the specified
+    /// user returns starred repositories visible to the token even if the token has no OAuth scopes. This endpoint
+    /// supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -25,12 +31,26 @@ extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func activityListReposStarredByUser(config: ClientConfig, username: String, sort: ActivityListReposStarredByAuthenticatedUserParameter?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, perPage: Int?, page: Int?) async throws -> ActivityListReposStarredByUserResponse {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/starred"].joined(), config: config, query: [
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "activityListReposStarredByUser")).data
+    static func activityListReposStarredByUser(
+        config: ClientConfig,
+        username: String,
+        sort: ActivityListReposStarredByAuthenticatedUserParameter?,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActivityListReposStarredByUserResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/starred"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "activityListReposStarredByUser"
+        )).data
     }
 }

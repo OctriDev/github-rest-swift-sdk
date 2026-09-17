@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists the historical versions of a repository ruleset. Use `page` and `per_page` to paginate the results. Each result identifies the previous version, the actor who updated it, and the update timestamp.
+public extension ReposMethods {
+    /// Lists the historical versions of a repository ruleset. Use `page` and `per_page` to paginate the results. Each
+    /// result identifies the previous version, the actor who updated it, and the update timestamp.
     ///
     /// Get the history of a repository ruleset.
     ///
@@ -25,10 +26,32 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposGetRepoRulesetHistory(config: ClientConfig, owner: String, repo: String, rulesetId: Int, perPage: Int?, page: Int?) async throws -> [RulesetVersion] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId)), "/history"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposGetRepoRulesetHistory")).data
+    static func reposGetRepoRulesetHistory(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        rulesetId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [RulesetVersion] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/rulesets/",
+                sdkEncodePathSegment(sdkWireString(rulesetId)),
+                "/history",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposGetRepoRulesetHistory"
+        )).data
     }
 }

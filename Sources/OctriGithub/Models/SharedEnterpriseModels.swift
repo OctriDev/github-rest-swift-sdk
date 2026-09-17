@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedEnterprise domain models
+/// SharedEnterprise domain models
 /// An enterprise on GitHub.
 public struct Enterprise: Codable {
     /// Required `uri`-formatted value serialized in the `html_url` wire field.
@@ -47,51 +47,64 @@ public struct Enterprise: Codable {
         case websiteUrl = "website_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension Enterprise {
-    public init(from decoder: Decoder) throws {
+public extension Enterprise {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.slug = try container.sdkDecodeRequired(.slug)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.websiteUrl = try container.sdkDecodeIfPresent(.websiteUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-        if let value = self.createdAt {
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        name = try container.sdkDecodeRequired(.name)
+        slug = try container.sdkDecodeRequired(.slug)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        avatarUrl = try container.sdkDecodeRequired(.avatarUrl)
+        description = try container.sdkDecodeIfPresent(.description)
+        websiteUrl = try container.sdkDecodeIfPresent(.websiteUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-            try sdkValidateUri("avatar_url", self.avatarUrl)
-        if let value = self.websiteUrl {
+        try sdkValidateUri("avatar_url", avatarUrl)
+        if let value = websiteUrl {
             try sdkValidateUri("website_url", value)
         }
     }
 }
 
-extension Enterprise {
-    public init(htmlUrl: String, id: Int, nodeId: String, name: String, slug: String, createdAt: Date?, updatedAt: Date?, avatarUrl: String, description: String? = nil, websiteUrl: String? = nil) throws {
+public extension Enterprise {
+    init(
+        htmlUrl: String,
+        id: Int,
+        nodeId: String,
+        name: String,
+        slug: String,
+        createdAt: Date?,
+        updatedAt: Date?,
+        avatarUrl: String,
+        description: String? = nil,
+        websiteUrl: String? = nil
+    ) throws {
         (self.htmlUrl, self.id) = (htmlUrl, id)
         (self.nodeId, self.name) = (nodeId, name)
         (self.slug, self.createdAt) = (slug, createdAt)
         (self.updatedAt, self.avatarUrl) = (updatedAt, avatarUrl)
         (self.description, self.websiteUrl) = (description, websiteUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
         if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
         if let value = self.updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-            try sdkValidateUri("avatar_url", self.avatarUrl)
+        try sdkValidateUri("avatar_url", self.avatarUrl)
         if let value = self.websiteUrl {
             try sdkValidateUri("website_url", value)
         }
@@ -152,35 +165,52 @@ public struct EnterpriseTeam: Codable {
         case notificationSetting = "notification_setting"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension EnterpriseTeam {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.slug = try container.sdkDecodeRequired(.slug)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.groupId = try container.sdkDecodeIfPresent(.groupId)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.syncToOrganizations = try container.sdkDecodeIfPresent(.syncToOrganizations)
-        self.organizationSelectionType = try container.sdkDecodeIfPresent(.organizationSelectionType)
-        self.groupName = try container.sdkDecodeIfPresent(.groupName)
-        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension EnterpriseTeam {
-    public init(id: Int, name: String, slug: String, url: String, groupId: String?, htmlUrl: String, membersUrl: String, createdAt: Date, updatedAt: Date, description: String? = nil, syncToOrganizations: String? = nil, organizationSelectionType: String? = nil, groupName: String? = nil, notificationSetting: EnterpriseTeamNotificationSetting? = nil) throws {
+public extension EnterpriseTeam {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        slug = try container.sdkDecodeRequired(.slug)
+        url = try container.sdkDecodeRequired(.url)
+        groupId = try container.sdkDecodeIfPresent(.groupId)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        description = try container.sdkDecodeIfPresent(.description)
+        syncToOrganizations = try container.sdkDecodeIfPresent(.syncToOrganizations)
+        organizationSelectionType = try container.sdkDecodeIfPresent(.organizationSelectionType)
+        groupName = try container.sdkDecodeIfPresent(.groupName)
+        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension EnterpriseTeam {
+    init(
+        id: Int,
+        name: String,
+        slug: String,
+        url: String,
+        groupId: String?,
+        htmlUrl: String,
+        membersUrl: String,
+        createdAt: Date,
+        updatedAt: Date,
+        description: String? = nil,
+        syncToOrganizations: String? = nil,
+        organizationSelectionType: String? = nil,
+        groupName: String? = nil,
+        notificationSetting: EnterpriseTeamNotificationSetting? = nil
+    ) throws {
         (self.id, self.name) = (id, name)
         (self.slug, self.url) = (slug, url)
         (self.groupId, self.htmlUrl) = (groupId, htmlUrl)
@@ -189,10 +219,10 @@ extension EnterpriseTeam {
         self.syncToOrganizations = syncToOrganizations
         (self.organizationSelectionType, self.groupName) = (organizationSelectionType, groupName)
         self.notificationSetting = notificationSetting
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -200,13 +230,16 @@ extension EnterpriseTeam {
 public struct EnterpriseTeamNotificationSetting: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let notificationsEnabled = EnterpriseTeamNotificationSetting(rawValue: "notifications_enabled")
     public static let notificationsDisabled = EnterpriseTeamNotificationSetting(rawValue: "notifications_disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

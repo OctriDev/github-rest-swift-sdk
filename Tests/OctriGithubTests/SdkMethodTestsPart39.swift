@@ -26,7 +26,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetCustomDeploymentProtectionRuleReposGetCustomDeploymenX27d0d810e9ReachesMockAndDecodesResponse() async throws {
+    func testReposGetCustomDeploymentProtectionRuleReposGetCustomDeploymenX27d0d810e9ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -407,7 +408,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetPullRequestReviewProtectionReposGetPullRequestReviewProtectionReachesMockAndDecodesResponse() async throws {
+    func testReposGetPullRequestReviewProtectionReposGetPullRequestReviewProtectionReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

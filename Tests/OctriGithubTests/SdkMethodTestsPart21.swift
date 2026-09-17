@@ -39,7 +39,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependencyGraphGenerateSbomReportDependencyGraphGenerateSbomReportReachesMockAndDecodesResponse() async throws {
+    func testDependencyGraphGenerateSbomReportDependencyGraphGenerateSbomReportReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -97,7 +98,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testEnterpriseTeamMembershipsBulkAddEnterpriseTeamMembershipsBulkAddReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamMembershipsBulkAddEnterpriseTeamMembershipsBulkAddReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -118,7 +120,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testEnterpriseTeamMembershipsBulkRemoveEnterpriseTeamMembershipsBulkRemoveReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamMembershipsBulkRemoveEnterpriseTeamMembershipsBulkRemoveReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -182,7 +185,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testEnterpriseTeamMembershipsListTeamsForUserEnterpriseTeamMemberXc7f16fd460ReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamMembershipsListTeamsForUserEnterpriseTeamMemberXc7f16fd460ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -238,7 +242,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testEnterpriseTeamOrganizationsBulkAddEnterpriseTeamOrganizationsBulkAddReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamOrganizationsBulkAddEnterpriseTeamOrganizationsBulkAddReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -259,7 +264,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testEnterpriseTeamOrganizationsBulkRemoveEnterpriseTeamOrganizatiXa205b59840ReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamOrganizationsBulkRemoveEnterpriseTeamOrganizatiXa205b59840ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -272,7 +278,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testEnterpriseTeamOrganizationsDeleteEnterpriseTeamOrganizationsDeleteReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamOrganizationsDeleteEnterpriseTeamOrganizationsDeleteReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -285,7 +292,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testEnterpriseTeamOrganizationsGetAssignmentEnterpriseTeamOrganizXfd9c5a0e33ReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamOrganizationsGetAssignmentEnterpriseTeamOrganizXfd9c5a0e33ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -306,7 +314,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testEnterpriseTeamOrganizationsGetAssignmentsEnterpriseTeamOrganiX75fde3de7aReachesMockAndDecodesResponse() async throws {
+    func testEnterpriseTeamOrganizationsGetAssignmentsEnterpriseTeamOrganiX75fde3de7aReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -411,7 +420,10 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try EnterpriseTeamsMethods.EnterpriseTeamsUpdateOptions(enterprise: decoded("\"enterprise\""), teamSlug: decoded("\"team_slug\""))
+        var options = try EnterpriseTeamsMethods.EnterpriseTeamsUpdateOptions(
+            enterprise: decoded("\"enterprise\""),
+            teamSlug: decoded("\"team_slug\"")
+        )
         options.name = try decoded("\"Justice League\"")
         options.description = try decoded("\"A great team.\"")
         options.syncToOrganizations = try decoded("null")

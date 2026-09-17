@@ -3,7 +3,7 @@
 
 import Foundation
 
-// IssuesBlocked domain models
+/// IssuesBlocked domain models
 /// Blocked-by Added Issue Event
 public struct BlockedByAddedIssueEvent: Codable {
     /// Required `integer` value serialized in the `id` wire field.
@@ -43,27 +43,40 @@ public struct BlockedByAddedIssueEvent: Codable {
         case blockedBy = "blocked_by"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension BlockedByAddedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.blockedBy = try container.sdkDecodeIfPresent(.blockedBy)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension BlockedByAddedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, blockedBy: NullableIssueReference?) {
+public extension BlockedByAddedIssueEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        blockedBy = try container.sdkDecodeIfPresent(.blockedBy)
+    }
+}
+
+public extension BlockedByAddedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        blockedBy: NullableIssueReference?
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -111,27 +124,40 @@ public struct BlockedByRemovedIssueEvent: Codable {
         case blockedBy = "blocked_by"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension BlockedByRemovedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.blockedBy = try container.sdkDecodeIfPresent(.blockedBy)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension BlockedByRemovedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, blockedBy: NullableIssueReference?) {
+public extension BlockedByRemovedIssueEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        blockedBy = try container.sdkDecodeIfPresent(.blockedBy)
+    }
+}
+
+public extension BlockedByRemovedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        blockedBy: NullableIssueReference?
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)

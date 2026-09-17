@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Updates an existing milestone in a repository. Supply only the milestone properties you want to change, including `title`, `state`, `description`, or `due_on`; `state` defaults to open when omitted. The authenticated user must have permission to update milestones in the repository.
+public extension IssuesMethods {
+    /// Updates an existing milestone in a repository. Supply only the milestone properties you want to change,
+    /// including `title`, `state`, `description`, or `due_on`; `state` defaults to open when omitted. The authenticated
+    /// user must have permission to update milestones in the repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -21,13 +23,41 @@ extension IssuesMethods {
     /// - dueOn: The milestone due date. This is a timestamp in [ISO
     ///   8601](https://en.wikipedia.org/wiki/ISO_8601) format:
     ///   `YYYY-MM-DDTHH:MM:SSZ`.
-    public static func issuesUpdateMilestone(config: ClientConfig, owner: String, repo: String, milestoneNumber: Int, title: String?, state: IssuesUpdateMilestoneRequestBodyState?, description: String?, dueOn: Date?) async throws -> Milestone {
-        if let dueOn = dueOn {
+    static func issuesUpdateMilestone(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        milestoneNumber: Int,
+        title: String?,
+        state: IssuesUpdateMilestoneRequestBodyState?,
+        description: String?,
+        dueOn: Date?
+    ) async throws -> Milestone {
+        if let dueOn {
             try sdkValidateDateTime("due_on", dueOn)
         }
 
-        let requestBody = IssuesUpdateMilestoneRequestBody(title: title, state: state, description: description, dueOn: dueOn)
+        let requestBody = IssuesUpdateMilestoneRequestBody(
+            title: title,
+            state: state,
+            description: description,
+            dueOn: dueOn
+        )
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/milestones/", sdkEncodePathSegment(sdkWireString(milestoneNumber))].joined(), config: config, body: requestBody, decoder: .json, operationId: "issuesUpdateMilestone")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/milestones/",
+                sdkEncodePathSegment(sdkWireString(milestoneNumber)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "issuesUpdateMilestone"
+        )).data
     }
 }

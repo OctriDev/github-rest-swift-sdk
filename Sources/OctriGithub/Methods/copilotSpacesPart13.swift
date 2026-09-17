@@ -6,10 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotSpacesMethods {
+public extension CopilotSpacesMethods {
     /// Set a Copilot Space for a user
     ///
-    /// Updates a Copilot Space owned by a user. Only the authenticated user can update spaces for their own account. Users can update their personal Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the `read:user` scope to use this endpoint.
+    /// Updates a Copilot Space owned by a user. Only the authenticated user can update spaces for their own account.
+    /// Users can update their personal Copilot Spaces. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:user` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -22,13 +24,40 @@ extension CopilotSpacesMethods {
     ///   access (default) - `reader`: Makes the space publicly readable Note: User
     ///   spaces do not support writer or admin base roles.
     /// - resourcesAttributes: Resources to attach to the space.
-    public static func copilotSpacesUpdateForUser(config: ClientConfig, username: String, spaceNumber: Int, name: String?, description: String?, generalInstructions: String?, baseRole: CopilotSpacesUpdateForUserRequestBodyBaseRole?, resourcesAttributes: [CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem]?) async throws -> CopilotSpace {
-        if let generalInstructions = generalInstructions {
+    static func copilotSpacesUpdateForUser(
+        config: ClientConfig,
+        username: String,
+        spaceNumber: Int,
+        name: String?,
+        description: String?,
+        generalInstructions: String?,
+        baseRole: CopilotSpacesUpdateForUserRequestBodyBaseRole?,
+        resourcesAttributes: [CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItem]?
+    ) async throws -> CopilotSpace {
+        if let generalInstructions {
             try validateLength("general_instructions", generalInstructions, max: 4000)
         }
 
-        let requestBody = CopilotSpacesUpdateForUserRequestBody(name: name, description: description, generalInstructions: generalInstructions, baseRole: baseRole, resourcesAttributes: resourcesAttributes)
+        let requestBody = CopilotSpacesUpdateForUserRequestBody(
+            name: name,
+            description: description,
+            generalInstructions: generalInstructions,
+            baseRole: baseRole,
+            resourcesAttributes: resourcesAttributes
+        )
 
-        return try (await sdkRequest("PUT", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber))].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesUpdateForUser")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/copilot-spaces/",
+                sdkEncodePathSegment(sdkWireString(spaceNumber)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "copilotSpacesUpdateForUser"
+        )).data
     }
 }

@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Deletes a secret in a repository using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Deletes a secret in a repository using the secret name. Authenticated users must have collaborator access to a
+    /// repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +17,25 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - secretName: The name of the secret.
-    public static func actionsDeleteRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteRepoSecret")).data
+    static func actionsDeleteRepoSecret(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        secretName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDeleteRepoSecret"
+        )).data
     }
 }

@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Enable a custom deployment protection rule for an environment. The authenticated user must have admin or owner permissions to the repository to use this endpoint. For more information about the app that is providing this custom deployment rule, see the [documentation for the `GET /apps/{app_slug}` endpoint](https://docs.github.com/rest/apps/apps#get-an-app), as well as the [guide to creating custom deployment protection rules](https://docs.github.com/actions/managing-workflow-runs-and-deployments/managing-deployments/creating-custom-deployment-protection-rules). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ReposMethods {
+    /// Enable a custom deployment protection rule for an environment. The authenticated user must have admin or owner
+    /// permissions to the repository to use this endpoint. For more information about the app that is providing this
+    /// custom deployment rule, see the [documentation for the `GET /apps/{app_slug}`
+    /// endpoint](https://docs.github.com/rest/apps/apps#get-an-app), as well as the [guide to creating custom
+    /// deployment protection rules](https://docs.github.com/actions/managing-workflow-runs-and-deployments/managing-deployments/creating-custom-deployment-protection-rules).
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - environmentName: The name of the environment. The name must be URL
@@ -18,9 +23,30 @@ extension ReposMethods {
     ///   sensitive.
     /// - integrationId: The ID of the custom app that will be enabled on the
     ///   environment.
-    public static func reposCreateDeploymentProtectionRule(config: ClientConfig, environmentName: String, repo: String, owner: String, integrationId: Int?) async throws -> DeploymentProtectionRule {
+    static func reposCreateDeploymentProtectionRule(
+        config: ClientConfig,
+        environmentName: String,
+        repo: String,
+        owner: String,
+        integrationId: Int?
+    ) async throws -> DeploymentProtectionRule {
         let requestBody = ReposCreateDeploymentProtectionRuleRequestBody(integrationId: integrationId)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/deployment_protection_rules"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateDeploymentProtectionRule")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/deployment_protection_rules",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateDeploymentProtectionRule"
+        )).data
     }
 }

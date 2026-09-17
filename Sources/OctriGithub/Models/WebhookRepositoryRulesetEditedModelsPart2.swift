@@ -3,9 +3,9 @@
 
 import Foundation
 
-// WebhookRepositoryRulesetEdited domain models
-extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleType {
-    public init(from: String? = nil) {
+/// WebhookRepositoryRulesetEdited domain models
+public extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleType {
+    init(from: String? = nil) {
         self.init()
         self.from = from
     }
@@ -15,12 +15,15 @@ extension WebhookRepositoryRulesetEditedChangesRulesUpdatedItemChangesRuleType {
 public struct WebhookRepositoryRulesetEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let edited = WebhookRepositoryRulesetEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

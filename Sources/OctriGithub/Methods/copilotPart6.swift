@@ -6,8 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Lists all Copilot seats for which an organization with a Copilot Business or Copilot Enterprise subscription is currently being billed. Only organization owners can view assigned seats. Each seat object contains information about the assigned user's most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the IDE activity to be reflected in `last_activity_at`. For more information about activity data, see [Metrics data properties for GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data). OAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint.
+public extension CopilotMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Lists all Copilot seats for which an
+    /// organization with a Copilot Business or Copilot Enterprise subscription is currently being billed. Only
+    /// organization owners can view assigned seats. Each seat object contains information about the assigned user's
+    /// most recent Copilot activity. Users must have telemetry enabled in their IDE for Copilot in the IDE activity to
+    /// be reflected in `last_activity_at`. For more information about activity data, see [Metrics data properties for
+    /// GitHub Copilot](https://docs.github.com/copilot/reference/metrics-data). OAuth app tokens and personal access
+    /// tokens (classic) need either the `manage_billing:copilot` or `read:org` scopes to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,10 +25,22 @@ extension CopilotMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func copilotListCopilotSeats(config: ClientConfig, org: String, page: Int?, perPage: Int?) async throws -> CopilotListCopilotSeatsResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/billing/seats"].joined(), config: config, query: [
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("per_page", value: perPage),
-        ], decoder: .json, operationId: "copilotListCopilotSeats")).data
+    static func copilotListCopilotSeats(
+        config: ClientConfig,
+        org: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> CopilotListCopilotSeatsResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/billing/seats"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("per_page", value: perPage),
+            ],
+            decoder: .json,
+            operationId: "copilotListCopilotSeats"
+        )).data
     }
 }

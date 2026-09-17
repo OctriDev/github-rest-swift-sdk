@@ -6,30 +6,67 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Get the last year of commit activity
     ///
-    /// Returns the last year of commit activity grouped by week. The `days` array is a group of commits per day, starting on `Sunday`.
+    /// Returns the last year of commit activity grouped by week. The `days` array is a group of commits per day,
+    /// starting on `Sunday`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGetCommitActivityStats(config: ClientConfig, owner: String, repo: String) async throws -> [CommitActivity] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stats/commit_activity"].joined(), config: config, decoder: .json, operationId: "reposGetCommitActivityStats")).data
+    static func reposGetCommitActivityStats(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> [CommitActivity] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stats/commit_activity",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetCommitActivityStats"
+        )).data
     }
 
     /// Get all contributor commit activity
     ///
-    /// Returns the `total` number of commits authored by the contributor. In addition, the response includes a Weekly Hash (`weeks` array) with the following information: * `w` - Start of the week, given as a [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time). * `a` - Number of additions * `d` - Number of deletions * `c` - Number of commits > [!NOTE] > This endpoint will return `0` values for all addition and deletion counts in repositories with 10,000 or more commits.
+    /// Returns the `total` number of commits authored by the contributor. In addition, the response includes a Weekly
+    /// Hash (`weeks` array) with the following information: * `w` - Start of the week, given as a [Unix
+    /// timestamp](https://en.wikipedia.org/wiki/Unix_time). * `a` - Number of additions * `d` - Number of deletions *
+    /// `c` - Number of commits > [!NOTE] > This endpoint will return `0` values for all addition and deletion counts in
+    /// repositories with 10,000 or more commits.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGetContributorsStats(config: ClientConfig, owner: String, repo: String) async throws -> [ContributorActivity] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stats/contributors"].joined(), config: config, decoder: .json, operationId: "reposGetContributorsStats")).data
+    static func reposGetContributorsStats(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> [ContributorActivity] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stats/contributors",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetContributorsStats"
+        )).data
     }
 }

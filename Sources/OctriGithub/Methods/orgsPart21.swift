@@ -6,14 +6,34 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "Get an organization webhook ." You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+public extension OrgsMethods {
+    /// Returns the webhook configuration for an organization. To get more information about the webhook, including the
+    /// `active` state and `events`, use "Get an organization webhook ." You must be an organization owner to use this
+    /// endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot
+    /// list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were
+    /// created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    public static func orgsGetWebhookConfigForOrg(config: ClientConfig, org: String, hookId: Int) async throws -> WebhookConfig {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/config"].joined(), config: config, decoder: .json, operationId: "orgsGetWebhookConfigForOrg")).data
+    static func orgsGetWebhookConfigForOrg(
+        config: ClientConfig,
+        org: String,
+        hookId: Int
+    ) async throws -> WebhookConfig {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(hookId)),
+                "/config",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsGetWebhookConfigForOrg"
+        )).data
     }
 }

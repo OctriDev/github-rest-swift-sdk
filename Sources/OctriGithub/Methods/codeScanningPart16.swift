@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeScanningMethods {
-    /// Deletes a CodeQL database for a language in a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+public extension CodeScanningMethods {
+    /// Deletes a CodeQL database for a language in a repository. OAuth app tokens and personal access tokens (classic)
+    /// need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to
+    /// use this endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +17,25 @@ extension CodeScanningMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - language: The language of the CodeQL database.
-    public static func codeScanningDeleteCodeqlDatabase(config: ClientConfig, owner: String, repo: String, language: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/codeql/databases/", sdkEncodePathSegment(sdkWireString(language))].joined(), config: config, decoder: .empty, operationId: "codeScanningDeleteCodeqlDatabase")).data
+    static func codeScanningDeleteCodeqlDatabase(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        language: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-scanning/codeql/databases/",
+                sdkEncodePathSegment(sdkWireString(language)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "codeScanningDeleteCodeqlDatabase"
+        )).data
     }
 }

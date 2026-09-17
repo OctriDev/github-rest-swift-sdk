@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecurityAdvisoriesMethods {
-    public struct SecurityAdvisoriesListGlobalAdvisoriesOptions: Codable {
+public extension SecurityAdvisoriesMethods {
+    struct SecurityAdvisoriesListGlobalAdvisoriesOptions: Codable {
         public var ghsaId: String?
         public var type: SecurityAdvisoriesListGlobalAdvisoriesParameterXa768ab37?
         public var cveId: String?
@@ -30,7 +30,11 @@ extension SecurityAdvisoriesMethods {
         public init() {}
     }
 
-    /// Lists all global security advisories that match the specified parameters. If no other parameters are defined, the request will return only GitHub-reviewed advisories that are not malware. By default, all responses will exclude advisories for malware, because malware are not standard vulnerabilities. To list advisories for malware, you must include the `type` parameter in your request, with the value `malware`. For more information about the different types of security advisories, see "[About the GitHub Advisory database](https://docs.github.com/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-types-of-security-advisories)."
+    /// Lists all global security advisories that match the specified parameters. If no other parameters are defined,
+    /// the request will return only GitHub-reviewed advisories that are not malware. By default, all responses will
+    /// exclude advisories for malware, because malware are not standard vulnerabilities. To list advisories for
+    /// malware, you must include the `type` parameter in your request, with the value `malware`. For more information
+    /// about the different types of security advisories, see "[About the GitHub Advisory database](https://docs.github.com/code-security/security-advisories/global-security-advisories/about-the-github-advisory-database#about-types-of-security-advisories)."
     ///
     /// - Parameters:
     /// - ghsaId: If specified, only advisories with this GHSA (GitHub Security
@@ -94,12 +98,15 @@ extension SecurityAdvisoriesMethods {
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
     /// - sort: The property to sort the results by.
-    public static func securityAdvisoriesListGlobalAdvisories(config: ClientConfig, options: SecurityAdvisoriesListGlobalAdvisoriesOptions) async throws -> [GlobalAdvisory] {
+    static func securityAdvisoriesListGlobalAdvisories(
+        config: ClientConfig,
+        options: SecurityAdvisoriesListGlobalAdvisoriesOptions
+    ) async throws -> [GlobalAdvisory] {
         if let perPage = options.perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 100)
         }
 
-        return try (await sdkRequest("GET", "/advisories", config: config, query: [
+        return try await (sdkRequest("GET", "/advisories", config: config, query: [
             SdkQueryParameter("ghsa_id", value: options.ghsaId),
             SdkQueryParameter("type", value: options.type),
             SdkQueryParameter("cve_id", value: options.cveId),

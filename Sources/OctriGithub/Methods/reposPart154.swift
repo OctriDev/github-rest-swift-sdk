@@ -6,30 +6,66 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Check if vulnerability alerts are enabled for a repository
     ///
-    /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin read access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
+    /// Shows whether dependency alerts are enabled or disabled for a repository. The authenticated user must have admin
+    /// read access to the repository. For more information, see "[About security alerts for vulnerable
+    /// dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposCheckVulnerabilityAlerts(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/vulnerability-alerts"].joined(), config: config, decoder: .empty, operationId: "reposCheckVulnerabilityAlerts")).data
+    static func reposCheckVulnerabilityAlerts(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/vulnerability-alerts",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposCheckVulnerabilityAlerts"
+        )).data
     }
 
     /// Enable vulnerability alerts
     ///
-    /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
+    /// Enables dependency alerts and the dependency graph for a repository. The authenticated user must have admin
+    /// access to the repository. For more information, see "[About security alerts for vulnerable
+    /// dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposEnableVulnerabilityAlerts(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/vulnerability-alerts"].joined(), config: config, decoder: .empty, operationId: "reposEnableVulnerabilityAlerts")).data
+    static func reposEnableVulnerabilityAlerts(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/vulnerability-alerts",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposEnableVulnerabilityAlerts"
+        )).data
     }
 }

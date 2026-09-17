@@ -3,9 +3,21 @@
 
 import Foundation
 
-// Repos domain models
-extension SimpleCommitStatus {
-    public init(description: String?, id: Int, nodeId: String, state: String, context: String, targetUrl: String?, avatarUrl: String?, url: String, createdAt: Date, updatedAt: Date, required: Bool? = nil) throws {
+/// Repos domain models
+public extension SimpleCommitStatus {
+    init(
+        description: String?,
+        id: Int,
+        nodeId: String,
+        state: String,
+        context: String,
+        targetUrl: String?,
+        avatarUrl: String?,
+        url: String,
+        createdAt: Date,
+        updatedAt: Date,
+        required: Bool? = nil
+    ) throws {
         (self.description, self.id) = (description, id)
         (self.nodeId, self.state) = (nodeId, state)
         (self.context, self.targetUrl) = (context, targetUrl)
@@ -18,9 +30,9 @@ extension SimpleCommitStatus {
         if let value = self.avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-            try sdkValidateUri("url", self.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -48,44 +60,66 @@ public struct Tag: Codable {
         case nodeId = "node_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension Tag {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.commit) else {
-            throw SdkValidationError(field: "commit", code: "required", message: "Validation failed for 'commit': value is required")
-        }
-        guard container.contains(.zipballUrl) else {
-            throw SdkValidationError(field: "zipball_url", code: "required", message: "Validation failed for 'zipball_url': value is required")
-        }
-        guard container.contains(.tarballUrl) else {
-            throw SdkValidationError(field: "tarball_url", code: "required", message: "Validation failed for 'tarball_url': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.commit = try container.sdkDecodeRequired(.commit)
-        self.zipballUrl = try container.sdkDecodeRequired(.zipballUrl)
-        self.tarballUrl = try container.sdkDecodeRequired(.tarballUrl)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-            try sdkValidateUri("zipball_url", self.zipballUrl)
-            try sdkValidateUri("tarball_url", self.tarballUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension Tag {
-    public init(name: String, commit: TagCommit, zipballUrl: String, tarballUrl: String, nodeId: String) throws {
+public extension Tag {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.commit) else {
+            throw SdkValidationError(
+                field: "commit",
+                code: "required",
+                message: "Validation failed for 'commit': value is required"
+            )
+        }
+        guard container.contains(.zipballUrl) else {
+            throw SdkValidationError(
+                field: "zipball_url",
+                code: "required",
+                message: "Validation failed for 'zipball_url': value is required"
+            )
+        }
+        guard container.contains(.tarballUrl) else {
+            throw SdkValidationError(
+                field: "tarball_url",
+                code: "required",
+                message: "Validation failed for 'tarball_url': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        commit = try container.sdkDecodeRequired(.commit)
+        zipballUrl = try container.sdkDecodeRequired(.zipballUrl)
+        tarballUrl = try container.sdkDecodeRequired(.tarballUrl)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        try sdkValidateUri("zipball_url", zipballUrl)
+        try sdkValidateUri("tarball_url", tarballUrl)
+    }
+}
+
+public extension Tag {
+    init(name: String, commit: TagCommit, zipballUrl: String, tarballUrl: String, nodeId: String) throws {
         (self.name, self.commit) = (name, commit)
         (self.zipballUrl, self.tarballUrl) = (zipballUrl, tarballUrl)
         self.nodeId = nodeId
-            try sdkValidateUri("zipball_url", self.zipballUrl)
-            try sdkValidateUri("tarball_url", self.tarballUrl)
+        try sdkValidateUri("zipball_url", self.zipballUrl)
+        try sdkValidateUri("tarball_url", self.tarballUrl)
     }
 }
 
@@ -101,28 +135,38 @@ public struct TagCommit: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TagCommit {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TagCommit {
-    public init(sha: String, url: String) throws {
+public extension TagCommit {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        sha = try container.sdkDecodeRequired(.sha)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension TagCommit {
+    init(sha: String, url: String) throws {
         (self.sha, self.url) = (sha, url)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -135,21 +179,27 @@ public struct Topic: Codable {
         case names
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension Topic {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.names) else {
-            throw SdkValidationError(field: "names", code: "required", message: "Validation failed for 'names': value is required")
-        }
-        self.names = try container.sdkDecodeRequired(.names)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension Topic {
-    public init(names: [String]) {
+public extension Topic {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.names) else {
+            throw SdkValidationError(
+                field: "names",
+                code: "required",
+                message: "Validation failed for 'names': value is required"
+            )
+        }
+        names = try container.sdkDecodeRequired(.names)
+    }
+}
+
+public extension Topic {
+    init(names: [String]) {
         self.names = names
     }
 }
@@ -169,33 +219,47 @@ public struct Traffic: Codable {
         case count
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension Traffic {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.timestamp) else {
-            throw SdkValidationError(field: "timestamp", code: "required", message: "Validation failed for 'timestamp': value is required")
-        }
-        guard container.contains(.uniques) else {
-            throw SdkValidationError(field: "uniques", code: "required", message: "Validation failed for 'uniques': value is required")
-        }
-        guard container.contains(.count) else {
-            throw SdkValidationError(field: "count", code: "required", message: "Validation failed for 'count': value is required")
-        }
-        self.timestamp = try container.sdkDecodeRequired(.timestamp)
-        self.uniques = try container.sdkDecodeRequired(.uniques)
-        self.count = try container.sdkDecodeRequired(.count)
-            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension Traffic {
-    public init(timestamp: Date, uniques: Int, count: Int) throws {
+public extension Traffic {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.timestamp) else {
+            throw SdkValidationError(
+                field: "timestamp",
+                code: "required",
+                message: "Validation failed for 'timestamp': value is required"
+            )
+        }
+        guard container.contains(.uniques) else {
+            throw SdkValidationError(
+                field: "uniques",
+                code: "required",
+                message: "Validation failed for 'uniques': value is required"
+            )
+        }
+        guard container.contains(.count) else {
+            throw SdkValidationError(
+                field: "count",
+                code: "required",
+                message: "Validation failed for 'count': value is required"
+            )
+        }
+        timestamp = try container.sdkDecodeRequired(.timestamp)
+        uniques = try container.sdkDecodeRequired(.uniques)
+        count = try container.sdkDecodeRequired(.count)
+        try sdkValidateDateTime("timestamp", sdkWireString(timestamp))
+    }
+}
+
+public extension Traffic {
+    init(timestamp: Date, uniques: Int, count: Int) throws {
         (self.timestamp, self.uniques) = (timestamp, uniques)
         self.count = count
-            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
+        try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
     }
 }
 
@@ -216,29 +280,43 @@ public struct ViewTraffic: Codable {
         case views
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ViewTraffic {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.count) else {
-            throw SdkValidationError(field: "count", code: "required", message: "Validation failed for 'count': value is required")
-        }
-        guard container.contains(.uniques) else {
-            throw SdkValidationError(field: "uniques", code: "required", message: "Validation failed for 'uniques': value is required")
-        }
-        guard container.contains(.views) else {
-            throw SdkValidationError(field: "views", code: "required", message: "Validation failed for 'views': value is required")
-        }
-        self.count = try container.sdkDecodeRequired(.count)
-        self.uniques = try container.sdkDecodeRequired(.uniques)
-        self.views = try container.sdkDecodeRequired(.views)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ViewTraffic {
-    public init(count: Int, uniques: Int, views: [Traffic]) {
+public extension ViewTraffic {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.count) else {
+            throw SdkValidationError(
+                field: "count",
+                code: "required",
+                message: "Validation failed for 'count': value is required"
+            )
+        }
+        guard container.contains(.uniques) else {
+            throw SdkValidationError(
+                field: "uniques",
+                code: "required",
+                message: "Validation failed for 'uniques': value is required"
+            )
+        }
+        guard container.contains(.views) else {
+            throw SdkValidationError(
+                field: "views",
+                code: "required",
+                message: "Validation failed for 'views': value is required"
+            )
+        }
+        count = try container.sdkDecodeRequired(.count)
+        uniques = try container.sdkDecodeRequired(.uniques)
+        views = try container.sdkDecodeRequired(.views)
+    }
+}
+
+public extension ViewTraffic {
+    init(count: Int, uniques: Int, views: [Traffic]) {
         (self.count, self.uniques) = (count, uniques)
         self.views = views
     }
@@ -248,14 +326,17 @@ extension ViewTraffic {
 public struct MergedUpstreamMergeType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let merge = MergedUpstreamMergeType(rawValue: "merge")
     public static let fastForward = MergedUpstreamMergeType(rawValue: "fast-forward")
     public static let none = MergedUpstreamMergeType(rawValue: "none")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -268,7 +349,10 @@ public struct MergedUpstreamMergeType: RawRepresentable, Hashable, Codable, Send
 public struct ActivityActivityType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let push = ActivityActivityType(rawValue: "push")
     public static let forcePush = ActivityActivityType(rawValue: "force_push")
     public static let branchDeletion = ActivityActivityType(rawValue: "branch_deletion")
@@ -278,7 +362,7 @@ public struct ActivityActivityType: RawRepresentable, Hashable, Codable, Sendabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

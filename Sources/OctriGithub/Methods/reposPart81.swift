@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
@@ -16,7 +16,25 @@ extension ReposMethods {
     ///   not case sensitive.
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
-    public static func reposDeleteAnEnvironment(config: ClientConfig, owner: String, repo: String, environmentName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName))].joined(), config: config, decoder: .empty, operationId: "reposDeleteAnEnvironment")).data
+    static func reposDeleteAnEnvironment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        environmentName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDeleteAnEnvironment"
+        )).data
     }
 }

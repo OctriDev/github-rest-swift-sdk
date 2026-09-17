@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedSecurity domain models
+/// SharedSecurity domain models
 /// The EPSS scores as calculated by the Exploit Prediction Scoring System.
 public struct SecurityAdvisoryEpss: Codable {
     /// Optional `number` value serialized in the `percentage` wire field.
@@ -17,33 +17,65 @@ public struct SecurityAdvisoryEpss: Codable {
     }
 
     init() {
-        (self.percentage, self.percentile) = (nil, nil)
+        (percentage, percentile) = (nil, nil)
     }
 }
 
-extension SecurityAdvisoryEpss {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAdvisoryEpss {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.percentage = try container.sdkDecodeIfPresent(.percentage)
-        self.percentile = try container.sdkDecodeIfPresent(.percentile)
-        if let value = self.percentage {
-            try validateRange("percentage", Double(value), min: 0, max: 100, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+        percentage = try container.sdkDecodeIfPresent(.percentage)
+        percentile = try container.sdkDecodeIfPresent(.percentile)
+        if let value = percentage {
+            try validateRange(
+                "percentage",
+                Double(value),
+                min: 0,
+                max: 100,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
-        if let value = self.percentile {
-            try validateRange("percentile", Double(value), min: 0, max: 100, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+        if let value = percentile {
+            try validateRange(
+                "percentile",
+                Double(value),
+                min: 0,
+                max: 100,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
 
-extension SecurityAdvisoryEpss {
-    public init(percentage: Double? = nil, percentile: Double? = nil) throws {
+public extension SecurityAdvisoryEpss {
+    init(percentage: Double? = nil, percentile: Double? = nil) throws {
         self.init()
         (self.percentage, self.percentile) = (percentage, percentile)
         if let value = self.percentage {
-            try validateRange("percentage", Double(value), min: 0, max: 100, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+            try validateRange(
+                "percentage",
+                Double(value),
+                min: 0,
+                max: 100,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
         if let value = self.percentile {
-            try validateRange("percentile", Double(value), min: 0, max: 100, exclusiveMin: nil, exclusiveMax: nil, multipleOf: nil)
+            try validateRange(
+                "percentile",
+                Double(value),
+                min: 0,
+                max: 100,
+                exclusiveMin: nil,
+                exclusiveMax: nil,
+                multipleOf: nil
+            )
         }
     }
 }
@@ -86,29 +118,52 @@ public struct SecurityAndAnalysis: Codable {
     }
 
     init() {
-        (self.advancedSecurity, self.codeSecurity, self.dependabotSecurityUpdates, self.secretScanning, self.secretScanningPushProtection) = (nil, nil, nil, nil, nil)
-        (self.secretScanningNonProviderPatterns, self.secretScanningAiDetection, self.secretScanningDelegatedAlertDismissal, self.secretScanningDelegatedBypass, self.secretScanningDelegatedBypassOptions) = (nil, nil, nil, nil, nil)
+        (advancedSecurity, codeSecurity, dependabotSecurityUpdates, secretScanning, secretScanningPushProtection) = (
+            nil,
+            nil,
+            nil,
+            nil,
+            nil
+        )
+        (
+            secretScanningNonProviderPatterns,
+            secretScanningAiDetection,
+            secretScanningDelegatedAlertDismissal,
+            secretScanningDelegatedBypass,
+            secretScanningDelegatedBypassOptions
+        ) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension SecurityAndAnalysis {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysis {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.advancedSecurity = try container.sdkDecodeIfPresent(.advancedSecurity)
-        self.codeSecurity = try container.sdkDecodeIfPresent(.codeSecurity)
-        self.dependabotSecurityUpdates = try container.sdkDecodeIfPresent(.dependabotSecurityUpdates)
-        self.secretScanning = try container.sdkDecodeIfPresent(.secretScanning)
-        self.secretScanningPushProtection = try container.sdkDecodeIfPresent(.secretScanningPushProtection)
-        self.secretScanningNonProviderPatterns = try container.sdkDecodeIfPresent(.secretScanningNonProviderPatterns)
-        self.secretScanningAiDetection = try container.sdkDecodeIfPresent(.secretScanningAiDetection)
-        self.secretScanningDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.secretScanningDelegatedAlertDismissal)
-        self.secretScanningDelegatedBypass = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypass)
-        self.secretScanningDelegatedBypassOptions = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypassOptions)
+        advancedSecurity = try container.sdkDecodeIfPresent(.advancedSecurity)
+        codeSecurity = try container.sdkDecodeIfPresent(.codeSecurity)
+        dependabotSecurityUpdates = try container.sdkDecodeIfPresent(.dependabotSecurityUpdates)
+        secretScanning = try container.sdkDecodeIfPresent(.secretScanning)
+        secretScanningPushProtection = try container.sdkDecodeIfPresent(.secretScanningPushProtection)
+        secretScanningNonProviderPatterns = try container.sdkDecodeIfPresent(.secretScanningNonProviderPatterns)
+        secretScanningAiDetection = try container.sdkDecodeIfPresent(.secretScanningAiDetection)
+        secretScanningDelegatedAlertDismissal = try container.sdkDecodeIfPresent(.secretScanningDelegatedAlertDismissal)
+        secretScanningDelegatedBypass = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypass)
+        secretScanningDelegatedBypassOptions = try container.sdkDecodeIfPresent(.secretScanningDelegatedBypassOptions)
     }
 }
 
-extension SecurityAndAnalysis {
-    public init(advancedSecurity: SecurityAndAnalysisAdvancedSecurity? = nil, codeSecurity: SecurityAndAnalysisCodeSecurity? = nil, dependabotSecurityUpdates: SecurityAndAnalysisDependabotSecurityUpdates? = nil, secretScanning: SecurityAndAnalysisSecretScanning? = nil, secretScanningPushProtection: SecurityAndAnalysisSecretScanningPushProtection? = nil, secretScanningNonProviderPatterns: SecurityAndAnalysisSecretScanningNonProviderPatterns? = nil, secretScanningAiDetection: SecurityAndAnalysisSecretScanningAiDetection? = nil, secretScanningDelegatedAlertDismissal: SecurityAndAnalysisSecretScanningDelegatedAlertDismissal? = nil, secretScanningDelegatedBypass: SecurityAndAnalysisSecretScanningDelegatedBypass? = nil, secretScanningDelegatedBypassOptions: SecurityAndAnalysisSecretScanningDelegatedBypassOptions? = nil) {
+public extension SecurityAndAnalysis {
+    init(
+        advancedSecurity: SecurityAndAnalysisAdvancedSecurity? = nil,
+        codeSecurity: SecurityAndAnalysisCodeSecurity? = nil,
+        dependabotSecurityUpdates: SecurityAndAnalysisDependabotSecurityUpdates? = nil,
+        secretScanning: SecurityAndAnalysisSecretScanning? = nil,
+        secretScanningPushProtection: SecurityAndAnalysisSecretScanningPushProtection? = nil,
+        secretScanningNonProviderPatterns: SecurityAndAnalysisSecretScanningNonProviderPatterns? = nil,
+        secretScanningAiDetection: SecurityAndAnalysisSecretScanningAiDetection? = nil,
+        secretScanningDelegatedAlertDismissal: SecurityAndAnalysisSecretScanningDelegatedAlertDismissal? = nil,
+        secretScanningDelegatedBypass: SecurityAndAnalysisSecretScanningDelegatedBypass? = nil,
+        secretScanningDelegatedBypassOptions: SecurityAndAnalysisSecretScanningDelegatedBypassOptions? = nil
+    ) {
         self.init()
         (self.advancedSecurity, self.codeSecurity) = (advancedSecurity, codeSecurity)
         (self.dependabotSecurityUpdates, self.secretScanning) = (dependabotSecurityUpdates, secretScanning)
@@ -132,19 +187,19 @@ public struct SecurityAndAnalysisAdvancedSecurity: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisAdvancedSecurity {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisAdvancedSecurity {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisAdvancedSecurity {
-    public init(status: SecurityAndAnalysisAdvancedSecurityStatus? = nil) {
+public extension SecurityAndAnalysisAdvancedSecurity {
+    init(status: SecurityAndAnalysisAdvancedSecurityStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -160,19 +215,19 @@ public struct SecurityAndAnalysisCodeSecurity: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisCodeSecurity {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisCodeSecurity {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisCodeSecurity {
-    public init(status: SecurityAndAnalysisCodeSecurityStatus? = nil) {
+public extension SecurityAndAnalysisCodeSecurity {
+    init(status: SecurityAndAnalysisCodeSecurityStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -188,19 +243,19 @@ public struct SecurityAndAnalysisDependabotSecurityUpdates: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisDependabotSecurityUpdates {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisDependabotSecurityUpdates {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisDependabotSecurityUpdates {
-    public init(status: SecurityAndAnalysisDependabotSecurityUpdatesStatus? = nil) {
+public extension SecurityAndAnalysisDependabotSecurityUpdates {
+    init(status: SecurityAndAnalysisDependabotSecurityUpdatesStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -216,19 +271,19 @@ public struct SecurityAndAnalysisSecretScanning: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanning {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanning {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisSecretScanning {
-    public init(status: SecurityAndAnalysisSecretScanningStatus? = nil) {
+public extension SecurityAndAnalysisSecretScanning {
+    init(status: SecurityAndAnalysisSecretScanningStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -244,19 +299,19 @@ public struct SecurityAndAnalysisSecretScanningAiDetection: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanningAiDetection {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanningAiDetection {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisSecretScanningAiDetection {
-    public init(status: SecurityAndAnalysisSecretScanningAiDetectionStatus? = nil) {
+public extension SecurityAndAnalysisSecretScanningAiDetection {
+    init(status: SecurityAndAnalysisSecretScanningAiDetectionStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -272,19 +327,19 @@ public struct SecurityAndAnalysisSecretScanningDelegatedAlertDismissal: Codable 
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedAlertDismissal {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanningDelegatedAlertDismissal {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedAlertDismissal {
-    public init(status: SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus? = nil) {
+public extension SecurityAndAnalysisSecretScanningDelegatedAlertDismissal {
+    init(status: SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -300,25 +355,26 @@ public struct SecurityAndAnalysisSecretScanningDelegatedBypass: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedBypass {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanningDelegatedBypass {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedBypass {
-    public init(status: SecurityAndAnalysisSecretScanningDelegatedBypassStatus? = nil) {
+public extension SecurityAndAnalysisSecretScanningDelegatedBypass {
+    init(status: SecurityAndAnalysisSecretScanningDelegatedBypassStatus? = nil) {
         self.init()
         self.status = status
     }
 }
 
-public typealias SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersList = [SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItem]
+public typealias SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersList =
+    [SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItem]
 
 /// Optional object value serialized in the `secret_scanning_delegated_bypass_options` wire field.
 public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptions: Codable {
@@ -330,19 +386,19 @@ public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptions: Codable {
     }
 
     init() {
-        self.reviewers = nil
+        reviewers = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedBypassOptions {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanningDelegatedBypassOptions {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.reviewers = try container.sdkDecodeIfPresent(.reviewers)
+        reviewers = try container.sdkDecodeIfPresent(.reviewers)
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedBypassOptions {
-    public init(reviewers: SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersList? = nil) {
+public extension SecurityAndAnalysisSecretScanningDelegatedBypassOptions {
+    init(reviewers: SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersList? = nil) {
         self.init()
         self.reviewers = reviewers
     }
@@ -363,26 +419,40 @@ public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersIt
         case mode
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.reviewerId) else {
-            throw SdkValidationError(field: "reviewer_id", code: "required", message: "Validation failed for 'reviewer_id': value is required")
-        }
-        guard container.contains(.reviewerType) else {
-            throw SdkValidationError(field: "reviewer_type", code: "required", message: "Validation failed for 'reviewer_type': value is required")
-        }
-        self.reviewerId = try container.sdkDecodeRequired(.reviewerId)
-        self.reviewerType = try container.sdkDecodeRequired(.reviewerType)
-        self.mode = try container.sdkDecodeIfPresent(.mode)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItem {
-    public init(reviewerId: Int, reviewerType: SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d091f88, mode: SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode? = nil) {
+public extension SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.reviewerId) else {
+            throw SdkValidationError(
+                field: "reviewer_id",
+                code: "required",
+                message: "Validation failed for 'reviewer_id': value is required"
+            )
+        }
+        guard container.contains(.reviewerType) else {
+            throw SdkValidationError(
+                field: "reviewer_type",
+                code: "required",
+                message: "Validation failed for 'reviewer_type': value is required"
+            )
+        }
+        reviewerId = try container.sdkDecodeRequired(.reviewerId)
+        reviewerType = try container.sdkDecodeRequired(.reviewerType)
+        mode = try container.sdkDecodeIfPresent(.mode)
+    }
+}
+
+public extension SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItem {
+    init(
+        reviewerId: Int,
+        reviewerType: SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d091f88,
+        mode: SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode? = nil
+    ) {
         (self.reviewerId, self.reviewerType) = (reviewerId, reviewerType)
         self.mode = mode
     }
@@ -398,19 +468,19 @@ public struct SecurityAndAnalysisSecretScanningNonProviderPatterns: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanningNonProviderPatterns {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanningNonProviderPatterns {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisSecretScanningNonProviderPatterns {
-    public init(status: SecurityAndAnalysisSecretScanningNonProviderPatternsStatus? = nil) {
+public extension SecurityAndAnalysisSecretScanningNonProviderPatterns {
+    init(status: SecurityAndAnalysisSecretScanningNonProviderPatternsStatus? = nil) {
         self.init()
         self.status = status
     }
@@ -426,35 +496,39 @@ public struct SecurityAndAnalysisSecretScanningPushProtection: Codable {
     }
 
     init() {
-        self.status = nil
+        status = nil
     }
 }
 
-extension SecurityAndAnalysisSecretScanningPushProtection {
-    public init(from decoder: Decoder) throws {
+public extension SecurityAndAnalysisSecretScanningPushProtection {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.sdkDecodeIfPresent(.status)
+        status = try container.sdkDecodeIfPresent(.status)
     }
 }
 
-extension SecurityAndAnalysisSecretScanningPushProtection {
-    public init(status: SecurityAndAnalysisSecretScanningPushProtectionStatus? = nil) {
+public extension SecurityAndAnalysisSecretScanningPushProtection {
+    init(status: SecurityAndAnalysisSecretScanningPushProtectionStatus? = nil) {
         self.init()
         self.status = status
     }
 }
 
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisSecretScanningDelegatedBypassStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningDelegatedBypassStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisSecretScanningDelegatedBypassStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisSecretScanningDelegatedBypassStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -464,16 +538,20 @@ public struct SecurityAndAnalysisSecretScanningDelegatedBypassStatus: RawReprese
 }
 
 /// The type of the bypass reviewer
-public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d091f88: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d091f88: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let team = SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d091f88(rawValue: "TEAM")
     public static let role = SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d091f88(rawValue: "ROLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -483,16 +561,20 @@ public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewX210d
 }
 
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisSecretScanningAiDetectionStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningAiDetectionStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisSecretScanningAiDetectionStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisSecretScanningAiDetectionStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

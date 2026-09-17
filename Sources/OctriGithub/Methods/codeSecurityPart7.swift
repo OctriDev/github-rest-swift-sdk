@@ -6,17 +6,40 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeSecurityMethods {
-    /// Sets a code security configuration as a default to be applied to new repositories in your enterprise. This configuration will be applied by default to the matching repository type when created, but only for organizations within the enterprise that do not already have a default code security configuration set. The authenticated user must be an administrator for the enterprise to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint.
+public extension CodeSecurityMethods {
+    /// Sets a code security configuration as a default to be applied to new repositories in your enterprise. This
+    /// configuration will be applied by default to the matching repository type when created, but only for
+    /// organizations within the enterprise that do not already have a default code security configuration set. The
+    /// authenticated user must be an administrator for the enterprise to use this endpoint. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:enterprise` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
     /// - configurationId: The unique identifier of the code security configuration.
     /// - defaultForNewRepos: Specify which types of repository this security
     ///   configuration should be applied to by default.
-    public static func codeSecuritySetConfigurationAsDefaultForEnterprise(config: ClientConfig, enterprise: String, configurationId: Int, defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodyXd7696bf466?) async throws -> CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse {
-        let requestBody = CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody(defaultForNewRepos: defaultForNewRepos)
+    static func codeSecuritySetConfigurationAsDefaultForEnterprise(
+        config: ClientConfig,
+        enterprise: String,
+        configurationId: Int,
+        defaultForNewRepos: CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBodyXd7696bf466?
+    ) async throws -> CodeSecuritySetConfigurationAsDefaultForEnterpriseResponse {
+        let requestBody =
+            CodeSecuritySetConfigurationAsDefaultForEnterpriseRequestBody(defaultForNewRepos: defaultForNewRepos)
 
-        return try (await sdkRequest("PUT", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/code-security/configurations/", sdkEncodePathSegment(sdkWireString(configurationId)), "/defaults"].joined(), config: config, body: requestBody, decoder: .json, operationId: "codeSecuritySetConfigurationAsDefaultForEnterprise")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/code-security/configurations/",
+                sdkEncodePathSegment(sdkWireString(configurationId)),
+                "/defaults",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "codeSecuritySetConfigurationAsDefaultForEnterprise"
+        )).data
     }
 }

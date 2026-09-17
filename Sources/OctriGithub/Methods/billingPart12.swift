@@ -6,10 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension BillingMethods {
+public extension BillingMethods {
     /// Get billing usage report for a user
     ///
-    /// Gets a report of the total usage for a user. **Note:** This endpoint is only available to users with access to the enhanced billing platform.
+    /// Gets a report of the total usage for a user. **Note:** This endpoint is only available to users with access to
+    /// the enhanced billing platform.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -22,11 +23,24 @@ extension BillingMethods {
     /// - day: If specified, only return results for a single day. The value of
     ///   `day` is an integer between `1` and `31`. If no `year` or `month` is
     ///   specified, the default `year` and `month` are used.
-    public static func billingGetGithubBillingUsageReportUser(config: ClientConfig, username: String, year: Int?, month: Int?, day: Int?) async throws -> BillingUsageReportUser {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/usage"].joined(), config: config, query: [
-            SdkQueryParameter("year", value: year),
-            SdkQueryParameter("month", value: month),
-            SdkQueryParameter("day", value: day),
-        ], decoder: .json, operationId: "billingGetGithubBillingUsageReportUser")).data
+    static func billingGetGithubBillingUsageReportUser(
+        config: ClientConfig,
+        username: String,
+        year: Int?,
+        month: Int?,
+        day: Int?
+    ) async throws -> BillingUsageReportUser {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/settings/billing/usage"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("year", value: year),
+                SdkQueryParameter("month", value: month),
+                SdkQueryParameter("day", value: day),
+            ],
+            decoder: .json,
+            operationId: "billingGetGithubBillingUsageReportUser"
+        )).data
     }
 }

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ChecksMethods {
-    public struct ChecksUpdateOptions: Codable {
+public extension ChecksMethods {
+    struct ChecksUpdateOptions: Codable {
         public var owner: String
         public var repo: String
         public var checkRunId: Int
@@ -28,7 +28,10 @@ extension ChecksMethods {
         }
     }
 
-    /// Updates a check run for a specific commit in a repository. > [!NOTE] > The endpoints to manage checks only look for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array. OAuth apps and personal access tokens (classic) cannot use this endpoint.
+    /// Updates a check run for a specific commit in a repository. > [!NOTE] > The endpoints to manage checks only look
+    /// for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked
+    /// repository are not detected and return an empty `pull_requests` array. OAuth apps and personal access tokens
+    /// (classic) cannot use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -62,7 +65,7 @@ extension ChecksMethods {
     ///   requested actions, see "[Check runs and requested
     ///   actions](https://docs.github.com/rest/guides/using-the-rest-api-to-interact-
     ///   with-checks#check-runs-and-requested-actions)."
-    public static func checksUpdate(config: ClientConfig, options: ChecksUpdateOptions) async throws -> CheckRun {
+    static func checksUpdate(config: ClientConfig, options: ChecksUpdateOptions) async throws -> CheckRun {
         if let startedAt = options.startedAt {
             try sdkValidateDateTime("started_at", startedAt)
         }
@@ -77,6 +80,20 @@ extension ChecksMethods {
 
         let requestBody = ChecksUpdateRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/check-runs/", sdkEncodePathSegment(sdkWireString(options.checkRunId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "checksUpdate")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/check-runs/",
+                sdkEncodePathSegment(sdkWireString(options.checkRunId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "checksUpdate"
+        )).data
     }
 }

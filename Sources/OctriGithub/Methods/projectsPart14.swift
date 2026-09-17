@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// Get project for user
     ///
     /// Get a specific user-owned project.
@@ -14,7 +14,22 @@ extension ProjectsMethods {
     /// - Parameters:
     /// - projectNumber: The project's number.
     /// - username: The handle for the GitHub user account.
-    public static func projectsGetForUser(config: ClientConfig, projectNumber: Int, username: String) async throws -> ProjectsV2 {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber))].joined(), config: config, decoder: .json, operationId: "projectsGetForUser")).data
+    static func projectsGetForUser(
+        config: ClientConfig,
+        projectNumber: Int,
+        username: String
+    ) async throws -> ProjectsV2 {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "projectsGetForUser"
+        )).data
     }
 }

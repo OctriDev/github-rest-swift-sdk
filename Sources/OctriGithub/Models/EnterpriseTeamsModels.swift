@@ -3,7 +3,7 @@
 
 import Foundation
 
-// EnterpriseTeams domain models
+/// EnterpriseTeams domain models
 /// Group of enterprise owners and/or members
 public struct EnterpriseTeamWithMemberCount: Codable {
     /// Required `int64`-formatted value serialized in the `id` wire field.
@@ -62,36 +62,54 @@ public struct EnterpriseTeamWithMemberCount: Codable {
         case notificationSetting = "notification_setting"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension EnterpriseTeamWithMemberCount {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.slug = try container.sdkDecodeRequired(.slug)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.groupId = try container.sdkDecodeIfPresent(.groupId)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.membersUrl = try container.sdkDecodeRequired(.membersUrl)
-        self.membersCount = try container.sdkDecodeRequired(.membersCount)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.syncToOrganizations = try container.sdkDecodeIfPresent(.syncToOrganizations)
-        self.organizationSelectionType = try container.sdkDecodeIfPresent(.organizationSelectionType)
-        self.groupName = try container.sdkDecodeIfPresent(.groupName)
-        self.notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension EnterpriseTeamWithMemberCount {
-    public init(id: Int, name: String, slug: String, url: String, groupId: String?, htmlUrl: String, membersUrl: String, membersCount: Int, createdAt: Date, updatedAt: Date, description: String? = nil, syncToOrganizations: String? = nil, organizationSelectionType: String? = nil, groupName: String? = nil, notificationSetting: EnterpriseTeamWithMemberCountNotificationSetting? = nil) throws {
+public extension EnterpriseTeamWithMemberCount {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        slug = try container.sdkDecodeRequired(.slug)
+        url = try container.sdkDecodeRequired(.url)
+        groupId = try container.sdkDecodeIfPresent(.groupId)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        membersUrl = try container.sdkDecodeRequired(.membersUrl)
+        membersCount = try container.sdkDecodeRequired(.membersCount)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        description = try container.sdkDecodeIfPresent(.description)
+        syncToOrganizations = try container.sdkDecodeIfPresent(.syncToOrganizations)
+        organizationSelectionType = try container.sdkDecodeIfPresent(.organizationSelectionType)
+        groupName = try container.sdkDecodeIfPresent(.groupName)
+        notificationSetting = try container.sdkDecodeIfPresent(.notificationSetting)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension EnterpriseTeamWithMemberCount {
+    init(
+        id: Int,
+        name: String,
+        slug: String,
+        url: String,
+        groupId: String?,
+        htmlUrl: String,
+        membersUrl: String,
+        membersCount: Int,
+        createdAt: Date,
+        updatedAt: Date,
+        description: String? = nil,
+        syncToOrganizations: String? = nil,
+        organizationSelectionType: String? = nil,
+        groupName: String? = nil,
+        notificationSetting: EnterpriseTeamWithMemberCountNotificationSetting? = nil
+    ) throws {
         (self.id, self.name) = (id, name)
         (self.slug, self.url) = (slug, url)
         (self.groupId, self.htmlUrl) = (groupId, htmlUrl)
@@ -100,24 +118,30 @@ extension EnterpriseTeamWithMemberCount {
         (self.description, self.syncToOrganizations) = (description, syncToOrganizations)
         (self.organizationSelectionType, self.groupName) = (organizationSelectionType, groupName)
         self.notificationSetting = notificationSetting
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
 /// Whether team members will receive notifications when the team is mentioned.
-public struct EnterpriseTeamWithMemberCountNotificationSetting: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct EnterpriseTeamWithMemberCountNotificationSetting: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let notificationsEnabled = EnterpriseTeamWithMemberCountNotificationSetting(rawValue: "notifications_enabled")
-    public static let notificationsDisabled = EnterpriseTeamWithMemberCountNotificationSetting(rawValue: "notifications_disabled")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let notificationsEnabled =
+        EnterpriseTeamWithMemberCountNotificationSetting(rawValue: "notifications_enabled")
+    public static let notificationsDisabled =
+        EnterpriseTeamWithMemberCountNotificationSetting(rawValue: "notifications_disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Retrieves a specific branch from a repository, including its latest commit, links, and protection configuration. Supply `branch` as the branch name without wildcard characters; use the GraphQL API when you need wildcard matching.
+public extension ReposMethods {
+    /// Retrieves a specific branch from a repository, including its latest commit, links, and protection configuration.
+    /// Supply `branch` as the branch name without wildcard characters; use the GraphQL API when you need wildcard
+    /// matching.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,11 +19,33 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposGetBranch(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> BranchWithProtection {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch))].joined(), config: config, decoder: .json, operationId: "reposGetBranch")).data
+    static func reposGetBranch(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> BranchWithProtection {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetBranch"
+        )).data
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,7 +55,26 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposGetBranchProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> BranchProtection {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection"].joined(), config: config, decoder: .json, operationId: "reposGetBranchProtection")).data
+    static func reposGetBranchProtection(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> BranchProtection {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetBranchProtection"
+        )).data
     }
 }

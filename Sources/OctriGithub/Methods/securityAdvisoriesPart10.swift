@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecurityAdvisoriesMethods {
+public extension SecurityAdvisoriesMethods {
     /// Request a CVE for a repository security advisory
     ///
-    /// If you want a CVE identification number for the security vulnerability in your project, and don't already have one, you can request a CVE identification number from GitHub. For more information see "[Requesting a CVE identification number](https://docs.github.com/code-security/security-advisories/repository-security-advisories/publishing-a-repository-security-advisory#requesting-a-cve-identification-number-optional)." You may request a CVE for public repositories, but cannot do so for private repositories. In order to request a CVE for a repository security advisory, the authenticated user must be a security manager or administrator of that repository. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+    /// If you want a CVE identification number for the security vulnerability in your project, and don't already have
+    /// one, you can request a CVE identification number from GitHub. For more information see "[Requesting a CVE
+    /// identification number](https://docs.github.com/code-security/security-advisories/repository-security-advisories/publishing-a-repository-security-advisory#requesting-a-cve-identification-number-optional)."
+    /// You may request a CVE for public repositories, but cannot do so for private repositories. In order to request a
+    /// CVE for a repository security advisory, the authenticated user must be a security manager or administrator of
+    /// that repository. OAuth app tokens and personal access tokens (classic) need the `repo` or
+    /// `repository_advisories:write` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,13 +23,34 @@ extension SecurityAdvisoriesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - ghsaId: The GHSA (GitHub Security Advisory) identifier of the advisory.
-    public static func securityAdvisoriesCreateRepositoryAdvisoryCveRequest(config: ClientConfig, owner: String, repo: String, ghsaId: String) async throws -> [String: JSONValue] {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/security-advisories/", sdkEncodePathSegment(sdkWireString(ghsaId)), "/cve"].joined(), config: config, decoder: .json, operationId: "securityAdvisoriesCreateRepositoryAdvisoryCveRequest")).data
+    static func securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ghsaId: String
+    ) async throws -> [String: JSONValue] {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/security-advisories/",
+                sdkEncodePathSegment(sdkWireString(ghsaId)),
+                "/cve",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "securityAdvisoriesCreateRepositoryAdvisoryCveRequest"
+        )).data
     }
 
     /// Create a temporary private fork
     ///
-    /// Create a temporary private fork to collaborate on fixing a security vulnerability in your repository. > [!NOTE] > Forking a repository happens asynchronously. You may have to wait up to 5 minutes before you can access the fork.
+    /// Create a temporary private fork to collaborate on fixing a security vulnerability in your repository. > [!NOTE]
+    /// > Forking a repository happens asynchronously. You may have to wait up to 5 minutes before you can access the
+    /// fork.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,7 +58,26 @@ extension SecurityAdvisoriesMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - ghsaId: The GHSA (GitHub Security Advisory) identifier of the advisory.
-    public static func securityAdvisoriesCreateFork(config: ClientConfig, owner: String, repo: String, ghsaId: String) async throws -> FullRepository {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/security-advisories/", sdkEncodePathSegment(sdkWireString(ghsaId)), "/forks"].joined(), config: config, decoder: .json, operationId: "securityAdvisoriesCreateFork")).data
+    static func securityAdvisoriesCreateFork(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ghsaId: String
+    ) async throws -> FullRepository {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/security-advisories/",
+                sdkEncodePathSegment(sdkWireString(ghsaId)),
+                "/forks",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "securityAdvisoriesCreateFork"
+        )).data
     }
 }

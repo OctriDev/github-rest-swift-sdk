@@ -6,12 +6,23 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
-    /// Lists all packages that are in a specific organization, are readable by the requesting user, and that encountered a conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint.
+public extension PackagesMethods {
+    /// Lists all packages that are in a specific organization, are readable by the requesting user, and that
+    /// encountered a conflict during a Docker migration. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:packages` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func packagesListDockerMigrationConflictingPackagesForOrganization(config: ClientConfig, org: String) async throws -> [Package] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/docker/conflicts"].joined(), config: config, decoder: .json, operationId: "packagesListDockerMigrationConflictingPackagesForOrganization")).data
+    static func packagesListDockerMigrationConflictingPackagesForOrganization(
+        config: ClientConfig,
+        org: String
+    ) async throws -> [Package] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/docker/conflicts"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "packagesListDockerMigrationConflictingPackagesForOrganization"
+        )).data
     }
 }

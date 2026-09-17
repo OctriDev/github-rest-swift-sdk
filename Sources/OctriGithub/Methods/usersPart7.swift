@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List the people the authenticated user follows
     ///
     /// Lists the people who the authenticated user follows.
@@ -20,8 +20,12 @@ extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func usersListFollowedByAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try (await sdkRequest("GET", "/user/following", config: config, query: [
+    static func usersListFollowedByAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [SimpleUser] {
+        try await (sdkRequest("GET", "/user/following", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListFollowedByAuthenticatedUser")).data
@@ -31,17 +35,34 @@ extension UsersMethods {
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    public static func usersCheckPersonIsFollowedByAuthenticated(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/user/following/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "usersCheckPersonIsFollowedByAuthenticated")).data
+    static func usersCheckPersonIsFollowedByAuthenticated(
+        config: ClientConfig,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/user/following/", sdkEncodePathSegment(sdkWireString(username))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersCheckPersonIsFollowedByAuthenticated"
+        )).data
     }
 
     /// Follow a user
     ///
-    /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)." OAuth app tokens and personal access tokens (classic) need the `user:follow` scope to use this endpoint.
+    /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information,
+    /// see "[HTTP verbs](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)." OAuth app
+    /// tokens and personal access tokens (classic) need the `user:follow` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    public static func usersFollow(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/user/following/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "usersFollow")).data
+    static func usersFollow(config: ClientConfig, username: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            ["/user/following/", sdkEncodePathSegment(sdkWireString(username))].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "usersFollow"
+        )).data
     }
 }

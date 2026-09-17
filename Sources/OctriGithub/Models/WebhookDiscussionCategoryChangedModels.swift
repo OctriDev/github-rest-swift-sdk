@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDiscussionCategoryChanged domain models
+/// WebhookDiscussionCategoryChanged domain models
 /// Typed representation of the `WebhookDiscussionCategoryChanged` API schema.
 public struct WebhookDiscussionCategoryChanged: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -39,40 +39,71 @@ public struct WebhookDiscussionCategoryChanged: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCategoryChanged {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.discussion) else {
-            throw SdkValidationError(field: "discussion", code: "required", message: "Validation failed for 'discussion': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.discussion = try container.sdkDecodeRequired(.discussion)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCategoryChanged {
-    public init(action: WebhookDiscussionCategoryChangedAction, changes: WebhookDiscussionCategoryChangedChanges, discussion: Discussion, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookDiscussionCategoryChanged {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.discussion) else {
+            throw SdkValidationError(
+                field: "discussion",
+                code: "required",
+                message: "Validation failed for 'discussion': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        discussion = try container.sdkDecodeRequired(.discussion)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookDiscussionCategoryChanged {
+    init(
+        action: WebhookDiscussionCategoryChangedAction,
+        changes: WebhookDiscussionCategoryChangedChanges,
+        discussion: Discussion,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.changes) = (action, changes)
         (self.discussion, self.repository) = (discussion, repository)
         (self.sender, self.enterprise) = (sender, enterprise)
@@ -89,21 +120,27 @@ public struct WebhookDiscussionCategoryChangedChanges: Codable {
         case category
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCategoryChangedChanges {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.category) else {
-            throw SdkValidationError(field: "category", code: "required", message: "Validation failed for 'category': value is required")
-        }
-        self.category = try container.sdkDecodeRequired(.category)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCategoryChangedChanges {
-    public init(category: WebhookDiscussionCategoryChangedChangesCategory) {
+public extension WebhookDiscussionCategoryChangedChanges {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.category) else {
+            throw SdkValidationError(
+                field: "category",
+                code: "required",
+                message: "Validation failed for 'category': value is required"
+            )
+        }
+        category = try container.sdkDecodeRequired(.category)
+    }
+}
+
+public extension WebhookDiscussionCategoryChangedChanges {
+    init(category: WebhookDiscussionCategoryChangedChangesCategory) {
         self.category = category
     }
 }
@@ -117,21 +154,27 @@ public struct WebhookDiscussionCategoryChangedChangesCategory: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCategoryChangedChangesCategory {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCategoryChangedChangesCategory {
-    public init(from: WebhookDiscussionCategoryChangedChangesCategoryFrom) {
+public extension WebhookDiscussionCategoryChangedChangesCategory {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookDiscussionCategoryChangedChangesCategory {
+    init(from: WebhookDiscussionCategoryChangedChangesCategoryFrom) {
         self.from = from
     }
 }
@@ -172,47 +215,64 @@ public struct WebhookDiscussionCategoryChangedChangesCategoryFrom: Codable {
         case nodeId = "node_id"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCategoryChangedChangesCategoryFrom {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.description = try container.sdkDecodeRequired(.description)
-        self.emoji = try container.sdkDecodeRequired(.emoji)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.isAnswerable = try container.sdkDecodeRequired(.isAnswerable)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.repositoryId = try container.sdkDecodeRequired(.repositoryId)
-        self.slug = try container.sdkDecodeRequired(.slug)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCategoryChangedChangesCategoryFrom {
-    public init(createdAt: Date, description: String, emoji: String, id: Int, isAnswerable: Bool, name: String, repositoryId: Int, slug: String, updatedAt: String, nodeId: String? = nil) throws {
+public extension WebhookDiscussionCategoryChangedChangesCategoryFrom {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        description = try container.sdkDecodeRequired(.description)
+        emoji = try container.sdkDecodeRequired(.emoji)
+        id = try container.sdkDecodeRequired(.id)
+        isAnswerable = try container.sdkDecodeRequired(.isAnswerable)
+        name = try container.sdkDecodeRequired(.name)
+        repositoryId = try container.sdkDecodeRequired(.repositoryId)
+        slug = try container.sdkDecodeRequired(.slug)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+    }
+}
+
+public extension WebhookDiscussionCategoryChangedChangesCategoryFrom {
+    init(
+        createdAt: Date,
+        description: String,
+        emoji: String,
+        id: Int,
+        isAnswerable: Bool,
+        name: String,
+        repositoryId: Int,
+        slug: String,
+        updatedAt: String,
+        nodeId: String? = nil
+    ) throws {
         (self.createdAt, self.description) = (createdAt, description)
         (self.emoji, self.id) = (emoji, id)
         (self.isAnswerable, self.name) = (isAnswerable, name)
         (self.repositoryId, self.slug) = (repositoryId, slug)
         (self.updatedAt, self.nodeId) = (updatedAt, nodeId)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookDiscussionCategoryChangedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookDiscussionCategoryChangedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let categoryChanged = WebhookDiscussionCategoryChangedAction(rawValue: "category_changed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

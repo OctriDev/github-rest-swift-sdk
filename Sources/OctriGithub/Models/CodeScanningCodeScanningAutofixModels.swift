@@ -3,7 +3,7 @@
 
 import Foundation
 
-// CodeScanningCodeScanningAutofix domain models
+/// CodeScanningCodeScanningAutofix domain models
 public typealias CodeScanningAutofixDescription = String
 
 public typealias CodeScanningAutofixStartedAt = Date
@@ -23,33 +23,51 @@ public struct CodeScanningAutofix: Codable {
         case startedAt = "started_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension CodeScanningAutofix {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.status) else {
-            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
-        }
-        guard container.contains(.description) else {
-            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
-        }
-        guard container.contains(.startedAt) else {
-            throw SdkValidationError(field: "started_at", code: "required", message: "Validation failed for 'started_at': value is required")
-        }
-        self.status = try container.sdkDecodeRequired(.status)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.startedAt = try container.sdkDecodeRequired(.startedAt)
-            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension CodeScanningAutofix {
-    public init(status: CodeScanningAutofixStatus, description: CodeScanningAutofixDescription?, startedAt: CodeScanningAutofixStartedAt) throws {
+public extension CodeScanningAutofix {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.status) else {
+            throw SdkValidationError(
+                field: "status",
+                code: "required",
+                message: "Validation failed for 'status': value is required"
+            )
+        }
+        guard container.contains(.description) else {
+            throw SdkValidationError(
+                field: "description",
+                code: "required",
+                message: "Validation failed for 'description': value is required"
+            )
+        }
+        guard container.contains(.startedAt) else {
+            throw SdkValidationError(
+                field: "started_at",
+                code: "required",
+                message: "Validation failed for 'started_at': value is required"
+            )
+        }
+        status = try container.sdkDecodeRequired(.status)
+        description = try container.sdkDecodeIfPresent(.description)
+        startedAt = try container.sdkDecodeRequired(.startedAt)
+        try sdkValidateDateTime("started_at", sdkWireString(startedAt))
+    }
+}
+
+public extension CodeScanningAutofix {
+    init(
+        status: CodeScanningAutofixStatus,
+        description: CodeScanningAutofixDescription?,
+        startedAt: CodeScanningAutofixStartedAt
+    ) throws {
         (self.status, self.description) = (status, description)
         self.startedAt = startedAt
-            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
+        try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
     }
 }
 
@@ -67,20 +85,20 @@ public struct CodeScanningAutofixCommits: Codable {
     }
 
     init() {
-        (self.targetRef, self.message) = (nil, nil)
+        (targetRef, message) = (nil, nil)
     }
 }
 
-extension CodeScanningAutofixCommits {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAutofixCommits {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.targetRef = try container.sdkDecodeIfPresent(.targetRef)
-        self.message = try container.sdkDecodeIfPresent(.message)
+        targetRef = try container.sdkDecodeIfPresent(.targetRef)
+        message = try container.sdkDecodeIfPresent(.message)
     }
 }
 
-extension CodeScanningAutofixCommits {
-    public init(targetRef: String? = nil, message: String? = nil) {
+public extension CodeScanningAutofixCommits {
+    init(targetRef: String? = nil, message: String? = nil) {
         self.init()
         (self.targetRef, self.message) = (targetRef, message)
     }
@@ -100,20 +118,20 @@ public struct CodeScanningAutofixCommitsResponse: Codable {
     }
 
     init() {
-        (self.targetRef, self.sha) = (nil, nil)
+        (targetRef, sha) = (nil, nil)
     }
 }
 
-extension CodeScanningAutofixCommitsResponse {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAutofixCommitsResponse {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.targetRef = try container.sdkDecodeIfPresent(.targetRef)
-        self.sha = try container.sdkDecodeIfPresent(.sha)
+        targetRef = try container.sdkDecodeIfPresent(.targetRef)
+        sha = try container.sdkDecodeIfPresent(.sha)
     }
 }
 
-extension CodeScanningAutofixCommitsResponse {
-    public init(targetRef: String? = nil, sha: String? = nil) {
+public extension CodeScanningAutofixCommitsResponse {
+    init(targetRef: String? = nil, sha: String? = nil) {
         self.init()
         (self.targetRef, self.sha) = (targetRef, sha)
     }
@@ -123,7 +141,10 @@ extension CodeScanningAutofixCommitsResponse {
 public struct CodeScanningAutofixStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pending = CodeScanningAutofixStatus(rawValue: "pending")
     public static let error = CodeScanningAutofixStatus(rawValue: "error")
     public static let success = CodeScanningAutofixStatus(rawValue: "success")
@@ -131,7 +152,7 @@ public struct CodeScanningAutofixStatus: RawRepresentable, Hashable, Codable, Se
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

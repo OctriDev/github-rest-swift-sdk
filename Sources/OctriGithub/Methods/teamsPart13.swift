@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension TeamsMethods {
-    /// Lists the child teams of the team specified by `{team_slug}`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`.
+public extension TeamsMethods {
+    /// Lists the child teams of the team specified by `{team_slug}`. > [!NOTE] > You can also specify a team by
+    /// `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,22 +21,49 @@ extension TeamsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func teamsListChildInOrg(config: ClientConfig, org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [Team] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/teams/", sdkEncodePathSegment(sdkWireString(teamSlug)), "/teams"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "teamsListChildInOrg")).data
+    static func teamsListChildInOrg(
+        config: ClientConfig,
+        org: String,
+        teamSlug: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Team] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(teamSlug)),
+                "/teams",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "teamsListChildInOrg"
+        )).data
     }
 
     /// Get a team (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the [Get a team by
+    /// name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint.
     ///
     /// - Parameters:
     /// - teamId: The unique identifier of the team.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func teamsGetLegacy(config: ClientConfig, teamId: Int) async throws -> TeamFull {
-        return try (await sdkRequest("GET", ["/teams/", sdkEncodePathSegment(sdkWireString(teamId))].joined(), config: config, decoder: .json, operationId: "teamsGetLegacy")).data
+    static func teamsGetLegacy(config: ClientConfig, teamId: Int) async throws -> TeamFull {
+        try await (sdkRequest(
+            "GET",
+            ["/teams/", sdkEncodePathSegment(sdkWireString(teamId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "teamsGetLegacy"
+        )).data
     }
 }

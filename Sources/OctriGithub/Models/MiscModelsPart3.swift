@@ -3,74 +3,132 @@
 
 import Foundation
 
-// Misc domain models
-extension PullRequestWebhook {
-    public init(from decoder: Decoder) throws {
+/// Misc domain models
+public extension PullRequestWebhook {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.diffUrl = try container.sdkDecodeRequired(.diffUrl)
-        self.patchUrl = try container.sdkDecodeRequired(.patchUrl)
-        self.issueUrl = try container.sdkDecodeRequired(.issueUrl)
-        self.commitsUrl = try container.sdkDecodeRequired(.commitsUrl)
-        self.reviewCommentsUrl = try container.sdkDecodeRequired(.reviewCommentsUrl)
-        self.reviewCommentUrl = try container.sdkDecodeRequired(.reviewCommentUrl)
-        self.commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
-        self.statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.locked = try container.sdkDecodeRequired(.locked)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.user = try container.sdkDecodeRequired(.user)
-        self.body = try container.sdkDecodeIfPresent(.body)
-        self.labels = try container.sdkDecodeRequired(.labels)
-        self.milestone = try container.sdkDecodeIfPresent(.milestone)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.closedAt = try container.sdkDecodeIfPresent(.closedAt)
-        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        self.mergeCommitSha = try container.sdkDecodeIfPresent(.mergeCommitSha)
-        self.assignee = try container.sdkDecodeIfPresent(.assignee)
-        self.head = try container.sdkDecodeRequired(.head)
-        self.base = try container.sdkDecodeRequired(.base)
-        self.links = try container.sdkDecodeRequired(.links)
-        self.authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
-        self.autoMerge = try container.sdkDecodeIfPresent(.autoMerge)
-        self.merged = try container.sdkDecodeRequired(.merged)
-        self.mergeable = try container.sdkDecodeIfPresent(.mergeable)
-        self.mergeableState = try container.sdkDecodeRequired(.mergeableState)
-        self.mergedBy = try container.sdkDecodeIfPresent(.mergedBy)
-        self.comments = try container.sdkDecodeRequired(.comments)
-        self.reviewComments = try container.sdkDecodeRequired(.reviewComments)
-        self.maintainerCanModify = try container.sdkDecodeRequired(.maintainerCanModify)
-        self.commits = try container.sdkDecodeRequired(.commits)
-        self.additions = try container.sdkDecodeRequired(.additions)
-        self.deletions = try container.sdkDecodeRequired(.deletions)
-        self.changedFiles = try container.sdkDecodeRequired(.changedFiles)
-        self.activeLockReason = try container.sdkDecodeIfPresent(.activeLockReason)
-        self.assignees = try container.sdkDecodeIfPresent(.assignees)
-        self.requestedReviewers = try container.sdkDecodeIfPresent(.requestedReviewers)
-        self.requestedTeams = try container.sdkDecodeIfPresent(.requestedTeams)
-        self.stack = try container.sdkDecodeIfPresent(.stack)
-        self.draft = try container.sdkDecodeIfPresent(.draft)
-        self.rebaseable = try container.sdkDecodeIfPresent(.rebaseable)
-        self.allowAutoMerge = try container.sdkDecodeIfPresent(.allowAutoMerge)
-        self.allowUpdateBranch = try container.sdkDecodeIfPresent(.allowUpdateBranch)
-        self.deleteBranchOnMerge = try container.sdkDecodeIfPresent(.deleteBranchOnMerge)
-        self.mergeCommitMessage = try container.sdkDecodeIfPresent(.mergeCommitMessage)
-        self.mergeCommitTitle = try container.sdkDecodeIfPresent(.mergeCommitTitle)
-        self.squashMergeCommitMessage = try container.sdkDecodeIfPresent(.squashMergeCommitMessage)
-        self.squashMergeCommitTitle = try container.sdkDecodeIfPresent(.squashMergeCommitTitle)
-        self.useSquashPrTitleAsDefault = try container.sdkDecodeIfPresent(.useSquashPrTitleAsDefault)
+        url = try container.sdkDecodeRequired(.url)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        diffUrl = try container.sdkDecodeRequired(.diffUrl)
+        patchUrl = try container.sdkDecodeRequired(.patchUrl)
+        issueUrl = try container.sdkDecodeRequired(.issueUrl)
+        commitsUrl = try container.sdkDecodeRequired(.commitsUrl)
+        reviewCommentsUrl = try container.sdkDecodeRequired(.reviewCommentsUrl)
+        reviewCommentUrl = try container.sdkDecodeRequired(.reviewCommentUrl)
+        commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
+        statusesUrl = try container.sdkDecodeRequired(.statusesUrl)
+        number = try container.sdkDecodeRequired(.number)
+        state = try container.sdkDecodeRequired(.state)
+        locked = try container.sdkDecodeRequired(.locked)
+        title = try container.sdkDecodeRequired(.title)
+        user = try container.sdkDecodeRequired(.user)
+        body = try container.sdkDecodeIfPresent(.body)
+        labels = try container.sdkDecodeRequired(.labels)
+        milestone = try container.sdkDecodeIfPresent(.milestone)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        closedAt = try container.sdkDecodeIfPresent(.closedAt)
+        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        mergeCommitSha = try container.sdkDecodeIfPresent(.mergeCommitSha)
+        assignee = try container.sdkDecodeIfPresent(.assignee)
+        head = try container.sdkDecodeRequired(.head)
+        base = try container.sdkDecodeRequired(.base)
+        links = try container.sdkDecodeRequired(.links)
+        authorAssociation = try container.sdkDecodeRequired(.authorAssociation)
+        autoMerge = try container.sdkDecodeIfPresent(.autoMerge)
+        merged = try container.sdkDecodeRequired(.merged)
+        mergeable = try container.sdkDecodeIfPresent(.mergeable)
+        mergeableState = try container.sdkDecodeRequired(.mergeableState)
+        mergedBy = try container.sdkDecodeIfPresent(.mergedBy)
+        comments = try container.sdkDecodeRequired(.comments)
+        reviewComments = try container.sdkDecodeRequired(.reviewComments)
+        maintainerCanModify = try container.sdkDecodeRequired(.maintainerCanModify)
+        commits = try container.sdkDecodeRequired(.commits)
+        additions = try container.sdkDecodeRequired(.additions)
+        deletions = try container.sdkDecodeRequired(.deletions)
+        changedFiles = try container.sdkDecodeRequired(.changedFiles)
+        activeLockReason = try container.sdkDecodeIfPresent(.activeLockReason)
+        assignees = try container.sdkDecodeIfPresent(.assignees)
+        requestedReviewers = try container.sdkDecodeIfPresent(.requestedReviewers)
+        requestedTeams = try container.sdkDecodeIfPresent(.requestedTeams)
+        stack = try container.sdkDecodeIfPresent(.stack)
+        draft = try container.sdkDecodeIfPresent(.draft)
+        rebaseable = try container.sdkDecodeIfPresent(.rebaseable)
+        allowAutoMerge = try container.sdkDecodeIfPresent(.allowAutoMerge)
+        allowUpdateBranch = try container.sdkDecodeIfPresent(.allowUpdateBranch)
+        deleteBranchOnMerge = try container.sdkDecodeIfPresent(.deleteBranchOnMerge)
+        mergeCommitMessage = try container.sdkDecodeIfPresent(.mergeCommitMessage)
+        mergeCommitTitle = try container.sdkDecodeIfPresent(.mergeCommitTitle)
+        squashMergeCommitMessage = try container.sdkDecodeIfPresent(.squashMergeCommitMessage)
+        squashMergeCommitTitle = try container.sdkDecodeIfPresent(.squashMergeCommitTitle)
+        useSquashPrTitleAsDefault = try container.sdkDecodeIfPresent(.useSquashPrTitleAsDefault)
         try sdkValidateConstraintsPart1()
         try sdkValidateConstraintsPart2()
     }
 }
 
-extension PullRequestWebhook {
-    public init(url: String, id: Int, nodeId: String, htmlUrl: String, diffUrl: String, patchUrl: String, issueUrl: String, commitsUrl: String, reviewCommentsUrl: String, reviewCommentUrl: String, commentsUrl: String, statusesUrl: String, number: Int, state: PullRequestState, locked: Bool, title: String, user: SimpleUser, body: String?, labels: [PullRequestLabelsItem], milestone: NullableMilestone?, createdAt: Date, updatedAt: Date, closedAt: Date?, mergedAt: Date?, mergeCommitSha: String?, assignee: NullableSimpleUser?, head: PullRequestHead, base: PullRequestBase, links: PullRequestLinks, authorAssociation: AuthorAssociation, autoMerge: AutoMerge?, merged: Bool, mergeable: Bool?, mergeableState: String, mergedBy: NullableSimpleUser?, comments: Int, reviewComments: Int, maintainerCanModify: Bool, commits: Int, additions: Int, deletions: Int, changedFiles: Int, activeLockReason: String? = nil, assignees: [SimpleUser]? = nil, requestedReviewers: [SimpleUser]? = nil, requestedTeams: [TeamSimple]? = nil, stack: PullRequestStack? = nil, draft: Bool? = nil, rebaseable: Bool? = nil, allowAutoMerge: Bool? = nil, allowUpdateBranch: Bool? = nil, deleteBranchOnMerge: Bool? = nil, mergeCommitMessage: PullRequestWebhookVariant1MergeCommitMessage? = nil, mergeCommitTitle: PullRequestWebhookVariant1MergeCommitTitle? = nil, squashMergeCommitMessage: PullRequestWebhookVariant1SquashMergeCommitMessage? = nil, squashMergeCommitTitle: PullRequestWebhookVariant1SquashMergeCommitTitle? = nil, useSquashPrTitleAsDefault: Bool? = nil) throws {
+public extension PullRequestWebhook {
+    init(
+        url: String,
+        id: Int,
+        nodeId: String,
+        htmlUrl: String,
+        diffUrl: String,
+        patchUrl: String,
+        issueUrl: String,
+        commitsUrl: String,
+        reviewCommentsUrl: String,
+        reviewCommentUrl: String,
+        commentsUrl: String,
+        statusesUrl: String,
+        number: Int,
+        state: PullRequestState,
+        locked: Bool,
+        title: String,
+        user: SimpleUser,
+        body: String?,
+        labels: [PullRequestLabelsItem],
+        milestone: NullableMilestone?,
+        createdAt: Date,
+        updatedAt: Date,
+        closedAt: Date?,
+        mergedAt: Date?,
+        mergeCommitSha: String?,
+        assignee: NullableSimpleUser?,
+        head: PullRequestHead,
+        base: PullRequestBase,
+        links: PullRequestLinks,
+        authorAssociation: AuthorAssociation,
+        autoMerge: AutoMerge?,
+        merged: Bool,
+        mergeable: Bool?,
+        mergeableState: String,
+        mergedBy: NullableSimpleUser?,
+        comments: Int,
+        reviewComments: Int,
+        maintainerCanModify: Bool,
+        commits: Int,
+        additions: Int,
+        deletions: Int,
+        changedFiles: Int,
+        activeLockReason: String? = nil,
+        assignees: [SimpleUser]? = nil,
+        requestedReviewers: [SimpleUser]? = nil,
+        requestedTeams: [TeamSimple]? = nil,
+        stack: PullRequestStack? = nil,
+        draft: Bool? = nil,
+        rebaseable: Bool? = nil,
+        allowAutoMerge: Bool? = nil,
+        allowUpdateBranch: Bool? = nil,
+        deleteBranchOnMerge: Bool? = nil,
+        mergeCommitMessage: PullRequestWebhookVariant1MergeCommitMessage? = nil,
+        mergeCommitTitle: PullRequestWebhookVariant1MergeCommitTitle? = nil,
+        squashMergeCommitMessage: PullRequestWebhookVariant1SquashMergeCommitMessage? = nil,
+        squashMergeCommitTitle: PullRequestWebhookVariant1SquashMergeCommitTitle? = nil,
+        useSquashPrTitleAsDefault: Bool? = nil
+    ) throws {
         (self.url, self.id) = (url, id)
         (self.nodeId, self.htmlUrl) = (nodeId, htmlUrl)
         (self.diffUrl, self.patchUrl) = (diffUrl, patchUrl)
@@ -108,18 +166,18 @@ extension PullRequestWebhook {
 
 extension PullRequestWebhook {
     func sdkValidateConstraintsPart1() throws {
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("diff_url", self.diffUrl)
-            try sdkValidateUri("patch_url", self.patchUrl)
-            try sdkValidateUri("issue_url", self.issueUrl)
-            try sdkValidateUri("commits_url", self.commitsUrl)
-            try sdkValidateUri("review_comments_url", self.reviewCommentsUrl)
-            try sdkValidateUri("comments_url", self.commentsUrl)
-            try sdkValidateUri("statuses_url", self.statusesUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.closedAt {
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("diff_url", diffUrl)
+        try sdkValidateUri("patch_url", patchUrl)
+        try sdkValidateUri("issue_url", issueUrl)
+        try sdkValidateUri("commits_url", commitsUrl)
+        try sdkValidateUri("review_comments_url", reviewCommentsUrl)
+        try sdkValidateUri("comments_url", commentsUrl)
+        try sdkValidateUri("statuses_url", statusesUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = closedAt {
             try sdkValidateDateTime("closed_at", sdkWireString(value))
         }
     }
@@ -127,7 +185,7 @@ extension PullRequestWebhook {
 
 extension PullRequestWebhook {
     func sdkValidateConstraintsPart2() throws {
-        if let value = self.mergedAt {
+        if let value = mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
     }
@@ -171,27 +229,42 @@ public struct PullRequestWebhookVariant1: Codable {
     }
 
     init() {
-        (self.allowAutoMerge, self.allowUpdateBranch, self.deleteBranchOnMerge, self.mergeCommitMessage, self.mergeCommitTitle) = (nil, nil, nil, nil, nil)
-        (self.squashMergeCommitMessage, self.squashMergeCommitTitle, self.useSquashPrTitleAsDefault) = (nil, nil, nil)
+        (allowAutoMerge, allowUpdateBranch, deleteBranchOnMerge, mergeCommitMessage, mergeCommitTitle) = (
+            nil,
+            nil,
+            nil,
+            nil,
+            nil
+        )
+        (squashMergeCommitMessage, squashMergeCommitTitle, useSquashPrTitleAsDefault) = (nil, nil, nil)
     }
 }
 
-extension PullRequestWebhookVariant1 {
-    public init(from decoder: Decoder) throws {
+public extension PullRequestWebhookVariant1 {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.allowAutoMerge = try container.sdkDecodeIfPresent(.allowAutoMerge)
-        self.allowUpdateBranch = try container.sdkDecodeIfPresent(.allowUpdateBranch)
-        self.deleteBranchOnMerge = try container.sdkDecodeIfPresent(.deleteBranchOnMerge)
-        self.mergeCommitMessage = try container.sdkDecodeIfPresent(.mergeCommitMessage)
-        self.mergeCommitTitle = try container.sdkDecodeIfPresent(.mergeCommitTitle)
-        self.squashMergeCommitMessage = try container.sdkDecodeIfPresent(.squashMergeCommitMessage)
-        self.squashMergeCommitTitle = try container.sdkDecodeIfPresent(.squashMergeCommitTitle)
-        self.useSquashPrTitleAsDefault = try container.sdkDecodeIfPresent(.useSquashPrTitleAsDefault)
+        allowAutoMerge = try container.sdkDecodeIfPresent(.allowAutoMerge)
+        allowUpdateBranch = try container.sdkDecodeIfPresent(.allowUpdateBranch)
+        deleteBranchOnMerge = try container.sdkDecodeIfPresent(.deleteBranchOnMerge)
+        mergeCommitMessage = try container.sdkDecodeIfPresent(.mergeCommitMessage)
+        mergeCommitTitle = try container.sdkDecodeIfPresent(.mergeCommitTitle)
+        squashMergeCommitMessage = try container.sdkDecodeIfPresent(.squashMergeCommitMessage)
+        squashMergeCommitTitle = try container.sdkDecodeIfPresent(.squashMergeCommitTitle)
+        useSquashPrTitleAsDefault = try container.sdkDecodeIfPresent(.useSquashPrTitleAsDefault)
     }
 }
 
-extension PullRequestWebhookVariant1 {
-    public init(allowAutoMerge: Bool? = nil, allowUpdateBranch: Bool? = nil, deleteBranchOnMerge: Bool? = nil, mergeCommitMessage: PullRequestWebhookVariant1MergeCommitMessage? = nil, mergeCommitTitle: PullRequestWebhookVariant1MergeCommitTitle? = nil, squashMergeCommitMessage: PullRequestWebhookVariant1SquashMergeCommitMessage? = nil, squashMergeCommitTitle: PullRequestWebhookVariant1SquashMergeCommitTitle? = nil, useSquashPrTitleAsDefault: Bool? = nil) {
+public extension PullRequestWebhookVariant1 {
+    init(
+        allowAutoMerge: Bool? = nil,
+        allowUpdateBranch: Bool? = nil,
+        deleteBranchOnMerge: Bool? = nil,
+        mergeCommitMessage: PullRequestWebhookVariant1MergeCommitMessage? = nil,
+        mergeCommitTitle: PullRequestWebhookVariant1MergeCommitTitle? = nil,
+        squashMergeCommitMessage: PullRequestWebhookVariant1SquashMergeCommitMessage? = nil,
+        squashMergeCommitTitle: PullRequestWebhookVariant1SquashMergeCommitTitle? = nil,
+        useSquashPrTitleAsDefault: Bool? = nil
+    ) {
         self.init()
         (self.allowAutoMerge, self.allowUpdateBranch) = (allowAutoMerge, allowUpdateBranch)
         (self.deleteBranchOnMerge, self.mergeCommitMessage) = (deleteBranchOnMerge, mergeCommitMessage)
@@ -204,17 +277,21 @@ extension PullRequestWebhookVariant1 {
 
 /// The default value for a merge commit message. - `PR_TITLE` - default to the pull request's title. -
 /// `PR_BODY` - default to the pull request's body. - `BLANK` - default to a blank commit message.
-public struct PullRequestWebhookVariant1MergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestWebhookVariant1MergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = PullRequestWebhookVariant1MergeCommitMessage(rawValue: "PR_BODY")
     public static let prTitle = PullRequestWebhookVariant1MergeCommitMessage(rawValue: "PR_TITLE")
     public static let blank = PullRequestWebhookVariant1MergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -226,16 +303,20 @@ public struct PullRequestWebhookVariant1MergeCommitMessage: RawRepresentable, Ha
 /// The default value for a merge commit title. - `PR_TITLE` - default to the pull request's title. -
 /// `MERGE_MESSAGE` - default to the classic title for a merge message (e.g., "Merge pull request #123 from
 /// branch-name").
-public struct PullRequestWebhookVariant1MergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestWebhookVariant1MergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = PullRequestWebhookVariant1MergeCommitTitle(rawValue: "PR_TITLE")
     public static let mergeMessage = PullRequestWebhookVariant1MergeCommitTitle(rawValue: "MERGE_MESSAGE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -248,7 +329,10 @@ public struct PullRequestWebhookVariant1MergeCommitTitle: RawRepresentable, Hash
 public struct CheckRunWithSimpleCheckSuiteStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let queued = CheckRunWithSimpleCheckSuiteStatus(rawValue: "queued")
     public static let inProgress = CheckRunWithSimpleCheckSuiteStatus(rawValue: "in_progress")
     public static let completed = CheckRunWithSimpleCheckSuiteStatus(rawValue: "completed")
@@ -256,7 +340,7 @@ public struct CheckRunWithSimpleCheckSuiteStatus: RawRepresentable, Hashable, Co
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -266,10 +350,14 @@ public struct CheckRunWithSimpleCheckSuiteStatus: RawRepresentable, Hashable, Co
 }
 
 /// Required enumerated value serialized in the `conclusion` wire field.
-public struct CheckRunWithSimpleCheckSuiteConclusion: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CheckRunWithSimpleCheckSuiteConclusion: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let waiting = CheckRunWithSimpleCheckSuiteConclusion(rawValue: "waiting")
     public static let pending = CheckRunWithSimpleCheckSuiteConclusion(rawValue: "pending")
     public static let startupFailure = CheckRunWithSimpleCheckSuiteConclusion(rawValue: "startup_failure")
@@ -284,7 +372,7 @@ public struct CheckRunWithSimpleCheckSuiteConclusion: RawRepresentable, Hashable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -296,16 +384,20 @@ public struct CheckRunWithSimpleCheckSuiteConclusion: RawRepresentable, Hashable
 /// The default value for a squash merge commit title: - `PR_TITLE` - default to the pull request's title. -
 /// `COMMIT_OR_PR_TITLE` - default to the commit's title (if only one commit) or the pull request's title (when
 /// more than one commit).
-public struct PullRequestWebhookVariant1SquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestWebhookVariant1SquashMergeCommitTitle: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prTitle = PullRequestWebhookVariant1SquashMergeCommitTitle(rawValue: "PR_TITLE")
     public static let commitOrPrTitle = PullRequestWebhookVariant1SquashMergeCommitTitle(rawValue: "COMMIT_OR_PR_TITLE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -315,17 +407,21 @@ public struct PullRequestWebhookVariant1SquashMergeCommitTitle: RawRepresentable
 }
 
 /// Type of repository selection requested.
-public struct PersonalAccessTokenRequestRepositorySelection: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PersonalAccessTokenRequestRepositorySelection: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let none = PersonalAccessTokenRequestRepositorySelection(rawValue: "none")
     public static let all = PersonalAccessTokenRequestRepositorySelection(rawValue: "all")
     public static let subset = PersonalAccessTokenRequestRepositorySelection(rawValue: "subset")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -336,17 +432,21 @@ public struct PersonalAccessTokenRequestRepositorySelection: RawRepresentable, H
 
 /// The default value for a squash merge commit message: - `PR_BODY` - default to the pull request's body. -
 /// `COMMIT_MESSAGES` - default to the branch's commit messages. - `BLANK` - default to a blank commit message.
-public struct PullRequestWebhookVariant1SquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestWebhookVariant1SquashMergeCommitMessage: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let prBody = PullRequestWebhookVariant1SquashMergeCommitMessage(rawValue: "PR_BODY")
     public static let commitMessages = PullRequestWebhookVariant1SquashMergeCommitMessage(rawValue: "COMMIT_MESSAGES")
     public static let blank = PullRequestWebhookVariant1SquashMergeCommitMessage(rawValue: "BLANK")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -359,13 +459,16 @@ public struct PullRequestWebhookVariant1SquashMergeCommitMessage: RawRepresentab
 public struct CampaignAlertType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let codeScanning = CampaignAlertType(rawValue: "code_scanning")
     public static let secretScanning = CampaignAlertType(rawValue: "secret_scanning")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

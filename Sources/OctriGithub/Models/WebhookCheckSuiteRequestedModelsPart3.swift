@@ -3,9 +3,9 @@
 
 import Foundation
 
-// WebhookCheckSuiteRequested domain models
-extension WebhookCheckSuiteRequestedCheckSuiteHeadCommitCommitter {
-    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+/// WebhookCheckSuiteRequested domain models
+public extension WebhookCheckSuiteRequestedCheckSuiteHeadCommitCommitter {
+    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -38,42 +38,70 @@ public struct WebhookCheckSuiteRequestedCheckSuitePullRequestsItem: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.base) else {
-            throw SdkValidationError(field: "base", code: "required", message: "Validation failed for 'base': value is required")
-        }
-        guard container.contains(.head) else {
-            throw SdkValidationError(field: "head", code: "required", message: "Validation failed for 'head': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.number) else {
-            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.base = try container.sdkDecodeRequired(.base)
-        self.head = try container.sdkDecodeRequired(.head)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItem {
-    public init(base: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase, head: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead, id: Int, number: Int, url: String) throws {
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.base) else {
+            throw SdkValidationError(
+                field: "base",
+                code: "required",
+                message: "Validation failed for 'base': value is required"
+            )
+        }
+        guard container.contains(.head) else {
+            throw SdkValidationError(
+                field: "head",
+                code: "required",
+                message: "Validation failed for 'head': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.number) else {
+            throw SdkValidationError(
+                field: "number",
+                code: "required",
+                message: "Validation failed for 'number': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        base = try container.sdkDecodeRequired(.base)
+        head = try container.sdkDecodeRequired(.head)
+        id = try container.sdkDecodeRequired(.id)
+        number = try container.sdkDecodeRequired(.number)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItem {
+    init(
+        base: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase,
+        head: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead,
+        id: Int,
+        number: Int,
+        url: String
+    ) throws {
         (self.base, self.head) = (base, head)
         (self.id, self.number) = (id, number)
         self.url = url
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -92,29 +120,43 @@ public struct WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase: Codable 
         case sha
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.repo) else {
-            throw SdkValidationError(field: "repo", code: "required", message: "Validation failed for 'repo': value is required")
-        }
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.repo = try container.sdkDecodeRequired(.repo)
-        self.sha = try container.sdkDecodeRequired(.sha)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase {
-    public init(ref: String, repo: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo, sha: String) {
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.repo) else {
+            throw SdkValidationError(
+                field: "repo",
+                code: "required",
+                message: "Validation failed for 'repo': value is required"
+            )
+        }
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        ref = try container.sdkDecodeRequired(.ref)
+        repo = try container.sdkDecodeRequired(.repo)
+        sha = try container.sdkDecodeRequired(.sha)
+    }
+}
+
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBase {
+    init(ref: String, repo: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo, sha: String) {
         (self.ref, self.repo) = (ref, repo)
         self.sha = sha
     }
@@ -135,33 +177,47 @@ public struct WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo: Coda
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo {
-    public init(id: Int, name: String, url: String) throws {
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemBaseRepo {
+    init(id: Int, name: String, url: String) throws {
         (self.id, self.name) = (id, name)
         self.url = url
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -180,29 +236,43 @@ public struct WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead: Codable 
         case sha
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.repo) else {
-            throw SdkValidationError(field: "repo", code: "required", message: "Validation failed for 'repo': value is required")
-        }
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.repo = try container.sdkDecodeRequired(.repo)
-        self.sha = try container.sdkDecodeRequired(.sha)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead {
-    public init(ref: String, repo: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo, sha: String) {
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.repo) else {
+            throw SdkValidationError(
+                field: "repo",
+                code: "required",
+                message: "Validation failed for 'repo': value is required"
+            )
+        }
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        ref = try container.sdkDecodeRequired(.ref)
+        repo = try container.sdkDecodeRequired(.repo)
+        sha = try container.sdkDecodeRequired(.sha)
+    }
+}
+
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHead {
+    init(ref: String, repo: WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo, sha: String) {
         (self.ref, self.repo) = (ref, repo)
         self.sha = sha
     }
@@ -223,47 +293,65 @@ public struct WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo: Coda
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo {
-    public init(id: Int, name: String, url: String) throws {
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookCheckSuiteRequestedCheckSuitePullRequestsItemHeadRepo {
+    init(id: Int, name: String, url: String) throws {
         (self.id, self.name) = (id, name)
         self.url = url
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
 /// Optional enumerated value serialized in the `administration` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsAdministration: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsAdministration: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsAdministration(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsAdministration(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -273,16 +361,20 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsAdministration: 
 }
 
 /// Optional enumerated value serialized in the `artifact_metadata` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsArtifactMetadata: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsArtifactMetadata: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsArtifactMetadata(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsArtifactMetadata(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -292,17 +384,21 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsArtifactMetadata
 }
 
 /// Optional enumerated value serialized in the `repository_projects` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsRepositoryProjects: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsRepositoryProjects: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsRepositoryProjects(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsRepositoryProjects(rawValue: "write")
     public static let admin = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsRepositoryProjects(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -312,16 +408,20 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsRepositoryProjec
 }
 
 /// Optional enumerated value serialized in the `security_events` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsSecurityEvents: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsSecurityEvents: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsSecurityEvents(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsSecurityEvents(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -331,15 +431,19 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsSecurityEvents: 
 }
 
 /// Optional enumerated value serialized in the `copilot_requests` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsCopilotRequests: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsCopilotRequests: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsCopilotRequests(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -349,16 +453,21 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsCopilotRequests:
 }
 
 /// Optional enumerated value serialized in the `vulnerability_alerts` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsVulnerabilityAlerts: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsVulnerabilityAlerts: RawRepresentable, Hashable,
+    Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsVulnerabilityAlerts(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsVulnerabilityAlerts(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -368,16 +477,21 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsVulnerabilityAle
 }
 
 /// Optional enumerated value serialized in the `organization_administration` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizatioX63d5319fa2: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizatioX63d5319fa2: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizatioX63d5319fa2(rawValue: "read")
-    public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizatioX63d5319fa2(rawValue: "write")
+    public static let write =
+        WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizatioX63d5319fa2(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -387,16 +501,20 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizatioX63d5
 }
 
 /// Optional enumerated value serialized in the `merge_queues` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMergeQueues: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMergeQueues: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMergeQueues(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMergeQueues(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -406,17 +524,21 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMergeQueues: Raw
 }
 
 /// Optional enumerated value serialized in the `organization_projects` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizationProjects: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizationProjects: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizationProjects(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizationProjects(rawValue: "write")
     public static let admin = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizationProjects(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -426,16 +548,20 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsOrganizationProj
 }
 
 /// Optional enumerated value serialized in the `contents` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsContents: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsContents: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsContents(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsContents(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -445,16 +571,20 @@ public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsContents: RawRep
 }
 
 /// Optional enumerated value serialized in the `metadata` wire field.
-public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMetadata: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMetadata: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMetadata(rawValue: "read")
     public static let write = WebhookCheckSuiteRequestedCheckSuiteAppPermissionsMetadata(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

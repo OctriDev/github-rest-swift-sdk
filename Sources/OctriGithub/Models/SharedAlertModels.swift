@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedAlert domain models
+/// SharedAlert domain models
 public typealias AlertCreatedAt = Date
 
 public typealias AlertDismissedAt = Date

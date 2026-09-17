@@ -3,31 +3,43 @@
 
 import Foundation
 
-// IssuesTimeline domain models
-extension TimelineCommittedEventAuthor {
-    public init(from decoder: Decoder) throws {
+/// IssuesTimeline domain models
+public extension TimelineCommittedEventAuthor {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.date) else {
-            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
+            throw SdkValidationError(
+                field: "date",
+                code: "required",
+                message: "Validation failed for 'date': value is required"
+            )
         }
         guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.date = try container.sdkDecodeRequired(.date)
-        self.email = try container.sdkDecodeRequired(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-            try sdkValidateDateTime("date", sdkWireString(self.date))
+        date = try container.sdkDecodeRequired(.date)
+        email = try container.sdkDecodeRequired(.email)
+        name = try container.sdkDecodeRequired(.name)
+        try sdkValidateDateTime("date", sdkWireString(date))
     }
 }
 
-extension TimelineCommittedEventAuthor {
-    public init(date: Date, email: String, name: String) throws {
+public extension TimelineCommittedEventAuthor {
+    init(date: Date, email: String, name: String) throws {
         (self.date, self.email) = (date, email)
         self.name = name
-            try sdkValidateDateTime("date", sdkWireString(self.date))
+        try sdkValidateDateTime("date", sdkWireString(self.date))
     }
 }
 
@@ -49,33 +61,47 @@ public struct TimelineCommittedEventCommitter: Codable {
         case name
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineCommittedEventCommitter {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.date) else {
-            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
-        }
-        guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        self.date = try container.sdkDecodeRequired(.date)
-        self.email = try container.sdkDecodeRequired(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-            try sdkValidateDateTime("date", sdkWireString(self.date))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineCommittedEventCommitter {
-    public init(date: Date, email: String, name: String) throws {
+public extension TimelineCommittedEventCommitter {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.date) else {
+            throw SdkValidationError(
+                field: "date",
+                code: "required",
+                message: "Validation failed for 'date': value is required"
+            )
+        }
+        guard container.contains(.email) else {
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        date = try container.sdkDecodeRequired(.date)
+        email = try container.sdkDecodeRequired(.email)
+        name = try container.sdkDecodeRequired(.name)
+        try sdkValidateDateTime("date", sdkWireString(date))
+    }
+}
+
+public extension TimelineCommittedEventCommitter {
+    init(date: Date, email: String, name: String) throws {
         (self.date, self.email) = (date, email)
         self.name = name
-            try sdkValidateDateTime("date", sdkWireString(self.date))
+        try sdkValidateDateTime("date", sdkWireString(self.date))
     }
 }
 
@@ -95,35 +121,49 @@ public struct TimelineCommittedEventParentsItem: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineCommittedEventParentsItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
-        }
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineCommittedEventParentsItem {
-    public init(sha: String, url: String, htmlUrl: String) throws {
+public extension TimelineCommittedEventParentsItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.htmlUrl) else {
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
+        }
+        sha = try container.sdkDecodeRequired(.sha)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+    }
+}
+
+public extension TimelineCommittedEventParentsItem {
+    init(sha: String, url: String, htmlUrl: String) throws {
         (self.sha, self.url) = (sha, url)
         self.htmlUrl = htmlUrl
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
     }
 }
 
@@ -140,28 +180,38 @@ public struct TimelineCommittedEventTree: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineCommittedEventTree {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineCommittedEventTree {
-    public init(sha: String, url: String) throws {
+public extension TimelineCommittedEventTree {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        sha = try container.sdkDecodeRequired(.sha)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension TimelineCommittedEventTree {
+    init(sha: String, url: String) throws {
         (self.sha, self.url) = (sha, url)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -186,37 +236,59 @@ public struct TimelineCommittedEventVerification: Codable {
         case verifiedAt = "verified_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineCommittedEventVerification {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.verified) else {
-            throw SdkValidationError(field: "verified", code: "required", message: "Validation failed for 'verified': value is required")
-        }
-        guard container.contains(.reason) else {
-            throw SdkValidationError(field: "reason", code: "required", message: "Validation failed for 'reason': value is required")
-        }
-        guard container.contains(.signature) else {
-            throw SdkValidationError(field: "signature", code: "required", message: "Validation failed for 'signature': value is required")
-        }
-        guard container.contains(.payload) else {
-            throw SdkValidationError(field: "payload", code: "required", message: "Validation failed for 'payload': value is required")
-        }
-        guard container.contains(.verifiedAt) else {
-            throw SdkValidationError(field: "verified_at", code: "required", message: "Validation failed for 'verified_at': value is required")
-        }
-        self.verified = try container.sdkDecodeRequired(.verified)
-        self.reason = try container.sdkDecodeRequired(.reason)
-        self.signature = try container.sdkDecodeIfPresent(.signature)
-        self.payload = try container.sdkDecodeIfPresent(.payload)
-        self.verifiedAt = try container.sdkDecodeIfPresent(.verifiedAt)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineCommittedEventVerification {
-    public init(verified: Bool, reason: String, signature: String?, payload: String?, verifiedAt: String?) {
+public extension TimelineCommittedEventVerification {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.verified) else {
+            throw SdkValidationError(
+                field: "verified",
+                code: "required",
+                message: "Validation failed for 'verified': value is required"
+            )
+        }
+        guard container.contains(.reason) else {
+            throw SdkValidationError(
+                field: "reason",
+                code: "required",
+                message: "Validation failed for 'reason': value is required"
+            )
+        }
+        guard container.contains(.signature) else {
+            throw SdkValidationError(
+                field: "signature",
+                code: "required",
+                message: "Validation failed for 'signature': value is required"
+            )
+        }
+        guard container.contains(.payload) else {
+            throw SdkValidationError(
+                field: "payload",
+                code: "required",
+                message: "Validation failed for 'payload': value is required"
+            )
+        }
+        guard container.contains(.verifiedAt) else {
+            throw SdkValidationError(
+                field: "verified_at",
+                code: "required",
+                message: "Validation failed for 'verified_at': value is required"
+            )
+        }
+        verified = try container.sdkDecodeRequired(.verified)
+        reason = try container.sdkDecodeRequired(.reason)
+        signature = try container.sdkDecodeIfPresent(.signature)
+        payload = try container.sdkDecodeIfPresent(.payload)
+        verifiedAt = try container.sdkDecodeIfPresent(.verifiedAt)
+    }
+}
+
+public extension TimelineCommittedEventVerification {
+    init(verified: Bool, reason: String, signature: String?, payload: String?, verifiedAt: String?) {
         (self.verified, self.reason) = (verified, reason)
         (self.signature, self.payload) = (signature, payload)
         self.verifiedAt = verifiedAt
@@ -258,26 +330,38 @@ public struct TimelineConnectedEvent: Codable {
         case performedViaGithubApp = "performed_via_github_app"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineConnectedEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineConnectedEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?) {
+public extension TimelineConnectedEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+    }
+}
+
+public extension TimelineConnectedEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -307,41 +391,65 @@ public struct TimelineCrossReferencedEvent: Codable {
         case actor
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineCrossReferencedEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.event) else {
-            throw SdkValidationError(field: "event", code: "required", message: "Validation failed for 'event': value is required")
-        }
-        guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
-        }
-        guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
-        }
-        guard container.contains(.source) else {
-            throw SdkValidationError(field: "source", code: "required", message: "Validation failed for 'source': value is required")
-        }
-        self.event = try container.sdkDecodeRequired(.event)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.source = try container.sdkDecodeRequired(.source)
-        self.actor = try container.sdkDecodeIfPresent(.actor)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineCrossReferencedEvent {
-    public init(event: String, createdAt: Date, updatedAt: Date, source: TimelineCrossReferencedEventSource, actor: SimpleUser? = nil) throws {
+public extension TimelineCrossReferencedEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.event) else {
+            throw SdkValidationError(
+                field: "event",
+                code: "required",
+                message: "Validation failed for 'event': value is required"
+            )
+        }
+        guard container.contains(.createdAt) else {
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
+        }
+        guard container.contains(.updatedAt) else {
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
+        }
+        guard container.contains(.source) else {
+            throw SdkValidationError(
+                field: "source",
+                code: "required",
+                message: "Validation failed for 'source': value is required"
+            )
+        }
+        event = try container.sdkDecodeRequired(.event)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        source = try container.sdkDecodeRequired(.source)
+        actor = try container.sdkDecodeIfPresent(.actor)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension TimelineCrossReferencedEvent {
+    init(
+        event: String,
+        createdAt: Date,
+        updatedAt: Date,
+        source: TimelineCrossReferencedEventSource,
+        actor: SimpleUser? = nil
+    ) throws {
         (self.event, self.createdAt) = (event, createdAt)
         (self.updatedAt, self.source) = (updatedAt, source)
         self.actor = actor
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -358,20 +466,20 @@ public struct TimelineCrossReferencedEventSource: Codable {
     }
 
     init() {
-        (self.type, self.issue) = (nil, nil)
+        (type, issue) = (nil, nil)
     }
 }
 
-extension TimelineCrossReferencedEventSource {
-    public init(from decoder: Decoder) throws {
+public extension TimelineCrossReferencedEventSource {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.issue = try container.sdkDecodeIfPresent(.issue)
+        type = try container.sdkDecodeIfPresent(.type)
+        issue = try container.sdkDecodeIfPresent(.issue)
     }
 }
 
-extension TimelineCrossReferencedEventSource {
-    public init(type: String? = nil, issue: Issue? = nil) {
+public extension TimelineCrossReferencedEventSource {
+    init(type: String? = nil, issue: Issue? = nil) {
         self.init()
         (self.type, self.issue) = (type, issue)
     }
@@ -412,26 +520,38 @@ public struct TimelineDisconnectedEvent: Codable {
         case performedViaGithubApp = "performed_via_github_app"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension TimelineDisconnectedEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension TimelineDisconnectedEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?) {
+public extension TimelineDisconnectedEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+    }
+}
+
+public extension TimelineDisconnectedEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -456,21 +576,21 @@ public struct TimelineLineCommentedEvent: Codable {
     }
 
     init() {
-        (self.event, self.nodeId, self.comments) = (nil, nil, nil)
+        (event, nodeId, comments) = (nil, nil, nil)
     }
 }
 
-extension TimelineLineCommentedEvent {
-    public init(from decoder: Decoder) throws {
+public extension TimelineLineCommentedEvent {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.event = try container.sdkDecodeIfPresent(.event)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.comments = try container.sdkDecodeIfPresent(.comments)
+        event = try container.sdkDecodeIfPresent(.event)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        comments = try container.sdkDecodeIfPresent(.comments)
     }
 }
 
-extension TimelineLineCommentedEvent {
-    public init(event: String? = nil, nodeId: String? = nil, comments: [PullRequestReviewComment]? = nil) {
+public extension TimelineLineCommentedEvent {
+    init(event: String? = nil, nodeId: String? = nil, comments: [PullRequestReviewComment]? = nil) {
         self.init()
         (self.event, self.nodeId) = (event, nodeId)
         self.comments = comments

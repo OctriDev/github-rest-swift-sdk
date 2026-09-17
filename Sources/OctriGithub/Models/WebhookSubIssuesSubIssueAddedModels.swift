@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSubIssuesSubIssueAdded domain models
+/// WebhookSubIssuesSubIssueAdded domain models
 /// Typed representation of the `WebhookSubIssuesSubIssueAdded` API schema.
 public struct WebhookSubIssuesSubIssueAdded: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -43,42 +43,75 @@ public struct WebhookSubIssuesSubIssueAdded: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookSubIssuesSubIssueAdded {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.parentIssueId) else {
-            throw SdkValidationError(field: "parent_issue_id", code: "required", message: "Validation failed for 'parent_issue_id': value is required")
-        }
-        guard container.contains(.parentIssue) else {
-            throw SdkValidationError(field: "parent_issue", code: "required", message: "Validation failed for 'parent_issue': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.parentIssueId = try container.sdkDecodeRequired(.parentIssueId)
-        self.parentIssue = try container.sdkDecodeRequired(.parentIssue)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.subIssueId = try container.sdkDecodeIfPresent(.subIssueId)
-        self.subIssue = try container.sdkDecodeIfPresent(.subIssue)
-        self.subIssueRepo = try container.sdkDecodeIfPresent(.subIssueRepo)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookSubIssuesSubIssueAdded {
-    public init(action: WebhookSubIssuesSubIssueAddedAction, parentIssueId: Double, parentIssue: Issue, repository: RepositoryWebhooks, sender: SimpleUser, subIssueId: Double? = nil, subIssue: Issue? = nil, subIssueRepo: Repository? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookSubIssuesSubIssueAdded {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.parentIssueId) else {
+            throw SdkValidationError(
+                field: "parent_issue_id",
+                code: "required",
+                message: "Validation failed for 'parent_issue_id': value is required"
+            )
+        }
+        guard container.contains(.parentIssue) else {
+            throw SdkValidationError(
+                field: "parent_issue",
+                code: "required",
+                message: "Validation failed for 'parent_issue': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        parentIssueId = try container.sdkDecodeRequired(.parentIssueId)
+        parentIssue = try container.sdkDecodeRequired(.parentIssue)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        subIssueId = try container.sdkDecodeIfPresent(.subIssueId)
+        subIssue = try container.sdkDecodeIfPresent(.subIssue)
+        subIssueRepo = try container.sdkDecodeIfPresent(.subIssueRepo)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookSubIssuesSubIssueAdded {
+    init(
+        action: WebhookSubIssuesSubIssueAddedAction,
+        parentIssueId: Double,
+        parentIssue: Issue,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        subIssueId: Double? = nil,
+        subIssue: Issue? = nil,
+        subIssueRepo: Repository? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.parentIssueId) = (action, parentIssueId)
         (self.parentIssue, self.repository) = (parentIssue, repository)
         (self.sender, self.subIssueId) = (sender, subIssueId)
@@ -91,12 +124,15 @@ extension WebhookSubIssuesSubIssueAdded {
 public struct WebhookSubIssuesSubIssueAddedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let subIssueAdded = WebhookSubIssuesSubIssueAddedAction(rawValue: "sub_issue_added")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

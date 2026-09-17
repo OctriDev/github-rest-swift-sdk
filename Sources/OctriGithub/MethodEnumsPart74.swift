@@ -15,19 +15,19 @@ struct PullsUpdateRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.title, forKey: SdkCodingKey("title"))
-        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
-        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(self.base, forKey: SdkCodingKey("base"))
-        try keyedContainer.encodeIfPresent(self.maintainerCanModify, forKey: SdkCodingKey("maintainer_can_modify"))
+        try keyedContainer.encodeIfPresent(title, forKey: SdkCodingKey("title"))
+        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(base, forKey: SdkCodingKey("base"))
+        try keyedContainer.encodeIfPresent(maintainerCanModify, forKey: SdkCodingKey("maintainer_can_modify"))
     }
 
     init(options: PullsMethods.PullsUpdateOptions) {
-        self.title = options.title
-        self.body = options.body
-        self.state = options.state
-        self.base = options.base
-        self.maintainerCanModify = options.maintainerCanModify
+        title = options.title
+        body = options.body
+        state = options.state
+        base = options.base
+        maintainerCanModify = options.maintainerCanModify
     }
 }
 
@@ -45,29 +45,29 @@ struct PullsCreateReviewCommentRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.body, forKey: SdkCodingKey("body"))
-        try keyedContainer.encode(self.commitId, forKey: SdkCodingKey("commit_id"))
-        try keyedContainer.encode(self.path, forKey: SdkCodingKey("path"))
-        try keyedContainer.encodeIfPresent(self.position, forKey: SdkCodingKey("position"))
-        try keyedContainer.encodeIfPresent(self.side, forKey: SdkCodingKey("side"))
-        try keyedContainer.encodeIfPresent(self.line, forKey: SdkCodingKey("line"))
-        try keyedContainer.encodeIfPresent(self.startLine, forKey: SdkCodingKey("start_line"))
-        try keyedContainer.encodeIfPresent(self.startSide, forKey: SdkCodingKey("start_side"))
-        try keyedContainer.encodeIfPresent(self.inReplyTo, forKey: SdkCodingKey("in_reply_to"))
-        try keyedContainer.encodeIfPresent(self.subjectType, forKey: SdkCodingKey("subject_type"))
+        try keyedContainer.encode(body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(commitId, forKey: SdkCodingKey("commit_id"))
+        try keyedContainer.encode(path, forKey: SdkCodingKey("path"))
+        try keyedContainer.encodeIfPresent(position, forKey: SdkCodingKey("position"))
+        try keyedContainer.encodeIfPresent(side, forKey: SdkCodingKey("side"))
+        try keyedContainer.encodeIfPresent(line, forKey: SdkCodingKey("line"))
+        try keyedContainer.encodeIfPresent(startLine, forKey: SdkCodingKey("start_line"))
+        try keyedContainer.encodeIfPresent(startSide, forKey: SdkCodingKey("start_side"))
+        try keyedContainer.encodeIfPresent(inReplyTo, forKey: SdkCodingKey("in_reply_to"))
+        try keyedContainer.encodeIfPresent(subjectType, forKey: SdkCodingKey("subject_type"))
     }
 
     init(options: PullsMethods.PullsCreateReviewCommentOptions) {
-        self.body = options.body
-        self.commitId = options.commitId
-        self.path = options.path
-        self.position = options.position
-        self.side = options.side
-        self.line = options.line
-        self.startLine = options.startLine
-        self.startSide = options.startSide
-        self.inReplyTo = options.inReplyTo
-        self.subjectType = options.subjectType
+        body = options.body
+        commitId = options.commitId
+        path = options.path
+        position = options.position
+        side = options.side
+        line = options.line
+        startLine = options.startLine
+        startSide = options.startSide
+        inReplyTo = options.inReplyTo
+        subjectType = options.subjectType
     }
 }
 
@@ -76,7 +76,7 @@ struct PullsCreateReplyForReviewCommentRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(body, forKey: SdkCodingKey("body"))
     }
 }
 
@@ -88,10 +88,10 @@ struct PullsMergeRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.commitTitle, forKey: SdkCodingKey("commit_title"))
-        try keyedContainer.encodeIfPresent(self.commitMessage, forKey: SdkCodingKey("commit_message"))
-        try keyedContainer.encodeIfPresent(self.sha, forKey: SdkCodingKey("sha"))
-        try keyedContainer.encodeIfPresent(self.mergeMethod, forKey: SdkCodingKey("merge_method"))
+        try keyedContainer.encodeIfPresent(commitTitle, forKey: SdkCodingKey("commit_title"))
+        try keyedContainer.encodeIfPresent(commitMessage, forKey: SdkCodingKey("commit_message"))
+        try keyedContainer.encodeIfPresent(sha, forKey: SdkCodingKey("sha"))
+        try keyedContainer.encodeIfPresent(mergeMethod, forKey: SdkCodingKey("merge_method"))
     }
 }
 
@@ -104,19 +104,19 @@ struct PullsMergeAsyncRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.commitTitle, forKey: SdkCodingKey("commit_title"))
-        try keyedContainer.encodeIfPresent(self.commitMessage, forKey: SdkCodingKey("commit_message"))
-        try keyedContainer.encodeIfPresent(self.sha, forKey: SdkCodingKey("sha"))
-        try keyedContainer.encodeIfPresent(self.mergeMethod, forKey: SdkCodingKey("merge_method"))
-        try keyedContainer.encodeIfPresent(self.mergeAction, forKey: SdkCodingKey("merge_action"))
+        try keyedContainer.encodeIfPresent(commitTitle, forKey: SdkCodingKey("commit_title"))
+        try keyedContainer.encodeIfPresent(commitMessage, forKey: SdkCodingKey("commit_message"))
+        try keyedContainer.encodeIfPresent(sha, forKey: SdkCodingKey("sha"))
+        try keyedContainer.encodeIfPresent(mergeMethod, forKey: SdkCodingKey("merge_method"))
+        try keyedContainer.encodeIfPresent(mergeAction, forKey: SdkCodingKey("merge_action"))
     }
 
     init(options: PullsMethods.PullsMergeAsyncOptions) {
-        self.commitTitle = options.commitTitle
-        self.commitMessage = options.commitMessage
-        self.sha = options.sha
-        self.mergeMethod = options.mergeMethod
-        self.mergeAction = options.mergeAction
+        commitTitle = options.commitTitle
+        commitMessage = options.commitMessage
+        sha = options.sha
+        mergeMethod = options.mergeMethod
+        mergeAction = options.mergeAction
     }
 }
 
@@ -126,8 +126,8 @@ struct PullsRequestReviewersRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.reviewers, forKey: SdkCodingKey("reviewers"))
-        try keyedContainer.encodeIfPresent(self.teamReviewers, forKey: SdkCodingKey("team_reviewers"))
+        try keyedContainer.encodeIfPresent(reviewers, forKey: SdkCodingKey("reviewers"))
+        try keyedContainer.encodeIfPresent(teamReviewers, forKey: SdkCodingKey("team_reviewers"))
     }
 }
 
@@ -137,8 +137,8 @@ struct PullsRemoveRequestedReviewersRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.reviewers, forKey: SdkCodingKey("reviewers"))
-        try keyedContainer.encodeIfPresent(self.teamReviewers, forKey: SdkCodingKey("team_reviewers"))
+        try keyedContainer.encode(reviewers, forKey: SdkCodingKey("reviewers"))
+        try keyedContainer.encodeIfPresent(teamReviewers, forKey: SdkCodingKey("team_reviewers"))
     }
 }
 
@@ -150,10 +150,10 @@ struct PullsCreateReviewRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.commitId, forKey: SdkCodingKey("commit_id"))
-        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
-        try keyedContainer.encodeIfPresent(self.event, forKey: SdkCodingKey("event"))
-        try keyedContainer.encodeIfPresent(self.comments, forKey: SdkCodingKey("comments"))
+        try keyedContainer.encodeIfPresent(commitId, forKey: SdkCodingKey("commit_id"))
+        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encodeIfPresent(event, forKey: SdkCodingKey("event"))
+        try keyedContainer.encodeIfPresent(comments, forKey: SdkCodingKey("comments"))
     }
 }
 
@@ -162,7 +162,7 @@ struct PullsUpdateReviewRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(body, forKey: SdkCodingKey("body"))
     }
 }
 
@@ -172,8 +172,8 @@ struct PullsDismissReviewRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.message, forKey: SdkCodingKey("message"))
-        try keyedContainer.encodeIfPresent(self.event, forKey: SdkCodingKey("event"))
+        try keyedContainer.encode(message, forKey: SdkCodingKey("message"))
+        try keyedContainer.encodeIfPresent(event, forKey: SdkCodingKey("event"))
     }
 }
 
@@ -183,8 +183,8 @@ struct PullsSubmitReviewRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.event, forKey: SdkCodingKey("event"))
-        try keyedContainer.encodeIfPresent(self.body, forKey: SdkCodingKey("body"))
+        try keyedContainer.encode(event, forKey: SdkCodingKey("event"))
+        try keyedContainer.encodeIfPresent(body, forKey: SdkCodingKey("body"))
     }
 }
 
@@ -193,7 +193,7 @@ struct PullsUpdateBranchRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.expectedHeadSha, forKey: SdkCodingKey("expected_head_sha"))
+        try keyedContainer.encodeIfPresent(expectedHeadSha, forKey: SdkCodingKey("expected_head_sha"))
     }
 }
 
@@ -202,6 +202,6 @@ struct PullRequestStacksCreateRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.pullRequests, forKey: SdkCodingKey("pull_requests"))
+        try keyedContainer.encode(pullRequests, forKey: SdkCodingKey("pull_requests"))
     }
 }

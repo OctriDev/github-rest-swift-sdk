@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Replaces the required status check contexts for a protected repository branch. Provide `contexts` as either an object property or a JSON array of status check names, and use a branch name without wildcard characters. The response contains the resulting status check contexts.
+public extension ReposMethods {
+    /// Replaces the required status check contexts for a protected repository branch. Provide `contexts` as either an
+    /// object property or a JSON array of status check names, and use a branch name without wildcard characters. The
+    /// response contains the resulting status check contexts.
     ///
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,7 +25,28 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposSetStatusCheckContexts(config: ClientConfig, owner: String, repo: String, branch: String, body: ReposSetStatusCheckContextsRequestBody?) async throws -> [String] {
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/required_status_checks/contexts"].joined(), config: config, rawBody: (try body.map { try sdkJsonEncoder().encode($0) }), decoder: .json, operationId: "reposSetStatusCheckContexts")).data
+    static func reposSetStatusCheckContexts(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String,
+        body: ReposSetStatusCheckContextsRequestBody?
+    ) async throws -> [String] {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/required_status_checks/contexts",
+            ].joined(),
+            config: config,
+            rawBody: (body.map { try sdkJsonEncoder().encode($0) }),
+            decoder: .json,
+            operationId: "reposSetStatusCheckContexts"
+        )).data
     }
 }

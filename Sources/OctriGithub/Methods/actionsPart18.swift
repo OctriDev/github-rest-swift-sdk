@@ -6,30 +6,78 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Adds a repository to the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be must be configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Adds a repository to the list of selected repositories that are enabled for GitHub Actions in an organization.
+    /// To use this endpoint, the organization permission policy for `enabled_repositories` must be must be configured
+    /// to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryId: The unique identifier of the repository.
-    public static func actionsEnableSelectedRepositoryGithubActionsOrganization(config: ClientConfig, org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "actionsEnableSelectedRepositoryGithubActionsOrganization")).data
+    static func actionsEnableSelectedRepositoryGithubActionsOrganization(
+        config: ClientConfig,
+        org: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/permissions/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsEnableSelectedRepositoryGithubActionsOrganization"
+        )).data
     }
 
-    /// Removes a repository from the list of selected repositories that are enabled for GitHub Actions in an organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Removes a repository from the list of selected repositories that are enabled for GitHub Actions in an
+    /// organization. To use this endpoint, the organization permission policy for `enabled_repositories` must be
+    /// configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - repositoryId: The unique identifier of the repository.
-    public static func actionsDisableSelectedRepositoryGithubActionsOrganization(config: ClientConfig, org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "actionsDisableSelectedRepositoryGithubActionsOrganization")).data
+    static func actionsDisableSelectedRepositoryGithubActionsOrganization(
+        config: ClientConfig,
+        org: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/permissions/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDisableSelectedRepositoryGithubActionsOrganization"
+        )).data
     }
 
-    /// Gets the selected actions and reusable workflows that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "Set GitHub Actions permissions for an organization." OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Gets the selected actions and reusable workflows that are allowed in an organization. To use this endpoint, the
+    /// organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see
+    /// "Set GitHub Actions permissions for an organization." OAuth tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func actionsGetAllowedActionsOrganization(config: ClientConfig, org: String) async throws -> SelectedActions {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/selected-actions"].joined(), config: config, decoder: .json, operationId: "actionsGetAllowedActionsOrganization")).data
+    static func actionsGetAllowedActionsOrganization(
+        config: ClientConfig,
+        org: String
+    ) async throws -> SelectedActions {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/selected-actions"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetAllowedActionsOrganization"
+        )).data
     }
 }

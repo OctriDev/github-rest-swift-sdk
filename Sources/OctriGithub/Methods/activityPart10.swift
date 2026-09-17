@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
-    public struct ActivityListRepoNotificationsForAuthenticatedUserOptions: Codable {
+public extension ActivityMethods {
+    struct ActivityListRepoNotificationsForAuthenticatedUserOptions: Codable {
         public var owner: String
         public var repo: String
         public var all: Bool?
@@ -47,7 +47,10 @@ extension ActivityMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func activityListRepoNotificationsForAuthenticatedUser(config: ClientConfig, options: ActivityListRepoNotificationsForAuthenticatedUserOptions) async throws -> [Thread] {
+    static func activityListRepoNotificationsForAuthenticatedUser(
+        config: ClientConfig,
+        options: ActivityListRepoNotificationsForAuthenticatedUserOptions
+    ) async throws -> [Thread] {
         if let since = options.since {
             try sdkValidateDateTime("since", since)
         }
@@ -56,13 +59,26 @@ extension ActivityMethods {
             try sdkValidateDateTime("before", before)
         }
 
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/notifications"].joined(), config: config, query: [
-            SdkQueryParameter("all", value: options.all),
-            SdkQueryParameter("participating", value: options.participating),
-            SdkQueryParameter("since", value: options.since),
-            SdkQueryParameter("before", value: options.before),
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("page", value: options.page),
-        ], decoder: .json, operationId: "activityListRepoNotificationsForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/notifications",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("all", value: options.all),
+                SdkQueryParameter("participating", value: options.participating),
+                SdkQueryParameter("since", value: options.since),
+                SdkQueryParameter("before", value: options.before),
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("page", value: options.page),
+            ],
+            decoder: .json,
+            operationId: "activityListRepoNotificationsForAuthenticatedUser"
+        )).data
     }
 }

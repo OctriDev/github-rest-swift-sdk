@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookBranchProtectionRuleEdited domain models
+/// WebhookBranchProtectionRuleEdited domain models
 /// Typed representation of the `WebhookBranchProtectionRuleEdited` API schema.
 public struct WebhookBranchProtectionRuleEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -41,37 +41,64 @@ public struct WebhookBranchProtectionRuleEdited: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEdited {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.rule) else {
-            throw SdkValidationError(field: "rule", code: "required", message: "Validation failed for 'rule': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.changes = try container.sdkDecodeIfPresent(.changes)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEdited {
-    public init(action: WebhookBranchProtectionRuleEditedAction, repository: RepositoryWebhooks, rule: WebhooksRule, sender: SimpleUser, changes: WebhookBranchProtectionRuleEditedChanges? = nil, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookBranchProtectionRuleEdited {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.rule) else {
+            throw SdkValidationError(
+                field: "rule",
+                code: "required",
+                message: "Validation failed for 'rule': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        repository = try container.sdkDecodeRequired(.repository)
+        rule = try container.sdkDecodeRequired(.rule)
+        sender = try container.sdkDecodeRequired(.sender)
+        changes = try container.sdkDecodeIfPresent(.changes)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEdited {
+    init(
+        action: WebhookBranchProtectionRuleEditedAction,
+        repository: RepositoryWebhooks,
+        rule: WebhooksRule,
+        sender: SimpleUser,
+        changes: WebhookBranchProtectionRuleEditedChanges? = nil,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.repository) = (action, repository)
         (self.rule, self.sender) = (rule, sender)
         (self.changes, self.enterprise) = (changes, enterprise)
@@ -122,31 +149,59 @@ public struct WebhookBranchProtectionRuleEditedChanges: Codable {
     }
 
     init() {
-        (self.adminEnforced, self.authorizedActorNames, self.authorizedActorsOnly, self.authorizedDismissalActorsOnly, self.linearHistoryRequirementEnforcementLevel) = (nil, nil, nil, nil, nil)
-        (self.lockBranchEnforcementLevel, self.lockAllowsForkSync, self.pullRequestReviewsEnforcementLevel, self.requireLastPushApproval, self.requiredStatusChecks) = (nil, nil, nil, nil, nil)
-        self.requiredStatusChecksEnforcementLevel = nil
+        (
+            adminEnforced,
+            authorizedActorNames,
+            authorizedActorsOnly,
+            authorizedDismissalActorsOnly,
+            linearHistoryRequirementEnforcementLevel
+        ) = (nil, nil, nil, nil, nil)
+        (
+            lockBranchEnforcementLevel,
+            lockAllowsForkSync,
+            pullRequestReviewsEnforcementLevel,
+            requireLastPushApproval,
+            requiredStatusChecks
+        ) = (nil, nil, nil, nil, nil)
+        requiredStatusChecksEnforcementLevel = nil
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChanges {
-    public init(from decoder: Decoder) throws {
+public extension WebhookBranchProtectionRuleEditedChanges {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.adminEnforced = try container.sdkDecodeIfPresent(.adminEnforced)
-        self.authorizedActorNames = try container.sdkDecodeIfPresent(.authorizedActorNames)
-        self.authorizedActorsOnly = try container.sdkDecodeIfPresent(.authorizedActorsOnly)
-        self.authorizedDismissalActorsOnly = try container.sdkDecodeIfPresent(.authorizedDismissalActorsOnly)
-        self.linearHistoryRequirementEnforcementLevel = try container.sdkDecodeIfPresent(.linearHistoryRequirementEnforcementLevel)
-        self.lockBranchEnforcementLevel = try container.sdkDecodeIfPresent(.lockBranchEnforcementLevel)
-        self.lockAllowsForkSync = try container.sdkDecodeIfPresent(.lockAllowsForkSync)
-        self.pullRequestReviewsEnforcementLevel = try container.sdkDecodeIfPresent(.pullRequestReviewsEnforcementLevel)
-        self.requireLastPushApproval = try container.sdkDecodeIfPresent(.requireLastPushApproval)
-        self.requiredStatusChecks = try container.sdkDecodeIfPresent(.requiredStatusChecks)
-        self.requiredStatusChecksEnforcementLevel = try container.sdkDecodeIfPresent(.requiredStatusChecksEnforcementLevel)
+        adminEnforced = try container.sdkDecodeIfPresent(.adminEnforced)
+        authorizedActorNames = try container.sdkDecodeIfPresent(.authorizedActorNames)
+        authorizedActorsOnly = try container.sdkDecodeIfPresent(.authorizedActorsOnly)
+        authorizedDismissalActorsOnly = try container.sdkDecodeIfPresent(.authorizedDismissalActorsOnly)
+        linearHistoryRequirementEnforcementLevel = try container
+            .sdkDecodeIfPresent(.linearHistoryRequirementEnforcementLevel)
+        lockBranchEnforcementLevel = try container.sdkDecodeIfPresent(.lockBranchEnforcementLevel)
+        lockAllowsForkSync = try container.sdkDecodeIfPresent(.lockAllowsForkSync)
+        pullRequestReviewsEnforcementLevel = try container.sdkDecodeIfPresent(.pullRequestReviewsEnforcementLevel)
+        requireLastPushApproval = try container.sdkDecodeIfPresent(.requireLastPushApproval)
+        requiredStatusChecks = try container.sdkDecodeIfPresent(.requiredStatusChecks)
+        requiredStatusChecksEnforcementLevel = try container.sdkDecodeIfPresent(.requiredStatusChecksEnforcementLevel)
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChanges {
-    public init(adminEnforced: WebhookBranchProtectionRuleEditedChangesAdminEnforced? = nil, authorizedActorNames: WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames? = nil, authorizedActorsOnly: WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly? = nil, authorizedDismissalActorsOnly: WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsOnly? = nil, linearHistoryRequirementEnforcementLevel: WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d5d51db? = nil, lockBranchEnforcementLevel: WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel? = nil, lockAllowsForkSync: WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync? = nil, pullRequestReviewsEnforcementLevel: WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5e0243a? = nil, requireLastPushApproval: WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval? = nil, requiredStatusChecks: WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks? = nil, requiredStatusChecksEnforcementLevel: WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41ad942dc? = nil) {
+public extension WebhookBranchProtectionRuleEditedChanges {
+    init(
+        adminEnforced: WebhookBranchProtectionRuleEditedChangesAdminEnforced? = nil,
+        authorizedActorNames: WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames? = nil,
+        authorizedActorsOnly: WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly? = nil,
+        authorizedDismissalActorsOnly: WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsOnly? = nil,
+        linearHistoryRequirementEnforcementLevel: WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d5d51db? =
+            nil,
+        lockBranchEnforcementLevel: WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel? = nil,
+        lockAllowsForkSync: WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync? = nil,
+        pullRequestReviewsEnforcementLevel: WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5e0243a? =
+            nil,
+        requireLastPushApproval: WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval? = nil,
+        requiredStatusChecks: WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks? = nil,
+        requiredStatusChecksEnforcementLevel: WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41ad942dc? =
+            nil
+    ) {
         self.init()
         (self.adminEnforced, self.authorizedActorNames) = (adminEnforced, authorizedActorNames)
         self.authorizedActorsOnly = authorizedActorsOnly
@@ -170,21 +225,27 @@ public struct WebhookBranchProtectionRuleEditedChangesAdminEnforced: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesAdminEnforced {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesAdminEnforced {
-    public init(from: Bool?) {
+public extension WebhookBranchProtectionRuleEditedChangesAdminEnforced {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesAdminEnforced {
+    init(from: Bool?) {
         self.from = from
     }
 }
@@ -198,21 +259,27 @@ public struct WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames: Coda
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames {
-    public init(from: [String]) {
+public extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorNames {
+    init(from: [String]) {
         self.from = from
     }
 }
@@ -226,21 +293,27 @@ public struct WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly: Coda
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly {
-    public init(from: Bool?) {
+public extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesAuthorizedActorsOnly {
+    init(from: Bool?) {
         self.from = from
     }
 }
@@ -254,21 +327,27 @@ public struct WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsO
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsOnly {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsOnly {
-    public init(from: Bool?) {
+public extension WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsOnly {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesAuthorizedDismissalActorsOnly {
+    init(from: Bool?) {
         self.from = from
     }
 }
@@ -282,21 +361,27 @@ public struct WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d5d51db {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d5d51db {
-    public init(from: WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e) {
+public extension WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d5d51db {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX294d5d51db {
+    init(from: WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e) {
         self.from = from
     }
 }
@@ -310,21 +395,27 @@ public struct WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync: Codabl
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync {
-    public init(from: Bool?) {
+public extension WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesLockAllowsForkSync {
+    init(from: Bool?) {
         self.from = from
     }
 }
@@ -338,21 +429,27 @@ public struct WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel {
-    public init(from: WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom) {
+public extension WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevel {
+    init(from: WebhookBranchProtectionRuleEditedChangesLockBranchEnforcementLevelFrom) {
         self.from = from
     }
 }
@@ -366,21 +463,27 @@ public struct WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5e0243a {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5e0243a {
-    public init(from: WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174) {
+public extension WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5e0243a {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfX26f5e0243a {
+    init(from: WebhookBranchProtectionRuleEditedChangesPullRequestReviewsEnfXe03f63e174) {
         self.from = from
     }
 }
@@ -394,21 +497,27 @@ public struct WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval: C
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeIfPresent(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval {
-    public init(from: Bool?) {
+public extension WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeIfPresent(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesRequireLastPushApproval {
+    init(from: Bool?) {
         self.from = from
     }
 }
@@ -422,21 +531,27 @@ public struct WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks: Coda
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks {
-    public init(from: [String]) {
+public extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecks {
+    init(from: [String]) {
         self.from = from
     }
 }
@@ -450,37 +565,49 @@ public struct WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41a
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41ad942dc {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41ad942dc {
-    public init(from: WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2) {
+public extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41ad942dc {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEXb41ad942dc {
+    init(from: WebhookBranchProtectionRuleEditedChangesRequiredStatusChecksEX6f404586a2) {
         self.from = from
     }
 }
 
 /// Required enumerated value serialized in the `from` wire field.
-public struct WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let off = WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e(rawValue: "off")
-    public static let nonAdmins = WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e(rawValue: "non_admins")
-    public static let everyone = WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e(rawValue: "everyone")
+    public static let nonAdmins =
+        WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e(rawValue: "non_admins")
+    public static let everyone =
+        WebhookBranchProtectionRuleEditedChangesLinearHistoryRequiremX6df53cb28e(rawValue: "everyone")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

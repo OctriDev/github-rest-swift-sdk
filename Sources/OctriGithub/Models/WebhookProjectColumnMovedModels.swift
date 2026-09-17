@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookProjectColumnMoved domain models
+/// WebhookProjectColumnMoved domain models
 /// Typed representation of the `WebhookProjectColumnMoved` API schema.
 public struct WebhookProjectColumnMoved: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -36,33 +36,55 @@ public struct WebhookProjectColumnMoved: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookProjectColumnMoved {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.projectColumn) else {
-            throw SdkValidationError(field: "project_column", code: "required", message: "Validation failed for 'project_column': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.projectColumn = try container.sdkDecodeRequired(.projectColumn)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookProjectColumnMoved {
-    public init(action: WebhookProjectColumnMovedAction, projectColumn: WebhooksProjectColumn, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
+public extension WebhookProjectColumnMoved {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.projectColumn) else {
+            throw SdkValidationError(
+                field: "project_column",
+                code: "required",
+                message: "Validation failed for 'project_column': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        projectColumn = try container.sdkDecodeRequired(.projectColumn)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+    }
+}
+
+public extension WebhookProjectColumnMoved {
+    init(
+        action: WebhookProjectColumnMovedAction,
+        projectColumn: WebhooksProjectColumn,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil
+    ) {
         (self.action, self.projectColumn) = (action, projectColumn)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.installation, self.organization) = (installation, organization)
@@ -74,12 +96,15 @@ extension WebhookProjectColumnMoved {
 public struct WebhookProjectColumnMovedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let moved = WebhookProjectColumnMovedAction(rawValue: "moved")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

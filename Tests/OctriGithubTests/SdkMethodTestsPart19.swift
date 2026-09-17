@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testCopilotSpacesCreateResourceForUserCopilotSpacesCreateResourceForUserReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesCreateResourceForUserCopilotSpacesCreateResourceForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -52,7 +53,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSpacesDeleteResourceForOrgCopilotSpacesDeleteResourceForOrgReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesDeleteResourceForOrgCopilotSpacesDeleteResourceForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -65,7 +67,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSpacesDeleteResourceForUserCopilotSpacesDeleteResourceForUserReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesDeleteResourceForUserCopilotSpacesDeleteResourceForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -160,7 +163,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesListCollaboratorsForOrgCopilotSpacesListCollaboratorsForOrgReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesListCollaboratorsForOrgCopilotSpacesListCollaboratorsForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -180,7 +184,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesListCollaboratorsForUserCopilotSpacesListCollaboX558fcea5a7ReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesListCollaboratorsForUserCopilotSpacesListCollaboX558fcea5a7ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -244,7 +249,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesListResourcesForOrgCopilotSpacesListResourcesForOrgReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesListResourcesForOrgCopilotSpacesListResourcesForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -264,7 +270,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesListResourcesForUserCopilotSpacesListResourcesForUserReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesListResourcesForUserCopilotSpacesListResourcesForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -284,7 +291,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesRemoveCollaboratorForOrgCopilotSpacesRemoveCollaXc04f9f5ff4ReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesRemoveCollaboratorForOrgCopilotSpacesRemoveCollaXc04f9f5ff4ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -298,7 +306,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSpacesRemoveCollaboratorForUserCopilotSpacesRemoveCollX874eda9647ReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesRemoveCollaboratorForUserCopilotSpacesRemoveCollX874eda9647ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -312,7 +321,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCopilotSpacesUpdateCollaboratorForOrgCopilotSpacesUpdateCollaXd5f6b47801ReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesUpdateCollaboratorForOrgCopilotSpacesUpdateCollaXd5f6b47801ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -335,7 +345,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesUpdateCollaboratorForUserCopilotSpacesUpdateCollXb32b0ce781ReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesUpdateCollaboratorForUserCopilotSpacesUpdateCollXb32b0ce781ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -408,7 +419,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesUpdateResourceForOrgCopilotSpacesUpdateResourceForOrgReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesUpdateResourceForOrgCopilotSpacesUpdateResourceForOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -430,7 +442,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCopilotSpacesUpdateResourceForUserCopilotSpacesUpdateResourceForUserReachesMockAndDecodesResponse() async throws {
+    func testCopilotSpacesUpdateResourceForUserCopilotSpacesUpdateResourceForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -471,7 +484,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testDependabotAddSelectedRepoToOrgSecretDependabotAddSelectedRepoToOrgSecretReachesMockAndDecodesResponse() async throws {
+    func testDependabotAddSelectedRepoToOrgSecretDependabotAddSelectedRepoToOrgSecretReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -484,7 +498,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testDependabotCreateOrUpdateOrgSecretDependabotCreateOrUpdateOrgSecretReachesMockAndDecodesResponse() async throws {
+    func testDependabotCreateOrUpdateOrgSecretDependabotCreateOrUpdateOrgSecretReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

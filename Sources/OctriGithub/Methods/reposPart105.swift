@@ -6,19 +6,34 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Lists issue types available for a repository (inherited from its organization owner, with any per-repository overrides applied). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint. Fine-grained access tokens require the "Metadata" repository permission (read).
+public extension ReposMethods {
+    /// Lists issue types available for a repository (inherited from its organization owner, with any per-repository
+    /// overrides applied). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint. Fine-grained access tokens require the "Metadata" repository permission (read).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposListIssueTypes(config: ClientConfig, owner: String, repo: String) async throws -> [IssueType?] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issue-types"].joined(), config: config, decoder: .json, operationId: "reposListIssueTypes")).data
+    static func reposListIssueTypes(config: ClientConfig, owner: String, repo: String) async throws -> [IssueType?] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issue-types",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposListIssueTypes"
+        )).data
     }
 
-    /// Lists the deploy keys configured for a repository. Use `page` and `per_page` to paginate the results; `per_page` can be at most 100.
+    /// Lists the deploy keys configured for a repository. Use `page` and `per_page` to paginate the results; `per_page`
+    /// can be at most 100.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -33,10 +48,29 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListDeployKeys(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [DeployKey] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/keys"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListDeployKeys")).data
+    static func reposListDeployKeys(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [DeployKey] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/keys",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListDeployKeys"
+        )).data
     }
 }

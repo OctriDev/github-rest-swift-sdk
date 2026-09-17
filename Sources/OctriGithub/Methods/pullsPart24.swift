@@ -6,8 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Submits a pending review for a pull request. For more information about creating a pending review for a pull request, see "[Create a review for a pull request](https://docs.github.com/rest/pulls/reviews#create-a-review-for-a-pull-request)." This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+public extension PullsMethods {
+    /// Submits a pending review for a pull request. For more information about creating a pending review for a pull
+    /// request, see "[Create a review for a pull
+    /// request](https://docs.github.com/rest/pulls/reviews#create-a-review-for-a-pull-request)." This endpoint supports
+    /// the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,9 +33,34 @@ extension PullsMethods {
     ///   state to `PENDING`, which means you will need to re-submit the pull request
     ///   review using a review action.
     /// - body: The body text of the pull request review
-    public static func pullsSubmitReview(config: ClientConfig, owner: String, repo: String, pullNumber: Int, reviewId: Int, event: PullsSubmitReviewRequestBodyEvent, body: String?) async throws -> PullRequestReview {
+    static func pullsSubmitReview(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        event: PullsSubmitReviewRequestBodyEvent,
+        body: String?
+    ) async throws -> PullRequestReview {
         let requestBody = PullsSubmitReviewRequestBody(event: event, body: body)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/reviews/", sdkEncodePathSegment(sdkWireString(reviewId)), "/events"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsSubmitReview")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/reviews/",
+                sdkEncodePathSegment(sdkWireString(reviewId)),
+                "/events",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsSubmitReview"
+        )).data
     }
 }

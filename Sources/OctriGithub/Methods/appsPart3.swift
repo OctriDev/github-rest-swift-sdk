@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AppsMethods {
-    /// Returns a list of webhook deliveries for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+public extension AppsMethods {
+    /// Returns a list of webhook deliveries for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
+    /// to access this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -22,25 +23,49 @@ extension AppsMethods {
     ///   deliveries with a `status_code` in the 200-399 range (inclusive). A `status`
     ///   of `failure` returns deliveries with a `status_code` in the 400-599 range
     ///   (inclusive).
-    public static func appsListWebhookDeliveries(config: ClientConfig, perPage: Int?, cursor: String?, status: AppsListWebhookDeliveriesParameter?) async throws -> [HookDeliveryItem] {
-        return try (await sdkRequest("GET", "/app/hook/deliveries", config: config, query: [
+    static func appsListWebhookDeliveries(
+        config: ClientConfig,
+        perPage: Int?,
+        cursor: String?,
+        status: AppsListWebhookDeliveriesParameter?
+    ) async throws -> [HookDeliveryItem] {
+        try await (sdkRequest("GET", "/app/hook/deliveries", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("cursor", value: cursor),
             SdkQueryParameter("status", value: status),
         ], decoder: .json, operationId: "appsListWebhookDeliveries")).data
     }
 
-    /// Retrieves a delivery made by a webhook configured for a GitHub App. Use `delivery_id` to identify the delivery and inspect its event, delivery status, request, and response details.
+    /// Retrieves a delivery made by a webhook configured for a GitHub App. Use `delivery_id` to identify the delivery
+    /// and inspect its event, delivery status, request, and response details.
     ///
-    /// Returns a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
-    public static func appsGetWebhookDelivery(config: ClientConfig, deliveryId: Int) async throws -> HookDelivery {
-        return try (await sdkRequest("GET", ["/app/hook/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId))].joined(), config: config, decoder: .json, operationId: "appsGetWebhookDelivery")).data
+    /// Returns a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
+    /// to access this endpoint.
+    static func appsGetWebhookDelivery(config: ClientConfig, deliveryId: Int) async throws -> HookDelivery {
+        try await (sdkRequest(
+            "GET",
+            ["/app/hook/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "appsGetWebhookDelivery"
+        )).data
     }
 
-    /// Triggers a redelivery attempt for a webhook delivery configured for a GitHub App. Supply `delivery_id` to identify the delivery, and use the accepted response to confirm that the redelivery request was queued.
+    /// Triggers a redelivery attempt for a webhook delivery configured for a GitHub App. Supply `delivery_id` to
+    /// identify the delivery, and use the accepted response to confirm that the redelivery request was queued.
     ///
-    /// Redeliver a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
-    public static func appsRedeliverWebhookDelivery(config: ClientConfig, deliveryId: Int) async throws -> [String: JSONValue] {
-        return try (await sdkRequest("POST", ["/app/hook/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId)), "/attempts"].joined(), config: config, decoder: .json, operationId: "appsRedeliverWebhookDelivery")).data
+    /// Redeliver a delivery for the webhook configured for a GitHub App. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
+    /// to access this endpoint.
+    static func appsRedeliverWebhookDelivery(
+        config: ClientConfig,
+        deliveryId: Int
+    ) async throws -> [String: JSONValue] {
+        try await (sdkRequest(
+            "POST",
+            ["/app/hook/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId)), "/attempts"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "appsRedeliverWebhookDelivery"
+        )).data
     }
 }

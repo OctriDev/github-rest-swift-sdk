@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Search domain models
+/// Search domain models
 public typealias SearchResultTextMatches = [SearchResultTextMatchesItem]
 
 /// Code Search Result Item
@@ -52,36 +52,52 @@ public struct CodeSearchResultItem: Codable {
         case textMatches = "text_matches"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension CodeSearchResultItem {
-    public init(from decoder: Decoder) throws {
+public extension CodeSearchResultItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.path = try container.sdkDecodeRequired(.path)
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.gitUrl = try container.sdkDecodeRequired(.gitUrl)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.score = try container.sdkDecodeRequired(.score)
-        self.fileSize = try container.sdkDecodeIfPresent(.fileSize)
-        self.language = try container.sdkDecodeIfPresent(.language)
-        self.lastModifiedAt = try container.sdkDecodeIfPresent(.lastModifiedAt)
-        self.lineNumbers = try container.sdkDecodeIfPresent(.lineNumbers)
-        self.textMatches = try container.sdkDecodeIfPresent(.textMatches)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("git_url", self.gitUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
-        if let value = self.lastModifiedAt {
+        name = try container.sdkDecodeRequired(.name)
+        path = try container.sdkDecodeRequired(.path)
+        sha = try container.sdkDecodeRequired(.sha)
+        url = try container.sdkDecodeRequired(.url)
+        gitUrl = try container.sdkDecodeRequired(.gitUrl)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        repository = try container.sdkDecodeRequired(.repository)
+        score = try container.sdkDecodeRequired(.score)
+        fileSize = try container.sdkDecodeIfPresent(.fileSize)
+        language = try container.sdkDecodeIfPresent(.language)
+        lastModifiedAt = try container.sdkDecodeIfPresent(.lastModifiedAt)
+        lineNumbers = try container.sdkDecodeIfPresent(.lineNumbers)
+        textMatches = try container.sdkDecodeIfPresent(.textMatches)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("git_url", gitUrl)
+        try sdkValidateUri("html_url", htmlUrl)
+        if let value = lastModifiedAt {
             try sdkValidateDateTime("last_modified_at", sdkWireString(value))
         }
     }
 }
 
-extension CodeSearchResultItem {
-    public init(name: String, path: String, sha: String, url: String, gitUrl: String, htmlUrl: String, repository: MinimalRepository, score: Double, fileSize: Int? = nil, language: String? = nil, lastModifiedAt: Date? = nil, lineNumbers: [String]? = nil, textMatches: SearchResultTextMatches? = nil) throws {
+public extension CodeSearchResultItem {
+    init(
+        name: String,
+        path: String,
+        sha: String,
+        url: String,
+        gitUrl: String,
+        htmlUrl: String,
+        repository: MinimalRepository,
+        score: Double,
+        fileSize: Int? = nil,
+        language: String? = nil,
+        lastModifiedAt: Date? = nil,
+        lineNumbers: [String]? = nil,
+        textMatches: SearchResultTextMatches? = nil
+    ) throws {
         (self.name, self.path) = (name, path)
         (self.sha, self.url) = (sha, url)
         (self.gitUrl, self.htmlUrl) = (gitUrl, htmlUrl)
@@ -89,9 +105,9 @@ extension CodeSearchResultItem {
         (self.fileSize, self.language) = (fileSize, language)
         (self.lastModifiedAt, self.lineNumbers) = (lastModifiedAt, lineNumbers)
         self.textMatches = textMatches
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("git_url", self.gitUrl)
-            try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("git_url", self.gitUrl)
+        try sdkValidateUri("html_url", self.htmlUrl)
         if let value = self.lastModifiedAt {
             try sdkValidateDateTime("last_modified_at", sdkWireString(value))
         }
@@ -140,41 +156,56 @@ public struct CommitSearchResultItem: Codable {
         case textMatches = "text_matches"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension CommitSearchResultItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
-        self.commit = try container.sdkDecodeRequired(.commit)
-        self.author = try container.sdkDecodeIfPresent(.author)
-        self.committer = try container.sdkDecodeIfPresent(.committer)
-        self.parents = try container.sdkDecodeRequired(.parents)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.score = try container.sdkDecodeRequired(.score)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.textMatches = try container.sdkDecodeIfPresent(.textMatches)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("comments_url", self.commentsUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension CommitSearchResultItem {
-    public init(url: String, sha: String, htmlUrl: String, commentsUrl: String, commit: CommitSearchResultItemCommit, author: NullableSimpleUser?, committer: NullableGitUser?, parents: [CommitSearchResultItemParentsItem], repository: MinimalRepository, score: Double, nodeId: String, textMatches: SearchResultTextMatches? = nil) throws {
+public extension CommitSearchResultItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        url = try container.sdkDecodeRequired(.url)
+        sha = try container.sdkDecodeRequired(.sha)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        commentsUrl = try container.sdkDecodeRequired(.commentsUrl)
+        commit = try container.sdkDecodeRequired(.commit)
+        author = try container.sdkDecodeIfPresent(.author)
+        committer = try container.sdkDecodeIfPresent(.committer)
+        parents = try container.sdkDecodeRequired(.parents)
+        repository = try container.sdkDecodeRequired(.repository)
+        score = try container.sdkDecodeRequired(.score)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        textMatches = try container.sdkDecodeIfPresent(.textMatches)
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("comments_url", commentsUrl)
+    }
+}
+
+public extension CommitSearchResultItem {
+    init(
+        url: String,
+        sha: String,
+        htmlUrl: String,
+        commentsUrl: String,
+        commit: CommitSearchResultItemCommit,
+        author: NullableSimpleUser?,
+        committer: NullableGitUser?,
+        parents: [CommitSearchResultItemParentsItem],
+        repository: MinimalRepository,
+        score: Double,
+        nodeId: String,
+        textMatches: SearchResultTextMatches? = nil
+    ) throws {
         (self.url, self.sha) = (url, sha)
         (self.htmlUrl, self.commentsUrl) = (htmlUrl, commentsUrl)
         (self.commit, self.author) = (commit, author)
         (self.committer, self.parents) = (committer, parents)
         (self.repository, self.score) = (repository, score)
         (self.nodeId, self.textMatches) = (nodeId, textMatches)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("comments_url", self.commentsUrl)
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("comments_url", self.commentsUrl)
     }
 }
 
@@ -205,48 +236,82 @@ public struct CommitSearchResultItemCommit: Codable {
         case verification
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension CommitSearchResultItemCommit {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.author) else {
-            throw SdkValidationError(field: "author", code: "required", message: "Validation failed for 'author': value is required")
-        }
-        guard container.contains(.committer) else {
-            throw SdkValidationError(field: "committer", code: "required", message: "Validation failed for 'committer': value is required")
-        }
-        guard container.contains(.commentCount) else {
-            throw SdkValidationError(field: "comment_count", code: "required", message: "Validation failed for 'comment_count': value is required")
-        }
-        guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
-        }
-        guard container.contains(.tree) else {
-            throw SdkValidationError(field: "tree", code: "required", message: "Validation failed for 'tree': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.author = try container.sdkDecodeRequired(.author)
-        self.committer = try container.sdkDecodeIfPresent(.committer)
-        self.commentCount = try container.sdkDecodeRequired(.commentCount)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.tree = try container.sdkDecodeRequired(.tree)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.verification = try container.sdkDecodeIfPresent(.verification)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension CommitSearchResultItemCommit {
-    public init(author: CommitSearchResultItemCommitAuthor, committer: NullableGitUser?, commentCount: Int, message: String, tree: CommitSearchResultItemCommitTree, url: String, verification: Verification? = nil) throws {
+public extension CommitSearchResultItemCommit {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.author) else {
+            throw SdkValidationError(
+                field: "author",
+                code: "required",
+                message: "Validation failed for 'author': value is required"
+            )
+        }
+        guard container.contains(.committer) else {
+            throw SdkValidationError(
+                field: "committer",
+                code: "required",
+                message: "Validation failed for 'committer': value is required"
+            )
+        }
+        guard container.contains(.commentCount) else {
+            throw SdkValidationError(
+                field: "comment_count",
+                code: "required",
+                message: "Validation failed for 'comment_count': value is required"
+            )
+        }
+        guard container.contains(.message) else {
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
+        }
+        guard container.contains(.tree) else {
+            throw SdkValidationError(
+                field: "tree",
+                code: "required",
+                message: "Validation failed for 'tree': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        author = try container.sdkDecodeRequired(.author)
+        committer = try container.sdkDecodeIfPresent(.committer)
+        commentCount = try container.sdkDecodeRequired(.commentCount)
+        message = try container.sdkDecodeRequired(.message)
+        tree = try container.sdkDecodeRequired(.tree)
+        url = try container.sdkDecodeRequired(.url)
+        verification = try container.sdkDecodeIfPresent(.verification)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension CommitSearchResultItemCommit {
+    init(
+        author: CommitSearchResultItemCommitAuthor,
+        committer: NullableGitUser?,
+        commentCount: Int,
+        message: String,
+        tree: CommitSearchResultItemCommitTree,
+        url: String,
+        verification: Verification? = nil
+    ) throws {
         (self.author, self.committer) = (author, committer)
         (self.commentCount, self.message) = (commentCount, message)
         (self.tree, self.url) = (tree, url)
         self.verification = verification
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -265,33 +330,47 @@ public struct CommitSearchResultItemCommitAuthor: Codable {
         case date
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension CommitSearchResultItemCommitAuthor {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
-        }
-        guard container.contains(.date) else {
-            throw SdkValidationError(field: "date", code: "required", message: "Validation failed for 'date': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.email = try container.sdkDecodeRequired(.email)
-        self.date = try container.sdkDecodeRequired(.date)
-            try sdkValidateDateTime("date", sdkWireString(self.date))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension CommitSearchResultItemCommitAuthor {
-    public init(name: String, email: String, date: Date) throws {
+public extension CommitSearchResultItemCommitAuthor {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.email) else {
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
+        }
+        guard container.contains(.date) else {
+            throw SdkValidationError(
+                field: "date",
+                code: "required",
+                message: "Validation failed for 'date': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        email = try container.sdkDecodeRequired(.email)
+        date = try container.sdkDecodeRequired(.date)
+        try sdkValidateDateTime("date", sdkWireString(date))
+    }
+}
+
+public extension CommitSearchResultItemCommitAuthor {
+    init(name: String, email: String, date: Date) throws {
         (self.name, self.email) = (name, email)
         self.date = date
-            try sdkValidateDateTime("date", sdkWireString(self.date))
+        try sdkValidateDateTime("date", sdkWireString(self.date))
     }
 }
 
@@ -307,28 +386,38 @@ public struct CommitSearchResultItemCommitTree: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension CommitSearchResultItemCommitTree {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.sha) else {
-            throw SdkValidationError(field: "sha", code: "required", message: "Validation failed for 'sha': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.sha = try container.sdkDecodeRequired(.sha)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension CommitSearchResultItemCommitTree {
-    public init(sha: String, url: String) throws {
+public extension CommitSearchResultItemCommitTree {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.sha) else {
+            throw SdkValidationError(
+                field: "sha",
+                code: "required",
+                message: "Validation failed for 'sha': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        sha = try container.sdkDecodeRequired(.sha)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension CommitSearchResultItemCommitTree {
+    init(sha: String, url: String) throws {
         (self.sha, self.url) = (sha, url)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -348,21 +437,21 @@ public struct CommitSearchResultItemParentsItem: Codable {
     }
 
     init() {
-        (self.url, self.htmlUrl, self.sha) = (nil, nil, nil)
+        (url, htmlUrl, sha) = (nil, nil, nil)
     }
 }
 
-extension CommitSearchResultItemParentsItem {
-    public init(from decoder: Decoder) throws {
+public extension CommitSearchResultItemParentsItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.sha = try container.sdkDecodeIfPresent(.sha)
+        url = try container.sdkDecodeIfPresent(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        sha = try container.sdkDecodeIfPresent(.sha)
     }
 }
 
-extension CommitSearchResultItemParentsItem {
-    public init(url: String? = nil, htmlUrl: String? = nil, sha: String? = nil) {
+public extension CommitSearchResultItemParentsItem {
+    init(url: String? = nil, htmlUrl: String? = nil, sha: String? = nil) {
         self.init()
         (self.url, self.htmlUrl) = (url, htmlUrl)
         self.sha = sha
@@ -499,5 +588,7 @@ public struct IssueSearchResultItem: Codable {
         case reactions
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

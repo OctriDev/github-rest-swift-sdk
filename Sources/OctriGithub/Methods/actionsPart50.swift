@@ -6,10 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Returns a redirect URL for downloading a repository artifact archive. Use `archive_format` set to `zip`, and retrieve the short-lived URL from the `Location` response header; the URL expires after one minute. OAuth tokens and personal access tokens (classic) must have the `repo` scope.
+public extension ActionsMethods {
+    /// Returns a redirect URL for downloading a repository artifact archive. Use `archive_format` set to `zip`, and
+    /// retrieve the short-lived URL from the `Location` response header; the URL expires after one minute. OAuth tokens
+    /// and personal access tokens (classic) must have the `repo` scope.
     ///
-    /// Gets a redirect URL to download an archive for a repository. This URL expires after 1 minute. Look for `Location:` in the response header to find the URL for the download. The `:archive_format` must be `zip`. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets a redirect URL to download an archive for a repository. This URL expires after 1 minute. Look for
+    /// `Location:` in the response header to find the URL for the download. The `:archive_format` must be `zip`. OAuth
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,18 +21,57 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - artifactId: The unique identifier of the artifact.
-    public static func actionsDownloadArtifact(config: ClientConfig, owner: String, repo: String, artifactId: Int, archiveFormat: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/artifacts/", sdkEncodePathSegment(sdkWireString(artifactId)), "/", sdkEncodePathSegment(sdkWireString(archiveFormat))].joined(), config: config, decoder: .empty, operationId: "actionsDownloadArtifact")).data
+    static func actionsDownloadArtifact(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        artifactId: Int,
+        archiveFormat: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/artifacts/",
+                sdkEncodePathSegment(sdkWireString(artifactId)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(archiveFormat)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDownloadArtifact"
+        )).data
     }
 
-    /// Gets GitHub Actions cache retention limit for a repository. This determines how long caches will be retained for, if not manually removed or evicted due to size constraints. OAuth tokens and personal access tokens (classic) need the `admin:repository` scope to use this endpoint.
+    /// Gets GitHub Actions cache retention limit for a repository. This determines how long caches will be retained
+    /// for, if not manually removed or evicted due to size constraints. OAuth tokens and personal access tokens
+    /// (classic) need the `admin:repository` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func actionsGetActionsCacheRetentionLimitForRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsCacheRetentionLimitForRepository {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/cache/retention-limit"].joined(), config: config, decoder: .json, operationId: "actionsGetActionsCacheRetentionLimitForRepository")).data
+    static func actionsGetActionsCacheRetentionLimitForRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> ActionsCacheRetentionLimitForRepository {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/cache/retention-limit",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetActionsCacheRetentionLimitForRepository"
+        )).data
     }
 }

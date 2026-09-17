@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Lists the milestones for a repository. Filter by milestone `state`, choose the sort field and `direction`, and use pagination parameters to control the result set. Use `page` and `per_page` to paginate the results.
+public extension IssuesMethods {
+    /// Lists the milestones for a repository. Filter by milestone `state`, choose the sort field and `direction`, and
+    /// use pagination parameters to control the result set. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists milestones for a repository.
     ///
@@ -27,13 +28,35 @@ extension IssuesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func issuesListMilestones(config: ClientConfig, owner: String, repo: String, state: IssuesListMilestonesParameter?, sort: IssuesListMilestonesParameterX5ec18b58?, direction: IssuesListMilestonesParameterX0a6da649?, perPage: Int?, page: Int?) async throws -> [Milestone] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/milestones"].joined(), config: config, query: [
-            SdkQueryParameter("state", value: state),
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "issuesListMilestones")).data
+    static func issuesListMilestones(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        state: IssuesListMilestonesParameter?,
+        sort: IssuesListMilestonesParameterX5ec18b58?,
+        direction: IssuesListMilestonesParameterX0a6da649?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Milestone] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/milestones",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("state", value: state),
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "issuesListMilestones"
+        )).data
     }
 }

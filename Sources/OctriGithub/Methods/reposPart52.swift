@@ -6,8 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Add a user to a repository with a specified level of access. If the repository is owned by an organization, this API does not add the user to the organization - a user that has repository access without being an organization member is called an "outside collaborator" (if they are not an Enterprise Managed User) or a "repository collaborator" if they are an Enterprise Managed User. These users are exempt from some organization policies - see "[Adding outside collaborators to repositories](https://docs.github.com/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization)" to learn more about these collaborator types. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Adding an outside collaborator may be restricted by enterprise and organization administrators. For more information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)" and "[Setting permissions for adding outside collaborators](https://docs.github.com/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators)" for organization settings. For more information on permission levels, see "[Repository permission levels for an organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)". There are restrictions on which permissions can be granted to organization members when an organization base role is in place. In this case, the role being given must be equal to or higher than the org base permission.…
+public extension ReposMethods {
+    /// Add a user to a repository with a specified level of access. If the repository is owned by an organization, this
+    /// API does not add the user to the organization - a user that has repository access without being an organization
+    /// member is called an "outside collaborator" (if they are not an Enterprise Managed User) or a "repository
+    /// collaborator" if they are an Enterprise Managed User. These users are exempt from some organization policies -
+    /// see "[Adding outside collaborators to repositories](https://docs.github.com/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization)"
+    /// to learn more about these collaborator types. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Adding an outside collaborator may be restricted by enterprise and organization administrators. For more
+    /// information, see "[Enforcing repository management policies in your enterprise](https://docs.github.com/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-inviting-outside-collaborators-to-repositories)"
+    /// and "[Setting permissions for adding outside collaborators](https://docs.github.com/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators)"
+    /// for organization settings. For more information on permission levels, see "[Repository permission levels for an organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+    /// There are restrictions on which permissions can be granted to organization members when an organization base
+    /// role is in place. In this case, the role being given must be equal to or higher than the org base permission.…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,9 +30,29 @@ extension ReposMethods {
     ///   organization-owned repositories.** We accept the following permissions to be
     ///   set: `pull`, `triage`, `push`, `maintain`, `admin` and you can also specify
     ///   a custom repository role name, if the owning organization has defined any.
-    public static func reposAddCollaborator(config: ClientConfig, owner: String, repo: String, username: String, permission: String?) async throws -> RepositoryInvitation {
+    static func reposAddCollaborator(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        username: String,
+        permission: String?
+    ) async throws -> RepositoryInvitation {
         let requestBody = ReposAddCollaboratorRequestBody(permission: permission)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/collaborators/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposAddCollaborator")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/collaborators/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposAddCollaborator"
+        )).data
     }
 }

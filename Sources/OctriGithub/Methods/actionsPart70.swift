@@ -6,19 +6,41 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in a repository, as well as if GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the permissions of the GITHUB_TOKEN for your repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-for-your-repository)." OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in a repository, as
+    /// well as if GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the
+    /// permissions of the GITHUB_TOKEN for your repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-for-your-repository)."
+    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func actionsGetGithubActionsDefaultWorkflowPermissionsRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsGetDefaultWorkflowPermissions {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/workflow"].joined(), config: config, decoder: .json, operationId: "actionsGetGithubActionsDefaultWorkflowPermissionsRepository")).data
+    static func actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> ActionsGetDefaultWorkflowPermissions {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/permissions/workflow",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetGithubActionsDefaultWorkflowPermissionsRepository"
+        )).data
     }
 
-    /// Sets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in a repository, and sets if GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the permissions of the GITHUB_TOKEN for your repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-for-your-repository)." OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Sets the default workflow permissions granted to the `GITHUB_TOKEN` when running workflows in a repository, and
+    /// sets if GitHub Actions can submit approving pull request reviews. For more information, see "[Setting the
+    /// permissions of the GITHUB_TOKEN for your repository](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-for-your-repository)."
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,9 +51,31 @@ extension ActionsMethods {
     ///   the GITHUB_TOKEN when running workflows.
     /// - canApprovePullRequestReviews: Whether GitHub Actions can approve pull
     ///   requests. Enabling this can be a security risk.
-    public static func actionsSetGithubActionsDefaultWorkflowPermissionsRepository(config: ClientConfig, owner: String, repo: String, defaultWorkflowPermissions: ActionsDefaultWorkflowPermissions?, canApprovePullRequestReviews: ActionsCanApprovePullRequestReviews?) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBody(defaultWorkflowPermissions: defaultWorkflowPermissions, canApprovePullRequestReviews: canApprovePullRequestReviews)
+    static func actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        defaultWorkflowPermissions: ActionsDefaultWorkflowPermissions?,
+        canApprovePullRequestReviews: ActionsCanApprovePullRequestReviews?
+    ) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryRequestBody(
+            defaultWorkflowPermissions: defaultWorkflowPermissions,
+            canApprovePullRequestReviews: canApprovePullRequestReviews
+        )
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/workflow"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetGithubActionsDefaultWorkflowPermissionsRepository")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/permissions/workflow",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsSetGithubActionsDefaultWorkflowPermissionsRepository"
+        )).data
     }
 }

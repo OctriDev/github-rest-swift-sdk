@@ -3,25 +3,33 @@
 
 import Foundation
 
-// ReposBranch domain models
-extension BranchWithProtectionLinks {
-    public init(from decoder: Decoder) throws {
+/// ReposBranch domain models
+public extension BranchWithProtectionLinks {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.html) else {
-            throw SdkValidationError(field: "html", code: "required", message: "Validation failed for 'html': value is required")
+            throw SdkValidationError(
+                field: "html",
+                code: "required",
+                message: "Validation failed for 'html': value is required"
+            )
         }
         guard container.contains(.`self`) else {
-            throw SdkValidationError(field: "self", code: "required", message: "Validation failed for 'self': value is required")
+            throw SdkValidationError(
+                field: "self",
+                code: "required",
+                message: "Validation failed for 'self': value is required"
+            )
         }
-        self.html = try container.sdkDecodeRequired(.html)
+        html = try container.sdkDecodeRequired(.html)
         self.`self` = try container.sdkDecodeRequired(.`self`)
-            try sdkValidateUri("self", self.`self`)
+        try sdkValidateUri("self", self.`self`)
     }
 }
 
-extension BranchWithProtectionLinks {
-    public init(html: String, `self` selfValue: String) throws {
+public extension BranchWithProtectionLinks {
+    init(html: String, self selfValue: String) throws {
         (self.html, self.`self`) = (html, selfValue)
-            try sdkValidateUri("self", self.`self`)
+        try sdkValidateUri("self", self.`self`)
     }
 }

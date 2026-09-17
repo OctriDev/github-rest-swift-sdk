@@ -6,19 +6,37 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets artifact and log retention settings for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets artifact and log retention settings for a repository. OAuth app tokens and personal access tokens (classic)
+    /// need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func actionsGetArtifactAndLogRetentionSettingsRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsArtifactAndLogRetentionResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/artifact-and-log-retention"].joined(), config: config, decoder: .json, operationId: "actionsGetArtifactAndLogRetentionSettingsRepository")).data
+    static func actionsGetArtifactAndLogRetentionSettingsRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> ActionsArtifactAndLogRetentionResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/permissions/artifact-and-log-retention",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetArtifactAndLogRetentionSettingsRepository"
+        )).data
     }
 
-    /// Sets artifact and log retention settings for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Sets artifact and log retention settings for a repository. OAuth app tokens and personal access tokens (classic)
+    /// need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,9 +44,27 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - days: The number of days to retain artifacts and logs
-    public static func actionsSetArtifactAndLogRetentionSettingsRepository(config: ClientConfig, owner: String, repo: String, days: Int) async throws -> SdkEmptyResponse {
+    static func actionsSetArtifactAndLogRetentionSettingsRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        days: Int
+    ) async throws -> SdkEmptyResponse {
         let requestBody = ActionsSetArtifactAndLogRetentionSettingsRepositoryRequestBody(days: days)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/artifact-and-log-retention"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetArtifactAndLogRetentionSettingsRepository")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/permissions/artifact-and-log-retention",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsSetArtifactAndLogRetentionSettingsRepository"
+        )).data
     }
 }

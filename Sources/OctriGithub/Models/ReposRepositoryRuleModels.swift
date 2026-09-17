@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ReposRepositoryRule domain models
+/// ReposRepositoryRule domain models
 public enum RepositoryRule {
     case repositoryRuleCreation(RepositoryRuleCreation)
     case repositoryRuleUpdate(RepositoryRuleUpdate)
@@ -31,7 +31,6 @@ public enum RepositoryRule {
 }
 
 extension RepositoryRule: Codable {
-
     private enum CodingKeys: String, CodingKey {
         case discriminator = "type"
     }
@@ -39,52 +38,80 @@ extension RepositoryRule: Codable {
     public init(from decoder: Decoder) throws {
         let tagged = try decoder.container(keyedBy: CodingKeys.self)
         let discriminator = try tagged.decode(String.self, forKey: .discriminator)
-        if let value = try Self.decodeGroup1(discriminator, from: decoder) { self = value; return }
-        if let value = try Self.decodeGroup2(discriminator, from: decoder) { self = value; return }
-        throw DecodingError.dataCorruptedError(forKey: .discriminator, in: tagged, debugDescription: "Unknown discriminator for RepositoryRule")
+        if let value = try Self.decodeGroup1(discriminator, from: decoder) {
+            self = value; return
+        }
+        if let value = try Self.decodeGroup2(discriminator, from: decoder) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            forKey: .discriminator,
+            in: tagged,
+            debugDescription: "Unknown discriminator for RepositoryRule"
+        )
     }
 
     private static func decodeGroup1(_ discriminator: String, from decoder: Decoder) throws -> Self? {
         switch discriminator {
-        case "creation": return .repositoryRuleCreation(try RepositoryRuleCreation(from: decoder))
-        case "update": return .repositoryRuleUpdate(try RepositoryRuleUpdate(from: decoder))
-        case "deletion": return .repositoryRuleDeletion(try RepositoryRuleDeletion(from: decoder))
-        case "required_linear_history": return .repositoryRuleRequiredLinearHistory(try RepositoryRuleRequiredLinearHistory(from: decoder))
-        case "merge_queue": return .repositoryRuleMergeQueue(try RepositoryRuleMergeQueue(from: decoder))
-        case "required_deployments": return .repositoryRuleRequiredDeployments(try RepositoryRuleRequiredDeployments(from: decoder))
-        case "required_signatures": return .repositoryRuleRequiredSignatures(try RepositoryRuleRequiredSignatures(from: decoder))
-        case "pull_request": return .repositoryRulePullRequest(try RepositoryRulePullRequest(from: decoder))
-        case "required_status_checks": return .repositoryRuleRequiredStatusChecks(try RepositoryRuleRequiredStatusChecks(from: decoder))
-        case "non_fast_forward": return .repositoryRuleNonFastForward(try RepositoryRuleNonFastForward(from: decoder))
-        case "commit_message_pattern": return .repositoryRuleCommitMessagePattern(try RepositoryRuleCommitMessagePattern(from: decoder))
+        case "creation": try .repositoryRuleCreation(RepositoryRuleCreation(from: decoder))
+        case "update": try .repositoryRuleUpdate(RepositoryRuleUpdate(from: decoder))
+        case "deletion": try .repositoryRuleDeletion(RepositoryRuleDeletion(from: decoder))
+        case "required_linear_history": try .repositoryRuleRequiredLinearHistory(
+                RepositoryRuleRequiredLinearHistory(from: decoder)
+            )
+        case "merge_queue": try .repositoryRuleMergeQueue(RepositoryRuleMergeQueue(from: decoder))
+        case "required_deployments": try .repositoryRuleRequiredDeployments(
+                RepositoryRuleRequiredDeployments(from: decoder)
+            )
+        case "required_signatures": try .repositoryRuleRequiredSignatures(
+                RepositoryRuleRequiredSignatures(from: decoder)
+            )
+        case "pull_request": try .repositoryRulePullRequest(RepositoryRulePullRequest(from: decoder))
+        case "required_status_checks": try .repositoryRuleRequiredStatusChecks(
+                RepositoryRuleRequiredStatusChecks(from: decoder)
+            )
+        case "non_fast_forward": try .repositoryRuleNonFastForward(RepositoryRuleNonFastForward(from: decoder))
+        case "commit_message_pattern": try .repositoryRuleCommitMessagePattern(
+                RepositoryRuleCommitMessagePattern(from: decoder)
+            )
         case "commit_author_email_pattern":
-        return .repositoryRuleCommitAuthorEmailPattern(try RepositoryRuleCommitAuthorEmailPattern(from: decoder))
-        case "committer_email_pattern": return .repositoryRuleCommitterEmailPattern(try RepositoryRuleCommitterEmailPattern(from: decoder))
-        case "branch_name_pattern": return .repositoryRuleBranchNamePattern(try RepositoryRuleBranchNamePattern(from: decoder))
-        case "tag_name_pattern": return .repositoryRuleTagNamePattern(try RepositoryRuleTagNamePattern(from: decoder))
-        case "workflows": return .repositoryRuleWorkflows(try RepositoryRuleWorkflows(from: decoder))
-        case "code_scanning": return .repositoryRuleCodeScanning(try RepositoryRuleCodeScanning(from: decoder))
-        case "copilot_code_review": return .repositoryRuleCopilotCodeReview(try RepositoryRuleCopilotCodeReview(from: decoder))
+            try .repositoryRuleCommitAuthorEmailPattern(RepositoryRuleCommitAuthorEmailPattern(from: decoder))
+        case "committer_email_pattern": try .repositoryRuleCommitterEmailPattern(
+                RepositoryRuleCommitterEmailPattern(from: decoder)
+            )
+        case "branch_name_pattern": try .repositoryRuleBranchNamePattern(RepositoryRuleBranchNamePattern(from: decoder))
+        case "tag_name_pattern": try .repositoryRuleTagNamePattern(RepositoryRuleTagNamePattern(from: decoder))
+        case "workflows": try .repositoryRuleWorkflows(RepositoryRuleWorkflows(from: decoder))
+        case "code_scanning": try .repositoryRuleCodeScanning(RepositoryRuleCodeScanning(from: decoder))
+        case "copilot_code_review": try .repositoryRuleCopilotCodeReview(RepositoryRuleCopilotCodeReview(from: decoder))
         case "license_compliance_scanning":
-        return .repositoryRuleLicenseComplianceScanning(try RepositoryRuleLicenseComplianceScanning(from: decoder))
-        case "file_path_restriction": return .repositoryRuleFilePathRestriction(try RepositoryRuleFilePathRestriction(from: decoder))
-        default: return nil
+            try .repositoryRuleLicenseComplianceScanning(RepositoryRuleLicenseComplianceScanning(from: decoder))
+        case "file_path_restriction": try .repositoryRuleFilePathRestriction(
+                RepositoryRuleFilePathRestriction(from: decoder)
+            )
+        default: nil
         }
     }
 
     private static func decodeGroup2(_ discriminator: String, from decoder: Decoder) throws -> Self? {
         switch discriminator {
-        case "max_file_path_length": return .repositoryRuleMaxFilePathLength(try RepositoryRuleMaxFilePathLength(from: decoder))
+        case "max_file_path_length": try .repositoryRuleMaxFilePathLength(
+                RepositoryRuleMaxFilePathLength(from: decoder)
+            )
         case "file_extension_restriction":
-        return .repositoryRuleFileExtensionRestriction(try RepositoryRuleFileExtensionRestriction(from: decoder))
-        case "max_file_size": return .repositoryRuleMaxFileSize(try RepositoryRuleMaxFileSize(from: decoder))
-        default: return nil
+            try .repositoryRuleFileExtensionRestriction(RepositoryRuleFileExtensionRestriction(from: decoder))
+        case "max_file_size": try .repositoryRuleMaxFileSize(RepositoryRuleMaxFileSize(from: decoder))
+        default: nil
         }
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
-        if try encodeGroup2(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
+        if try encodeGroup2(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -123,7 +150,6 @@ extension RepositoryRule: Codable {
         default: return false
         }
     }
-
 }
 
 public enum RepositoryRuleDetailed {
@@ -153,48 +179,127 @@ public enum RepositoryRuleDetailed {
 }
 
 extension RepositoryRuleDetailed: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        if let value = Self.decodeGroup2(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for RepositoryRuleDetailed")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        if let value = Self.decodeGroup2(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for RepositoryRuleDetailed"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(RepositoryRuleDetailedVariant0.self) { return .repositoryRuleDetailedVariant0(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant1.self) { return .repositoryRuleDetailedVariant1(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant2.self) { return .repositoryRuleDetailedVariant2(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant3.self) { return .repositoryRuleDetailedVariant3(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant4.self) { return .repositoryRuleDetailedVariant4(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant5.self) { return .repositoryRuleDetailedVariant5(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant6.self) { return .repositoryRuleDetailedVariant6(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant7.self) { return .repositoryRuleDetailedVariant7(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant8.self) { return .repositoryRuleDetailedVariant8(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant9.self) { return .repositoryRuleDetailedVariant9(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant10.self) { return .repositoryRuleDetailedVariant10(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant11.self) { return .repositoryRuleDetailedVariant11(value) }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant0.self) {
+            return .repositoryRuleDetailedVariant0(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant1.self) {
+            return .repositoryRuleDetailedVariant1(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant2.self) {
+            return .repositoryRuleDetailedVariant2(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant3.self) {
+            return .repositoryRuleDetailedVariant3(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant4.self) {
+            return .repositoryRuleDetailedVariant4(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant5.self) {
+            return .repositoryRuleDetailedVariant5(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant6.self) {
+            return .repositoryRuleDetailedVariant6(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant7.self) {
+            return .repositoryRuleDetailedVariant7(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant8.self) {
+            return .repositoryRuleDetailedVariant8(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant9.self) {
+            return .repositoryRuleDetailedVariant9(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant10.self) {
+            return .repositoryRuleDetailedVariant10(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant11.self) {
+            return .repositoryRuleDetailedVariant11(value)
+        }
         return nil
     }
 
     private static func decodeGroup2(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(RepositoryRuleDetailedVariant12.self) { return .repositoryRuleDetailedVariant12(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant13.self) { return .repositoryRuleDetailedVariant13(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant14.self) { return .repositoryRuleDetailedVariant14(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant15.self) { return .repositoryRuleDetailedVariant15(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant16.self) { return .repositoryRuleDetailedVariant16(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant17.self) { return .repositoryRuleDetailedVariant17(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant18.self) { return .repositoryRuleDetailedVariant18(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant19.self) { return .repositoryRuleDetailedVariant19(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant20.self) { return .repositoryRuleDetailedVariant20(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant21.self) { return .repositoryRuleDetailedVariant21(value) }
-        if let value = try? container.decode(RepositoryRuleDetailedVariant22.self) { return .repositoryRuleDetailedVariant22(value) }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant12.self) {
+            return .repositoryRuleDetailedVariant12(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant13.self) {
+            return .repositoryRuleDetailedVariant13(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant14.self) {
+            return .repositoryRuleDetailedVariant14(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant15.self) {
+            return .repositoryRuleDetailedVariant15(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant16.self) {
+            return .repositoryRuleDetailedVariant16(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant17.self) {
+            return .repositoryRuleDetailedVariant17(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant18.self) {
+            return .repositoryRuleDetailedVariant18(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant19.self) {
+            return .repositoryRuleDetailedVariant19(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant20.self) {
+            return .repositoryRuleDetailedVariant20(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant21.self) {
+            return .repositoryRuleDetailedVariant21(value)
+        }
+        if let value = try? container
+            .decode(RepositoryRuleDetailedVariant22.self) {
+            return .repositoryRuleDetailedVariant22(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
-        if try encodeGroup2(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
+        if try encodeGroup2(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -233,7 +338,6 @@ extension RepositoryRuleDetailed: Codable {
         default: return false
         }
     }
-
 }
 
 /// Parameters to be used for the branch_name_pattern rule
@@ -248,22 +352,28 @@ public struct RepositoryRuleBranchNamePattern: Codable {
         case parameters
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleBranchNamePattern {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.type = try container.sdkDecodeRequired(.type)
-        self.parameters = try container.sdkDecodeIfPresent(.parameters)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleBranchNamePattern {
-    public init(type: RepositoryRuleBranchNamePatternType, parameters: RepositoryRuleBranchNamePatternParameters? = nil) {
+public extension RepositoryRuleBranchNamePattern {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        type = try container.sdkDecodeRequired(.type)
+        parameters = try container.sdkDecodeIfPresent(.parameters)
+    }
+}
+
+public extension RepositoryRuleBranchNamePattern {
+    init(type: RepositoryRuleBranchNamePatternType, parameters: RepositoryRuleBranchNamePatternParameters? = nil) {
         (self.type, self.parameters) = (type, parameters)
     }
 }
@@ -286,28 +396,43 @@ public struct RepositoryRuleBranchNamePatternParameters: Codable {
         case negate
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleBranchNamePatternParameters {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.`operator`) else {
-            throw SdkValidationError(field: "operator", code: "required", message: "Validation failed for 'operator': value is required")
-        }
-        guard container.contains(.pattern) else {
-            throw SdkValidationError(field: "pattern", code: "required", message: "Validation failed for 'pattern': value is required")
-        }
-        self.`operator` = try container.sdkDecodeRequired(.`operator`)
-        self.pattern = try container.sdkDecodeRequired(.pattern)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.negate = try container.sdkDecodeIfPresent(.negate)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleBranchNamePatternParameters {
-    public init(`operator`: RepositoryRuleBranchNamePatternParametersOperator, pattern: String, name: String? = nil, negate: Bool? = nil) {
-        (self.`operator`, self.pattern) = (`operator`, pattern)
+public extension RepositoryRuleBranchNamePatternParameters {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.operator) else {
+            throw SdkValidationError(
+                field: "operator",
+                code: "required",
+                message: "Validation failed for 'operator': value is required"
+            )
+        }
+        guard container.contains(.pattern) else {
+            throw SdkValidationError(
+                field: "pattern",
+                code: "required",
+                message: "Validation failed for 'pattern': value is required"
+            )
+        }
+        self.operator = try container.sdkDecodeRequired(.operator)
+        pattern = try container.sdkDecodeRequired(.pattern)
+        name = try container.sdkDecodeIfPresent(.name)
+        negate = try container.sdkDecodeIfPresent(.negate)
+    }
+}
+
+public extension RepositoryRuleBranchNamePatternParameters {
+    init(
+        operator: RepositoryRuleBranchNamePatternParametersOperator,
+        pattern: String,
+        name: String? = nil,
+        negate: Bool? = nil
+    ) {
+        (self.operator, self.pattern) = (`operator`, pattern)
         (self.name, self.negate) = (name, negate)
     }
 }
@@ -325,22 +450,28 @@ public struct RepositoryRuleCodeScanning: Codable {
         case parameters
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleCodeScanning {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.type = try container.sdkDecodeRequired(.type)
-        self.parameters = try container.sdkDecodeIfPresent(.parameters)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleCodeScanning {
-    public init(type: RepositoryRuleCodeScanningType, parameters: RepositoryRuleCodeScanningParameters? = nil) {
+public extension RepositoryRuleCodeScanning {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        type = try container.sdkDecodeRequired(.type)
+        parameters = try container.sdkDecodeIfPresent(.parameters)
+    }
+}
+
+public extension RepositoryRuleCodeScanning {
+    init(type: RepositoryRuleCodeScanningType, parameters: RepositoryRuleCodeScanningParameters? = nil) {
         (self.type, self.parameters) = (type, parameters)
     }
 }
@@ -354,21 +485,27 @@ public struct RepositoryRuleCodeScanningParameters: Codable {
         case codeScanningTools = "code_scanning_tools"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleCodeScanningParameters {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.codeScanningTools) else {
-            throw SdkValidationError(field: "code_scanning_tools", code: "required", message: "Validation failed for 'code_scanning_tools': value is required")
-        }
-        self.codeScanningTools = try container.sdkDecodeRequired(.codeScanningTools)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleCodeScanningParameters {
-    public init(codeScanningTools: [RepositoryRuleParamsCodeScanningTool]) {
+public extension RepositoryRuleCodeScanningParameters {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.codeScanningTools) else {
+            throw SdkValidationError(
+                field: "code_scanning_tools",
+                code: "required",
+                message: "Validation failed for 'code_scanning_tools': value is required"
+            )
+        }
+        codeScanningTools = try container.sdkDecodeRequired(.codeScanningTools)
+    }
+}
+
+public extension RepositoryRuleCodeScanningParameters {
+    init(codeScanningTools: [RepositoryRuleParamsCodeScanningTool]) {
         self.codeScanningTools = codeScanningTools
     }
 }
@@ -385,22 +522,31 @@ public struct RepositoryRuleCommitAuthorEmailPattern: Codable {
         case parameters
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleCommitAuthorEmailPattern {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.type = try container.sdkDecodeRequired(.type)
-        self.parameters = try container.sdkDecodeIfPresent(.parameters)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleCommitAuthorEmailPattern {
-    public init(type: RepositoryRuleCommitAuthorEmailPatternType, parameters: RepositoryRuleCommitAuthorEmailPatternParameters? = nil) {
+public extension RepositoryRuleCommitAuthorEmailPattern {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        type = try container.sdkDecodeRequired(.type)
+        parameters = try container.sdkDecodeIfPresent(.parameters)
+    }
+}
+
+public extension RepositoryRuleCommitAuthorEmailPattern {
+    init(
+        type: RepositoryRuleCommitAuthorEmailPatternType,
+        parameters: RepositoryRuleCommitAuthorEmailPatternParameters? = nil
+    ) {
         (self.type, self.parameters) = (type, parameters)
     }
 }
@@ -423,28 +569,43 @@ public struct RepositoryRuleCommitAuthorEmailPatternParameters: Codable {
         case negate
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleCommitAuthorEmailPatternParameters {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.`operator`) else {
-            throw SdkValidationError(field: "operator", code: "required", message: "Validation failed for 'operator': value is required")
-        }
-        guard container.contains(.pattern) else {
-            throw SdkValidationError(field: "pattern", code: "required", message: "Validation failed for 'pattern': value is required")
-        }
-        self.`operator` = try container.sdkDecodeRequired(.`operator`)
-        self.pattern = try container.sdkDecodeRequired(.pattern)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.negate = try container.sdkDecodeIfPresent(.negate)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleCommitAuthorEmailPatternParameters {
-    public init(`operator`: RepositoryRuleCommitAuthorEmailPatternParametersOperator, pattern: String, name: String? = nil, negate: Bool? = nil) {
-        (self.`operator`, self.pattern) = (`operator`, pattern)
+public extension RepositoryRuleCommitAuthorEmailPatternParameters {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.operator) else {
+            throw SdkValidationError(
+                field: "operator",
+                code: "required",
+                message: "Validation failed for 'operator': value is required"
+            )
+        }
+        guard container.contains(.pattern) else {
+            throw SdkValidationError(
+                field: "pattern",
+                code: "required",
+                message: "Validation failed for 'pattern': value is required"
+            )
+        }
+        self.operator = try container.sdkDecodeRequired(.operator)
+        pattern = try container.sdkDecodeRequired(.pattern)
+        name = try container.sdkDecodeIfPresent(.name)
+        negate = try container.sdkDecodeIfPresent(.negate)
+    }
+}
+
+public extension RepositoryRuleCommitAuthorEmailPatternParameters {
+    init(
+        operator: RepositoryRuleCommitAuthorEmailPatternParametersOperator,
+        pattern: String,
+        name: String? = nil,
+        negate: Bool? = nil
+    ) {
+        (self.operator, self.pattern) = (`operator`, pattern)
         (self.name, self.negate) = (name, negate)
     }
 }
@@ -461,5 +622,7 @@ public struct RepositoryRuleCommitMessagePattern: Codable {
         case parameters
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }

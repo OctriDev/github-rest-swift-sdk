@@ -6,8 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Set deployment records for a given cluster. If proposed records in the 'deployments' field have identical 'cluster', 'logical_environment', 'physical_environment', and 'deployment_name' values as existing records, the existing records will be updated. If no existing records match, new records will be created. Note: Artifacts are uniquely identified by the combination of their repository and digest fields. If two entries in the deployments array resolve to the same repository and have identical digest fields but differing name and version fields, the endpoint will use the artifact name and version from the record processed first, since a single artifact (identified by repository and digest) can only have one name and version.
+public extension OrgsMethods {
+    /// Set deployment records for a given cluster. If proposed records in the 'deployments' field have identical
+    /// 'cluster', 'logical_environment', 'physical_environment', and 'deployment_name' values as existing records, the
+    /// existing records will be updated. If no existing records match, new records will be created. Note: Artifacts are
+    /// uniquely identified by the combination of their repository and digest fields. If two entries in the deployments
+    /// array resolve to the same repository and have identical digest fields but differing name and version fields, the
+    /// endpoint will use the artifact name and version from the record processed first, since a single artifact
+    /// (identified by repository and digest) can only have one name and version.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -23,7 +29,16 @@ extension OrgsMethods {
     ///   lacks write access, or no matching attestation can be found.
     /// - returnRecords: If true, the endpoint will return the set records in the
     ///   response body
-    public static func orgsSetClusterDeploymentRecords(config: ClientConfig, org: String, cluster: String, logicalEnvironment: String, deployments: [OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItem], physicalEnvironment: String?, partialSuccess: Bool?, returnRecords: Bool?) async throws -> OrgsSetClusterDeploymentRecordsResponse {
+    static func orgsSetClusterDeploymentRecords(
+        config: ClientConfig,
+        org: String,
+        cluster: String,
+        logicalEnvironment: String,
+        deployments: [OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItem],
+        physicalEnvironment: String?,
+        partialSuccess: Bool?,
+        returnRecords: Bool?
+    ) async throws -> OrgsSetClusterDeploymentRecordsResponse {
         try validateLength("cluster", cluster, min: 1, max: 128)
         try sdkValidatePattern("cluster", cluster, sdkPattern1f958ddfef10)
 
@@ -31,12 +46,30 @@ extension OrgsMethods {
 
         try validateItems("deployments", deployments, max: 1000)
 
-        if let physicalEnvironment = physicalEnvironment {
+        if let physicalEnvironment {
             try validateLength("physical_environment", physicalEnvironment, max: 128)
         }
 
-        let requestBody = OrgsSetClusterDeploymentRecordsRequestBody(logicalEnvironment: logicalEnvironment, deployments: deployments, physicalEnvironment: physicalEnvironment, partialSuccess: partialSuccess, returnRecords: returnRecords)
+        let requestBody = OrgsSetClusterDeploymentRecordsRequestBody(
+            logicalEnvironment: logicalEnvironment,
+            deployments: deployments,
+            physicalEnvironment: physicalEnvironment,
+            partialSuccess: partialSuccess,
+            returnRecords: returnRecords
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/artifacts/metadata/deployment-record/cluster/", sdkEncodePathSegment(sdkWireString(cluster))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsSetClusterDeploymentRecords")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/artifacts/metadata/deployment-record/cluster/",
+                sdkEncodePathSegment(sdkWireString(cluster)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsSetClusterDeploymentRecords"
+        )).data
     }
 }

@@ -3,12 +3,104 @@
 
 import Foundation
 
-// Search domain models
-extension RepoSearchResultItem {
-    public init(id: Int, nodeId: String, name: String, fullName: String, owner: NullableSimpleUser?, `private`: Bool, htmlUrl: String, description: String?, fork: Bool, url: String, createdAt: Date, updatedAt: Date, pushedAt: Date, homepage: String?, size: Int, stargazersCount: Int, watchersCount: Int, language: String?, forksCount: Int, openIssuesCount: Int, defaultBranch: String, score: Double, forksUrl: String, keysUrl: String, collaboratorsUrl: String, teamsUrl: String, hooksUrl: String, issueEventsUrl: String, eventsUrl: String, assigneesUrl: String, branchesUrl: String, tagsUrl: String, blobsUrl: String, gitTagsUrl: String, gitRefsUrl: String, treesUrl: String, statusesUrl: String, languagesUrl: String, stargazersUrl: String, contributorsUrl: String, subscribersUrl: String, subscriptionUrl: String, commitsUrl: String, gitCommitsUrl: String, commentsUrl: String, issueCommentUrl: String, contentsUrl: String, compareUrl: String, mergesUrl: String, archiveUrl: String, downloadsUrl: String, issuesUrl: String, pullsUrl: String, milestonesUrl: String, notificationsUrl: String, labelsUrl: String, releasesUrl: String, deploymentsUrl: String, gitUrl: String, sshUrl: String, cloneUrl: String, svnUrl: String, forks: Int, openIssues: Int, watchers: Int, mirrorUrl: String?, hasIssues: Bool, hasProjects: Bool, hasPages: Bool, hasWiki: Bool, hasDownloads: Bool, archived: Bool, disabled: Bool, license: NullableLicenseSimple?, primaryBranch: String? = nil, topics: [String]? = nil, hasDiscussions: Bool? = nil, hasPullRequests: Bool? = nil, pullRequestCreationPolicy: RepoSearchResultItemPullRequestCreationPolicy? = nil, visibility: String? = nil, permissions: RepoSearchResultItemPermissions? = nil, textMatches: SearchResultTextMatches? = nil, tempCloneToken: String? = nil, allowMergeCommit: Bool? = nil, allowSquashMerge: Bool? = nil, allowRebaseMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowForking: Bool? = nil, isTemplate: Bool? = nil, webCommitSignoffRequired: Bool? = nil) throws {
+/// Search domain models
+public extension RepoSearchResultItem {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        fullName: String,
+        owner: NullableSimpleUser?,
+        private: Bool,
+        htmlUrl: String,
+        description: String?,
+        fork: Bool,
+        url: String,
+        createdAt: Date,
+        updatedAt: Date,
+        pushedAt: Date,
+        homepage: String?,
+        size: Int,
+        stargazersCount: Int,
+        watchersCount: Int,
+        language: String?,
+        forksCount: Int,
+        openIssuesCount: Int,
+        defaultBranch: String,
+        score: Double,
+        forksUrl: String,
+        keysUrl: String,
+        collaboratorsUrl: String,
+        teamsUrl: String,
+        hooksUrl: String,
+        issueEventsUrl: String,
+        eventsUrl: String,
+        assigneesUrl: String,
+        branchesUrl: String,
+        tagsUrl: String,
+        blobsUrl: String,
+        gitTagsUrl: String,
+        gitRefsUrl: String,
+        treesUrl: String,
+        statusesUrl: String,
+        languagesUrl: String,
+        stargazersUrl: String,
+        contributorsUrl: String,
+        subscribersUrl: String,
+        subscriptionUrl: String,
+        commitsUrl: String,
+        gitCommitsUrl: String,
+        commentsUrl: String,
+        issueCommentUrl: String,
+        contentsUrl: String,
+        compareUrl: String,
+        mergesUrl: String,
+        archiveUrl: String,
+        downloadsUrl: String,
+        issuesUrl: String,
+        pullsUrl: String,
+        milestonesUrl: String,
+        notificationsUrl: String,
+        labelsUrl: String,
+        releasesUrl: String,
+        deploymentsUrl: String,
+        gitUrl: String,
+        sshUrl: String,
+        cloneUrl: String,
+        svnUrl: String,
+        forks: Int,
+        openIssues: Int,
+        watchers: Int,
+        mirrorUrl: String?,
+        hasIssues: Bool,
+        hasProjects: Bool,
+        hasPages: Bool,
+        hasWiki: Bool,
+        hasDownloads: Bool,
+        archived: Bool,
+        disabled: Bool,
+        license: NullableLicenseSimple?,
+        primaryBranch: String? = nil,
+        topics: [String]? = nil,
+        hasDiscussions: Bool? = nil,
+        hasPullRequests: Bool? = nil,
+        pullRequestCreationPolicy: RepoSearchResultItemPullRequestCreationPolicy? = nil,
+        visibility: String? = nil,
+        permissions: RepoSearchResultItemPermissions? = nil,
+        textMatches: SearchResultTextMatches? = nil,
+        tempCloneToken: String? = nil,
+        allowMergeCommit: Bool? = nil,
+        allowSquashMerge: Bool? = nil,
+        allowRebaseMerge: Bool? = nil,
+        allowAutoMerge: Bool? = nil,
+        deleteBranchOnMerge: Bool? = nil,
+        allowForking: Bool? = nil,
+        isTemplate: Bool? = nil,
+        webCommitSignoffRequired: Bool? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.fullName) = (name, fullName)
-        (self.owner, self.`private`) = (owner, `private`)
+        (self.owner, self.private) = (owner, `private`)
         (self.htmlUrl, self.description) = (htmlUrl, description)
         (self.fork, self.url) = (fork, url)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
@@ -59,34 +151,34 @@ extension RepoSearchResultItem {
 
 extension RepoSearchResultItem {
     func sdkValidateConstraintsPart1() throws {
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("url", self.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateDateTime("pushed_at", sdkWireString(self.pushedAt))
-        if let value = self.homepage {
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("url", url)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateDateTime("pushed_at", sdkWireString(pushedAt))
+        if let value = homepage {
             try sdkValidateUri("homepage", value)
         }
-            try sdkValidateUri("forks_url", self.forksUrl)
-            try sdkValidateUri("teams_url", self.teamsUrl)
-            try sdkValidateUri("hooks_url", self.hooksUrl)
-            try sdkValidateUri("events_url", self.eventsUrl)
-            try sdkValidateUri("tags_url", self.tagsUrl)
-            try sdkValidateUri("languages_url", self.languagesUrl)
+        try sdkValidateUri("forks_url", forksUrl)
+        try sdkValidateUri("teams_url", teamsUrl)
+        try sdkValidateUri("hooks_url", hooksUrl)
+        try sdkValidateUri("events_url", eventsUrl)
+        try sdkValidateUri("tags_url", tagsUrl)
+        try sdkValidateUri("languages_url", languagesUrl)
     }
 }
 
 extension RepoSearchResultItem {
     func sdkValidateConstraintsPart2() throws {
-            try sdkValidateUri("stargazers_url", self.stargazersUrl)
-            try sdkValidateUri("contributors_url", self.contributorsUrl)
-            try sdkValidateUri("subscribers_url", self.subscribersUrl)
-            try sdkValidateUri("subscription_url", self.subscriptionUrl)
-            try sdkValidateUri("merges_url", self.mergesUrl)
-            try sdkValidateUri("downloads_url", self.downloadsUrl)
-            try sdkValidateUri("deployments_url", self.deploymentsUrl)
-            try sdkValidateUri("svn_url", self.svnUrl)
-        if let value = self.mirrorUrl {
+        try sdkValidateUri("stargazers_url", stargazersUrl)
+        try sdkValidateUri("contributors_url", contributorsUrl)
+        try sdkValidateUri("subscribers_url", subscribersUrl)
+        try sdkValidateUri("subscription_url", subscriptionUrl)
+        try sdkValidateUri("merges_url", mergesUrl)
+        try sdkValidateUri("downloads_url", downloadsUrl)
+        try sdkValidateUri("deployments_url", deploymentsUrl)
+        try sdkValidateUri("svn_url", svnUrl)
+        if let value = mirrorUrl {
             try sdkValidateUri("mirror_url", value)
         }
     }
@@ -113,31 +205,45 @@ public struct RepoSearchResultItemPermissions: Codable {
         case triage
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepoSearchResultItemPermissions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.admin) else {
-            throw SdkValidationError(field: "admin", code: "required", message: "Validation failed for 'admin': value is required")
-        }
-        guard container.contains(.push) else {
-            throw SdkValidationError(field: "push", code: "required", message: "Validation failed for 'push': value is required")
-        }
-        guard container.contains(.pull) else {
-            throw SdkValidationError(field: "pull", code: "required", message: "Validation failed for 'pull': value is required")
-        }
-        self.admin = try container.sdkDecodeRequired(.admin)
-        self.push = try container.sdkDecodeRequired(.push)
-        self.pull = try container.sdkDecodeRequired(.pull)
-        self.maintain = try container.sdkDecodeIfPresent(.maintain)
-        self.triage = try container.sdkDecodeIfPresent(.triage)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepoSearchResultItemPermissions {
-    public init(admin: Bool, push: Bool, pull: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
+public extension RepoSearchResultItemPermissions {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.admin) else {
+            throw SdkValidationError(
+                field: "admin",
+                code: "required",
+                message: "Validation failed for 'admin': value is required"
+            )
+        }
+        guard container.contains(.push) else {
+            throw SdkValidationError(
+                field: "push",
+                code: "required",
+                message: "Validation failed for 'push': value is required"
+            )
+        }
+        guard container.contains(.pull) else {
+            throw SdkValidationError(
+                field: "pull",
+                code: "required",
+                message: "Validation failed for 'pull': value is required"
+            )
+        }
+        admin = try container.sdkDecodeRequired(.admin)
+        push = try container.sdkDecodeRequired(.push)
+        pull = try container.sdkDecodeRequired(.pull)
+        maintain = try container.sdkDecodeIfPresent(.maintain)
+        triage = try container.sdkDecodeIfPresent(.triage)
+    }
+}
+
+public extension RepoSearchResultItemPermissions {
+    init(admin: Bool, push: Bool, pull: Bool, maintain: Bool? = nil, triage: Bool? = nil) {
         (self.admin, self.push) = (admin, push)
         (self.pull, self.maintain) = (pull, maintain)
         self.triage = triage
@@ -166,23 +272,29 @@ public struct SearchResultTextMatchesItem: Codable {
     }
 
     init() {
-        (self.objectUrl, self.objectType, self.property, self.fragment, self.matches) = (nil, nil, nil, nil, nil)
+        (objectUrl, objectType, property, fragment, matches) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension SearchResultTextMatchesItem {
-    public init(from decoder: Decoder) throws {
+public extension SearchResultTextMatchesItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.objectUrl = try container.sdkDecodeIfPresent(.objectUrl)
-        self.objectType = try container.sdkDecodeIfPresent(.objectType)
-        self.property = try container.sdkDecodeIfPresent(.property)
-        self.fragment = try container.sdkDecodeIfPresent(.fragment)
-        self.matches = try container.sdkDecodeIfPresent(.matches)
+        objectUrl = try container.sdkDecodeIfPresent(.objectUrl)
+        objectType = try container.sdkDecodeIfPresent(.objectType)
+        property = try container.sdkDecodeIfPresent(.property)
+        fragment = try container.sdkDecodeIfPresent(.fragment)
+        matches = try container.sdkDecodeIfPresent(.matches)
     }
 }
 
-extension SearchResultTextMatchesItem {
-    public init(objectUrl: String? = nil, objectType: String? = nil, property: String? = nil, fragment: String? = nil, matches: [SearchResultTextMatchesItemMatchesItem]? = nil) {
+public extension SearchResultTextMatchesItem {
+    init(
+        objectUrl: String? = nil,
+        objectType: String? = nil,
+        property: String? = nil,
+        fragment: String? = nil,
+        matches: [SearchResultTextMatchesItemMatchesItem]? = nil
+    ) {
         self.init()
         (self.objectUrl, self.objectType) = (objectUrl, objectType)
         (self.property, self.fragment) = (property, fragment)
@@ -203,20 +315,20 @@ public struct SearchResultTextMatchesItemMatchesItem: Codable {
     }
 
     init() {
-        (self.text, self.indices) = (nil, nil)
+        (text, indices) = (nil, nil)
     }
 }
 
-extension SearchResultTextMatchesItemMatchesItem {
-    public init(from decoder: Decoder) throws {
+public extension SearchResultTextMatchesItemMatchesItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.text = try container.sdkDecodeIfPresent(.text)
-        self.indices = try container.sdkDecodeIfPresent(.indices)
+        text = try container.sdkDecodeIfPresent(.text)
+        indices = try container.sdkDecodeIfPresent(.indices)
     }
 }
 
-extension SearchResultTextMatchesItemMatchesItem {
-    public init(text: String? = nil, indices: [Int]? = nil) {
+public extension SearchResultTextMatchesItemMatchesItem {
+    init(text: String? = nil, indices: [Int]? = nil) {
         self.init()
         (self.text, self.indices) = (text, indices)
     }
@@ -276,38 +388,57 @@ public struct TopicSearchResultItem: Codable {
         case aliases
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension TopicSearchResultItem {
-    public init(from decoder: Decoder) throws {
+public extension TopicSearchResultItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.displayName = try container.sdkDecodeIfPresent(.displayName)
-        self.shortDescription = try container.sdkDecodeIfPresent(.shortDescription)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.createdBy = try container.sdkDecodeIfPresent(.createdBy)
-        self.released = try container.sdkDecodeIfPresent(.released)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.featured = try container.sdkDecodeRequired(.featured)
-        self.curated = try container.sdkDecodeRequired(.curated)
-        self.score = try container.sdkDecodeRequired(.score)
-        self.repositoryCount = try container.sdkDecodeIfPresent(.repositoryCount)
-        self.logoUrl = try container.sdkDecodeIfPresent(.logoUrl)
-        self.textMatches = try container.sdkDecodeIfPresent(.textMatches)
-        self.related = try container.sdkDecodeIfPresent(.related)
-        self.aliases = try container.sdkDecodeIfPresent(.aliases)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.logoUrl {
+        name = try container.sdkDecodeRequired(.name)
+        displayName = try container.sdkDecodeIfPresent(.displayName)
+        shortDescription = try container.sdkDecodeIfPresent(.shortDescription)
+        description = try container.sdkDecodeIfPresent(.description)
+        createdBy = try container.sdkDecodeIfPresent(.createdBy)
+        released = try container.sdkDecodeIfPresent(.released)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        featured = try container.sdkDecodeRequired(.featured)
+        curated = try container.sdkDecodeRequired(.curated)
+        score = try container.sdkDecodeRequired(.score)
+        repositoryCount = try container.sdkDecodeIfPresent(.repositoryCount)
+        logoUrl = try container.sdkDecodeIfPresent(.logoUrl)
+        textMatches = try container.sdkDecodeIfPresent(.textMatches)
+        related = try container.sdkDecodeIfPresent(.related)
+        aliases = try container.sdkDecodeIfPresent(.aliases)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = logoUrl {
             try sdkValidateUri("logo_url", value)
         }
     }
 }
 
-extension TopicSearchResultItem {
-    public init(name: String, displayName: String?, shortDescription: String?, description: String?, createdBy: String?, released: String?, createdAt: Date, updatedAt: Date, featured: Bool, curated: Bool, score: Double, repositoryCount: Int? = nil, logoUrl: String? = nil, textMatches: SearchResultTextMatches? = nil, related: [TopicSearchResultItemRelatedItem]? = nil, aliases: [TopicSearchResultItemAliasesItem]? = nil) throws {
+public extension TopicSearchResultItem {
+    init(
+        name: String,
+        displayName: String?,
+        shortDescription: String?,
+        description: String?,
+        createdBy: String?,
+        released: String?,
+        createdAt: Date,
+        updatedAt: Date,
+        featured: Bool,
+        curated: Bool,
+        score: Double,
+        repositoryCount: Int? = nil,
+        logoUrl: String? = nil,
+        textMatches: SearchResultTextMatches? = nil,
+        related: [TopicSearchResultItemRelatedItem]? = nil,
+        aliases: [TopicSearchResultItemAliasesItem]? = nil
+    ) throws {
         (self.name, self.displayName) = (name, displayName)
         (self.shortDescription, self.description) = (shortDescription, description)
         (self.createdBy, self.released) = (createdBy, released)
@@ -316,8 +447,8 @@ extension TopicSearchResultItem {
         (self.score, self.repositoryCount) = (score, repositoryCount)
         (self.logoUrl, self.textMatches) = (logoUrl, textMatches)
         (self.related, self.aliases) = (related, aliases)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.logoUrl {
             try sdkValidateUri("logo_url", value)
         }
@@ -334,19 +465,19 @@ public struct TopicSearchResultItemAliasesItem: Codable {
     }
 
     init() {
-        self.topicRelation = nil
+        topicRelation = nil
     }
 }
 
-extension TopicSearchResultItemAliasesItem {
-    public init(from decoder: Decoder) throws {
+public extension TopicSearchResultItemAliasesItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.topicRelation = try container.sdkDecodeIfPresent(.topicRelation)
+        topicRelation = try container.sdkDecodeIfPresent(.topicRelation)
     }
 }
 
-extension TopicSearchResultItemAliasesItem {
-    public init(topicRelation: TopicSearchResultItemAliasesItemTopicRelation? = nil) {
+public extension TopicSearchResultItemAliasesItem {
+    init(topicRelation: TopicSearchResultItemAliasesItemTopicRelation? = nil) {
         self.init()
         self.topicRelation = topicRelation
     }
@@ -371,22 +502,22 @@ public struct TopicSearchResultItemAliasesItemTopicRelation: Codable {
     }
 
     init() {
-        (self.id, self.name, self.topicId, self.relationType) = (nil, nil, nil, nil)
+        (id, name, topicId, relationType) = (nil, nil, nil, nil)
     }
 }
 
-extension TopicSearchResultItemAliasesItemTopicRelation {
-    public init(from decoder: Decoder) throws {
+public extension TopicSearchResultItemAliasesItemTopicRelation {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.topicId = try container.sdkDecodeIfPresent(.topicId)
-        self.relationType = try container.sdkDecodeIfPresent(.relationType)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        topicId = try container.sdkDecodeIfPresent(.topicId)
+        relationType = try container.sdkDecodeIfPresent(.relationType)
     }
 }
 
-extension TopicSearchResultItemAliasesItemTopicRelation {
-    public init(id: Int? = nil, name: String? = nil, topicId: Int? = nil, relationType: String? = nil) {
+public extension TopicSearchResultItemAliasesItemTopicRelation {
+    init(id: Int? = nil, name: String? = nil, topicId: Int? = nil, relationType: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.topicId, self.relationType) = (topicId, relationType)
@@ -403,19 +534,19 @@ public struct TopicSearchResultItemRelatedItem: Codable {
     }
 
     init() {
-        self.topicRelation = nil
+        topicRelation = nil
     }
 }
 
-extension TopicSearchResultItemRelatedItem {
-    public init(from decoder: Decoder) throws {
+public extension TopicSearchResultItemRelatedItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.topicRelation = try container.sdkDecodeIfPresent(.topicRelation)
+        topicRelation = try container.sdkDecodeIfPresent(.topicRelation)
     }
 }
 
-extension TopicSearchResultItemRelatedItem {
-    public init(topicRelation: TopicSearchResultItemRelatedItemTopicRelation? = nil) {
+public extension TopicSearchResultItemRelatedItem {
+    init(topicRelation: TopicSearchResultItemRelatedItemTopicRelation? = nil) {
         self.init()
         self.topicRelation = topicRelation
     }
@@ -440,22 +571,22 @@ public struct TopicSearchResultItemRelatedItemTopicRelation: Codable {
     }
 
     init() {
-        (self.id, self.name, self.topicId, self.relationType) = (nil, nil, nil, nil)
+        (id, name, topicId, relationType) = (nil, nil, nil, nil)
     }
 }
 
-extension TopicSearchResultItemRelatedItemTopicRelation {
-    public init(from decoder: Decoder) throws {
+public extension TopicSearchResultItemRelatedItemTopicRelation {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.topicId = try container.sdkDecodeIfPresent(.topicId)
-        self.relationType = try container.sdkDecodeIfPresent(.relationType)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        topicId = try container.sdkDecodeIfPresent(.topicId)
+        relationType = try container.sdkDecodeIfPresent(.relationType)
     }
 }
 
-extension TopicSearchResultItemRelatedItemTopicRelation {
-    public init(id: Int? = nil, name: String? = nil, topicId: Int? = nil, relationType: String? = nil) {
+public extension TopicSearchResultItemRelatedItemTopicRelation {
+    init(id: Int? = nil, name: String? = nil, topicId: Int? = nil, relationType: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.topicId, self.relationType) = (topicId, relationType)

@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Users with pull access in a repository can view commit statuses for a given ref. The ref can be a SHA, a branch name, or a tag name. Statuses are returned in reverse chronological order. The first status in the list will be the latest one. This resource is also available via a legacy route: `GET /repos/:owner/:repo/statuses/:ref`.
+public extension ReposMethods {
+    /// Users with pull access in a repository can view commit statuses for a given ref. The ref can be a SHA, a branch
+    /// name, or a tag name. Statuses are returned in reverse chronological order. The first status in the list will be
+    /// the latest one. This resource is also available via a legacy route: `GET /repos/:owner/:repo/statuses/:ref`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,10 +29,32 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListCommitStatusesForRef(config: ClientConfig, owner: String, repo: String, ref: String, perPage: Int?, page: Int?) async throws -> [Status] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/commits/", sdkEncodePathSegment(sdkWireString(ref)), "/statuses"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListCommitStatusesForRef")).data
+    static func reposListCommitStatusesForRef(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Status] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/commits/",
+                sdkEncodePathSegment(sdkWireString(ref)),
+                "/statuses",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListCommitStatusesForRef"
+        )).data
     }
 }

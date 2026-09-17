@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookPing domain models
+/// WebhookPing domain models
 /// Typed representation of the `WebhookPing` API schema.
 public struct WebhookPing: Codable {
     /// The webhook that is being pinged
@@ -31,25 +31,32 @@ public struct WebhookPing: Codable {
     }
 
     init() {
-        (self.hook, self.hookId, self.organization, self.repository, self.sender) = (nil, nil, nil, nil, nil)
-        self.zen = nil
+        (hook, hookId, organization, repository, sender) = (nil, nil, nil, nil, nil)
+        zen = nil
     }
 }
 
-extension WebhookPing {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPing {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.hook = try container.sdkDecodeIfPresent(.hook)
-        self.hookId = try container.sdkDecodeIfPresent(.hookId)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
-        self.zen = try container.sdkDecodeIfPresent(.zen)
+        hook = try container.sdkDecodeIfPresent(.hook)
+        hookId = try container.sdkDecodeIfPresent(.hookId)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        sender = try container.sdkDecodeIfPresent(.sender)
+        zen = try container.sdkDecodeIfPresent(.zen)
     }
 }
 
-extension WebhookPing {
-    public init(hook: WebhookPingHook? = nil, hookId: Int? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil, sender: SimpleUser? = nil, zen: String? = nil) {
+public extension WebhookPing {
+    init(
+        hook: WebhookPingHook? = nil,
+        hookId: Int? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil,
+        sender: SimpleUser? = nil,
+        zen: String? = nil
+    ) {
         self.init()
         (self.hook, self.hookId) = (hook, hookId)
         (self.organization, self.repository) = (organization, repository)
@@ -107,45 +114,62 @@ public struct WebhookPingHook: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookPingHook {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPingHook {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.active = try container.sdkDecodeRequired(.active)
-        self.config = try container.sdkDecodeRequired(.config)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.events = try container.sdkDecodeRequired(.events)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.type = try container.sdkDecodeRequired(.type)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.appId = try container.sdkDecodeIfPresent(.appId)
-        self.deliveriesUrl = try container.sdkDecodeIfPresent(.deliveriesUrl)
-        self.lastResponse = try container.sdkDecodeIfPresent(.lastResponse)
-        self.pingUrl = try container.sdkDecodeIfPresent(.pingUrl)
-        self.testUrl = try container.sdkDecodeIfPresent(.testUrl)
-        self.url = try container.sdkDecodeIfPresent(.url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-        if let value = self.deliveriesUrl {
+        active = try container.sdkDecodeRequired(.active)
+        config = try container.sdkDecodeRequired(.config)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        events = try container.sdkDecodeRequired(.events)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        type = try container.sdkDecodeRequired(.type)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        appId = try container.sdkDecodeIfPresent(.appId)
+        deliveriesUrl = try container.sdkDecodeIfPresent(.deliveriesUrl)
+        lastResponse = try container.sdkDecodeIfPresent(.lastResponse)
+        pingUrl = try container.sdkDecodeIfPresent(.pingUrl)
+        testUrl = try container.sdkDecodeIfPresent(.testUrl)
+        url = try container.sdkDecodeIfPresent(.url)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        if let value = deliveriesUrl {
             try sdkValidateUri("deliveries_url", value)
         }
-        if let value = self.pingUrl {
+        if let value = pingUrl {
             try sdkValidateUri("ping_url", value)
         }
-        if let value = self.testUrl {
+        if let value = testUrl {
             try sdkValidateUri("test_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
-extension WebhookPingHook {
-    public init(active: Bool, config: WebhookPingHookConfig, createdAt: Date, events: [String], id: Int, name: WebhookPingHookName, type: String, updatedAt: Date, appId: Int? = nil, deliveriesUrl: String? = nil, lastResponse: HookResponse? = nil, pingUrl: String? = nil, testUrl: String? = nil, url: String? = nil) throws {
+public extension WebhookPingHook {
+    init(
+        active: Bool,
+        config: WebhookPingHookConfig,
+        createdAt: Date,
+        events: [String],
+        id: Int,
+        name: WebhookPingHookName,
+        type: String,
+        updatedAt: Date,
+        appId: Int? = nil,
+        deliveriesUrl: String? = nil,
+        lastResponse: HookResponse? = nil,
+        pingUrl: String? = nil,
+        testUrl: String? = nil,
+        url: String? = nil
+    ) throws {
         (self.active, self.config) = (active, config)
         (self.createdAt, self.events) = (createdAt, events)
         (self.id, self.name) = (id, name)
@@ -153,8 +177,8 @@ extension WebhookPingHook {
         (self.appId, self.deliveriesUrl) = (appId, deliveriesUrl)
         (self.lastResponse, self.pingUrl) = (lastResponse, pingUrl)
         (self.testUrl, self.url) = (testUrl, url)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
         if let value = self.deliveriesUrl {
             try sdkValidateUri("deliveries_url", value)
         }
@@ -194,25 +218,30 @@ public struct WebhookPingHookConfig: Codable {
     }
 
     init() {
-        (self.contentType, self.insecureSsl, self.secret, self.url) = (nil, nil, nil, nil)
+        (contentType, insecureSsl, secret, url) = (nil, nil, nil, nil)
     }
 }
 
-extension WebhookPingHookConfig {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPingHookConfig {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.contentType = try container.sdkDecodeIfPresent(.contentType)
-        self.insecureSsl = try container.sdkDecodeIfPresent(.insecureSsl)
-        self.secret = try container.sdkDecodeIfPresent(.secret)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        if let value = self.url {
+        contentType = try container.sdkDecodeIfPresent(.contentType)
+        insecureSsl = try container.sdkDecodeIfPresent(.insecureSsl)
+        secret = try container.sdkDecodeIfPresent(.secret)
+        url = try container.sdkDecodeIfPresent(.url)
+        if let value = url {
             try sdkValidateUri("url", sdkWireString(value))
         }
     }
 }
 
-extension WebhookPingHookConfig {
-    public init(contentType: WebhookConfigContentType? = nil, insecureSsl: WebhookConfigInsecureSsl? = nil, secret: WebhookConfigSecret? = nil, url: WebhookConfigUrl? = nil) throws {
+public extension WebhookPingHookConfig {
+    init(
+        contentType: WebhookConfigContentType? = nil,
+        insecureSsl: WebhookConfigInsecureSsl? = nil,
+        secret: WebhookConfigSecret? = nil,
+        url: WebhookConfigUrl? = nil
+    ) throws {
         self.init()
         (self.contentType, self.insecureSsl) = (contentType, insecureSsl)
         (self.secret, self.url) = (secret, url)
@@ -226,12 +255,15 @@ extension WebhookPingHookConfig {
 public struct WebhookPingHookName: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let web = WebhookPingHookName(rawValue: "web")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

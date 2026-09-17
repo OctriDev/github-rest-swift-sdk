@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookSponsorshipPendingTierChange domain models
+/// WebhookSponsorshipPendingTierChange domain models
 /// Typed representation of the `WebhookSponsorshipPendingTierChange` API schema.
 public struct WebhookSponsorshipPendingTierChange: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -43,38 +43,66 @@ public struct WebhookSponsorshipPendingTierChange: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookSponsorshipPendingTierChange {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        guard container.contains(.sponsorship) else {
-            throw SdkValidationError(field: "sponsorship", code: "required", message: "Validation failed for 'sponsorship': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.sponsorship = try container.sdkDecodeRequired(.sponsorship)
-        self.effectiveDate = try container.sdkDecodeIfPresent(.effectiveDate)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookSponsorshipPendingTierChange {
-    public init(action: WebhookSponsorshipPendingTierChangeAction, changes: WebhooksChanges8, sender: SimpleUser, sponsorship: WebhooksSponsorship, effectiveDate: WebhooksEffectiveDate? = nil, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
+public extension WebhookSponsorshipPendingTierChange {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        guard container.contains(.sponsorship) else {
+            throw SdkValidationError(
+                field: "sponsorship",
+                code: "required",
+                message: "Validation failed for 'sponsorship': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        sender = try container.sdkDecodeRequired(.sender)
+        sponsorship = try container.sdkDecodeRequired(.sponsorship)
+        effectiveDate = try container.sdkDecodeIfPresent(.effectiveDate)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+    }
+}
+
+public extension WebhookSponsorshipPendingTierChange {
+    init(
+        action: WebhookSponsorshipPendingTierChangeAction,
+        changes: WebhooksChanges8,
+        sender: SimpleUser,
+        sponsorship: WebhooksSponsorship,
+        effectiveDate: WebhooksEffectiveDate? = nil,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil
+    ) {
         (self.action, self.changes) = (action, changes)
         (self.sender, self.sponsorship) = (sender, sponsorship)
         (self.effectiveDate, self.enterprise) = (effectiveDate, enterprise)
@@ -84,15 +112,19 @@ extension WebhookSponsorshipPendingTierChange {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookSponsorshipPendingTierChangeAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookSponsorshipPendingTierChangeAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pendingTierChange = WebhookSponsorshipPendingTierChangeAction(rawValue: "pending_tier_change")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

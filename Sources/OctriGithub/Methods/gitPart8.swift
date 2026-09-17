@@ -6,8 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GitMethods {
-    /// Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference) the tag reference - this call would be unnecessary. **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable. | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the commit was associated with a user, but the…
+public extension GitMethods {
+    /// Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an
+    /// annotated tag in Git, you have to do this call to create the tag object, and then
+    /// [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want
+    /// to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference)
+    /// the tag reference - this call would be unnecessary. **Signature verification object** The response will include
+    /// a `verification` object that describes the result of verifying the commit's signature. The following fields are
+    /// included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified`
+    /// | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` |
+    /// `string` | The reason for verified value. Possible values and their meanings are enumerated in table below. | |
+    /// `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value
+    /// that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the
+    /// possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | |
+    /// `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not
+    /// among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error
+    /// communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification
+    /// service is currently unavailable. | | `unsigned` | The object does not include a signature. | |
+    /// `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated
+    /// with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the
+    /// commit was associated with a user, but the…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,9 +38,37 @@ extension GitMethods {
     /// - type: The type of the object we're tagging. Normally this is a `commit`
     ///   but it can also be a `tree` or a `blob`.
     /// - tagger: An object with information about the individual creating the tag.
-    public static func gitCreateTag(config: ClientConfig, owner: String, repo: String, tag: String, message: String, object: String, type: GitCreateTagRequestBodyType, tagger: GitCreateTagRequestBodyTagger?) async throws -> GitTag {
-        let requestBody = GitCreateTagRequestBody(tag: tag, message: message, object: object, type: type, tagger: tagger)
+    static func gitCreateTag(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        tag: String,
+        message: String,
+        object: String,
+        type: GitCreateTagRequestBodyType,
+        tagger: GitCreateTagRequestBodyTagger?
+    ) async throws -> GitTag {
+        let requestBody = GitCreateTagRequestBody(
+            tag: tag,
+            message: message,
+            object: object,
+            type: type,
+            tagger: tagger
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/tags"].joined(), config: config, body: requestBody, decoder: .json, operationId: "gitCreateTag")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/tags",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gitCreateTag"
+        )).data
     }
 }

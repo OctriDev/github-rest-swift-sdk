@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Actions domain models
+/// Actions domain models
 public typealias ShaPinningRequired = Bool
 
 /// An artifact
@@ -56,38 +56,53 @@ public struct Artifact: Codable {
         case workflowRun = "workflow_run"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension Artifact {
-    public init(from decoder: Decoder) throws {
+public extension Artifact {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.sizeInBytes = try container.sdkDecodeRequired(.sizeInBytes)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.archiveDownloadUrl = try container.sdkDecodeRequired(.archiveDownloadUrl)
-        self.expired = try container.sdkDecodeRequired(.expired)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.expiresAt = try container.sdkDecodeIfPresent(.expiresAt)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.digest = try container.sdkDecodeIfPresent(.digest)
-        self.workflowRun = try container.sdkDecodeIfPresent(.workflowRun)
-        if let value = self.createdAt {
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        name = try container.sdkDecodeRequired(.name)
+        sizeInBytes = try container.sdkDecodeRequired(.sizeInBytes)
+        url = try container.sdkDecodeRequired(.url)
+        archiveDownloadUrl = try container.sdkDecodeRequired(.archiveDownloadUrl)
+        expired = try container.sdkDecodeRequired(.expired)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        expiresAt = try container.sdkDecodeIfPresent(.expiresAt)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        digest = try container.sdkDecodeIfPresent(.digest)
+        workflowRun = try container.sdkDecodeIfPresent(.workflowRun)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.expiresAt {
+        if let value = expiresAt {
             try sdkValidateDateTime("expires_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-extension Artifact {
-    public init(id: Int, nodeId: String, name: String, sizeInBytes: Int, url: String, archiveDownloadUrl: String, expired: Bool, createdAt: Date?, expiresAt: Date?, updatedAt: Date?, digest: String? = nil, workflowRun: ArtifactWorkflowRun? = nil) throws {
+public extension Artifact {
+    init(
+        id: Int,
+        nodeId: String,
+        name: String,
+        sizeInBytes: Int,
+        url: String,
+        archiveDownloadUrl: String,
+        expired: Bool,
+        createdAt: Date?,
+        expiresAt: Date?,
+        updatedAt: Date?,
+        digest: String? = nil,
+        workflowRun: ArtifactWorkflowRun? = nil
+    ) throws {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.sizeInBytes) = (name, sizeInBytes)
         (self.url, self.archiveDownloadUrl) = (url, archiveDownloadUrl)
@@ -133,23 +148,29 @@ public struct ArtifactWorkflowRun: Codable {
     }
 
     init() {
-        (self.id, self.repositoryId, self.headRepositoryId, self.headBranch, self.headSha) = (nil, nil, nil, nil, nil)
+        (id, repositoryId, headRepositoryId, headBranch, headSha) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension ArtifactWorkflowRun {
-    public init(from decoder: Decoder) throws {
+public extension ArtifactWorkflowRun {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        self.headRepositoryId = try container.sdkDecodeIfPresent(.headRepositoryId)
-        self.headBranch = try container.sdkDecodeIfPresent(.headBranch)
-        self.headSha = try container.sdkDecodeIfPresent(.headSha)
+        id = try container.sdkDecodeIfPresent(.id)
+        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        headRepositoryId = try container.sdkDecodeIfPresent(.headRepositoryId)
+        headBranch = try container.sdkDecodeIfPresent(.headBranch)
+        headSha = try container.sdkDecodeIfPresent(.headSha)
     }
 }
 
-extension ArtifactWorkflowRun {
-    public init(id: Int? = nil, repositoryId: Int? = nil, headRepositoryId: Int? = nil, headBranch: String? = nil, headSha: String? = nil) {
+public extension ArtifactWorkflowRun {
+    init(
+        id: Int? = nil,
+        repositoryId: Int? = nil,
+        headRepositoryId: Int? = nil,
+        headBranch: String? = nil,
+        headSha: String? = nil
+    ) {
         self.init()
         (self.id, self.repositoryId) = (id, repositoryId)
         (self.headRepositoryId, self.headBranch) = (headRepositoryId, headBranch)
@@ -185,46 +206,63 @@ public struct AuthenticationToken: Codable {
         case repositorySelection = "repository_selection"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension AuthenticationToken {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.token) else {
-            throw SdkValidationError(field: "token", code: "required", message: "Validation failed for 'token': value is required")
-        }
-        guard container.contains(.expiresAt) else {
-            throw SdkValidationError(field: "expires_at", code: "required", message: "Validation failed for 'expires_at': value is required")
-        }
-        self.token = try container.sdkDecodeRequired(.token)
-        self.expiresAt = try container.sdkDecodeRequired(.expiresAt)
-        self.permissions = try container.sdkDecodeIfPresent(.permissions)
-        self.repositories = try container.sdkDecodeIfPresent(.repositories)
-        self.singleFile = try container.sdkDecodeIfPresent(.singleFile)
-        self.repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
-            try sdkValidateDateTime("expires_at", sdkWireString(self.expiresAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension AuthenticationToken {
-    public init(token: String, expiresAt: Date, permissions: [String: JSONValue]? = nil, repositories: [Repository]? = nil, singleFile: String? = nil, repositorySelection: AuthenticationTokenRepositorySelection? = nil) throws {
+public extension AuthenticationToken {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.token) else {
+            throw SdkValidationError(
+                field: "token",
+                code: "required",
+                message: "Validation failed for 'token': value is required"
+            )
+        }
+        guard container.contains(.expiresAt) else {
+            throw SdkValidationError(
+                field: "expires_at",
+                code: "required",
+                message: "Validation failed for 'expires_at': value is required"
+            )
+        }
+        token = try container.sdkDecodeRequired(.token)
+        expiresAt = try container.sdkDecodeRequired(.expiresAt)
+        permissions = try container.sdkDecodeIfPresent(.permissions)
+        repositories = try container.sdkDecodeIfPresent(.repositories)
+        singleFile = try container.sdkDecodeIfPresent(.singleFile)
+        repositorySelection = try container.sdkDecodeIfPresent(.repositorySelection)
+        try sdkValidateDateTime("expires_at", sdkWireString(expiresAt))
+    }
+}
+
+public extension AuthenticationToken {
+    init(
+        token: String,
+        expiresAt: Date,
+        permissions: [String: JSONValue]? = nil,
+        repositories: [Repository]? = nil,
+        singleFile: String? = nil,
+        repositorySelection: AuthenticationTokenRepositorySelection? = nil
+    ) throws {
         (self.token, self.expiresAt) = (token, expiresAt)
         (self.permissions, self.repositories) = (permissions, repositories)
         (self.singleFile, self.repositorySelection) = (singleFile, repositorySelection)
-            try sdkValidateDateTime("expires_at", sdkWireString(self.expiresAt))
+        try sdkValidateDateTime("expires_at", sdkWireString(self.expiresAt))
     }
 }
 
 /// Optional object value serialized in the `permissions` wire field.
 public struct AuthenticationTokenPermissions: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension AuthenticationTokenPermissions {
-    public init() {
-    }
+public extension AuthenticationTokenPermissions {
+    init() {}
 }
 
 /// An entry in the reviews log for environment deployments
@@ -247,33 +285,56 @@ public struct EnvironmentApprovals: Codable {
         case comment
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension EnvironmentApprovals {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.environments) else {
-            throw SdkValidationError(field: "environments", code: "required", message: "Validation failed for 'environments': value is required")
-        }
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        guard container.contains(.user) else {
-            throw SdkValidationError(field: "user", code: "required", message: "Validation failed for 'user': value is required")
-        }
-        guard container.contains(.comment) else {
-            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
-        }
-        self.environments = try container.sdkDecodeRequired(.environments)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.user = try container.sdkDecodeRequired(.user)
-        self.comment = try container.sdkDecodeRequired(.comment)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension EnvironmentApprovals {
-    public init(environments: [EnvironmentApprovalsEnvironmentsItem], state: EnvironmentApprovalsState, user: SimpleUser, comment: String) {
+public extension EnvironmentApprovals {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.environments) else {
+            throw SdkValidationError(
+                field: "environments",
+                code: "required",
+                message: "Validation failed for 'environments': value is required"
+            )
+        }
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        guard container.contains(.user) else {
+            throw SdkValidationError(
+                field: "user",
+                code: "required",
+                message: "Validation failed for 'user': value is required"
+            )
+        }
+        guard container.contains(.comment) else {
+            throw SdkValidationError(
+                field: "comment",
+                code: "required",
+                message: "Validation failed for 'comment': value is required"
+            )
+        }
+        environments = try container.sdkDecodeRequired(.environments)
+        state = try container.sdkDecodeRequired(.state)
+        user = try container.sdkDecodeRequired(.user)
+        comment = try container.sdkDecodeRequired(.comment)
+    }
+}
+
+public extension EnvironmentApprovals {
+    init(
+        environments: [EnvironmentApprovalsEnvironmentsItem],
+        state: EnvironmentApprovalsState,
+        user: SimpleUser,
+        comment: String
+    ) {
         (self.environments, self.state) = (environments, state)
         (self.user, self.comment) = (user, comment)
     }
@@ -314,32 +375,40 @@ public struct EnvironmentApprovalsEnvironmentsItem: Codable {
     }
 
     init() {
-        (self.id, self.nodeId, self.name, self.url, self.htmlUrl) = (nil, nil, nil, nil, nil)
-        (self.createdAt, self.updatedAt) = (nil, nil)
+        (id, nodeId, name, url, htmlUrl) = (nil, nil, nil, nil, nil)
+        (createdAt, updatedAt) = (nil, nil)
     }
 }
 
-extension EnvironmentApprovalsEnvironmentsItem {
-    public init(from decoder: Decoder) throws {
+public extension EnvironmentApprovalsEnvironmentsItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        if let value = self.createdAt {
+        id = try container.sdkDecodeIfPresent(.id)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        name = try container.sdkDecodeIfPresent(.name)
+        url = try container.sdkDecodeIfPresent(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
     }
 }
 
-extension EnvironmentApprovalsEnvironmentsItem {
-    public init(id: Int? = nil, nodeId: String? = nil, name: String? = nil, url: String? = nil, htmlUrl: String? = nil, createdAt: Date? = nil, updatedAt: Date? = nil) throws {
+public extension EnvironmentApprovalsEnvironmentsItem {
+    init(
+        id: Int? = nil,
+        nodeId: String? = nil,
+        name: String? = nil,
+        url: String? = nil,
+        htmlUrl: String? = nil,
+        createdAt: Date? = nil,
+        updatedAt: Date? = nil
+    ) throws {
         self.init()
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.url) = (name, url)
@@ -455,45 +524,71 @@ public struct Job: Codable {
         case steps
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension Job {
-    public init(from decoder: Decoder) throws {
+public extension Job {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.runId = try container.sdkDecodeRequired(.runId)
-        self.runUrl = try container.sdkDecodeRequired(.runUrl)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.headSha = try container.sdkDecodeRequired(.headSha)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.conclusion = try container.sdkDecodeIfPresent(.conclusion)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.startedAt = try container.sdkDecodeRequired(.startedAt)
-        self.completedAt = try container.sdkDecodeIfPresent(.completedAt)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.checkRunUrl = try container.sdkDecodeRequired(.checkRunUrl)
-        self.labels = try container.sdkDecodeRequired(.labels)
-        self.runnerId = try container.sdkDecodeIfPresent(.runnerId)
-        self.runnerName = try container.sdkDecodeIfPresent(.runnerName)
-        self.runnerGroupId = try container.sdkDecodeIfPresent(.runnerGroupId)
-        self.runnerGroupName = try container.sdkDecodeIfPresent(.runnerGroupName)
-        self.workflowName = try container.sdkDecodeIfPresent(.workflowName)
-        self.headBranch = try container.sdkDecodeIfPresent(.headBranch)
-        self.runAttempt = try container.sdkDecodeIfPresent(.runAttempt)
-        self.steps = try container.sdkDecodeIfPresent(.steps)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
-        if let value = self.completedAt {
+        id = try container.sdkDecodeRequired(.id)
+        runId = try container.sdkDecodeRequired(.runId)
+        runUrl = try container.sdkDecodeRequired(.runUrl)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        headSha = try container.sdkDecodeRequired(.headSha)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        status = try container.sdkDecodeRequired(.status)
+        conclusion = try container.sdkDecodeIfPresent(.conclusion)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        startedAt = try container.sdkDecodeRequired(.startedAt)
+        completedAt = try container.sdkDecodeIfPresent(.completedAt)
+        name = try container.sdkDecodeRequired(.name)
+        checkRunUrl = try container.sdkDecodeRequired(.checkRunUrl)
+        labels = try container.sdkDecodeRequired(.labels)
+        runnerId = try container.sdkDecodeIfPresent(.runnerId)
+        runnerName = try container.sdkDecodeIfPresent(.runnerName)
+        runnerGroupId = try container.sdkDecodeIfPresent(.runnerGroupId)
+        runnerGroupName = try container.sdkDecodeIfPresent(.runnerGroupName)
+        workflowName = try container.sdkDecodeIfPresent(.workflowName)
+        headBranch = try container.sdkDecodeIfPresent(.headBranch)
+        runAttempt = try container.sdkDecodeIfPresent(.runAttempt)
+        steps = try container.sdkDecodeIfPresent(.steps)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("started_at", sdkWireString(startedAt))
+        if let value = completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }
     }
 }
 
-extension Job {
-    public init(id: Int, runId: Int, runUrl: String, nodeId: String, headSha: String, url: String, htmlUrl: String?, status: JobStatus, conclusion: JobConclusion?, createdAt: Date, startedAt: Date, completedAt: Date?, name: String, checkRunUrl: String, labels: [String], runnerId: Int?, runnerName: String?, runnerGroupId: Int?, runnerGroupName: String?, workflowName: String?, headBranch: String?, runAttempt: Int? = nil, steps: [JobStepsItem]? = nil) throws {
+public extension Job {
+    init(
+        id: Int,
+        runId: Int,
+        runUrl: String,
+        nodeId: String,
+        headSha: String,
+        url: String,
+        htmlUrl: String?,
+        status: JobStatus,
+        conclusion: JobConclusion?,
+        createdAt: Date,
+        startedAt: Date,
+        completedAt: Date?,
+        name: String,
+        checkRunUrl: String,
+        labels: [String],
+        runnerId: Int?,
+        runnerName: String?,
+        runnerGroupId: Int?,
+        runnerGroupName: String?,
+        workflowName: String?,
+        headBranch: String?,
+        runAttempt: Int? = nil,
+        steps: [JobStepsItem]? = nil
+    ) throws {
         (self.id, self.runId) = (id, runId)
         (self.runUrl, self.nodeId) = (runUrl, nodeId)
         (self.headSha, self.url) = (headSha, url)
@@ -506,8 +601,8 @@ extension Job {
         (self.runnerGroupName, self.workflowName) = (runnerGroupName, workflowName)
         (self.headBranch, self.runAttempt) = (headBranch, runAttempt)
         self.steps = steps
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("started_at", sdkWireString(self.startedAt))
         if let value = self.completedAt {
             try sdkValidateDateTime("completed_at", sdkWireString(value))
         }

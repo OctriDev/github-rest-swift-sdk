@@ -8,17 +8,21 @@ import Foundation
 #endif
 /// **Closing down notice**. The permission that new repositories will be added to the team with when none is
 /// specified.
-public struct TeamsUpdateLegacyRequestBodyPermission: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct TeamsUpdateLegacyRequestBodyPermission: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pull = TeamsUpdateLegacyRequestBodyPermission(rawValue: "pull")
     public static let push = TeamsUpdateLegacyRequestBodyPermission(rawValue: "push")
     public static let admin = TeamsUpdateLegacyRequestBodyPermission(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -34,13 +38,16 @@ public struct TeamsUpdateLegacyRequestBodyPermission: RawRepresentable, Hashable
 public struct TeamsUpdateLegacyRequestBodyPrivacy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let secret = TeamsUpdateLegacyRequestBodyPrivacy(rawValue: "secret")
     public static let closed = TeamsUpdateLegacyRequestBodyPrivacy(rawValue: "closed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,14 +59,17 @@ public struct TeamsUpdateLegacyRequestBodyPrivacy: RawRepresentable, Hashable, C
 public struct TeamsListMembersLegacyParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let member = TeamsListMembersLegacyParameter(rawValue: "member")
     public static let maintainer = TeamsListMembersLegacyParameter(rawValue: "maintainer")
     public static let all = TeamsListMembersLegacyParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -69,16 +79,20 @@ public struct TeamsListMembersLegacyParameter: RawRepresentable, Hashable, Codab
 }
 
 /// The role that this user should have in the team.
-public struct TeamsAddOrUpdateMembershipForUserLegacyRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct TeamsAddOrUpdateMembershipForUserLegacyRequestBodyRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let member = TeamsAddOrUpdateMembershipForUserLegacyRequestBodyRole(rawValue: "member")
     public static let maintainer = TeamsAddOrUpdateMembershipForUserLegacyRequestBodyRole(rawValue: "maintainer")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -89,17 +103,21 @@ public struct TeamsAddOrUpdateMembershipForUserLegacyRequestBodyRole: RawReprese
 
 /// The permission to grant the team on this repository. If no permission is specified, the team's `permission`
 /// attribute will be used to determine what permission to grant the team on this repository.
-public struct TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pull = TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission(rawValue: "pull")
     public static let push = TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission(rawValue: "push")
     public static let admin = TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission(rawValue: "admin")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -109,17 +127,21 @@ public struct TeamsAddOrUpdateRepoPermissionsLegacyRequestBodyPermission: RawRep
 }
 
 /// The layout of the view.
-public struct ProjectsCreateViewForUserRequestBodyLayout: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsCreateViewForUserRequestBodyLayout: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let table = ProjectsCreateViewForUserRequestBodyLayout(rawValue: "table")
     public static let board = ProjectsCreateViewForUserRequestBodyLayout(rawValue: "board")
     public static let roadmap = ProjectsCreateViewForUserRequestBodyLayout(rawValue: "roadmap")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -130,16 +152,20 @@ public struct ProjectsCreateViewForUserRequestBodyLayout: RawRepresentable, Hash
 
 /// The base role that determines default permissions for the space. - `no_access`: No default access (default)
 /// - `reader`: Makes the space publicly readable Note: User spaces do not support writer or admin base roles.
-public struct CopilotSpacesCreateForUserRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesCreateForUserRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reader = CopilotSpacesCreateForUserRequestBodyBaseRole(rawValue: "reader")
     public static let noAccess = CopilotSpacesCreateForUserRequestBodyBaseRole(rawValue: "no_access")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -149,21 +175,32 @@ public struct CopilotSpacesCreateForUserRequestBodyBaseRole: RawRepresentable, H
 }
 
 /// The type of resource.
-public struct CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let repository = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
-    public static let githubFile = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
-    public static let freeText = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
-    public static let githubIssue = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
-    public static let githubPullRequest = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
-    public static let mediaContent = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
-    public static let uploadedTextFile = CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let repository =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
+    public static let githubFile =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
+    public static let freeText =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
+    public static let githubIssue =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
+    public static let githubPullRequest =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
+    public static let mediaContent =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
+    public static let uploadedTextFile =
+        CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -175,16 +212,20 @@ public struct CopilotSpacesCreateForUserRequestBodyResourcesAttributesItemResour
 /// The base role that determines default permissions for the space. Changing this field requires admin
 /// permissions. - `no_access`: No default access (default) - `reader`: Makes the space publicly readable Note:
 /// User spaces do not support writer or admin base roles.
-public struct CopilotSpacesUpdateForUserRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesUpdateForUserRequestBodyBaseRole: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reader = CopilotSpacesUpdateForUserRequestBodyBaseRole(rawValue: "reader")
     public static let noAccess = CopilotSpacesUpdateForUserRequestBodyBaseRole(rawValue: "no_access")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -194,21 +235,32 @@ public struct CopilotSpacesUpdateForUserRequestBodyBaseRole: RawRepresentable, H
 }
 
 /// The type of resource.
-public struct CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let repository = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
-    public static let githubFile = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
-    public static let freeText = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
-    public static let githubIssue = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
-    public static let githubPullRequest = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
-    public static let mediaContent = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
-    public static let uploadedTextFile = CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let repository =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "repository")
+    public static let githubFile =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_file")
+    public static let freeText =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "free_text")
+    public static let githubIssue =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_issue")
+    public static let githubPullRequest =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "github_pull_request")
+    public static let mediaContent =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "media_content")
+    public static let uploadedTextFile =
+        CopilotSpacesUpdateForUserRequestBodyResourcesAttributesItemResourceType(rawValue: "uploaded_text_file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

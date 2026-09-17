@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Creates a deploy key for a repository. Supply the SSH key contents in `key`, and use `read_only` to control whether the key can only read repository contents or can also write to the repository.
+public extension ReposMethods {
+    /// Creates a deploy key for a repository. Supply the SSH key contents in `key`, and use `read_only` to control
+    /// whether the key can only read repository contents or can also write to the repository.
     ///
     /// You can create a read-only deploy key.
     ///
@@ -27,9 +28,29 @@ extension ReposMethods {
     ///   for-an-organization/)" and "[Permission levels for a user account
     ///   repository](https://docs.github.com/articles/permission-levels-for-a-user-ac
     ///   count-repository/)."
-    public static func reposCreateDeployKey(config: ClientConfig, owner: String, repo: String, key: String, title: String?, readOnly: Bool?) async throws -> DeployKey {
+    static func reposCreateDeployKey(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        key: String,
+        title: String?,
+        readOnly: Bool?
+    ) async throws -> DeployKey {
         let requestBody = ReposCreateDeployKeyRequestBody(key: key, title: title, readOnly: readOnly)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/keys"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateDeployKey")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/keys",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateDeployKey"
+        )).data
     }
 }

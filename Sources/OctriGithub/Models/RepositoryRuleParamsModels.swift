@@ -3,7 +3,7 @@
 
 import Foundation
 
-// RepositoryRuleParams domain models
+/// RepositoryRuleParams domain models
 /// Require a fresh authentication before a pull request can be merged.
 public struct RepositoryRuleParamsProofOfPresence: Codable {
     /// The level of authentication required before a pull request can be merged.
@@ -13,21 +13,27 @@ public struct RepositoryRuleParamsProofOfPresence: Codable {
         case requiredAuthenticationLevel = "required_authentication_level"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleParamsProofOfPresence {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.requiredAuthenticationLevel) else {
-            throw SdkValidationError(field: "required_authentication_level", code: "required", message: "Validation failed for 'required_authentication_level': value is required")
-        }
-        self.requiredAuthenticationLevel = try container.sdkDecodeRequired(.requiredAuthenticationLevel)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleParamsProofOfPresence {
-    public init(requiredAuthenticationLevel: RepositoryRuleParamsProofOfPresenceRequiredAuthenticationLevel) {
+public extension RepositoryRuleParamsProofOfPresence {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.requiredAuthenticationLevel) else {
+            throw SdkValidationError(
+                field: "required_authentication_level",
+                code: "required",
+                message: "Validation failed for 'required_authentication_level': value is required"
+            )
+        }
+        requiredAuthenticationLevel = try container.sdkDecodeRequired(.requiredAuthenticationLevel)
+    }
+}
+
+public extension RepositoryRuleParamsProofOfPresence {
+    init(requiredAuthenticationLevel: RepositoryRuleParamsProofOfPresenceRequiredAuthenticationLevel) {
         self.requiredAuthenticationLevel = requiredAuthenticationLevel
     }
 }
@@ -44,37 +50,47 @@ public struct RepositoryRuleParamsRestrictedCommits: Codable {
         case reason
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleParamsRestrictedCommits {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.oid) else {
-            throw SdkValidationError(field: "oid", code: "required", message: "Validation failed for 'oid': value is required")
-        }
-        self.oid = try container.sdkDecodeRequired(.oid)
-        self.reason = try container.sdkDecodeIfPresent(.reason)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleParamsRestrictedCommits {
-    public init(oid: String, reason: String? = nil) {
+public extension RepositoryRuleParamsRestrictedCommits {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.oid) else {
+            throw SdkValidationError(
+                field: "oid",
+                code: "required",
+                message: "Validation failed for 'oid': value is required"
+            )
+        }
+        oid = try container.sdkDecodeRequired(.oid)
+        reason = try container.sdkDecodeIfPresent(.reason)
+    }
+}
+
+public extension RepositoryRuleParamsRestrictedCommits {
+    init(oid: String, reason: String? = nil) {
         (self.oid, self.reason) = (oid, reason)
     }
 }
 
 /// The level of authentication required before a pull request can be merged.
-public struct RepositoryRuleParamsProofOfPresenceRequiredAuthenticationLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleParamsProofOfPresenceRequiredAuthenticationLevel: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reauth = RepositoryRuleParamsProofOfPresenceRequiredAuthenticationLevel(rawValue: "reauth")
     public static let mfa = RepositoryRuleParamsProofOfPresenceRequiredAuthenticationLevel(rawValue: "mfa")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

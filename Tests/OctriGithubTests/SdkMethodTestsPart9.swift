@@ -26,7 +26,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityMarkRepoNotificationsAsReadActivityMarkRepoNotificationsAsReadReachesMockAndDecodesResponse() async throws {
+    func testActivityMarkRepoNotificationsAsReadActivityMarkRepoNotificationsAsReadReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -111,7 +112,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityStarRepoForAuthenticatedUserActivityStarRepoForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testActivityStarRepoForAuthenticatedUserActivityStarRepoForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -123,7 +125,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActivityUnstarRepoForAuthenticatedUserActivityUnstarRepoForAuX6902ad76e1ReachesMockAndDecodesResponse() async throws {
+    func testActivityUnstarRepoForAuthenticatedUserActivityUnstarRepoForAuX6902ad76e1ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -135,7 +138,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testAgentsAddSelectedRepoToOrgSecretAgentsAddSelectedRepoToOrgSecretReachesMockAndDecodesResponse() async throws {
+    func testAgentsAddSelectedRepoToOrgSecretAgentsAddSelectedRepoToOrgSecretReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -148,7 +152,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testAgentsAddSelectedRepoToOrgVariableAgentsAddSelectedRepoToOrgVariableReachesMockAndDecodesResponse() async throws {
+    func testAgentsAddSelectedRepoToOrgVariableAgentsAddSelectedRepoToOrgVariableReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -466,7 +471,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testAgentsListRepoOrganizationSecretsAgentsListRepoOrganizationSecretsReachesMockAndDecodesResponse() async throws {
+    func testAgentsListRepoOrganizationSecretsAgentsListRepoOrganizationSecretsReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -488,7 +494,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testAgentsListRepoOrganizationVariablesAgentsListRepoOrganizationVariablesReachesMockAndDecodesResponse() async throws {
+    func testAgentsListRepoOrganizationVariablesAgentsListRepoOrganizationVariablesReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

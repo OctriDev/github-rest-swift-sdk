@@ -15,19 +15,19 @@ struct SecretScanningUpdateAlertRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.state, forKey: SdkCodingKey("state"))
-        try keyedContainer.encodeIfPresent(self.resolution, forKey: SdkCodingKey("resolution"))
-        try keyedContainer.encodeIfPresent(self.resolutionComment, forKey: SdkCodingKey("resolution_comment"))
-        try keyedContainer.encodeIfPresent(self.assignee, forKey: SdkCodingKey("assignee"))
-        try keyedContainer.encodeIfPresent(self.validity, forKey: SdkCodingKey("validity"))
+        try keyedContainer.encodeIfPresent(state, forKey: SdkCodingKey("state"))
+        try keyedContainer.encodeIfPresent(resolution, forKey: SdkCodingKey("resolution"))
+        try keyedContainer.encodeIfPresent(resolutionComment, forKey: SdkCodingKey("resolution_comment"))
+        try keyedContainer.encodeIfPresent(assignee, forKey: SdkCodingKey("assignee"))
+        try keyedContainer.encodeIfPresent(validity, forKey: SdkCodingKey("validity"))
     }
 
     init(options: SecretScanningMethods.SecretScanningUpdateAlertOptions) {
-        self.state = options.state
-        self.resolution = options.resolution
-        self.resolutionComment = options.resolutionComment
-        self.assignee = options.assignee
-        self.validity = options.validity
+        state = options.state
+        resolution = options.resolution
+        resolutionComment = options.resolutionComment
+        assignee = options.assignee
+        validity = options.validity
     }
 }
 
@@ -36,7 +36,7 @@ struct SecretScanningBulkCreateRepoCustomPatternsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.patterns, forKey: SdkCodingKey("patterns"))
+        try keyedContainer.encode(patterns, forKey: SdkCodingKey("patterns"))
     }
 }
 
@@ -46,8 +46,8 @@ struct SecretScanningBulkDeleteRepoCustomPatternsRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.patterns, forKey: SdkCodingKey("patterns"))
-        try keyedContainer.encodeIfPresent(self.postDeleteAction, forKey: SdkCodingKey("post_delete_action"))
+        try keyedContainer.encode(patterns, forKey: SdkCodingKey("patterns"))
+        try keyedContainer.encodeIfPresent(postDeleteAction, forKey: SdkCodingKey("post_delete_action"))
     }
 }
 
@@ -61,21 +61,21 @@ struct SecretScanningUpdateRepoCustomPatternRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.customPatternVersion, forKey: SdkCodingKey("custom_pattern_version"))
-        try keyedContainer.encodeIfPresent(self.pattern, forKey: SdkCodingKey("pattern"))
-        try keyedContainer.encodeIfPresent(self.startDelimiter, forKey: SdkCodingKey("start_delimiter"))
-        try keyedContainer.encodeIfPresent(self.endDelimiter, forKey: SdkCodingKey("end_delimiter"))
-        try keyedContainer.encodeIfPresent(self.mustMatch, forKey: SdkCodingKey("must_match"))
-        try keyedContainer.encodeIfPresent(self.mustNotMatch, forKey: SdkCodingKey("must_not_match"))
+        try keyedContainer.encode(customPatternVersion, forKey: SdkCodingKey("custom_pattern_version"))
+        try keyedContainer.encodeIfPresent(pattern, forKey: SdkCodingKey("pattern"))
+        try keyedContainer.encodeIfPresent(startDelimiter, forKey: SdkCodingKey("start_delimiter"))
+        try keyedContainer.encodeIfPresent(endDelimiter, forKey: SdkCodingKey("end_delimiter"))
+        try keyedContainer.encodeIfPresent(mustMatch, forKey: SdkCodingKey("must_match"))
+        try keyedContainer.encodeIfPresent(mustNotMatch, forKey: SdkCodingKey("must_not_match"))
     }
 
     init(options: SecretScanningMethods.SecretScanningUpdateRepoCustomPatternOptions) {
-        self.customPatternVersion = options.customPatternVersion
-        self.pattern = options.pattern
-        self.startDelimiter = options.startDelimiter
-        self.endDelimiter = options.endDelimiter
-        self.mustMatch = options.mustMatch
-        self.mustNotMatch = options.mustNotMatch
+        customPatternVersion = options.customPatternVersion
+        pattern = options.pattern
+        startDelimiter = options.startDelimiter
+        endDelimiter = options.endDelimiter
+        mustMatch = options.mustMatch
+        mustNotMatch = options.mustNotMatch
     }
 }
 
@@ -85,8 +85,8 @@ struct SecretScanningCreatePushProtectionBypassRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.reason, forKey: SdkCodingKey("reason"))
-        try keyedContainer.encode(self.placeholderId, forKey: SdkCodingKey("placeholder_id"))
+        try keyedContainer.encode(reason, forKey: SdkCodingKey("reason"))
+        try keyedContainer.encode(placeholderId, forKey: SdkCodingKey("placeholder_id"))
     }
 }
 
@@ -99,11 +99,14 @@ struct HostedComputeCreateNetworkConfigurationForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encode(self.networkSettingsIds, forKey: SdkCodingKey("network_settings_ids"))
-        try keyedContainer.encodeIfPresent(self.computeService, forKey: SdkCodingKey("compute_service"))
-        try keyedContainer.encodeIfPresent(self.failoverNetworkSettingsIds, forKey: SdkCodingKey("failover_network_settings_ids"))
-        try keyedContainer.encodeIfPresent(self.failoverNetworkEnabled, forKey: SdkCodingKey("failover_network_enabled"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encode(networkSettingsIds, forKey: SdkCodingKey("network_settings_ids"))
+        try keyedContainer.encodeIfPresent(computeService, forKey: SdkCodingKey("compute_service"))
+        try keyedContainer.encodeIfPresent(
+            failoverNetworkSettingsIds,
+            forKey: SdkCodingKey("failover_network_settings_ids")
+        )
+        try keyedContainer.encodeIfPresent(failoverNetworkEnabled, forKey: SdkCodingKey("failover_network_enabled"))
     }
 }
 
@@ -116,11 +119,14 @@ struct HostedComputeUpdateNetworkConfigurationForOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(self.computeService, forKey: SdkCodingKey("compute_service"))
-        try keyedContainer.encodeIfPresent(self.networkSettingsIds, forKey: SdkCodingKey("network_settings_ids"))
-        try keyedContainer.encodeIfPresent(self.failoverNetworkSettingsIds, forKey: SdkCodingKey("failover_network_settings_ids"))
-        try keyedContainer.encodeIfPresent(self.failoverNetworkEnabled, forKey: SdkCodingKey("failover_network_enabled"))
+        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(computeService, forKey: SdkCodingKey("compute_service"))
+        try keyedContainer.encodeIfPresent(networkSettingsIds, forKey: SdkCodingKey("network_settings_ids"))
+        try keyedContainer.encodeIfPresent(
+            failoverNetworkSettingsIds,
+            forKey: SdkCodingKey("failover_network_settings_ids")
+        )
+        try keyedContainer.encodeIfPresent(failoverNetworkEnabled, forKey: SdkCodingKey("failover_network_enabled"))
     }
 }
 
@@ -137,27 +143,27 @@ struct TeamsCreateRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(self.maintainers, forKey: SdkCodingKey("maintainers"))
-        try keyedContainer.encodeIfPresent(self.repoNames, forKey: SdkCodingKey("repo_names"))
-        try keyedContainer.encodeIfPresent(self.privacy, forKey: SdkCodingKey("privacy"))
-        try keyedContainer.encodeIfPresent(self.notificationSetting, forKey: SdkCodingKey("notification_setting"))
-        try keyedContainer.encodeIfPresent(self.permission, forKey: SdkCodingKey("permission"))
-        try keyedContainer.encodeIfPresent(self.parentTeamId, forKey: SdkCodingKey("parent_team_id"))
-        try keyedContainer.encodeIfPresent(self.parentTeamSlug, forKey: SdkCodingKey("parent_team_slug"))
+        try keyedContainer.encode(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(maintainers, forKey: SdkCodingKey("maintainers"))
+        try keyedContainer.encodeIfPresent(repoNames, forKey: SdkCodingKey("repo_names"))
+        try keyedContainer.encodeIfPresent(privacy, forKey: SdkCodingKey("privacy"))
+        try keyedContainer.encodeIfPresent(notificationSetting, forKey: SdkCodingKey("notification_setting"))
+        try keyedContainer.encodeIfPresent(permission, forKey: SdkCodingKey("permission"))
+        try keyedContainer.encodeIfPresent(parentTeamId, forKey: SdkCodingKey("parent_team_id"))
+        try keyedContainer.encodeIfPresent(parentTeamSlug, forKey: SdkCodingKey("parent_team_slug"))
     }
 
     init(options: TeamsMethods.TeamsCreateOptions) {
-        self.name = options.name
-        self.description = options.description
-        self.maintainers = options.maintainers
-        self.repoNames = options.repoNames
-        self.privacy = options.privacy
-        self.notificationSetting = options.notificationSetting
-        self.permission = options.permission
-        self.parentTeamId = options.parentTeamId
-        self.parentTeamSlug = options.parentTeamSlug
+        name = options.name
+        description = options.description
+        maintainers = options.maintainers
+        repoNames = options.repoNames
+        privacy = options.privacy
+        notificationSetting = options.notificationSetting
+        permission = options.permission
+        parentTeamId = options.parentTeamId
+        parentTeamSlug = options.parentTeamSlug
     }
 }
 
@@ -172,23 +178,23 @@ struct TeamsUpdateInOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.name, forKey: SdkCodingKey("name"))
-        try keyedContainer.encodeIfPresent(self.description, forKey: SdkCodingKey("description"))
-        try keyedContainer.encodeIfPresent(self.privacy, forKey: SdkCodingKey("privacy"))
-        try keyedContainer.encodeIfPresent(self.notificationSetting, forKey: SdkCodingKey("notification_setting"))
-        try keyedContainer.encodeIfPresent(self.permission, forKey: SdkCodingKey("permission"))
-        try keyedContainer.encodeIfPresent(self.parentTeamId, forKey: SdkCodingKey("parent_team_id"))
-        try keyedContainer.encodeIfPresent(self.parentTeamSlug, forKey: SdkCodingKey("parent_team_slug"))
+        try keyedContainer.encodeIfPresent(name, forKey: SdkCodingKey("name"))
+        try keyedContainer.encodeIfPresent(description, forKey: SdkCodingKey("description"))
+        try keyedContainer.encodeIfPresent(privacy, forKey: SdkCodingKey("privacy"))
+        try keyedContainer.encodeIfPresent(notificationSetting, forKey: SdkCodingKey("notification_setting"))
+        try keyedContainer.encodeIfPresent(permission, forKey: SdkCodingKey("permission"))
+        try keyedContainer.encodeIfPresent(parentTeamId, forKey: SdkCodingKey("parent_team_id"))
+        try keyedContainer.encodeIfPresent(parentTeamSlug, forKey: SdkCodingKey("parent_team_slug"))
     }
 
     init(options: TeamsMethods.TeamsUpdateInOrgOptions) {
-        self.name = options.name
-        self.description = options.description
-        self.privacy = options.privacy
-        self.notificationSetting = options.notificationSetting
-        self.permission = options.permission
-        self.parentTeamId = options.parentTeamId
-        self.parentTeamSlug = options.parentTeamSlug
+        name = options.name
+        description = options.description
+        privacy = options.privacy
+        notificationSetting = options.notificationSetting
+        permission = options.permission
+        parentTeamId = options.parentTeamId
+        parentTeamSlug = options.parentTeamSlug
     }
 }
 
@@ -197,7 +203,7 @@ struct TeamsAddOrUpdateMembershipForUserInOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.role, forKey: SdkCodingKey("role"))
+        try keyedContainer.encodeIfPresent(role, forKey: SdkCodingKey("role"))
     }
 }
 
@@ -206,6 +212,6 @@ struct TeamsAddOrUpdateRepoPermissionsInOrgRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.permission, forKey: SdkCodingKey("permission"))
+        try keyedContainer.encodeIfPresent(permission, forKey: SdkCodingKey("permission"))
     }
 }

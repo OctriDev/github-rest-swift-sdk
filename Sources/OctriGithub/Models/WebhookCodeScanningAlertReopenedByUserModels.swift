@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookCodeScanningAlertReopenedByUser domain models
+/// WebhookCodeScanningAlertReopenedByUser domain models
 /// Typed representation of the `WebhookCodeScanningAlertReopenedByUser` API schema.
 public struct WebhookCodeScanningAlertReopenedByUser: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -44,44 +44,80 @@ public struct WebhookCodeScanningAlertReopenedByUser: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCodeScanningAlertReopenedByUser {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.alert) else {
-            throw SdkValidationError(field: "alert", code: "required", message: "Validation failed for 'alert': value is required")
-        }
-        guard container.contains(.commitOid) else {
-            throw SdkValidationError(field: "commit_oid", code: "required", message: "Validation failed for 'commit_oid': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.alert = try container.sdkDecodeRequired(.alert)
-        self.commitOid = try container.sdkDecodeRequired(.commitOid)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUser {
-    public init(action: WebhookCodeScanningAlertReopenedByUserAction, alert: WebhookCodeScanningAlertReopenedByUserAlert, commitOid: WebhooksCodeScanningCommitOid, ref: WebhooksCodeScanningRef, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookCodeScanningAlertReopenedByUser {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.alert) else {
+            throw SdkValidationError(
+                field: "alert",
+                code: "required",
+                message: "Validation failed for 'alert': value is required"
+            )
+        }
+        guard container.contains(.commitOid) else {
+            throw SdkValidationError(
+                field: "commit_oid",
+                code: "required",
+                message: "Validation failed for 'commit_oid': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        alert = try container.sdkDecodeRequired(.alert)
+        commitOid = try container.sdkDecodeRequired(.commitOid)
+        ref = try container.sdkDecodeRequired(.ref)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookCodeScanningAlertReopenedByUser {
+    init(
+        action: WebhookCodeScanningAlertReopenedByUserAction,
+        alert: WebhookCodeScanningAlertReopenedByUserAlert,
+        commitOid: WebhooksCodeScanningCommitOid,
+        ref: WebhooksCodeScanningRef,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.alert) = (action, alert)
         (self.commitOid, self.ref) = (commitOid, ref)
         (self.repository, self.sender) = (repository, sender)
@@ -140,37 +176,54 @@ public struct WebhookCodeScanningAlertReopenedByUserAlert: Codable {
         case mostRecentInstance = "most_recent_instance"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlert {
-    public init(from decoder: Decoder) throws {
+public extension WebhookCodeScanningAlertReopenedByUserAlert {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
-        self.dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
-        self.dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.tool = try container.sdkDecodeRequired(.tool)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.assignees = try container.sdkDecodeIfPresent(.assignees)
-        self.dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
-        self.fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
-        self.mostRecentInstance = try container.sdkDecodeIfPresent(.mostRecentInstance)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("url", self.url)
-        if let value = self.dismissedComment {
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
+        dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
+        dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        number = try container.sdkDecodeRequired(.number)
+        rule = try container.sdkDecodeRequired(.rule)
+        state = try container.sdkDecodeIfPresent(.state)
+        tool = try container.sdkDecodeRequired(.tool)
+        url = try container.sdkDecodeRequired(.url)
+        assignees = try container.sdkDecodeIfPresent(.assignees)
+        dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
+        fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
+        mostRecentInstance = try container.sdkDecodeIfPresent(.mostRecentInstance)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("html_url", htmlUrl)
+        try sdkValidateUri("url", url)
+        if let value = dismissedComment {
             try validateLength("dismissed_comment", sdkWireString(value), min: nil, max: 280)
         }
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlert {
-    public init(createdAt: Date, dismissedAt: JSONValue?, dismissedBy: JSONValue?, dismissedReason: JSONValue?, htmlUrl: String, number: Int, rule: WebhookCodeScanningAlertReopenedByUserAlertRule, state: WebhookCodeScanningAlertReopenedByUserAlertState?, tool: WebhookCodeScanningAlertReopenedByUserAlertTool, url: String, assignees: [SimpleUser]? = nil, dismissedComment: CodeScanningAlertDismissedComment? = nil, fixedAt: JSONValue? = nil, mostRecentInstance: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance? = nil) throws {
+public extension WebhookCodeScanningAlertReopenedByUserAlert {
+    init(
+        createdAt: Date,
+        dismissedAt: JSONValue?,
+        dismissedBy: JSONValue?,
+        dismissedReason: JSONValue?,
+        htmlUrl: String,
+        number: Int,
+        rule: WebhookCodeScanningAlertReopenedByUserAlertRule,
+        state: WebhookCodeScanningAlertReopenedByUserAlertState?,
+        tool: WebhookCodeScanningAlertReopenedByUserAlertTool,
+        url: String,
+        assignees: [SimpleUser]? = nil,
+        dismissedComment: CodeScanningAlertDismissedComment? = nil,
+        fixedAt: JSONValue? = nil,
+        mostRecentInstance: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance? = nil
+    ) throws {
         (self.createdAt, self.dismissedAt) = (createdAt, dismissedAt)
         (self.dismissedBy, self.dismissedReason) = (dismissedBy, dismissedReason)
         (self.htmlUrl, self.number) = (htmlUrl, number)
@@ -178,9 +231,9 @@ extension WebhookCodeScanningAlertReopenedByUserAlert {
         (self.tool, self.url) = (tool, url)
         (self.assignees, self.dismissedComment) = (assignees, dismissedComment)
         (self.fixedAt, self.mostRecentInstance) = (fixedAt, mostRecentInstance)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("html_url", self.htmlUrl)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateUri("html_url", self.htmlUrl)
+        try sdkValidateUri("url", self.url)
         if let value = self.dismissedComment {
             try validateLength("dismissed_comment", sdkWireString(value), min: nil, max: 280)
         }
@@ -222,38 +275,66 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance: Cod
         case message
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.analysisKey) else {
-            throw SdkValidationError(field: "analysis_key", code: "required", message: "Validation failed for 'analysis_key': value is required")
-        }
-        guard container.contains(.environment) else {
-            throw SdkValidationError(field: "environment", code: "required", message: "Validation failed for 'environment': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        self.analysisKey = try container.sdkDecodeRequired(.analysisKey)
-        self.environment = try container.sdkDecodeRequired(.environment)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.category = try container.sdkDecodeIfPresent(.category)
-        self.classifications = try container.sdkDecodeIfPresent(.classifications)
-        self.commitSha = try container.sdkDecodeIfPresent(.commitSha)
-        self.location = try container.sdkDecodeIfPresent(.location)
-        self.message = try container.sdkDecodeIfPresent(.message)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance {
-    public init(analysisKey: String, environment: String, ref: String, state: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState, category: String? = nil, classifications: [String]? = nil, commitSha: String? = nil, location: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocation? = nil, message: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessage? = nil) {
+public extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.analysisKey) else {
+            throw SdkValidationError(
+                field: "analysis_key",
+                code: "required",
+                message: "Validation failed for 'analysis_key': value is required"
+            )
+        }
+        guard container.contains(.environment) else {
+            throw SdkValidationError(
+                field: "environment",
+                code: "required",
+                message: "Validation failed for 'environment': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        analysisKey = try container.sdkDecodeRequired(.analysisKey)
+        environment = try container.sdkDecodeRequired(.environment)
+        ref = try container.sdkDecodeRequired(.ref)
+        state = try container.sdkDecodeRequired(.state)
+        category = try container.sdkDecodeIfPresent(.category)
+        classifications = try container.sdkDecodeIfPresent(.classifications)
+        commitSha = try container.sdkDecodeIfPresent(.commitSha)
+        location = try container.sdkDecodeIfPresent(.location)
+        message = try container.sdkDecodeIfPresent(.message)
+    }
+}
+
+public extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstance {
+    init(
+        analysisKey: String,
+        environment: String,
+        ref: String,
+        state: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState,
+        category: String? = nil,
+        classifications: [String]? = nil,
+        commitSha: String? = nil,
+        location: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocation? = nil,
+        message: WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessage? = nil
+    ) {
         (self.analysisKey, self.environment) = (analysisKey, environment)
         (self.ref, self.state) = (ref, state)
         (self.category, self.classifications) = (category, classifications)
@@ -284,23 +365,29 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocat
     }
 
     init() {
-        (self.endColumn, self.endLine, self.path, self.startColumn, self.startLine) = (nil, nil, nil, nil, nil)
+        (endColumn, endLine, path, startColumn, startLine) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocation {
-    public init(from decoder: Decoder) throws {
+public extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocation {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.endColumn = try container.sdkDecodeIfPresent(.endColumn)
-        self.endLine = try container.sdkDecodeIfPresent(.endLine)
-        self.path = try container.sdkDecodeIfPresent(.path)
-        self.startColumn = try container.sdkDecodeIfPresent(.startColumn)
-        self.startLine = try container.sdkDecodeIfPresent(.startLine)
+        endColumn = try container.sdkDecodeIfPresent(.endColumn)
+        endLine = try container.sdkDecodeIfPresent(.endLine)
+        path = try container.sdkDecodeIfPresent(.path)
+        startColumn = try container.sdkDecodeIfPresent(.startColumn)
+        startLine = try container.sdkDecodeIfPresent(.startLine)
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocation {
-    public init(endColumn: Int? = nil, endLine: Int? = nil, path: String? = nil, startColumn: Int? = nil, startLine: Int? = nil) {
+public extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceLocation {
+    init(
+        endColumn: Int? = nil,
+        endLine: Int? = nil,
+        path: String? = nil,
+        startColumn: Int? = nil,
+        startLine: Int? = nil
+    ) {
         self.init()
         (self.endColumn, self.endLine) = (endColumn, endLine)
         (self.path, self.startColumn) = (path, startColumn)
@@ -318,19 +405,19 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessa
     }
 
     init() {
-        self.text = nil
+        text = nil
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessage {
-    public init(from decoder: Decoder) throws {
+public extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessage {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.text = try container.sdkDecodeIfPresent(.text)
+        text = try container.sdkDecodeIfPresent(.text)
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessage {
-    public init(text: String? = nil) {
+public extension WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceMessage {
+    init(text: String? = nil) {
         self.init()
         self.text = text
     }
@@ -351,29 +438,43 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertRule: Codable {
         case severity
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCodeScanningAlertReopenedByUserAlertRule {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.description) else {
-            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.severity) else {
-            throw SdkValidationError(field: "severity", code: "required", message: "Validation failed for 'severity': value is required")
-        }
-        self.description = try container.sdkDecodeRequired(.description)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.severity = try container.sdkDecodeIfPresent(.severity)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertRule {
-    public init(description: String, id: String, severity: WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity?) {
+public extension WebhookCodeScanningAlertReopenedByUserAlertRule {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.description) else {
+            throw SdkValidationError(
+                field: "description",
+                code: "required",
+                message: "Validation failed for 'description': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.severity) else {
+            throw SdkValidationError(
+                field: "severity",
+                code: "required",
+                message: "Validation failed for 'severity': value is required"
+            )
+        }
+        description = try container.sdkDecodeRequired(.description)
+        id = try container.sdkDecodeRequired(.id)
+        severity = try container.sdkDecodeIfPresent(.severity)
+    }
+}
+
+public extension WebhookCodeScanningAlertReopenedByUserAlertRule {
+    init(description: String, id: String, severity: WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity?) {
         (self.description, self.id) = (description, id)
         self.severity = severity
     }
@@ -391,41 +492,55 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertTool: Codable {
         case version
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCodeScanningAlertReopenedByUserAlertTool {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.version) else {
-            throw SdkValidationError(field: "version", code: "required", message: "Validation failed for 'version': value is required")
-        }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.version = try container.sdkDecodeIfPresent(.version)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCodeScanningAlertReopenedByUserAlertTool {
-    public init(name: String, version: String?) {
+public extension WebhookCodeScanningAlertReopenedByUserAlertTool {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.version) else {
+            throw SdkValidationError(
+                field: "version",
+                code: "required",
+                message: "Validation failed for 'version': value is required"
+            )
+        }
+        name = try container.sdkDecodeRequired(.name)
+        version = try container.sdkDecodeIfPresent(.version)
+    }
+}
+
+public extension WebhookCodeScanningAlertReopenedByUserAlertTool {
+    init(name: String, version: String?) {
         (self.name, self.version) = (name, version)
     }
 }
 
 /// State of a code scanning alert. Events for alerts found outside the default branch will return a `null`
 /// value until they are dismissed or fixed.
-public struct WebhookCodeScanningAlertReopenedByUserAlertState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedByUserAlertState: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = WebhookCodeScanningAlertReopenedByUserAlertState(rawValue: "open")
     public static let fixed = WebhookCodeScanningAlertReopenedByUserAlertState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -435,17 +550,22 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertState: RawRepresentable
 }
 
 /// State of a code scanning alert.
-public struct WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState(rawValue: "open")
-    public static let dismissed = WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState(rawValue: "dismissed")
+    public static let dismissed =
+        WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState(rawValue: "dismissed")
     public static let fixed = WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -455,15 +575,19 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertMostRecentInstanceState
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookCodeScanningAlertReopenedByUserAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedByUserAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let reopenedByUser = WebhookCodeScanningAlertReopenedByUserAction(rawValue: "reopened_by_user")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -473,10 +597,14 @@ public struct WebhookCodeScanningAlertReopenedByUserAction: RawRepresentable, Ha
 }
 
 /// The severity of the alert.
-public struct WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let none = WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity(rawValue: "none")
     public static let note = WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity(rawValue: "note")
     public static let warning = WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity(rawValue: "warning")
@@ -484,7 +612,7 @@ public struct WebhookCodeScanningAlertReopenedByUserAlertRuleSeverity: RawRepres
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

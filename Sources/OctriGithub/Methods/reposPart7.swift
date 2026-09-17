@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Gets information about a suite of rule evaluations from within an organization. For more information, see "[Managing rulesets for repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
+public extension ReposMethods {
+    /// Gets information about a suite of rule evaluations from within an organization. For more information, see
+    /// "[Managing rulesets for repositories in your organization](https://docs.github.com/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization#viewing-insights-for-rulesets)."
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -17,16 +18,43 @@ extension ReposMethods {
     ///   os/rule-suites#list-repository-rule-suites) for repositories and [GET
     ///   /orgs/{org}/rulesets/rule-suites](https://docs.github.com/rest/orgs/rule-sui
     ///   tes#list-organization-rule-suites) for organizations.
-    public static func reposGetOrgRuleSuite(config: ClientConfig, org: String, ruleSuiteId: Int) async throws -> RuleSuite {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets/rule-suites/", sdkEncodePathSegment(sdkWireString(ruleSuiteId))].joined(), config: config, decoder: .json, operationId: "reposGetOrgRuleSuite")).data
+    static func reposGetOrgRuleSuite(config: ClientConfig, org: String, ruleSuiteId: Int) async throws -> RuleSuite {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/rulesets/rule-suites/",
+                sdkEncodePathSegment(sdkWireString(ruleSuiteId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetOrgRuleSuite"
+        )).data
     }
 
-    /// Get a repository ruleset for an organization. **Note:** To prevent leaking sensitive information, the `bypass_actors` property is only returned if the user making the API request has write access to the ruleset.
+    /// Get a repository ruleset for an organization. **Note:** To prevent leaking sensitive information, the
+    /// `bypass_actors` property is only returned if the user making the API request has write access to the ruleset.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - rulesetId: The ID of the ruleset.
-    public static func reposGetOrgRuleset(config: ClientConfig, org: String, rulesetId: Int) async throws -> RepositoryRuleset {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/rulesets/", sdkEncodePathSegment(sdkWireString(rulesetId))].joined(), config: config, decoder: .json, operationId: "reposGetOrgRuleset")).data
+    static func reposGetOrgRuleset(
+        config: ClientConfig,
+        org: String,
+        rulesetId: Int
+    ) async throws -> RepositoryRuleset {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/rulesets/",
+                sdkEncodePathSegment(sdkWireString(rulesetId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetOrgRuleset"
+        )).data
     }
 }

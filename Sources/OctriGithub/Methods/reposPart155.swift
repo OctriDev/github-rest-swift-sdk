@@ -6,30 +6,70 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Disable vulnerability alerts
     ///
-    /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see "[About security alerts for vulnerable dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
+    /// Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin
+    /// access to the repository. For more information, see "[About security alerts for vulnerable
+    /// dependencies](https://docs.github.com/articles/about-security-alerts-for-vulnerable-dependencies)".
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposDisableVulnerabilityAlerts(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/vulnerability-alerts"].joined(), config: config, decoder: .empty, operationId: "reposDisableVulnerabilityAlerts")).data
+    static func reposDisableVulnerabilityAlerts(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/vulnerability-alerts",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDisableVulnerabilityAlerts"
+        )).data
     }
 
     /// Download a repository archive (zip)
     ///
-    /// Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repository’s default branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories, these links are temporary and expire after five minutes. If the repository is empty, you will receive a 404 when you follow the redirect.
+    /// Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repository’s default
+    /// branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or
+    /// you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories,
+    /// these links are temporary and expire after five minutes. If the repository is empty, you will receive a 404 when
+    /// you follow the redirect.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposDownloadZipballArchive(config: ClientConfig, owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/zipball/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, decoder: .empty, operationId: "reposDownloadZipballArchive")).data
+    static func reposDownloadZipballArchive(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/zipball/",
+                sdkEncodePathSegment(sdkWireString(ref)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDownloadZipballArchive"
+        )).data
     }
 }

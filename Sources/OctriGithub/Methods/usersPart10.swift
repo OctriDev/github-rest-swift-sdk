@@ -6,10 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List public SSH keys for the authenticated user
     ///
-    /// Lists the public SSH keys for the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `read:public_key` scope to use this endpoint.
+    /// Lists the public SSH keys for the authenticated user's GitHub account. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:public_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -20,8 +21,12 @@ extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func usersListPublicSshKeysForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?) async throws -> [Key] {
-        return try (await sdkRequest("GET", "/user/keys", config: config, query: [
+    static func usersListPublicSshKeysForAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Key] {
+        try await (sdkRequest("GET", "/user/keys", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "usersListPublicSshKeysForAuthenticatedUser")).data
@@ -29,16 +34,28 @@ extension UsersMethods {
 
     /// Create a public SSH key for the authenticated user
     ///
-    /// Adds a public SSH key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens (classic) need the `write:public_key` scope to use this endpoint.
+    /// Adds a public SSH key to the authenticated user's GitHub account. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:public_key` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - key: The public SSH key to add to your GitHub account.
     /// - title: A descriptive name for the new key.
-    public static func usersCreatePublicSshKeyForAuthenticatedUser(config: ClientConfig, key: String, title: String?) async throws -> Key {
+    static func usersCreatePublicSshKeyForAuthenticatedUser(
+        config: ClientConfig,
+        key: String,
+        title: String?
+    ) async throws -> Key {
         try sdkValidatePattern("key", key, sdkPattern0856c743b1f8)
 
         let requestBody = UsersCreatePublicSshKeyForAuthenticatedUserRequestBody(key: key, title: title)
 
-        return try (await sdkRequest("POST", "/user/keys", config: config, body: requestBody, decoder: .json, operationId: "usersCreatePublicSshKeyForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "POST",
+            "/user/keys",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "usersCreatePublicSshKeyForAuthenticatedUser"
+        )).data
     }
 }

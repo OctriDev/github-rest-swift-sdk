@@ -3,19 +3,24 @@
 
 import Foundation
 
-// CodeScanningCodeScanningVariant domain models
+/// CodeScanningCodeScanningVariant domain models
 /// The reason for a failure of the variant analysis. This is only available if the variant analysis has failed.
-public struct CodeScanningVariantAnalysisFailureReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeScanningVariantAnalysisFailureReason: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let noReposQueried = CodeScanningVariantAnalysisFailureReason(rawValue: "no_repos_queried")
-    public static let actionsWorkflowRunFailed = CodeScanningVariantAnalysisFailureReason(rawValue: "actions_workflow_run_failed")
+    public static let actionsWorkflowRunFailed =
+        CodeScanningVariantAnalysisFailureReason(rawValue: "actions_workflow_run_failed")
     public static let internalError = CodeScanningVariantAnalysisFailureReason(rawValue: "internal_error")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,7 +33,10 @@ public struct CodeScanningVariantAnalysisFailureReason: RawRepresentable, Hashab
 public struct CodeScanningVariantAnalysisLanguage: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let actions = CodeScanningVariantAnalysisLanguage(rawValue: "actions")
     public static let cpp = CodeScanningVariantAnalysisLanguage(rawValue: "cpp")
     public static let csharp = CodeScanningVariantAnalysisLanguage(rawValue: "csharp")
@@ -42,7 +50,7 @@ public struct CodeScanningVariantAnalysisLanguage: RawRepresentable, Hashable, C
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -55,7 +63,10 @@ public struct CodeScanningVariantAnalysisLanguage: RawRepresentable, Hashable, C
 public struct CodeScanningVariantAnalysisStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pending = CodeScanningVariantAnalysisStatus(rawValue: "pending")
     public static let inProgress = CodeScanningVariantAnalysisStatus(rawValue: "in_progress")
     public static let succeeded = CodeScanningVariantAnalysisStatus(rawValue: "succeeded")
@@ -65,7 +76,7 @@ public struct CodeScanningVariantAnalysisStatus: RawRepresentable, Hashable, Cod
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

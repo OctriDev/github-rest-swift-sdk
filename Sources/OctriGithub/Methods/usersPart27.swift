@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List social accounts for a user
     ///
     /// Lists social media accounts for a user. This endpoint is accessible by anyone.
@@ -21,10 +21,22 @@ extension UsersMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func usersListSocialAccountsForUser(config: ClientConfig, username: String, perPage: Int?, page: Int?) async throws -> [SocialAccount] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/social_accounts"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "usersListSocialAccountsForUser")).data
+    static func usersListSocialAccountsForUser(
+        config: ClientConfig,
+        username: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [SocialAccount] {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/social_accounts"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "usersListSocialAccountsForUser"
+        )).data
     }
 }

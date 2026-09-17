@@ -6,17 +6,21 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public struct IssuesListForAuthenticatedUserParameterX317b1d71: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct IssuesListForAuthenticatedUserParameterX317b1d71: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = IssuesListForAuthenticatedUserParameterX317b1d71(rawValue: "created")
     public static let updated = IssuesListForAuthenticatedUserParameterX317b1d71(rawValue: "updated")
     public static let comments = IssuesListForAuthenticatedUserParameterX317b1d71(rawValue: "comments")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -25,16 +29,20 @@ public struct IssuesListForAuthenticatedUserParameterX317b1d71: RawRepresentable
     }
 }
 
-public struct OrgsListMembershipsForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsListMembershipsForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let active = OrgsListMembershipsForAuthenticatedUserParameter(rawValue: "active")
     public static let pending = OrgsListMembershipsForAuthenticatedUserParameter(rawValue: "pending")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,15 +52,19 @@ public struct OrgsListMembershipsForAuthenticatedUserParameter: RawRepresentable
 }
 
 /// The state that the membership should be in. Only `"active"` will be accepted.
-public struct OrgsUpdateMembershipForAuthenticatedUserRequestBodyState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsUpdateMembershipForAuthenticatedUserRequestBodyState: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let active = OrgsUpdateMembershipForAuthenticatedUserRequestBodyState(rawValue: "active")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -62,15 +74,19 @@ public struct OrgsUpdateMembershipForAuthenticatedUserRequestBodyState: RawRepre
 }
 
 /// Allowed values that can be passed to the exclude param.
-public struct MigrationsStartForAuthenticatedUserRequestBodyExcludeItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct MigrationsStartForAuthenticatedUserRequestBodyExcludeItem: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let repositories = MigrationsStartForAuthenticatedUserRequestBodyExcludeItem(rawValue: "repositories")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -79,10 +95,14 @@ public struct MigrationsStartForAuthenticatedUserRequestBodyExcludeItem: RawRepr
     }
 }
 
-public struct PackagesListPackagesForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PackagesListPackagesForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let npm = PackagesListPackagesForAuthenticatedUserParameter(rawValue: "npm")
     public static let maven = PackagesListPackagesForAuthenticatedUserParameter(rawValue: "maven")
     public static let rubygems = PackagesListPackagesForAuthenticatedUserParameter(rawValue: "rubygems")
@@ -92,7 +112,7 @@ public struct PackagesListPackagesForAuthenticatedUserParameter: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -101,16 +121,22 @@ public struct PackagesListPackagesForAuthenticatedUserParameter: RawRepresentabl
     }
 }
 
-public struct PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let active = PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter(rawValue: "active")
-    public static let deleted = PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter(rawValue: "deleted")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let active =
+        PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter(rawValue: "active")
+    public static let deleted =
+        PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParameter(rawValue: "deleted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -119,17 +145,21 @@ public struct PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserPar
     }
 }
 
-public struct ReposListForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposListForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ReposListForAuthenticatedUserParameter(rawValue: "all")
     public static let `public` = ReposListForAuthenticatedUserParameter(rawValue: "public")
     public static let `private` = ReposListForAuthenticatedUserParameter(rawValue: "private")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -138,10 +168,14 @@ public struct ReposListForAuthenticatedUserParameter: RawRepresentable, Hashable
     }
 }
 
-public struct ReposListForAuthenticatedUserParameterX68ee8e50: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposListForAuthenticatedUserParameterX68ee8e50: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ReposListForAuthenticatedUserParameterX68ee8e50(rawValue: "all")
     public static let owner = ReposListForAuthenticatedUserParameterX68ee8e50(rawValue: "owner")
     public static let `public` = ReposListForAuthenticatedUserParameterX68ee8e50(rawValue: "public")
@@ -150,7 +184,7 @@ public struct ReposListForAuthenticatedUserParameterX68ee8e50: RawRepresentable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -159,10 +193,14 @@ public struct ReposListForAuthenticatedUserParameterX68ee8e50: RawRepresentable,
     }
 }
 
-public struct ReposListForAuthenticatedUserParameterXf052b28c: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposListForAuthenticatedUserParameterXf052b28c: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = ReposListForAuthenticatedUserParameterXf052b28c(rawValue: "created")
     public static let updated = ReposListForAuthenticatedUserParameterXf052b28c(rawValue: "updated")
     public static let pushed = ReposListForAuthenticatedUserParameterXf052b28c(rawValue: "pushed")
@@ -170,7 +208,7 @@ public struct ReposListForAuthenticatedUserParameterXf052b28c: RawRepresentable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -179,16 +217,20 @@ public struct ReposListForAuthenticatedUserParameterXf052b28c: RawRepresentable,
     }
 }
 
-public struct ReposListForAuthenticatedUserParameterXc1b0dc9a: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposListForAuthenticatedUserParameterXc1b0dc9a: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = ReposListForAuthenticatedUserParameterXc1b0dc9a(rawValue: "asc")
     public static let desc = ReposListForAuthenticatedUserParameterXc1b0dc9a(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

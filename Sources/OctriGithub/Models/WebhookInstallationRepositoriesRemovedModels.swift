@@ -3,8 +3,9 @@
 
 import Foundation
 
-// WebhookInstallationRepositoriesRemoved domain models
-public typealias WebhookInstallationRepositoriesRemovedRepositoriesRemovedList = [WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem]
+/// WebhookInstallationRepositoriesRemoved domain models
+public typealias WebhookInstallationRepositoriesRemovedRepositoriesRemovedList =
+    [WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem]
 
 /// Typed representation of the `WebhookInstallationRepositoriesRemoved` API schema.
 public struct WebhookInstallationRepositoriesRemoved: Codable {
@@ -47,48 +48,89 @@ public struct WebhookInstallationRepositoriesRemoved: Codable {
         case repository
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookInstallationRepositoriesRemoved {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.installation) else {
-            throw SdkValidationError(field: "installation", code: "required", message: "Validation failed for 'installation': value is required")
-        }
-        guard container.contains(.repositoriesAdded) else {
-            throw SdkValidationError(field: "repositories_added", code: "required", message: "Validation failed for 'repositories_added': value is required")
-        }
-        guard container.contains(.repositoriesRemoved) else {
-            throw SdkValidationError(field: "repositories_removed", code: "required", message: "Validation failed for 'repositories_removed': value is required")
-        }
-        guard container.contains(.repositorySelection) else {
-            throw SdkValidationError(field: "repository_selection", code: "required", message: "Validation failed for 'repository_selection': value is required")
-        }
-        guard container.contains(.requester) else {
-            throw SdkValidationError(field: "requester", code: "required", message: "Validation failed for 'requester': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.installation = try container.sdkDecodeRequired(.installation)
-        self.repositoriesAdded = try container.sdkDecodeRequired(.repositoriesAdded)
-        self.repositoriesRemoved = try container.sdkDecodeRequired(.repositoriesRemoved)
-        self.repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
-        self.requester = try container.sdkDecodeIfPresent(.requester)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookInstallationRepositoriesRemoved {
-    public init(action: WebhookInstallationRepositoriesRemovedAction, installation: Installation, repositoriesAdded: WebhooksRepositoriesAdded, repositoriesRemoved: WebhookInstallationRepositoriesRemovedRepositoriesRemovedList, repositorySelection: WebhooksRepositorySelection, requester: WebhooksUser?, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil, repository: RepositoryWebhooks? = nil) {
+public extension WebhookInstallationRepositoriesRemoved {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.installation) else {
+            throw SdkValidationError(
+                field: "installation",
+                code: "required",
+                message: "Validation failed for 'installation': value is required"
+            )
+        }
+        guard container.contains(.repositoriesAdded) else {
+            throw SdkValidationError(
+                field: "repositories_added",
+                code: "required",
+                message: "Validation failed for 'repositories_added': value is required"
+            )
+        }
+        guard container.contains(.repositoriesRemoved) else {
+            throw SdkValidationError(
+                field: "repositories_removed",
+                code: "required",
+                message: "Validation failed for 'repositories_removed': value is required"
+            )
+        }
+        guard container.contains(.repositorySelection) else {
+            throw SdkValidationError(
+                field: "repository_selection",
+                code: "required",
+                message: "Validation failed for 'repository_selection': value is required"
+            )
+        }
+        guard container.contains(.requester) else {
+            throw SdkValidationError(
+                field: "requester",
+                code: "required",
+                message: "Validation failed for 'requester': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        installation = try container.sdkDecodeRequired(.installation)
+        repositoriesAdded = try container.sdkDecodeRequired(.repositoriesAdded)
+        repositoriesRemoved = try container.sdkDecodeRequired(.repositoriesRemoved)
+        repositorySelection = try container.sdkDecodeRequired(.repositorySelection)
+        requester = try container.sdkDecodeIfPresent(.requester)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repository = try container.sdkDecodeIfPresent(.repository)
+    }
+}
+
+public extension WebhookInstallationRepositoriesRemoved {
+    init(
+        action: WebhookInstallationRepositoriesRemovedAction,
+        installation: Installation,
+        repositoriesAdded: WebhooksRepositoriesAdded,
+        repositoriesRemoved: WebhookInstallationRepositoriesRemovedRepositoriesRemovedList,
+        repositorySelection: WebhooksRepositorySelection,
+        requester: WebhooksUser?,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repository: RepositoryWebhooks? = nil
+    ) {
         (self.action, self.installation) = (action, installation)
         (self.repositoriesAdded, self.repositoriesRemoved) = (repositoriesAdded, repositoriesRemoved)
         (self.repositorySelection, self.requester) = (repositorySelection, requester)
@@ -118,53 +160,79 @@ public struct WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem: Cod
         case `private`
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.fullName) else {
-            throw SdkValidationError(field: "full_name", code: "required", message: "Validation failed for 'full_name': value is required")
-        }
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.`private`) else {
-            throw SdkValidationError(field: "private", code: "required", message: "Validation failed for 'private': value is required")
-        }
-        self.fullName = try container.sdkDecodeRequired(.fullName)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.`private` = try container.sdkDecodeRequired(.`private`)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem {
-    public init(fullName: String, id: Int, name: String, nodeId: String, `private`: Bool) {
+public extension WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.fullName) else {
+            throw SdkValidationError(
+                field: "full_name",
+                code: "required",
+                message: "Validation failed for 'full_name': value is required"
+            )
+        }
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.private) else {
+            throw SdkValidationError(
+                field: "private",
+                code: "required",
+                message: "Validation failed for 'private': value is required"
+            )
+        }
+        fullName = try container.sdkDecodeRequired(.fullName)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        self.private = try container.sdkDecodeRequired(.private)
+    }
+}
+
+public extension WebhookInstallationRepositoriesRemovedRepositoriesRemovedItem {
+    init(fullName: String, id: Int, name: String, nodeId: String, private: Bool) {
         (self.fullName, self.id) = (fullName, id)
         (self.name, self.nodeId) = (name, nodeId)
-        self.`private` = `private`
+        self.private = `private`
     }
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookInstallationRepositoriesRemovedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookInstallationRepositoriesRemovedAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let removed = WebhookInstallationRepositoriesRemovedAction(rawValue: "removed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

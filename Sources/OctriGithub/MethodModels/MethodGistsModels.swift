@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical gists operation model declarations
+/// Canonical gists operation model declarations
 public struct GistsGetResponseBlock: Codable {
     public var reason: String?
     public var createdAt: String?
@@ -20,21 +20,21 @@ public struct GistsGetResponseBlock: Codable {
     }
 
     init() {
-        (self.reason, self.createdAt, self.htmlUrl) = (nil, nil, nil)
+        (reason, createdAt, htmlUrl) = (nil, nil, nil)
     }
 }
 
-extension GistsGetResponseBlock {
-    public init(from decoder: Decoder) throws {
+public extension GistsGetResponseBlock {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.reason = try container.sdkDecodeIfPresent(.reason)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        reason = try container.sdkDecodeIfPresent(.reason)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
     }
 }
 
-extension GistsGetResponseBlock {
-    public init(reason: String? = nil, createdAt: String? = nil, htmlUrl: String? = nil) {
+public extension GistsGetResponseBlock {
+    init(reason: String? = nil, createdAt: String? = nil, htmlUrl: String? = nil) {
         self.init()
         (self.reason, self.createdAt) = (reason, createdAt)
         self.htmlUrl = htmlUrl
@@ -53,21 +53,21 @@ public struct GistsGetResponse: Codable {
     }
 
     init() {
-        (self.block, self.message, self.documentationUrl) = (nil, nil, nil)
+        (block, message, documentationUrl) = (nil, nil, nil)
     }
 }
 
-extension GistsGetResponse {
-    public init(from decoder: Decoder) throws {
+public extension GistsGetResponse {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.block = try container.sdkDecodeIfPresent(.block)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
+        block = try container.sdkDecodeIfPresent(.block)
+        message = try container.sdkDecodeIfPresent(.message)
+        documentationUrl = try container.sdkDecodeIfPresent(.documentationUrl)
     }
 }
 
-extension GistsGetResponse {
-    public init(block: GistsGetResponseBlock? = nil, message: String? = nil, documentationUrl: String? = nil) {
+public extension GistsGetResponse {
+    init(block: GistsGetResponseBlock? = nil, message: String? = nil, documentationUrl: String? = nil) {
         self.init()
         (self.block, self.message) = (block, message)
         self.documentationUrl = documentationUrl
@@ -82,33 +82,39 @@ public struct GistsCreateRequestBodyFilesValue: Codable {
         case content
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension GistsCreateRequestBodyFilesValue {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.content) else {
-            throw SdkValidationError(field: "content", code: "required", message: "Validation failed for 'content': value is required")
-        }
-        self.content = try container.sdkDecodeRequired(.content)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension GistsCreateRequestBodyFilesValue {
-    public init(content: String) {
+public extension GistsCreateRequestBodyFilesValue {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.content) else {
+            throw SdkValidationError(
+                field: "content",
+                code: "required",
+                message: "Validation failed for 'content': value is required"
+            )
+        }
+        content = try container.sdkDecodeRequired(.content)
+    }
+}
+
+public extension GistsCreateRequestBodyFilesValue {
+    init(content: String) {
         self.content = content
     }
 }
 
 public struct GistsCheckIsStarredResponse: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension GistsCheckIsStarredResponse {
-    public init() {
-    }
+public extension GistsCheckIsStarredResponse {
+    init() {}
 }
 
 public enum GistsCreateRequestBodyPublic {
@@ -117,21 +123,31 @@ public enum GistsCreateRequestBodyPublic {
 }
 
 extension GistsCreateRequestBodyPublic: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for GistsCreateRequestBodyPublic")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for GistsCreateRequestBodyPublic"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(Bool.self) { return .boolValue(value) }
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
+        if let value = try? container.decode(Bool.self) {
+            return .boolValue(value)
+        }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -141,7 +157,6 @@ extension GistsCreateRequestBodyPublic: Codable {
         case let .stringValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 public struct GistsUpdateRequestBodyFilesValue: Codable {
@@ -156,20 +171,20 @@ public struct GistsUpdateRequestBodyFilesValue: Codable {
     }
 
     init() {
-        (self.content, self.filename) = (nil, nil)
+        (content, filename) = (nil, nil)
     }
 }
 
-extension GistsUpdateRequestBodyFilesValue {
-    public init(from decoder: Decoder) throws {
+public extension GistsUpdateRequestBodyFilesValue {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.content = try container.sdkDecodeIfPresent(.content)
-        self.filename = try container.sdkDecodeIfPresent(.filename)
+        content = try container.sdkDecodeIfPresent(.content)
+        filename = try container.sdkDecodeIfPresent(.filename)
     }
 }
 
-extension GistsUpdateRequestBodyFilesValue {
-    public init(content: String? = nil, filename: String? = nil) {
+public extension GistsUpdateRequestBodyFilesValue {
+    init(content: String? = nil, filename: String? = nil) {
         self.init()
         (self.content, self.filename) = (content, filename)
     }

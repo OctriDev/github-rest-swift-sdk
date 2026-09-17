@@ -6,13 +6,29 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets a specific self-hosted runner group for an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets a specific self-hosted runner group for an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerGroupId: Unique identifier of the self-hosted runner group.
-    public static func actionsGetSelfHostedRunnerGroupForOrg(config: ClientConfig, org: String, runnerGroupId: Int) async throws -> RunnerGroupsOrg {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId))].joined(), config: config, decoder: .json, operationId: "actionsGetSelfHostedRunnerGroupForOrg")).data
+    static func actionsGetSelfHostedRunnerGroupForOrg(
+        config: ClientConfig,
+        org: String,
+        runnerGroupId: Int
+    ) async throws -> RunnerGroupsOrg {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/runner-groups/",
+                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetSelfHostedRunnerGroupForOrg"
+        )).data
     }
 }

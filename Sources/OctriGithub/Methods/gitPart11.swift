@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GitMethods {
-    /// Returns a single tree using the SHA1 value or ref name for that tree. If `truncated` is `true` in the response then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use the non-recursive method of fetching trees, and fetch one sub-tree at a time. > [!NOTE] > The limit for the `tree` array is 100,000 entries with a maximum size of 7 MB when using the `recursive` parameter.
+public extension GitMethods {
+    /// Returns a single tree using the SHA1 value or ref name for that tree. If `truncated` is `true` in the response
+    /// then the number of items in the `tree` array exceeded our maximum limit. If you need to fetch more items, use
+    /// the non-recursive method of fetching trees, and fetch one sub-tree at a time. > [!NOTE] > The limit for the
+    /// `tree` array is 100,000 entries with a maximum size of 7 MB when using the `recursive` parameter.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -20,9 +23,29 @@ extension GitMethods {
     ///   setting `recursive` to any of the following will enable returning objects or
     ///   subtrees: `0`, `1`, `"true"`, and `"false"`. Omit this parameter to prevent
     ///   recursively returning objects or subtrees.
-    public static func gitGetTree(config: ClientConfig, owner: String, repo: String, treeSha: String, recursive: String?) async throws -> GitTree {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/trees/", sdkEncodePathSegment(sdkWireString(treeSha))].joined(), config: config, query: [
-            SdkQueryParameter("recursive", value: recursive),
-        ], decoder: .json, operationId: "gitGetTree")).data
+    static func gitGetTree(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        treeSha: String,
+        recursive: String?
+    ) async throws -> GitTree {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/trees/",
+                sdkEncodePathSegment(sdkWireString(treeSha)),
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("recursive", value: recursive),
+            ],
+            decoder: .json,
+            operationId: "gitGetTree"
+        )).data
     }
 }

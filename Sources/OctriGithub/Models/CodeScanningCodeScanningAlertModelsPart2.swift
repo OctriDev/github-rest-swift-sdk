@@ -3,24 +3,34 @@
 
 import Foundation
 
-// CodeScanningCodeScanningAlert domain models
-extension CodeScanningAlertRule {
-    public init(from decoder: Decoder) throws {
+/// CodeScanningCodeScanningAlert domain models
+public extension CodeScanningAlertRule {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.severity = try container.sdkDecodeIfPresent(.severity)
-        self.securitySeverityLevel = try container.sdkDecodeIfPresent(.securitySeverityLevel)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.fullDescription = try container.sdkDecodeIfPresent(.fullDescription)
-        self.tags = try container.sdkDecodeIfPresent(.tags)
-        self.help = try container.sdkDecodeIfPresent(.help)
-        self.helpUri = try container.sdkDecodeIfPresent(.helpUri)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        severity = try container.sdkDecodeIfPresent(.severity)
+        securitySeverityLevel = try container.sdkDecodeIfPresent(.securitySeverityLevel)
+        description = try container.sdkDecodeIfPresent(.description)
+        fullDescription = try container.sdkDecodeIfPresent(.fullDescription)
+        tags = try container.sdkDecodeIfPresent(.tags)
+        help = try container.sdkDecodeIfPresent(.help)
+        helpUri = try container.sdkDecodeIfPresent(.helpUri)
     }
 }
 
-extension CodeScanningAlertRule {
-    public init(id: String? = nil, name: String? = nil, severity: CodeScanningAlertRuleSeverity? = nil, securitySeverityLevel: CodeScanningAlertRuleSecuritySeverityLevel? = nil, description: String? = nil, fullDescription: String? = nil, tags: [String]? = nil, help: String? = nil, helpUri: String? = nil) {
+public extension CodeScanningAlertRule {
+    init(
+        id: String? = nil,
+        name: String? = nil,
+        severity: CodeScanningAlertRuleSeverity? = nil,
+        securitySeverityLevel: CodeScanningAlertRuleSecuritySeverityLevel? = nil,
+        description: String? = nil,
+        fullDescription: String? = nil,
+        tags: [String]? = nil,
+        help: String? = nil,
+        helpUri: String? = nil
+    ) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.severity, self.securitySeverityLevel) = (severity, securitySeverityLevel)
@@ -64,28 +74,38 @@ public struct CodeScanningAlertRuleSummary: Codable {
     }
 
     init() {
-        (self.id, self.name, self.severity, self.securitySeverityLevel, self.description) = (nil, nil, nil, nil, nil)
-        (self.fullDescription, self.tags, self.help, self.helpUri) = (nil, nil, nil, nil)
+        (id, name, severity, securitySeverityLevel, description) = (nil, nil, nil, nil, nil)
+        (fullDescription, tags, help, helpUri) = (nil, nil, nil, nil)
     }
 }
 
-extension CodeScanningAlertRuleSummary {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertRuleSummary {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.severity = try container.sdkDecodeIfPresent(.severity)
-        self.securitySeverityLevel = try container.sdkDecodeIfPresent(.securitySeverityLevel)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.fullDescription = try container.sdkDecodeIfPresent(.fullDescription)
-        self.tags = try container.sdkDecodeIfPresent(.tags)
-        self.help = try container.sdkDecodeIfPresent(.help)
-        self.helpUri = try container.sdkDecodeIfPresent(.helpUri)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
+        severity = try container.sdkDecodeIfPresent(.severity)
+        securitySeverityLevel = try container.sdkDecodeIfPresent(.securitySeverityLevel)
+        description = try container.sdkDecodeIfPresent(.description)
+        fullDescription = try container.sdkDecodeIfPresent(.fullDescription)
+        tags = try container.sdkDecodeIfPresent(.tags)
+        help = try container.sdkDecodeIfPresent(.help)
+        helpUri = try container.sdkDecodeIfPresent(.helpUri)
     }
 }
 
-extension CodeScanningAlertRuleSummary {
-    public init(id: String? = nil, name: String? = nil, severity: CodeScanningAlertRuleSummarySeverity? = nil, securitySeverityLevel: CodeScanningAlertRuleSummarySecuritySeverityLevel? = nil, description: String? = nil, fullDescription: String? = nil, tags: [String]? = nil, help: String? = nil, helpUri: String? = nil) {
+public extension CodeScanningAlertRuleSummary {
+    init(
+        id: String? = nil,
+        name: String? = nil,
+        severity: CodeScanningAlertRuleSummarySeverity? = nil,
+        securitySeverityLevel: CodeScanningAlertRuleSummarySecuritySeverityLevel? = nil,
+        description: String? = nil,
+        fullDescription: String? = nil,
+        tags: [String]? = nil,
+        help: String? = nil,
+        helpUri: String? = nil
+    ) {
         self.init()
         (self.id, self.name) = (id, name)
         (self.severity, self.securitySeverityLevel) = (severity, securitySeverityLevel)
@@ -96,10 +116,14 @@ extension CodeScanningAlertRuleSummary {
 }
 
 /// The security severity of the alert.
-public struct CodeScanningAlertRuleSummarySecuritySeverityLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeScanningAlertRuleSummarySecuritySeverityLevel: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let low = CodeScanningAlertRuleSummarySecuritySeverityLevel(rawValue: "low")
     public static let medium = CodeScanningAlertRuleSummarySecuritySeverityLevel(rawValue: "medium")
     public static let high = CodeScanningAlertRuleSummarySecuritySeverityLevel(rawValue: "high")
@@ -107,7 +131,7 @@ public struct CodeScanningAlertRuleSummarySecuritySeverityLevel: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -121,13 +145,16 @@ public struct CodeScanningAlertRuleSummarySecuritySeverityLevel: RawRepresentabl
 public struct CodeScanningAlertSetState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = CodeScanningAlertSetState(rawValue: "open")
     public static let dismissed = CodeScanningAlertSetState(rawValue: "dismissed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -140,7 +167,10 @@ public struct CodeScanningAlertSetState: RawRepresentable, Hashable, Codable, Se
 public struct CodeScanningAlertRuleSummarySeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let none = CodeScanningAlertRuleSummarySeverity(rawValue: "none")
     public static let note = CodeScanningAlertRuleSummarySeverity(rawValue: "note")
     public static let warning = CodeScanningAlertRuleSummarySeverity(rawValue: "warning")
@@ -148,7 +178,7 @@ public struct CodeScanningAlertRuleSummarySeverity: RawRepresentable, Hashable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -161,14 +191,17 @@ public struct CodeScanningAlertRuleSummarySeverity: RawRepresentable, Hashable, 
 public struct CodeScanningAlertState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = CodeScanningAlertState(rawValue: "open")
     public static let dismissed = CodeScanningAlertState(rawValue: "dismissed")
     public static let fixed = CodeScanningAlertState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -181,7 +214,10 @@ public struct CodeScanningAlertState: RawRepresentable, Hashable, Codable, Senda
 public struct CodeScanningAlertRuleSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let none = CodeScanningAlertRuleSeverity(rawValue: "none")
     public static let note = CodeScanningAlertRuleSeverity(rawValue: "note")
     public static let warning = CodeScanningAlertRuleSeverity(rawValue: "warning")
@@ -189,7 +225,7 @@ public struct CodeScanningAlertRuleSeverity: RawRepresentable, Hashable, Codable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -202,7 +238,10 @@ public struct CodeScanningAlertRuleSeverity: RawRepresentable, Hashable, Codable
 public struct CodeScanningAlertDismissedReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let falsePositive = CodeScanningAlertDismissedReason(rawValue: "false positive")
     public static let wonTFix = CodeScanningAlertDismissedReason(rawValue: "won't fix")
     public static let usedInTests = CodeScanningAlertDismissedReason(rawValue: "used in tests")
@@ -210,7 +249,7 @@ public struct CodeScanningAlertDismissedReason: RawRepresentable, Hashable, Coda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -223,7 +262,10 @@ public struct CodeScanningAlertDismissedReason: RawRepresentable, Hashable, Coda
 public struct CodeScanningAlertClassification: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let source = CodeScanningAlertClassification(rawValue: "source")
     public static let generated = CodeScanningAlertClassification(rawValue: "generated")
     public static let test = CodeScanningAlertClassification(rawValue: "test")
@@ -231,7 +273,7 @@ public struct CodeScanningAlertClassification: RawRepresentable, Hashable, Codab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -244,7 +286,10 @@ public struct CodeScanningAlertClassification: RawRepresentable, Hashable, Codab
 public struct CodeScanningAlertSeverity: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let critical = CodeScanningAlertSeverity(rawValue: "critical")
     public static let high = CodeScanningAlertSeverity(rawValue: "high")
     public static let medium = CodeScanningAlertSeverity(rawValue: "medium")
@@ -255,7 +300,7 @@ public struct CodeScanningAlertSeverity: RawRepresentable, Hashable, Codable, Se
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -268,7 +313,10 @@ public struct CodeScanningAlertSeverity: RawRepresentable, Hashable, Codable, Se
 public struct CodeScanningAlertStateQuery: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = CodeScanningAlertStateQuery(rawValue: "open")
     public static let closed = CodeScanningAlertStateQuery(rawValue: "closed")
     public static let dismissed = CodeScanningAlertStateQuery(rawValue: "dismissed")
@@ -276,7 +324,7 @@ public struct CodeScanningAlertStateQuery: RawRepresentable, Hashable, Codable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -286,10 +334,14 @@ public struct CodeScanningAlertStateQuery: RawRepresentable, Hashable, Codable, 
 }
 
 /// The security severity of the alert.
-public struct CodeScanningAlertRuleSecuritySeverityLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodeScanningAlertRuleSecuritySeverityLevel: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let low = CodeScanningAlertRuleSecuritySeverityLevel(rawValue: "low")
     public static let medium = CodeScanningAlertRuleSecuritySeverityLevel(rawValue: "medium")
     public static let high = CodeScanningAlertRuleSecuritySeverityLevel(rawValue: "high")
@@ -297,7 +349,7 @@ public struct CodeScanningAlertRuleSecuritySeverityLevel: RawRepresentable, Hash
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -310,13 +362,16 @@ public struct CodeScanningAlertRuleSecuritySeverityLevel: RawRepresentable, Hash
 public struct CodeScanningAlertInstanceState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = CodeScanningAlertInstanceState(rawValue: "open")
     public static let fixed = CodeScanningAlertInstanceState(rawValue: "fixed")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

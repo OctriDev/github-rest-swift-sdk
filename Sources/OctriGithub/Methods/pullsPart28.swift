@@ -6,10 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
+public extension PullsMethods {
     /// Add pull requests to a pull request stack
     ///
-    /// Appends an ordered list of pull request numbers onto the top of an existing stack. Provide only the pull requests you want to add, from the current top of the stack upward. The first new pull request's base ref must match the current top pull request's head ref.
+    /// Appends an ordered list of pull request numbers onto the top of an existing stack. Provide only the pull
+    /// requests you want to add, from the current top of the stack upward. The first new pull request's base ref must
+    /// match the current top pull request's head ref.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,11 +21,32 @@ extension PullsMethods {
     /// - stackNumber: The number that identifies the pull request stack.
     /// - pullRequests: An ordered list of pull request numbers to append to the
     ///   stack, from the current top upward.
-    public static func pullRequestStacksAdd(config: ClientConfig, owner: String, repo: String, stackNumber: Int, pullRequests: [Int]) async throws -> PullRequestStacksAddResponse {
+    static func pullRequestStacksAdd(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        stackNumber: Int,
+        pullRequests: [Int]
+    ) async throws -> PullRequestStacksAddResponse {
         try validateItems("pull_requests", pullRequests, min: 1, max: 100)
 
         let requestBody = PullRequestStacksAddRequestBody(pullRequests: pullRequests)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stacks/", sdkEncodePathSegment(sdkWireString(stackNumber)), "/add"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullRequestStacksAdd")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stacks/",
+                sdkEncodePathSegment(sdkWireString(stackNumber)),
+                "/add",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullRequestStacksAdd"
+        )).data
     }
 }

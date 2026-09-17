@@ -6,10 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// List repository teams
     ///
-    /// Lists the teams that have access to the specified repository and that are also visible to the authenticated user. For a public repository, a team is listed only if that team added the public repository explicitly. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to use this endpoint with a public repository, and `repo` scope to use this endpoint with a private repository.
+    /// Lists the teams that have access to the specified repository and that are also visible to the authenticated
+    /// user. For a public repository, a team is listed only if that team added the public repository explicitly. OAuth
+    /// app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to use this endpoint with
+    /// a public repository, and `repo` scope to use this endpoint with a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,10 +27,29 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposListTeams(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [Team] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/teams"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposListTeams")).data
+    static func reposListTeams(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Team] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/teams",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposListTeams"
+        )).data
     }
 }

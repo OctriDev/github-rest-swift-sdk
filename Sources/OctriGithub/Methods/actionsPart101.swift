@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// You can use this endpoint to manually trigger a GitHub Actions workflow run. You can replace `workflow_id` with the workflow file name. For example, you could use `main.yaml`. You must configure your GitHub Actions workflow to run when the `workflow_dispatch` webhook event occurs. The `inputs` are configured in the workflow file. For more information about how to configure the `workflow_dispatch` event in the workflow file, see "Events that trigger workflows." OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// You can use this endpoint to manually trigger a GitHub Actions workflow run. You can replace `workflow_id` with
+    /// the workflow file name. For example, you could use `main.yaml`. You must configure your GitHub Actions workflow
+    /// to run when the `workflow_dispatch` webhook event occurs. The `inputs` are configured in the workflow file. For
+    /// more information about how to configure the `workflow_dispatch` event in the workflow file, see "Events that
+    /// trigger workflows." OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -23,9 +28,36 @@ extension ActionsMethods {
     ///   workflow file will be used when `inputs` are omitted.
     /// - returnRunDetails: Whether the response should include the workflow run ID
     ///   and URLs.
-    public static func actionsCreateWorkflowDispatch(config: ClientConfig, owner: String, repo: String, workflowId: ActionsGetWorkflowParameter, ref: String, inputs: [String: JSONValue]?, returnRunDetails: Bool?) async throws -> WorkflowDispatchResponse {
-        let requestBody = ActionsCreateWorkflowDispatchRequestBody(ref: ref, inputs: inputs, returnRunDetails: returnRunDetails)
+    static func actionsCreateWorkflowDispatch(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        workflowId: ActionsGetWorkflowParameter,
+        ref: String,
+        inputs: [String: JSONValue]?,
+        returnRunDetails: Bool?
+    ) async throws -> WorkflowDispatchResponse {
+        let requestBody = ActionsCreateWorkflowDispatchRequestBody(
+            ref: ref,
+            inputs: inputs,
+            returnRunDetails: returnRunDetails
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/workflows/", sdkEncodePathSegment(sdkWireString(workflowId)), "/dispatches"].joined(), config: config, body: requestBody, decoder: .json, operationId: "actionsCreateWorkflowDispatch")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/workflows/",
+                sdkEncodePathSegment(sdkWireString(workflowId)),
+                "/dispatches",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "actionsCreateWorkflowDispatch"
+        )).data
     }
 }

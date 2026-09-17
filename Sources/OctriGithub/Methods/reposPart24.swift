@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Adding admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
+public extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. Adding admin enforcement requires admin or owner permissions to the repository and branch
+    /// protection to be enabled.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,11 +22,35 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposSetAdminBranchProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> ProtectedBranchAdminEnforced {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/enforce_admins"].joined(), config: config, decoder: .json, operationId: "reposSetAdminBranchProtection")).data
+    static func reposSetAdminBranchProtection(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> ProtectedBranchAdminEnforced {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/enforce_admins",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposSetAdminBranchProtection"
+        )).data
     }
 
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Removing admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. Removing admin enforcement requires admin or owner permissions to the repository and branch
+    /// protection to be enabled.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -31,7 +60,26 @@ extension ReposMethods {
     /// - branch: The name of the branch. Cannot contain wildcard characters. To use
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
-    public static func reposDeleteAdminBranchProtection(config: ClientConfig, owner: String, repo: String, branch: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/enforce_admins"].joined(), config: config, decoder: .empty, operationId: "reposDeleteAdminBranchProtection")).data
+    static func reposDeleteAdminBranchProtection(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/enforce_admins",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDeleteAdminBranchProtection"
+        )).data
     }
 }

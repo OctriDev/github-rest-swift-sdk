@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
+public extension PackagesMethods {
     /// Restore a package version for the authenticated user
     ///
-    /// Restores a package version owned by the authenticated user. You can restore a deleted package version under the following conditions: - The package was deleted within the last 30 days. - The same package namespace and version is still available and not reused for a new package. If the same package namespace is not available, you will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the new package that uses the deleted package's namespace first. OAuth app tokens and personal access tokens (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Restores a package version owned by the authenticated user. You can restore a deleted package version under the
+    /// following conditions: - The package was deleted within the last 30 days. - The same package namespace and
+    /// version is still available and not reused for a new package. If the same package namespace is not available, you
+    /// will not be able to restore your package. In this scenario, to restore the deleted package, you must delete the
+    /// new package that uses the deleted package's namespace first. OAuth app tokens and personal access tokens
+    /// (classic) need the `read:packages` and `write:packages` scopes to use this endpoint. For more information, see
+    /// "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -20,17 +26,47 @@ extension PackagesMethods {
     ///   Container registry.
     /// - packageName: The name of the package.
     /// - packageVersionId: Unique identifier of the package version.
-    public static func packagesRestorePackageVersionForAuthenticatedUser(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, packageVersionId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("POST", ["/user/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName)), "/versions/", sdkEncodePathSegment(sdkWireString(packageVersionId)), "/restore"].joined(), config: config, decoder: .empty, operationId: "packagesRestorePackageVersionForAuthenticatedUser")).data
+    static func packagesRestorePackageVersionForAuthenticatedUser(
+        config: ClientConfig,
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        packageVersionId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/user/packages/",
+                sdkEncodePathSegment(sdkWireString(packageType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(packageName)),
+                "/versions/",
+                sdkEncodePathSegment(sdkWireString(packageVersionId)),
+                "/restore",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "packagesRestorePackageVersionForAuthenticatedUser"
+        )).data
     }
 
     /// Get list of conflicting packages during Docker migration for user
     ///
-    /// Lists all packages that are in a specific user's namespace, that the requesting user has access to, and that encountered a conflict during Docker migration. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint.
+    /// Lists all packages that are in a specific user's namespace, that the requesting user has access to, and that
+    /// encountered a conflict during Docker migration. OAuth app tokens and personal access tokens (classic) need the
+    /// `read:packages` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
-    public static func packagesListDockerMigrationConflictingPackagesForUser(config: ClientConfig, username: String) async throws -> [Package] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/docker/conflicts"].joined(), config: config, decoder: .json, operationId: "packagesListDockerMigrationConflictingPackagesForUser")).data
+    static func packagesListDockerMigrationConflictingPackagesForUser(
+        config: ClientConfig,
+        username: String
+    ) async throws -> [Package] {
+        try await (sdkRequest(
+            "GET",
+            ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/docker/conflicts"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "packagesListDockerMigrationConflictingPackagesForUser"
+        )).data
     }
 }

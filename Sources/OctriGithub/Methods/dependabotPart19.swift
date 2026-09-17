@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension DependabotMethods {
-    /// Deletes a secret in a repository using the secret name. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension DependabotMethods {
+    /// Deletes a secret in a repository using the secret name. OAuth app tokens and personal access tokens (classic)
+    /// need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +16,25 @@ extension DependabotMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - secretName: The name of the secret.
-    public static func dependabotDeleteRepoSecret(config: ClientConfig, owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/dependabot/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "dependabotDeleteRepoSecret")).data
+    static func dependabotDeleteRepoSecret(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        secretName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/dependabot/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "dependabotDeleteRepoSecret"
+        )).data
     }
 }

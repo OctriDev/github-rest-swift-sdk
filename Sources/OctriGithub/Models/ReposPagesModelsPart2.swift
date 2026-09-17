@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ReposPages domain models
+/// ReposPages domain models
 /// Typed representation of the `PagesSourceHash` API schema.
 public struct PagesSourceHash: Codable {
     /// Required `string` value serialized in the `branch` wire field.
@@ -16,25 +16,35 @@ public struct PagesSourceHash: Codable {
         case path
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension PagesSourceHash {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.branch) else {
-            throw SdkValidationError(field: "branch", code: "required", message: "Validation failed for 'branch': value is required")
-        }
-        guard container.contains(.path) else {
-            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
-        }
-        self.branch = try container.sdkDecodeRequired(.branch)
-        self.path = try container.sdkDecodeRequired(.path)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension PagesSourceHash {
-    public init(branch: String, path: String) {
+public extension PagesSourceHash {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.branch) else {
+            throw SdkValidationError(
+                field: "branch",
+                code: "required",
+                message: "Validation failed for 'branch': value is required"
+            )
+        }
+        guard container.contains(.path) else {
+            throw SdkValidationError(
+                field: "path",
+                code: "required",
+                message: "Validation failed for 'path': value is required"
+            )
+        }
+        branch = try container.sdkDecodeRequired(.branch)
+        path = try container.sdkDecodeRequired(.path)
+    }
+}
+
+public extension PagesSourceHash {
+    init(branch: String, path: String) {
         (self.branch, self.path) = (branch, path)
     }
 }
@@ -43,7 +53,10 @@ extension PagesSourceHash {
 public struct PagesHttpsCertificateState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let new = PagesHttpsCertificateState(rawValue: "new")
     public static let authorizationCreated = PagesHttpsCertificateState(rawValue: "authorization_created")
     public static let authorizationPending = PagesHttpsCertificateState(rawValue: "authorization_pending")
@@ -59,7 +72,7 @@ public struct PagesHttpsCertificateState: RawRepresentable, Hashable, Codable, S
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -72,7 +85,10 @@ public struct PagesHttpsCertificateState: RawRepresentable, Hashable, Codable, S
 public struct PagesDeploymentStatusStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let deploymentInProgress = PagesDeploymentStatusStatus(rawValue: "deployment_in_progress")
     public static let syncingFiles = PagesDeploymentStatusStatus(rawValue: "syncing_files")
     public static let finishedFileSync = PagesDeploymentStatusStatus(rawValue: "finished_file_sync")
@@ -87,7 +103,7 @@ public struct PagesDeploymentStatusStatus: RawRepresentable, Hashable, Codable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

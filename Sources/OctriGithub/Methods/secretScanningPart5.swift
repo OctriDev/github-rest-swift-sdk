@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecretScanningMethods {
-    public struct SecretScanningUpdateOrgCustomPatternOptions: Codable {
+public extension SecretScanningMethods {
+    struct SecretScanningUpdateOrgCustomPatternOptions: Codable {
         public var org: String
         public var patternId: Int
         public var customPatternVersion: SecretScanningRowVersion?
@@ -24,7 +24,8 @@ extension SecretScanningMethods {
         }
     }
 
-    /// Updates a secret scanning custom pattern for an organization. Personal access tokens (classic) need the `write:org` scope to use this endpoint.
+    /// Updates a secret scanning custom pattern for an organization. Personal access tokens (classic) need the
+    /// `write:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -37,17 +38,42 @@ extension SecretScanningMethods {
     /// - endDelimiter: The updated end delimiter regex for the custom pattern.
     /// - mustMatch: Updated list of regexes that the secret must match.
     /// - mustNotMatch: Updated list of regexes that the secret must not match.
-    public static func secretScanningUpdateOrgCustomPattern(config: ClientConfig, options: SecretScanningUpdateOrgCustomPatternOptions) async throws -> SecretScanningCustomPattern {
+    static func secretScanningUpdateOrgCustomPattern(
+        config: ClientConfig,
+        options: SecretScanningUpdateOrgCustomPatternOptions
+    ) async throws -> SecretScanningCustomPattern {
         let requestBody = SecretScanningUpdateOrgCustomPatternRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/secret-scanning/custom-patterns/", sdkEncodePathSegment(sdkWireString(options.patternId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "secretScanningUpdateOrgCustomPattern")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(options.org)),
+                "/secret-scanning/custom-patterns/",
+                sdkEncodePathSegment(sdkWireString(options.patternId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "secretScanningUpdateOrgCustomPattern"
+        )).data
     }
 
-    /// Lists the secret scanning pattern configurations for an organization. Personal access tokens (classic) need the `read:org` scope to use this endpoint.
+    /// Lists the secret scanning pattern configurations for an organization. Personal access tokens (classic) need the
+    /// `read:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func secretScanningListOrgPatternConfigs(config: ClientConfig, org: String) async throws -> SecretScanningPatternConfiguration {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/pattern-configurations"].joined(), config: config, decoder: .json, operationId: "secretScanningListOrgPatternConfigs")).data
+    static func secretScanningListOrgPatternConfigs(
+        config: ClientConfig,
+        org: String
+    ) async throws -> SecretScanningPatternConfiguration {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/pattern-configurations"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "secretScanningListOrgPatternConfigs"
+        )).data
     }
 }

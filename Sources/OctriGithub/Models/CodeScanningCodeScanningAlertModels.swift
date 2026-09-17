@@ -3,7 +3,7 @@
 
 import Foundation
 
-// CodeScanningCodeScanningAlert domain models
+/// CodeScanningCodeScanningAlert domain models
 public typealias CodeScanningAlertAssignees = [String]
 
 public typealias CodeScanningAlertCreateRequest = Bool
@@ -73,36 +73,57 @@ public struct CodeScanningAlert: Codable {
         case linkedPullRequests = "linked_pull_requests"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension CodeScanningAlert {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlert {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.instancesUrl = try container.sdkDecodeRequired(.instancesUrl)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
-        self.dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
-        self.dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.tool = try container.sdkDecodeRequired(.tool)
-        self.mostRecentInstance = try container.sdkDecodeRequired(.mostRecentInstance)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
-        self.dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
-        self.dismissalApprovedBy = try container.sdkDecodeIfPresent(.dismissalApprovedBy)
-        self.assignees = try container.sdkDecodeIfPresent(.assignees)
-        self.linkedPullRequests = try container.sdkDecodeIfPresent(.linkedPullRequests)
+        number = try container.sdkDecodeRequired(.number)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        instancesUrl = try container.sdkDecodeRequired(.instancesUrl)
+        state = try container.sdkDecodeIfPresent(.state)
+        dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
+        dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
+        dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
+        rule = try container.sdkDecodeRequired(.rule)
+        tool = try container.sdkDecodeRequired(.tool)
+        mostRecentInstance = try container.sdkDecodeRequired(.mostRecentInstance)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
+        dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
+        dismissalApprovedBy = try container.sdkDecodeIfPresent(.dismissalApprovedBy)
+        assignees = try container.sdkDecodeIfPresent(.assignees)
+        linkedPullRequests = try container.sdkDecodeIfPresent(.linkedPullRequests)
         try sdkValidateConstraints()
     }
 }
 
-extension CodeScanningAlert {
-    public init(number: AlertNumber, createdAt: AlertCreatedAt, url: AlertUrl, htmlUrl: AlertHtmlUrl, instancesUrl: AlertInstancesUrl, state: CodeScanningAlertState?, dismissedBy: NullableSimpleUser?, dismissedAt: AlertDismissedAt?, dismissedReason: CodeScanningAlertDismissedReason?, rule: CodeScanningAlertRule, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance, updatedAt: AlertUpdatedAt? = nil, fixedAt: AlertFixedAt? = nil, dismissedComment: CodeScanningAlertDismissedComment? = nil, dismissalApprovedBy: NullableSimpleUser? = nil, assignees: [SimpleUser]? = nil, linkedPullRequests: [PullRequestSimple]? = nil) throws {
+public extension CodeScanningAlert {
+    init(
+        number: AlertNumber,
+        createdAt: AlertCreatedAt,
+        url: AlertUrl,
+        htmlUrl: AlertHtmlUrl,
+        instancesUrl: AlertInstancesUrl,
+        state: CodeScanningAlertState?,
+        dismissedBy: NullableSimpleUser?,
+        dismissedAt: AlertDismissedAt?,
+        dismissedReason: CodeScanningAlertDismissedReason?,
+        rule: CodeScanningAlertRule,
+        tool: CodeScanningAnalysisTool,
+        mostRecentInstance: CodeScanningAlertInstance,
+        updatedAt: AlertUpdatedAt? = nil,
+        fixedAt: AlertFixedAt? = nil,
+        dismissedComment: CodeScanningAlertDismissedComment? = nil,
+        dismissalApprovedBy: NullableSimpleUser? = nil,
+        assignees: [SimpleUser]? = nil,
+        linkedPullRequests: [PullRequestSimple]? = nil
+    ) throws {
         (self.number, self.createdAt) = (number, createdAt)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.instancesUrl, self.state) = (instancesUrl, state)
@@ -118,20 +139,20 @@ extension CodeScanningAlert {
 
 extension CodeScanningAlert {
     func sdkValidateConstraints() throws {
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("url", sdkWireString(self.url))
-            try sdkValidateUri("html_url", sdkWireString(self.htmlUrl))
-            try sdkValidateUri("instances_url", sdkWireString(self.instancesUrl))
-        if let value = self.dismissedAt {
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("url", sdkWireString(url))
+        try sdkValidateUri("html_url", sdkWireString(htmlUrl))
+        try sdkValidateUri("instances_url", sdkWireString(instancesUrl))
+        if let value = dismissedAt {
             try sdkValidateDateTime("dismissed_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.fixedAt {
+        if let value = fixedAt {
             try sdkValidateDateTime("fixed_at", sdkWireString(value))
         }
-        if let value = self.dismissedComment {
+        if let value = dismissedComment {
             try validateLength("dismissed_comment", sdkWireString(value), min: nil, max: 280)
         }
     }
@@ -179,29 +200,40 @@ public struct CodeScanningAlertInstance: Codable {
     }
 
     init() {
-        (self.ref, self.analysisKey, self.environment, self.category, self.state) = (nil, nil, nil, nil, nil)
-        (self.commitSha, self.message, self.location, self.htmlUrl, self.classifications) = (nil, nil, nil, nil, nil)
+        (ref, analysisKey, environment, category, state) = (nil, nil, nil, nil, nil)
+        (commitSha, message, location, htmlUrl, classifications) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension CodeScanningAlertInstance {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertInstance {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.ref = try container.sdkDecodeIfPresent(.ref)
-        self.analysisKey = try container.sdkDecodeIfPresent(.analysisKey)
-        self.environment = try container.sdkDecodeIfPresent(.environment)
-        self.category = try container.sdkDecodeIfPresent(.category)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.commitSha = try container.sdkDecodeIfPresent(.commitSha)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.location = try container.sdkDecodeIfPresent(.location)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.classifications = try container.sdkDecodeIfPresent(.classifications)
+        ref = try container.sdkDecodeIfPresent(.ref)
+        analysisKey = try container.sdkDecodeIfPresent(.analysisKey)
+        environment = try container.sdkDecodeIfPresent(.environment)
+        category = try container.sdkDecodeIfPresent(.category)
+        state = try container.sdkDecodeIfPresent(.state)
+        commitSha = try container.sdkDecodeIfPresent(.commitSha)
+        message = try container.sdkDecodeIfPresent(.message)
+        location = try container.sdkDecodeIfPresent(.location)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        classifications = try container.sdkDecodeIfPresent(.classifications)
     }
 }
 
-extension CodeScanningAlertInstance {
-    public init(ref: CodeScanningRef? = nil, analysisKey: CodeScanningAnalysisAnalysisKey? = nil, environment: CodeScanningAlertEnvironment? = nil, category: CodeScanningAnalysisCategory? = nil, state: CodeScanningAlertState? = nil, commitSha: String? = nil, message: CodeScanningAlertInstanceMessage? = nil, location: CodeScanningAlertLocation? = nil, htmlUrl: String? = nil, classifications: [CodeScanningAlertClassification?]? = nil) {
+public extension CodeScanningAlertInstance {
+    init(
+        ref: CodeScanningRef? = nil,
+        analysisKey: CodeScanningAnalysisAnalysisKey? = nil,
+        environment: CodeScanningAlertEnvironment? = nil,
+        category: CodeScanningAnalysisCategory? = nil,
+        state: CodeScanningAlertState? = nil,
+        commitSha: String? = nil,
+        message: CodeScanningAlertInstanceMessage? = nil,
+        location: CodeScanningAlertLocation? = nil,
+        htmlUrl: String? = nil,
+        classifications: [CodeScanningAlertClassification?]? = nil
+    ) {
         self.init()
         (self.ref, self.analysisKey) = (ref, analysisKey)
         (self.environment, self.category) = (environment, category)
@@ -225,20 +257,20 @@ public struct CodeScanningAlertInstanceMessage: Codable {
     }
 
     init() {
-        (self.text, self.markdown) = (nil, nil)
+        (text, markdown) = (nil, nil)
     }
 }
 
-extension CodeScanningAlertInstanceMessage {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertInstanceMessage {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.text = try container.sdkDecodeIfPresent(.text)
-        self.markdown = try container.sdkDecodeIfPresent(.markdown)
+        text = try container.sdkDecodeIfPresent(.text)
+        markdown = try container.sdkDecodeIfPresent(.markdown)
     }
 }
 
-extension CodeScanningAlertInstanceMessage {
-    public init(text: String? = nil, markdown: String? = nil) {
+public extension CodeScanningAlertInstanceMessage {
+    init(text: String? = nil, markdown: String? = nil) {
         self.init()
         (self.text, self.markdown) = (text, markdown)
     }
@@ -286,29 +318,40 @@ public struct CodeScanningAlertInstanceList: Codable {
     }
 
     init() {
-        (self.ref, self.analysisKey, self.environment, self.category, self.state) = (nil, nil, nil, nil, nil)
-        (self.commitSha, self.message, self.location, self.htmlUrl, self.classifications) = (nil, nil, nil, nil, nil)
+        (ref, analysisKey, environment, category, state) = (nil, nil, nil, nil, nil)
+        (commitSha, message, location, htmlUrl, classifications) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension CodeScanningAlertInstanceList {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertInstanceList {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.ref = try container.sdkDecodeIfPresent(.ref)
-        self.analysisKey = try container.sdkDecodeIfPresent(.analysisKey)
-        self.environment = try container.sdkDecodeIfPresent(.environment)
-        self.category = try container.sdkDecodeIfPresent(.category)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.commitSha = try container.sdkDecodeIfPresent(.commitSha)
-        self.message = try container.sdkDecodeIfPresent(.message)
-        self.location = try container.sdkDecodeIfPresent(.location)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.classifications = try container.sdkDecodeIfPresent(.classifications)
+        ref = try container.sdkDecodeIfPresent(.ref)
+        analysisKey = try container.sdkDecodeIfPresent(.analysisKey)
+        environment = try container.sdkDecodeIfPresent(.environment)
+        category = try container.sdkDecodeIfPresent(.category)
+        state = try container.sdkDecodeIfPresent(.state)
+        commitSha = try container.sdkDecodeIfPresent(.commitSha)
+        message = try container.sdkDecodeIfPresent(.message)
+        location = try container.sdkDecodeIfPresent(.location)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        classifications = try container.sdkDecodeIfPresent(.classifications)
     }
 }
 
-extension CodeScanningAlertInstanceList {
-    public init(ref: CodeScanningRef? = nil, analysisKey: CodeScanningAnalysisAnalysisKey? = nil, environment: CodeScanningAlertEnvironment? = nil, category: CodeScanningAnalysisCategory? = nil, state: CodeScanningAlertInstanceState? = nil, commitSha: String? = nil, message: CodeScanningAlertInstanceListMessage? = nil, location: CodeScanningAlertLocation? = nil, htmlUrl: String? = nil, classifications: [CodeScanningAlertClassification?]? = nil) {
+public extension CodeScanningAlertInstanceList {
+    init(
+        ref: CodeScanningRef? = nil,
+        analysisKey: CodeScanningAnalysisAnalysisKey? = nil,
+        environment: CodeScanningAlertEnvironment? = nil,
+        category: CodeScanningAnalysisCategory? = nil,
+        state: CodeScanningAlertInstanceState? = nil,
+        commitSha: String? = nil,
+        message: CodeScanningAlertInstanceListMessage? = nil,
+        location: CodeScanningAlertLocation? = nil,
+        htmlUrl: String? = nil,
+        classifications: [CodeScanningAlertClassification?]? = nil
+    ) {
         self.init()
         (self.ref, self.analysisKey) = (ref, analysisKey)
         (self.environment, self.category) = (environment, category)
@@ -328,19 +371,19 @@ public struct CodeScanningAlertInstanceListMessage: Codable {
     }
 
     init() {
-        self.text = nil
+        text = nil
     }
 }
 
-extension CodeScanningAlertInstanceListMessage {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertInstanceListMessage {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.text = try container.sdkDecodeIfPresent(.text)
+        text = try container.sdkDecodeIfPresent(.text)
     }
 }
 
-extension CodeScanningAlertInstanceListMessage {
-    public init(text: String? = nil) {
+public extension CodeScanningAlertInstanceListMessage {
+    init(text: String? = nil) {
         self.init()
         self.text = text
     }
@@ -404,35 +447,55 @@ public struct CodeScanningAlertItems: Codable {
         case assignees
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension CodeScanningAlertItems {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertItems {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.instancesUrl = try container.sdkDecodeRequired(.instancesUrl)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
-        self.dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
-        self.dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.tool = try container.sdkDecodeRequired(.tool)
-        self.mostRecentInstance = try container.sdkDecodeRequired(.mostRecentInstance)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
-        self.dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
-        self.dismissalApprovedBy = try container.sdkDecodeIfPresent(.dismissalApprovedBy)
-        self.assignees = try container.sdkDecodeIfPresent(.assignees)
+        number = try container.sdkDecodeRequired(.number)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        instancesUrl = try container.sdkDecodeRequired(.instancesUrl)
+        state = try container.sdkDecodeIfPresent(.state)
+        dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
+        dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
+        dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
+        rule = try container.sdkDecodeRequired(.rule)
+        tool = try container.sdkDecodeRequired(.tool)
+        mostRecentInstance = try container.sdkDecodeRequired(.mostRecentInstance)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
+        dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
+        dismissalApprovedBy = try container.sdkDecodeIfPresent(.dismissalApprovedBy)
+        assignees = try container.sdkDecodeIfPresent(.assignees)
         try sdkValidateConstraints()
     }
 }
 
-extension CodeScanningAlertItems {
-    public init(number: AlertNumber, createdAt: AlertCreatedAt, url: AlertUrl, htmlUrl: AlertHtmlUrl, instancesUrl: AlertInstancesUrl, state: CodeScanningAlertState?, dismissedBy: NullableSimpleUser?, dismissedAt: AlertDismissedAt?, dismissedReason: CodeScanningAlertDismissedReason?, rule: CodeScanningAlertRuleSummary, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance, updatedAt: AlertUpdatedAt? = nil, fixedAt: AlertFixedAt? = nil, dismissedComment: CodeScanningAlertDismissedComment? = nil, dismissalApprovedBy: NullableSimpleUser? = nil, assignees: [SimpleUser]? = nil) throws {
+public extension CodeScanningAlertItems {
+    init(
+        number: AlertNumber,
+        createdAt: AlertCreatedAt,
+        url: AlertUrl,
+        htmlUrl: AlertHtmlUrl,
+        instancesUrl: AlertInstancesUrl,
+        state: CodeScanningAlertState?,
+        dismissedBy: NullableSimpleUser?,
+        dismissedAt: AlertDismissedAt?,
+        dismissedReason: CodeScanningAlertDismissedReason?,
+        rule: CodeScanningAlertRuleSummary,
+        tool: CodeScanningAnalysisTool,
+        mostRecentInstance: CodeScanningAlertInstance,
+        updatedAt: AlertUpdatedAt? = nil,
+        fixedAt: AlertFixedAt? = nil,
+        dismissedComment: CodeScanningAlertDismissedComment? = nil,
+        dismissalApprovedBy: NullableSimpleUser? = nil,
+        assignees: [SimpleUser]? = nil
+    ) throws {
         (self.number, self.createdAt) = (number, createdAt)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.instancesUrl, self.state) = (instancesUrl, state)
@@ -448,20 +511,20 @@ extension CodeScanningAlertItems {
 
 extension CodeScanningAlertItems {
     func sdkValidateConstraints() throws {
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("url", sdkWireString(self.url))
-            try sdkValidateUri("html_url", sdkWireString(self.htmlUrl))
-            try sdkValidateUri("instances_url", sdkWireString(self.instancesUrl))
-        if let value = self.dismissedAt {
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("url", sdkWireString(url))
+        try sdkValidateUri("html_url", sdkWireString(htmlUrl))
+        try sdkValidateUri("instances_url", sdkWireString(instancesUrl))
+        if let value = dismissedAt {
             try sdkValidateDateTime("dismissed_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.fixedAt {
+        if let value = fixedAt {
             try sdkValidateDateTime("fixed_at", sdkWireString(value))
         }
-        if let value = self.dismissedComment {
+        if let value = dismissedComment {
             try validateLength("dismissed_comment", sdkWireString(value), min: nil, max: 280)
         }
     }
@@ -489,23 +552,29 @@ public struct CodeScanningAlertLocation: Codable {
     }
 
     init() {
-        (self.path, self.startLine, self.endLine, self.startColumn, self.endColumn) = (nil, nil, nil, nil, nil)
+        (path, startLine, endLine, startColumn, endColumn) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension CodeScanningAlertLocation {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningAlertLocation {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.path = try container.sdkDecodeIfPresent(.path)
-        self.startLine = try container.sdkDecodeIfPresent(.startLine)
-        self.endLine = try container.sdkDecodeIfPresent(.endLine)
-        self.startColumn = try container.sdkDecodeIfPresent(.startColumn)
-        self.endColumn = try container.sdkDecodeIfPresent(.endColumn)
+        path = try container.sdkDecodeIfPresent(.path)
+        startLine = try container.sdkDecodeIfPresent(.startLine)
+        endLine = try container.sdkDecodeIfPresent(.endLine)
+        startColumn = try container.sdkDecodeIfPresent(.startColumn)
+        endColumn = try container.sdkDecodeIfPresent(.endColumn)
     }
 }
 
-extension CodeScanningAlertLocation {
-    public init(path: String? = nil, startLine: Int? = nil, endLine: Int? = nil, startColumn: Int? = nil, endColumn: Int? = nil) {
+public extension CodeScanningAlertLocation {
+    init(
+        path: String? = nil,
+        startLine: Int? = nil,
+        endLine: Int? = nil,
+        startColumn: Int? = nil,
+        endColumn: Int? = nil
+    ) {
         self.init()
         (self.path, self.startLine) = (path, startLine)
         (self.endLine, self.startColumn) = (endLine, startColumn)
@@ -547,7 +616,7 @@ public struct CodeScanningAlertRule: Codable {
     }
 
     init() {
-        (self.id, self.name, self.severity, self.securitySeverityLevel, self.description) = (nil, nil, nil, nil, nil)
-        (self.fullDescription, self.tags, self.help, self.helpUri) = (nil, nil, nil, nil)
+        (id, name, severity, securitySeverityLevel, description) = (nil, nil, nil, nil, nil)
+        (fullDescription, tags, help, helpUri) = (nil, nil, nil, nil)
     }
 }

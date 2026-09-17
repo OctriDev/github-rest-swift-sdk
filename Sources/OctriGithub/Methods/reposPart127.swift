@@ -6,19 +6,35 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// View the latest published full release for the repository. The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit used for the release, and not the date when the release was drafted or published.
+public extension ReposMethods {
+    /// View the latest published full release for the repository. The latest release is the most recent non-prerelease,
+    /// non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit
+    /// used for the release, and not the date when the release was drafted or published.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGetLatestRelease(config: ClientConfig, owner: String, repo: String) async throws -> Release {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/latest"].joined(), config: config, decoder: .json, operationId: "reposGetLatestRelease")).data
+    static func reposGetLatestRelease(config: ClientConfig, owner: String, repo: String) async throws -> Release {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/releases/latest",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetLatestRelease"
+        )).data
     }
 
-    /// Retrieves a published release associated with a specific tag in a repository. Supply `tag` together with the repository owner and name to identify the release. Use the returned release metadata to access its assets, URLs, publication state, and target commit.
+    /// Retrieves a published release associated with a specific tag in a repository. Supply `tag` together with the
+    /// repository owner and name to identify the release. Use the returned release metadata to access its assets, URLs,
+    /// publication state, and target commit.
     ///
     /// Get a published release with the specified tag.
     ///
@@ -28,7 +44,25 @@ extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - tag: tag parameter
-    public static func reposGetReleaseByTag(config: ClientConfig, owner: String, repo: String, tag: String) async throws -> Release {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/releases/tags/", sdkEncodePathSegment(sdkWireString(tag))].joined(), config: config, decoder: .json, operationId: "reposGetReleaseByTag")).data
+    static func reposGetReleaseByTag(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        tag: String
+    ) async throws -> Release {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/releases/tags/",
+                sdkEncodePathSegment(sdkWireString(tag)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetReleaseByTag"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookRepositoryDispatchSample domain models
+/// WebhookRepositoryDispatchSample domain models
 /// Typed representation of the `WebhookRepositoryDispatchSample` API schema.
 public struct WebhookRepositoryDispatchSample: Codable {
     /// The `event_type` that was specified in the `POST /repos/{owner}/{repo}/dispatches` request body.
@@ -39,43 +39,78 @@ public struct WebhookRepositoryDispatchSample: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookRepositoryDispatchSample {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.branch) else {
-            throw SdkValidationError(field: "branch", code: "required", message: "Validation failed for 'branch': value is required")
-        }
-        guard container.contains(.clientPayload) else {
-            throw SdkValidationError(field: "client_payload", code: "required", message: "Validation failed for 'client_payload': value is required")
-        }
-        guard container.contains(.installation) else {
-            throw SdkValidationError(field: "installation", code: "required", message: "Validation failed for 'installation': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.branch = try container.sdkDecodeRequired(.branch)
-        self.clientPayload = try container.sdkDecodeIfPresent(.clientPayload)
-        self.installation = try container.sdkDecodeRequired(.installation)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookRepositoryDispatchSample {
-    public init(action: String, branch: String, clientPayload: [String: JSONValue]?, installation: SimpleInstallation, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookRepositoryDispatchSample {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.branch) else {
+            throw SdkValidationError(
+                field: "branch",
+                code: "required",
+                message: "Validation failed for 'branch': value is required"
+            )
+        }
+        guard container.contains(.clientPayload) else {
+            throw SdkValidationError(
+                field: "client_payload",
+                code: "required",
+                message: "Validation failed for 'client_payload': value is required"
+            )
+        }
+        guard container.contains(.installation) else {
+            throw SdkValidationError(
+                field: "installation",
+                code: "required",
+                message: "Validation failed for 'installation': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        branch = try container.sdkDecodeRequired(.branch)
+        clientPayload = try container.sdkDecodeIfPresent(.clientPayload)
+        installation = try container.sdkDecodeRequired(.installation)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookRepositoryDispatchSample {
+    init(
+        action: String,
+        branch: String,
+        clientPayload: [String: JSONValue]?,
+        installation: SimpleInstallation,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.branch) = (action, branch)
         (self.clientPayload, self.installation) = (clientPayload, installation)
         (self.repository, self.sender) = (repository, sender)

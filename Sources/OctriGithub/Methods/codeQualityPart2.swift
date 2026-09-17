@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeQualityMethods {
-    /// Lists code quality findings for a repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+public extension CodeQualityMethods {
+    /// Lists code quality findings for a repository. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this
+    /// endpoint with only public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -33,13 +35,35 @@ extension CodeQualityMethods {
     ///   -rest-api)."
     /// - state: If specified, only code quality findings with this state will be
     ///   returned.
-    public static func codeQualityListFindingsForRepo(config: ClientConfig, owner: String, repo: String, perPage: Int?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, before: String?, after: String?, state: CodeQualityListFindingsForRepoParameter?) async throws -> [CodeQualityFinding] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-quality/findings"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("state", value: state),
-        ], decoder: .json, operationId: "codeQualityListFindingsForRepo")).data
+    static func codeQualityListFindingsForRepo(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
+        before: String?,
+        after: String?,
+        state: CodeQualityListFindingsForRepoParameter?
+    ) async throws -> [CodeQualityFinding] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-quality/findings",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("state", value: state),
+            ],
+            decoder: .json,
+            operationId: "codeQualityListFindingsForRepo"
+        )).data
     }
 }

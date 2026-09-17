@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
-    /// Lists all development environment secrets available in a repository without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension CodespacesMethods {
+    /// Lists all development environment secrets available in a repository without revealing their encrypted values.
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,21 +23,58 @@ extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func codespacesListRepoSecrets(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> CodespacesListRepoSecretsResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codespaces/secrets"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "codespacesListRepoSecrets")).data
+    static func codespacesListRepoSecrets(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListRepoSecretsResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/codespaces/secrets",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "codespacesListRepoSecrets"
+        )).data
     }
 
-    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. If the repository is private, OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. If the repository is private, OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func codespacesGetRepoPublicKey(config: ClientConfig, owner: String, repo: String) async throws -> CodespacesPublicKey {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codespaces/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "codespacesGetRepoPublicKey")).data
+    static func codespacesGetRepoPublicKey(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> CodespacesPublicKey {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/codespaces/secrets/public-key",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesGetRepoPublicKey"
+        )).data
     }
 }

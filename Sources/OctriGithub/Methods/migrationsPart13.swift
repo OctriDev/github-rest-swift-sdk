@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension MigrationsMethods {
-    public struct MigrationsStartForAuthenticatedUserOptions: Codable {
+public extension MigrationsMethods {
+    struct MigrationsStartForAuthenticatedUserOptions: Codable {
         public var repositories: [String]
         public var lockRepositories: Bool?
         public var excludeMetadata: Bool?
@@ -41,9 +41,19 @@ extension MigrationsMethods {
     /// - orgMetadataOnly: Indicates whether this should only include organization
     ///   metadata (repositories array should be empty and will ignore other flags).
     /// - exclude: Exclude attributes from the API response to improve performance
-    public static func migrationsStartForAuthenticatedUser(config: ClientConfig, options: MigrationsStartForAuthenticatedUserOptions) async throws -> Migration {
+    static func migrationsStartForAuthenticatedUser(
+        config: ClientConfig,
+        options: MigrationsStartForAuthenticatedUserOptions
+    ) async throws -> Migration {
         let requestBody = MigrationsStartForAuthenticatedUserRequestBody(options: options)
 
-        return try (await sdkRequest("POST", "/user/migrations", config: config, body: requestBody, decoder: .json, operationId: "migrationsStartForAuthenticatedUser")).data
+        return try await (sdkRequest(
+            "POST",
+            "/user/migrations",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "migrationsStartForAuthenticatedUser"
+        )).data
     }
 }

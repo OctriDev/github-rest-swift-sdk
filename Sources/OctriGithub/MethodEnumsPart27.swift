@@ -8,17 +8,21 @@ import Foundation
 #endif
 /// Which type of organization repositories have access to the private registry. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the private registry.
-public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility(rawValue: "all")
     public static let `private` = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility(rawValue: "private")
     public static let selected = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -30,21 +34,27 @@ public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyVisibility: Ra
 /// The authentication type for the private registry. This field cannot be changed after creation. If provided,
 /// it must match the existing `auth_type` of the configuration. To change the authentication type, delete and
 /// recreate the configuration.
-public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let token = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "token")
-    public static let usernamePassword = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "username_password")
+    public static let usernamePassword =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "username_password")
     public static let oidcAzure = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_azure")
     public static let oidcAws = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_aws")
     public static let oidcJfrog = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_jfrog")
-    public static let oidcCloudsmith = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_cloudsmith")
+    public static let oidcCloudsmith =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_cloudsmith")
     public static let oidcGcp = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_gcp")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,29 +64,48 @@ public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyAuthType: RawR
 }
 
 /// The registry type.
-public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let mavenRepository = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "maven_repository")
-    public static let nugetFeed = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "nuget_feed")
-    public static let goproxyServer = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "goproxy_server")
-    public static let npmRegistry = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "npm_registry")
-    public static let rubygemsServer = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "rubygems_server")
-    public static let cargoRegistry = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "cargo_registry")
-    public static let composerRepository = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "composer_repository")
-    public static let dockerRegistry = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "docker_registry")
-    public static let gitSource = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "git_source")
-    public static let helmRegistry = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "helm_registry")
-    public static let hexOrganization = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_organization")
-    public static let hexRepository = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_repository")
-    public static let pubRepository = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "pub_repository")
-    public static let pythonIndex = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "python_index")
-    public static let terraformRegistry = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "terraform_registry")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let mavenRepository =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "maven_repository")
+    public static let nugetFeed =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "nuget_feed")
+    public static let goproxyServer =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "goproxy_server")
+    public static let npmRegistry =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "npm_registry")
+    public static let rubygemsServer =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "rubygems_server")
+    public static let cargoRegistry =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "cargo_registry")
+    public static let composerRepository =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "composer_repository")
+    public static let dockerRegistry =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "docker_registry")
+    public static let gitSource =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "git_source")
+    public static let helmRegistry =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "helm_registry")
+    public static let hexOrganization =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_organization")
+    public static let hexRepository =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_repository")
+    public static let pubRepository =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "pub_repository")
+    public static let pythonIndex =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "python_index")
+    public static let terraformRegistry =
+        PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "terraform_registry")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -87,17 +116,21 @@ public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType: 
 
 /// Which type of organization repositories have access to the private registry. `selected` means only the
 /// repositories specified by `selected_repository_ids` can access the private registry.
-public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyVisibility: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyVisibility(rawValue: "all")
     public static let `private` = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyVisibility(rawValue: "private")
     public static let selected = PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyVisibility(rawValue: "selected")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -107,17 +140,21 @@ public struct PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyVisibility: Ra
 }
 
 /// The field's data type.
-public struct ProjectsAddFieldForOrgRequestBodyVariant1DataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsAddFieldForOrgRequestBodyVariant1DataType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let text = ProjectsAddFieldForOrgRequestBodyVariant1DataType(rawValue: "text")
     public static let number = ProjectsAddFieldForOrgRequestBodyVariant1DataType(rawValue: "number")
     public static let date = ProjectsAddFieldForOrgRequestBodyVariant1DataType(rawValue: "date")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -127,15 +164,19 @@ public struct ProjectsAddFieldForOrgRequestBodyVariant1DataType: RawRepresentabl
 }
 
 /// The field's data type.
-public struct ProjectsAddFieldForOrgRequestBodyVariant2DataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsAddFieldForOrgRequestBodyVariant2DataType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let singleSelect = ProjectsAddFieldForOrgRequestBodyVariant2DataType(rawValue: "single_select")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -145,15 +186,19 @@ public struct ProjectsAddFieldForOrgRequestBodyVariant2DataType: RawRepresentabl
 }
 
 /// The field's data type.
-public struct ProjectsAddFieldForOrgRequestBodyVariant3DataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsAddFieldForOrgRequestBodyVariant3DataType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let iteration = ProjectsAddFieldForOrgRequestBodyVariant3DataType(rawValue: "iteration")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -166,13 +211,16 @@ public struct ProjectsAddFieldForOrgRequestBodyVariant3DataType: RawRepresentabl
 public struct ProjectsAddItemForOrgRequestBodyType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let issue = ProjectsAddItemForOrgRequestBodyType(rawValue: "Issue")
     public static let pullRequest = ProjectsAddItemForOrgRequestBodyType(rawValue: "PullRequest")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -182,17 +230,21 @@ public struct ProjectsAddItemForOrgRequestBodyType: RawRepresentable, Hashable, 
 }
 
 /// The layout of the view.
-public struct ProjectsCreateViewForOrgRequestBodyLayout: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsCreateViewForOrgRequestBodyLayout: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let table = ProjectsCreateViewForOrgRequestBodyLayout(rawValue: "table")
     public static let board = ProjectsCreateViewForOrgRequestBodyLayout(rawValue: "board")
     public static let roadmap = ProjectsCreateViewForOrgRequestBodyLayout(rawValue: "roadmap")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -3,9 +3,9 @@
 
 import Foundation
 
-// ReposRepositoryRule domain models
-extension RepositoryRuleUpdateParameters {
-    public init(updateAllowsFetchAndMerge: Bool) {
+/// ReposRepositoryRule domain models
+public extension RepositoryRuleUpdateParameters {
+    init(updateAllowsFetchAndMerge: Bool) {
         self.updateAllowsFetchAndMerge = updateAllowsFetchAndMerge
     }
 }
@@ -22,22 +22,28 @@ public struct RepositoryRuleWorkflows: Codable {
         case parameters
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleWorkflows {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.type = try container.sdkDecodeRequired(.type)
-        self.parameters = try container.sdkDecodeIfPresent(.parameters)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleWorkflows {
-    public init(type: RepositoryRuleWorkflowsType, parameters: RepositoryRuleWorkflowsParameters? = nil) {
+public extension RepositoryRuleWorkflows {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        type = try container.sdkDecodeRequired(.type)
+        parameters = try container.sdkDecodeIfPresent(.parameters)
+    }
+}
+
+public extension RepositoryRuleWorkflows {
+    init(type: RepositoryRuleWorkflowsType, parameters: RepositoryRuleWorkflowsParameters? = nil) {
         (self.type, self.parameters) = (type, parameters)
     }
 }
@@ -54,36 +60,46 @@ public struct RepositoryRuleWorkflowsParameters: Codable {
         case doNotEnforceOnCreate = "do_not_enforce_on_create"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryRuleWorkflowsParameters {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.workflows) else {
-            throw SdkValidationError(field: "workflows", code: "required", message: "Validation failed for 'workflows': value is required")
-        }
-        self.workflows = try container.sdkDecodeRequired(.workflows)
-        self.doNotEnforceOnCreate = try container.sdkDecodeIfPresent(.doNotEnforceOnCreate)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryRuleWorkflowsParameters {
-    public init(workflows: [RepositoryRuleParamsWorkflowFileReference], doNotEnforceOnCreate: Bool? = nil) {
+public extension RepositoryRuleWorkflowsParameters {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.workflows) else {
+            throw SdkValidationError(
+                field: "workflows",
+                code: "required",
+                message: "Validation failed for 'workflows': value is required"
+            )
+        }
+        workflows = try container.sdkDecodeRequired(.workflows)
+        doNotEnforceOnCreate = try container.sdkDecodeIfPresent(.doNotEnforceOnCreate)
+    }
+}
+
+public extension RepositoryRuleWorkflowsParameters {
+    init(workflows: [RepositoryRuleParamsWorkflowFileReference], doNotEnforceOnCreate: Bool? = nil) {
         (self.workflows, self.doNotEnforceOnCreate) = (workflows, doNotEnforceOnCreate)
     }
 }
 
 /// Required enumerated value serialized in the `type` wire field.
-public struct RepositoryRuleRequiredStatusChecksType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleRequiredStatusChecksType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let requiredStatusChecks = RepositoryRuleRequiredStatusChecksType(rawValue: "required_status_checks")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -96,12 +112,15 @@ public struct RepositoryRuleRequiredStatusChecksType: RawRepresentable, Hashable
 public struct RepositoryRuleWorkflowsType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let workflows = RepositoryRuleWorkflowsType(rawValue: "workflows")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -111,10 +130,14 @@ public struct RepositoryRuleWorkflowsType: RawRepresentable, Hashable, Codable, 
 }
 
 /// The operator to use for matching.
-public struct RepositoryRuleCommitMessagePatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleCommitMessagePatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let startsWith = RepositoryRuleCommitMessagePatternParametersOperator(rawValue: "starts_with")
     public static let endsWith = RepositoryRuleCommitMessagePatternParametersOperator(rawValue: "ends_with")
     public static let contains = RepositoryRuleCommitMessagePatternParametersOperator(rawValue: "contains")
@@ -122,7 +145,7 @@ public struct RepositoryRuleCommitMessagePatternParametersOperator: RawRepresent
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -135,12 +158,15 @@ public struct RepositoryRuleCommitMessagePatternParametersOperator: RawRepresent
 public struct RepositoryRulePullRequestType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let pullRequest = RepositoryRulePullRequestType(rawValue: "pull_request")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -153,12 +179,15 @@ public struct RepositoryRulePullRequestType: RawRepresentable, Hashable, Codable
 public struct RepositoryRuleFilePathRestrictionType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let filePathRestriction = RepositoryRuleFilePathRestrictionType(rawValue: "file_path_restriction")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -168,15 +197,19 @@ public struct RepositoryRuleFilePathRestrictionType: RawRepresentable, Hashable,
 }
 
 /// Required enumerated value serialized in the `type` wire field.
-public struct RepositoryRuleCommitMessagePatternType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleCommitMessagePatternType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let commitMessagePattern = RepositoryRuleCommitMessagePatternType(rawValue: "commit_message_pattern")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -186,15 +219,20 @@ public struct RepositoryRuleCommitMessagePatternType: RawRepresentable, Hashable
 }
 
 /// Required enumerated value serialized in the `type` wire field.
-public struct RepositoryRuleFileExtensionRestrictionType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleFileExtensionRestrictionType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let fileExtensionRestriction = RepositoryRuleFileExtensionRestrictionType(rawValue: "file_extension_restriction")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let fileExtensionRestriction =
+        RepositoryRuleFileExtensionRestrictionType(rawValue: "file_extension_restriction")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -204,10 +242,14 @@ public struct RepositoryRuleFileExtensionRestrictionType: RawRepresentable, Hash
 }
 
 /// The operator to use for matching.
-public struct RepositoryRuleCommitAuthorEmailPatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleCommitAuthorEmailPatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let startsWith = RepositoryRuleCommitAuthorEmailPatternParametersOperator(rawValue: "starts_with")
     public static let endsWith = RepositoryRuleCommitAuthorEmailPatternParametersOperator(rawValue: "ends_with")
     public static let contains = RepositoryRuleCommitAuthorEmailPatternParametersOperator(rawValue: "contains")
@@ -215,7 +257,7 @@ public struct RepositoryRuleCommitAuthorEmailPatternParametersOperator: RawRepre
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -228,12 +270,15 @@ public struct RepositoryRuleCommitAuthorEmailPatternParametersOperator: RawRepre
 public struct RepositoryRuleUpdateType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let update = RepositoryRuleUpdateType(rawValue: "update")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -243,15 +288,20 @@ public struct RepositoryRuleUpdateType: RawRepresentable, Hashable, Codable, Sen
 }
 
 /// Required enumerated value serialized in the `type` wire field.
-public struct RepositoryRuleCommitAuthorEmailPatternType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleCommitAuthorEmailPatternType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let commitAuthorEmailPattern = RepositoryRuleCommitAuthorEmailPatternType(rawValue: "commit_author_email_pattern")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let commitAuthorEmailPattern =
+        RepositoryRuleCommitAuthorEmailPatternType(rawValue: "commit_author_email_pattern")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -263,16 +313,20 @@ public struct RepositoryRuleCommitAuthorEmailPatternType: RawRepresentable, Hash
 /// When set to ALLGREEN, the merge commit created by merge queue for each PR in the group must pass all
 /// required checks to merge. When set to HEADGREEN, only the commit at the head of the merge group, i.e. the
 /// commit containing changes from all of the PRs in the group, must pass its required checks to merge.
-public struct RepositoryRuleMergeQueueParametersGroupingStrategy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleMergeQueueParametersGroupingStrategy: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let allgreen = RepositoryRuleMergeQueueParametersGroupingStrategy(rawValue: "ALLGREEN")
     public static let headgreen = RepositoryRuleMergeQueueParametersGroupingStrategy(rawValue: "HEADGREEN")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -285,12 +339,15 @@ public struct RepositoryRuleMergeQueueParametersGroupingStrategy: RawRepresentab
 public struct RepositoryRuleCopilotCodeReviewType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let copilotCodeReview = RepositoryRuleCopilotCodeReviewType(rawValue: "copilot_code_review")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -300,15 +357,20 @@ public struct RepositoryRuleCopilotCodeReviewType: RawRepresentable, Hashable, C
 }
 
 /// Required enumerated value serialized in the `type` wire field.
-public struct RepositoryRuleLicenseComplianceScanningType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleLicenseComplianceScanningType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let licenseComplianceScanning = RepositoryRuleLicenseComplianceScanningType(rawValue: "license_compliance_scanning")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let licenseComplianceScanning =
+        RepositoryRuleLicenseComplianceScanningType(rawValue: "license_compliance_scanning")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -321,12 +383,15 @@ public struct RepositoryRuleLicenseComplianceScanningType: RawRepresentable, Has
 public struct RepositoryRuleTagNamePatternType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let tagNamePattern = RepositoryRuleTagNamePatternType(rawValue: "tag_name_pattern")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -336,10 +401,14 @@ public struct RepositoryRuleTagNamePatternType: RawRepresentable, Hashable, Coda
 }
 
 /// The operator to use for matching.
-public struct RepositoryRuleTagNamePatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleTagNamePatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let startsWith = RepositoryRuleTagNamePatternParametersOperator(rawValue: "starts_with")
     public static let endsWith = RepositoryRuleTagNamePatternParametersOperator(rawValue: "ends_with")
     public static let contains = RepositoryRuleTagNamePatternParametersOperator(rawValue: "contains")
@@ -347,7 +416,7 @@ public struct RepositoryRuleTagNamePatternParametersOperator: RawRepresentable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -357,10 +426,14 @@ public struct RepositoryRuleTagNamePatternParametersOperator: RawRepresentable, 
 }
 
 /// The operator to use for matching.
-public struct RepositoryRuleBranchNamePatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleBranchNamePatternParametersOperator: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let startsWith = RepositoryRuleBranchNamePatternParametersOperator(rawValue: "starts_with")
     public static let endsWith = RepositoryRuleBranchNamePatternParametersOperator(rawValue: "ends_with")
     public static let contains = RepositoryRuleBranchNamePatternParametersOperator(rawValue: "contains")
@@ -368,7 +441,7 @@ public struct RepositoryRuleBranchNamePatternParametersOperator: RawRepresentabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -378,17 +451,21 @@ public struct RepositoryRuleBranchNamePatternParametersOperator: RawRepresentabl
 }
 
 /// Method to use when merging changes from queued pull requests.
-public struct RepositoryRuleMergeQueueParametersMergeMethod: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleMergeQueueParametersMergeMethod: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let merge = RepositoryRuleMergeQueueParametersMergeMethod(rawValue: "MERGE")
     public static let squash = RepositoryRuleMergeQueueParametersMergeMethod(rawValue: "SQUASH")
     public static let rebase = RepositoryRuleMergeQueueParametersMergeMethod(rawValue: "REBASE")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -401,12 +478,15 @@ public struct RepositoryRuleMergeQueueParametersMergeMethod: RawRepresentable, H
 public struct RepositoryRuleNonFastForwardType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let nonFastForward = RepositoryRuleNonFastForwardType(rawValue: "non_fast_forward")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -419,12 +499,15 @@ public struct RepositoryRuleNonFastForwardType: RawRepresentable, Hashable, Coda
 public struct RepositoryRuleBranchNamePatternType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let branchNamePattern = RepositoryRuleBranchNamePatternType(rawValue: "branch_name_pattern")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -435,18 +518,23 @@ public struct RepositoryRuleBranchNamePatternType: RawRepresentable, Hashable, C
 
 /// The severity level at which code scanning results that raise alerts block a reference update. For more
 /// information on alert severity levels, see "About code scanning alerts."
-public struct RepositoryRuleParamsCodeScanningToolAlertsThreshold: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct RepositoryRuleParamsCodeScanningToolAlertsThreshold: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let none = RepositoryRuleParamsCodeScanningToolAlertsThreshold(rawValue: "none")
     public static let errors = RepositoryRuleParamsCodeScanningToolAlertsThreshold(rawValue: "errors")
-    public static let errorsAndWarnings = RepositoryRuleParamsCodeScanningToolAlertsThreshold(rawValue: "errors_and_warnings")
+    public static let errorsAndWarnings =
+        RepositoryRuleParamsCodeScanningToolAlertsThreshold(rawValue: "errors_and_warnings")
     public static let all = RepositoryRuleParamsCodeScanningToolAlertsThreshold(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -459,12 +547,15 @@ public struct RepositoryRuleParamsCodeScanningToolAlertsThreshold: RawRepresenta
 public struct RepositoryRuleDeletionType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let deletion = RepositoryRuleDeletionType(rawValue: "deletion")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -477,7 +568,10 @@ public struct RepositoryRuleDeletionType: RawRepresentable, Hashable, Codable, S
 public struct RepositoryRuleParamsActorType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let user = RepositoryRuleParamsActorType(rawValue: "User")
     public static let team = RepositoryRuleParamsActorType(rawValue: "Team")
     public static let integrationInstallation = RepositoryRuleParamsActorType(rawValue: "IntegrationInstallation")
@@ -485,7 +579,7 @@ public struct RepositoryRuleParamsActorType: RawRepresentable, Hashable, Codable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -498,12 +592,15 @@ public struct RepositoryRuleParamsActorType: RawRepresentable, Hashable, Codable
 public struct RepositoryRuleCreationType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let creation = RepositoryRuleCreationType(rawValue: "creation")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

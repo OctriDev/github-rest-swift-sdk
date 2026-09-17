@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Approves a pending suggestion on an issue. Applies the proposed change (creating the corresponding timeline event), transitions the suggestion to `approved`, and dismisses any competing pending suggestions for the same change. Requires triage access to the repository. Approving a suggestion also requires permission to perform the change it applies (for example, setting the issue type, adding a label or assignee, or closing the issue); this only affects fine-grained access tokens and GitHub Apps whose permissions are narrower than the triage role. This endpoint only supports issues, not pull requests.
+public extension IssuesMethods {
+    /// Approves a pending suggestion on an issue. Applies the proposed change (creating the corresponding timeline
+    /// event), transitions the suggestion to `approved`, and dismisses any competing pending suggestions for the same
+    /// change. Requires triage access to the repository. Approving a suggestion also requires permission to perform the
+    /// change it applies (for example, setting the issue type, adding a label or assignee, or closing the issue); this
+    /// only affects fine-grained access tokens and GitHub Apps whose permissions are narrower than the triage role.
+    /// This endpoint only supports issues, not pull requests.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -16,11 +21,35 @@ extension IssuesMethods {
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
     /// - suggestionId: The unique identifier of the suggestion.
-    public static func issuesApproveSuggestion(config: ClientConfig, owner: String, repo: String, issueNumber: Int, suggestionId: Int) async throws -> IssueSuggestion {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/suggestions/", sdkEncodePathSegment(sdkWireString(suggestionId)), "/approve"].joined(), config: config, decoder: .json, operationId: "issuesApproveSuggestion")).data
+    static func issuesApproveSuggestion(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        issueNumber: Int,
+        suggestionId: Int
+    ) async throws -> IssueSuggestion {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/",
+                sdkEncodePathSegment(sdkWireString(issueNumber)),
+                "/suggestions/",
+                sdkEncodePathSegment(sdkWireString(suggestionId)),
+                "/approve",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "issuesApproveSuggestion"
+        )).data
     }
 
-    /// Dismisses a pending suggestion on an issue. Transitions the suggestion to `dismissed` without applying any change or creating a timeline event. Requires triage access to the repository. This endpoint only supports issues, not pull requests.
+    /// Dismisses a pending suggestion on an issue. Transitions the suggestion to `dismissed` without applying any
+    /// change or creating a timeline event. Requires triage access to the repository. This endpoint only supports
+    /// issues, not pull requests.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,7 +58,29 @@ extension IssuesMethods {
     ///   not case sensitive.
     /// - issueNumber: The number that identifies the issue.
     /// - suggestionId: The unique identifier of the suggestion.
-    public static func issuesDismissSuggestion(config: ClientConfig, owner: String, repo: String, issueNumber: Int, suggestionId: Int) async throws -> IssueSuggestion {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/suggestions/", sdkEncodePathSegment(sdkWireString(suggestionId)), "/dismiss"].joined(), config: config, decoder: .json, operationId: "issuesDismissSuggestion")).data
+    static func issuesDismissSuggestion(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        issueNumber: Int,
+        suggestionId: Int
+    ) async throws -> IssueSuggestion {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/",
+                sdkEncodePathSegment(sdkWireString(issueNumber)),
+                "/suggestions/",
+                sdkEncodePathSegment(sdkWireString(suggestionId)),
+                "/dismiss",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "issuesDismissSuggestion"
+        )).data
     }
 }

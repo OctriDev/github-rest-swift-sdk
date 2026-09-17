@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GistsMethods {
+public extension GistsMethods {
     /// Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:
     ///
     /// - Parameters:
@@ -21,28 +21,42 @@ extension GistsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func gistsList(config: ClientConfig, since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
-        if let since = since {
+    static func gistsList(config: ClientConfig, since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
+        if let since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try (await sdkRequest("GET", "/gists", config: config, query: [
+        return try await (sdkRequest("GET", "/gists", config: config, query: [
             SdkQueryParameter("since", value: since),
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "gistsList")).data
     }
 
-    /// Creates a new gist containing one or more files. Supply `files` with each filename and its content, and use `public` to control visibility; avoid filenames that match Gist's internal `gistfile` numbering scheme.
+    /// Creates a new gist containing one or more files. Supply `files` with each filename and its content, and use
+    /// `public` to control visibility; avoid filenames that match Gist's internal `gistfile` numbering scheme.
     ///
-    /// Allows you to add a new gist with one or more files. > [!NOTE] > Don't name your files "gistfile" with a numerical suffix. This is the format of the automatic naming scheme that Gist uses internally.
+    /// Allows you to add a new gist with one or more files. > [!NOTE] > Don't name your files "gistfile" with a
+    /// numerical suffix. This is the format of the automatic naming scheme that Gist uses internally.
     ///
     /// - Parameters:
     /// - files: Names and content for the files that make up the gist
     /// - description: Description of the gist
-    public static func gistsCreate(config: ClientConfig, files: [String: GistsCreateRequestBodyFilesValue], description: String?, public: GistsCreateRequestBodyPublic?) async throws -> GistSimple {
+    static func gistsCreate(
+        config: ClientConfig,
+        files: [String: GistsCreateRequestBodyFilesValue],
+        description: String?,
+        public: GistsCreateRequestBodyPublic?
+    ) async throws -> GistSimple {
         let requestBody = GistsCreateRequestBody(files: files, description: description, public: `public`)
 
-        return try (await sdkRequest("POST", "/gists", config: config, body: requestBody, decoder: .json, operationId: "gistsCreate")).data
+        return try await (sdkRequest(
+            "POST",
+            "/gists",
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gistsCreate"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookWorkflowDispatch domain models
+/// WebhookWorkflowDispatch domain models
 /// Typed representation of the `WebhookWorkflowDispatch` API schema.
 public struct WebhookWorkflowDispatch: Codable {
     /// Required object value serialized in the `inputs` wire field.
@@ -39,40 +39,71 @@ public struct WebhookWorkflowDispatch: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookWorkflowDispatch {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.inputs) else {
-            throw SdkValidationError(field: "inputs", code: "required", message: "Validation failed for 'inputs': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        guard container.contains(.workflow) else {
-            throw SdkValidationError(field: "workflow", code: "required", message: "Validation failed for 'workflow': value is required")
-        }
-        self.inputs = try container.sdkDecodeIfPresent(.inputs)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.workflow = try container.sdkDecodeRequired(.workflow)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookWorkflowDispatch {
-    public init(inputs: [String: JSONValue]?, ref: String, repository: RepositoryWebhooks, sender: SimpleUser, workflow: String, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookWorkflowDispatch {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.inputs) else {
+            throw SdkValidationError(
+                field: "inputs",
+                code: "required",
+                message: "Validation failed for 'inputs': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        guard container.contains(.workflow) else {
+            throw SdkValidationError(
+                field: "workflow",
+                code: "required",
+                message: "Validation failed for 'workflow': value is required"
+            )
+        }
+        inputs = try container.sdkDecodeIfPresent(.inputs)
+        ref = try container.sdkDecodeRequired(.ref)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        workflow = try container.sdkDecodeRequired(.workflow)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookWorkflowDispatch {
+    init(
+        inputs: [String: JSONValue]?,
+        ref: String,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        workflow: String,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.inputs, self.ref) = (inputs, ref)
         (self.repository, self.sender) = (repository, sender)
         (self.workflow, self.enterprise) = (workflow, enterprise)

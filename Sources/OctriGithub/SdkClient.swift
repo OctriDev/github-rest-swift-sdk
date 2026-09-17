@@ -15,7 +15,7 @@ public enum SdkOptional<Value: Codable>: Codable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self = container.decodeNil() ? .null : .value(try container.decode(Value.self))
+        self = try container.decodeNil() ? .null : .value(container.decode(Value.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,7 +31,9 @@ public enum SdkOptional<Value: Codable>: Codable {
     /// The wrapped value, or nil for an explicit JSON null. Lets callers read a
     /// nullable field's payload without matching the enum by hand.
     public var valueOrNil: Value? {
-        if case let .value(value) = self { return value }
+        if case let .value(value) = self {
+            return value
+        }
         return nil
     }
 }
@@ -42,10 +44,14 @@ public enum SdkOptional<Value: Codable>: Codable {
 /// the wrapped value with no extra nesting.
 public final class SdkBox<Value: Codable>: Codable {
     public let value: Value
-    public init(_ value: Value) { self.value = value }
+    public init(_ value: Value) {
+        self.value = value
+    }
+
     public init(from decoder: Decoder) throws {
         value = try Value(from: decoder)
     }
+
     public func encode(to encoder: Encoder) throws {
         try value.encode(to: encoder)
     }
@@ -53,9 +59,9 @@ public final class SdkBox<Value: Codable>: Codable {
 
 // MARK: - Request Layer
 
-internal let requestIdHeaders = ["x-request-id", "openai-request-id", "x-amzn-requestid"]
-internal let idempotentMethods: Set<String> = ["GET", "HEAD", "PUT", "DELETE", "OPTIONS"]
-internal let alwaysRetryableStatuses: Set<Int> = [429, 503]
+let requestIdHeaders = ["x-request-id", "openai-request-id", "x-amzn-requestid"]
+let idempotentMethods: Set<String> = ["GET", "HEAD", "PUT", "DELETE", "OPTIONS"]
+let alwaysRetryableStatuses: Set<Int> = [429, 503]
 
 public enum SdkResponseDecoder: Sendable {
     case json, text, bytes, empty
@@ -106,12 +112,16 @@ public struct SdkMultipartField: Sendable {
         Self(name: name, data: file.data, filename: file.filename, contentType: file.contentType)
     }
 
-    public static func scalar<T>(_ name: String, _ value: T) -> Self {
+    public static func scalar(_ name: String, _ value: some Any) -> Self {
         Self(name: name, data: Data(sdkWireString(value).utf8), filename: nil, contentType: nil)
     }
 
-    public static func json<T: Encodable>(_ name: String, _ value: T, contentType: String = "application/json") throws -> Self {
-        Self(name: name, data: try sdkJsonEncoder().encode(value), filename: nil, contentType: contentType)
+    public static func json(
+        _ name: String,
+        _ value: some Encodable,
+        contentType: String = "application/json"
+    ) throws -> Self {
+        try Self(name: name, data: sdkJsonEncoder().encode(value), filename: nil, contentType: contentType)
     }
 }
 
@@ -128,11 +138,16 @@ public func sdkEncodeMultipart(_ fields: [SdkMultipartField]) -> SdkEncodedMulti
         body.appendStr("--\(boundary)\r\n")
         var disposition = "Content-Disposition: form-data; name=\"\(name)\""
         if let filename = field.filename {
-            let safeFilename = filename.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"")
+            let safeFilename = filename.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(
+                of: "\"",
+                with: "\\\""
+            )
             disposition += "; filename=\"\(safeFilename)\""
         }
         body.appendStr("\(disposition)\r\n")
-        if let contentType = field.contentType { body.appendStr("Content-Type: \(contentType)\r\n") }
+        if let contentType = field.contentType {
+            body.appendStr("Content-Type: \(contentType)\r\n")
+        }
         body.appendStr("\r\n")
         body.append(field.data)
         body.appendStr("\r\n")
@@ -145,7 +160,7 @@ public struct SdkQueryParameter: Sendable {
     let name: String
     let values: [String]
 
-    public init<T>(_ name: String, value: T?) {
+    public init(_ name: String, value: (some Any)?) {
         self.name = name
         values = value.map { [sdkWireString($0)] } ?? []
     }
@@ -155,14 +170,15 @@ public struct SdkQueryParameter: Sendable {
         values = value.map { [$0.rawValue] } ?? []
     }
 
-    public init<T>(_ name: String, values source: [T]?, style: String = "form", explode: Bool = true) {
+    public init(_ name: String, values source: [some Any]?, style: String = "form", explode: Bool = true) {
         self.name = name
         let items = source?.map { sdkWireString($0) } ?? []
         let delimiter = style == "spaceDelimited" ? " " : (style == "pipeDelimited" ? "|" : ",")
         values = style == "form" && explode ? items : (items.isEmpty ? [] : [items.joined(separator: delimiter)])
     }
 
-    public init<T: RawRepresentable>(_ name: String, values source: [T]?, style: String = "form", explode: Bool = true) where T.RawValue == String {
+    public init<T: RawRepresentable>(_ name: String, values source: [T]?, style: String = "form", explode: Bool = true)
+        where T.RawValue == String {
         self.name = name
         let items = source?.map(\.rawValue) ?? []
         let delimiter = style == "spaceDelimited" ? " " : (style == "pipeDelimited" ? "|" : ",")
@@ -210,9 +226,9 @@ extension SdkOptional: SdkWireConvertible {
     public var sdkWireValue: String {
         switch self {
         case .null:
-            return ""
+            ""
         case let .value(wrapped):
-            return sdkWireString(wrapped)
+            sdkWireString(wrapped)
         }
     }
 }
@@ -222,10 +238,12 @@ extension SdkOptional: SdkWireConvertible {
 /// invisible, and `String(describing:)` would put the struct itself —
 /// `PurposeEnum(rawValue: "assistants")` — into a form field.
 public extension SdkWireConvertible where Self: RawRepresentable, Self.RawValue == String {
-    var sdkWireValue: String { rawValue }
+    var sdkWireValue: String {
+        rawValue
+    }
 }
 
-public func sdkWireString<T>(_ value: T) -> String {
+public func sdkWireString(_ value: some Any) -> String {
     if let convertible = value as? SdkWireConvertible {
         return convertible.sdkWireValue
     }
@@ -289,11 +307,13 @@ public func sdkHeaders(_ values: [(String, String?)]) -> [String: String] {
 extension Data {
     /// Appends the UTF-8 bytes of `string`. Used when assembling multipart bodies.
     mutating func appendStr(_ string: String) {
-        if let data = string.data(using: .utf8) { append(data) }
+        if let data = string.data(using: .utf8) {
+            append(data)
+        }
     }
 }
 
-// URLSession.shared is unavailable on Windows; use a module-level instance instead.
+/// URLSession.shared is unavailable on Windows; use a module-level instance instead.
 let sdkUrlSession = URLSession(configuration: .default)
 
 /// Mutable request context handed to a before-request hook. A hook reshapes the
@@ -309,12 +329,12 @@ public struct RequestContext {
 /// Sends an authenticated HTTP request and decodes the JSON response into `T`.
 /// Returns an `SdkResponse` envelope with metadata (status, headers, latency, etc.).
 /// Supports retry with exponential backoff, per-request timeout, and request-id capture.
-public func sdkRequest<T: Decodable, B: Encodable>(
+public func sdkRequest<T: Decodable>(
     _ method: String,
     _ path: String,
     config: ClientConfig? = nil,
     query: [SdkQueryParameter] = [],
-    body: B? = Optional<EmptyBody>.none,
+    body: (some Encodable)? = EmptyBody?.none,
     rawBody: Data? = nil,
     contentType: String = "application/json",
     decoder: SdkResponseDecoder = .json,
@@ -337,13 +357,12 @@ public func sdkRequest<T: Decodable, B: Encodable>(
 
     // Encode the body once; reused across retries. A raw body (e.g.
     // application/octet-stream) is sent verbatim, bypassing JSON encoding.
-    let bodyData: Data?
-    if let rawBody {
-        bodyData = rawBody
+    let bodyData: Data? = if let rawBody {
+        rawBody
     } else if let body {
-        bodyData = try sdkJsonEncoder().encode(body)
+        try sdkJsonEncoder().encode(body)
     } else {
-        bodyData = nil
+        nil
     }
 
     let upperMethod = method.uppercased()
@@ -360,7 +379,9 @@ public func sdkRequest<T: Decodable, B: Encodable>(
     for attempt in 1 ... retry.maxAttempts {
         do {
             var request = try buildRequest(
-                config: cfg, method: method, path: path, query: mergedQuery, contentType: contentType, resolvedAuthHeaders: authResolved.headers)
+                config: cfg, method: method, path: path, query: mergedQuery, contentType: contentType,
+                resolvedAuthHeaders: authResolved.headers
+            )
             request.httpBody = bodyData
             request.timeoutInterval = timeout
             if let key = idempotencyKey {
@@ -417,12 +438,12 @@ public func sdkRequest<T: Decodable, B: Encodable>(
                 return resp
             }
 
-            if attempt < retry.maxAttempts
-                && shouldRetry(method: method, statusCode: raw.statusCode, retryOn: retry.retryOn)
-            {
+            if attempt < retry.maxAttempts,
+               shouldRetry(method: method, statusCode: raw.statusCode, retryOn: retry.retryOn) {
                 try await sleepBackoff(
                     retry: retry, attempt: attempt,
-                    retryAfter: raw.headers["retry-after"])
+                    retryAfter: raw.headers["retry-after"]
+                )
                 continue
             }
 
@@ -449,11 +470,23 @@ public func sdkRequest<T: Decodable, B: Encodable>(
 
     if let last = lastError {
         if let urlError = last as? URLError, urlError.code == .timedOut {
-            throw logError(cfg, method: upperMethod, path: path, operationId: operationId, SdkTimeoutError(elapsed: timeout))
+            throw logError(
+                cfg,
+                method: upperMethod,
+                path: path,
+                operationId: operationId,
+                SdkTimeoutError(elapsed: timeout)
+            )
         }
         throw logError(cfg, method: upperMethod, path: path, operationId: operationId, SdkNetworkError(cause: last))
     }
-    throw logError(cfg, method: upperMethod, path: path, operationId: operationId, SdkNetworkError(cause: URLError(.unknown)))
+    throw logError(
+        cfg,
+        method: upperMethod,
+        path: path,
+        operationId: operationId,
+        SdkNetworkError(cause: URLError(.unknown))
+    )
 }
 
 /// Fires the error logger (when configured) and returns the error unchanged so
@@ -481,7 +514,7 @@ func logError<E: Swift.Error>(
     _ error: E
 ) -> E {
     guard let logging = config.logging, logging.enabled == true,
-        let endpoint = logging.endpoint, let url = URL(string: endpoint)
+          let endpoint = logging.endpoint, let url = URL(string: endpoint)
     else {
         return error
     }
@@ -506,16 +539,26 @@ func logError<E: Swift.Error>(
     ]
     if let httpError = error as? SdkHttpError {
         payload["statusCode"] = httpError.statusCode
-        if !httpError.requestId.isEmpty { payload["requestId"] = httpError.requestId }
+        if !httpError.requestId.isEmpty {
+            payload["requestId"] = httpError.requestId
+        }
     } else if let networkError = error as? SdkNetworkError, !networkError.requestId.isEmpty {
         payload["requestId"] = networkError.requestId
     } else if let timeoutError = error as? SdkTimeoutError, !timeoutError.requestId.isEmpty {
         payload["requestId"] = timeoutError.requestId
     }
-    if let environment = logging.environment { payload["environment"] = environment }
-    if let release = logging.release { payload["release"] = release }
-    if let user = logging.user { payload["user"] = user }
-    if let tags = logging.tags { payload["tags"] = tags }
+    if let environment = logging.environment {
+        payload["environment"] = environment
+    }
+    if let release = logging.release {
+        payload["release"] = release
+    }
+    if let user = logging.user {
+        payload["user"] = user
+    }
+    if let tags = logging.tags {
+        payload["tags"] = tags
+    }
 
     let safePayload = sanitizeTelemetry(payload, enabled: logging.filterPii)
     guard let bodyData = try? JSONSerialization.data(withJSONObject: safePayload) else {
@@ -539,11 +582,13 @@ func logError<E: Swift.Error>(
 
 /// Composes a middleware stack around `terminal`. The first middleware in the
 /// stack is the outermost; returns `terminal` directly when stack is empty.
-internal func composeMiddleware(
+func composeMiddleware(
     stack: [Middleware],
     terminal: @escaping (SdkRequest) async throws -> SdkRawResponse
 ) -> (SdkRequest) async throws -> SdkRawResponse {
-    if stack.isEmpty { return terminal }
+    if stack.isEmpty {
+        return terminal
+    }
     var next = terminal
     for mw in stack.reversed() {
         let captured = next
@@ -555,13 +600,15 @@ internal func composeMiddleware(
 /// Innermost handler: performs the actual URLSession call and assembles an
 /// SdkRawResponse. Non-2xx responses are returned as-is so middleware can
 /// inspect them; only transport-level errors throw.
-internal func coreTransport(_ req: SdkRequest, timeout: TimeInterval) async throws -> SdkRawResponse {
+func coreTransport(_ req: SdkRequest, timeout: TimeInterval) async throws -> SdkRawResponse {
     guard let url = URL(string: req.url) else {
         throw SdkNetworkError(cause: URLError(.badURL))
     }
     var request = URLRequest(url: url)
     request.httpMethod = req.method
-    for (k, v) in req.headers { request.setValue(v, forHTTPHeaderField: k) }
+    for (k, v) in req.headers {
+        request.setValue(v, forHTTPHeaderField: k)
+    }
     request.httpBody = req.body
     request.timeoutInterval = timeout
 

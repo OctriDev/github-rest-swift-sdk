@@ -11,7 +11,14 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try PullsMethods.PullsCreateReviewCommentOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), pullNumber: decoded("1"), body: decoded("\"sample\""), commitId: decoded("\"6dcb09b5b57875f334f61aebed695e2e4193db5e\""), path: decoded("\"file1.txt\""))
+        var options = try PullsMethods.PullsCreateReviewCommentOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\""),
+            pullNumber: decoded("1"),
+            body: decoded("\"sample\""),
+            commitId: decoded("\"6dcb09b5b57875f334f61aebed695e2e4193db5e\""),
+            path: decoded("\"file1.txt\"")
+        )
         options.position = try decoded("null")
         options.side = try decoded("\"RIGHT\"")
         options.line = try decoded("2")
@@ -301,7 +308,11 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try PullsMethods.PullsListReviewCommentsOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), pullNumber: decoded("1"))
+        var options = try PullsMethods.PullsListReviewCommentsOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\""),
+            pullNumber: decoded("1")
+        )
         options.sort = try decoded("\"created\"")
         options.direction = try decoded("\"asc\"")
         options.since = try decoded("\"2024-01-01T00:00:00Z\"")
@@ -399,7 +410,11 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try PullsMethods.PullsMergeAsyncOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), pullNumber: decoded("1"))
+        var options = try PullsMethods.PullsMergeAsyncOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\""),
+            pullNumber: decoded("1")
+        )
         options.commitTitle = try decoded("\"Fix race condition\"")
         options.commitMessage = try decoded(sdkMethodFixture879Value1)
         options.sha = try decoded("\"6358cd125586d9def8c3e5943f23506202da81cc\"")
@@ -494,7 +509,11 @@ extension SdkMethodTests {
             return
         }
         _ = client
-        var options = try PullsMethods.PullsUpdateOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), pullNumber: decoded("1"))
+        var options = try PullsMethods.PullsUpdateOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\""),
+            pullNumber: decoded("1")
+        )
         options.title = try decoded("\"new title\"")
         options.body = try decoded("\"sample\"")
         options.state = try decoded("\"open\"")

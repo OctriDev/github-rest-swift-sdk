@@ -6,8 +6,15 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
-    /// Deletes a specific package version in an organization. If the package is public and the package version has more than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for further assistance. The authenticated user must have admin permissions in the organization to use this endpoint. If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the authenticated user must also have admin permissions to the package. For the list of these registries, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)." OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+public extension PackagesMethods {
+    /// Deletes a specific package version in an organization. If the package is public and the package version has more
+    /// than 5,000 downloads, you cannot delete the package version. In this scenario, contact GitHub support for
+    /// further assistance. The authenticated user must have admin permissions in the organization to use this endpoint.
+    /// If the `package_type` belongs to a GitHub Packages registry that supports granular permissions, the
+    /// authenticated user must also have admin permissions to the package. For the list of these registries, see
+    /// "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
+    /// OAuth app tokens and personal access tokens (classic) need the `read:packages` and `delete:packages` scopes to
+    /// use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -19,7 +26,28 @@ extension PackagesMethods {
     /// - packageName: The name of the package.
     /// - org: The organization name. The name is not case sensitive.
     /// - packageVersionId: Unique identifier of the package version.
-    public static func packagesDeletePackageVersionForOrg(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, org: String, packageVersionId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName)), "/versions/", sdkEncodePathSegment(sdkWireString(packageVersionId))].joined(), config: config, decoder: .empty, operationId: "packagesDeletePackageVersionForOrg")).data
+    static func packagesDeletePackageVersionForOrg(
+        config: ClientConfig,
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        org: String,
+        packageVersionId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/packages/",
+                sdkEncodePathSegment(sdkWireString(packageType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(packageName)),
+                "/versions/",
+                sdkEncodePathSegment(sdkWireString(packageVersionId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "packagesDeletePackageVersionForOrg"
+        )).data
     }
 }

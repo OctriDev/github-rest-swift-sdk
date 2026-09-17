@@ -3,214 +3,613 @@
 
 import Foundation
 
-extension ActionsNamespace {
-/// Lists all self-hosted runners configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listSelfHostedRunnersForRepo(owner: String, repo: String, name: String?, perPage: Int?, page: Int?) async throws -> ActionsListSelfHostedRunnersForRepoResponse {
-        return try await ActionsMethods.actionsListSelfHostedRunnersForRepo(config: config, owner: owner, repo: repo, name: name, perPage: perPage, page: page)
+public extension ActionsNamespace {
+    /// Lists all self-hosted runners configured in a repository. Authenticated users must have admin access to the
+    /// repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
+    /// use this endpoint.
+    func listSelfHostedRunnersForRepo(
+        owner: String,
+        repo: String,
+        name: String?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListSelfHostedRunnersForRepoResponse {
+        try await ActionsMethods.actionsListSelfHostedRunnersForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            name: name,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Gets the end-of-life schedule for a specific runner version in a repository. Returns the runner version and the dates when registration and runtime support will end. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getRunnerVersionDeprecationForRepo(owner: String, repo: String, version: String) async throws -> ActionsGetRunnerVersionDeprecationForRepoResponse {
-        return try await ActionsMethods.actionsGetRunnerVersionDeprecationForRepo(config: config, owner: owner, repo: repo, version: version)
+    /// Gets the end-of-life schedule for a specific runner version in a repository. Returns the runner version and the
+    /// dates when registration and runtime support will end. Authenticated users must have admin access to the
+    /// repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
+    /// use this endpoint.
+    func getRunnerVersionDeprecationForRepo(
+        owner: String,
+        repo: String,
+        version: String
+    ) async throws -> ActionsGetRunnerVersionDeprecationForRepoResponse {
+        try await ActionsMethods.actionsGetRunnerVersionDeprecationForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            version: version
+        )
     }
 
-/// Lists binaries for the runner application that you can download and run. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listRunnerApplicationsForRepo(owner: String, repo: String) async throws -> [RunnerApplication] {
-        return try await ActionsMethods.actionsListRunnerApplicationsForRepo(config: config, owner: owner, repo: repo)
+    /// Lists binaries for the runner application that you can download and run. Authenticated users must have admin
+    /// access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
+    func listRunnerApplicationsForRepo(owner: String, repo: String) async throws -> [RunnerApplication] {
+        try await ActionsMethods.actionsListRunnerApplicationsForRepo(config: config, owner: owner, repo: repo)
     }
 
-/// Generates a configuration that can be passed to the runner application at startup. The authenticated user must have admin access to the repository. OAuth tokens and personal access tokens (classic) need the`repo` scope to use this endpoint.
-    public func generateRunnerJitconfigForRepo(owner: String, repo: String, name: String, runnerGroupId: Int, labels: [String], workFolder: String?) async throws -> ActionsGenerateRunnerJitconfigForOrgResponse {
-        return try await ActionsMethods.actionsGenerateRunnerJitconfigForRepo(config: config, owner: owner, repo: repo, name: name, runnerGroupId: runnerGroupId, labels: labels, workFolder: workFolder)
+    /// Generates a configuration that can be passed to the runner application at startup. The authenticated user must
+    /// have admin access to the repository. OAuth tokens and personal access tokens (classic) need the`repo` scope to
+    /// use this endpoint.
+    func generateRunnerJitconfigForRepo(
+        owner: String,
+        repo: String,
+        name: String,
+        runnerGroupId: Int,
+        labels: [String],
+        workFolder: String?
+    ) async throws -> ActionsGenerateRunnerJitconfigForOrgResponse {
+        try await ActionsMethods.actionsGenerateRunnerJitconfigForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            name: name,
+            runnerGroupId: runnerGroupId,
+            labels: labels,
+            workFolder: workFolder
+        )
     }
 
-/// Returns a token that you can pass to the `config` script. The token expires after one hour. For example, you can replace `TOKEN` in the following example with the registration token provided by this endpoint to configure your self-hosted runner: ``` ./config.sh --url https://github.com/octo-org --token TOKEN ``` Authenticated users must have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createRegistrationTokenForRepo(owner: String, repo: String) async throws -> AuthenticationToken {
-        return try await ActionsMethods.actionsCreateRegistrationTokenForRepo(config: config, owner: owner, repo: repo)
+    /// Returns a token that you can pass to the `config` script. The token expires after one hour. For example, you can
+    /// replace `TOKEN` in the following example with the registration token provided by this endpoint to configure your
+    /// self-hosted runner: ``` ./config.sh --url https://github.com/octo-org --token TOKEN ``` Authenticated users must
+    /// have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need
+    /// the `repo` scope to use this endpoint.
+    func createRegistrationTokenForRepo(owner: String, repo: String) async throws -> AuthenticationToken {
+        try await ActionsMethods.actionsCreateRegistrationTokenForRepo(config: config, owner: owner, repo: repo)
     }
 
-/// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an repository. The token expires after one hour. For example, you can replace `TOKEN` in the following example with the registration token provided by this endpoint to remove your self-hosted runner from an organization: ``` ./config.sh remove --token TOKEN ``` Authenticated users must have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createRemoveTokenForRepo(owner: String, repo: String) async throws -> AuthenticationToken {
-        return try await ActionsMethods.actionsCreateRemoveTokenForRepo(config: config, owner: owner, repo: repo)
+    /// Returns a token that you can pass to the `config` script to remove a self-hosted runner from an repository. The
+    /// token expires after one hour. For example, you can replace `TOKEN` in the following example with the
+    /// registration token provided by this endpoint to remove your self-hosted runner from an organization: ```
+    /// ./config.sh remove --token TOKEN ``` Authenticated users must have admin access to the repository to use this
+    /// endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func createRemoveTokenForRepo(owner: String, repo: String) async throws -> AuthenticationToken {
+        try await ActionsMethods.actionsCreateRemoveTokenForRepo(config: config, owner: owner, repo: repo)
     }
 
-/// Gets a specific self-hosted runner configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int) async throws -> Runner {
-        return try await ActionsMethods.actionsGetSelfHostedRunnerForRepo(config: config, owner: owner, repo: repo, runnerId: runnerId)
+    /// Gets a specific self-hosted runner configured in a repository. Authenticated users must have admin access to the
+    /// repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
+    /// use this endpoint.
+    func getSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int) async throws -> Runner {
+        try await ActionsMethods.actionsGetSelfHostedRunnerForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId
+        )
     }
 
-/// Forces the removal of a self-hosted runner from a repository. You can use this endpoint to completely remove the runner when the machine you were using no longer exists. Authenticated users must have admin access to the repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteSelfHostedRunnerFromRepo(owner: String, repo: String, runnerId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDeleteSelfHostedRunnerFromRepo(config: config, owner: owner, repo: repo, runnerId: runnerId)
-    }
-}
-
-extension ActionsNamespace {
-/// Lists all labels for a self-hosted runner configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listLabelsForSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsListLabelsForSelfHostedRunnerForRepo(config: config, owner: owner, repo: repo, runnerId: runnerId)
-    }
-
-/// Adds custom labels to a self-hosted runner configured in a repository. Authenticated users must have admin access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func addCustomLabelsToSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsAddCustomLabelsToSelfHostedRunnerForRepo(config: config, owner: owner, repo: repo, runnerId: runnerId, labels: labels)
-    }
-
-/// Remove all previous custom labels and set the new custom labels for a specific self-hosted runner configured in a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func setCustomLabelsForSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int, labels: [String]) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsSetCustomLabelsForSelfHostedRunnerForRepo(config: config, owner: owner, repo: repo, runnerId: runnerId, labels: labels)
-    }
-
-/// Remove all custom labels from a self-hosted runner configured in a repository. Returns the remaining read-only labels from the runner. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func removeAllCustomLabelsFromSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int) async throws -> ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(config: config, owner: owner, repo: repo, runnerId: runnerId)
-    }
-
-/// Remove a custom label from a self-hosted runner configured in a repository. Returns the remaining labels from the runner. This endpoint returns a `404 Not Found` status if the custom label is not present on the runner. Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func removeCustomLabelFromSelfHostedRunnerForRepo(owner: String, repo: String, runnerId: Int, name: String) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try await ActionsMethods.actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(config: config, owner: owner, repo: repo, runnerId: runnerId, name: name)
-    }
-
-/// Lists all workflow runs for a repository. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository. This endpoint will return up to 1,000 results for each search when using the following parameters: `actor`, `branch`, `check_suite_id`, `created`, `event`, `head_sha`, `status`.
-    public func listWorkflowRunsForRepo(options: ActionsMethods.ActionsListWorkflowRunsForRepoOptions) async throws -> ActionsListWorkflowRunsForRepoResponse {
-        return try await ActionsMethods.actionsListWorkflowRunsForRepo(config: config, options: options)
-    }
-
-/// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func getWorkflowRun(owner: String, repo: String, runId: Int, excludePullRequests: Bool?) async throws -> WorkflowRun {
-        return try await ActionsMethods.actionsGetWorkflowRun(config: config, owner: owner, repo: repo, runId: runId, excludePullRequests: excludePullRequests)
-    }
-
-/// Deletes a specific workflow run. Anyone with write access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteWorkflowRun(owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDeleteWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
-    }
-}
-
-extension ActionsNamespace {
-/// Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func getReviewsForRun(owner: String, repo: String, runId: Int) async throws -> [EnvironmentApprovals] {
-        return try await ActionsMethods.actionsGetReviewsForRun(config: config, owner: owner, repo: repo, runId: runId)
-    }
-
-/// Approves a workflow run for a pull request from a public fork of a first time contributor. For more information, see ["Approving workflow runs from public forks](https://docs.github.com/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks)." OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func approveWorkflowRun(owner: String, repo: String, runId: Int) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsApproveWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
-    }
-
-/// Lists artifacts for a workflow run. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func listWorkflowRunArtifacts(owner: String, repo: String, runId: Int, perPage: Int?, page: Int?, name: String?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?) async throws -> ActionsListWorkflowRunArtifactsResponse {
-        return try await ActionsMethods.actionsListWorkflowRunArtifacts(config: config, owner: owner, repo: repo, runId: runId, perPage: perPage, page: page, name: name, direction: direction)
-    }
-
-/// Gets a specific workflow run attempt. Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func getWorkflowRunAttempt(owner: String, repo: String, runId: Int, attemptNumber: Int, excludePullRequests: Bool?) async throws -> WorkflowRun {
-        return try await ActionsMethods.actionsGetWorkflowRunAttempt(config: config, owner: owner, repo: repo, runId: runId, attemptNumber: attemptNumber, excludePullRequests: excludePullRequests)
-    }
-
-/// Lists jobs for a specific workflow run attempt. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func listJobsForWorkflowRunAttempt(owner: String, repo: String, runId: Int, attemptNumber: Int, perPage: Int?, page: Int?) async throws -> ActionsListJobsForWorkflowRunAttemptResponse {
-        return try await ActionsMethods.actionsListJobsForWorkflowRunAttempt(config: config, owner: owner, repo: repo, runId: runId, attemptNumber: attemptNumber, perPage: perPage, page: page)
-    }
-
-/// Gets a redirect URL to download an archive of log files for a specific workflow run attempt. This link expires after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func downloadWorkflowRunAttemptLogs(owner: String, repo: String, runId: Int, attemptNumber: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDownloadWorkflowRunAttemptLogs(config: config, owner: owner, repo: repo, runId: runId, attemptNumber: attemptNumber)
-    }
-
-/// Cancels a workflow run using its `id`. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func cancelWorkflowRun(owner: String, repo: String, runId: Int) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsCancelWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
-    }
-
-/// Lists all concurrency groups associated with a workflow run or its jobs. The set of groups is derived from the run's configuration, so a group is included even when the run no longer has any items currently holding or waiting in it. In that case the `group_members` array will be empty. `total_count` reflects the number of groups the run participates in by configuration, not the number with active items. This differs from `GET /repos/{owner}/{repo}/actions/concurrency_groups/{group_name}`, which returns 404 when a group has no active items. That endpoint reports the live state of a group repo-wide, while this endpoint reports the groups associated with a specific run by configuration. Results are sorted by group name and support cursor-based pagination via `before` and `after`. The `after` cursor paginates forward only and does not emit a `rel="prev"` Link; use `before` to page backward from a forward page's `next` cursor. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func listConcurrencyGroupsForWorkflowRun(owner: String, repo: String, runId: Int, perPage: Int?, before: String?, after: String?) async throws -> ConcurrencyGroupRunList {
-        return try await ActionsMethods.actionsListConcurrencyGroupsForWorkflowRun(config: config, owner: owner, repo: repo, runId: runId, perPage: perPage, before: before, after: after)
+    /// Forces the removal of a self-hosted runner from a repository. You can use this endpoint to completely remove the
+    /// runner when the machine you were using no longer exists. Authenticated users must have admin access to the
+    /// repository to use this endpoint. OAuth tokens and personal access tokens (classic) need the `repo` scope to use
+    /// this endpoint.
+    func deleteSelfHostedRunnerFromRepo(owner: String, repo: String, runnerId: Int) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDeleteSelfHostedRunnerFromRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId
+        )
     }
 }
 
-extension ActionsNamespace {
-/// Submits an approval or rejection for a custom deployment protection rule associated with a workflow run. Provide `environment_name` and either a `comment` or a `state` of `approved` or `rejected`, depending on the review form you use. GitHub Apps can review only their own custom deployment protection rules; use POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments for reviews assigned to a person or team.
+public extension ActionsNamespace {
+    /// Lists all labels for a self-hosted runner configured in a repository. Authenticated users must have admin access
+    /// to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint.
+    func listLabelsForSelfHostedRunnerForRepo(
+        owner: String,
+        repo: String,
+        runnerId: Int
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsListLabelsForSelfHostedRunnerForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId
+        )
+    }
+
+    /// Adds custom labels to a self-hosted runner configured in a repository. Authenticated users must have admin
+    /// access to the organization to use this endpoint. OAuth tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint.
+    func addCustomLabelsToSelfHostedRunnerForRepo(
+        owner: String,
+        repo: String,
+        runnerId: Int,
+        labels: [String]
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsAddCustomLabelsToSelfHostedRunnerForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId,
+            labels: labels
+        )
+    }
+
+    /// Remove all previous custom labels and set the new custom labels for a specific self-hosted runner configured in
+    /// a repository. Authenticated users must have admin access to the repository to use this endpoint. OAuth app
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func setCustomLabelsForSelfHostedRunnerForRepo(
+        owner: String,
+        repo: String,
+        runnerId: Int,
+        labels: [String]
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsSetCustomLabelsForSelfHostedRunnerForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId,
+            labels: labels
+        )
+    }
+
+    /// Remove all custom labels from a self-hosted runner configured in a repository. Returns the remaining read-only
+    /// labels from the runner. Authenticated users must have admin access to the repository to use this endpoint. OAuth
+    /// app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func removeAllCustomLabelsFromSelfHostedRunnerForRepo(
+        owner: String,
+        repo: String,
+        runnerId: Int
+    ) async throws -> ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId
+        )
+    }
+
+    /// Remove a custom label from a self-hosted runner configured in a repository. Returns the remaining labels from
+    /// the runner. This endpoint returns a `404 Not Found` status if the custom label is not present on the runner.
+    /// Authenticated users must have admin access to the repository to use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
+    func removeCustomLabelFromSelfHostedRunnerForRepo(
+        owner: String,
+        repo: String,
+        runnerId: Int,
+        name: String
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await ActionsMethods.actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runnerId: runnerId,
+            name: name
+        )
+    }
+
+    /// Lists all workflow runs for a repository. You can use parameters to narrow the list of results. For more
+    /// information about using parameters, see
+    /// [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read
+    /// access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint with a private repository. This endpoint will return up to 1,000 results for
+    /// each search when using the following parameters: `actor`, `branch`, `check_suite_id`, `created`, `event`,
+    /// `head_sha`, `status`.
+    func listWorkflowRunsForRepo(options: ActionsMethods
+        .ActionsListWorkflowRunsForRepoOptions) async throws -> ActionsListWorkflowRunsForRepoResponse {
+        try await ActionsMethods.actionsListWorkflowRunsForRepo(config: config, options: options)
+    }
+
+    /// Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. OAuth app tokens
+    /// and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+    func getWorkflowRun(
+        owner: String,
+        repo: String,
+        runId: Int,
+        excludePullRequests: Bool?
+    ) async throws -> WorkflowRun {
+        try await ActionsMethods.actionsGetWorkflowRun(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            excludePullRequests: excludePullRequests
+        )
+    }
+
+    /// Deletes a specific workflow run. Anyone with write access to the repository can use this endpoint. If the
+    /// repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this
+    /// endpoint.
+    func deleteWorkflowRun(owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDeleteWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
+    }
+}
+
+public extension ActionsNamespace {
+    /// Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint with a private repository.
+    func getReviewsForRun(owner: String, repo: String, runId: Int) async throws -> [EnvironmentApprovals] {
+        try await ActionsMethods.actionsGetReviewsForRun(config: config, owner: owner, repo: repo, runId: runId)
+    }
+
+    /// Approves a workflow run for a pull request from a public fork of a first time contributor. For more information,
+    /// see ["Approving workflow runs from public
+    /// forks](https://docs.github.com/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks)." OAuth
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func approveWorkflowRun(owner: String, repo: String, runId: Int) async throws -> EmptyObject {
+        try await ActionsMethods.actionsApproveWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
+    }
+
+    /// Lists artifacts for a workflow run. Anyone with read access to the repository can use this endpoint. OAuth app
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private
+    /// repository.
+    func listWorkflowRunArtifacts(
+        owner: String,
+        repo: String,
+        runId: Int,
+        perPage: Int?,
+        page: Int?,
+        name: String?,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?
+    ) async throws -> ActionsListWorkflowRunArtifactsResponse {
+        try await ActionsMethods.actionsListWorkflowRunArtifacts(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            perPage: perPage,
+            page: page,
+            name: name,
+            direction: direction
+        )
+    }
+
+    /// Gets a specific workflow run attempt. Anyone with read access to the repository can use this endpoint. OAuth app
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private
+    /// repository.
+    func getWorkflowRunAttempt(
+        owner: String,
+        repo: String,
+        runId: Int,
+        attemptNumber: Int,
+        excludePullRequests: Bool?
+    ) async throws -> WorkflowRun {
+        try await ActionsMethods.actionsGetWorkflowRunAttempt(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            attemptNumber: attemptNumber,
+            excludePullRequests: excludePullRequests
+        )
+    }
+
+    /// Lists jobs for a specific workflow run attempt. You can use parameters to narrow the list of results. For more
+    /// information about using parameters, see
+    /// [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read
+    /// access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint with a private repository.
+    func listJobsForWorkflowRunAttempt(
+        owner: String,
+        repo: String,
+        runId: Int,
+        attemptNumber: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListJobsForWorkflowRunAttemptResponse {
+        try await ActionsMethods.actionsListJobsForWorkflowRunAttempt(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            attemptNumber: attemptNumber,
+            perPage: perPage,
+            page: page
+        )
+    }
+
+    /// Gets a redirect URL to download an archive of log files for a specific workflow run attempt. This link expires
+    /// after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read
+    /// access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
+    func downloadWorkflowRunAttemptLogs(
+        owner: String,
+        repo: String,
+        runId: Int,
+        attemptNumber: Int
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDownloadWorkflowRunAttemptLogs(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            attemptNumber: attemptNumber
+        )
+    }
+
+    /// Cancels a workflow run using its `id`. OAuth tokens and personal access tokens (classic) need the `repo` scope
+    /// to use this endpoint.
+    func cancelWorkflowRun(owner: String, repo: String, runId: Int) async throws -> EmptyObject {
+        try await ActionsMethods.actionsCancelWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
+    }
+
+    /// Lists all concurrency groups associated with a workflow run or its jobs. The set of groups is derived from the
+    /// run's configuration, so a group is included even when the run no longer has any items currently holding or
+    /// waiting in it. In that case the `group_members` array will be empty. `total_count` reflects the number of groups
+    /// the run participates in by configuration, not the number with active items. This differs from `GET
+    /// /repos/{owner}/{repo}/actions/concurrency_groups/{group_name}`, which returns 404 when a group has no active
+    /// items. That endpoint reports the live state of a group repo-wide, while this endpoint reports the groups
+    /// associated with a specific run by configuration. Results are sorted by group name and support cursor-based
+    /// pagination via `before` and `after`. The `after` cursor paginates forward only and does not emit a `rel="prev"`
+    /// Link; use `before` to page backward from a forward page's `next` cursor. OAuth app tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint with a private repository.
+    func listConcurrencyGroupsForWorkflowRun(
+        owner: String,
+        repo: String,
+        runId: Int,
+        perPage: Int?,
+        before: String?,
+        after: String?
+    ) async throws -> ConcurrencyGroupRunList {
+        try await ActionsMethods.actionsListConcurrencyGroupsForWorkflowRun(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            perPage: perPage,
+            before: before,
+            after: after
+        )
+    }
+}
+
+public extension ActionsNamespace {
+    /// Submits an approval or rejection for a custom deployment protection rule associated with a workflow run. Provide
+    /// `environment_name` and either a `comment` or a `state` of `approved` or `rejected`, depending on the review form
+    /// you use. GitHub Apps can review only their own custom deployment protection rules; use POST
+    /// /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments for reviews assigned to a person or team.
     ///
-    /// Approve or reject custom deployment protection rules provided by a GitHub App for a workflow run. For more information, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)." > [!NOTE] > GitHub Apps can only review their own custom deployment protection rules. To approve or reject pending deployments that are waiting for review from a specific person or team, see `POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func reviewCustomGatesForRun(owner: String, repo: String, runId: Int, body: ActionsReviewCustomGatesForRunRequestBody) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsReviewCustomGatesForRun(config: config, owner: owner, repo: repo, runId: runId, body: body)
+    /// Approve or reject custom deployment protection rules provided by a GitHub App for a workflow run. For more
+    /// information, see "[Using environments for deployment](https://docs.github.com/actions/deployment/targeting-different-environments/using-environments-for-deployment)."
+    /// > [!NOTE] > GitHub Apps can only review their own custom deployment protection rules. To approve or reject
+    /// pending deployments that are waiting for review from a specific person or team, see `POST
+    /// /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments`. OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint with a private repository.
+    func reviewCustomGatesForRun(
+        owner: String,
+        repo: String,
+        runId: Int,
+        body: ActionsReviewCustomGatesForRunRequestBody
+    ) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsReviewCustomGatesForRun(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            body: body
+        )
     }
 
-/// Cancels a workflow run and bypasses conditions that would otherwise cause a workflow execution to continue, such as an `always()` condition on a job. You should only use this endpoint to cancel a workflow run when the workflow run is not responding to `POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel`. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func forceCancelWorkflowRun(owner: String, repo: String, runId: Int) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsForceCancelWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
+    /// Cancels a workflow run and bypasses conditions that would otherwise cause a workflow execution to continue, such
+    /// as an `always()` condition on a job. You should only use this endpoint to cancel a workflow run when the
+    /// workflow run is not responding to `POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel`. OAuth tokens and
+    /// personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func forceCancelWorkflowRun(owner: String, repo: String, runId: Int) async throws -> EmptyObject {
+        try await ActionsMethods.actionsForceCancelWorkflowRun(config: config, owner: owner, repo: repo, runId: runId)
     }
 
-/// Lists jobs for a workflow run. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func listJobsForWorkflowRun(owner: String, repo: String, runId: Int, filter: ActionsListJobsForWorkflowRunParameter?, perPage: Int?, page: Int?) async throws -> ActionsListJobsForWorkflowRunResponse {
-        return try await ActionsMethods.actionsListJobsForWorkflowRun(config: config, owner: owner, repo: repo, runId: runId, filter: filter, perPage: perPage, page: page)
+    /// Lists jobs for a workflow run. You can use parameters to narrow the list of results. For more information about
+    /// using parameters, see
+    /// [Parameters](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#parameters). Anyone with read
+    /// access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `repo` scope to use this endpoint with a private repository.
+    func listJobsForWorkflowRun(
+        owner: String,
+        repo: String,
+        runId: Int,
+        filter: ActionsListJobsForWorkflowRunParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListJobsForWorkflowRunResponse {
+        try await ActionsMethods.actionsListJobsForWorkflowRun(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            filter: filter,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Gets a redirect URL to download an archive of log files for a workflow run. This link expires after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func downloadWorkflowRunLogs(owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDownloadWorkflowRunLogs(config: config, owner: owner, repo: repo, runId: runId)
+    /// Gets a redirect URL to download an archive of log files for a workflow run. This link expires after 1 minute.
+    /// Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the
+    /// repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
+    func downloadWorkflowRunLogs(owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDownloadWorkflowRunLogs(config: config, owner: owner, repo: repo, runId: runId)
     }
 
-/// Deletes all logs for a workflow run. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteWorkflowRunLogs(owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDeleteWorkflowRunLogs(config: config, owner: owner, repo: repo, runId: runId)
+    /// Deletes all logs for a workflow run. OAuth tokens and personal access tokens (classic) need the `repo` scope to
+    /// use this endpoint.
+    func deleteWorkflowRunLogs(owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDeleteWorkflowRunLogs(config: config, owner: owner, repo: repo, runId: runId)
     }
 
-/// Get all deployment environments for a workflow run that are waiting for protection rules to pass. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getPendingDeploymentsForRun(owner: String, repo: String, runId: Int) async throws -> [PendingDeployment] {
-        return try await ActionsMethods.actionsGetPendingDeploymentsForRun(config: config, owner: owner, repo: repo, runId: runId)
+    /// Get all deployment environments for a workflow run that are waiting for protection rules to pass. Anyone with
+    /// read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
+    func getPendingDeploymentsForRun(owner: String, repo: String, runId: Int) async throws -> [PendingDeployment] {
+        try await ActionsMethods.actionsGetPendingDeploymentsForRun(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId
+        )
     }
 
-/// Approve or reject pending deployments that are waiting on approval by a required reviewer. Required reviewers with read access to the repository contents and deployments can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func reviewPendingDeploymentsForRun(owner: String, repo: String, runId: Int, environmentIds: [Int], state: ActionsReviewPendingDeploymentsForRunRequestBodyState, comment: String) async throws -> [Deployment] {
-        return try await ActionsMethods.actionsReviewPendingDeploymentsForRun(config: config, owner: owner, repo: repo, runId: runId, environmentIds: environmentIds, state: state, comment: comment)
+    /// Approve or reject pending deployments that are waiting on approval by a required reviewer. Required reviewers
+    /// with read access to the repository contents and deployments can use this endpoint. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
+    func reviewPendingDeploymentsForRun(
+        owner: String,
+        repo: String,
+        runId: Int,
+        environmentIds: [Int],
+        state: ActionsReviewPendingDeploymentsForRunRequestBodyState,
+        comment: String
+    ) async throws -> [Deployment] {
+        try await ActionsMethods.actionsReviewPendingDeploymentsForRun(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            environmentIds: environmentIds,
+            state: state,
+            comment: comment
+        )
     }
 
-/// Re-runs your workflow run using its `id`. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func reRunWorkflow(owner: String, repo: String, runId: Int, enableDebugLogging: Bool?) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsReRunWorkflow(config: config, owner: owner, repo: repo, runId: runId, enableDebugLogging: enableDebugLogging)
+    /// Re-runs your workflow run using its `id`. OAuth app tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint.
+    func reRunWorkflow(owner: String, repo: String, runId: Int, enableDebugLogging: Bool?) async throws -> EmptyObject {
+        try await ActionsMethods.actionsReRunWorkflow(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            enableDebugLogging: enableDebugLogging
+        )
     }
 }
 
-extension ActionsNamespace {
-/// Re-run all of the failed jobs and their dependent jobs in a workflow run using the `id` of the workflow run. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func reRunWorkflowFailedJobs(owner: String, repo: String, runId: Int, enableDebugLogging: Bool?) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsReRunWorkflowFailedJobs(config: config, owner: owner, repo: repo, runId: runId, enableDebugLogging: enableDebugLogging)
+public extension ActionsNamespace {
+    /// Re-run all of the failed jobs and their dependent jobs in a workflow run using the `id` of the workflow run.
+    /// OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func reRunWorkflowFailedJobs(
+        owner: String,
+        repo: String,
+        runId: Int,
+        enableDebugLogging: Bool?
+    ) async throws -> EmptyObject {
+        try await ActionsMethods.actionsReRunWorkflowFailedJobs(
+            config: config,
+            owner: owner,
+            repo: repo,
+            runId: runId,
+            enableDebugLogging: enableDebugLogging
+        )
     }
 
-/// > [!WARNING] > This endpoint is in the process of closing down. Refer to "[Actions Get workflow usage and Get workflow run usage endpoints closing down](https://github.blog/changelog/2025-02-02-actions-get-workflow-usage-and-get-workflow-run-usage-endpoints-closing-down/)" for more information. Gets the number of billable minutes and total run time for a specific workflow run. Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage. The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)". Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint with a private repository.
-    public func getWorkflowRunUsage(owner: String, repo: String, runId: Int) async throws -> WorkflowRunUsage {
-        return try await ActionsMethods.actionsGetWorkflowRunUsage(config: config, owner: owner, repo: repo, runId: runId)
+    /// > [!WARNING] > This endpoint is in the process of closing down. Refer to "[Actions Get workflow usage and Get
+    /// workflow run usage endpoints closing down](https://github.blog/changelog/2025-02-02-actions-get-workflow-usage-and-get-workflow-run-usage-endpoints-closing-down/)"
+    /// for more information. Gets the number of billable minutes and total run time for a specific workflow run.
+    /// Billable minutes only apply to workflows in private repositories that use GitHub-hosted runners. Usage is listed
+    /// for each GitHub-hosted runner operating system in milliseconds. Any job re-runs are also included in the usage.
+    /// The usage does not include the multiplier for macOS and Windows runners and is not rounded up to the nearest
+    /// whole minute. For more information, see "[Managing billing for GitHub Actions](https://docs.github.com/github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions)".
+    /// Anyone with read access to the repository can use this endpoint. OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint with a private repository.
+    func getWorkflowRunUsage(owner: String, repo: String, runId: Int) async throws -> WorkflowRunUsage {
+        try await ActionsMethods.actionsGetWorkflowRunUsage(config: config, owner: owner, repo: repo, runId: runId)
     }
 
-/// Lists all secrets available in a repository without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listRepoSecrets(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> ActionsListRepoSecretsResponse {
-        return try await ActionsMethods.actionsListRepoSecrets(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Lists all secrets available in a repository without revealing their encrypted values. Authenticated users must
+    /// have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
+    func listRepoSecrets(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListRepoSecretsResponse {
+        try await ActionsMethods.actionsListRepoSecrets(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getRepoPublicKey(owner: String, repo: String) async throws -> ActionsPublicKey {
-        return try await ActionsMethods.actionsGetRepoPublicKey(config: config, owner: owner, repo: repo)
+    /// Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or
+    /// update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private,
+    /// OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    func getRepoPublicKey(owner: String, repo: String) async throws -> ActionsPublicKey {
+        try await ActionsMethods.actionsGetRepoPublicKey(config: config, owner: owner, repo: repo)
     }
 
-/// Gets a single repository secret without revealing its encrypted value. The authenticated user must have collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> ActionsSecret {
-        return try await ActionsMethods.actionsGetRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+    /// Gets a single repository secret without revealing its encrypted value. The authenticated user must have
+    /// collaborator access to the repository to use this endpoint. OAuth app tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
+    func getRepoSecret(owner: String, repo: String, secretName: String) async throws -> ActionsSecret {
+        try await ActionsMethods.actionsGetRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
     }
 
-/// Creates or updates a repository secret with an encrypted value. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func createOrUpdateRepoSecret(owner: String, repo: String, secretName: String, encryptedValue: String, keyId: String) async throws -> EmptyObject {
-        return try await ActionsMethods.actionsCreateOrUpdateRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName, encryptedValue: encryptedValue, keyId: keyId)
+    /// Creates or updates a repository secret with an encrypted value. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." Authenticated users must have
+    /// collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
+    func createOrUpdateRepoSecret(
+        owner: String,
+        repo: String,
+        secretName: String,
+        encryptedValue: String,
+        keyId: String
+    ) async throws -> EmptyObject {
+        try await ActionsMethods.actionsCreateOrUpdateRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName,
+            encryptedValue: encryptedValue,
+            keyId: keyId
+        )
     }
 
-/// Deletes a secret in a repository using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try await ActionsMethods.actionsDeleteRepoSecret(config: config, owner: owner, repo: repo, secretName: secretName)
+    /// Deletes a secret in a repository using the secret name. Authenticated users must have collaborator access to a
+    /// repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint.
+    func deleteRepoSecret(owner: String, repo: String, secretName: String) async throws -> SdkEmptyResponse {
+        try await ActionsMethods.actionsDeleteRepoSecret(
+            config: config,
+            owner: owner,
+            repo: repo,
+            secretName: secretName
+        )
     }
 
-/// Lists all repository variables. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func listRepoVariables(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> ActionsListRepoVariablesResponse {
-        return try await ActionsMethods.actionsListRepoVariables(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Lists all repository variables. Authenticated users must have collaborator access to a repository to create,
+    /// update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use
+    /// this endpoint.
+    func listRepoVariables(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListRepoVariablesResponse {
+        try await ActionsMethods.actionsListRepoVariables(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 }

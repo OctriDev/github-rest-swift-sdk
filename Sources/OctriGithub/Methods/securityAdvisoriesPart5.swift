@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecurityAdvisoriesMethods {
-    public struct SecurityAdvisoriesListRepositoryAdvisoriesOptions: Codable {
+public extension SecurityAdvisoriesMethods {
+    struct SecurityAdvisoriesListRepositoryAdvisoriesOptions: Codable {
         public var owner: String
         public var repo: String
         public var direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?
@@ -25,7 +25,11 @@ extension SecurityAdvisoriesMethods {
 
     /// List repository security advisories
     ///
-    /// Lists security advisories in a repository. The authenticated user can access unpublished security advisories from a repository if they are a security manager or administrator of that repository, or if they are a collaborator on any security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:read` scope to to get a published security advisory in a private repository, or any unpublished security advisory that the authenticated user has access to.
+    /// Lists security advisories in a repository. The authenticated user can access unpublished security advisories
+    /// from a repository if they are a security manager or administrator of that repository, or if they are a
+    /// collaborator on any security advisory. OAuth app tokens and personal access tokens (classic) need the `repo` or
+    /// `repository_advisories:read` scope to to get a published security advisory in a private repository, or any
+    /// unpublished security advisory that the authenticated user has access to.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -52,18 +56,34 @@ extension SecurityAdvisoriesMethods {
     ///   -rest-api)."
     /// - state: Filter by state of the repository advisories. Only advisories of
     ///   this state will be returned.
-    public static func securityAdvisoriesListRepositoryAdvisories(config: ClientConfig, options: SecurityAdvisoriesListRepositoryAdvisoriesOptions) async throws -> [RepositoryAdvisory] {
+    static func securityAdvisoriesListRepositoryAdvisories(
+        config: ClientConfig,
+        options: SecurityAdvisoriesListRepositoryAdvisoriesOptions
+    ) async throws -> [RepositoryAdvisory] {
         if let perPage = options.perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 100)
         }
 
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/security-advisories"].joined(), config: config, query: [
-            SdkQueryParameter("direction", value: options.direction),
-            SdkQueryParameter("sort", value: options.sort),
-            SdkQueryParameter("before", value: options.before),
-            SdkQueryParameter("after", value: options.after),
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("state", value: options.state),
-        ], decoder: .json, operationId: "securityAdvisoriesListRepositoryAdvisories")).data
+        return try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/security-advisories",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("direction", value: options.direction),
+                SdkQueryParameter("sort", value: options.sort),
+                SdkQueryParameter("before", value: options.before),
+                SdkQueryParameter("after", value: options.after),
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("state", value: options.state),
+            ],
+            decoder: .json,
+            operationId: "securityAdvisoriesListRepositoryAdvisories"
+        )).data
     }
 }

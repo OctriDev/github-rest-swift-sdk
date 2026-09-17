@@ -6,10 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PackagesMethods {
+public extension PackagesMethods {
     /// Get a package for a user
     ///
-    /// Gets a specific package metadata for a public package owned by a user. OAuth app tokens and personal access tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+    /// Gets a specific package metadata for a public package owned by a user. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:packages` scope to use this endpoint. For more information, see "[About
+    /// permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
     ///
     /// - Parameters:
     /// - packageType: The type of supported package. Packages in GitHub's Gradle
@@ -20,7 +22,25 @@ extension PackagesMethods {
     ///   Container registry.
     /// - packageName: The name of the package.
     /// - username: The handle for the GitHub user account.
-    public static func packagesGetPackageForUser(config: ClientConfig, packageType: PackagesDeletePackageForOrgParameter, packageName: String, username: String) async throws -> Package {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/packages/", sdkEncodePathSegment(sdkWireString(packageType)), "/", sdkEncodePathSegment(sdkWireString(packageName))].joined(), config: config, decoder: .json, operationId: "packagesGetPackageForUser")).data
+    static func packagesGetPackageForUser(
+        config: ClientConfig,
+        packageType: PackagesDeletePackageForOrgParameter,
+        packageName: String,
+        username: String
+    ) async throws -> Package {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/packages/",
+                sdkEncodePathSegment(sdkWireString(packageType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(packageName)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "packagesGetPackageForUser"
+        )).data
     }
 }

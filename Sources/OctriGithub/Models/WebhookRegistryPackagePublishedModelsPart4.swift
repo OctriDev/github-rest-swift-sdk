@@ -3,9 +3,29 @@
 
 import Foundation
 
-// WebhookRegistryPackagePublished domain models
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionRXfe3e5908b0 {
-    public init(avatarUrl: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, id: Int? = nil, login: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: String? = nil, url: String? = nil, userViewType: String? = nil) {
+/// WebhookRegistryPackagePublished domain models
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionRXfe3e5908b0 {
+    init(
+        avatarUrl: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        id: Int? = nil,
+        login: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: String? = nil,
+        url: String? = nil,
+        userViewType: String? = nil
+    ) {
         self.init()
         (self.avatarUrl, self.eventsUrl) = (avatarUrl, eventsUrl)
         (self.followersUrl, self.followingUrl) = (followersUrl, followingUrl)
@@ -42,23 +62,23 @@ public struct WebhookRegistryPackagePublishedRegistryPackageRegistry: Codable {
     }
 
     init() {
-        (self.aboutUrl, self.name, self.type, self.url, self.vendor) = (nil, nil, nil, nil, nil)
+        (aboutUrl, name, type, url, vendor) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackageRegistry {
-    public init(from decoder: Decoder) throws {
+public extension WebhookRegistryPackagePublishedRegistryPackageRegistry {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.aboutUrl = try container.sdkDecodeIfPresent(.aboutUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.vendor = try container.sdkDecodeIfPresent(.vendor)
+        aboutUrl = try container.sdkDecodeIfPresent(.aboutUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
+        vendor = try container.sdkDecodeIfPresent(.vendor)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackageRegistry {
-    public init(aboutUrl: String? = nil, name: String? = nil, type: String? = nil, url: String? = nil, vendor: String? = nil) {
+public extension WebhookRegistryPackagePublishedRegistryPackageRegistry {
+    init(aboutUrl: String? = nil, name: String? = nil, type: String? = nil, url: String? = nil, vendor: String? = nil) {
         self.init()
         (self.aboutUrl, self.name) = (aboutUrl, name)
         (self.type, self.url) = (type, url)
@@ -70,12 +90,15 @@ extension WebhookRegistryPackagePublishedRegistryPackageRegistry {
 public struct WebhookRegistryPackagePublishedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let published = WebhookRegistryPackagePublishedAction(rawValue: "published")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

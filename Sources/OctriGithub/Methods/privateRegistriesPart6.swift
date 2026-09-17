@@ -6,13 +6,29 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PrivateRegistriesMethods {
-    /// Delete a private registry configuration at the organization-level. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension PrivateRegistriesMethods {
+    /// Delete a private registry configuration at the organization-level. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    public static func privateRegistriesDeleteOrgPrivateRegistry(config: ClientConfig, org: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/private-registries/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "privateRegistriesDeleteOrgPrivateRegistry")).data
+    static func privateRegistriesDeleteOrgPrivateRegistry(
+        config: ClientConfig,
+        org: String,
+        secretName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/private-registries/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "privateRegistriesDeleteOrgPrivateRegistry"
+        )).data
     }
 }

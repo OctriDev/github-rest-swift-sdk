@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedRuleset domain models
+/// SharedRuleset domain models
 /// The historical version of a ruleset
 public struct RulesetVersion: Codable {
     /// The ID of the previous version of the ruleset
@@ -19,33 +19,47 @@ public struct RulesetVersion: Codable {
         case updatedAt = "updated_at"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RulesetVersion {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.versionId) else {
-            throw SdkValidationError(field: "version_id", code: "required", message: "Validation failed for 'version_id': value is required")
-        }
-        guard container.contains(.actor) else {
-            throw SdkValidationError(field: "actor", code: "required", message: "Validation failed for 'actor': value is required")
-        }
-        guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
-        }
-        self.versionId = try container.sdkDecodeRequired(.versionId)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RulesetVersion {
-    public init(versionId: Int, actor: RulesetVersionActor, updatedAt: Date) throws {
+public extension RulesetVersion {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.versionId) else {
+            throw SdkValidationError(
+                field: "version_id",
+                code: "required",
+                message: "Validation failed for 'version_id': value is required"
+            )
+        }
+        guard container.contains(.actor) else {
+            throw SdkValidationError(
+                field: "actor",
+                code: "required",
+                message: "Validation failed for 'actor': value is required"
+            )
+        }
+        guard container.contains(.updatedAt) else {
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
+        }
+        versionId = try container.sdkDecodeRequired(.versionId)
+        actor = try container.sdkDecodeRequired(.actor)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension RulesetVersion {
+    init(versionId: Int, actor: RulesetVersionActor, updatedAt: Date) throws {
         (self.versionId, self.actor) = (versionId, actor)
         self.updatedAt = updatedAt
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -62,20 +76,20 @@ public struct RulesetVersionActor: Codable {
     }
 
     init() {
-        (self.id, self.type) = (nil, nil)
+        (id, type) = (nil, nil)
     }
 }
 
-extension RulesetVersionActor {
-    public init(from decoder: Decoder) throws {
+public extension RulesetVersionActor {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.type = try container.sdkDecodeIfPresent(.type)
+        id = try container.sdkDecodeIfPresent(.id)
+        type = try container.sdkDecodeIfPresent(.type)
     }
 }
 
-extension RulesetVersionActor {
-    public init(id: Int? = nil, type: String? = nil) {
+public extension RulesetVersionActor {
+    init(id: Int? = nil, type: String? = nil) {
         self.init()
         (self.id, self.type) = (id, type)
     }
@@ -99,37 +113,55 @@ public struct RulesetVersionWithState: Codable {
         case state
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RulesetVersionWithState {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.versionId) else {
-            throw SdkValidationError(field: "version_id", code: "required", message: "Validation failed for 'version_id': value is required")
-        }
-        guard container.contains(.actor) else {
-            throw SdkValidationError(field: "actor", code: "required", message: "Validation failed for 'actor': value is required")
-        }
-        guard container.contains(.updatedAt) else {
-            throw SdkValidationError(field: "updated_at", code: "required", message: "Validation failed for 'updated_at': value is required")
-        }
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        self.versionId = try container.sdkDecodeRequired(.versionId)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.state = try container.sdkDecodeRequired(.state)
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RulesetVersionWithState {
-    public init(versionId: Int, actor: RulesetVersionActor, updatedAt: Date, state: [String: JSONValue]) throws {
+public extension RulesetVersionWithState {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.versionId) else {
+            throw SdkValidationError(
+                field: "version_id",
+                code: "required",
+                message: "Validation failed for 'version_id': value is required"
+            )
+        }
+        guard container.contains(.actor) else {
+            throw SdkValidationError(
+                field: "actor",
+                code: "required",
+                message: "Validation failed for 'actor': value is required"
+            )
+        }
+        guard container.contains(.updatedAt) else {
+            throw SdkValidationError(
+                field: "updated_at",
+                code: "required",
+                message: "Validation failed for 'updated_at': value is required"
+            )
+        }
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        versionId = try container.sdkDecodeRequired(.versionId)
+        actor = try container.sdkDecodeRequired(.actor)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        state = try container.sdkDecodeRequired(.state)
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+    }
+}
+
+public extension RulesetVersionWithState {
+    init(versionId: Int, actor: RulesetVersionActor, updatedAt: Date, state: [String: JSONValue]) throws {
         (self.versionId, self.actor) = (versionId, actor)
         (self.updatedAt, self.state) = (updatedAt, state)
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
     }
 }
 
@@ -141,32 +173,38 @@ public struct RulesetVersionWithStateVariant1: Codable {
         case state
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RulesetVersionWithStateVariant1 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        self.state = try container.sdkDecodeRequired(.state)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RulesetVersionWithStateVariant1 {
-    public init(state: [String: JSONValue]) {
+public extension RulesetVersionWithStateVariant1 {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        state = try container.sdkDecodeRequired(.state)
+    }
+}
+
+public extension RulesetVersionWithStateVariant1 {
+    init(state: [String: JSONValue]) {
         self.state = state
     }
 }
 
 /// The state of the ruleset version
 public struct RulesetVersionWithStateVariant1State: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension RulesetVersionWithStateVariant1State {
-    public init() {
-    }
+public extension RulesetVersionWithStateVariant1State {
+    init() {}
 }

@@ -3,18 +3,22 @@
 
 import Foundation
 
-// SharedSecurity domain models
+/// SharedSecurity domain models
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisSecretScanningNonProviderPatternsStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningNonProviderPatternsStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisSecretScanningNonProviderPatternsStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisSecretScanningNonProviderPatternsStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -24,16 +28,20 @@ public struct SecurityAndAnalysisSecretScanningNonProviderPatternsStatus: RawRep
 }
 
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisAdvancedSecurityStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisAdvancedSecurityStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisAdvancedSecurityStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisAdvancedSecurityStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -43,16 +51,22 @@ public struct SecurityAndAnalysisAdvancedSecurityStatus: RawRepresentable, Hasha
 }
 
 /// The bypass mode for the reviewer
-public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let always = SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode(rawValue: "ALWAYS")
-    public static let exempt = SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode(rawValue: "EXEMPT")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let always =
+        SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode(rawValue: "ALWAYS")
+    public static let exempt =
+        SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersItemMode(rawValue: "EXEMPT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -62,16 +76,20 @@ public struct SecurityAndAnalysisSecretScanningDelegatedBypassOptionsReviewersIt
 }
 
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -81,16 +99,20 @@ public struct SecurityAndAnalysisSecretScanningDelegatedAlertDismissalStatus: Ra
 }
 
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisSecretScanningStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisSecretScanningStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisSecretScanningStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -103,13 +125,16 @@ public struct SecurityAndAnalysisSecretScanningStatus: RawRepresentable, Hashabl
 public struct SecurityAndAnalysisCodeSecurityStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisCodeSecurityStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisCodeSecurityStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -119,16 +144,20 @@ public struct SecurityAndAnalysisCodeSecurityStatus: RawRepresentable, Hashable,
 }
 
 /// Optional enumerated value serialized in the `status` wire field.
-public struct SecurityAndAnalysisSecretScanningPushProtectionStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisSecretScanningPushProtectionStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisSecretScanningPushProtectionStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisSecretScanningPushProtectionStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -138,16 +167,20 @@ public struct SecurityAndAnalysisSecretScanningPushProtectionStatus: RawRepresen
 }
 
 /// The enablement status of Dependabot security updates for the repository.
-public struct SecurityAndAnalysisDependabotSecurityUpdatesStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct SecurityAndAnalysisDependabotSecurityUpdatesStatus: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enabled = SecurityAndAnalysisDependabotSecurityUpdatesStatus(rawValue: "enabled")
     public static let disabled = SecurityAndAnalysisDependabotSecurityUpdatesStatus(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

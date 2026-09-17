@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
+public extension ActivityMethods {
     /// Get a repository subscription
     ///
     /// Gets information about whether the authenticated user is subscribed to the repository.
@@ -16,13 +16,32 @@ extension ActivityMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func activityGetRepoSubscription(config: ClientConfig, owner: String, repo: String) async throws -> RepositorySubscription {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/subscription"].joined(), config: config, decoder: .json, operationId: "activityGetRepoSubscription")).data
+    static func activityGetRepoSubscription(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> RepositorySubscription {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/subscription",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "activityGetRepoSubscription"
+        )).data
     }
 
     /// Set a repository subscription
     ///
-    /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription) completely.
+    /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications
+    /// made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the
+    /// repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription)
+    /// completely.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -33,9 +52,28 @@ extension ActivityMethods {
     ///   repository.
     /// - ignored: Determines if all notifications should be blocked from this
     ///   repository.
-    public static func activitySetRepoSubscription(config: ClientConfig, owner: String, repo: String, subscribed: Bool?, ignored: Bool?) async throws -> RepositorySubscription {
+    static func activitySetRepoSubscription(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        subscribed: Bool?,
+        ignored: Bool?
+    ) async throws -> RepositorySubscription {
         let requestBody = ActivitySetRepoSubscriptionRequestBody(subscribed: subscribed, ignored: ignored)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/subscription"].joined(), config: config, body: requestBody, decoder: .json, operationId: "activitySetRepoSubscription")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/subscription",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "activitySetRepoSubscription"
+        )).data
     }
 }

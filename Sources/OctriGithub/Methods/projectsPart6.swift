@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// List all items for a specific organization-owned project accessible by the authenticated user.
     ///
     /// - Parameters:
@@ -34,13 +34,35 @@ extension ProjectsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func projectsListItemsForOrg(config: ClientConfig, projectNumber: Int, org: String, q: String?, fields: ProjectsListItemsForOrgParameter?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2ItemWithContent] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items"].joined(), config: config, query: [
-            SdkQueryParameter("q", value: q),
-            SdkQueryParameter("fields", value: fields),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("per_page", value: perPage),
-        ], decoder: .json, operationId: "projectsListItemsForOrg")).data
+    static func projectsListItemsForOrg(
+        config: ClientConfig,
+        projectNumber: Int,
+        org: String,
+        q: String?,
+        fields: ProjectsListItemsForOrgParameter?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("q", value: q),
+                SdkQueryParameter("fields", value: fields),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("per_page", value: perPage),
+            ],
+            decoder: .json,
+            operationId: "projectsListItemsForOrg"
+        )).data
     }
 }

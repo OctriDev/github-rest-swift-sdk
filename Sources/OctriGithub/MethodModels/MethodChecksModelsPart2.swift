@@ -7,39 +7,69 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical checks operation model declarations
-extension ChecksUpdateRequestBodyOutputAnnotationsItem {
-    public init(from decoder: Decoder) throws {
+/// Canonical checks operation model declarations
+public extension ChecksUpdateRequestBodyOutputAnnotationsItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.path) else {
-            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
+            throw SdkValidationError(
+                field: "path",
+                code: "required",
+                message: "Validation failed for 'path': value is required"
+            )
         }
         guard container.contains(.startLine) else {
-            throw SdkValidationError(field: "start_line", code: "required", message: "Validation failed for 'start_line': value is required")
+            throw SdkValidationError(
+                field: "start_line",
+                code: "required",
+                message: "Validation failed for 'start_line': value is required"
+            )
         }
         guard container.contains(.endLine) else {
-            throw SdkValidationError(field: "end_line", code: "required", message: "Validation failed for 'end_line': value is required")
+            throw SdkValidationError(
+                field: "end_line",
+                code: "required",
+                message: "Validation failed for 'end_line': value is required"
+            )
         }
         guard container.contains(.annotationLevel) else {
-            throw SdkValidationError(field: "annotation_level", code: "required", message: "Validation failed for 'annotation_level': value is required")
+            throw SdkValidationError(
+                field: "annotation_level",
+                code: "required",
+                message: "Validation failed for 'annotation_level': value is required"
+            )
         }
         guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
         }
-        self.path = try container.sdkDecodeRequired(.path)
-        self.startLine = try container.sdkDecodeRequired(.startLine)
-        self.endLine = try container.sdkDecodeRequired(.endLine)
-        self.annotationLevel = try container.sdkDecodeRequired(.annotationLevel)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.startColumn = try container.sdkDecodeIfPresent(.startColumn)
-        self.endColumn = try container.sdkDecodeIfPresent(.endColumn)
-        self.title = try container.sdkDecodeIfPresent(.title)
-        self.rawDetails = try container.sdkDecodeIfPresent(.rawDetails)
+        path = try container.sdkDecodeRequired(.path)
+        startLine = try container.sdkDecodeRequired(.startLine)
+        endLine = try container.sdkDecodeRequired(.endLine)
+        annotationLevel = try container.sdkDecodeRequired(.annotationLevel)
+        message = try container.sdkDecodeRequired(.message)
+        startColumn = try container.sdkDecodeIfPresent(.startColumn)
+        endColumn = try container.sdkDecodeIfPresent(.endColumn)
+        title = try container.sdkDecodeIfPresent(.title)
+        rawDetails = try container.sdkDecodeIfPresent(.rawDetails)
     }
 }
 
-extension ChecksUpdateRequestBodyOutputAnnotationsItem {
-    public init(path: String, startLine: Int, endLine: Int, annotationLevel: ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel, message: String, startColumn: Int? = nil, endColumn: Int? = nil, title: String? = nil, rawDetails: String? = nil) {
+public extension ChecksUpdateRequestBodyOutputAnnotationsItem {
+    init(
+        path: String,
+        startLine: Int,
+        endLine: Int,
+        annotationLevel: ChecksUpdateRequestBodyOutputAnnotationsItemAnnotationLevel,
+        message: String,
+        startColumn: Int? = nil,
+        endColumn: Int? = nil,
+        title: String? = nil,
+        rawDetails: String? = nil
+    ) {
         (self.path, self.startLine) = (path, startLine)
         (self.endLine, self.annotationLevel) = (endLine, annotationLevel)
         (self.message, self.startColumn) = (message, startColumn)
@@ -55,21 +85,27 @@ public struct ChecksCreateRequestBodyVariant0: Codable {
         case status
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ChecksCreateRequestBodyVariant0 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.status) else {
-            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
-        }
-        self.status = try container.sdkDecodeRequired(.status)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ChecksCreateRequestBodyVariant0 {
-    public init(status: JSONValue) {
+public extension ChecksCreateRequestBodyVariant0 {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.status) else {
+            throw SdkValidationError(
+                field: "status",
+                code: "required",
+                message: "Validation failed for 'status': value is required"
+            )
+        }
+        status = try container.sdkDecodeRequired(.status)
+    }
+}
+
+public extension ChecksCreateRequestBodyVariant0 {
+    init(status: JSONValue) {
         self.status = status
     }
 }
@@ -83,25 +119,35 @@ public struct ChecksListSuitesForRefResponse: Codable {
         case checkSuites = "check_suites"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ChecksListSuitesForRefResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.checkSuites) else {
-            throw SdkValidationError(field: "check_suites", code: "required", message: "Validation failed for 'check_suites': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.checkSuites = try container.sdkDecodeRequired(.checkSuites)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ChecksListSuitesForRefResponse {
-    public init(totalCount: Int, checkSuites: [CheckSuite]) {
+public extension ChecksListSuitesForRefResponse {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.checkSuites) else {
+            throw SdkValidationError(
+                field: "check_suites",
+                code: "required",
+                message: "Validation failed for 'check_suites': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        checkSuites = try container.sdkDecodeRequired(.checkSuites)
+    }
+}
+
+public extension ChecksListSuitesForRefResponse {
+    init(totalCount: Int, checkSuites: [CheckSuite]) {
         (self.totalCount, self.checkSuites) = (totalCount, checkSuites)
     }
 }
@@ -140,41 +186,73 @@ public struct ChecksCreateRequestBodyOutputAnnotationsItem: Codable {
         case rawDetails = "raw_details"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ChecksCreateRequestBodyOutputAnnotationsItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.path) else {
-            throw SdkValidationError(field: "path", code: "required", message: "Validation failed for 'path': value is required")
-        }
-        guard container.contains(.startLine) else {
-            throw SdkValidationError(field: "start_line", code: "required", message: "Validation failed for 'start_line': value is required")
-        }
-        guard container.contains(.endLine) else {
-            throw SdkValidationError(field: "end_line", code: "required", message: "Validation failed for 'end_line': value is required")
-        }
-        guard container.contains(.annotationLevel) else {
-            throw SdkValidationError(field: "annotation_level", code: "required", message: "Validation failed for 'annotation_level': value is required")
-        }
-        guard container.contains(.message) else {
-            throw SdkValidationError(field: "message", code: "required", message: "Validation failed for 'message': value is required")
-        }
-        self.path = try container.sdkDecodeRequired(.path)
-        self.startLine = try container.sdkDecodeRequired(.startLine)
-        self.endLine = try container.sdkDecodeRequired(.endLine)
-        self.annotationLevel = try container.sdkDecodeRequired(.annotationLevel)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.startColumn = try container.sdkDecodeIfPresent(.startColumn)
-        self.endColumn = try container.sdkDecodeIfPresent(.endColumn)
-        self.title = try container.sdkDecodeIfPresent(.title)
-        self.rawDetails = try container.sdkDecodeIfPresent(.rawDetails)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ChecksCreateRequestBodyOutputAnnotationsItem {
-    public init(path: String, startLine: Int, endLine: Int, annotationLevel: ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel, message: String, startColumn: Int? = nil, endColumn: Int? = nil, title: String? = nil, rawDetails: String? = nil) {
+public extension ChecksCreateRequestBodyOutputAnnotationsItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.path) else {
+            throw SdkValidationError(
+                field: "path",
+                code: "required",
+                message: "Validation failed for 'path': value is required"
+            )
+        }
+        guard container.contains(.startLine) else {
+            throw SdkValidationError(
+                field: "start_line",
+                code: "required",
+                message: "Validation failed for 'start_line': value is required"
+            )
+        }
+        guard container.contains(.endLine) else {
+            throw SdkValidationError(
+                field: "end_line",
+                code: "required",
+                message: "Validation failed for 'end_line': value is required"
+            )
+        }
+        guard container.contains(.annotationLevel) else {
+            throw SdkValidationError(
+                field: "annotation_level",
+                code: "required",
+                message: "Validation failed for 'annotation_level': value is required"
+            )
+        }
+        guard container.contains(.message) else {
+            throw SdkValidationError(
+                field: "message",
+                code: "required",
+                message: "Validation failed for 'message': value is required"
+            )
+        }
+        path = try container.sdkDecodeRequired(.path)
+        startLine = try container.sdkDecodeRequired(.startLine)
+        endLine = try container.sdkDecodeRequired(.endLine)
+        annotationLevel = try container.sdkDecodeRequired(.annotationLevel)
+        message = try container.sdkDecodeRequired(.message)
+        startColumn = try container.sdkDecodeIfPresent(.startColumn)
+        endColumn = try container.sdkDecodeIfPresent(.endColumn)
+        title = try container.sdkDecodeIfPresent(.title)
+        rawDetails = try container.sdkDecodeIfPresent(.rawDetails)
+    }
+}
+
+public extension ChecksCreateRequestBodyOutputAnnotationsItem {
+    init(
+        path: String,
+        startLine: Int,
+        endLine: Int,
+        annotationLevel: ChecksCreateRequestBodyOutputAnnotationsItemAnnotationLevel,
+        message: String,
+        startColumn: Int? = nil,
+        endColumn: Int? = nil,
+        title: String? = nil,
+        rawDetails: String? = nil
+    ) {
         (self.path, self.startLine) = (path, startLine)
         (self.endLine, self.annotationLevel) = (endLine, annotationLevel)
         (self.message, self.startColumn) = (message, startColumn)

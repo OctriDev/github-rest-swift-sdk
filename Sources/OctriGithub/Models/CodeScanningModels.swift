@@ -3,5 +3,5 @@
 
 import Foundation
 
-// CodeScanning domain models
+/// CodeScanning domain models
 public typealias AlertInstancesUrl = String

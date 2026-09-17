@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension EnterpriseTeamMembershipsMethods {
+public extension EnterpriseTeamMembershipsMethods {
     /// Remove membership of a specific user from a particular team in an enterprise.
     ///
     /// - Parameters:
@@ -14,7 +14,25 @@ extension EnterpriseTeamMembershipsMethods {
     /// - enterpriseTeam: The slug version of the enterprise team name. You can also
     ///   substitute this value with the enterprise team id.
     /// - username: The handle for the GitHub user account.
-    public static func enterpriseTeamMembershipsRemove(config: ClientConfig, enterprise: String, enterpriseTeam: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(enterpriseTeam)), "/memberships/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "enterpriseTeamMembershipsRemove")).data
+    static func enterpriseTeamMembershipsRemove(
+        config: ClientConfig,
+        enterprise: String,
+        enterpriseTeam: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(enterpriseTeam)),
+                "/memberships/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "enterpriseTeamMembershipsRemove"
+        )).data
     }
 }

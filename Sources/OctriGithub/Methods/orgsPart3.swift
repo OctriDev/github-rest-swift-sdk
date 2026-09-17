@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    public struct OrgsUpdateOptions: Codable {
+public extension OrgsMethods {
+    struct OrgsUpdateOptions: Codable {
         public var org: String
         public var billingEmail: String?
         public var company: String?
@@ -45,9 +45,23 @@ extension OrgsMethods {
         }
     }
 
-    /// Updates an organization's profile and member privileges. Supply only the organization settings you want to change, such as `billing_email`, `default_repository_permission`, or repository-creation controls. The authenticated user must be an organization owner, and the `members_allowed_repository_creation_type` setting is closing down in favor of more granular permissions.
+    /// Updates an organization's profile and member privileges. Supply only the organization settings you want to
+    /// change, such as `billing_email`, `default_repository_permission`, or repository-creation controls. The
+    /// authenticated user must be an organization owner, and the `members_allowed_repository_creation_type` setting is
+    /// closing down in favor of more granular permissions.
     ///
-    /// > [!WARNING] > **Closing down notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes). > [!WARNING] > **Closing down notice:** Code security product enablement for new repositories through the organization API is closing down. Please use [code security configurations](https://docs.github.com/rest/code-security/configurations#set-a-code-security-configuration-as-a-default-for-an-organization) to set defaults instead. For more information on setting a default security configuration, see the [changelog](https://github.blog/changelog/2024-07-09-sunsetting-security-settings-defaults-parameters-in-the-organizations-rest-api/). Updates the organization's profile and member privileges. The authenticated user must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` or `repo` scope to use this endpoint.
+    /// > [!WARNING] > **Closing down notice:** GitHub will replace and discontinue
+    /// `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are
+    /// `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and
+    /// `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub
+    /// Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog
+    /// post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes). > [!WARNING] > **Closing
+    /// down notice:** Code security product enablement for new repositories through the organization API is closing
+    /// down. Please use [code security configurations](https://docs.github.com/rest/code-security/configurations#set-a-code-security-configuration-as-a-default-for-an-organization)
+    /// to set defaults instead. For more information on setting a default security configuration, see the [changelog](https://github.blog/changelog/2024-07-09-sunsetting-security-settings-defaults-parameters-in-the-organizations-rest-api/).
+    /// Updates the organization's profile and member privileges. The authenticated user must be an organization owner
+    /// to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` or `repo` scope
+    /// to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -189,9 +203,16 @@ extension OrgsMethods {
     ///   will be displayed to contributors who are blocked from pushing a secret.
     /// - deployKeysEnabledForRepositories: Controls whether or not deploy keys may
     ///   be added and used for repositories in the organization.
-    public static func orgsUpdate(config: ClientConfig, options: OrgsUpdateOptions) async throws -> OrganizationFull {
+    static func orgsUpdate(config: ClientConfig, options: OrgsUpdateOptions) async throws -> OrganizationFull {
         let requestBody = OrgsUpdateRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdate")).data
+        return try await (sdkRequest(
+            "PATCH",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org))].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsUpdate"
+        )).data
     }
 }

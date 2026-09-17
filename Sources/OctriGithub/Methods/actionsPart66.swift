@@ -6,15 +6,32 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets the settings for whether workflows from fork pull requests can run on a private repository. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets the settings for whether workflows from fork pull requests can run on a private repository. OAuth app
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func actionsGetPrivateRepoForkPrWorkflowsSettingsRepository(config: ClientConfig, owner: String, repo: String) async throws -> ActionsForkPrWorkflowsPrivateRepos {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/permissions/fork-pr-workflows-private-repos"].joined(), config: config, decoder: .json, operationId: "actionsGetPrivateRepoForkPrWorkflowsSettingsRepository")).data
+    static func actionsGetPrivateRepoForkPrWorkflowsSettingsRepository(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> ActionsForkPrWorkflowsPrivateRepos {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/permissions/fork-pr-workflows-private-repos",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsGetPrivateRepoForkPrWorkflowsSettingsRepository"
+        )).data
     }
 }

@@ -6,36 +6,86 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GistsMethods {
-    /// Gets a comment on a gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+public extension GistsMethods {
+    /// Gets a comment on a gist. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
     /// - commentId: The unique identifier of the comment.
-    public static func gistsGetComment(config: ClientConfig, gistId: String, commentId: Int) async throws -> GistComment {
-        return try (await sdkRequest("GET", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, decoder: .json, operationId: "gistsGetComment")).data
+    static func gistsGetComment(config: ClientConfig, gistId: String, commentId: Int) async throws -> GistComment {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/gists/",
+                sdkEncodePathSegment(sdkWireString(gistId)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "gistsGetComment"
+        )).data
     }
 
-    /// Updates a comment on a gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+    /// Updates a comment on a gist. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
     /// - commentId: The unique identifier of the comment.
     /// - body: The comment text.
-    public static func gistsUpdateComment(config: ClientConfig, gistId: String, commentId: Int, body: String) async throws -> GistComment {
+    static func gistsUpdateComment(
+        config: ClientConfig,
+        gistId: String,
+        commentId: Int,
+        body: String
+    ) async throws -> GistComment {
         try validateLength("body", body, max: 65535)
 
         let requestBody = GistsUpdateCommentRequestBody(body: body)
 
-        return try (await sdkRequest("PATCH", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "gistsUpdateComment")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/gists/",
+                sdkEncodePathSegment(sdkWireString(gistId)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "gistsUpdateComment"
+        )).data
     }
 
-    /// Deletes a specific comment from a gist. Supply both `gist_id` and `comment_id` to identify the gist and the comment to remove. A successful response contains no response body.
+    /// Deletes a specific comment from a gist. Supply both `gist_id` and `comment_id` to identify the gist and the
+    /// comment to remove. A successful response contains no response body.
     ///
     /// - Parameters:
     /// - gistId: The unique identifier of the gist.
     /// - commentId: The unique identifier of the comment.
-    public static func gistsDeleteComment(config: ClientConfig, gistId: String, commentId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/gists/", sdkEncodePathSegment(sdkWireString(gistId)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, decoder: .empty, operationId: "gistsDeleteComment")).data
+    static func gistsDeleteComment(
+        config: ClientConfig,
+        gistId: String,
+        commentId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/gists/",
+                sdkEncodePathSegment(sdkWireString(gistId)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "gistsDeleteComment"
+        )).data
     }
 }

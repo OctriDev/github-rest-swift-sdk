@@ -3,141 +3,275 @@
 
 import Foundation
 
-extension OrgsNamespace {
-/// Create new or update existing custom property values for repositories in a batch that belong to an organization. Each target repository will have its custom property values updated to match the values provided in the request. A maximum of 30 repositories can be updated in a single request. Using a value of `null` for a custom property will remove or 'unset' the property value from the repository. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_values_editor` in the organization.
-    public func customPropertiesForReposCreateOrUpdateOrganizationValues(org: String, repositoryNames: [String], properties: [CustomPropertyValue]) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(config: config, org: org, repositoryNames: repositoryNames, properties: properties)
+public extension OrgsNamespace {
+    /// Create new or update existing custom property values for repositories in a batch that belong to an organization.
+    /// Each target repository will have its custom property values updated to match the values provided in the request.
+    /// A maximum of 30 repositories can be updated in a single request. Using a value of `null` for a custom property
+    /// will remove or 'unset' the property value from the repository. To use this endpoint, the authenticated user must
+    /// be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained
+    /// permission of `custom_properties_org_values_editor` in the organization.
+    func customPropertiesForReposCreateOrUpdateOrganizationValues(
+        org: String,
+        repositoryNames: [String],
+        properties: [CustomPropertyValue]
+    ) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(
+            config: config,
+            org: org,
+            repositoryNames: repositoryNames,
+            properties: properties
+        )
     }
 
-/// Members of an organization can choose to have their membership publicized or not.
-    public func listPublicMembers(org: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try await OrgsMethods.orgsListPublicMembers(config: config, org: org, perPage: perPage, page: page)
+    /// Members of an organization can choose to have their membership publicized or not.
+    func listPublicMembers(org: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        try await OrgsMethods.orgsListPublicMembers(config: config, org: org, perPage: perPage, page: page)
     }
 
-/// Check if the provided user is a public member of the organization.
-    public func checkPublicMembershipForUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsCheckPublicMembershipForUser(config: config, org: org, username: username)
+    /// Check if the provided user is a public member of the organization.
+    func checkPublicMembershipForUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsCheckPublicMembershipForUser(config: config, org: org, username: username)
     }
 
-/// The user can publicize their own membership. (A user cannot publicize the membership for another user.) Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
-    public func setPublicMembershipForAuthenticatedUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsSetPublicMembershipForAuthenticatedUser(config: config, org: org, username: username)
+    /// The user can publicize their own membership. (A user cannot publicize the membership for another user.) Note
+    /// that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see
+    /// "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    func setPublicMembershipForAuthenticatedUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsSetPublicMembershipForAuthenticatedUser(config: config, org: org, username: username)
     }
 
-/// Removes the public membership for the authenticated user from the specified organization, unless public visibility is enforced by default.
-    public func removePublicMembershipForAuthenticatedUser(org: String, username: String) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsRemovePublicMembershipForAuthenticatedUser(config: config, org: org, username: username)
+    /// Removes the public membership for the authenticated user from the specified organization, unless public
+    /// visibility is enforced by default.
+    func removePublicMembershipForAuthenticatedUser(org: String, username: String) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsRemovePublicMembershipForAuthenticatedUser(
+            config: config,
+            org: org,
+            username: username
+        )
     }
 
-/// Lists historical versions of an organization ruleset. Use `org` and `ruleset_id` to identify the ruleset, and use `page` and `per_page` to paginate the results.
+    /// Lists historical versions of an organization ruleset. Use `org` and `ruleset_id` to identify the ruleset, and
+    /// use `page` and `per_page` to paginate the results.
     ///
     /// Get the history of an organization ruleset.
-    public func getOrgRulesetHistory(org: String, rulesetId: Int, perPage: Int?, page: Int?) async throws -> [RulesetVersion] {
-        return try await OrgsMethods.orgsGetOrgRulesetHistory(config: config, org: org, rulesetId: rulesetId, perPage: perPage, page: page)
+    func getOrgRulesetHistory(org: String, rulesetId: Int, perPage: Int?, page: Int?) async throws -> [RulesetVersion] {
+        try await OrgsMethods.orgsGetOrgRulesetHistory(
+            config: config,
+            org: org,
+            rulesetId: rulesetId,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Retrieves a specific historical version of an organization ruleset. Use `org`, `ruleset_id`, and `version_id` to identify the organization, ruleset, and version to retrieve.
+    /// Retrieves a specific historical version of an organization ruleset. Use `org`, `ruleset_id`, and `version_id` to
+    /// identify the organization, ruleset, and version to retrieve.
     ///
     /// Get a version of an organization ruleset.
-    public func getOrgRulesetVersion(org: String, rulesetId: Int, versionId: Int) async throws -> RulesetVersionWithState {
-        return try await OrgsMethods.orgsGetOrgRulesetVersion(config: config, org: org, rulesetId: rulesetId, versionId: versionId)
+    func getOrgRulesetVersion(org: String, rulesetId: Int, versionId: Int) async throws -> RulesetVersionWithState {
+        try await OrgsMethods.orgsGetOrgRulesetVersion(
+            config: config,
+            org: org,
+            rulesetId: rulesetId,
+            versionId: versionId
+        )
     }
 
-/// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1, 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints instead.
+    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1,
+    /// 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints
+    /// instead.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func listSecurityManagerTeams(org: String) async throws -> [TeamSimple] {
-        return try await OrgsMethods.orgsListSecurityManagerTeams(config: config, org: org)
+    func listSecurityManagerTeams(org: String) async throws -> [TeamSimple] {
+        try await OrgsMethods.orgsListSecurityManagerTeams(config: config, org: org)
     }
 }
 
-extension OrgsNamespace {
-/// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1, 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints instead.
+public extension OrgsNamespace {
+    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1,
+    /// 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints
+    /// instead.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func addSecurityManagerTeam(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsAddSecurityManagerTeam(config: config, org: org, teamSlug: teamSlug)
+    func addSecurityManagerTeam(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsAddSecurityManagerTeam(config: config, org: org, teamSlug: teamSlug)
     }
 
-/// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1, 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints instead.
+    /// > [!WARNING] > **Closing down notice:** This operation is closing down and will be removed starting January 1,
+    /// 2026. Please use the "[Organization Roles](https://docs.github.com/rest/orgs/organization-roles)" endpoints
+    /// instead.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func removeSecurityManagerTeam(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsRemoveSecurityManagerTeam(config: config, org: org, teamSlug: teamSlug)
+    func removeSecurityManagerTeam(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsRemoveSecurityManagerTeam(config: config, org: org, teamSlug: teamSlug)
     }
 
-/// Gets the immutable releases policy for repositories in an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func getImmutableReleasesSettings(org: String) async throws -> ImmutableReleasesOrganizationSettings {
-        return try await OrgsMethods.orgsGetImmutableReleasesSettings(config: config, org: org)
+    /// Gets the immutable releases policy for repositories in an organization. OAuth tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
+    func getImmutableReleasesSettings(org: String) async throws -> ImmutableReleasesOrganizationSettings {
+        try await OrgsMethods.orgsGetImmutableReleasesSettings(config: config, org: org)
     }
 
-/// Sets the immutable releases policy for repositories in an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func setImmutableReleasesSettings(org: String, enforcedRepositories: OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories, selectedRepositoryIds: [Int]?) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsSetImmutableReleasesSettings(config: config, org: org, enforcedRepositories: enforcedRepositories, selectedRepositoryIds: selectedRepositoryIds)
+    /// Sets the immutable releases policy for repositories in an organization. OAuth tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
+    func setImmutableReleasesSettings(
+        org: String,
+        enforcedRepositories: OrgsSetImmutableReleasesSettingsRequestBodyEnforcedRepositories,
+        selectedRepositoryIds: [Int]?
+    ) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsSetImmutableReleasesSettings(
+            config: config,
+            org: org,
+            enforcedRepositories: enforcedRepositories,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 
-/// List all of the repositories that have been selected for immutable releases enforcement in an organization. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func getImmutableReleasesSettingsRepositories(org: String, page: Int?, perPage: Int?) async throws -> OrgsGetImmutableReleasesSettingsRepositoriesResponse {
-        return try await OrgsMethods.orgsGetImmutableReleasesSettingsRepositories(config: config, org: org, page: page, perPage: perPage)
+    /// List all of the repositories that have been selected for immutable releases enforcement in an organization.
+    /// OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func getImmutableReleasesSettingsRepositories(
+        org: String,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> OrgsGetImmutableReleasesSettingsRepositoriesResponse {
+        try await OrgsMethods.orgsGetImmutableReleasesSettingsRepositories(
+            config: config,
+            org: org,
+            page: page,
+            perPage: perPage
+        )
     }
 
-/// Replaces all repositories that have been selected for immutable releases enforcement in an organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func setImmutableReleasesSettingsRepositories(org: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsSetImmutableReleasesSettingsRepositories(config: config, org: org, selectedRepositoryIds: selectedRepositoryIds)
+    /// Replaces all repositories that have been selected for immutable releases enforcement in an organization. To use
+    /// this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to
+    /// `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    func setImmutableReleasesSettingsRepositories(
+        org: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsSetImmutableReleasesSettingsRepositories(
+            config: config,
+            org: org,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
     }
 
-/// Adds a repository to the list of selected repositories that are enforced for immutable releases in an organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func enableSelectedRepositoryImmutableReleasesOrganization(org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsEnableSelectedRepositoryImmutableReleasesOrganization(config: config, org: org, repositoryId: repositoryId)
+    /// Adds a repository to the list of selected repositories that are enforced for immutable releases in an
+    /// organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must
+    /// be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use
+    /// this endpoint.
+    func enableSelectedRepositoryImmutableReleasesOrganization(
+        org: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsEnableSelectedRepositoryImmutableReleasesOrganization(
+            config: config,
+            org: org,
+            repositoryId: repositoryId
+        )
     }
 
-/// Removes a repository from the list of selected repositories that are enforced for immutable releases in an organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
-    public func disableSelectedRepositoryImmutableReleasesOrganization(org: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsDisableSelectedRepositoryImmutableReleasesOrganization(config: config, org: org, repositoryId: repositoryId)
+    /// Removes a repository from the list of selected repositories that are enforced for immutable releases in an
+    /// organization. To use this endpoint, the organization immutable releases policy for `enforced_repositories` must
+    /// be configured to `selected`. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use
+    /// this endpoint.
+    func disableSelectedRepositoryImmutableReleasesOrganization(
+        org: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsDisableSelectedRepositoryImmutableReleasesOrganization(
+            config: config,
+            org: org,
+            repositoryId: repositoryId
+        )
     }
 }
 
-extension OrgsNamespace {
-/// > [!WARNING] > **Closing down notice:** The ability to enable or disable a security feature for all eligible repositories in an organization is closing down. Please use [code security configurations](https://docs.github.com/rest/code-security/configurations) instead. For more information, see the [changelog](https://github.blog/changelog/2024-07-22-deprecation-of-api-endpoint-to-enable-or-disable-a-security-feature-for-an-organization/). Enables or disables the specified security feature for all eligible repositories in an organization. For more information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)." The authenticated user must be an organization owner or be member of a team with the security manager role to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`, `write:org`, or `repo` scopes to use this endpoint.
+public extension OrgsNamespace {
+    /// > [!WARNING] > **Closing down notice:** The ability to enable or disable a security feature for all eligible
+    /// repositories in an organization is closing down. Please use [code security
+    /// configurations](https://docs.github.com/rest/code-security/configurations) instead. For more information, see
+    /// the [changelog](https://github.blog/changelog/2024-07-22-deprecation-of-api-endpoint-to-enable-or-disable-a-security-feature-for-an-organization/).
+    /// Enables or disables the specified security feature for all eligible repositories in an organization. For more
+    /// information, see "[Managing security managers in your organization](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization)."
+    /// The authenticated user must be an organization owner or be member of a team with the security manager role to
+    /// use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org`, `write:org`, or
+    /// `repo` scopes to use this endpoint.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func enableOrDisableSecurityProductOnAllOrgRepos(org: String, securityProduct: OrgsEnableOrDisableSecurityProductOnAllOrgReposParameterXd5c8b4d9, enablement: OrgsEnableOrDisableSecurityProductOnAllOrgReposParameter, querySuite: OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite?) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsEnableOrDisableSecurityProductOnAllOrgRepos(config: config, org: org, securityProduct: securityProduct, enablement: enablement, querySuite: querySuite)
+    func enableOrDisableSecurityProductOnAllOrgRepos(
+        org: String,
+        securityProduct: OrgsEnableOrDisableSecurityProductOnAllOrgReposParameterXd5c8b4d9,
+        enablement: OrgsEnableOrDisableSecurityProductOnAllOrgReposParameter,
+        querySuite: OrgsEnableOrDisableSecurityProductOnAllOrgReposRequestBodyQuerySuite?
+    ) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsEnableOrDisableSecurityProductOnAllOrgRepos(
+            config: config,
+            org: org,
+            securityProduct: securityProduct,
+            enablement: enablement,
+            querySuite: querySuite
+        )
     }
 
-/// List organization memberships for the authenticated user
+    /// List organization memberships for the authenticated user
     ///
     /// Lists all of the authenticated user's organization memberships.
-    public func listMembershipsForAuthenticatedUser(state: OrgsListMembershipsForAuthenticatedUserParameter?, perPage: Int?, page: Int?) async throws -> [OrgMembership] {
-        return try await OrgsMethods.orgsListMembershipsForAuthenticatedUser(config: config, state: state, perPage: perPage, page: page)
+    func listMembershipsForAuthenticatedUser(
+        state: OrgsListMembershipsForAuthenticatedUserParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [OrgMembership] {
+        try await OrgsMethods.orgsListMembershipsForAuthenticatedUser(
+            config: config,
+            state: state,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Get an organization membership for the authenticated user
+    /// Get an organization membership for the authenticated user
     ///
-    /// If the authenticated user is an active or pending member of the organization, this endpoint will return the user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
-    public func getMembershipForAuthenticatedUser(org: String) async throws -> OrgMembership {
-        return try await OrgsMethods.orgsGetMembershipForAuthenticatedUser(config: config, org: org)
+    /// If the authenticated user is an active or pending member of the organization, this endpoint will return the
+    /// user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This
+    /// endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
+    func getMembershipForAuthenticatedUser(org: String) async throws -> OrgMembership {
+        try await OrgsMethods.orgsGetMembershipForAuthenticatedUser(config: config, org: org)
     }
 
-/// Update an organization membership for the authenticated user
+    /// Update an organization membership for the authenticated user
     ///
-    /// Converts the authenticated user to an active member of the organization, if that user has a pending invitation from the organization.
-    public func updateMembershipForAuthenticatedUser(org: String, state: OrgsUpdateMembershipForAuthenticatedUserRequestBodyState) async throws -> OrgMembership {
-        return try await OrgsMethods.orgsUpdateMembershipForAuthenticatedUser(config: config, org: org, state: state)
+    /// Converts the authenticated user to an active member of the organization, if that user has a pending invitation
+    /// from the organization.
+    func updateMembershipForAuthenticatedUser(
+        org: String,
+        state: OrgsUpdateMembershipForAuthenticatedUserRequestBodyState
+    ) async throws -> OrgMembership {
+        try await OrgsMethods.orgsUpdateMembershipForAuthenticatedUser(config: config, org: org, state: state)
     }
 
-/// List organizations for the authenticated user
+    /// List organizations for the authenticated user
     ///
-    /// List organizations for the authenticated user. For OAuth app tokens and personal access tokens (classic), this endpoint only lists organizations that your authorization allows you to operate on in some way (e.g., you can list teams with `read:org` scope, you can publicize your organization membership with `user` scope, etc.). Therefore, this API requires at least `user` or `read:org` scope for OAuth app tokens and personal access tokens (classic). Requests with insufficient scope will receive a `403 Forbidden` response. > [!NOTE] > Requests using a fine-grained access token will receive a `200 Success` response with an empty list.
-    public func listForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [OrganizationSimple] {
-        return try await OrgsMethods.orgsListForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    /// List organizations for the authenticated user. For OAuth app tokens and personal access tokens (classic), this
+    /// endpoint only lists organizations that your authorization allows you to operate on in some way (e.g., you can
+    /// list teams with `read:org` scope, you can publicize your organization membership with `user` scope, etc.).
+    /// Therefore, this API requires at least `user` or `read:org` scope for OAuth app tokens and personal access tokens
+    /// (classic). Requests with insufficient scope will receive a `403 Forbidden` response. > [!NOTE] > Requests using
+    /// a fine-grained access token will receive a `200 Success` response with an empty list.
+    func listForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [OrganizationSimple] {
+        try await OrgsMethods.orgsListForAuthenticatedUser(config: config, perPage: perPage, page: page)
     }
 
-/// List organizations for a user
+    /// List organizations for a user
     ///
-    /// List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user. This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/orgs/orgs#list-organizations-for-the-authenticated-user) API instead.
-    public func listForUser(username: String, perPage: Int?, page: Int?) async throws -> [OrganizationSimple] {
-        return try await OrgsMethods.orgsListForUser(config: config, username: username, perPage: perPage, page: page)
+    /// List [public organization
+    /// memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the
+    /// specified user. This method only lists _public_ memberships, regardless of authentication. If you need to fetch
+    /// all of the organization memberships (public and private) for the authenticated user, use the [List organizations
+    /// for the authenticated
+    /// user](https://docs.github.com/rest/orgs/orgs#list-organizations-for-the-authenticated-user) API instead.
+    func listForUser(username: String, perPage: Int?, page: Int?) async throws -> [OrganizationSimple] {
+        try await OrgsMethods.orgsListForUser(config: config, username: username, perPage: perPage, page: page)
     }
 }
 
@@ -147,47 +281,122 @@ public class BillingNamespace {
         self.config = config
     }
 
-/// Gets a report of AI credit usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
-    public func billingGetGithubAiCreditUsageReportOrg(org: String, year: Int?, month: Int?, day: Int?, user: String?, model: String?, product: String?) async throws -> BillingAiCreditUsageReportOrg {
-        return try await BillingMethods.billingGetGithubBillingAiCreditUsageReportOrg(config: config, org: org, year: year, month: month, day: day, user: user, model: model, product: product)
+    /// Gets a report of AI credit usage for an organization. To use this endpoint, you must be an administrator of an
+    /// organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is
+    /// accessible via this endpoint.
+    public func billingGetGithubAiCreditUsageReportOrg(
+        org: String,
+        year: Int?,
+        month: Int?,
+        day: Int?,
+        user: String?,
+        model: String?,
+        product: String?
+    ) async throws -> BillingAiCreditUsageReportOrg {
+        try await BillingMethods.billingGetGithubBillingAiCreditUsageReportOrg(
+            config: config,
+            org: org,
+            year: year,
+            month: month,
+            day: day,
+            user: user,
+            model: model,
+            product: product
+        )
     }
 
-/// Gets all budgets for an organization. The authenticated user must be an organization admin or billing manager. Each page returns up to 100 budgets.
-    public func getAllBudgetsOrg(org: String, page: Int?, perPage: Int?, scope: BillingGetAllBudgetsOrgParameter?, user: String?) async throws -> GetAllBudgets {
-        return try await BillingMethods.billingGetAllBudgetsOrg(config: config, org: org, page: page, perPage: perPage, scope: scope, user: user)
+    /// Gets all budgets for an organization. The authenticated user must be an organization admin or billing manager.
+    /// Each page returns up to 100 budgets.
+    public func getAllBudgetsOrg(
+        org: String,
+        page: Int?,
+        perPage: Int?,
+        scope: BillingGetAllBudgetsOrgParameter?,
+        user: String?
+    ) async throws -> GetAllBudgets {
+        try await BillingMethods.billingGetAllBudgetsOrg(
+            config: config,
+            org: org,
+            page: page,
+            perPage: perPage,
+            scope: scope,
+            user: user
+        )
     }
 
-/// Creates a new budget for an organization. Supply the budget scope, amount, pricing information, and any applicable alerting or expiration settings; the authenticated user must be an organization administrator or billing manager. Use `budget_entity_name` to target a repository or user when the selected scope requires a specific entity.
+    /// Creates a new budget for an organization. Supply the budget scope, amount, pricing information, and any
+    /// applicable alerting or expiration settings; the authenticated user must be an organization administrator or
+    /// billing manager. Use `budget_entity_name` to target a repository or user when the selected scope requires a
+    /// specific entity.
     ///
-    /// Creates a new budget for an organization. The authenticated user must be an organization admin or billing manager.
-    public func createOrganizationBudget(options: BillingMethods.BillingCreateOrganizationBudgetOptions) async throws -> CreateBudget {
-        return try await BillingMethods.billingCreateOrganizationBudget(config: config, options: options)
+    /// Creates a new budget for an organization. The authenticated user must be an organization admin or billing
+    /// manager.
+    public func createOrganizationBudget(options: BillingMethods
+        .BillingCreateOrganizationBudgetOptions) async throws -> CreateBudget {
+        try await BillingMethods.billingCreateOrganizationBudget(config: config, options: options)
     }
 
-/// Gets a budget by ID. The authenticated user must be an organization admin or billing manager.
+    /// Gets a budget by ID. The authenticated user must be an organization admin or billing manager.
     public func getBudgetOrg(org: String, budgetId: String) async throws -> GetBudget {
-        return try await BillingMethods.billingGetBudgetOrg(config: config, org: org, budgetId: budgetId)
+        try await BillingMethods.billingGetBudgetOrg(config: config, org: org, budgetId: budgetId)
     }
 
-/// Updates an existing budget for an organization. Supply the budget fields you want to change, including `budget_amount`, `budget_scope`, or `prevent_further_usage`, while preserving scope-specific constraints. The authenticated user must be an organization administrator or billing manager.
+    /// Updates an existing budget for an organization. Supply the budget fields you want to change, including
+    /// `budget_amount`, `budget_scope`, or `prevent_further_usage`, while preserving scope-specific constraints. The
+    /// authenticated user must be an organization administrator or billing manager.
     ///
-    /// Updates an existing budget for an organization. The authenticated user must be an organization admin or billing manager.
+    /// Updates an existing budget for an organization. The authenticated user must be an organization admin or billing
+    /// manager.
     public func updateBudgetOrg(options: BillingMethods.BillingUpdateBudgetOrgOptions) async throws -> UpdateBudget {
-        return try await BillingMethods.billingUpdateBudgetOrg(config: config, options: options)
+        try await BillingMethods.billingUpdateBudgetOrg(config: config, options: options)
     }
 
-/// Deletes a budget by ID for an organization. The authenticated user must be an organization admin or billing manager.
+    /// Deletes a budget by ID for an organization. The authenticated user must be an organization admin or billing
+    /// manager.
     public func deleteBudgetOrg(org: String, budgetId: String) async throws -> DeleteBudget {
-        return try await BillingMethods.billingDeleteBudgetOrg(config: config, org: org, budgetId: budgetId)
+        try await BillingMethods.billingDeleteBudgetOrg(config: config, org: org, budgetId: budgetId)
     }
 
-/// Gets a report of premium request usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months is accessible via this endpoint.
-    public func billingGetGithubPremiumRequestUsageReportOrg(org: String, year: Int?, month: Int?, day: Int?, user: String?, model: String?, product: String?) async throws -> BillingPremiumRequestUsageReportOrg {
-        return try await BillingMethods.billingGetGithubBillingPremiumRequestUsageReportOrg(config: config, org: org, year: year, month: month, day: day, user: user, model: model, product: product)
+    /// Gets a report of premium request usage for an organization. To use this endpoint, you must be an administrator
+    /// of an organization within an enterprise or an organization account. **Note:** Only data from the past 24 months
+    /// is accessible via this endpoint.
+    public func billingGetGithubPremiumRequestUsageReportOrg(
+        org: String,
+        year: Int?,
+        month: Int?,
+        day: Int?,
+        user: String?,
+        model: String?,
+        product: String?
+    ) async throws -> BillingPremiumRequestUsageReportOrg {
+        try await BillingMethods.billingGetGithubBillingPremiumRequestUsageReportOrg(
+            config: config,
+            org: org,
+            year: year,
+            month: month,
+            day: day,
+            user: user,
+            model: model,
+            product: product
+        )
     }
 
-/// Gets a report of the total usage for an organization. To use this endpoint, you must be an administrator of an organization within an enterprise or an organization account. **Note:** This endpoint is only available to organizations with access to the enhanced billing platform. For more information, see "[About the enhanced billing platform](https://docs.github.com/billing/using-the-new-billing-platform)."
-    public func billingGetGithubUsageReportOrg(org: String, year: Int?, month: Int?, day: Int?) async throws -> BillingUsageReport {
-        return try await BillingMethods.billingGetGithubBillingUsageReportOrg(config: config, org: org, year: year, month: month, day: day)
+    /// Gets a report of the total usage for an organization. To use this endpoint, you must be an administrator of an
+    /// organization within an enterprise or an organization account. **Note:** This endpoint is only available to
+    /// organizations with access to the enhanced billing platform. For more information, see "[About the enhanced
+    /// billing platform](https://docs.github.com/billing/using-the-new-billing-platform)."
+    public func billingGetGithubUsageReportOrg(
+        org: String,
+        year: Int?,
+        month: Int?,
+        day: Int?
+    ) async throws -> BillingUsageReport {
+        try await BillingMethods.billingGetGithubBillingUsageReportOrg(
+            config: config,
+            org: org,
+            year: year,
+            month: month,
+            day: day
+        )
     }
 }

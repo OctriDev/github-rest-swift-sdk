@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Lists the selected repositories that are enabled for Copilot cloud agent in an organization. Organization owners can use this endpoint when the coding agent repository policy is set to `selected` to see which repositories have been enabled. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension CopilotMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Lists the selected repositories that
+    /// are enabled for Copilot cloud agent in an organization. Organization owners can use this endpoint when the
+    /// coding agent repository policy is set to `selected` to see which repositories have been enabled. OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,23 +22,54 @@ extension CopilotMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func copilotListCopilotCodingAgentSelectedRepositoriesForOrganization(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "copilotListCopilotCodingAgentSelectedRepositoriesForOrganization")).data
+    static func copilotListCopilotCodingAgentSelectedRepositoriesForOrganization(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CopilotListCopilotCodingAgentSelectedRepositoriesForOrganizationResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions/repositories"]
+                .joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "copilotListCopilotCodingAgentSelectedRepositoriesForOrganization"
+        )).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Replaces the list of selected repositories that are enabled for Copilot cloud agent in an organization. This method can only be called when the cloud agent repository policy is set to `selected`. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Replaces the list of selected
+    /// repositories that are enabled for Copilot cloud agent in an organization. This method can only be called when
+    /// the cloud agent repository policy is set to `selected`. OAuth app tokens and personal access tokens (classic)
+    /// need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - selectedRepositoryIds: List of repository IDs to enable for Copilot cloud
     ///   agent.
-    public static func copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization(config: ClientConfig, org: String, selectedRepositoryIds: [Int]) async throws -> SdkEmptyResponse {
-        let requestBody = CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizatiX33f7099af4(selectedRepositoryIds: selectedRepositoryIds)
+    static func copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization(
+        config: ClientConfig,
+        org: String,
+        selectedRepositoryIds: [Int]
+    ) async throws -> SdkEmptyResponse {
+        let requestBody =
+            CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizatiX33f7099af4(
+                selectedRepositoryIds: selectedRepositoryIds
+            )
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions/repositories"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions/repositories"]
+                .joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "copilotSetCopilotCodingAgentSelectedRepositoriesForOrganization"
+        )).data
     }
 
     private struct CopilotSetCopilotCodingAgentSelectedRepositoriesForOrganizatiX33f7099af4: Encodable {
@@ -43,7 +77,7 @@ extension CopilotMethods {
 
         func encode(to encoder: Encoder) throws {
             var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-            try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+            try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
         }
     }
 }

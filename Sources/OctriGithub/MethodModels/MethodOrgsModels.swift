@@ -7,7 +7,7 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical orgs operation model declarations
+/// Canonical orgs operation model declarations
 public struct OrgsCreateArtifactStorageRecordResponse: Codable {
     /// - Example: 1
     public var totalCount: Int
@@ -18,22 +18,28 @@ public struct OrgsCreateArtifactStorageRecordResponse: Codable {
         case storageRecords = "storage_records"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension OrgsCreateArtifactStorageRecordResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.storageRecords = try container.sdkDecodeIfPresent(.storageRecords)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension OrgsCreateArtifactStorageRecordResponse {
-    public init(totalCount: Int, storageRecords: [OrgsCreateArtifactStorageRecordResponseStorageRecordsItem]? = nil) {
+public extension OrgsCreateArtifactStorageRecordResponse {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        storageRecords = try container.sdkDecodeIfPresent(.storageRecords)
+    }
+}
+
+public extension OrgsCreateArtifactStorageRecordResponse {
+    init(totalCount: Int, storageRecords: [OrgsCreateArtifactStorageRecordResponseStorageRecordsItem]? = nil) {
         (self.totalCount, self.storageRecords) = (totalCount, storageRecords)
     }
 }
@@ -51,23 +57,33 @@ public struct OrgsSetClusterDeploymentRecordsResponseX1a6b734a: Codable {
         case errors
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension OrgsSetClusterDeploymentRecordsResponseX1a6b734a {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.deploymentRecords = try container.sdkDecodeIfPresent(.deploymentRecords)
-        self.errors = try container.sdkDecodeIfPresent(.errors)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension OrgsSetClusterDeploymentRecordsResponseX1a6b734a {
-    public init(totalCount: Int, deploymentRecords: [ArtifactDeploymentRecord]? = nil, errors: [OrgsSetClusterDeploymentRecordsResponseErrorsItem]? = nil) {
+public extension OrgsSetClusterDeploymentRecordsResponseX1a6b734a {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        deploymentRecords = try container.sdkDecodeIfPresent(.deploymentRecords)
+        errors = try container.sdkDecodeIfPresent(.errors)
+    }
+}
+
+public extension OrgsSetClusterDeploymentRecordsResponseX1a6b734a {
+    init(
+        totalCount: Int,
+        deploymentRecords: [ArtifactDeploymentRecord]? = nil,
+        errors: [OrgsSetClusterDeploymentRecordsResponseErrorsItem]? = nil
+    ) {
         (self.totalCount, self.deploymentRecords) = (totalCount, deploymentRecords)
         self.errors = errors
     }
@@ -86,33 +102,37 @@ public struct OrgsListAttestationsBulkResponse: Codable {
     }
 
     init() {
-        (self.attestationsSubjectDigests, self.pageInfo) = (nil, nil)
+        (attestationsSubjectDigests, pageInfo) = (nil, nil)
     }
 }
 
-extension OrgsListAttestationsBulkResponse {
-    public init(from decoder: Decoder) throws {
+public extension OrgsListAttestationsBulkResponse {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.attestationsSubjectDigests = try container.sdkDecodeIfPresent(.attestationsSubjectDigests)
-        self.pageInfo = try container.sdkDecodeIfPresent(.pageInfo)
+        attestationsSubjectDigests = try container.sdkDecodeIfPresent(.attestationsSubjectDigests)
+        pageInfo = try container.sdkDecodeIfPresent(.pageInfo)
     }
 }
 
-extension OrgsListAttestationsBulkResponse {
-    public init(attestationsSubjectDigests: [String: [OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValueItem]?]? = nil, pageInfo: OrgsListAttestationsBulkResponsePageInfo? = nil) {
+public extension OrgsListAttestationsBulkResponse {
+    init(
+        attestationsSubjectDigests: [String: [OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValueItem]?]? =
+            nil,
+        pageInfo: OrgsListAttestationsBulkResponsePageInfo? = nil
+    ) {
         self.init()
         (self.attestationsSubjectDigests, self.pageInfo) = (attestationsSubjectDigests, pageInfo)
     }
 }
 
 public struct OrgsListAttestationsResponseAttestationsItemBundleVerificationMaterial: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension OrgsListAttestationsResponseAttestationsItemBundleVerificationMaterial {
-    public init() {
-    }
+public extension OrgsListAttestationsResponseAttestationsItemBundleVerificationMaterial {
+    init() {}
 }
 
 public struct OrgsListAttestationRepositoriesResponseItem: Codable {
@@ -125,20 +145,20 @@ public struct OrgsListAttestationRepositoriesResponseItem: Codable {
     }
 
     init() {
-        (self.id, self.name) = (nil, nil)
+        (id, name) = (nil, nil)
     }
 }
 
-extension OrgsListAttestationRepositoriesResponseItem {
-    public init(from decoder: Decoder) throws {
+public extension OrgsListAttestationRepositoriesResponseItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.name = try container.sdkDecodeIfPresent(.name)
+        id = try container.sdkDecodeIfPresent(.id)
+        name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-extension OrgsListAttestationRepositoriesResponseItem {
-    public init(id: Int? = nil, name: String? = nil) {
+public extension OrgsListAttestationRepositoriesResponseItem {
+    init(id: Int? = nil, name: String? = nil) {
         self.init()
         (self.id, self.name) = (id, name)
     }
@@ -164,31 +184,47 @@ public struct OrgsGetClusterDeploymentRecordsJobResponse: Codable {
         case errors
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension OrgsGetClusterDeploymentRecordsJobResponse {
-    public init(from decoder: Decoder) throws {
+public extension OrgsGetClusterDeploymentRecordsJobResponse {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.jobId) else {
-            throw SdkValidationError(field: "job_id", code: "required", message: "Validation failed for 'job_id': value is required")
+            throw SdkValidationError(
+                field: "job_id",
+                code: "required",
+                message: "Validation failed for 'job_id': value is required"
+            )
         }
         guard container.contains(.status) else {
-            throw SdkValidationError(field: "status", code: "required", message: "Validation failed for 'status': value is required")
+            throw SdkValidationError(
+                field: "status",
+                code: "required",
+                message: "Validation failed for 'status': value is required"
+            )
         }
-        self.jobId = try container.sdkDecodeRequired(.jobId)
-        self.status = try container.sdkDecodeRequired(.status)
-        self.startedAt = try container.sdkDecodeIfPresent(.startedAt)
-        self.totalCount = try container.sdkDecodeIfPresent(.totalCount)
-        self.errors = try container.sdkDecodeIfPresent(.errors)
-        if let value = self.startedAt {
+        jobId = try container.sdkDecodeRequired(.jobId)
+        status = try container.sdkDecodeRequired(.status)
+        startedAt = try container.sdkDecodeIfPresent(.startedAt)
+        totalCount = try container.sdkDecodeIfPresent(.totalCount)
+        errors = try container.sdkDecodeIfPresent(.errors)
+        if let value = startedAt {
             try sdkValidateDateTime("started_at", sdkWireString(value))
         }
     }
 }
 
-extension OrgsGetClusterDeploymentRecordsJobResponse {
-    public init(jobId: Int, status: OrgsGetClusterDeploymentRecordsJobResponseStatus, startedAt: Date? = nil, totalCount: Int? = nil, errors: [[String: JSONValue]]? = nil) throws {
+public extension OrgsGetClusterDeploymentRecordsJobResponse {
+    init(
+        jobId: Int,
+        status: OrgsGetClusterDeploymentRecordsJobResponseStatus,
+        startedAt: Date? = nil,
+        totalCount: Int? = nil,
+        errors: [[String: JSONValue]]? = nil
+    ) throws {
         (self.jobId, self.status) = (jobId, status)
         (self.startedAt, self.totalCount) = (startedAt, totalCount)
         self.errors = errors
@@ -213,22 +249,27 @@ public struct OrgsListAttestationsResponseAttestationsItem: Codable {
     }
 
     init() {
-        (self.bundle, self.repositoryId, self.bundleUrl, self.initiator) = (nil, nil, nil, nil)
+        (bundle, repositoryId, bundleUrl, initiator) = (nil, nil, nil, nil)
     }
 }
 
-extension OrgsListAttestationsResponseAttestationsItem {
-    public init(from decoder: Decoder) throws {
+public extension OrgsListAttestationsResponseAttestationsItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.bundle = try container.sdkDecodeIfPresent(.bundle)
-        self.repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
-        self.bundleUrl = try container.sdkDecodeIfPresent(.bundleUrl)
-        self.initiator = try container.sdkDecodeIfPresent(.initiator)
+        bundle = try container.sdkDecodeIfPresent(.bundle)
+        repositoryId = try container.sdkDecodeIfPresent(.repositoryId)
+        bundleUrl = try container.sdkDecodeIfPresent(.bundleUrl)
+        initiator = try container.sdkDecodeIfPresent(.initiator)
     }
 }
 
-extension OrgsListAttestationsResponseAttestationsItem {
-    public init(bundle: OrgsListAttestationsResponseAttestationsItemBundle? = nil, repositoryId: Int? = nil, bundleUrl: String? = nil, initiator: String? = nil) {
+public extension OrgsListAttestationsResponseAttestationsItem {
+    init(
+        bundle: OrgsListAttestationsResponseAttestationsItemBundle? = nil,
+        repositoryId: Int? = nil,
+        bundleUrl: String? = nil,
+        initiator: String? = nil
+    ) {
         self.init()
         (self.bundle, self.repositoryId) = (bundle, repositoryId)
         (self.bundleUrl, self.initiator) = (bundleUrl, initiator)
@@ -257,28 +298,39 @@ public struct OrgsUpdateWebhookRequestBodyConfig: Codable {
         case insecureSsl = "insecure_ssl"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension OrgsUpdateWebhookRequestBodyConfig {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        self.url = try container.sdkDecodeRequired(.url)
-        self.contentType = try container.sdkDecodeIfPresent(.contentType)
-        self.secret = try container.sdkDecodeIfPresent(.secret)
-        self.insecureSsl = try container.sdkDecodeIfPresent(.insecureSsl)
-            try sdkValidateUri("url", sdkWireString(self.url))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension OrgsUpdateWebhookRequestBodyConfig {
-    public init(url: WebhookConfigUrl, contentType: WebhookConfigContentType? = nil, secret: WebhookConfigSecret? = nil, insecureSsl: WebhookConfigInsecureSsl? = nil) throws {
+public extension OrgsUpdateWebhookRequestBodyConfig {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        url = try container.sdkDecodeRequired(.url)
+        contentType = try container.sdkDecodeIfPresent(.contentType)
+        secret = try container.sdkDecodeIfPresent(.secret)
+        insecureSsl = try container.sdkDecodeIfPresent(.insecureSsl)
+        try sdkValidateUri("url", sdkWireString(url))
+    }
+}
+
+public extension OrgsUpdateWebhookRequestBodyConfig {
+    init(
+        url: WebhookConfigUrl,
+        contentType: WebhookConfigContentType? = nil,
+        secret: WebhookConfigSecret? = nil,
+        insecureSsl: WebhookConfigInsecureSsl? = nil
+    ) throws {
         (self.url, self.contentType) = (url, contentType)
         (self.secret, self.insecureSsl) = (secret, insecureSsl)
-            try sdkValidateUri("url", sdkWireString(self.url))
+        try sdkValidateUri("url", sdkWireString(self.url))
     }
 }
 
@@ -292,22 +344,28 @@ public struct OrgsSetClusterDeploymentRecordsResponse: Codable {
         case deploymentRecords = "deployment_records"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension OrgsSetClusterDeploymentRecordsResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.deploymentRecords = try container.sdkDecodeIfPresent(.deploymentRecords)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension OrgsSetClusterDeploymentRecordsResponse {
-    public init(totalCount: Int, deploymentRecords: [ArtifactDeploymentRecord]? = nil) {
+public extension OrgsSetClusterDeploymentRecordsResponse {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        deploymentRecords = try container.sdkDecodeIfPresent(.deploymentRecords)
+    }
+}
+
+public extension OrgsSetClusterDeploymentRecordsResponse {
+    init(totalCount: Int, deploymentRecords: [ArtifactDeploymentRecord]? = nil) {
         (self.totalCount, self.deploymentRecords) = (totalCount, deploymentRecords)
     }
 }
@@ -320,25 +378,26 @@ public struct OrgsListAttestationsResponse: Codable {
     }
 
     init() {
-        self.attestations = nil
+        attestations = nil
     }
 }
 
-extension OrgsListAttestationsResponse {
-    public init(from decoder: Decoder) throws {
+public extension OrgsListAttestationsResponse {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.attestations = try container.sdkDecodeIfPresent(.attestations)
+        attestations = try container.sdkDecodeIfPresent(.attestations)
     }
 }
 
-extension OrgsListAttestationsResponse {
-    public init(attestations: [OrgsListAttestationsResponseAttestationsItem]? = nil) {
+public extension OrgsListAttestationsResponse {
+    init(attestations: [OrgsListAttestationsResponseAttestationsItem]? = nil) {
         self.init()
         self.attestations = attestations
     }
 }
 
-public typealias OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXf7e02a18c6 = [OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1]
+public typealias OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXf7e02a18c6 =
+    [OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXb7d378f7e1]
 
 public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem: Codable {
     /// The name of the artifact.
@@ -371,56 +430,79 @@ public struct OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem: C
         case runtimeRisks = "runtime_risks"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem {
-    public init(from decoder: Decoder) throws {
+public extension OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.digest) else {
-            throw SdkValidationError(field: "digest", code: "required", message: "Validation failed for 'digest': value is required")
+            throw SdkValidationError(
+                field: "digest",
+                code: "required",
+                message: "Validation failed for 'digest': value is required"
+            )
         }
         guard container.contains(.deploymentName) else {
-            throw SdkValidationError(field: "deployment_name", code: "required", message: "Validation failed for 'deployment_name': value is required")
+            throw SdkValidationError(
+                field: "deployment_name",
+                code: "required",
+                message: "Validation failed for 'deployment_name': value is required"
+            )
         }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.digest = try container.sdkDecodeRequired(.digest)
-        self.deploymentName = try container.sdkDecodeRequired(.deploymentName)
-        self.version = try container.sdkDecodeIfPresent(.version)
-        self.status = try container.sdkDecodeIfPresent(.status)
-        self.githubRepository = try container.sdkDecodeIfPresent(.githubRepository)
-        self.tags = try container.sdkDecodeIfPresent(.tags)
-        self.runtimeRisks = try container.sdkDecodeIfPresent(.runtimeRisks)
-            try validateLength("name", self.name, min: 1, max: 256)
-            try validateLength("digest", self.digest, min: 71, max: 71)
-            try sdkValidatePattern("digest", self.digest, sdkPattern3cbdbb744b07)
-            try validateLength("deployment_name", self.deploymentName, min: 1, max: 256)
-        if let value = self.version {
+        name = try container.sdkDecodeRequired(.name)
+        digest = try container.sdkDecodeRequired(.digest)
+        deploymentName = try container.sdkDecodeRequired(.deploymentName)
+        version = try container.sdkDecodeIfPresent(.version)
+        status = try container.sdkDecodeIfPresent(.status)
+        githubRepository = try container.sdkDecodeIfPresent(.githubRepository)
+        tags = try container.sdkDecodeIfPresent(.tags)
+        runtimeRisks = try container.sdkDecodeIfPresent(.runtimeRisks)
+        try validateLength("name", name, min: 1, max: 256)
+        try validateLength("digest", digest, min: 71, max: 71)
+        try sdkValidatePattern("digest", digest, sdkPattern3cbdbb744b07)
+        try validateLength("deployment_name", deploymentName, min: 1, max: 256)
+        if let value = version {
             try validateLength("version", value, min: nil, max: 100)
         }
-        if let value = self.githubRepository {
+        if let value = githubRepository {
             try validateLength("github_repository", value, min: nil, max: 100)
             try sdkValidatePattern("github_repository", value, sdkPattern5c05dd281e2e)
         }
-        if let value = self.runtimeRisks {
+        if let value = runtimeRisks {
             try validateItems("runtime_risks", value, min: nil, max: 4)
         }
     }
 }
 
-extension OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem {
-    public init(name: String, digest: String, deploymentName: String, version: String? = nil, status: OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus? = nil, githubRepository: String? = nil, tags: [String: String]? = nil, runtimeRisks: OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXf7e02a18c6? = nil) throws {
+public extension OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem {
+    init(
+        name: String,
+        digest: String,
+        deploymentName: String,
+        version: String? = nil,
+        status: OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItemStatus? = nil,
+        githubRepository: String? = nil,
+        tags: [String: String]? = nil,
+        runtimeRisks: OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItXf7e02a18c6? = nil
+    ) throws {
         (self.name, self.digest) = (name, digest)
         (self.deploymentName, self.version) = (deploymentName, version)
         (self.status, self.githubRepository) = (status, githubRepository)
         (self.tags, self.runtimeRisks) = (tags, runtimeRisks)
-            try validateLength("name", self.name, min: 1, max: 256)
-            try validateLength("digest", self.digest, min: 71, max: 71)
-            try sdkValidatePattern("digest", self.digest, sdkPattern3cbdbb744b07)
-            try validateLength("deployment_name", self.deploymentName, min: 1, max: 256)
+        try validateLength("name", self.name, min: 1, max: 256)
+        try validateLength("digest", self.digest, min: 71, max: 71)
+        try sdkValidatePattern("digest", self.digest, sdkPattern3cbdbb744b07)
+        try validateLength("deployment_name", self.deploymentName, min: 1, max: 256)
         if let value = self.version {
             try validateLength("version", value, min: nil, max: 100)
         }
@@ -435,23 +517,23 @@ extension OrgsCreateClusterDeploymentRecordsJobRequestBodyDeploymentsItem {
 }
 
 public struct OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValX4b263bd640: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValX4b263bd640 {
-    public init() {
-    }
+public extension OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValX4b263bd640 {
+    init() {}
 }
 
 public struct OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValX39e1f8229b: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValX39e1f8229b {
-    public init() {
-    }
+public extension OrgsListAttestationsBulkResponseAttestationsSubjectDigestsValX39e1f8229b {
+    init() {}
 }
 
 public struct OrgsDeleteAttestationsBulkRequestBodyVariant1: Codable {
@@ -462,24 +544,30 @@ public struct OrgsDeleteAttestationsBulkRequestBodyVariant1: Codable {
         case attestationIds = "attestation_ids"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension OrgsDeleteAttestationsBulkRequestBodyVariant1 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.attestationIds) else {
-            throw SdkValidationError(field: "attestation_ids", code: "required", message: "Validation failed for 'attestation_ids': value is required")
-        }
-        self.attestationIds = try container.sdkDecodeRequired(.attestationIds)
-            try validateItems("attestation_ids", self.attestationIds, min: 1, max: 1024)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension OrgsDeleteAttestationsBulkRequestBodyVariant1 {
-    public init(attestationIds: [Int]) throws {
+public extension OrgsDeleteAttestationsBulkRequestBodyVariant1 {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.attestationIds) else {
+            throw SdkValidationError(
+                field: "attestation_ids",
+                code: "required",
+                message: "Validation failed for 'attestation_ids': value is required"
+            )
+        }
+        attestationIds = try container.sdkDecodeRequired(.attestationIds)
+        try validateItems("attestation_ids", attestationIds, min: 1, max: 1024)
+    }
+}
+
+public extension OrgsDeleteAttestationsBulkRequestBodyVariant1 {
+    init(attestationIds: [Int]) throws {
         self.attestationIds = attestationIds
-            try validateItems("attestation_ids", self.attestationIds, min: 1, max: 1024)
+        try validateItems("attestation_ids", self.attestationIds, min: 1, max: 1024)
     }
 }
 
@@ -495,20 +583,20 @@ public struct OrgsListArtifactDeploymentRecordsResponse: Codable {
     }
 
     init() {
-        (self.totalCount, self.deploymentRecords) = (nil, nil)
+        (totalCount, deploymentRecords) = (nil, nil)
     }
 }
 
-extension OrgsListArtifactDeploymentRecordsResponse {
-    public init(from decoder: Decoder) throws {
+public extension OrgsListArtifactDeploymentRecordsResponse {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.totalCount = try container.sdkDecodeIfPresent(.totalCount)
-        self.deploymentRecords = try container.sdkDecodeIfPresent(.deploymentRecords)
+        totalCount = try container.sdkDecodeIfPresent(.totalCount)
+        deploymentRecords = try container.sdkDecodeIfPresent(.deploymentRecords)
     }
 }
 
-extension OrgsListArtifactDeploymentRecordsResponse {
-    public init(totalCount: Int? = nil, deploymentRecords: [ArtifactDeploymentRecord]? = nil) {
+public extension OrgsListArtifactDeploymentRecordsResponse {
+    init(totalCount: Int? = nil, deploymentRecords: [ArtifactDeploymentRecord]? = nil) {
         self.init()
         (self.totalCount, self.deploymentRecords) = (totalCount, deploymentRecords)
     }
@@ -523,25 +611,35 @@ public struct OrgsGetImmutableReleasesSettingsRepositoriesResponse: Codable {
         case repositories
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension OrgsGetImmutableReleasesSettingsRepositoriesResponse {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.totalCount) else {
-            throw SdkValidationError(field: "total_count", code: "required", message: "Validation failed for 'total_count': value is required")
-        }
-        guard container.contains(.repositories) else {
-            throw SdkValidationError(field: "repositories", code: "required", message: "Validation failed for 'repositories': value is required")
-        }
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.repositories = try container.sdkDecodeRequired(.repositories)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension OrgsGetImmutableReleasesSettingsRepositoriesResponse {
-    public init(totalCount: Int, repositories: [MinimalRepository]) {
+public extension OrgsGetImmutableReleasesSettingsRepositoriesResponse {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.totalCount) else {
+            throw SdkValidationError(
+                field: "total_count",
+                code: "required",
+                message: "Validation failed for 'total_count': value is required"
+            )
+        }
+        guard container.contains(.repositories) else {
+            throw SdkValidationError(
+                field: "repositories",
+                code: "required",
+                message: "Validation failed for 'repositories': value is required"
+            )
+        }
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        repositories = try container.sdkDecodeRequired(.repositories)
+    }
+}
+
+public extension OrgsGetImmutableReleasesSettingsRepositoriesResponse {
+    init(totalCount: Int, repositories: [MinimalRepository]) {
         (self.totalCount, self.repositories) = (totalCount, repositories)
     }
 }

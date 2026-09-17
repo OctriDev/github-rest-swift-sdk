@@ -7,15 +7,19 @@ import Foundation
     import FoundationNetworking
 #endif
 /// Allowed values that can be passed to the exclude param.
-public struct MigrationsGetStatusForOrgParameterItem: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct MigrationsGetStatusForOrgParameterItem: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let repositories = MigrationsGetStatusForOrgParameterItem(rawValue: "repositories")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -27,14 +31,17 @@ public struct MigrationsGetStatusForOrgParameterItem: RawRepresentable, Hashable
 public struct OrgsListOutsideCollaboratorsParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let value2faDisabled = OrgsListOutsideCollaboratorsParameter(rawValue: "2fa_disabled")
     public static let value2faInsecure = OrgsListOutsideCollaboratorsParameter(rawValue: "2fa_insecure")
     public static let all = OrgsListOutsideCollaboratorsParameter(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -43,10 +50,14 @@ public struct OrgsListOutsideCollaboratorsParameter: RawRepresentable, Hashable,
     }
 }
 
-public struct PackagesListPackagesForOrganizationParameterXbaeb57df: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PackagesListPackagesForOrganizationParameterXbaeb57df: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let npm = PackagesListPackagesForOrganizationParameterXbaeb57df(rawValue: "npm")
     public static let maven = PackagesListPackagesForOrganizationParameterXbaeb57df(rawValue: "maven")
     public static let rubygems = PackagesListPackagesForOrganizationParameterXbaeb57df(rawValue: "rubygems")
@@ -56,7 +67,7 @@ public struct PackagesListPackagesForOrganizationParameterXbaeb57df: RawRepresen
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -65,16 +76,20 @@ public struct PackagesListPackagesForOrganizationParameterXbaeb57df: RawRepresen
     }
 }
 
-public struct PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let active = PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter(rawValue: "active")
     public static let deleted = PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter(rawValue: "deleted")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -84,16 +99,20 @@ public struct PackagesGetAllPackageVersionsForPackageOwnedByOrgParameter: RawRep
 }
 
 /// Action to apply to the requests.
-public struct OrgsReviewPatGrantRequestsInBulkRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsReviewPatGrantRequestsInBulkRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let approve = OrgsReviewPatGrantRequestsInBulkRequestBodyAction(rawValue: "approve")
     public static let deny = OrgsReviewPatGrantRequestsInBulkRequestBodyAction(rawValue: "deny")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -103,16 +122,20 @@ public struct OrgsReviewPatGrantRequestsInBulkRequestBodyAction: RawRepresentabl
 }
 
 /// Action to apply to the request.
-public struct OrgsReviewPatGrantRequestRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsReviewPatGrantRequestRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let approve = OrgsReviewPatGrantRequestRequestBodyAction(rawValue: "approve")
     public static let deny = OrgsReviewPatGrantRequestRequestBodyAction(rawValue: "deny")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -122,15 +145,19 @@ public struct OrgsReviewPatGrantRequestRequestBodyAction: RawRepresentable, Hash
 }
 
 /// Action to apply to the fine-grained personal access token.
-public struct OrgsUpdatePatAccessesRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct OrgsUpdatePatAccessesRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let revoke = OrgsUpdatePatAccessesRequestBodyAction(rawValue: "revoke")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -143,12 +170,15 @@ public struct OrgsUpdatePatAccessesRequestBodyAction: RawRepresentable, Hashable
 public struct OrgsUpdatePatAccessRequestBodyAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let revoke = OrgsUpdatePatAccessRequestBodyAction(rawValue: "revoke")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -159,21 +189,27 @@ public struct OrgsUpdatePatAccessRequestBodyAction: RawRepresentable, Hashable, 
 
 /// The authentication type for the private registry. Defaults to `token` if not specified. Use `oidc_azure`,
 /// `oidc_aws`, `oidc_jfrog`, `oidc_cloudsmith`, or `oidc_gcp` for OIDC authentication.
-public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let token = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "token")
-    public static let usernamePassword = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "username_password")
+    public static let usernamePassword =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "username_password")
     public static let oidcAzure = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_azure")
     public static let oidcAws = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_aws")
     public static let oidcJfrog = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_jfrog")
-    public static let oidcCloudsmith = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_cloudsmith")
+    public static let oidcCloudsmith =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_cloudsmith")
     public static let oidcGcp = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType(rawValue: "oidc_gcp")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -183,29 +219,48 @@ public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyAuthType: RawR
 }
 
 /// The registry type.
-public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let mavenRepository = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "maven_repository")
-    public static let nugetFeed = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "nuget_feed")
-    public static let goproxyServer = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "goproxy_server")
-    public static let npmRegistry = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "npm_registry")
-    public static let rubygemsServer = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "rubygems_server")
-    public static let cargoRegistry = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "cargo_registry")
-    public static let composerRepository = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "composer_repository")
-    public static let dockerRegistry = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "docker_registry")
-    public static let gitSource = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "git_source")
-    public static let helmRegistry = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "helm_registry")
-    public static let hexOrganization = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_organization")
-    public static let hexRepository = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_repository")
-    public static let pubRepository = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "pub_repository")
-    public static let pythonIndex = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "python_index")
-    public static let terraformRegistry = PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "terraform_registry")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let mavenRepository =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "maven_repository")
+    public static let nugetFeed =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "nuget_feed")
+    public static let goproxyServer =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "goproxy_server")
+    public static let npmRegistry =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "npm_registry")
+    public static let rubygemsServer =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "rubygems_server")
+    public static let cargoRegistry =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "cargo_registry")
+    public static let composerRepository =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "composer_repository")
+    public static let dockerRegistry =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "docker_registry")
+    public static let gitSource =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "git_source")
+    public static let helmRegistry =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "helm_registry")
+    public static let hexOrganization =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_organization")
+    public static let hexRepository =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "hex_repository")
+    public static let pubRepository =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "pub_repository")
+    public static let pythonIndex =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "python_index")
+    public static let terraformRegistry =
+        PrivateRegistriesCreateOrgPrivateRegistryRequestBodyRegistryType(rawValue: "terraform_registry")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

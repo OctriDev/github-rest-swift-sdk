@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Deletes artifact attestations in bulk for an organization. Submit either `subject_digests` or `attestation_ids`, but not both, with between 1 and 1024 values in the selected array. A 404 response indicates that the organization or requested attestations were not found.
+public extension OrgsMethods {
+    /// Deletes artifact attestations in bulk for an organization. Submit either `subject_digests` or `attestation_ids`,
+    /// but not both, with between 1 and 1024 values in the selected array. A 404 response indicates that the
+    /// organization or requested attestations were not found.
     ///
     /// Delete artifact attestations in bulk by either subject digests or unique ID.
     ///
@@ -15,18 +17,45 @@ extension OrgsMethods {
     /// - org: The organization name. The name is not case sensitive.
     /// - body: The request body must include either `subject_digests` or
     ///   `attestation_ids`, but not both.
-    public static func orgsDeleteAttestationsBulk(config: ClientConfig, org: String, body: [String: JSONValue]) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/attestations/delete-request"].joined(), config: config, rawBody: (try sdkJsonEncoder().encode(body)), decoder: .empty, operationId: "orgsDeleteAttestationsBulk")).data
+    static func orgsDeleteAttestationsBulk(
+        config: ClientConfig,
+        org: String,
+        body: [String: JSONValue]
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/attestations/delete-request"].joined(),
+            config: config,
+            rawBody: sdkJsonEncoder().encode(body),
+            decoder: .empty,
+            operationId: "orgsDeleteAttestationsBulk"
+        )).data
     }
 
-    /// Deletes an artifact attestation identified by its subject digest from an organization. Supply `subject_digest` together with the case-insensitive organization name in `org` to identify the attestation to remove.
+    /// Deletes an artifact attestation identified by its subject digest from an organization. Supply `subject_digest`
+    /// together with the case-insensitive organization name in `org` to identify the attestation to remove.
     ///
     /// Delete an artifact attestation by subject digest.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - subjectDigest: Subject Digest
-    public static func orgsDeleteAttestationsBySubjectDigest(config: ClientConfig, org: String, subjectDigest: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/attestations/digest/", sdkEncodePathSegment(sdkWireString(subjectDigest))].joined(), config: config, decoder: .empty, operationId: "orgsDeleteAttestationsBySubjectDigest")).data
+    static func orgsDeleteAttestationsBySubjectDigest(
+        config: ClientConfig,
+        org: String,
+        subjectDigest: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/attestations/digest/",
+                sdkEncodePathSegment(sdkWireString(subjectDigest)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsDeleteAttestationsBySubjectDigest"
+        )).data
     }
 }

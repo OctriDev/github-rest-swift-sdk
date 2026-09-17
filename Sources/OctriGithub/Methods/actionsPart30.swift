@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Lists self-hosted runners that are in a specific organization group. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Lists self-hosted runners that are in a specific organization group. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,22 +21,60 @@ extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsListSelfHostedRunnersInGroupForOrg(config: ClientConfig, org: String, runnerGroupId: Int, perPage: Int?, page: Int?) async throws -> ActionsListSelfHostedRunnersInGroupForOrgResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId)), "/runners"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "actionsListSelfHostedRunnersInGroupForOrg")).data
+    static func actionsListSelfHostedRunnersInGroupForOrg(
+        config: ClientConfig,
+        org: String,
+        runnerGroupId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListSelfHostedRunnersInGroupForOrgResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/runner-groups/",
+                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
+                "/runners",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "actionsListSelfHostedRunnersInGroupForOrg"
+        )).data
     }
 
-    /// Replaces the list of self-hosted runners that are part of an organization runner group. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Replaces the list of self-hosted runners that are part of an organization runner group. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerGroupId: Unique identifier of the self-hosted runner group.
     /// - runners: List of runner IDs to add to the runner group.
-    public static func actionsSetSelfHostedRunnersInGroupForOrg(config: ClientConfig, org: String, runnerGroupId: Int, runners: [Int]) async throws -> SdkEmptyResponse {
+    static func actionsSetSelfHostedRunnersInGroupForOrg(
+        config: ClientConfig,
+        org: String,
+        runnerGroupId: Int,
+        runners: [Int]
+    ) async throws -> SdkEmptyResponse {
         let requestBody = ActionsSetSelfHostedRunnersInGroupForOrgRequestBody(runners: runners)
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runner-groups/", sdkEncodePathSegment(sdkWireString(runnerGroupId)), "/runners"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetSelfHostedRunnersInGroupForOrg")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/runner-groups/",
+                sdkEncodePathSegment(sdkWireString(runnerGroupId)),
+                "/runners",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsSetSelfHostedRunnersInGroupForOrg"
+        )).data
     }
 }

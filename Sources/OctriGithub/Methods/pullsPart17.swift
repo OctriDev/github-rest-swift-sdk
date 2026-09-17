@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Requests reviews for a pull request from a given set of users and/or teams. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+public extension PullsMethods {
+    /// Requests reviews for a pull request from a given set of users and/or teams. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,10 +22,32 @@ extension PullsMethods {
     /// - pullNumber: The number that identifies the pull request.
     /// - reviewers: An array of user `login`s that will be requested.
     /// - teamReviewers: An array of team `slug`s that will be requested.
-    public static func pullsRequestReviewers(config: ClientConfig, owner: String, repo: String, pullNumber: Int, reviewers: [String]?, teamReviewers: [String]?) async throws -> PullRequestSimple {
+    static func pullsRequestReviewers(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewers: [String]?,
+        teamReviewers: [String]?
+    ) async throws -> PullRequestSimple {
         let requestBody = PullsRequestReviewersRequestBody(reviewers: reviewers, teamReviewers: teamReviewers)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/requested_reviewers"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsRequestReviewers")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/requested_reviewers",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsRequestReviewers"
+        )).data
     }
 
     /// Removes review requests from a pull request for a given set of users and/or teams.
@@ -33,9 +60,31 @@ extension PullsMethods {
     /// - pullNumber: The number that identifies the pull request.
     /// - reviewers: An array of user `login`s that will be removed.
     /// - teamReviewers: An array of team `slug`s that will be removed.
-    public static func pullsRemoveRequestedReviewers(config: ClientConfig, owner: String, repo: String, pullNumber: Int, reviewers: [String], teamReviewers: [String]?) async throws -> PullRequestSimple {
+    static func pullsRemoveRequestedReviewers(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewers: [String],
+        teamReviewers: [String]?
+    ) async throws -> PullRequestSimple {
         let requestBody = PullsRemoveRequestedReviewersRequestBody(reviewers: reviewers, teamReviewers: teamReviewers)
 
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/requested_reviewers"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsRemoveRequestedReviewers")).data
+        return try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/requested_reviewers",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsRemoveRequestedReviewers"
+        )).data
     }
 }

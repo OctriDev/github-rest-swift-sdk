@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension IssuesMethods {
-    /// Removes one or more assignees from an issue or pull request. Pass the usernames to remove in `assignees`; users without push access cannot remove assignees, and those requested changes are silently ignored. The response contains the updated issue resource.
+public extension IssuesMethods {
+    /// Removes one or more assignees from an issue or pull request. Pass the usernames to remove in `assignees`; users
+    /// without push access cannot remove assignees, and those requested changes are silently ignored. The response
+    /// contains the updated issue resource.
     ///
     /// Removes one or more assignees from an issue.
     ///
@@ -20,9 +22,30 @@ extension IssuesMethods {
     /// - assignees: Usernames of assignees to remove from an issue. _NOTE: Only
     ///   users with push access can remove assignees from an issue. Assignees are
     ///   silently ignored otherwise._
-    public static func issuesRemoveAssignees(config: ClientConfig, owner: String, repo: String, issueNumber: Int, assignees: [String]?) async throws -> Issue {
+    static func issuesRemoveAssignees(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        issueNumber: Int,
+        assignees: [String]?
+    ) async throws -> Issue {
         let requestBody = IssuesRemoveAssigneesRequestBody(assignees: assignees)
 
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/issues/", sdkEncodePathSegment(sdkWireString(issueNumber)), "/assignees"].joined(), config: config, body: requestBody, decoder: .json, operationId: "issuesRemoveAssignees")).data
+        return try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/issues/",
+                sdkEncodePathSegment(sdkWireString(issueNumber)),
+                "/assignees",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "issuesRemoveAssignees"
+        )).data
     }
 }

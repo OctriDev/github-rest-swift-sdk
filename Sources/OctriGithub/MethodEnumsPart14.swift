@@ -11,17 +11,21 @@ import Foundation
 /// you create a new team. `selected`: The team is assigned to specific organizations. You can then use the add
 /// organization assignments API endpoint. `all`: The team is assigned to all current and future organizations
 /// in the enterprise.
-public struct EnterpriseTeamsCreateRequestBodyOrganizationSelectionType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct EnterpriseTeamsCreateRequestBodyOrganizationSelectionType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let disabled = EnterpriseTeamsCreateRequestBodyOrganizationSelectionType(rawValue: "disabled")
     public static let selected = EnterpriseTeamsCreateRequestBodyOrganizationSelectionType(rawValue: "selected")
     public static let all = EnterpriseTeamsCreateRequestBodyOrganizationSelectionType(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -32,16 +36,20 @@ public struct EnterpriseTeamsCreateRequestBodyOrganizationSelectionType: RawRepr
 
 /// Retired: this field is no longer supported. Whether the enterprise team should be reflected in each
 /// organization. This value cannot be set.
-public struct EnterpriseTeamsCreateRequestBodySyncToOrganizations: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct EnterpriseTeamsCreateRequestBodySyncToOrganizations: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = EnterpriseTeamsCreateRequestBodySyncToOrganizations(rawValue: "all")
     public static let disabled = EnterpriseTeamsCreateRequestBodySyncToOrganizations(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -53,16 +61,22 @@ public struct EnterpriseTeamsCreateRequestBodySyncToOrganizations: RawRepresenta
 /// The notification setting the team is set to. The options are: * `notifications_enabled` - team members
 /// receive notifications when the team is @mentioned. * `notifications_disabled` - no one receives
 /// notifications.
-public struct EnterpriseTeamsUpdateRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct EnterpriseTeamsUpdateRequestBodyNotificationSetting: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let notificationsEnabled = EnterpriseTeamsUpdateRequestBodyNotificationSetting(rawValue: "notifications_enabled")
-    public static let notificationsDisabled = EnterpriseTeamsUpdateRequestBodyNotificationSetting(rawValue: "notifications_disabled")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let notificationsEnabled =
+        EnterpriseTeamsUpdateRequestBodyNotificationSetting(rawValue: "notifications_enabled")
+    public static let notificationsDisabled =
+        EnterpriseTeamsUpdateRequestBodyNotificationSetting(rawValue: "notifications_disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,17 +90,21 @@ public struct EnterpriseTeamsUpdateRequestBodyNotificationSetting: RawRepresenta
 /// you create a new team. `selected`: The team is assigned to specific organizations. You can then use the add
 /// organization assignments API. `all`: The team is assigned to all current and future organizations in the
 /// enterprise.
-public struct EnterpriseTeamsUpdateRequestBodyOrganizationSelectionType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct EnterpriseTeamsUpdateRequestBodyOrganizationSelectionType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let disabled = EnterpriseTeamsUpdateRequestBodyOrganizationSelectionType(rawValue: "disabled")
     public static let selected = EnterpriseTeamsUpdateRequestBodyOrganizationSelectionType(rawValue: "selected")
     public static let all = EnterpriseTeamsUpdateRequestBodyOrganizationSelectionType(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -97,16 +115,20 @@ public struct EnterpriseTeamsUpdateRequestBodyOrganizationSelectionType: RawRepr
 
 /// Retired: this field is no longer supported. Whether the enterprise team should be reflected in each
 /// organization. This value cannot be changed.
-public struct EnterpriseTeamsUpdateRequestBodySyncToOrganizations: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct EnterpriseTeamsUpdateRequestBodySyncToOrganizations: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = EnterpriseTeamsUpdateRequestBodySyncToOrganizations(rawValue: "all")
     public static let disabled = EnterpriseTeamsUpdateRequestBodySyncToOrganizations(rawValue: "disabled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -118,13 +140,16 @@ public struct EnterpriseTeamsUpdateRequestBodySyncToOrganizations: RawRepresenta
 public struct GistsCreateRequestBodyPublicVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `true` = GistsCreateRequestBodyPublicVariant1(rawValue: "true")
     public static let `false` = GistsCreateRequestBodyPublicVariant1(rawValue: "false")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -136,7 +161,10 @@ public struct GistsCreateRequestBodyPublicVariant1: RawRepresentable, Hashable, 
 public struct IssuesListParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let assigned = IssuesListParameter(rawValue: "assigned")
     public static let created = IssuesListParameter(rawValue: "created")
     public static let mentioned = IssuesListParameter(rawValue: "mentioned")
@@ -146,7 +174,7 @@ public struct IssuesListParameter: RawRepresentable, Hashable, Codable, Sendable
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -158,14 +186,17 @@ public struct IssuesListParameter: RawRepresentable, Hashable, Codable, Sendable
 public struct IssuesListParameterX722c7f46: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = IssuesListParameterX722c7f46(rawValue: "open")
     public static let closed = IssuesListParameterX722c7f46(rawValue: "closed")
     public static let all = IssuesListParameterX722c7f46(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -177,14 +208,17 @@ public struct IssuesListParameterX722c7f46: RawRepresentable, Hashable, Codable,
 public struct IssuesListParameterX0cd8f15d: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = IssuesListParameterX0cd8f15d(rawValue: "created")
     public static let updated = IssuesListParameterX0cd8f15d(rawValue: "updated")
     public static let comments = IssuesListParameterX0cd8f15d(rawValue: "comments")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -197,13 +231,16 @@ public struct IssuesListParameterX0cd8f15d: RawRepresentable, Hashable, Codable,
 public struct MarkdownRenderRequestBodyMode: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let markdown = MarkdownRenderRequestBodyMode(rawValue: "markdown")
     public static let gfm = MarkdownRenderRequestBodyMode(rawValue: "gfm")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

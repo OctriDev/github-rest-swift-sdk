@@ -3,135 +3,264 @@
 
 import Foundation
 
-extension ActivityNamespace {
-/// Get stargazer count
+public extension ActivityNamespace {
+    /// Get stargazer count
     ///
-    /// Gets the current number of users who have starred the repository. Users who previously starred the repository but later removed their star are not included.
-    public func getStargazerCountForRepo(owner: String, repo: String) async throws -> ActivityGetStargazerCountForRepoResponse {
-        return try await ActivityMethods.activityGetStargazerCountForRepo(config: config, owner: owner, repo: repo)
+    /// Gets the current number of users who have starred the repository. Users who previously starred the repository
+    /// but later removed their star are not included.
+    func getStargazerCountForRepo(
+        owner: String,
+        repo: String
+    ) async throws -> ActivityGetStargazerCountForRepoResponse {
+        try await ActivityMethods.activityGetStargazerCountForRepo(config: config, owner: owner, repo: repo)
     }
 
-/// Get repository star history
+    /// Get repository star history
     ///
-    /// Returns repository stars grouped by calendar weeks, most recent first. Pages move backward toward the repository's creation week, and weeks within a page are ordered newest to oldest, so concatenating pages produces one continuous series. Weeks without stars contain zero counts. Week and day boundaries are not guaranteed to align with UTC. The `days` array contains the number of stars created on each day of the week, starting on Sunday.
-    public func getStargazerHistoryForRepo(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [StargazerHistory] {
-        return try await ActivityMethods.activityGetStargazerHistoryForRepo(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    /// Returns repository stars grouped by calendar weeks, most recent first. Pages move backward toward the
+    /// repository's creation week, and weeks within a page are ordered newest to oldest, so concatenating pages
+    /// produces one continuous series. Weeks without stars contain zero counts. Week and day boundaries are not
+    /// guaranteed to align with UTC. The `days` array contains the number of stars created on each day of the week,
+    /// starting on Sunday.
+    func getStargazerHistoryForRepo(
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [StargazerHistory] {
+        try await ActivityMethods.activityGetStargazerHistoryForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List watchers
+    /// List watchers
     ///
     /// Lists the people watching the specified repository.
-    public func listWatchersForRepo(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try await ActivityMethods.activityListWatchersForRepo(config: config, owner: owner, repo: repo, perPage: perPage, page: page)
+    func listWatchersForRepo(owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        try await ActivityMethods.activityListWatchersForRepo(
+            config: config,
+            owner: owner,
+            repo: repo,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Get a repository subscription
+    /// Get a repository subscription
     ///
     /// Gets information about whether the authenticated user is subscribed to the repository.
-    public func getRepoSubscription(owner: String, repo: String) async throws -> RepositorySubscription {
-        return try await ActivityMethods.activityGetRepoSubscription(config: config, owner: owner, repo: repo)
+    func getRepoSubscription(owner: String, repo: String) async throws -> RepositorySubscription {
+        try await ActivityMethods.activityGetRepoSubscription(config: config, owner: owner, repo: repo)
     }
 
-/// Set a repository subscription
+    /// Set a repository subscription
     ///
-    /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription) completely.
-    public func setRepoSubscription(owner: String, repo: String, subscribed: Bool?, ignored: Bool?) async throws -> RepositorySubscription {
-        return try await ActivityMethods.activitySetRepoSubscription(config: config, owner: owner, repo: repo, subscribed: subscribed, ignored: ignored)
+    /// If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications
+    /// made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the
+    /// repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription)
+    /// completely.
+    func setRepoSubscription(
+        owner: String,
+        repo: String,
+        subscribed: Bool?,
+        ignored: Bool?
+    ) async throws -> RepositorySubscription {
+        try await ActivityMethods.activitySetRepoSubscription(
+            config: config,
+            owner: owner,
+            repo: repo,
+            subscribed: subscribed,
+            ignored: ignored
+        )
     }
 
-/// Delete a repository subscription
+    /// Delete a repository subscription
     ///
-    /// This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
-    public func deleteRepoSubscription(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ActivityMethods.activityDeleteRepoSubscription(config: config, owner: owner, repo: repo)
+    /// This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive
+    /// notifications from a repository, [set the repository's subscription
+    /// manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
+    func deleteRepoSubscription(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ActivityMethods.activityDeleteRepoSubscription(config: config, owner: owner, repo: repo)
     }
 
-/// List repositories starred by the authenticated user
+    /// List repositories starred by the authenticated user
     ///
-    /// Lists repositories the authenticated user has starred. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
-    public func listReposStarredByAuthenticatedUser(sort: ActivityListReposStarredByAuthenticatedUserParameter?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, perPage: Int?, page: Int?) async throws -> [Repository] {
-        return try await ActivityMethods.activityListReposStarredByAuthenticatedUser(config: config, sort: sort, direction: direction, perPage: perPage, page: page)
+    /// Lists repositories the authenticated user has starred. This endpoint supports the following custom media types.
+    /// For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
+    func listReposStarredByAuthenticatedUser(
+        sort: ActivityListReposStarredByAuthenticatedUserParameter?,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Repository] {
+        try await ActivityMethods.activityListReposStarredByAuthenticatedUser(
+            config: config,
+            sort: sort,
+            direction: direction,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Check if a repository is starred by the authenticated user
+    /// Check if a repository is starred by the authenticated user
     ///
     /// Whether the authenticated user has starred the repository.
-    public func checkRepoIsStarredByAuthenticatedUser(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ActivityMethods.activityCheckRepoIsStarredByAuthenticatedUser(config: config, owner: owner, repo: repo)
+    func checkRepoIsStarredByAuthenticatedUser(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ActivityMethods.activityCheckRepoIsStarredByAuthenticatedUser(
+            config: config,
+            owner: owner,
+            repo: repo
+        )
     }
 }
 
-extension ActivityNamespace {
-/// Star a repository for the authenticated user
+public extension ActivityNamespace {
+    /// Star a repository for the authenticated user
     ///
-    /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
-    public func starRepoForAuthenticatedUser(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ActivityMethods.activityStarRepoForAuthenticatedUser(config: config, owner: owner, repo: repo)
+    /// Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information,
+    /// see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    func starRepoForAuthenticatedUser(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ActivityMethods.activityStarRepoForAuthenticatedUser(config: config, owner: owner, repo: repo)
     }
 
-/// Unstar a repository for the authenticated user
+    /// Unstar a repository for the authenticated user
     ///
     /// Unstar a repository that the authenticated user has previously starred.
-    public func unstarRepoForAuthenticatedUser(owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await ActivityMethods.activityUnstarRepoForAuthenticatedUser(config: config, owner: owner, repo: repo)
+    func unstarRepoForAuthenticatedUser(owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await ActivityMethods.activityUnstarRepoForAuthenticatedUser(config: config, owner: owner, repo: repo)
     }
 
-/// List repositories watched by the authenticated user
+    /// List repositories watched by the authenticated user
     ///
     /// Lists repositories the authenticated user is watching.
-    public func listWatchedReposForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try await ActivityMethods.activityListWatchedReposForAuthenticatedUser(config: config, perPage: perPage, page: page)
+    func listWatchedReposForAuthenticatedUser(perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        try await ActivityMethods.activityListWatchedReposForAuthenticatedUser(
+            config: config,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List events for the authenticated user
+    /// List events for the authenticated user
     ///
-    /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events. _Optional_: use the fine-grained token with following permission set to view private events: "Events" user permissions (read). > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
-    public func listEventsForAuthenticatedUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
-        return try await ActivityMethods.activityListEventsForAuthenticatedUser(config: config, username: username, perPage: perPage, page: page)
+    /// If you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public
+    /// events. _Optional_: use the fine-grained token with following permission set to view private events: "Events"
+    /// user permissions (read). > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time
+    /// of day, event latency can be anywhere from 30s to 6h.
+    func listEventsForAuthenticatedUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        try await ActivityMethods.activityListEventsForAuthenticatedUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List organization events for the authenticated user
+    /// List organization events for the authenticated user
     ///
-    /// This is the user's organization dashboard. You must be authenticated as the user to view this. > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
-    public func listOrgEventsForAuthenticatedUser(username: String, org: String, perPage: Int?, page: Int?) async throws -> [Event] {
-        return try await ActivityMethods.activityListOrgEventsForAuthenticatedUser(config: config, username: username, org: org, perPage: perPage, page: page)
+    /// This is the user's organization dashboard. You must be authenticated as the user to view this. > [!NOTE] > This
+    /// API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from
+    /// 30s to 6h.
+    func listOrgEventsForAuthenticatedUser(
+        username: String,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Event] {
+        try await ActivityMethods.activityListOrgEventsForAuthenticatedUser(
+            config: config,
+            username: username,
+            org: org,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List public events for a user
+    /// List public events for a user
     ///
-    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
-    public func listPublicEventsForUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
-        return try await ActivityMethods.activityListPublicEventsForUser(config: config, username: username, perPage: perPage, page: page)
+    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can
+    /// be anywhere from 30s to 6h.
+    func listPublicEventsForUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        try await ActivityMethods.activityListPublicEventsForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List events received by the authenticated user
+    /// List events received by the authenticated user
     ///
-    /// These are events that you've received by watching repositories and following users. If you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events. > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
-    public func listReceivedEventsForUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
-        return try await ActivityMethods.activityListReceivedEventsForUser(config: config, username: username, perPage: perPage, page: page)
+    /// These are events that you've received by watching repositories and following users. If you are authenticated as
+    /// the given user, you will see private events. Otherwise, you'll only see public events. > [!NOTE] > This API is
+    /// not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to
+    /// 6h.
+    func listReceivedEventsForUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        try await ActivityMethods.activityListReceivedEventsForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List public events received by a user
+    /// List public events received by a user
     ///
-    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.
-    public func listReceivedPublicEventsForUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
-        return try await ActivityMethods.activityListReceivedPublicEventsForUser(config: config, username: username, perPage: perPage, page: page)
+    /// > [!NOTE] > This API is not built to serve real-time use cases. Depending on the time of day, event latency can
+    /// be anywhere from 30s to 6h.
+    func listReceivedPublicEventsForUser(username: String, perPage: Int?, page: Int?) async throws -> [Event] {
+        try await ActivityMethods.activityListReceivedPublicEventsForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 }
 
-extension ActivityNamespace {
-/// List repositories starred by a user
+public extension ActivityNamespace {
+    /// List repositories starred by a user
     ///
-    /// Lists repositories a user has starred. If the specified user has a [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint returns an empty list unless the request is authenticated as that user. A request authenticated as the specified user returns starred repositories visible to the token even if the token has no OAuth scopes. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
-    public func listReposStarredByUser(username: String, sort: ActivityListReposStarredByAuthenticatedUserParameter?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, perPage: Int?, page: Int?) async throws -> ActivityListReposStarredByUserResponse {
-        return try await ActivityMethods.activityListReposStarredByUser(config: config, username: username, sort: sort, direction: direction, perPage: perPage, page: page)
+    /// Lists repositories a user has starred. If the specified user has a [private
+    /// profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint
+    /// returns an empty list unless the request is authenticated as that user. A request authenticated as the specified
+    /// user returns starred repositories visible to the token even if the token has no OAuth scopes. This endpoint
+    /// supports the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.star+json`**: Includes a timestamp of when the star was created.
+    func listReposStarredByUser(
+        username: String,
+        sort: ActivityListReposStarredByAuthenticatedUserParameter?,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActivityListReposStarredByUserResponse {
+        try await ActivityMethods.activityListReposStarredByUser(
+            config: config,
+            username: username,
+            sort: sort,
+            direction: direction,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List repositories watched by a user
+    /// List repositories watched by a user
     ///
     /// Lists repositories a user is watching.
-    public func listReposWatchedByUser(username: String, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try await ActivityMethods.activityListReposWatchedByUser(config: config, username: username, perPage: perPage, page: page)
+    func listReposWatchedByUser(username: String, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        try await ActivityMethods.activityListReposWatchedByUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 }
 
@@ -141,47 +270,72 @@ public class GistsNamespace {
         self.config = config
     }
 
-/// Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:
+    /// Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:
     public func list(since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
-        return try await GistsMethods.gistsList(config: config, since: since, perPage: perPage, page: page)
+        try await GistsMethods.gistsList(config: config, since: since, perPage: perPage, page: page)
     }
 
-/// Creates a new gist containing one or more files. Supply `files` with each filename and its content, and use `public` to control visibility; avoid filenames that match Gist's internal `gistfile` numbering scheme.
+    /// Creates a new gist containing one or more files. Supply `files` with each filename and its content, and use
+    /// `public` to control visibility; avoid filenames that match Gist's internal `gistfile` numbering scheme.
     ///
-    /// Allows you to add a new gist with one or more files. > [!NOTE] > Don't name your files "gistfile" with a numerical suffix. This is the format of the automatic naming scheme that Gist uses internally.
-    public func create(files: [String: GistsCreateRequestBodyFilesValue], description: String?, public: GistsCreateRequestBodyPublic?) async throws -> GistSimple {
-        return try await GistsMethods.gistsCreate(config: config, files: files, description: description, public: `public`)
+    /// Allows you to add a new gist with one or more files. > [!NOTE] > Don't name your files "gistfile" with a
+    /// numerical suffix. This is the format of the automatic naming scheme that Gist uses internally.
+    public func create(
+        files: [String: GistsCreateRequestBodyFilesValue],
+        description: String?,
+        public: GistsCreateRequestBodyPublic?
+    ) async throws -> GistSimple {
+        try await GistsMethods.gistsCreate(config: config, files: files, description: description, public: `public`)
     }
 
-/// List public gists sorted by most recently updated to least recently updated. Note: With [pagination](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api), you can fetch up to 3000 gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page.
+    /// List public gists sorted by most recently updated to least recently updated. Note: With
+    /// [pagination](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api), you can fetch up to 3000
+    /// gists. For example, you can fetch 100 pages with 30 gists per page or 30 pages with 100 gists per page.
     public func listPublic(since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
-        return try await GistsMethods.gistsListPublic(config: config, since: since, perPage: perPage, page: page)
+        try await GistsMethods.gistsListPublic(config: config, since: since, perPage: perPage, page: page)
     }
 
-/// Lists gists that the authenticated user has starred. Use `since` to return only gists updated after a specified timestamp, and use `page` and `per_page` to paginate the results.
+    /// Lists gists that the authenticated user has starred. Use `since` to return only gists updated after a specified
+    /// timestamp, and use `page` and `per_page` to paginate the results.
     ///
     /// List the authenticated user's starred gists:
     public func listStarred(since: Date?, perPage: Int?, page: Int?) async throws -> [BaseGist] {
-        return try await GistsMethods.gistsListStarred(config: config, since: since, perPage: perPage, page: page)
+        try await GistsMethods.gistsListStarred(config: config, since: since, perPage: perPage, page: page)
     }
 
-/// Gets a specified gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+    /// Gets a specified gist. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     public func get(gistId: String) async throws -> GistSimple {
-        return try await GistsMethods.gistsGet(config: config, gistId: gistId)
+        try await GistsMethods.gistsGet(config: config, gistId: gistId)
     }
 
-/// Allows you to update a gist's description and to update, delete, or rename gist files. Files from the previous version of the gist that aren't explicitly changed during an edit are unchanged. At least one of `description` or `files` is required. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
-    public func update(gistId: String, description: String?, files: [String: GistsUpdateRequestBodyFilesValue?]?) async throws -> GistSimple {
-        return try await GistsMethods.gistsUpdate(config: config, gistId: gistId, description: description, files: files)
+    /// Allows you to update a gist's description and to update, delete, or rename gist files. Files from the previous
+    /// version of the gist that aren't explicitly changed during an edit are unchanged. At least one of `description`
+    /// or `files` is required. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
+    public func update(
+        gistId: String,
+        description: String?,
+        files: [String: GistsUpdateRequestBodyFilesValue?]?
+    ) async throws -> GistSimple {
+        try await GistsMethods.gistsUpdate(config: config, gistId: gistId, description: description, files: files)
     }
 
-/// Deletes a specific gist identified by `gist_id`. Use this operation when you want to permanently remove the gist associated with that identifier. A successful response contains no response body.
+    /// Deletes a specific gist identified by `gist_id`. Use this operation when you want to permanently remove the gist
+    /// associated with that identifier. A successful response contains no response body.
     public func delete(gistId: String) async throws -> SdkEmptyResponse {
-        return try await GistsMethods.gistsDelete(config: config, gistId: gistId)
+        try await GistsMethods.gistsDelete(config: config, gistId: gistId)
     }
 
-/// Lists the comments on a gist. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any specific media type.
+    /// Lists the comments on a gist. This endpoint supports the following custom media types. For more information, see
+    /// "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)."
+    /// - **`application/vnd.github.raw+json`**: Returns the raw markdown. This is the default if you do not pass any
+    /// specific media type.
     public func listComments(gistId: String, perPage: Int?, page: Int?) async throws -> [GistComment] {
-        return try await GistsMethods.gistsListComments(config: config, gistId: gistId, perPage: perPage, page: page)
+        try await GistsMethods.gistsListComments(config: config, gistId: gistId, perPage: perPage, page: page)
     }
 }

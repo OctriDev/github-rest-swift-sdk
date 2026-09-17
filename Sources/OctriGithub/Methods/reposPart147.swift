@@ -6,17 +6,38 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Download a repository archive (tar)
     ///
-    /// Gets a redirect URL to download a tar archive for a repository. If you omit `:ref`, the repository’s default branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories, these links are temporary and expire after five minutes.
+    /// Gets a redirect URL to download a tar archive for a repository. If you omit `:ref`, the repository’s default
+    /// branch (usually `main`) will be used. Please make sure your HTTP framework is configured to follow redirects or
+    /// you will need to use the `Location` header to make a second `GET` request. > [!NOTE] > For private repositories,
+    /// these links are temporary and expire after five minutes.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposDownloadTarballArchive(config: ClientConfig, owner: String, repo: String, ref: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/tarball/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, decoder: .empty, operationId: "reposDownloadTarballArchive")).data
+    static func reposDownloadTarballArchive(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/tarball/",
+                sdkEncodePathSegment(sdkWireString(ref)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDownloadTarballArchive"
+        )).data
     }
 }

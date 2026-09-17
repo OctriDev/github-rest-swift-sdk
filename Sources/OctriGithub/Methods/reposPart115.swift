@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Create a GitHub Pages deployment for a repository. The authenticated user must have write permission to the repository.
+public extension ReposMethods {
+    /// Create a GitHub Pages deployment for a repository. The authenticated user must have write permission to the
+    /// repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -25,9 +26,37 @@ extension ReposMethods {
     ///   static assets to deploy. The artifact belongs to the repository. Either
     ///   `artifact_id` or `artifact_url` are required.
     /// - environment: The target environment for this GitHub Pages deployment.
-    public static func reposCreatePagesDeployment(config: ClientConfig, owner: String, repo: String, pagesBuildVersion: String, oidcToken: String, artifactId: Double?, artifactUrl: String?, environment: String?) async throws -> PageDeployment {
-        let requestBody = ReposCreatePagesDeploymentRequestBody(pagesBuildVersion: pagesBuildVersion, oidcToken: oidcToken, artifactId: artifactId, artifactUrl: artifactUrl, environment: environment)
+    static func reposCreatePagesDeployment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pagesBuildVersion: String,
+        oidcToken: String,
+        artifactId: Double?,
+        artifactUrl: String?,
+        environment: String?
+    ) async throws -> PageDeployment {
+        let requestBody = ReposCreatePagesDeploymentRequestBody(
+            pagesBuildVersion: pagesBuildVersion,
+            oidcToken: oidcToken,
+            artifactId: artifactId,
+            artifactUrl: artifactUrl,
+            environment: environment
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages/deployments"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreatePagesDeployment")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pages/deployments",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreatePagesDeployment"
+        )).data
     }
 }

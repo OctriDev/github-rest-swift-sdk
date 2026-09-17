@@ -6,8 +6,12 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeScanningMethods {
-    /// Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "Get a code scanning analysis for a repository." OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+public extension CodeScanningMethods {
+    /// Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so
+    /// that you can retrieve details of the analysis. For more information, see "Get a code scanning analysis for a
+    /// repository." OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this
+    /// endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public
+    /// repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +19,25 @@ extension CodeScanningMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - sarifId: The SARIF ID obtained after uploading.
-    public static func codeScanningGetSarif(config: ClientConfig, owner: String, repo: String, sarifId: String) async throws -> CodeScanningSarifsStatus {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/code-scanning/sarifs/", sdkEncodePathSegment(sdkWireString(sarifId))].joined(), config: config, decoder: .json, operationId: "codeScanningGetSarif")).data
+    static func codeScanningGetSarif(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        sarifId: String
+    ) async throws -> CodeScanningSarifsStatus {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/code-scanning/sarifs/",
+                sdkEncodePathSegment(sdkWireString(sarifId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codeScanningGetSarif"
+        )).data
     }
 }

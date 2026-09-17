@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Activity domain models
+/// Activity domain models
 /// Repository invitations let you manage who you collaborate with.
 public struct RepositorySubscription: Codable {
     /// Determines if notifications should be received from this repository.
@@ -32,50 +32,76 @@ public struct RepositorySubscription: Codable {
         case repositoryUrl = "repository_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositorySubscription {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.subscribed) else {
-            throw SdkValidationError(field: "subscribed", code: "required", message: "Validation failed for 'subscribed': value is required")
-        }
-        guard container.contains(.ignored) else {
-            throw SdkValidationError(field: "ignored", code: "required", message: "Validation failed for 'ignored': value is required")
-        }
-        guard container.contains(.reason) else {
-            throw SdkValidationError(field: "reason", code: "required", message: "Validation failed for 'reason': value is required")
-        }
-        guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.repositoryUrl) else {
-            throw SdkValidationError(field: "repository_url", code: "required", message: "Validation failed for 'repository_url': value is required")
-        }
-        self.subscribed = try container.sdkDecodeRequired(.subscribed)
-        self.ignored = try container.sdkDecodeRequired(.ignored)
-        self.reason = try container.sdkDecodeIfPresent(.reason)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("repository_url", self.repositoryUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositorySubscription {
-    public init(subscribed: Bool, ignored: Bool, reason: String?, createdAt: Date, url: String, repositoryUrl: String) throws {
+public extension RepositorySubscription {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.subscribed) else {
+            throw SdkValidationError(
+                field: "subscribed",
+                code: "required",
+                message: "Validation failed for 'subscribed': value is required"
+            )
+        }
+        guard container.contains(.ignored) else {
+            throw SdkValidationError(
+                field: "ignored",
+                code: "required",
+                message: "Validation failed for 'ignored': value is required"
+            )
+        }
+        guard container.contains(.reason) else {
+            throw SdkValidationError(
+                field: "reason",
+                code: "required",
+                message: "Validation failed for 'reason': value is required"
+            )
+        }
+        guard container.contains(.createdAt) else {
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.repositoryUrl) else {
+            throw SdkValidationError(
+                field: "repository_url",
+                code: "required",
+                message: "Validation failed for 'repository_url': value is required"
+            )
+        }
+        subscribed = try container.sdkDecodeRequired(.subscribed)
+        ignored = try container.sdkDecodeRequired(.ignored)
+        reason = try container.sdkDecodeIfPresent(.reason)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        url = try container.sdkDecodeRequired(.url)
+        repositoryUrl = try container.sdkDecodeRequired(.repositoryUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("url", url)
+        try sdkValidateUri("repository_url", repositoryUrl)
+    }
+}
+
+public extension RepositorySubscription {
+    init(subscribed: Bool, ignored: Bool, reason: String?, createdAt: Date, url: String, repositoryUrl: String) throws {
         (self.subscribed, self.ignored) = (subscribed, ignored)
         (self.reason, self.createdAt) = (reason, createdAt)
         (self.url, self.repositoryUrl) = (url, repositoryUrl)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("url", self.url)
-            try sdkValidateUri("repository_url", self.repositoryUrl)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateUri("url", self.url)
+        try sdkValidateUri("repository_url", self.repositoryUrl)
     }
 }
 
@@ -91,28 +117,38 @@ public struct Stargazer: Codable {
         case user
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension Stargazer {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.starredAt) else {
-            throw SdkValidationError(field: "starred_at", code: "required", message: "Validation failed for 'starred_at': value is required")
-        }
-        guard container.contains(.user) else {
-            throw SdkValidationError(field: "user", code: "required", message: "Validation failed for 'user': value is required")
-        }
-        self.starredAt = try container.sdkDecodeRequired(.starredAt)
-        self.user = try container.sdkDecodeIfPresent(.user)
-            try sdkValidateDateTime("starred_at", sdkWireString(self.starredAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension Stargazer {
-    public init(starredAt: Date, user: NullableSimpleUser?) throws {
+public extension Stargazer {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.starredAt) else {
+            throw SdkValidationError(
+                field: "starred_at",
+                code: "required",
+                message: "Validation failed for 'starred_at': value is required"
+            )
+        }
+        guard container.contains(.user) else {
+            throw SdkValidationError(
+                field: "user",
+                code: "required",
+                message: "Validation failed for 'user': value is required"
+            )
+        }
+        starredAt = try container.sdkDecodeRequired(.starredAt)
+        user = try container.sdkDecodeIfPresent(.user)
+        try sdkValidateDateTime("starred_at", sdkWireString(starredAt))
+    }
+}
+
+public extension Stargazer {
+    init(starredAt: Date, user: NullableSimpleUser?) throws {
         (self.starredAt, self.user) = (starredAt, user)
-            try sdkValidateDateTime("starred_at", sdkWireString(self.starredAt))
+        try sdkValidateDateTime("starred_at", sdkWireString(self.starredAt))
     }
 }
 
@@ -134,29 +170,43 @@ public struct StargazerHistory: Codable {
         case week
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension StargazerHistory {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.days) else {
-            throw SdkValidationError(field: "days", code: "required", message: "Validation failed for 'days': value is required")
-        }
-        guard container.contains(.total) else {
-            throw SdkValidationError(field: "total", code: "required", message: "Validation failed for 'total': value is required")
-        }
-        guard container.contains(.week) else {
-            throw SdkValidationError(field: "week", code: "required", message: "Validation failed for 'week': value is required")
-        }
-        self.days = try container.sdkDecodeRequired(.days)
-        self.total = try container.sdkDecodeRequired(.total)
-        self.week = try container.sdkDecodeRequired(.week)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension StargazerHistory {
-    public init(days: [Int], total: Int, week: Int) {
+public extension StargazerHistory {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.days) else {
+            throw SdkValidationError(
+                field: "days",
+                code: "required",
+                message: "Validation failed for 'days': value is required"
+            )
+        }
+        guard container.contains(.total) else {
+            throw SdkValidationError(
+                field: "total",
+                code: "required",
+                message: "Validation failed for 'total': value is required"
+            )
+        }
+        guard container.contains(.week) else {
+            throw SdkValidationError(
+                field: "week",
+                code: "required",
+                message: "Validation failed for 'week': value is required"
+            )
+        }
+        days = try container.sdkDecodeRequired(.days)
+        total = try container.sdkDecodeRequired(.total)
+        week = try container.sdkDecodeRequired(.week)
+    }
+}
+
+public extension StargazerHistory {
+    init(days: [Int], total: Int, week: Int) {
         (self.days, self.total) = (days, total)
         self.week = week
     }
@@ -174,28 +224,38 @@ public struct StarredRepository: Codable {
         case repo
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension StarredRepository {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.starredAt) else {
-            throw SdkValidationError(field: "starred_at", code: "required", message: "Validation failed for 'starred_at': value is required")
-        }
-        guard container.contains(.repo) else {
-            throw SdkValidationError(field: "repo", code: "required", message: "Validation failed for 'repo': value is required")
-        }
-        self.starredAt = try container.sdkDecodeRequired(.starredAt)
-        self.repo = try container.sdkDecodeRequired(.repo)
-            try sdkValidateDateTime("starred_at", sdkWireString(self.starredAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension StarredRepository {
-    public init(starredAt: Date, repo: Repository) throws {
+public extension StarredRepository {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.starredAt) else {
+            throw SdkValidationError(
+                field: "starred_at",
+                code: "required",
+                message: "Validation failed for 'starred_at': value is required"
+            )
+        }
+        guard container.contains(.repo) else {
+            throw SdkValidationError(
+                field: "repo",
+                code: "required",
+                message: "Validation failed for 'repo': value is required"
+            )
+        }
+        starredAt = try container.sdkDecodeRequired(.starredAt)
+        repo = try container.sdkDecodeRequired(.repo)
+        try sdkValidateDateTime("starred_at", sdkWireString(starredAt))
+    }
+}
+
+public extension StarredRepository {
+    init(starredAt: Date, repo: Repository) throws {
         (self.starredAt, self.repo) = (starredAt, repo)
-            try sdkValidateDateTime("starred_at", sdkWireString(self.starredAt))
+        try sdkValidateDateTime("starred_at", sdkWireString(self.starredAt))
     }
 }
 
@@ -233,26 +293,38 @@ public struct Thread: Codable {
         case subscriptionUrl = "subscription_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension Thread {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.subject = try container.sdkDecodeRequired(.subject)
-        self.reason = try container.sdkDecodeRequired(.reason)
-        self.unread = try container.sdkDecodeRequired(.unread)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.lastReadAt = try container.sdkDecodeIfPresent(.lastReadAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.subscriptionUrl = try container.sdkDecodeRequired(.subscriptionUrl)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension Thread {
-    public init(id: String, repository: MinimalRepository, subject: ThreadSubject, reason: String, unread: Bool, updatedAt: String, lastReadAt: String?, url: String, subscriptionUrl: String) {
+public extension Thread {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        repository = try container.sdkDecodeRequired(.repository)
+        subject = try container.sdkDecodeRequired(.subject)
+        reason = try container.sdkDecodeRequired(.reason)
+        unread = try container.sdkDecodeRequired(.unread)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        lastReadAt = try container.sdkDecodeIfPresent(.lastReadAt)
+        url = try container.sdkDecodeRequired(.url)
+        subscriptionUrl = try container.sdkDecodeRequired(.subscriptionUrl)
+    }
+}
+
+public extension Thread {
+    init(
+        id: String,
+        repository: MinimalRepository,
+        subject: ThreadSubject,
+        reason: String,
+        unread: Bool,
+        updatedAt: String,
+        lastReadAt: String?,
+        url: String,
+        subscriptionUrl: String
+    ) {
         (self.id, self.repository) = (id, repository)
         (self.subject, self.reason) = (subject, reason)
         (self.unread, self.updatedAt) = (unread, updatedAt)
@@ -279,33 +351,51 @@ public struct ThreadSubject: Codable {
         case type
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ThreadSubject {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
-        }
-        guard container.contains(.latestCommentUrl) else {
-            throw SdkValidationError(field: "latest_comment_url", code: "required", message: "Validation failed for 'latest_comment_url': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.title = try container.sdkDecodeRequired(.title)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.latestCommentUrl = try container.sdkDecodeRequired(.latestCommentUrl)
-        self.type = try container.sdkDecodeRequired(.type)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ThreadSubject {
-    public init(title: String, url: String, latestCommentUrl: String, type: String) {
+public extension ThreadSubject {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        guard container.contains(.url) else {
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
+        }
+        guard container.contains(.latestCommentUrl) else {
+            throw SdkValidationError(
+                field: "latest_comment_url",
+                code: "required",
+                message: "Validation failed for 'latest_comment_url': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        title = try container.sdkDecodeRequired(.title)
+        url = try container.sdkDecodeRequired(.url)
+        latestCommentUrl = try container.sdkDecodeRequired(.latestCommentUrl)
+        type = try container.sdkDecodeRequired(.type)
+    }
+}
+
+public extension ThreadSubject {
+    init(title: String, url: String, latestCommentUrl: String, type: String) {
         (self.title, self.url) = (title, url)
         (self.latestCommentUrl, self.type) = (latestCommentUrl, type)
     }
@@ -343,49 +433,79 @@ public struct ThreadSubscription: Codable {
         case repositoryUrl = "repository_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension ThreadSubscription {
-    public init(from decoder: Decoder) throws {
+public extension ThreadSubscription {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.subscribed) else {
-            throw SdkValidationError(field: "subscribed", code: "required", message: "Validation failed for 'subscribed': value is required")
+            throw SdkValidationError(
+                field: "subscribed",
+                code: "required",
+                message: "Validation failed for 'subscribed': value is required"
+            )
         }
         guard container.contains(.ignored) else {
-            throw SdkValidationError(field: "ignored", code: "required", message: "Validation failed for 'ignored': value is required")
+            throw SdkValidationError(
+                field: "ignored",
+                code: "required",
+                message: "Validation failed for 'ignored': value is required"
+            )
         }
         guard container.contains(.reason) else {
-            throw SdkValidationError(field: "reason", code: "required", message: "Validation failed for 'reason': value is required")
+            throw SdkValidationError(
+                field: "reason",
+                code: "required",
+                message: "Validation failed for 'reason': value is required"
+            )
         }
         guard container.contains(.createdAt) else {
-            throw SdkValidationError(field: "created_at", code: "required", message: "Validation failed for 'created_at': value is required")
+            throw SdkValidationError(
+                field: "created_at",
+                code: "required",
+                message: "Validation failed for 'created_at': value is required"
+            )
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
-        self.subscribed = try container.sdkDecodeRequired(.subscribed)
-        self.ignored = try container.sdkDecodeRequired(.ignored)
-        self.reason = try container.sdkDecodeIfPresent(.reason)
-        self.createdAt = try container.sdkDecodeIfPresent(.createdAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.threadUrl = try container.sdkDecodeIfPresent(.threadUrl)
-        self.repositoryUrl = try container.sdkDecodeIfPresent(.repositoryUrl)
-        if let value = self.createdAt {
+        subscribed = try container.sdkDecodeRequired(.subscribed)
+        ignored = try container.sdkDecodeRequired(.ignored)
+        reason = try container.sdkDecodeIfPresent(.reason)
+        createdAt = try container.sdkDecodeIfPresent(.createdAt)
+        url = try container.sdkDecodeRequired(.url)
+        threadUrl = try container.sdkDecodeIfPresent(.threadUrl)
+        repositoryUrl = try container.sdkDecodeIfPresent(.repositoryUrl)
+        if let value = createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-            try sdkValidateUri("url", self.url)
-        if let value = self.threadUrl {
+        try sdkValidateUri("url", url)
+        if let value = threadUrl {
             try sdkValidateUri("thread_url", value)
         }
-        if let value = self.repositoryUrl {
+        if let value = repositoryUrl {
             try sdkValidateUri("repository_url", value)
         }
     }
 }
 
-extension ThreadSubscription {
-    public init(subscribed: Bool, ignored: Bool, reason: String?, createdAt: Date?, url: String, threadUrl: String? = nil, repositoryUrl: String? = nil) throws {
+public extension ThreadSubscription {
+    init(
+        subscribed: Bool,
+        ignored: Bool,
+        reason: String?,
+        createdAt: Date?,
+        url: String,
+        threadUrl: String? = nil,
+        repositoryUrl: String? = nil
+    ) throws {
         (self.subscribed, self.ignored) = (subscribed, ignored)
         (self.reason, self.createdAt) = (reason, createdAt)
         (self.url, self.threadUrl) = (url, threadUrl)
@@ -393,7 +513,7 @@ extension ThreadSubscription {
         if let value = self.createdAt {
             try sdkValidateDateTime("created_at", sdkWireString(value))
         }
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
         if let value = self.threadUrl {
             try sdkValidateUri("thread_url", value)
         }
@@ -412,21 +532,27 @@ public struct WatchEvent: Codable {
         case action
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WatchEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WatchEvent {
-    public init(action: String) {
+public extension WatchEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+    }
+}
+
+public extension WatchEvent {
+    init(action: String) {
         self.action = action
     }
 }
@@ -436,7 +562,10 @@ extension WatchEvent {
 public struct DiscussionState: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = DiscussionState(rawValue: "open")
     public static let closed = DiscussionState(rawValue: "closed")
     public static let locked = DiscussionState(rawValue: "locked")
@@ -445,7 +574,7 @@ public struct DiscussionState: RawRepresentable, Hashable, Codable, Sendable, Sd
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -458,7 +587,10 @@ public struct DiscussionState: RawRepresentable, Hashable, Codable, Sendable, Sd
 public struct DiscussionStateReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let resolved = DiscussionStateReason(rawValue: "resolved")
     public static let outdated = DiscussionStateReason(rawValue: "outdated")
     public static let duplicate = DiscussionStateReason(rawValue: "duplicate")
@@ -466,7 +598,7 @@ public struct DiscussionStateReason: RawRepresentable, Hashable, Codable, Sendab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -476,17 +608,21 @@ public struct DiscussionStateReason: RawRepresentable, Hashable, Codable, Sendab
 }
 
 /// Optional enumerated value serialized in the `type` wire field.
-public struct PullRequestReviewCommentEventCommentUserType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullRequestReviewCommentEventCommentUserType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bot = PullRequestReviewCommentEventCommentUserType(rawValue: "Bot")
     public static let user = PullRequestReviewCommentEventCommentUserType(rawValue: "User")
     public static let organization = PullRequestReviewCommentEventCommentUserType(rawValue: "Organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

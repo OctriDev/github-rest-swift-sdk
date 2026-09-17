@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// Update a specific item in an organization-owned project.
     ///
     /// - Parameters:
@@ -14,10 +14,30 @@ extension ProjectsMethods {
     /// - org: The organization name. The name is not case sensitive.
     /// - itemId: The unique identifier of the project item.
     /// - fields: A list of field updates to apply.
-    public static func projectsUpdateItemForOrg(config: ClientConfig, projectNumber: Int, org: String, itemId: Int, fields: [ProjectsUpdateItemForOrgRequestBodyFieldsItem]) async throws -> ProjectsV2ItemWithContent {
+    static func projectsUpdateItemForOrg(
+        config: ClientConfig,
+        projectNumber: Int,
+        org: String,
+        itemId: Int,
+        fields: [ProjectsUpdateItemForOrgRequestBodyFieldsItem]
+    ) async throws -> ProjectsV2ItemWithContent {
         let requestBody = ProjectsUpdateItemForOrgRequestBody(fields: fields)
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items/", sdkEncodePathSegment(sdkWireString(itemId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "projectsUpdateItemForOrg")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items/",
+                sdkEncodePathSegment(sdkWireString(itemId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "projectsUpdateItemForOrg"
+        )).data
     }
 
     /// Delete a specific item from an organization-owned project.
@@ -26,7 +46,25 @@ extension ProjectsMethods {
     /// - projectNumber: The project's number.
     /// - org: The organization name. The name is not case sensitive.
     /// - itemId: The unique identifier of the project item.
-    public static func projectsDeleteItemForOrg(config: ClientConfig, projectNumber: Int, org: String, itemId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/items/", sdkEncodePathSegment(sdkWireString(itemId))].joined(), config: config, decoder: .empty, operationId: "projectsDeleteItemForOrg")).data
+    static func projectsDeleteItemForOrg(
+        config: ClientConfig,
+        projectNumber: Int,
+        org: String,
+        itemId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/items/",
+                sdkEncodePathSegment(sdkWireString(itemId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "projectsDeleteItemForOrg"
+        )).data
     }
 }

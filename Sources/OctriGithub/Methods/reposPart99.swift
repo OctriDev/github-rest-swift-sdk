@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Retrieves a specific delivery made by a webhook configured for a repository. Provide `owner`, `repo`, `hook_id`, and `delivery_id` to identify the repository, webhook, and delivery record. The response includes delivery metadata together with the request and response details.
+public extension ReposMethods {
+    /// Retrieves a specific delivery made by a webhook configured for a repository. Provide `owner`, `repo`, `hook_id`,
+    /// and `delivery_id` to identify the repository, webhook, and delivery record. The response includes delivery
+    /// metadata together with the request and response details.
     ///
     /// Returns a delivery for a webhook configured in a repository.
     ///
@@ -18,7 +20,28 @@ extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    public static func reposGetWebhookDelivery(config: ClientConfig, owner: String, repo: String, hookId: Int, deliveryId: Int) async throws -> HookDelivery {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId))].joined(), config: config, decoder: .json, operationId: "reposGetWebhookDelivery")).data
+    static func reposGetWebhookDelivery(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        hookId: Int,
+        deliveryId: Int
+    ) async throws -> HookDelivery {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(hookId)),
+                "/deliveries/",
+                sdkEncodePathSegment(sdkWireString(deliveryId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetWebhookDelivery"
+        )).data
     }
 }

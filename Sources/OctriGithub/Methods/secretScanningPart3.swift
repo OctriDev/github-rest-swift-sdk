@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecretScanningMethods {
-    /// Lists secret scanning custom patterns for an organization. Personal access tokens (classic) need the `read:org` scope to use this endpoint.
+public extension SecretScanningMethods {
+    /// Lists secret scanning custom patterns for an organization. Personal access tokens (classic) need the `read:org`
+    /// scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -29,14 +30,30 @@ extension SecretScanningMethods {
     ///   after this cursor. For more information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func secretScanningListOrgCustomPatterns(config: ClientConfig, org: String, state: SecretScanningListOrgCustomPatternsParameterX192aabd9?, pushProtection: SecretScanningListOrgCustomPatternsParameter?, sort: SecretScanningListOrgCustomPatternsParameterX9139ab32?, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, before: String?, after: String?) async throws -> [SecretScanningCustomPattern] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/custom-patterns"].joined(), config: config, query: [
-            SdkQueryParameter("state", value: state),
-            SdkQueryParameter("push_protection", value: pushProtection),
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-        ], decoder: .json, operationId: "secretScanningListOrgCustomPatterns")).data
+    static func secretScanningListOrgCustomPatterns(
+        config: ClientConfig,
+        org: String,
+        state: SecretScanningListOrgCustomPatternsParameterX192aabd9?,
+        pushProtection: SecretScanningListOrgCustomPatternsParameter?,
+        sort: SecretScanningListOrgCustomPatternsParameterX9139ab32?,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
+        before: String?,
+        after: String?
+    ) async throws -> [SecretScanningCustomPattern] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/secret-scanning/custom-patterns"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("state", value: state),
+                SdkQueryParameter("push_protection", value: pushProtection),
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+            ],
+            decoder: .json,
+            operationId: "secretScanningListOrgCustomPatterns"
+        )).data
     }
 }

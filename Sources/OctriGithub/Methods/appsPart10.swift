@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AppsMethods {
+public extension AppsMethods {
     /// List repositories that an app installation can access.
     ///
     /// - Parameters:
@@ -18,23 +18,50 @@ extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func appsListReposAccessibleToInstallation(config: ClientConfig, perPage: Int?, page: Int?) async throws -> AppsListReposAccessibleToInstallationResponse {
-        return try (await sdkRequest("GET", "/installation/repositories", config: config, query: [
+    static func appsListReposAccessibleToInstallation(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> AppsListReposAccessibleToInstallationResponse {
+        try await (sdkRequest("GET", "/installation/repositories", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
         ], decoder: .json, operationId: "appsListReposAccessibleToInstallation")).data
     }
 
-    /// Revokes the installation token you're using to authenticate as an installation and access this endpoint. Once an installation token is revoked, the token is invalidated and cannot be used. Other endpoints that require the revoked installation token must have a new installation token to work. You can create a new token using the "[Create an installation access token for an app](https://docs.github.com/rest/apps/apps#create-an-installation-access-token-for-an-app)" endpoint.
-    public static func appsRevokeInstallationAccessToken(config: ClientConfig) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", "/installation/token", config: config, decoder: .empty, operationId: "appsRevokeInstallationAccessToken")).data
+    /// Revokes the installation token you're using to authenticate as an installation and access this endpoint. Once an
+    /// installation token is revoked, the token is invalidated and cannot be used. Other endpoints that require the
+    /// revoked installation token must have a new installation token to work. You can create a new token using the
+    /// "[Create an installation access token for an
+    /// app](https://docs.github.com/rest/apps/apps#create-an-installation-access-token-for-an-app)" endpoint.
+    static func appsRevokeInstallationAccessToken(config: ClientConfig) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            "/installation/token",
+            config: config,
+            decoder: .empty,
+            operationId: "appsRevokeInstallationAccessToken"
+        )).data
     }
 
-    /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication) with their client ID and client secret to access this endpoint.
+    /// Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub
+    /// App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will
+    /// also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
+    /// to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication)
+    /// with their client ID and client secret to access this endpoint.
     ///
     /// - Parameters:
     /// - accountId: account_id parameter
-    public static func appsGetSubscriptionPlanForAccount(config: ClientConfig, accountId: Int) async throws -> MarketplacePurchase {
-        return try (await sdkRequest("GET", ["/marketplace_listing/accounts/", sdkEncodePathSegment(sdkWireString(accountId))].joined(), config: config, decoder: .json, operationId: "appsGetSubscriptionPlanForAccount")).data
+    static func appsGetSubscriptionPlanForAccount(
+        config: ClientConfig,
+        accountId: Int
+    ) async throws -> MarketplacePurchase {
+        try await (sdkRequest(
+            "GET",
+            ["/marketplace_listing/accounts/", sdkEncodePathSegment(sdkWireString(accountId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "appsGetSubscriptionPlanForAccount"
+        )).data
     }
 }

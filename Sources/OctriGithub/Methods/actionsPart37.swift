@@ -6,18 +6,43 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Remove a custom label from a self-hosted runner configured in an organization. Returns the remaining labels from the runner. This endpoint returns a `404 Not Found` status if the custom label is not present on the runner. Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+public extension ActionsMethods {
+    /// Remove a custom label from a self-hosted runner configured in an organization. Returns the remaining labels from
+    /// the runner. This endpoint returns a `404 Not Found` status if the custom label is not present on the runner.
+    /// Authenticated users must have admin access to the organization to use this endpoint. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private,
+    /// the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - runnerId: Unique identifier of the self-hosted runner.
     /// - name: The name of a self-hosted runner's custom label.
-    public static func actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(config: ClientConfig, org: String, runnerId: Int, name: String) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/runners/", sdkEncodePathSegment(sdkWireString(runnerId)), "/labels/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "actionsRemoveCustomLabelFromSelfHostedRunnerForOrg")).data
+    static func actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
+        config: ClientConfig,
+        org: String,
+        runnerId: Int,
+        name: String
+    ) async throws -> ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/runners/",
+                sdkEncodePathSegment(sdkWireString(runnerId)),
+                "/labels/",
+                sdkEncodePathSegment(sdkWireString(name)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "actionsRemoveCustomLabelFromSelfHostedRunnerForOrg"
+        )).data
     }
 
-    /// Lists all secrets available in an organization without revealing their encrypted values. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    /// Lists all secrets available in an organization without revealing their encrypted values. Authenticated users
+    /// must have collaborator access to a repository to create, update, or read secrets. OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the
+    /// `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -29,10 +54,22 @@ extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsListOrgSecrets(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> ActionsListOrgSecretsResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "actionsListOrgSecrets")).data
+    static func actionsListOrgSecrets(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListOrgSecretsResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/secrets"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "actionsListOrgSecrets"
+        )).data
     }
 }

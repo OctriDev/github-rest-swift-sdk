@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ChecksMethods {
-    /// Gets a single check run using its `id`. > [!NOTE] > The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint on a private repository.
+public extension ChecksMethods {
+    /// Gets a single check run using its `id`. > [!NOTE] > The Checks API only looks for pushes in the repository where
+    /// the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return
+    /// an empty `pull_requests` array. OAuth app tokens and personal access tokens (classic) need the `repo` scope to
+    /// use this endpoint on a private repository.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +18,20 @@ extension ChecksMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - checkRunId: The unique identifier of the check run.
-    public static func checksGet(config: ClientConfig, owner: String, repo: String, checkRunId: Int) async throws -> CheckRun {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/check-runs/", sdkEncodePathSegment(sdkWireString(checkRunId))].joined(), config: config, decoder: .json, operationId: "checksGet")).data
+    static func checksGet(config: ClientConfig, owner: String, repo: String, checkRunId: Int) async throws -> CheckRun {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/check-runs/",
+                sdkEncodePathSegment(sdkWireString(checkRunId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "checksGet"
+        )).data
     }
 }

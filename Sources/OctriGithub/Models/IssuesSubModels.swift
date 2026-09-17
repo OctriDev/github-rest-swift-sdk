@@ -3,7 +3,7 @@
 
 import Foundation
 
-// IssuesSub domain models
+/// IssuesSub domain models
 /// Sub-issue Added Issue Event
 public struct SubIssueAddedIssueEvent: Codable {
     /// Required `integer` value serialized in the `id` wire field.
@@ -43,27 +43,40 @@ public struct SubIssueAddedIssueEvent: Codable {
         case subIssue = "sub_issue"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension SubIssueAddedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.subIssue = try container.sdkDecodeIfPresent(.subIssue)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension SubIssueAddedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, subIssue: NullableIssueReference?) {
+public extension SubIssueAddedIssueEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        subIssue = try container.sdkDecodeIfPresent(.subIssue)
+    }
+}
+
+public extension SubIssueAddedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        subIssue: NullableIssueReference?
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)
@@ -111,27 +124,40 @@ public struct SubIssueRemovedIssueEvent: Codable {
         case subIssue = "sub_issue"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension SubIssueRemovedIssueEvent {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.actor = try container.sdkDecodeRequired(.actor)
-        self.event = try container.sdkDecodeRequired(.event)
-        self.commitId = try container.sdkDecodeIfPresent(.commitId)
-        self.commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
-        self.subIssue = try container.sdkDecodeIfPresent(.subIssue)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension SubIssueRemovedIssueEvent {
-    public init(id: Int, nodeId: String, url: String, actor: SimpleUser, event: String, commitId: String?, commitUrl: String?, createdAt: String, performedViaGithubApp: NullableIntegration?, subIssue: NullableIssueReference?) {
+public extension SubIssueRemovedIssueEvent {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        url = try container.sdkDecodeRequired(.url)
+        actor = try container.sdkDecodeRequired(.actor)
+        event = try container.sdkDecodeRequired(.event)
+        commitId = try container.sdkDecodeIfPresent(.commitId)
+        commitUrl = try container.sdkDecodeIfPresent(.commitUrl)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        performedViaGithubApp = try container.sdkDecodeIfPresent(.performedViaGithubApp)
+        subIssue = try container.sdkDecodeIfPresent(.subIssue)
+    }
+}
+
+public extension SubIssueRemovedIssueEvent {
+    init(
+        id: Int,
+        nodeId: String,
+        url: String,
+        actor: SimpleUser,
+        event: String,
+        commitId: String?,
+        commitUrl: String?,
+        createdAt: String,
+        performedViaGithubApp: NullableIntegration?,
+        subIssue: NullableIssueReference?
+    ) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.url, self.actor) = (url, actor)
         (self.event, self.commitId) = (event, commitId)

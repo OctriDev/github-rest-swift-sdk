@@ -6,10 +6,22 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SearchMethods {
+public extension SearchMethods {
     /// Search users
     ///
-    /// Find users via various criteria. This method returns up to 100 results [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for users, you can get text match metadata for the issue **login**, public **email**, and **name** fields when you pass the `text-match` media type. For more details about highlighting search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you're looking for a list of popular users, you might try this query: `q=tom+repos:%3E42+followers:%3E1000` This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers. This endpoint does not accept authentication and will only include publicly visible users. As an alternative, you can use the GraphQL API. The GraphQL API requires authentication and will return private users, including Enterprise Managed Users (EMUs), that you are authorized to view. For more information, see "[GraphQL Queries](https://docs.github.com/graphql/reference/queries#search)."
+    /// Find users via various criteria. This method returns up to 100 results [per
+    /// page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for users, you can
+    /// get text match metadata for the issue **login**, public **email**, and **name** fields when you pass the
+    /// `text-match` media type. For more details about highlighting search results, see [Text match
+    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For more details about how to receive
+    /// highlighted search results, see [Text match
+    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you're looking for a
+    /// list of popular users, you might try this query: `q=tom+repos:%3E42+followers:%3E1000` This query searches for
+    /// users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000
+    /// followers. This endpoint does not accept authentication and will only include publicly visible users. As an
+    /// alternative, you can use the GraphQL API. The GraphQL API requires authentication and will return private users,
+    /// including Enterprise Managed Users (EMUs), that you are authorized to view. For more information, see "[GraphQL
+    /// Queries](https://docs.github.com/graphql/reference/queries#search)."
     ///
     /// - Parameters:
     /// - q: The query contains one or more search keywords and qualifiers.
@@ -34,8 +46,15 @@ extension SearchMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func searchUsers(config: ClientConfig, q: String, sort: SearchUsersParameter?, order: SearchCommitsParameter?, perPage: Int?, page: Int?) async throws -> SearchUsersResponse {
-        return try (await sdkRequest("GET", "/search/users", config: config, query: [
+    static func searchUsers(
+        config: ClientConfig,
+        q: String,
+        sort: SearchUsersParameter?,
+        order: SearchCommitsParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> SearchUsersResponse {
+        try await (sdkRequest("GET", "/search/users", config: config, query: [
             SdkQueryParameter("q", value: q),
             SdkQueryParameter("sort", value: sort),
             SdkQueryParameter("order", value: order),

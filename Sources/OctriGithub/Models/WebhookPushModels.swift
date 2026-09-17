@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookPush domain models
+/// WebhookPush domain models
 /// Typed representation of the `WebhookPush` API schema.
 public struct WebhookPush: Codable {
     /// The SHA of the most recent commit on `ref` after the push.
@@ -66,33 +66,52 @@ public struct WebhookPush: Codable {
         case sender
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookPush {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.after = try container.sdkDecodeRequired(.after)
-        self.baseRef = try container.sdkDecodeIfPresent(.baseRef)
-        self.before = try container.sdkDecodeRequired(.before)
-        self.commits = try container.sdkDecodeRequired(.commits)
-        self.compare = try container.sdkDecodeRequired(.compare)
-        self.created = try container.sdkDecodeRequired(.created)
-        self.deleted = try container.sdkDecodeRequired(.deleted)
-        self.forced = try container.sdkDecodeRequired(.forced)
-        self.headCommit = try container.sdkDecodeIfPresent(.headCommit)
-        self.pusher = try container.sdkDecodeRequired(.pusher)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.sender = try container.sdkDecodeIfPresent(.sender)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookPush {
-    public init(after: String, baseRef: WebhooksNullableString?, before: String, commits: [WebhookPushCommitsItem], compare: String, created: Bool, deleted: Bool, forced: Bool, headCommit: WebhookPushHeadCommit?, pusher: WebhookPushPusher, ref: String, repository: WebhookPushRepository, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil, sender: SimpleUser? = nil) {
+public extension WebhookPush {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        after = try container.sdkDecodeRequired(.after)
+        baseRef = try container.sdkDecodeIfPresent(.baseRef)
+        before = try container.sdkDecodeRequired(.before)
+        commits = try container.sdkDecodeRequired(.commits)
+        compare = try container.sdkDecodeRequired(.compare)
+        created = try container.sdkDecodeRequired(.created)
+        deleted = try container.sdkDecodeRequired(.deleted)
+        forced = try container.sdkDecodeRequired(.forced)
+        headCommit = try container.sdkDecodeIfPresent(.headCommit)
+        pusher = try container.sdkDecodeRequired(.pusher)
+        ref = try container.sdkDecodeRequired(.ref)
+        repository = try container.sdkDecodeRequired(.repository)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        sender = try container.sdkDecodeIfPresent(.sender)
+    }
+}
+
+public extension WebhookPush {
+    init(
+        after: String,
+        baseRef: WebhooksNullableString?,
+        before: String,
+        commits: [WebhookPushCommitsItem],
+        compare: String,
+        created: Bool,
+        deleted: Bool,
+        forced: Bool,
+        headCommit: WebhookPushHeadCommit?,
+        pusher: WebhookPushPusher,
+        ref: String,
+        repository: WebhookPushRepository,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        sender: SimpleUser? = nil
+    ) {
         (self.after, self.baseRef) = (after, baseRef)
         (self.before, self.commits) = (before, commits)
         (self.compare, self.created) = (compare, created)
@@ -143,38 +162,52 @@ public struct WebhookPushCommitsItem: Codable {
         case removed
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookPushCommitsItem {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.author = try container.sdkDecodeRequired(.author)
-        self.committer = try container.sdkDecodeRequired(.committer)
-        self.distinct = try container.sdkDecodeRequired(.distinct)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.timestamp = try container.sdkDecodeRequired(.timestamp)
-        self.treeId = try container.sdkDecodeRequired(.treeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.added = try container.sdkDecodeIfPresent(.added)
-        self.modified = try container.sdkDecodeIfPresent(.modified)
-        self.removed = try container.sdkDecodeIfPresent(.removed)
-            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookPushCommitsItem {
-    public init(author: WebhookPushCommitsItemAuthor, committer: WebhookPushCommitsItemCommitter, distinct: Bool, id: String, message: String, timestamp: Date, treeId: String, url: String, added: [String]? = nil, modified: [String]? = nil, removed: [String]? = nil) throws {
+public extension WebhookPushCommitsItem {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        author = try container.sdkDecodeRequired(.author)
+        committer = try container.sdkDecodeRequired(.committer)
+        distinct = try container.sdkDecodeRequired(.distinct)
+        id = try container.sdkDecodeRequired(.id)
+        message = try container.sdkDecodeRequired(.message)
+        timestamp = try container.sdkDecodeRequired(.timestamp)
+        treeId = try container.sdkDecodeRequired(.treeId)
+        url = try container.sdkDecodeRequired(.url)
+        added = try container.sdkDecodeIfPresent(.added)
+        modified = try container.sdkDecodeIfPresent(.modified)
+        removed = try container.sdkDecodeIfPresent(.removed)
+        try sdkValidateDateTime("timestamp", sdkWireString(timestamp))
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookPushCommitsItem {
+    init(
+        author: WebhookPushCommitsItemAuthor,
+        committer: WebhookPushCommitsItemCommitter,
+        distinct: Bool,
+        id: String,
+        message: String,
+        timestamp: Date,
+        treeId: String,
+        url: String,
+        added: [String]? = nil,
+        modified: [String]? = nil,
+        removed: [String]? = nil
+    ) throws {
         (self.author, self.committer) = (author, committer)
         (self.distinct, self.id) = (distinct, id)
         (self.message, self.timestamp) = (message, timestamp)
         (self.treeId, self.url) = (treeId, url)
         (self.added, self.modified) = (added, modified)
         self.removed = removed
-            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
-            try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -196,33 +229,43 @@ public struct WebhookPushCommitsItemAuthor: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookPushCommitsItemAuthor {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPushCommitsItemAuthor {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.username = try container.sdkDecodeIfPresent(.username)
-        if let value = self.email {
+        email = try container.sdkDecodeIfPresent(.email)
+        name = try container.sdkDecodeRequired(.name)
+        date = try container.sdkDecodeIfPresent(.date)
+        username = try container.sdkDecodeIfPresent(.username)
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.date {
+        if let value = date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-extension WebhookPushCommitsItemAuthor {
-    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+public extension WebhookPushCommitsItemAuthor {
+    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -252,33 +295,43 @@ public struct WebhookPushCommitsItemCommitter: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookPushCommitsItemCommitter {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPushCommitsItemCommitter {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.username = try container.sdkDecodeIfPresent(.username)
-        if let value = self.email {
+        email = try container.sdkDecodeIfPresent(.email)
+        name = try container.sdkDecodeRequired(.name)
+        date = try container.sdkDecodeIfPresent(.date)
+        username = try container.sdkDecodeIfPresent(.username)
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.date {
+        if let value = date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-extension WebhookPushCommitsItemCommitter {
-    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+public extension WebhookPushCommitsItemCommitter {
+    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -329,38 +382,52 @@ public struct WebhookPushHeadCommit: Codable {
         case removed
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookPushHeadCommit {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.author = try container.sdkDecodeRequired(.author)
-        self.committer = try container.sdkDecodeRequired(.committer)
-        self.distinct = try container.sdkDecodeRequired(.distinct)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.message = try container.sdkDecodeRequired(.message)
-        self.timestamp = try container.sdkDecodeRequired(.timestamp)
-        self.treeId = try container.sdkDecodeRequired(.treeId)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.added = try container.sdkDecodeIfPresent(.added)
-        self.modified = try container.sdkDecodeIfPresent(.modified)
-        self.removed = try container.sdkDecodeIfPresent(.removed)
-            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookPushHeadCommit {
-    public init(author: WebhookPushHeadCommitAuthor, committer: WebhookPushHeadCommitCommitter, distinct: Bool, id: String, message: String, timestamp: Date, treeId: String, url: String, added: [String]? = nil, modified: [String]? = nil, removed: [String]? = nil) throws {
+public extension WebhookPushHeadCommit {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        author = try container.sdkDecodeRequired(.author)
+        committer = try container.sdkDecodeRequired(.committer)
+        distinct = try container.sdkDecodeRequired(.distinct)
+        id = try container.sdkDecodeRequired(.id)
+        message = try container.sdkDecodeRequired(.message)
+        timestamp = try container.sdkDecodeRequired(.timestamp)
+        treeId = try container.sdkDecodeRequired(.treeId)
+        url = try container.sdkDecodeRequired(.url)
+        added = try container.sdkDecodeIfPresent(.added)
+        modified = try container.sdkDecodeIfPresent(.modified)
+        removed = try container.sdkDecodeIfPresent(.removed)
+        try sdkValidateDateTime("timestamp", sdkWireString(timestamp))
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhookPushHeadCommit {
+    init(
+        author: WebhookPushHeadCommitAuthor,
+        committer: WebhookPushHeadCommitCommitter,
+        distinct: Bool,
+        id: String,
+        message: String,
+        timestamp: Date,
+        treeId: String,
+        url: String,
+        added: [String]? = nil,
+        modified: [String]? = nil,
+        removed: [String]? = nil
+    ) throws {
         (self.author, self.committer) = (author, committer)
         (self.distinct, self.id) = (distinct, id)
         (self.message, self.timestamp) = (message, timestamp)
         (self.treeId, self.url) = (treeId, url)
         (self.added, self.modified) = (added, modified)
         self.removed = removed
-            try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
-            try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("timestamp", sdkWireString(self.timestamp))
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -382,33 +449,43 @@ public struct WebhookPushHeadCommitAuthor: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookPushHeadCommitAuthor {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPushHeadCommitAuthor {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.username = try container.sdkDecodeIfPresent(.username)
-        if let value = self.email {
+        email = try container.sdkDecodeIfPresent(.email)
+        name = try container.sdkDecodeRequired(.name)
+        date = try container.sdkDecodeIfPresent(.date)
+        username = try container.sdkDecodeIfPresent(.username)
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.date {
+        if let value = date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-extension WebhookPushHeadCommitAuthor {
-    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+public extension WebhookPushHeadCommitAuthor {
+    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -438,33 +515,43 @@ public struct WebhookPushHeadCommitCommitter: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookPushHeadCommitCommitter {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPushHeadCommitCommitter {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.email) else {
-            throw SdkValidationError(field: "email", code: "required", message: "Validation failed for 'email': value is required")
+            throw SdkValidationError(
+                field: "email",
+                code: "required",
+                message: "Validation failed for 'email': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.username = try container.sdkDecodeIfPresent(.username)
-        if let value = self.email {
+        email = try container.sdkDecodeIfPresent(.email)
+        name = try container.sdkDecodeRequired(.name)
+        date = try container.sdkDecodeIfPresent(.date)
+        username = try container.sdkDecodeIfPresent(.username)
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
-        if let value = self.date {
+        if let value = date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
     }
 }
 
-extension WebhookPushHeadCommitCommitter {
-    public init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
+public extension WebhookPushHeadCommitCommitter {
+    init(email: String?, name: String, date: Date? = nil, username: String? = nil) throws {
         (self.email, self.name) = (email, name)
         (self.date, self.username) = (date, username)
         if let value = self.email {
@@ -494,30 +581,36 @@ public struct WebhookPushPusher: Codable {
         case username
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookPushPusher {
-    public init(from decoder: Decoder) throws {
+public extension WebhookPushPusher {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
-        self.name = try container.sdkDecodeRequired(.name)
-        self.date = try container.sdkDecodeIfPresent(.date)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.username = try container.sdkDecodeIfPresent(.username)
-        if let value = self.date {
+        name = try container.sdkDecodeRequired(.name)
+        date = try container.sdkDecodeIfPresent(.date)
+        email = try container.sdkDecodeIfPresent(.email)
+        username = try container.sdkDecodeIfPresent(.username)
+        if let value = date {
             try sdkValidateDateTime("date", sdkWireString(value))
         }
-        if let value = self.email {
+        if let value = email {
             try sdkValidateEmail("email", value)
         }
     }
 }
 
-extension WebhookPushPusher {
-    public init(name: String, date: Date? = nil, email: String? = nil, username: String? = nil) throws {
+public extension WebhookPushPusher {
+    init(name: String, date: Date? = nil, email: String? = nil, username: String? = nil) throws {
         (self.name, self.date) = (name, date)
         (self.email, self.username) = (email, username)
         if let value = self.date {

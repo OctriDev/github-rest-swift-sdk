@@ -6,26 +6,59 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// You can request that your site be built from the latest revision on the default branch. This has the same effect as pushing a commit to your default branch, but does not require an additional commit. Manually triggering page builds can be helpful when diagnosing build warnings and failures. Build requests are limited to one concurrent build per repository and one concurrent build per requester. If you request a build while another is still in progress, the second request will be queued until the first completes.
+public extension ReposMethods {
+    /// You can request that your site be built from the latest revision on the default branch. This has the same effect
+    /// as pushing a commit to your default branch, but does not require an additional commit. Manually triggering page
+    /// builds can be helpful when diagnosing build warnings and failures. Build requests are limited to one concurrent
+    /// build per repository and one concurrent build per requester. If you request a build while another is still in
+    /// progress, the second request will be queued until the first completes.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposRequestPagesBuild(config: ClientConfig, owner: String, repo: String) async throws -> PageBuildStatus {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages/builds"].joined(), config: config, decoder: .json, operationId: "reposRequestPagesBuild")).data
+    static func reposRequestPagesBuild(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> PageBuildStatus {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pages/builds",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposRequestPagesBuild"
+        )).data
     }
 
-    /// Gets information about the single most recent build of a GitHub Pages site. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets information about the single most recent build of a GitHub Pages site. OAuth app tokens and personal access
+    /// tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposGetLatestPagesBuild(config: ClientConfig, owner: String, repo: String) async throws -> PageBuild {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pages/builds/latest"].joined(), config: config, decoder: .json, operationId: "reposGetLatestPagesBuild")).data
+    static func reposGetLatestPagesBuild(config: ClientConfig, owner: String, repo: String) async throws -> PageBuild {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pages/builds/latest",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetLatestPagesBuild"
+        )).data
     }
 }

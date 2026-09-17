@@ -6,17 +6,45 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotSpacesMethods {
-    /// Lists all collaborators for a specific Copilot Space owned by an organization. The authenticated user must have appropriate permissions to view collaborators. Each collaborator entry specifies which user or team has access to the space and at what level (reader, writer, or admin). The space owner (organization) is excluded from this list. **Note:** Team collaborators listed here are teams that are defined in the organization. OAuth app tokens and personal access tokens (classic) need the `read:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space.
+public extension CopilotSpacesMethods {
+    /// Lists all collaborators for a specific Copilot Space owned by an organization. The authenticated user must have
+    /// appropriate permissions to view collaborators. Each collaborator entry specifies which user or team has access
+    /// to the space and at what level (reader, writer, or admin). The space owner (organization) is excluded from this
+    /// list. **Note:** Team collaborators listed here are teams that are defined in the organization. OAuth app tokens
+    /// and personal access tokens (classic) need the `read:org` scope to use this endpoint. Fine-grained tokens and
+    /// GitHub App user access tokens must have been granted access to the organization that owns the space. They must
+    /// also have been granted access to every repository referenced by resources in the space.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - spaceNumber: The unique identifier of the Copilot Space.
-    public static func copilotSpacesListCollaboratorsForOrg(config: ClientConfig, org: String, spaceNumber: Int) async throws -> CopilotSpacesListCollaboratorsForOrgResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators"].joined(), config: config, decoder: .json, operationId: "copilotSpacesListCollaboratorsForOrg")).data
+    static func copilotSpacesListCollaboratorsForOrg(
+        config: ClientConfig,
+        org: String,
+        spaceNumber: Int
+    ) async throws -> CopilotSpacesListCollaboratorsForOrgResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/copilot-spaces/",
+                sdkEncodePathSegment(sdkWireString(spaceNumber)),
+                "/collaborators",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "copilotSpacesListCollaboratorsForOrg"
+        )).data
     }
 
-    /// Adds a collaborator (user or team) to a specific Copilot Space owned by an organization. The authenticated user must have appropriate permissions to manage collaborators. **Note:** When adding users as collaborators, they must already be members of the organization. When adding teams as collaborators, they must be defined in the organization. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the organization that owns the space. They must also have been granted access to every repository referenced by resources in the space.
+    /// Adds a collaborator (user or team) to a specific Copilot Space owned by an organization. The authenticated user
+    /// must have appropriate permissions to manage collaborators. **Note:** When adding users as collaborators, they
+    /// must already be members of the organization. When adding teams as collaborators, they must be defined in the
+    /// organization. OAuth app tokens and personal access tokens (classic) need the `write:org` scope to use this
+    /// endpoint. Fine-grained tokens and GitHub App user access tokens must have been granted access to the
+    /// organization that owns the space. They must also have been granted access to every repository referenced by
+    /// resources in the space.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -25,9 +53,33 @@ extension CopilotSpacesMethods {
     /// - actorIdentifier: The username (for users) or team slug (for teams). The
     ///   numeric ID of a user or team is also accepted.
     /// - role: The role to grant to the collaborator.
-    public static func copilotSpacesAddCollaboratorForOrg(config: ClientConfig, org: String, spaceNumber: Int, actorType: CopilotSpacesAddCollaboratorForOrgRequestBodyActorType, actorIdentifier: String, role: CopilotSpacesAddCollaboratorForOrgRequestBodyRole) async throws -> CopilotSpaceCollaborator {
-        let requestBody = CopilotSpacesAddCollaboratorForOrgRequestBody(actorType: actorType, actorIdentifier: actorIdentifier, role: role)
+    static func copilotSpacesAddCollaboratorForOrg(
+        config: ClientConfig,
+        org: String,
+        spaceNumber: Int,
+        actorType: CopilotSpacesAddCollaboratorForOrgRequestBodyActorType,
+        actorIdentifier: String,
+        role: CopilotSpacesAddCollaboratorForOrgRequestBodyRole
+    ) async throws -> CopilotSpaceCollaborator {
+        let requestBody = CopilotSpacesAddCollaboratorForOrgRequestBody(
+            actorType: actorType,
+            actorIdentifier: actorIdentifier,
+            role: role
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot-spaces/", sdkEncodePathSegment(sdkWireString(spaceNumber)), "/collaborators"].joined(), config: config, body: requestBody, decoder: .json, operationId: "copilotSpacesAddCollaboratorForOrg")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/copilot-spaces/",
+                sdkEncodePathSegment(sdkWireString(spaceNumber)),
+                "/collaborators",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "copilotSpacesAddCollaboratorForOrg"
+        )).data
     }
 }

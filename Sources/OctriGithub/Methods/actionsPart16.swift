@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Sets the settings for whether workflows from fork pull requests can run on private repositories in an organization.
+public extension ActionsMethods {
+    /// Sets the settings for whether workflows from fork pull requests can run on private repositories in an
+    /// organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,9 +21,29 @@ extension ActionsMethods {
     ///   to workflows triggered by pull requests from forks.
     /// - requireApprovalForForkPrWorkflows: Whether workflows triggered by pull
     ///   requests from forks require approval from a repository administrator to run.
-    public static func actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization(config: ClientConfig, org: String, runWorkflowsFromForkPullRequests: Bool, sendWriteTokensToWorkflows: Bool?, sendSecretsAndVariables: Bool?, requireApprovalForForkPrWorkflows: Bool?) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationRequestBody(runWorkflowsFromForkPullRequests: runWorkflowsFromForkPullRequests, sendWriteTokensToWorkflows: sendWriteTokensToWorkflows, sendSecretsAndVariables: sendSecretsAndVariables, requireApprovalForForkPrWorkflows: requireApprovalForForkPrWorkflows)
+    static func actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization(
+        config: ClientConfig,
+        org: String,
+        runWorkflowsFromForkPullRequests: Bool,
+        sendWriteTokensToWorkflows: Bool?,
+        sendSecretsAndVariables: Bool?,
+        requireApprovalForForkPrWorkflows: Bool?
+    ) async throws -> SdkEmptyResponse {
+        let requestBody = ActionsSetPrivateRepoForkPrWorkflowsSettingsOrganizationRequestBody(
+            runWorkflowsFromForkPullRequests: runWorkflowsFromForkPullRequests,
+            sendWriteTokensToWorkflows: sendWriteTokensToWorkflows,
+            sendSecretsAndVariables: sendSecretsAndVariables,
+            requireApprovalForForkPrWorkflows: requireApprovalForForkPrWorkflows
+        )
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/fork-pr-workflows-private-repos"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/fork-pr-workflows-private-repos"]
+                .joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsSetPrivateRepoForkPrWorkflowsSettingsOrganization"
+        )).data
     }
 }

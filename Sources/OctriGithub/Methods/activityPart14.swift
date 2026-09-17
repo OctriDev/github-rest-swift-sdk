@@ -6,10 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActivityMethods {
+public extension ActivityMethods {
     /// Get repository star history
     ///
-    /// Returns repository stars grouped by calendar weeks, most recent first. Pages move backward toward the repository's creation week, and weeks within a page are ordered newest to oldest, so concatenating pages produces one continuous series. Weeks without stars contain zero counts. Week and day boundaries are not guaranteed to align with UTC. The `days` array contains the number of stars created on each day of the week, starting on Sunday.
+    /// Returns repository stars grouped by calendar weeks, most recent first. Pages move backward toward the
+    /// repository's creation week, and weeks within a page are ordered newest to oldest, so concatenating pages
+    /// produces one continuous series. Weeks without stars contain zero counts. Week and day boundaries are not
+    /// guaranteed to align with UTC. The `days` array contains the number of stars created on each day of the week,
+    /// starting on Sunday.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -24,18 +28,37 @@ extension ActivityMethods {
     ///   information, see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func activityGetStargazerHistoryForRepo(config: ClientConfig, owner: String, repo: String, perPage: Int?, page: Int?) async throws -> [StargazerHistory] {
-        if let perPage = perPage {
+    static func activityGetStargazerHistoryForRepo(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [StargazerHistory] {
+        if let perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 30)
         }
 
-        if let page = page {
+        if let page {
             try validateRange("page", Double(page), min: 1, max: 100)
         }
 
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stargazers/history"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "activityGetStargazerHistoryForRepo")).data
+        return try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stargazers/history",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "activityGetStargazerHistoryForRepo"
+        )).data
     }
 }

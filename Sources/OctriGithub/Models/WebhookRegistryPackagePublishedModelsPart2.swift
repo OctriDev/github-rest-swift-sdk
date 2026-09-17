@@ -3,23 +3,33 @@
 
 import Foundation
 
-// WebhookRegistryPackagePublished domain models
+/// WebhookRegistryPackagePublished domain models
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionBody: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionBody")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionBody"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String: JSONValue].self) { return .jsonValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String: JSONValue].self) {
+            return .jsonValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -29,18 +39,17 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionBody: Coda
         case let .jsonValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Optional object value serialized in the `body` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionBodyVariant1: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionBodyVariant1 {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionBodyVariant1 {
+    init() {}
 }
 
 /// Optional object value serialized in the `container_metadata` wire field.
@@ -59,21 +68,25 @@ public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXbdb9
     }
 
     init() {
-        (self.labels, self.manifest, self.tag) = (nil, nil, nil)
+        (labels, manifest, tag) = (nil, nil, nil)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXbdb9d4a9cc {
-    public init(from decoder: Decoder) throws {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXbdb9d4a9cc {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.labels = try container.sdkDecodeIfPresent(.labels)
-        self.manifest = try container.sdkDecodeIfPresent(.manifest)
-        self.tag = try container.sdkDecodeIfPresent(.tag)
+        labels = try container.sdkDecodeIfPresent(.labels)
+        manifest = try container.sdkDecodeIfPresent(.manifest)
+        tag = try container.sdkDecodeIfPresent(.tag)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXbdb9d4a9cc {
-    public init(labels: [String: JSONValue]? = nil, manifest: [String: JSONValue]? = nil, tag: WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e804f10? = nil) {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXbdb9d4a9cc {
+    init(
+        labels: [String: JSONValue]? = nil,
+        manifest: [String: JSONValue]? = nil,
+        tag: WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e804f10? = nil
+    ) {
         self.init()
         (self.labels, self.manifest) = (labels, manifest)
         self.tag = tag
@@ -82,24 +95,24 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXbdb9d4a9
 
 /// Optional object value serialized in the `labels` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXd0c64fd465: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXd0c64fd465 {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXd0c64fd465 {
+    init() {}
 }
 
 /// Optional object value serialized in the `manifest` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXfc15e56bed: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXfc15e56bed {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCXfc15e56bed {
+    init() {}
 }
 
 /// Optional object value serialized in the `tag` wire field.
@@ -115,20 +128,20 @@ public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e
     }
 
     init() {
-        (self.digest, self.name) = (nil, nil)
+        (digest, name) = (nil, nil)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e804f10 {
-    public init(from decoder: Decoder) throws {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e804f10 {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.digest = try container.sdkDecodeIfPresent(.digest)
-        self.name = try container.sdkDecodeIfPresent(.name)
+        digest = try container.sdkDecodeIfPresent(.digest)
+        name = try container.sdkDecodeIfPresent(.name)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e804f10 {
-    public init(digest: String? = nil, name: String? = nil) {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionCX471e804f10 {
+    init(digest: String? = nil, name: String? = nil) {
         self.init()
         (self.digest, self.name) = (digest, name)
     }
@@ -144,19 +157,19 @@ public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionDXe8dc
     }
 
     init() {
-        self.tags = nil
+        tags = nil
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionDXe8dcea64e3 {
-    public init(from decoder: Decoder) throws {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionDXe8dcea64e3 {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.tags = try container.sdkDecodeIfPresent(.tags)
+        tags = try container.sdkDecodeIfPresent(.tags)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionDXe8dcea64e3 {
-    public init(tags: [String]? = nil) {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionDXe8dcea64e3 {
+    init(tags: [String]? = nil) {
         self.init()
         self.tags = tags
     }
@@ -280,19 +293,19 @@ public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMet
     }
 
     init() {
-        (self.name, self.version, self.npmUser, self.author, self.bugs) = (nil, nil, nil, nil, nil)
-        (self.dependencies, self.devDependencies, self.peerDependencies, self.optionalDependencies, self.description) = (nil, nil, nil, nil, nil)
-        (self.dist, self.gitHead, self.homepage, self.license, self.main) = (nil, nil, nil, nil, nil)
-        (self.repository, self.scripts, self.id, self.nodeVersion, self.npmVersion) = (nil, nil, nil, nil, nil)
-        (self.hasShrinkwrap, self.maintainers, self.contributors, self.engines, self.keywords) = (nil, nil, nil, nil, nil)
-        (self.files, self.bin, self.man, self.directories, self.os) = (nil, nil, nil, nil, nil)
-        (self.cpu, self.readme, self.installationCommand, self.releaseId, self.commitOid) = (nil, nil, nil, nil, nil)
-        (self.publishedViaActions, self.deletedById) = (nil, nil)
+        (name, version, npmUser, author, bugs) = (nil, nil, nil, nil, nil)
+        (dependencies, devDependencies, peerDependencies, optionalDependencies, description) = (nil, nil, nil, nil, nil)
+        (dist, gitHead, homepage, license, main) = (nil, nil, nil, nil, nil)
+        (repository, scripts, id, nodeVersion, npmVersion) = (nil, nil, nil, nil, nil)
+        (hasShrinkwrap, maintainers, contributors, engines, keywords) = (nil, nil, nil, nil, nil)
+        (files, bin, man, directories, os) = (nil, nil, nil, nil, nil)
+        (cpu, readme, installationCommand, releaseId, commitOid) = (nil, nil, nil, nil, nil)
+        (publishedViaActions, deletedById) = (nil, nil)
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
-    public init(from decoder: Decoder) throws {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.init()
         try sdkDecodeFieldsPart1(container)
@@ -302,8 +315,46 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadat
     }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
-    public init(name: String? = nil, version: String? = nil, npmUser: String? = nil, author: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8fc66? = nil, bugs: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd7628? = nil, dependencies: [String: JSONValue]? = nil, devDependencies: [String: JSONValue]? = nil, peerDependencies: [String: JSONValue]? = nil, optionalDependencies: [String: JSONValue]? = nil, description: String? = nil, dist: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe481105674? = nil, gitHead: String? = nil, homepage: String? = nil, license: String? = nil, main: String? = nil, repository: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX92a977cccf? = nil, scripts: [String: JSONValue]? = nil, id: String? = nil, nodeVersion: String? = nil, npmVersion: String? = nil, hasShrinkwrap: Bool? = nil, maintainers: [String]? = nil, contributors: [String]? = nil, engines: [String: JSONValue]? = nil, keywords: [String]? = nil, files: [String]? = nil, bin: [String: JSONValue]? = nil, man: [String: JSONValue]? = nil, directories: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa3855? = nil, os: [String]? = nil, cpu: [String]? = nil, readme: String? = nil, installationCommand: String? = nil, releaseId: Int? = nil, commitOid: String? = nil, publishedViaActions: Bool? = nil, deletedById: Int? = nil) {
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
+    init(
+        name: String? = nil,
+        version: String? = nil,
+        npmUser: String? = nil,
+        author: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8fc66? = nil,
+        bugs: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd7628? = nil,
+        dependencies: [String: JSONValue]? = nil,
+        devDependencies: [String: JSONValue]? = nil,
+        peerDependencies: [String: JSONValue]? = nil,
+        optionalDependencies: [String: JSONValue]? = nil,
+        description: String? = nil,
+        dist: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe481105674? = nil,
+        gitHead: String? = nil,
+        homepage: String? = nil,
+        license: String? = nil,
+        main: String? = nil,
+        repository: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX92a977cccf? = nil,
+        scripts: [String: JSONValue]? = nil,
+        id: String? = nil,
+        nodeVersion: String? = nil,
+        npmVersion: String? = nil,
+        hasShrinkwrap: Bool? = nil,
+        maintainers: [String]? = nil,
+        contributors: [String]? = nil,
+        engines: [String: JSONValue]? = nil,
+        keywords: [String]? = nil,
+        files: [String]? = nil,
+        bin: [String: JSONValue]? = nil,
+        man: [String: JSONValue]? = nil,
+        directories: WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa3855? = nil,
+        os: [String]? = nil,
+        cpu: [String]? = nil,
+        readme: String? = nil,
+        installationCommand: String? = nil,
+        releaseId: Int? = nil,
+        commitOid: String? = nil,
+        publishedViaActions: Bool? = nil,
+        deletedById: Int? = nil
+    ) {
         self.init()
         (self.name, self.version) = (name, version)
         (self.npmUser, self.author) = (npmUser, author)
@@ -329,58 +380,58 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadat
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
     mutating func sdkDecodeFieldsPart1(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.version = try container.sdkDecodeIfPresent(.version)
-        self.npmUser = try container.sdkDecodeIfPresent(.npmUser)
-        self.author = try container.sdkDecodeIfPresent(.author)
-        self.bugs = try container.sdkDecodeIfPresent(.bugs)
-        self.dependencies = try container.sdkDecodeIfPresent(.dependencies)
-        self.devDependencies = try container.sdkDecodeIfPresent(.devDependencies)
-        self.peerDependencies = try container.sdkDecodeIfPresent(.peerDependencies)
-        self.optionalDependencies = try container.sdkDecodeIfPresent(.optionalDependencies)
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.dist = try container.sdkDecodeIfPresent(.dist)
-        self.gitHead = try container.sdkDecodeIfPresent(.gitHead)
+        name = try container.sdkDecodeIfPresent(.name)
+        version = try container.sdkDecodeIfPresent(.version)
+        npmUser = try container.sdkDecodeIfPresent(.npmUser)
+        author = try container.sdkDecodeIfPresent(.author)
+        bugs = try container.sdkDecodeIfPresent(.bugs)
+        dependencies = try container.sdkDecodeIfPresent(.dependencies)
+        devDependencies = try container.sdkDecodeIfPresent(.devDependencies)
+        peerDependencies = try container.sdkDecodeIfPresent(.peerDependencies)
+        optionalDependencies = try container.sdkDecodeIfPresent(.optionalDependencies)
+        description = try container.sdkDecodeIfPresent(.description)
+        dist = try container.sdkDecodeIfPresent(.dist)
+        gitHead = try container.sdkDecodeIfPresent(.gitHead)
     }
 }
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
     mutating func sdkDecodeFieldsPart2(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.homepage = try container.sdkDecodeIfPresent(.homepage)
-        self.license = try container.sdkDecodeIfPresent(.license)
-        self.main = try container.sdkDecodeIfPresent(.main)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.scripts = try container.sdkDecodeIfPresent(.scripts)
-        self.id = try container.sdkDecodeIfPresent(.id)
-        self.nodeVersion = try container.sdkDecodeIfPresent(.nodeVersion)
-        self.npmVersion = try container.sdkDecodeIfPresent(.npmVersion)
-        self.hasShrinkwrap = try container.sdkDecodeIfPresent(.hasShrinkwrap)
-        self.maintainers = try container.sdkDecodeIfPresent(.maintainers)
-        self.contributors = try container.sdkDecodeIfPresent(.contributors)
-        self.engines = try container.sdkDecodeIfPresent(.engines)
+        homepage = try container.sdkDecodeIfPresent(.homepage)
+        license = try container.sdkDecodeIfPresent(.license)
+        main = try container.sdkDecodeIfPresent(.main)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        scripts = try container.sdkDecodeIfPresent(.scripts)
+        id = try container.sdkDecodeIfPresent(.id)
+        nodeVersion = try container.sdkDecodeIfPresent(.nodeVersion)
+        npmVersion = try container.sdkDecodeIfPresent(.npmVersion)
+        hasShrinkwrap = try container.sdkDecodeIfPresent(.hasShrinkwrap)
+        maintainers = try container.sdkDecodeIfPresent(.maintainers)
+        contributors = try container.sdkDecodeIfPresent(.contributors)
+        engines = try container.sdkDecodeIfPresent(.engines)
     }
 }
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
     mutating func sdkDecodeFieldsPart3(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.keywords = try container.sdkDecodeIfPresent(.keywords)
-        self.files = try container.sdkDecodeIfPresent(.files)
-        self.bin = try container.sdkDecodeIfPresent(.bin)
-        self.man = try container.sdkDecodeIfPresent(.man)
-        self.directories = try container.sdkDecodeIfPresent(.directories)
-        self.os = try container.sdkDecodeIfPresent(.os)
-        self.cpu = try container.sdkDecodeIfPresent(.cpu)
-        self.readme = try container.sdkDecodeIfPresent(.readme)
-        self.installationCommand = try container.sdkDecodeIfPresent(.installationCommand)
-        self.releaseId = try container.sdkDecodeIfPresent(.releaseId)
-        self.commitOid = try container.sdkDecodeIfPresent(.commitOid)
-        self.publishedViaActions = try container.sdkDecodeIfPresent(.publishedViaActions)
+        keywords = try container.sdkDecodeIfPresent(.keywords)
+        files = try container.sdkDecodeIfPresent(.files)
+        bin = try container.sdkDecodeIfPresent(.bin)
+        man = try container.sdkDecodeIfPresent(.man)
+        directories = try container.sdkDecodeIfPresent(.directories)
+        os = try container.sdkDecodeIfPresent(.os)
+        cpu = try container.sdkDecodeIfPresent(.cpu)
+        readme = try container.sdkDecodeIfPresent(.readme)
+        installationCommand = try container.sdkDecodeIfPresent(.installationCommand)
+        releaseId = try container.sdkDecodeIfPresent(.releaseId)
+        commitOid = try container.sdkDecodeIfPresent(.commitOid)
+        publishedViaActions = try container.sdkDecodeIfPresent(.publishedViaActions)
     }
 }
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNpmMetadata {
     mutating func sdkDecodeFieldsPart4(_ container: KeyedDecodingContainer<CodingKeys>) throws {
-        self.deletedById = try container.sdkDecodeIfPresent(.deletedById)
+        deletedById = try container.sdkDecodeIfPresent(.deletedById)
     }
 }
 
@@ -390,21 +441,31 @@ public enum WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8
 }
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8fc66: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8fc66")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8fc66"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String: JSONValue].self) { return .jsonValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String: JSONValue].self) {
+            return .jsonValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -414,29 +475,28 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX4f18e8fc
         case let .jsonValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Optional object value serialized in the `author` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXc802c0d2d8: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXc802c0d2d8 {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXc802c0d2d8 {
+    init() {}
 }
 
 /// Optional object value serialized in the `bin` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX66a8d2d7d6: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX66a8d2d7d6 {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX66a8d2d7d6 {
+    init() {}
 }
 
 public enum WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd7628 {
@@ -445,21 +505,31 @@ public enum WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd
 }
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd7628: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd7628")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd7628"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String: JSONValue].self) { return .jsonValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String: JSONValue].self) {
+            return .jsonValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -469,40 +539,39 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX0959bd76
         case let .jsonValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Optional object value serialized in the `bugs` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX6bf1b1eb0e: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX6bf1b1eb0e {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX6bf1b1eb0e {
+    init() {}
 }
 
 /// Optional object value serialized in the `dependencies` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX99b008c5b2: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX99b008c5b2 {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX99b008c5b2 {
+    init() {}
 }
 
 /// Optional object value serialized in the `dev_dependencies` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX2a28a211f3: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX2a28a211f3 {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNX2a28a211f3 {
+    init() {}
 }
 
 public enum WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa3855 {
@@ -511,21 +580,31 @@ public enum WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa
 }
 
 extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa3855: Codable {
-
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let value = Self.decodeGroup1(from: container) { self = value; return }
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa3855")
+        if let value = Self.decodeGroup1(from: container) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "No variant matched for WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa3855"
+        )
     }
 
     private static func decodeGroup1(from container: SingleValueDecodingContainer) -> Self? {
-        if let value = try? container.decode(String.self) { return .stringValue(value) }
-        if let value = try? container.decode([String: JSONValue].self) { return .jsonValue(value) }
+        if let value = try? container.decode(String.self) {
+            return .stringValue(value)
+        }
+        if let value = try? container.decode([String: JSONValue].self) {
+            return .jsonValue(value)
+        }
         return nil
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -535,16 +614,15 @@ extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXe064aa38
         case let .jsonValue(value): try container.encode(value); return true
         }
     }
-
 }
 
 /// Optional object value serialized in the `directories` wire field.
 public struct WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXc58e4fd30e: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXc58e4fd30e {
-    public init() {
-    }
+public extension WebhookRegistryPackagePublishedRegistryPackagePackageVersionNXc58e4fd30e {
+    init() {}
 }

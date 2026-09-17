@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ReposRepository domain models
+/// ReposRepository domain models
 /// Repository Collaborator Permission
 public struct RepositoryCollaboratorPermission: Codable {
     /// Required `string` value serialized in the `permission` wire field.
@@ -20,29 +20,43 @@ public struct RepositoryCollaboratorPermission: Codable {
         case user
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryCollaboratorPermission {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.permission) else {
-            throw SdkValidationError(field: "permission", code: "required", message: "Validation failed for 'permission': value is required")
-        }
-        guard container.contains(.roleName) else {
-            throw SdkValidationError(field: "role_name", code: "required", message: "Validation failed for 'role_name': value is required")
-        }
-        guard container.contains(.user) else {
-            throw SdkValidationError(field: "user", code: "required", message: "Validation failed for 'user': value is required")
-        }
-        self.permission = try container.sdkDecodeRequired(.permission)
-        self.roleName = try container.sdkDecodeRequired(.roleName)
-        self.user = try container.sdkDecodeIfPresent(.user)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryCollaboratorPermission {
-    public init(permission: String, roleName: String, user: NullableCollaborator?) {
+public extension RepositoryCollaboratorPermission {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.permission) else {
+            throw SdkValidationError(
+                field: "permission",
+                code: "required",
+                message: "Validation failed for 'permission': value is required"
+            )
+        }
+        guard container.contains(.roleName) else {
+            throw SdkValidationError(
+                field: "role_name",
+                code: "required",
+                message: "Validation failed for 'role_name': value is required"
+            )
+        }
+        guard container.contains(.user) else {
+            throw SdkValidationError(
+                field: "user",
+                code: "required",
+                message: "Validation failed for 'user': value is required"
+            )
+        }
+        permission = try container.sdkDecodeRequired(.permission)
+        roleName = try container.sdkDecodeRequired(.roleName)
+        user = try container.sdkDecodeIfPresent(.user)
+    }
+}
+
+public extension RepositoryCollaboratorPermission {
+    init(permission: String, roleName: String, user: NullableCollaborator?) {
         (self.permission, self.roleName) = (permission, roleName)
         self.user = user
     }
@@ -58,21 +72,27 @@ public struct RepositoryHashAlgorithm: Codable {
         case hashAlgorithm = "hash_algorithm"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryHashAlgorithm {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.hashAlgorithm) else {
-            throw SdkValidationError(field: "hash_algorithm", code: "required", message: "Validation failed for 'hash_algorithm': value is required")
-        }
-        self.hashAlgorithm = try container.sdkDecodeRequired(.hashAlgorithm)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryHashAlgorithm {
-    public init(hashAlgorithm: RepositoryHashAlgorithmHashAlgorithm) {
+public extension RepositoryHashAlgorithm {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.hashAlgorithm) else {
+            throw SdkValidationError(
+                field: "hash_algorithm",
+                code: "required",
+                message: "Validation failed for 'hash_algorithm': value is required"
+            )
+        }
+        hashAlgorithm = try container.sdkDecodeRequired(.hashAlgorithm)
+    }
+}
+
+public extension RepositoryHashAlgorithm {
+    init(hashAlgorithm: RepositoryHashAlgorithmHashAlgorithm) {
         self.hashAlgorithm = hashAlgorithm
     }
 }
@@ -118,34 +138,47 @@ public struct RepositoryInvitation: Codable {
         case expired
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension RepositoryInvitation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.invitee = try container.sdkDecodeIfPresent(.invitee)
-        self.inviter = try container.sdkDecodeIfPresent(.inviter)
-        self.permissions = try container.sdkDecodeRequired(.permissions)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.expired = try container.sdkDecodeIfPresent(.expired)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension RepositoryInvitation {
-    public init(id: Int, repository: MinimalRepository, invitee: NullableSimpleUser?, inviter: NullableSimpleUser?, permissions: RepositoryInvitationPermissions, createdAt: Date, url: String, htmlUrl: String, nodeId: String, expired: Bool? = nil) throws {
+public extension RepositoryInvitation {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        repository = try container.sdkDecodeRequired(.repository)
+        invitee = try container.sdkDecodeIfPresent(.invitee)
+        inviter = try container.sdkDecodeIfPresent(.inviter)
+        permissions = try container.sdkDecodeRequired(.permissions)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        expired = try container.sdkDecodeIfPresent(.expired)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+    }
+}
+
+public extension RepositoryInvitation {
+    init(
+        id: Int,
+        repository: MinimalRepository,
+        invitee: NullableSimpleUser?,
+        inviter: NullableSimpleUser?,
+        permissions: RepositoryInvitationPermissions,
+        createdAt: Date,
+        url: String,
+        htmlUrl: String,
+        nodeId: String,
+        expired: Bool? = nil
+    ) throws {
         (self.id, self.repository) = (id, repository)
         (self.invitee, self.inviter) = (invitee, inviter)
         (self.permissions, self.createdAt) = (permissions, createdAt)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.nodeId, self.expired) = (nodeId, expired)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
     }
 }
 
@@ -153,13 +186,16 @@ extension RepositoryInvitation {
 public struct RepositoryHashAlgorithmHashAlgorithm: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let sha1 = RepositoryHashAlgorithmHashAlgorithm(rawValue: "sha1")
     public static let sha256 = RepositoryHashAlgorithmHashAlgorithm(rawValue: "sha256")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -172,7 +208,10 @@ public struct RepositoryHashAlgorithmHashAlgorithm: RawRepresentable, Hashable, 
 public struct RepositoryInvitationPermissions: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = RepositoryInvitationPermissions(rawValue: "read")
     public static let write = RepositoryInvitationPermissions(rawValue: "write")
     public static let admin = RepositoryInvitationPermissions(rawValue: "admin")
@@ -181,7 +220,7 @@ public struct RepositoryInvitationPermissions: RawRepresentable, Hashable, Codab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

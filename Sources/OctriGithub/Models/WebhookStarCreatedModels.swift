@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookStarCreated domain models
+/// WebhookStarCreated domain models
 /// Typed representation of the `WebhookStarCreated` API schema.
 public struct WebhookStarCreated: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -37,36 +37,62 @@ public struct WebhookStarCreated: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookStarCreated {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        guard container.contains(.starredAt) else {
-            throw SdkValidationError(field: "starred_at", code: "required", message: "Validation failed for 'starred_at': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.starredAt = try container.sdkDecodeIfPresent(.starredAt)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookStarCreated {
-    public init(action: WebhookStarCreatedAction, repository: RepositoryWebhooks, sender: SimpleUser, starredAt: String?, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookStarCreated {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        guard container.contains(.starredAt) else {
+            throw SdkValidationError(
+                field: "starred_at",
+                code: "required",
+                message: "Validation failed for 'starred_at': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        starredAt = try container.sdkDecodeIfPresent(.starredAt)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookStarCreated {
+    init(
+        action: WebhookStarCreatedAction,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        starredAt: String?,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.repository) = (action, repository)
         (self.sender, self.starredAt) = (sender, starredAt)
         (self.enterprise, self.installation) = (enterprise, installation)
@@ -78,12 +104,15 @@ extension WebhookStarCreated {
 public struct WebhookStarCreatedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = WebhookStarCreatedAction(rawValue: "created")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

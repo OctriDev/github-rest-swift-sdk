@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CampaignsMethods {
-    public struct CampaignsCreateCampaignOptions: Codable {
+public extension CampaignsMethods {
+    struct CampaignsCreateCampaignOptions: Codable {
         public var org: String
         public var name: String
         public var description: String
@@ -26,7 +26,10 @@ extension CampaignsMethods {
         }
     }
 
-    /// Create a campaign for an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. Fine-grained tokens must have the "Code scanning alerts" repository permissions (read) on all repositories included in the campaign.
+    /// Create a campaign for an organization. The authenticated user must be an owner or security manager for the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `security_events` scope to use this endpoint. Fine-grained tokens must have the "Code scanning alerts"
+    /// repository permissions (read) on all repositories included in the campaign.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -41,7 +44,10 @@ extension CampaignsMethods {
     /// - codeScanningAlerts: The code scanning alerts to include in this campaign
     /// - generateIssues: If true, will automatically generate issues for the
     ///   campaign. The default is false.
-    public static func campaignsCreateCampaign(config: ClientConfig, options: CampaignsCreateCampaignOptions) async throws -> CampaignSummary {
+    static func campaignsCreateCampaign(
+        config: ClientConfig,
+        options: CampaignsCreateCampaignOptions
+    ) async throws -> CampaignSummary {
         try validateLength("name", options.name, min: 1, max: 50)
 
         try validateLength("description", options.description, min: 1, max: 255)
@@ -66,6 +72,13 @@ extension CampaignsMethods {
 
         let requestBody = CampaignsCreateCampaignRequestBody(options: options)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/campaigns"].joined(), config: config, body: requestBody, decoder: .json, operationId: "campaignsCreateCampaign")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/campaigns"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "campaignsCreateCampaign"
+        )).data
     }
 }

@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testReposEnableAutomatedSecurityFixesReposEnableAutomatedSecurityFixesReachesMockAndDecodesResponse() async throws {
+    func testReposEnableAutomatedSecurityFixesReposEnableAutomatedSecurityFixesReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -30,7 +31,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposEnablePrivateVulnerabilityReportingReposEnablePrivateVulX05203ec4e9ReachesMockAndDecodesResponse() async throws {
+    func testReposEnablePrivateVulnerabilityReportingReposEnablePrivateVulX05203ec4e9ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -140,7 +142,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetAllDeploymentProtectionRulesReposGetAllDeploymentProtectionRulesReachesMockAndDecodesResponse() async throws {
+    func testReposGetAllDeploymentProtectionRulesReposGetAllDeploymentProtectionRulesReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -226,7 +229,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetAppsWithAccessToProtectedBranchReposGetAppsWithAccessXe538f4ea9cReachesMockAndDecodesResponse() async throws {
+    func testReposGetAppsWithAccessToProtectedBranchReposGetAppsWithAccessXe538f4ea9cReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -374,7 +378,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetCollaboratorPermissionLevelReposGetCollaboratorPermissionLevelReachesMockAndDecodesResponse() async throws {
+    func testReposGetCollaboratorPermissionLevelReposGetCollaboratorPermissionLevelReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -482,7 +487,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposGetCommitSignatureProtectionReposGetCommitSignatureProtectionReachesMockAndDecodesResponse() async throws {
+    func testReposGetCommitSignatureProtectionReposGetCommitSignatureProtectionReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

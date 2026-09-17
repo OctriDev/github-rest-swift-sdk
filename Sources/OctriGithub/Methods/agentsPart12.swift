@@ -6,26 +6,76 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentsMethods {
-    /// Adds a repository to an organization agent variable that is available to selected repositories. Use `org`, `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable visibility is set to `selected`. Use an OAuth token or classic personal access token with the `admin:org` scope, and add the `repo` scope when the repository is private.
+public extension AgentsMethods {
+    /// Adds a repository to an organization agent variable that is available to selected repositories. Use `org`,
+    /// `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable
+    /// visibility is set to `selected`. Use an OAuth token or classic personal access token with the `admin:org` scope,
+    /// and add the `repo` scope when the repository is private.
     ///
-    /// Adds a repository to an organization agent variable that is available to selected repositories. Organization variables that are available to selected repositories have their `visibility` field set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Adds a repository to an organization agent variable that is available to selected repositories. Organization
+    /// variables that are available to selected repositories have their `visibility` field set to `selected`.
+    /// Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository
+    /// is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - name: The name of the variable.
-    public static func agentsAddSelectedRepoToOrgVariable(config: ClientConfig, org: String, name: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/variables/", sdkEncodePathSegment(sdkWireString(name)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "agentsAddSelectedRepoToOrgVariable")).data
+    static func agentsAddSelectedRepoToOrgVariable(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/variables/",
+                sdkEncodePathSegment(sdkWireString(name)),
+                "/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "agentsAddSelectedRepoToOrgVariable"
+        )).data
     }
 
-    /// Deletes a repository from an organization agent variable that is available to selected repositories. Use `org`, `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable visibility is set to `selected`. Use an OAuth app token or classic personal access token with the `admin:org` scope, and add the `repo` scope when the repository is private.
+    /// Deletes a repository from an organization agent variable that is available to selected repositories. Use `org`,
+    /// `name`, and `repository_id` to identify the organization variable and repository, and ensure the variable
+    /// visibility is set to `selected`. Use an OAuth app token or classic personal access token with the `admin:org`
+    /// scope, and add the `repo` scope when the repository is private.
     ///
-    /// Removes a repository from an organization agent variable that is available to selected repositories. Organization variables that are available to selected repositories have their `visibility` field set to `selected`. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, the `repo` scope is also required.
+    /// Removes a repository from an organization agent variable that is available to selected repositories.
+    /// Organization variables that are available to selected repositories have their `visibility` field set to
+    /// `selected`. Authenticated users must have collaborator access to a repository to create, update, or read
+    /// variables. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint. If the repository is private, the `repo` scope is also required.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - name: The name of the variable.
-    public static func agentsRemoveSelectedRepoFromOrgVariable(config: ClientConfig, org: String, name: String, repositoryId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/variables/", sdkEncodePathSegment(sdkWireString(name)), "/repositories/", sdkEncodePathSegment(sdkWireString(repositoryId))].joined(), config: config, decoder: .empty, operationId: "agentsRemoveSelectedRepoFromOrgVariable")).data
+    static func agentsRemoveSelectedRepoFromOrgVariable(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        repositoryId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/variables/",
+                sdkEncodePathSegment(sdkWireString(name)),
+                "/repositories/",
+                sdkEncodePathSegment(sdkWireString(repositoryId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "agentsRemoveSelectedRepoFromOrgVariable"
+        )).data
     }
 }

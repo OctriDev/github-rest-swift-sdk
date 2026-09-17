@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookDiscussionCommentEdited domain models
+/// WebhookDiscussionCommentEdited domain models
 /// Typed representation of the `WebhookDiscussionCommentEdited` API schema.
 public struct WebhookDiscussionCommentEdited: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -42,44 +42,80 @@ public struct WebhookDiscussionCommentEdited: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCommentEdited {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.changes) else {
-            throw SdkValidationError(field: "changes", code: "required", message: "Validation failed for 'changes': value is required")
-        }
-        guard container.contains(.comment) else {
-            throw SdkValidationError(field: "comment", code: "required", message: "Validation failed for 'comment': value is required")
-        }
-        guard container.contains(.discussion) else {
-            throw SdkValidationError(field: "discussion", code: "required", message: "Validation failed for 'discussion': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.changes = try container.sdkDecodeRequired(.changes)
-        self.comment = try container.sdkDecodeRequired(.comment)
-        self.discussion = try container.sdkDecodeRequired(.discussion)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCommentEdited {
-    public init(action: WebhookDiscussionCommentEditedAction, changes: WebhookDiscussionCommentEditedChanges, comment: WebhooksComment, discussion: Discussion, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookDiscussionCommentEdited {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.changes) else {
+            throw SdkValidationError(
+                field: "changes",
+                code: "required",
+                message: "Validation failed for 'changes': value is required"
+            )
+        }
+        guard container.contains(.comment) else {
+            throw SdkValidationError(
+                field: "comment",
+                code: "required",
+                message: "Validation failed for 'comment': value is required"
+            )
+        }
+        guard container.contains(.discussion) else {
+            throw SdkValidationError(
+                field: "discussion",
+                code: "required",
+                message: "Validation failed for 'discussion': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        changes = try container.sdkDecodeRequired(.changes)
+        comment = try container.sdkDecodeRequired(.comment)
+        discussion = try container.sdkDecodeRequired(.discussion)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookDiscussionCommentEdited {
+    init(
+        action: WebhookDiscussionCommentEditedAction,
+        changes: WebhookDiscussionCommentEditedChanges,
+        comment: WebhooksComment,
+        discussion: Discussion,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.action, self.changes) = (action, changes)
         (self.comment, self.discussion) = (comment, discussion)
         (self.repository, self.sender) = (repository, sender)
@@ -97,21 +133,27 @@ public struct WebhookDiscussionCommentEditedChanges: Codable {
         case body
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCommentEditedChanges {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.body) else {
-            throw SdkValidationError(field: "body", code: "required", message: "Validation failed for 'body': value is required")
-        }
-        self.body = try container.sdkDecodeRequired(.body)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCommentEditedChanges {
-    public init(body: WebhookDiscussionCommentEditedChangesBody) {
+public extension WebhookDiscussionCommentEditedChanges {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.body) else {
+            throw SdkValidationError(
+                field: "body",
+                code: "required",
+                message: "Validation failed for 'body': value is required"
+            )
+        }
+        body = try container.sdkDecodeRequired(.body)
+    }
+}
+
+public extension WebhookDiscussionCommentEditedChanges {
+    init(body: WebhookDiscussionCommentEditedChangesBody) {
         self.body = body
     }
 }
@@ -125,21 +167,27 @@ public struct WebhookDiscussionCommentEditedChangesBody: Codable {
         case from
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookDiscussionCommentEditedChangesBody {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.from) else {
-            throw SdkValidationError(field: "from", code: "required", message: "Validation failed for 'from': value is required")
-        }
-        self.from = try container.sdkDecodeRequired(.from)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookDiscussionCommentEditedChangesBody {
-    public init(from: String) {
+public extension WebhookDiscussionCommentEditedChangesBody {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.from) else {
+            throw SdkValidationError(
+                field: "from",
+                code: "required",
+                message: "Validation failed for 'from': value is required"
+            )
+        }
+        from = try container.sdkDecodeRequired(.from)
+    }
+}
+
+public extension WebhookDiscussionCommentEditedChangesBody {
+    init(from: String) {
         self.from = from
     }
 }
@@ -148,12 +196,15 @@ extension WebhookDiscussionCommentEditedChangesBody {
 public struct WebhookDiscussionCommentEditedAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let edited = WebhookDiscussionCommentEditedAction(rawValue: "edited")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
-    /// Codespaces for the specified users will no longer be billed to the organization. To use this endpoint, the access settings for the organization must be set to `selected_members`. For information on how to change this setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension CodespacesMethods {
+    /// Codespaces for the specified users will no longer be billed to the organization. To use this endpoint, the
+    /// access settings for the organization must be set to `selected_members`. For information on how to change this
+    /// setting, see "[Manage access control for organization codespaces](https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces)."
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -15,15 +18,28 @@ extension CodespacesMethods {
     ///   collaborators whose codespaces should not be billed to the organization.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public static func codespacesDeleteCodespacesAccessUsers(config: ClientConfig, org: String, selectedUsernames: [String]) async throws -> SdkEmptyResponse {
+    static func codespacesDeleteCodespacesAccessUsers(
+        config: ClientConfig,
+        org: String,
+        selectedUsernames: [String]
+    ) async throws -> SdkEmptyResponse {
         try validateItems("selected_usernames", selectedUsernames, max: 100)
 
         let requestBody = CodespacesDeleteCodespacesAccessUsersRequestBody(selectedUsernames: selectedUsernames)
 
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/access/selected_users"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "codespacesDeleteCodespacesAccessUsers")).data
+        return try await (sdkRequest(
+            "DELETE",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/access/selected_users"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "codespacesDeleteCodespacesAccessUsers"
+        )).data
     }
 
-    /// Lists all Codespaces development environment secrets available at the organization-level without revealing their encrypted values. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Lists all Codespaces development environment secrets available at the organization-level without revealing their
+    /// encrypted values. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -35,10 +51,22 @@ extension CodespacesMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func codespacesListOrgSecrets(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> CodespacesListOrgSecretsResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "codespacesListOrgSecrets")).data
+    static func codespacesListOrgSecrets(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CodespacesListOrgSecretsResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "codespacesListOrgSecrets"
+        )).data
     }
 }

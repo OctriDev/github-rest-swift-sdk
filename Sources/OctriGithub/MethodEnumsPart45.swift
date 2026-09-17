@@ -7,15 +7,19 @@ import Foundation
     import FoundationNetworking
 #endif
 /// The field's data type.
-public struct ProjectsAddFieldForUserRequestBodyVariant2DataType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ProjectsAddFieldForUserRequestBodyVariant2DataType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let iteration = ProjectsAddFieldForUserRequestBodyVariant2DataType(rawValue: "iteration")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,13 +32,16 @@ public struct ProjectsAddFieldForUserRequestBodyVariant2DataType: RawRepresentab
 public struct ProjectsAddItemForUserRequestBodyType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let issue = ProjectsAddItemForUserRequestBodyType(rawValue: "Issue")
     public static let pullRequest = ProjectsAddItemForUserRequestBodyType(rawValue: "PullRequest")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -46,14 +53,17 @@ public struct ProjectsAddItemForUserRequestBodyType: RawRepresentable, Hashable,
 public struct ReposListForUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let all = ReposListForUserParameter(rawValue: "all")
     public static let owner = ReposListForUserParameter(rawValue: "owner")
     public static let member = ReposListForUserParameter(rawValue: "member")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -65,7 +75,10 @@ public struct ReposListForUserParameter: RawRepresentable, Hashable, Codable, Se
 public struct ReposListForUserParameterX089fad86: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let created = ReposListForUserParameterX089fad86(rawValue: "created")
     public static let updated = ReposListForUserParameterX089fad86(rawValue: "updated")
     public static let pushed = ReposListForUserParameterX089fad86(rawValue: "pushed")
@@ -73,7 +86,7 @@ public struct ReposListForUserParameterX089fad86: RawRepresentable, Hashable, Co
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -85,13 +98,16 @@ public struct ReposListForUserParameterX089fad86: RawRepresentable, Hashable, Co
 public struct ReposListForUserParameterX6f083e9f: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = ReposListForUserParameterX6f083e9f(rawValue: "asc")
     public static let desc = ReposListForUserParameterX6f083e9f(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -102,18 +118,23 @@ public struct ReposListForUserParameterX6f083e9f: RawRepresentable, Hashable, Co
 
 /// The geographic area for this codespace. If not specified, the value is assigned by IP. This property
 /// replaces `location`, which is closing down.
-public struct CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let europeWest = CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo(rawValue: "EuropeWest")
-    public static let southeastAsia = CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo(rawValue: "SoutheastAsia")
+    public static let southeastAsia =
+        CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo(rawValue: "SoutheastAsia")
     public static let usEast = CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo(rawValue: "UsEast")
     public static let usWest = CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo(rawValue: "UsWest")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -124,18 +145,23 @@ public struct CodespacesCreateForAuthenticatedUserRequestBodyVariant0Geo: RawRep
 
 /// The geographic area for this codespace. If not specified, the value is assigned by IP. This property
 /// replaces `location`, which is closing down.
-public struct CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let europeWest = CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo(rawValue: "EuropeWest")
-    public static let southeastAsia = CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo(rawValue: "SoutheastAsia")
+    public static let southeastAsia =
+        CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo(rawValue: "SoutheastAsia")
     public static let usEast = CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo(rawValue: "UsEast")
     public static let usWest = CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo(rawValue: "UsWest")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -145,16 +171,22 @@ public struct CodespacesCreateForAuthenticatedUserRequestBodyVariant1Geo: RawRep
 }
 
 /// Denotes whether an email is publicly visible.
-public struct UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility: RawRepresentable, Hashable,
+    Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let `public` = UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility(rawValue: "public")
-    public static let `private` = UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility(rawValue: "private")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let `public` =
+        UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility(rawValue: "public")
+    public static let `private` =
+        UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisibility(rawValue: "private")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -163,10 +195,14 @@ public struct UsersSetPrimaryEmailVisibilityForAuthenticatedUserRequestBodyVisib
     }
 }
 
-public struct IssuesListForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct IssuesListForAuthenticatedUserParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let assigned = IssuesListForAuthenticatedUserParameter(rawValue: "assigned")
     public static let created = IssuesListForAuthenticatedUserParameter(rawValue: "created")
     public static let mentioned = IssuesListForAuthenticatedUserParameter(rawValue: "mentioned")
@@ -176,7 +212,7 @@ public struct IssuesListForAuthenticatedUserParameter: RawRepresentable, Hashabl
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -185,17 +221,21 @@ public struct IssuesListForAuthenticatedUserParameter: RawRepresentable, Hashabl
     }
 }
 
-public struct IssuesListForAuthenticatedUserParameterX0c8713b3: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct IssuesListForAuthenticatedUserParameterX0c8713b3: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let open = IssuesListForAuthenticatedUserParameterX0c8713b3(rawValue: "open")
     public static let closed = IssuesListForAuthenticatedUserParameterX0c8713b3(rawValue: "closed")
     public static let all = IssuesListForAuthenticatedUserParameterX0c8713b3(rawValue: "all")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

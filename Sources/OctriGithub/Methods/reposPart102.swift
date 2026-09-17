@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Enables immutable releases for a repository. The authenticated user must have admin access to the repository.
     ///
     /// - Parameters:
@@ -14,8 +14,24 @@ extension ReposMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposEnableImmutableReleases(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/immutable-releases"].joined(), config: config, decoder: .empty, operationId: "reposEnableImmutableReleases")).data
+    static func reposEnableImmutableReleases(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/immutable-releases",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposEnableImmutableReleases"
+        )).data
     }
 
     /// Disables immutable releases for a repository. The authenticated user must have admin access to the repository.
@@ -25,7 +41,23 @@ extension ReposMethods {
     ///   sensitive.
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
-    public static func reposDisableImmutableReleases(config: ClientConfig, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/immutable-releases"].joined(), config: config, decoder: .empty, operationId: "reposDisableImmutableReleases")).data
+    static func reposDisableImmutableReleases(
+        config: ClientConfig,
+        owner: String,
+        repo: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/immutable-releases",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDisableImmutableReleases"
+        )).data
     }
 }

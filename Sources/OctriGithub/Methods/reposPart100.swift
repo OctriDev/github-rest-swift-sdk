@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Triggers redelivery of a webhook delivery configured for a repository. Use `owner`, `repo`, `hook_id`, and `delivery_id` to identify the repository webhook and delivery to resend. Redelivery is accepted asynchronously, so a successful response confirms acceptance rather than completion.
+public extension ReposMethods {
+    /// Triggers redelivery of a webhook delivery configured for a repository. Use `owner`, `repo`, `hook_id`, and
+    /// `delivery_id` to identify the repository webhook and delivery to resend. Redelivery is accepted asynchronously,
+    /// so a successful response confirms acceptance rather than completion.
     ///
     /// Redeliver a webhook delivery for a webhook configured in a repository.
     ///
@@ -18,8 +20,30 @@ extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    public static func reposRedeliverWebhookDelivery(config: ClientConfig, owner: String, repo: String, hookId: Int, deliveryId: Int) async throws -> [String: JSONValue] {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/deliveries/", sdkEncodePathSegment(sdkWireString(deliveryId)), "/attempts"].joined(), config: config, decoder: .json, operationId: "reposRedeliverWebhookDelivery")).data
+    static func reposRedeliverWebhookDelivery(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        hookId: Int,
+        deliveryId: Int
+    ) async throws -> [String: JSONValue] {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(hookId)),
+                "/deliveries/",
+                sdkEncodePathSegment(sdkWireString(deliveryId)),
+                "/attempts",
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposRedeliverWebhookDelivery"
+        )).data
     }
 
     /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook.
@@ -31,7 +55,26 @@ extension ReposMethods {
     ///   not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    public static func reposPingWebhook(config: ClientConfig, owner: String, repo: String, hookId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/pings"].joined(), config: config, decoder: .empty, operationId: "reposPingWebhook")).data
+    static func reposPingWebhook(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        hookId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(hookId)),
+                "/pings",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposPingWebhook"
+        )).data
     }
 }

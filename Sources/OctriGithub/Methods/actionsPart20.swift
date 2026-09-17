@@ -6,20 +6,35 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Sets the settings for self-hosted runners for an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
+public extension ActionsMethods {
+    /// Sets the settings for self-hosted runners for an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - enabledRepositories: The policy that controls whether self-hosted runners
     ///   can be used in the organization
-    public static func actionsSetSelfHostedRunnersPermissionsOrganization(config: ClientConfig, org: String, enabledRepositories: ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570) async throws -> SdkEmptyResponse {
-        let requestBody = ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody(enabledRepositories: enabledRepositories)
+    static func actionsSetSelfHostedRunnersPermissionsOrganization(
+        config: ClientConfig,
+        org: String,
+        enabledRepositories: ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBodyX6ae5d89570
+    ) async throws -> SdkEmptyResponse {
+        let requestBody =
+            ActionsSetSelfHostedRunnersPermissionsOrganizationRequestBody(enabledRepositories: enabledRepositories)
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsSetSelfHostedRunnersPermissionsOrganization")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsSetSelfHostedRunnersPermissionsOrganization"
+        )).data
     }
 
-    /// Lists repositories that are allowed to use self-hosted runners in an organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this endpoint.
+    /// Lists repositories that are allowed to use self-hosted runners in an organization. OAuth app tokens and personal
+    /// access tokens (classic) need the `admin:org` scope or the "Actions policies" fine-grained permission to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -31,10 +46,26 @@ extension ActionsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func actionsListSelectedRepositoriesSelfHostedRunnersOrganization(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/actions/permissions/self-hosted-runners/repositories"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "actionsListSelectedRepositoriesSelfHostedRunnersOrganization")).data
+    static func actionsListSelectedRepositoriesSelfHostedRunnersOrganization(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> ActionsListSelectedRepositoriesSelfHostedRunnersOrganizationResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/actions/permissions/self-hosted-runners/repositories",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "actionsListSelectedRepositoriesSelfHostedRunnersOrganization"
+        )).data
     }
 }

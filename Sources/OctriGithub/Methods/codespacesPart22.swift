@@ -6,10 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
+public extension CodespacesMethods {
     /// List codespaces for the authenticated user
     ///
-    /// Lists the authenticated user's codespaces. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
+    /// Lists the authenticated user's codespaces. OAuth app tokens and personal access tokens (classic) need the
+    /// `codespace` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100). For more information,
@@ -21,8 +22,13 @@ extension CodespacesMethods {
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
     /// - repositoryId: ID of the Repository to filter on
-    public static func codespacesListForAuthenticatedUser(config: ClientConfig, perPage: Int?, page: Int?, repositoryId: Int?) async throws -> CodespacesListForAuthenticatedUserResponse {
-        return try (await sdkRequest("GET", "/user/codespaces", config: config, query: [
+    static func codespacesListForAuthenticatedUser(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?,
+        repositoryId: Int?
+    ) async throws -> CodespacesListForAuthenticatedUserResponse {
+        try await (sdkRequest("GET", "/user/codespaces", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
             SdkQueryParameter("repository_id", value: repositoryId),
@@ -31,8 +37,20 @@ extension CodespacesMethods {
 
     /// Create a codespace for the authenticated user
     ///
-    /// Creates a new codespace, owned by the authenticated user. This endpoint requires either a `repository_id` OR a `pull_request` but not both. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
-    public static func codespacesCreateForAuthenticatedUser(config: ClientConfig, body: CodespacesCreateForAuthenticatedUserRequestBody) async throws -> Codespace {
-        return try (await sdkRequest("POST", "/user/codespaces", config: config, rawBody: (try sdkJsonEncoder().encode(body)), decoder: .json, operationId: "codespacesCreateForAuthenticatedUser")).data
+    /// Creates a new codespace, owned by the authenticated user. This endpoint requires either a `repository_id` OR a
+    /// `pull_request` but not both. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to
+    /// use this endpoint.
+    static func codespacesCreateForAuthenticatedUser(
+        config: ClientConfig,
+        body: CodespacesCreateForAuthenticatedUserRequestBody
+    ) async throws -> Codespace {
+        try await (sdkRequest(
+            "POST",
+            "/user/codespaces",
+            config: config,
+            rawBody: sdkJsonEncoder().encode(body),
+            decoder: .json,
+            operationId: "codespacesCreateForAuthenticatedUser"
+        )).data
     }
 }

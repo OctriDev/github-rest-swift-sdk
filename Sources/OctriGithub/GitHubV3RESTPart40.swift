@@ -3,58 +3,95 @@
 
 import Foundation
 
-extension UsersNamespace {
-/// List the people a user follows
+public extension UsersNamespace {
+    /// List the people a user follows
     ///
-    /// Lists the people who the specified user follows. If the specified user has a [private profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint returns an empty list unless the request is authenticated as that user. A request authenticated as the specified user returns the list even if the token has no OAuth scopes.
-    public func listFollowingForUser(username: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try await UsersMethods.usersListFollowingForUser(config: config, username: username, perPage: perPage, page: page)
+    /// Lists the people who the specified user follows. If the specified user has a [private
+    /// profile](https://docs.github.com/account-and-profile/concepts/personal-profile#private-profiles), this endpoint
+    /// returns an empty list unless the request is authenticated as that user. A request authenticated as the specified
+    /// user returns the list even if the token has no OAuth scopes.
+    func listFollowingForUser(username: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
+        try await UsersMethods.usersListFollowingForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Check if a user follows another user
-    public func checkFollowingForUser(username: String, targetUser: String) async throws -> SdkEmptyResponse {
-        return try await UsersMethods.usersCheckFollowingForUser(config: config, username: username, targetUser: targetUser)
+    /// Check if a user follows another user
+    func checkFollowingForUser(username: String, targetUser: String) async throws -> SdkEmptyResponse {
+        try await UsersMethods.usersCheckFollowingForUser(config: config, username: username, targetUser: targetUser)
     }
 
-/// List GPG keys for a user
+    /// List GPG keys for a user
     ///
     /// Lists the GPG keys for a user. This information is accessible by anyone.
-    public func listGpgKeysForUser(username: String, perPage: Int?, page: Int?) async throws -> [GpgKey] {
-        return try await UsersMethods.usersListGpgKeysForUser(config: config, username: username, perPage: perPage, page: page)
+    func listGpgKeysForUser(username: String, perPage: Int?, page: Int?) async throws -> [GpgKey] {
+        try await UsersMethods.usersListGpgKeysForUser(config: config, username: username, perPage: perPage, page: page)
     }
 
-/// Get contextual information for a user
+    /// Get contextual information for a user
     ///
-    /// Provides hovercard information. You can find out more about someone in relation to their pull requests, issues, repositories, and organizations. The `subject_type` and `subject_id` parameters provide context for the person's hovercard, which returns more information than without the parameters. For example, if you wanted to find out more about `octocat` who owns the `Spoon-Knife` repository, you would use a `subject_type` value of `repository` and a `subject_id` value of `1300192` (the ID of the `Spoon-Knife` repository). OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
-    public func getContextForUser(username: String, subjectType: UsersGetContextForUserParameter?, subjectId: String?) async throws -> Hovercard {
-        return try await UsersMethods.usersGetContextForUser(config: config, username: username, subjectType: subjectType, subjectId: subjectId)
+    /// Provides hovercard information. You can find out more about someone in relation to their pull requests, issues,
+    /// repositories, and organizations. The `subject_type` and `subject_id` parameters provide context for the person's
+    /// hovercard, which returns more information than without the parameters. For example, if you wanted to find out
+    /// more about `octocat` who owns the `Spoon-Knife` repository, you would use a `subject_type` value of `repository`
+    /// and a `subject_id` value of `1300192` (the ID of the `Spoon-Knife` repository). OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
+    func getContextForUser(
+        username: String,
+        subjectType: UsersGetContextForUserParameter?,
+        subjectId: String?
+    ) async throws -> Hovercard {
+        try await UsersMethods.usersGetContextForUser(
+            config: config,
+            username: username,
+            subjectType: subjectType,
+            subjectId: subjectId
+        )
     }
 
-/// List public keys for a user
+    /// List public keys for a user
     ///
     /// Lists the _verified_ public SSH keys for a user. This is accessible by anyone.
-    public func listPublicKeysForUser(username: String, perPage: Int?, page: Int?) async throws -> [KeySimple] {
-        return try await UsersMethods.usersListPublicKeysForUser(config: config, username: username, perPage: perPage, page: page)
+    func listPublicKeysForUser(username: String, perPage: Int?, page: Int?) async throws -> [KeySimple] {
+        try await UsersMethods.usersListPublicKeysForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List social accounts for a user
+    /// List social accounts for a user
     ///
     /// Lists social media accounts for a user. This endpoint is accessible by anyone.
-    public func listSocialAccountsForUser(username: String, perPage: Int?, page: Int?) async throws -> [SocialAccount] {
-        return try await UsersMethods.usersListSocialAccountsForUser(config: config, username: username, perPage: perPage, page: page)
+    func listSocialAccountsForUser(username: String, perPage: Int?, page: Int?) async throws -> [SocialAccount] {
+        try await UsersMethods.usersListSocialAccountsForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List SSH signing keys for a user
+    /// List SSH signing keys for a user
     ///
     /// Lists the SSH signing keys for a user. This operation is accessible by anyone.
-    public func listSshSigningKeysForUser(username: String, perPage: Int?, page: Int?) async throws -> [SshSigningKey] {
-        return try await UsersMethods.usersListSshSigningKeysForUser(config: config, username: username, perPage: perPage, page: page)
+    func listSshSigningKeysForUser(username: String, perPage: Int?, page: Int?) async throws -> [SshSigningKey] {
+        try await UsersMethods.usersListSshSigningKeysForUser(
+            config: config,
+            username: username,
+            perPage: perPage,
+            page: page
+        )
     }
 }
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart1(_ config: ClientConfig) -> (MetaNamespace, SecurityAdvisoriesNamespace) {
-        return (
+        (
             MetaNamespace(config: config),
             SecurityAdvisoriesNamespace(config: config)
         )
@@ -63,7 +100,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart2(_ config: ClientConfig) -> (AgentTasksNamespace, AppsNamespace) {
-        return (
+        (
             AgentTasksNamespace(config: config),
             AppsNamespace(config: config)
         )
@@ -72,7 +109,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart3(_ config: ClientConfig) -> (ClassroomNamespace, CodesOfConductNamespace) {
-        return (
+        (
             ClassroomNamespace(config: config),
             CodesOfConductNamespace(config: config)
         )
@@ -81,7 +118,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart4(_ config: ClientConfig) -> (CredentialsNamespace, EmojisNamespace) {
-        return (
+        (
             CredentialsNamespace(config: config),
             EmojisNamespace(config: config)
         )
@@ -90,7 +127,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart5(_ config: ClientConfig) -> (ActionsNamespace, OidcNamespace) {
-        return (
+        (
             ActionsNamespace(config: config),
             OidcNamespace(config: config)
         )
@@ -99,7 +136,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart6(_ config: ClientConfig) -> (CodeSecurityNamespace, CopilotNamespace) {
-        return (
+        (
             CodeSecurityNamespace(config: config),
             CopilotNamespace(config: config)
         )
@@ -107,8 +144,9 @@ extension GitHubV3REST {
 }
 
 extension GitHubV3REST {
-    static func sdkMakeNamespacesPart7(_ config: ClientConfig) -> (DependabotNamespace, EnterpriseTeamMembershipsNamespace) {
-        return (
+    static func sdkMakeNamespacesPart7(_ config: ClientConfig)
+        -> (DependabotNamespace, EnterpriseTeamMembershipsNamespace) {
+        (
             DependabotNamespace(config: config),
             EnterpriseTeamMembershipsNamespace(config: config)
         )
@@ -116,8 +154,9 @@ extension GitHubV3REST {
 }
 
 extension GitHubV3REST {
-    static func sdkMakeNamespacesPart8(_ config: ClientConfig) -> (EnterpriseTeamsNamespace, EnterpriseTeamOrganizationsNamespace) {
-        return (
+    static func sdkMakeNamespacesPart8(_ config: ClientConfig)
+        -> (EnterpriseTeamsNamespace, EnterpriseTeamOrganizationsNamespace) {
+        (
             EnterpriseTeamsNamespace(config: config),
             EnterpriseTeamOrganizationsNamespace(config: config)
         )
@@ -126,7 +165,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart9(_ config: ClientConfig) -> (ActivityNamespace, GistsNamespace) {
-        return (
+        (
             ActivityNamespace(config: config),
             GistsNamespace(config: config)
         )
@@ -135,7 +174,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart10(_ config: ClientConfig) -> (GitignoreNamespace, IssuesNamespace) {
-        return (
+        (
             GitignoreNamespace(config: config),
             IssuesNamespace(config: config)
         )
@@ -144,7 +183,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart11(_ config: ClientConfig) -> (LicensesNamespace, MarkdownNamespace) {
-        return (
+        (
             LicensesNamespace(config: config),
             MarkdownNamespace(config: config)
         )
@@ -153,7 +192,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart12(_ config: ClientConfig) -> (OrgsNamespace, BillingNamespace) {
-        return (
+        (
             OrgsNamespace(config: config),
             BillingNamespace(config: config)
         )
@@ -162,7 +201,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart13(_ config: ClientConfig) -> (AgentsNamespace, CampaignsNamespace) {
-        return (
+        (
             AgentsNamespace(config: config),
             CampaignsNamespace(config: config)
         )
@@ -171,7 +210,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart14(_ config: ClientConfig) -> (CodeScanningNamespace, CodespacesNamespace) {
-        return (
+        (
             CodeScanningNamespace(config: config),
             CodespacesNamespace(config: config)
         )
@@ -180,7 +219,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart15(_ config: ClientConfig) -> (CopilotSpacesNamespace, PackagesNamespace) {
-        return (
+        (
             CopilotSpacesNamespace(config: config),
             PackagesNamespace(config: config)
         )
@@ -189,7 +228,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart16(_ config: ClientConfig) -> (InteractionsNamespace, MigrationsNamespace) {
-        return (
+        (
             InteractionsNamespace(config: config),
             MigrationsNamespace(config: config)
         )
@@ -198,7 +237,7 @@ extension GitHubV3REST {
 
 extension GitHubV3REST {
     static func sdkMakeNamespacesPart17(_ config: ClientConfig) -> (PrivateRegistriesNamespace, ProjectsNamespace) {
-        return (
+        (
             PrivateRegistriesNamespace(config: config),
             ProjectsNamespace(config: config)
         )

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    public struct ReposUpdateOptions: Codable {
+public extension ReposMethods {
+    struct ReposUpdateOptions: Codable {
         public var owner: String
         public var repo: String
         public var name: String?
@@ -44,7 +44,8 @@ extension ReposMethods {
         }
     }
 
-    /// **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/repos/repos#replace-all-repository-topics) endpoint.
+    /// **Note**: To edit a repository's topics, use the [Replace all repository
+    /// topics](https://docs.github.com/rest/repos/repos#replace-all-repository-topics) endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -129,9 +130,21 @@ extension ReposMethods {
     /// - webCommitSignoffRequired: Either `true` to require contributors to sign
     ///   off on web-based commits, or `false` to not require contributors to sign off
     ///   on web-based commits.
-    public static func reposUpdate(config: ClientConfig, options: ReposUpdateOptions) async throws -> FullRepository {
+    static func reposUpdate(config: ClientConfig, options: ReposUpdateOptions) async throws -> FullRepository {
         let requestBody = ReposUpdateRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdate")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposUpdate"
+        )).data
     }
 }

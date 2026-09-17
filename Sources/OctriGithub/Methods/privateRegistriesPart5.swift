@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PrivateRegistriesMethods {
-    public struct PrivateRegistriesUpdateOrgPrivateRegistryOptions: Codable {
+public extension PrivateRegistriesMethods {
+    struct PrivateRegistriesUpdateOrgPrivateRegistryOptions: Codable {
         public var org: String
         public var secretName: String
         public var registryType: PrivateRegistriesUpdateOrgPrivateRegistryRequestBodyRegistryType?
@@ -41,7 +41,13 @@ extension PrivateRegistriesMethods {
         }
     }
 
-    /// Updates a private registry configuration with an encrypted value for an organization. Encrypt your secret using [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see "[Encrypting secrets for the REST API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." For OIDC-based registries (`oidc_azure`, `oidc_aws`, `oidc_jfrog`, `oidc_cloudsmith`, or `oidc_gcp`), the `encrypted_value` and `key_id` fields should be omitted. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Updates a private registry configuration with an encrypted value for an organization. Encrypt your secret using
+    /// [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). For more information, see
+    /// "[Encrypting secrets for the REST
+    /// API](https://docs.github.com/rest/guides/encrypting-secrets-for-the-rest-api)." For OIDC-based registries
+    /// (`oidc_azure`, `oidc_aws`, `oidc_jfrog`, `oidc_cloudsmith`, or `oidc_gcp`), the `encrypted_value` and `key_id`
+    /// fields should be omitted. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to
+    /// use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -105,7 +111,10 @@ extension PrivateRegistriesMethods {
     /// - serviceAccount: The GCP service account email to impersonate. Optional for
     ///   `oidc_gcp` auth type. If omitted, the federated token is used directly
     ///   (direct WIF).
-    public static func privateRegistriesUpdateOrgPrivateRegistry(config: ClientConfig, options: PrivateRegistriesUpdateOrgPrivateRegistryOptions) async throws -> SdkEmptyResponse {
+    static func privateRegistriesUpdateOrgPrivateRegistry(
+        config: ClientConfig,
+        options: PrivateRegistriesUpdateOrgPrivateRegistryOptions
+    ) async throws -> SdkEmptyResponse {
         if let url = options.url {
             try sdkValidateUri("url", url)
         }
@@ -116,6 +125,18 @@ extension PrivateRegistriesMethods {
 
         let requestBody = PrivateRegistriesUpdateOrgPrivateRegistryRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/private-registries/", sdkEncodePathSegment(sdkWireString(options.secretName))].joined(), config: config, body: requestBody, decoder: .empty, operationId: "privateRegistriesUpdateOrgPrivateRegistry")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(options.org)),
+                "/private-registries/",
+                sdkEncodePathSegment(sdkWireString(options.secretName)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "privateRegistriesUpdateOrgPrivateRegistry"
+        )).data
     }
 }

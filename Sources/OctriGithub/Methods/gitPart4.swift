@@ -6,8 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension GitMethods {
-    /// Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects). To get the contents of a commit, see "Get a commit." **Signature verification object** The response will include a `verification` object that describes the result of verifying the commit's signature. The following fields are included in the `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` | Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The reason for verified value. Possible values and their meanings are enumerated in the table below. | | `signature` | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | | `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification service is currently unavailable. | | `unsigned` | The object does not include a signature. | | `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the commit was associated with a user, but the email address is not verified on their account. | | `bad_email` | The `committer` email address in the commit is not included in the identities of the PGP key that made the signature. | | `unknown_key` | The key that made the signature has not been registered with any user's account. | | `malformed_signature` | There was an…
+public extension GitMethods {
+    /// Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects). To get the contents of a
+    /// commit, see "Get a commit." **Signature verification object** The response will include a `verification` object
+    /// that describes the result of verifying the commit's signature. The following fields are included in the
+    /// `verification` object: | Name | Type | Description | | ---- | ---- | ----------- | | `verified` | `boolean` |
+    /// Indicates whether GitHub considers the signature in this commit to be verified. | | `reason` | `string` | The
+    /// reason for verified value. Possible values and their meanings are enumerated in the table below. | | `signature`
+    /// | `string` | The signature that was extracted from the commit. | | `payload` | `string` | The value that was
+    /// signed. | | `verified_at` | `string` | The date the signature was verified by GitHub. | These are the possible
+    /// values for `reason` in the `verification` object: | Value | Description | | ----- | ----------- | |
+    /// `expired_key` | The key that made the signature is expired. | | `not_signing_key` | The "signing" flag is not
+    /// among the usage flags in the GPG key that made the signature. | | `gpgverify_error` | There was an error
+    /// communicating with the signature verification service. | | `gpgverify_unavailable` | The signature verification
+    /// service is currently unavailable. | | `unsigned` | The object does not include a signature. | |
+    /// `unknown_signature_type` | A non-PGP signature was found in the commit. | | `no_user` | No user was associated
+    /// with the `committer` email address in the commit. | | `unverified_email` | The `committer` email address in the
+    /// commit was associated with a user, but the email address is not verified on their account. | | `bad_email` | The
+    /// `committer` email address in the commit is not included in the identities of the PGP key that made the
+    /// signature. | | `unknown_key` | The key that made the signature has not been registered with any user's account.
+    /// | | `malformed_signature` | There was an…
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +33,39 @@ extension GitMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - commitSha: The SHA of the commit.
-    public static func gitGetCommit(config: ClientConfig, owner: String, repo: String, commitSha: String) async throws -> GitCommit {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/commits/", sdkEncodePathSegment(sdkWireString(commitSha))].joined(), config: config, decoder: .json, operationId: "gitGetCommit")).data
+    static func gitGetCommit(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commitSha: String
+    ) async throws -> GitCommit {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/commits/",
+                sdkEncodePathSegment(sdkWireString(commitSha)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "gitGetCommit"
+        )).data
     }
 
-    /// Returns an array of references from your Git database that match the supplied name. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't exist in the repository, but existing refs start with `:ref`, they will be returned as an array. When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`. > [!NOTE] > You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)". If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
+    /// Returns an array of references from your Git database that match the supplied name. The `:ref` in the URL must
+    /// be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't exist
+    /// in the repository, but existing refs start with `:ref`, they will be returned as an array. When you use this
+    /// endpoint without providing a `:ref`, it will return an array of all the references from your Git database,
+    /// including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads`
+    /// and `tags`. > [!NOTE] > You need to explicitly [request a pull
+    /// request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which
+    /// checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+    /// If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the
+    /// response can still include other matching head refs that start with the word `feature`, such as `featureA` and
+    /// `featureB`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -29,7 +75,25 @@ extension GitMethods {
     /// - ref: The Git reference. For more information, see "[Git
     ///   References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in
     ///   the Git documentation.
-    public static func gitListMatchingRefs(config: ClientConfig, owner: String, repo: String, ref: String) async throws -> [GitRef] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/git/matching-refs/", sdkEncodePathSegment(sdkWireString(ref))].joined(), config: config, decoder: .json, operationId: "gitListMatchingRefs")).data
+    static func gitListMatchingRefs(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String
+    ) async throws -> [GitRef] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/git/matching-refs/",
+                sdkEncodePathSegment(sdkWireString(ref)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "gitListMatchingRefs"
+        )).data
     }
 }

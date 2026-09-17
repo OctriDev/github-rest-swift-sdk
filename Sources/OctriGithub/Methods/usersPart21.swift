@@ -6,10 +6,18 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension UsersMethods {
+public extension UsersMethods {
     /// List attestations
     ///
-    /// List a collection of artifact attestations with a given subject digest that are associated with repositories owned by a user. The collection of attestations returned by this endpoint is filtered according to the authenticated user's permissions; if the authenticated user cannot read a repository, the attestations associated with that repository will not be included in the response. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    /// List a collection of artifact attestations with a given subject digest that are associated with repositories
+    /// owned by a user. The collection of attestations returned by this endpoint is filtered according to the
+    /// authenticated user's permissions; if the authenticated user cannot read a repository, the attestations
+    /// associated with that repository will not be included in the response. In addition, when using a fine-grained
+    /// access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful
+    /// security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the
+    /// identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI
+    /// `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see
+    /// [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
     ///
     /// - Parameters:
     /// - username: The handle for the GitHub user account.
@@ -33,12 +41,32 @@ extension UsersMethods {
     /// - predicateType: Optional filter for fetching attestations with a given
     ///   predicate type. This option accepts `provenance`, `sbom`, `release`, or
     ///   freeform text for custom predicate types.
-    public static func usersListAttestations(config: ClientConfig, username: String, subjectDigest: String, perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> UsersListAttestationsResponse {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/attestations/", sdkEncodePathSegment(sdkWireString(subjectDigest))].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("predicate_type", value: predicateType),
-        ], decoder: .json, operationId: "usersListAttestations")).data
+    static func usersListAttestations(
+        config: ClientConfig,
+        username: String,
+        subjectDigest: String,
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        predicateType: String?
+    ) async throws -> UsersListAttestationsResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/attestations/",
+                sdkEncodePathSegment(sdkWireString(subjectDigest)),
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("predicate_type", value: predicateType),
+            ],
+            decoder: .json,
+            operationId: "usersListAttestations"
+        )).data
     }
 }

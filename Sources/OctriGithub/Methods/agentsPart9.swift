@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentsMethods {
-    /// Creates an organization agent variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension AgentsMethods {
+    /// Creates an organization agent variable that you can reference in a GitHub Actions workflow. Authenticated users
+    /// must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal
+    /// access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth
+    /// tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -19,18 +22,55 @@ extension AgentsMethods {
     /// - selectedRepositoryIds: An array of repository ids that can access the
     ///   organization variable. You can only provide a list of repository ids when
     ///   the `visibility` is set to `selected`.
-    public static func agentsCreateOrgVariable(config: ClientConfig, org: String, name: String, value: String, visibility: AgentsCreateOrgVariableRequestBodyVisibility, selectedRepositoryIds: [Int]?) async throws -> EmptyObject {
-        let requestBody = AgentsCreateOrgVariableRequestBody(name: name, value: value, visibility: visibility, selectedRepositoryIds: selectedRepositoryIds)
+    static func agentsCreateOrgVariable(
+        config: ClientConfig,
+        org: String,
+        name: String,
+        value: String,
+        visibility: AgentsCreateOrgVariableRequestBodyVisibility,
+        selectedRepositoryIds: [Int]?
+    ) async throws -> EmptyObject {
+        let requestBody = AgentsCreateOrgVariableRequestBody(
+            name: name,
+            value: value,
+            visibility: visibility,
+            selectedRepositoryIds: selectedRepositoryIds
+        )
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/variables"].joined(), config: config, body: requestBody, decoder: .json, operationId: "agentsCreateOrgVariable")).data
+        return try await (sdkRequest(
+            "POST",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/variables"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "agentsCreateOrgVariable"
+        )).data
     }
 
-    /// Gets a specific agent variable in an organization. The authenticated user must have collaborator access to a repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Gets a specific agent variable in an organization. The authenticated user must have collaborator access to a
+    /// repository to create, update, or read variables. OAuth tokens and personal access tokens (classic) need the
+    /// `admin:org` scope to use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - name: The name of the variable.
-    public static func agentsGetOrgVariable(config: ClientConfig, org: String, name: String) async throws -> OrganizationActionsVariable {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/agents/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "agentsGetOrgVariable")).data
+    static func agentsGetOrgVariable(
+        config: ClientConfig,
+        org: String,
+        name: String
+    ) async throws -> OrganizationActionsVariable {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/agents/variables/",
+                sdkEncodePathSegment(sdkWireString(name)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "agentsGetOrgVariable"
+        )).data
     }
 }

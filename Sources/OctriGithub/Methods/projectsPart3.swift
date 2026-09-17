@@ -6,16 +6,29 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
-    /// Retrieves a specific project owned by an organization. Supply the organization name in `org` and the project's numeric identifier in `project_number`; the organization name is not case sensitive. The response includes the project's ownership, metadata, visibility, lifecycle timestamps, and current state.
+public extension ProjectsMethods {
+    /// Retrieves a specific project owned by an organization. Supply the organization name in `org` and the project's
+    /// numeric identifier in `project_number`; the organization name is not case sensitive. The response includes the
+    /// project's ownership, metadata, visibility, lifecycle timestamps, and current state.
     ///
     /// Get a specific organization-owned project.
     ///
     /// - Parameters:
     /// - projectNumber: The project's number.
     /// - org: The organization name. The name is not case sensitive.
-    public static func projectsGetForOrg(config: ClientConfig, projectNumber: Int, org: String) async throws -> ProjectsV2 {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber))].joined(), config: config, decoder: .json, operationId: "projectsGetForOrg")).data
+    static func projectsGetForOrg(config: ClientConfig, projectNumber: Int, org: String) async throws -> ProjectsV2 {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "projectsGetForOrg"
+        )).data
     }
 
     /// Create draft issue item for the specified organization owned project.
@@ -25,9 +38,28 @@ extension ProjectsMethods {
     /// - projectNumber: The project's number.
     /// - title: The title of the draft issue item to create in the project.
     /// - body: The body content of the draft issue item to create in the project.
-    public static func projectsCreateDraftItemForOrg(config: ClientConfig, org: String, projectNumber: Int, title: String, body: String?) async throws -> ProjectsV2ItemSimple {
+    static func projectsCreateDraftItemForOrg(
+        config: ClientConfig,
+        org: String,
+        projectNumber: Int,
+        title: String,
+        body: String?
+    ) async throws -> ProjectsV2ItemSimple {
         let requestBody = ProjectsCreateDraftItemForOrgRequestBody(title: title, body: body)
 
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/drafts"].joined(), config: config, body: requestBody, decoder: .json, operationId: "projectsCreateDraftItemForOrg")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/drafts",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "projectsCreateDraftItemForOrg"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// SharedCode domain models
+/// SharedCode domain models
 public typealias CodeScanningRef = String
 
 /// Code Of Conduct
@@ -61,42 +61,60 @@ public struct CodeOfConduct: Codable {
         case body
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension CodeOfConduct {
-    public init(from decoder: Decoder) throws {
+public extension CodeOfConduct {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.key) else {
-            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
+            throw SdkValidationError(
+                field: "key",
+                code: "required",
+                message: "Validation failed for 'key': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
         guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
         }
-        self.key = try container.sdkDecodeRequired(.key)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.body = try container.sdkDecodeIfPresent(.body)
-            try sdkValidateUri("url", self.url)
-        if let value = self.htmlUrl {
+        key = try container.sdkDecodeRequired(.key)
+        name = try container.sdkDecodeRequired(.name)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        body = try container.sdkDecodeIfPresent(.body)
+        try sdkValidateUri("url", url)
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-extension CodeOfConduct {
-    public init(key: String, name: String, url: String, htmlUrl: String?, body: String? = nil) throws {
+public extension CodeOfConduct {
+    init(key: String, name: String, url: String, htmlUrl: String?, body: String? = nil) throws {
         (self.key, self.name) = (key, name)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         self.body = body
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }
@@ -125,40 +143,58 @@ public struct CodeOfConductSimple: Codable {
         case htmlUrl = "html_url"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension CodeOfConductSimple {
-    public init(from decoder: Decoder) throws {
+public extension CodeOfConductSimple {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
         guard container.contains(.key) else {
-            throw SdkValidationError(field: "key", code: "required", message: "Validation failed for 'key': value is required")
+            throw SdkValidationError(
+                field: "key",
+                code: "required",
+                message: "Validation failed for 'key': value is required"
+            )
         }
         guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
         }
         guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
         }
-        self.url = try container.sdkDecodeRequired(.url)
-        self.key = try container.sdkDecodeRequired(.key)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-            try sdkValidateUri("url", self.url)
-        if let value = self.htmlUrl {
+        url = try container.sdkDecodeRequired(.url)
+        key = try container.sdkDecodeRequired(.key)
+        name = try container.sdkDecodeRequired(.name)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        try sdkValidateUri("url", url)
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
     }
 }
 
-extension CodeOfConductSimple {
-    public init(url: String, key: String, name: String, htmlUrl: String?) throws {
+public extension CodeOfConductSimple {
+    init(url: String, key: String, name: String, htmlUrl: String?) throws {
         (self.url, self.key) = (url, key)
         (self.name, self.htmlUrl) = (name, htmlUrl)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
         if let value = self.htmlUrl {
             try sdkValidateUri("html_url", value)
         }

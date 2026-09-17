@@ -3,7 +3,7 @@
 
 import Foundation
 
-// ActionsActions domain models
+/// ActionsActions domain models
 /// Typed representation of the `ActionsOrganizationPermissions` API schema.
 public struct ActionsOrganizationPermissions: Codable {
     /// The policy that controls the repositories in the organization that are allowed to run GitHub Actions.
@@ -27,25 +27,37 @@ public struct ActionsOrganizationPermissions: Codable {
         case shaPinningRequired = "sha_pinning_required"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ActionsOrganizationPermissions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.enabledRepositories) else {
-            throw SdkValidationError(field: "enabled_repositories", code: "required", message: "Validation failed for 'enabled_repositories': value is required")
-        }
-        self.enabledRepositories = try container.sdkDecodeRequired(.enabledRepositories)
-        self.selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
-        self.allowedActions = try container.sdkDecodeIfPresent(.allowedActions)
-        self.selectedActionsUrl = try container.sdkDecodeIfPresent(.selectedActionsUrl)
-        self.shaPinningRequired = try container.sdkDecodeIfPresent(.shaPinningRequired)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ActionsOrganizationPermissions {
-    public init(enabledRepositories: EnabledRepositories, selectedRepositoriesUrl: String? = nil, allowedActions: AllowedActions? = nil, selectedActionsUrl: SelectedActionsUrl? = nil, shaPinningRequired: ShaPinningRequired? = nil) {
+public extension ActionsOrganizationPermissions {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.enabledRepositories) else {
+            throw SdkValidationError(
+                field: "enabled_repositories",
+                code: "required",
+                message: "Validation failed for 'enabled_repositories': value is required"
+            )
+        }
+        enabledRepositories = try container.sdkDecodeRequired(.enabledRepositories)
+        selectedRepositoriesUrl = try container.sdkDecodeIfPresent(.selectedRepositoriesUrl)
+        allowedActions = try container.sdkDecodeIfPresent(.allowedActions)
+        selectedActionsUrl = try container.sdkDecodeIfPresent(.selectedActionsUrl)
+        shaPinningRequired = try container.sdkDecodeIfPresent(.shaPinningRequired)
+    }
+}
+
+public extension ActionsOrganizationPermissions {
+    init(
+        enabledRepositories: EnabledRepositories,
+        selectedRepositoriesUrl: String? = nil,
+        allowedActions: AllowedActions? = nil,
+        selectedActionsUrl: SelectedActionsUrl? = nil,
+        shaPinningRequired: ShaPinningRequired? = nil
+    ) {
         self.enabledRepositories = enabledRepositories
         (self.selectedRepositoriesUrl, self.allowedActions) = (selectedRepositoriesUrl, allowedActions)
         (self.selectedActionsUrl, self.shaPinningRequired) = (selectedActionsUrl, shaPinningRequired)
@@ -71,24 +83,35 @@ public struct ActionsRepositoryPermissions: Codable {
         case shaPinningRequired = "sha_pinning_required"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ActionsRepositoryPermissions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.enabled) else {
-            throw SdkValidationError(field: "enabled", code: "required", message: "Validation failed for 'enabled': value is required")
-        }
-        self.enabled = try container.sdkDecodeRequired(.enabled)
-        self.allowedActions = try container.sdkDecodeIfPresent(.allowedActions)
-        self.selectedActionsUrl = try container.sdkDecodeIfPresent(.selectedActionsUrl)
-        self.shaPinningRequired = try container.sdkDecodeIfPresent(.shaPinningRequired)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ActionsRepositoryPermissions {
-    public init(enabled: ActionsEnabled, allowedActions: AllowedActions? = nil, selectedActionsUrl: SelectedActionsUrl? = nil, shaPinningRequired: ShaPinningRequired? = nil) {
+public extension ActionsRepositoryPermissions {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.enabled) else {
+            throw SdkValidationError(
+                field: "enabled",
+                code: "required",
+                message: "Validation failed for 'enabled': value is required"
+            )
+        }
+        enabled = try container.sdkDecodeRequired(.enabled)
+        allowedActions = try container.sdkDecodeIfPresent(.allowedActions)
+        selectedActionsUrl = try container.sdkDecodeIfPresent(.selectedActionsUrl)
+        shaPinningRequired = try container.sdkDecodeIfPresent(.shaPinningRequired)
+    }
+}
+
+public extension ActionsRepositoryPermissions {
+    init(
+        enabled: ActionsEnabled,
+        allowedActions: AllowedActions? = nil,
+        selectedActionsUrl: SelectedActionsUrl? = nil,
+        shaPinningRequired: ShaPinningRequired? = nil
+    ) {
         (self.enabled, self.allowedActions) = (enabled, allowedActions)
         (self.selectedActionsUrl, self.shaPinningRequired) = (selectedActionsUrl, shaPinningRequired)
     }
@@ -107,20 +130,23 @@ public struct ActionsSetDefaultWorkflowPermissions: Codable {
     }
 
     init() {
-        (self.defaultWorkflowPermissions, self.canApprovePullRequestReviews) = (nil, nil)
+        (defaultWorkflowPermissions, canApprovePullRequestReviews) = (nil, nil)
     }
 }
 
-extension ActionsSetDefaultWorkflowPermissions {
-    public init(from decoder: Decoder) throws {
+public extension ActionsSetDefaultWorkflowPermissions {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.defaultWorkflowPermissions = try container.sdkDecodeIfPresent(.defaultWorkflowPermissions)
-        self.canApprovePullRequestReviews = try container.sdkDecodeIfPresent(.canApprovePullRequestReviews)
+        defaultWorkflowPermissions = try container.sdkDecodeIfPresent(.defaultWorkflowPermissions)
+        canApprovePullRequestReviews = try container.sdkDecodeIfPresent(.canApprovePullRequestReviews)
     }
 }
 
-extension ActionsSetDefaultWorkflowPermissions {
-    public init(defaultWorkflowPermissions: ActionsDefaultWorkflowPermissions? = nil, canApprovePullRequestReviews: ActionsCanApprovePullRequestReviews? = nil) {
+public extension ActionsSetDefaultWorkflowPermissions {
+    init(
+        defaultWorkflowPermissions: ActionsDefaultWorkflowPermissions? = nil,
+        canApprovePullRequestReviews: ActionsCanApprovePullRequestReviews? = nil
+    ) {
         self.init()
         self.defaultWorkflowPermissions = defaultWorkflowPermissions
         self.canApprovePullRequestReviews = canApprovePullRequestReviews
@@ -139,21 +165,27 @@ public struct ActionsWorkflowAccessToRepository: Codable {
         case accessLevel = "access_level"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension ActionsWorkflowAccessToRepository {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.accessLevel) else {
-            throw SdkValidationError(field: "access_level", code: "required", message: "Validation failed for 'access_level': value is required")
-        }
-        self.accessLevel = try container.sdkDecodeRequired(.accessLevel)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension ActionsWorkflowAccessToRepository {
-    public init(accessLevel: ActionsWorkflowAccessToRepositoryAccessLevel) {
+public extension ActionsWorkflowAccessToRepository {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.accessLevel) else {
+            throw SdkValidationError(
+                field: "access_level",
+                code: "required",
+                message: "Validation failed for 'access_level': value is required"
+            )
+        }
+        accessLevel = try container.sdkDecodeRequired(.accessLevel)
+    }
+}
+
+public extension ActionsWorkflowAccessToRepository {
+    init(accessLevel: ActionsWorkflowAccessToRepositoryAccessLevel) {
         self.accessLevel = accessLevel
     }
 }
@@ -162,17 +194,21 @@ extension ActionsWorkflowAccessToRepository {
 /// within the repository. `none` means the access is only possible from workflows in this repository. `user`
 /// level access allows sharing across user owned private repositories only. `organization` level access allows
 /// sharing across the organization.
-public struct ActionsWorkflowAccessToRepositoryAccessLevel: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsWorkflowAccessToRepositoryAccessLevel: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let none = ActionsWorkflowAccessToRepositoryAccessLevel(rawValue: "none")
     public static let user = ActionsWorkflowAccessToRepositoryAccessLevel(rawValue: "user")
     public static let organization = ActionsWorkflowAccessToRepositoryAccessLevel(rawValue: "organization")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -185,7 +221,10 @@ public struct ActionsWorkflowAccessToRepositoryAccessLevel: RawRepresentable, Ha
 public struct ActionsHostedRunnerStatus: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let ready = ActionsHostedRunnerStatus(rawValue: "Ready")
     public static let provisioning = ActionsHostedRunnerStatus(rawValue: "Provisioning")
     public static let shutdown = ActionsHostedRunnerStatus(rawValue: "Shutdown")
@@ -194,7 +233,7 @@ public struct ActionsHostedRunnerStatus: RawRepresentable, Hashable, Codable, Se
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -207,14 +246,17 @@ public struct ActionsHostedRunnerStatus: RawRepresentable, Hashable, Codable, Se
 public struct ActionsHostedRunnerCuratedImageSource: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let github = ActionsHostedRunnerCuratedImageSource(rawValue: "github")
     public static let partner = ActionsHostedRunnerCuratedImageSource(rawValue: "partner")
     public static let custom = ActionsHostedRunnerCuratedImageSource(rawValue: "custom")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -227,13 +269,16 @@ public struct ActionsHostedRunnerCuratedImageSource: RawRepresentable, Hashable,
 public struct ActionsDefaultWorkflowPermissions: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let read = ActionsDefaultWorkflowPermissions(rawValue: "read")
     public static let write = ActionsDefaultWorkflowPermissions(rawValue: "write")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -243,17 +288,24 @@ public struct ActionsDefaultWorkflowPermissions: RawRepresentable, Hashable, Cod
 }
 
 /// The policy that controls when fork PR workflows require approval from a maintainer.
-public struct ActionsForkPrContributorApprovalApprovalPolicy: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ActionsForkPrContributorApprovalApprovalPolicy: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let firstTimeContributorsNewToGithub = ActionsForkPrContributorApprovalApprovalPolicy(rawValue: "first_time_contributors_new_to_github")
-    public static let firstTimeContributors = ActionsForkPrContributorApprovalApprovalPolicy(rawValue: "first_time_contributors")
-    public static let allExternalContributors = ActionsForkPrContributorApprovalApprovalPolicy(rawValue: "all_external_contributors")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let firstTimeContributorsNewToGithub =
+        ActionsForkPrContributorApprovalApprovalPolicy(rawValue: "first_time_contributors_new_to_github")
+    public static let firstTimeContributors =
+        ActionsForkPrContributorApprovalApprovalPolicy(rawValue: "first_time_contributors")
+    public static let allExternalContributors =
+        ActionsForkPrContributorApprovalApprovalPolicy(rawValue: "all_external_contributors")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

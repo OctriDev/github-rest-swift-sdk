@@ -3,7 +3,7 @@
 
 import Foundation
 
-// CodeScanningCodeScanning domain models
+/// CodeScanningCodeScanning domain models
 public typealias CodeScanningRefFull = String
 
 /// A CodeQL database.
@@ -43,38 +43,51 @@ public struct CodeScanningCodeqlDatabase: Codable {
         case commitOid = "commit_oid"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension CodeScanningCodeqlDatabase {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.language = try container.sdkDecodeRequired(.language)
-        self.uploader = try container.sdkDecodeRequired(.uploader)
-        self.contentType = try container.sdkDecodeRequired(.contentType)
-        self.size = try container.sdkDecodeRequired(.size)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.updatedAt = try container.sdkDecodeRequired(.updatedAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.commitOid = try container.sdkDecodeIfPresent(.commitOid)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension CodeScanningCodeqlDatabase {
-    public init(id: Int, name: String, language: String, uploader: SimpleUser, contentType: String, size: Int, createdAt: Date, updatedAt: Date, url: String, commitOid: String? = nil) throws {
+public extension CodeScanningCodeqlDatabase {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.sdkDecodeRequired(.id)
+        name = try container.sdkDecodeRequired(.name)
+        language = try container.sdkDecodeRequired(.language)
+        uploader = try container.sdkDecodeRequired(.uploader)
+        contentType = try container.sdkDecodeRequired(.contentType)
+        size = try container.sdkDecodeRequired(.size)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        updatedAt = try container.sdkDecodeRequired(.updatedAt)
+        url = try container.sdkDecodeRequired(.url)
+        commitOid = try container.sdkDecodeIfPresent(.commitOid)
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(updatedAt))
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension CodeScanningCodeqlDatabase {
+    init(
+        id: Int,
+        name: String,
+        language: String,
+        uploader: SimpleUser,
+        contentType: String,
+        size: Int,
+        createdAt: Date,
+        updatedAt: Date,
+        url: String,
+        commitOid: String? = nil
+    ) throws {
         (self.id, self.name) = (id, name)
         (self.language, self.uploader) = (language, uploader)
         (self.contentType, self.size) = (contentType, size)
         (self.createdAt, self.updatedAt) = (createdAt, updatedAt)
         (self.url, self.commitOid) = (url, commitOid)
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
-            try sdkValidateUri("url", self.url)
+        try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
+        try sdkValidateDateTime("updated_at", sdkWireString(self.updatedAt))
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -139,36 +152,57 @@ public struct CodeScanningOrganizationAlertItems: Codable {
         case assignees
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension CodeScanningOrganizationAlertItems {
-    public init(from decoder: Decoder) throws {
+public extension CodeScanningOrganizationAlertItems {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.number = try container.sdkDecodeRequired(.number)
-        self.createdAt = try container.sdkDecodeRequired(.createdAt)
-        self.url = try container.sdkDecodeRequired(.url)
-        self.htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
-        self.instancesUrl = try container.sdkDecodeRequired(.instancesUrl)
-        self.state = try container.sdkDecodeIfPresent(.state)
-        self.dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
-        self.dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
-        self.dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
-        self.rule = try container.sdkDecodeRequired(.rule)
-        self.tool = try container.sdkDecodeRequired(.tool)
-        self.mostRecentInstance = try container.sdkDecodeRequired(.mostRecentInstance)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
-        self.fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
-        self.dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
-        self.dismissalApprovedBy = try container.sdkDecodeIfPresent(.dismissalApprovedBy)
-        self.assignees = try container.sdkDecodeIfPresent(.assignees)
+        number = try container.sdkDecodeRequired(.number)
+        createdAt = try container.sdkDecodeRequired(.createdAt)
+        url = try container.sdkDecodeRequired(.url)
+        htmlUrl = try container.sdkDecodeRequired(.htmlUrl)
+        instancesUrl = try container.sdkDecodeRequired(.instancesUrl)
+        state = try container.sdkDecodeIfPresent(.state)
+        dismissedBy = try container.sdkDecodeIfPresent(.dismissedBy)
+        dismissedAt = try container.sdkDecodeIfPresent(.dismissedAt)
+        dismissedReason = try container.sdkDecodeIfPresent(.dismissedReason)
+        rule = try container.sdkDecodeRequired(.rule)
+        tool = try container.sdkDecodeRequired(.tool)
+        mostRecentInstance = try container.sdkDecodeRequired(.mostRecentInstance)
+        repository = try container.sdkDecodeRequired(.repository)
+        updatedAt = try container.sdkDecodeIfPresent(.updatedAt)
+        fixedAt = try container.sdkDecodeIfPresent(.fixedAt)
+        dismissedComment = try container.sdkDecodeIfPresent(.dismissedComment)
+        dismissalApprovedBy = try container.sdkDecodeIfPresent(.dismissalApprovedBy)
+        assignees = try container.sdkDecodeIfPresent(.assignees)
         try sdkValidateConstraints()
     }
 }
 
-extension CodeScanningOrganizationAlertItems {
-    public init(number: AlertNumber, createdAt: AlertCreatedAt, url: AlertUrl, htmlUrl: AlertHtmlUrl, instancesUrl: AlertInstancesUrl, state: CodeScanningAlertState?, dismissedBy: NullableSimpleUser?, dismissedAt: AlertDismissedAt?, dismissedReason: CodeScanningAlertDismissedReason?, rule: CodeScanningAlertRuleSummary, tool: CodeScanningAnalysisTool, mostRecentInstance: CodeScanningAlertInstance, repository: SimpleRepository, updatedAt: AlertUpdatedAt? = nil, fixedAt: AlertFixedAt? = nil, dismissedComment: CodeScanningAlertDismissedComment? = nil, dismissalApprovedBy: NullableSimpleUser? = nil, assignees: [SimpleUser]? = nil) throws {
+public extension CodeScanningOrganizationAlertItems {
+    init(
+        number: AlertNumber,
+        createdAt: AlertCreatedAt,
+        url: AlertUrl,
+        htmlUrl: AlertHtmlUrl,
+        instancesUrl: AlertInstancesUrl,
+        state: CodeScanningAlertState?,
+        dismissedBy: NullableSimpleUser?,
+        dismissedAt: AlertDismissedAt?,
+        dismissedReason: CodeScanningAlertDismissedReason?,
+        rule: CodeScanningAlertRuleSummary,
+        tool: CodeScanningAnalysisTool,
+        mostRecentInstance: CodeScanningAlertInstance,
+        repository: SimpleRepository,
+        updatedAt: AlertUpdatedAt? = nil,
+        fixedAt: AlertFixedAt? = nil,
+        dismissedComment: CodeScanningAlertDismissedComment? = nil,
+        dismissalApprovedBy: NullableSimpleUser? = nil,
+        assignees: [SimpleUser]? = nil
+    ) throws {
         (self.number, self.createdAt) = (number, createdAt)
         (self.url, self.htmlUrl) = (url, htmlUrl)
         (self.instancesUrl, self.state) = (instancesUrl, state)
@@ -184,20 +218,20 @@ extension CodeScanningOrganizationAlertItems {
 
 extension CodeScanningOrganizationAlertItems {
     func sdkValidateConstraints() throws {
-            try sdkValidateDateTime("created_at", sdkWireString(self.createdAt))
-            try sdkValidateUri("url", sdkWireString(self.url))
-            try sdkValidateUri("html_url", sdkWireString(self.htmlUrl))
-            try sdkValidateUri("instances_url", sdkWireString(self.instancesUrl))
-        if let value = self.dismissedAt {
+        try sdkValidateDateTime("created_at", sdkWireString(createdAt))
+        try sdkValidateUri("url", sdkWireString(url))
+        try sdkValidateUri("html_url", sdkWireString(htmlUrl))
+        try sdkValidateUri("instances_url", sdkWireString(instancesUrl))
+        if let value = dismissedAt {
             try sdkValidateDateTime("dismissed_at", sdkWireString(value))
         }
-        if let value = self.updatedAt {
+        if let value = updatedAt {
             try sdkValidateDateTime("updated_at", sdkWireString(value))
         }
-        if let value = self.fixedAt {
+        if let value = fixedAt {
             try sdkValidateDateTime("fixed_at", sdkWireString(value))
         }
-        if let value = self.dismissedComment {
+        if let value = dismissedComment {
             try validateLength("dismissed_comment", sdkWireString(value), min: nil, max: 280)
         }
     }

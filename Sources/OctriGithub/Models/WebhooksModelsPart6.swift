@@ -3,7 +3,7 @@
 
 import Foundation
 
-// Webhooks domain models
+/// Webhooks domain models
 /// Optional object value serialized in the `pull_request` wire field.
 public struct WebhooksIssue2PullRequest: Codable {
     /// Optional `uri`-formatted value serialized in the `diff_url` wire field.
@@ -26,38 +26,44 @@ public struct WebhooksIssue2PullRequest: Codable {
     }
 
     init() {
-        (self.diffUrl, self.htmlUrl, self.mergedAt, self.patchUrl, self.url) = (nil, nil, nil, nil, nil)
+        (diffUrl, htmlUrl, mergedAt, patchUrl, url) = (nil, nil, nil, nil, nil)
     }
 }
 
-extension WebhooksIssue2PullRequest {
-    public init(from decoder: Decoder) throws {
+public extension WebhooksIssue2PullRequest {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.diffUrl = try container.sdkDecodeIfPresent(.diffUrl)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        self.patchUrl = try container.sdkDecodeIfPresent(.patchUrl)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        if let value = self.diffUrl {
+        diffUrl = try container.sdkDecodeIfPresent(.diffUrl)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        patchUrl = try container.sdkDecodeIfPresent(.patchUrl)
+        url = try container.sdkDecodeIfPresent(.url)
+        if let value = diffUrl {
             try sdkValidateUri("diff_url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.mergedAt {
+        if let value = mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
-        if let value = self.patchUrl {
+        if let value = patchUrl {
             try sdkValidateUri("patch_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
 }
 
-extension WebhooksIssue2PullRequest {
-    public init(diffUrl: String? = nil, htmlUrl: String? = nil, mergedAt: Date? = nil, patchUrl: String? = nil, url: String? = nil) throws {
+public extension WebhooksIssue2PullRequest {
+    init(
+        diffUrl: String? = nil,
+        htmlUrl: String? = nil,
+        mergedAt: Date? = nil,
+        patchUrl: String? = nil,
+        url: String? = nil
+    ) throws {
         self.init()
         (self.diffUrl, self.htmlUrl) = (diffUrl, htmlUrl)
         (self.mergedAt, self.patchUrl) = (mergedAt, patchUrl)
@@ -116,34 +122,47 @@ public struct WebhooksIssue2Reactions: Codable {
         case url
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhooksIssue2Reactions {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.plus1 = try container.sdkDecodeRequired(.plus1)
-        self.minus1 = try container.sdkDecodeRequired(.minus1)
-        self.confused = try container.sdkDecodeRequired(.confused)
-        self.eyes = try container.sdkDecodeRequired(.eyes)
-        self.heart = try container.sdkDecodeRequired(.heart)
-        self.hooray = try container.sdkDecodeRequired(.hooray)
-        self.laugh = try container.sdkDecodeRequired(.laugh)
-        self.rocket = try container.sdkDecodeRequired(.rocket)
-        self.totalCount = try container.sdkDecodeRequired(.totalCount)
-        self.url = try container.sdkDecodeRequired(.url)
-            try sdkValidateUri("url", self.url)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhooksIssue2Reactions {
-    public init(plus1: Int, minus1: Int, confused: Int, eyes: Int, heart: Int, hooray: Int, laugh: Int, rocket: Int, totalCount: Int, url: String) throws {
+public extension WebhooksIssue2Reactions {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        plus1 = try container.sdkDecodeRequired(.plus1)
+        minus1 = try container.sdkDecodeRequired(.minus1)
+        confused = try container.sdkDecodeRequired(.confused)
+        eyes = try container.sdkDecodeRequired(.eyes)
+        heart = try container.sdkDecodeRequired(.heart)
+        hooray = try container.sdkDecodeRequired(.hooray)
+        laugh = try container.sdkDecodeRequired(.laugh)
+        rocket = try container.sdkDecodeRequired(.rocket)
+        totalCount = try container.sdkDecodeRequired(.totalCount)
+        url = try container.sdkDecodeRequired(.url)
+        try sdkValidateUri("url", url)
+    }
+}
+
+public extension WebhooksIssue2Reactions {
+    init(
+        plus1: Int,
+        minus1: Int,
+        confused: Int,
+        eyes: Int,
+        heart: Int,
+        hooray: Int,
+        laugh: Int,
+        rocket: Int,
+        totalCount: Int,
+        url: String
+    ) throws {
         (self.plus1, self.minus1) = (plus1, minus1)
         (self.confused, self.eyes) = (confused, eyes)
         (self.heart, self.hooray) = (heart, hooray)
         (self.laugh, self.rocket) = (laugh, rocket)
         (self.totalCount, self.url) = (totalCount, url)
-            try sdkValidateUri("url", self.url)
+        try sdkValidateUri("url", self.url)
     }
 }
 
@@ -219,46 +238,79 @@ public struct WebhooksIssue2User: Codable {
         case userViewType = "user_view_type"
     }
 
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension WebhooksIssue2User {
-    public init(from decoder: Decoder) throws {
+public extension WebhooksIssue2User {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
         }
         guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
         }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
-        self.deleted = try container.sdkDecodeIfPresent(.deleted)
-        self.email = try container.sdkDecodeIfPresent(.email)
-        self.eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
-        self.followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
-        self.followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
-        self.gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
-        self.gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.name = try container.sdkDecodeIfPresent(.name)
-        self.nodeId = try container.sdkDecodeIfPresent(.nodeId)
-        self.organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
-        self.receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
-        self.reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
-        self.siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
-        self.starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
-        self.subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
-        self.type = try container.sdkDecodeIfPresent(.type)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.userViewType = try container.sdkDecodeIfPresent(.userViewType)
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        avatarUrl = try container.sdkDecodeIfPresent(.avatarUrl)
+        deleted = try container.sdkDecodeIfPresent(.deleted)
+        email = try container.sdkDecodeIfPresent(.email)
+        eventsUrl = try container.sdkDecodeIfPresent(.eventsUrl)
+        followersUrl = try container.sdkDecodeIfPresent(.followersUrl)
+        followingUrl = try container.sdkDecodeIfPresent(.followingUrl)
+        gistsUrl = try container.sdkDecodeIfPresent(.gistsUrl)
+        gravatarId = try container.sdkDecodeIfPresent(.gravatarId)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        name = try container.sdkDecodeIfPresent(.name)
+        nodeId = try container.sdkDecodeIfPresent(.nodeId)
+        organizationsUrl = try container.sdkDecodeIfPresent(.organizationsUrl)
+        receivedEventsUrl = try container.sdkDecodeIfPresent(.receivedEventsUrl)
+        reposUrl = try container.sdkDecodeIfPresent(.reposUrl)
+        siteAdmin = try container.sdkDecodeIfPresent(.siteAdmin)
+        starredUrl = try container.sdkDecodeIfPresent(.starredUrl)
+        subscriptionsUrl = try container.sdkDecodeIfPresent(.subscriptionsUrl)
+        type = try container.sdkDecodeIfPresent(.type)
+        url = try container.sdkDecodeIfPresent(.url)
+        userViewType = try container.sdkDecodeIfPresent(.userViewType)
         try sdkValidateConstraints()
     }
 }
 
-extension WebhooksIssue2User {
-    public init(id: Int, login: String, avatarUrl: String? = nil, deleted: Bool? = nil, email: String? = nil, eventsUrl: String? = nil, followersUrl: String? = nil, followingUrl: String? = nil, gistsUrl: String? = nil, gravatarId: String? = nil, htmlUrl: String? = nil, name: String? = nil, nodeId: String? = nil, organizationsUrl: String? = nil, receivedEventsUrl: String? = nil, reposUrl: String? = nil, siteAdmin: Bool? = nil, starredUrl: String? = nil, subscriptionsUrl: String? = nil, type: WebhooksIssue2UserType? = nil, url: String? = nil, userViewType: String? = nil) throws {
+public extension WebhooksIssue2User {
+    init(
+        id: Int,
+        login: String,
+        avatarUrl: String? = nil,
+        deleted: Bool? = nil,
+        email: String? = nil,
+        eventsUrl: String? = nil,
+        followersUrl: String? = nil,
+        followingUrl: String? = nil,
+        gistsUrl: String? = nil,
+        gravatarId: String? = nil,
+        htmlUrl: String? = nil,
+        name: String? = nil,
+        nodeId: String? = nil,
+        organizationsUrl: String? = nil,
+        receivedEventsUrl: String? = nil,
+        reposUrl: String? = nil,
+        siteAdmin: Bool? = nil,
+        starredUrl: String? = nil,
+        subscriptionsUrl: String? = nil,
+        type: WebhooksIssue2UserType? = nil,
+        url: String? = nil,
+        userViewType: String? = nil
+    ) throws {
         (self.id, self.login) = (id, login)
         (self.avatarUrl, self.deleted) = (avatarUrl, deleted)
         (self.email, self.eventsUrl) = (email, eventsUrl)
@@ -276,28 +328,28 @@ extension WebhooksIssue2User {
 
 extension WebhooksIssue2User {
     func sdkValidateConstraints() throws {
-        if let value = self.avatarUrl {
+        if let value = avatarUrl {
             try sdkValidateUri("avatar_url", value)
         }
-        if let value = self.followersUrl {
+        if let value = followersUrl {
             try sdkValidateUri("followers_url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.organizationsUrl {
+        if let value = organizationsUrl {
             try sdkValidateUri("organizations_url", value)
         }
-        if let value = self.receivedEventsUrl {
+        if let value = receivedEventsUrl {
             try sdkValidateUri("received_events_url", value)
         }
-        if let value = self.reposUrl {
+        if let value = reposUrl {
             try sdkValidateUri("repos_url", value)
         }
-        if let value = self.subscriptionsUrl {
+        if let value = subscriptionsUrl {
             try sdkValidateUri("subscriptions_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
     }
@@ -330,45 +382,83 @@ public struct WebhooksMarketplacePurchase: Codable {
         case unitCount = "unit_count"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhooksMarketplacePurchase {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.account) else {
-            throw SdkValidationError(field: "account", code: "required", message: "Validation failed for 'account': value is required")
-        }
-        guard container.contains(.billingCycle) else {
-            throw SdkValidationError(field: "billing_cycle", code: "required", message: "Validation failed for 'billing_cycle': value is required")
-        }
-        guard container.contains(.freeTrialEndsOn) else {
-            throw SdkValidationError(field: "free_trial_ends_on", code: "required", message: "Validation failed for 'free_trial_ends_on': value is required")
-        }
-        guard container.contains(.nextBillingDate) else {
-            throw SdkValidationError(field: "next_billing_date", code: "required", message: "Validation failed for 'next_billing_date': value is required")
-        }
-        guard container.contains(.onFreeTrial) else {
-            throw SdkValidationError(field: "on_free_trial", code: "required", message: "Validation failed for 'on_free_trial': value is required")
-        }
-        guard container.contains(.plan) else {
-            throw SdkValidationError(field: "plan", code: "required", message: "Validation failed for 'plan': value is required")
-        }
-        guard container.contains(.unitCount) else {
-            throw SdkValidationError(field: "unit_count", code: "required", message: "Validation failed for 'unit_count': value is required")
-        }
-        self.account = try container.sdkDecodeRequired(.account)
-        self.billingCycle = try container.sdkDecodeRequired(.billingCycle)
-        self.freeTrialEndsOn = try container.sdkDecodeIfPresent(.freeTrialEndsOn)
-        self.nextBillingDate = try container.sdkDecodeIfPresent(.nextBillingDate)
-        self.onFreeTrial = try container.sdkDecodeRequired(.onFreeTrial)
-        self.plan = try container.sdkDecodeRequired(.plan)
-        self.unitCount = try container.sdkDecodeRequired(.unitCount)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhooksMarketplacePurchase {
-    public init(account: WebhooksMarketplacePurchaseAccount, billingCycle: String, freeTrialEndsOn: String?, nextBillingDate: String?, onFreeTrial: Bool, plan: WebhooksMarketplacePurchasePlan, unitCount: Int) {
+public extension WebhooksMarketplacePurchase {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.account) else {
+            throw SdkValidationError(
+                field: "account",
+                code: "required",
+                message: "Validation failed for 'account': value is required"
+            )
+        }
+        guard container.contains(.billingCycle) else {
+            throw SdkValidationError(
+                field: "billing_cycle",
+                code: "required",
+                message: "Validation failed for 'billing_cycle': value is required"
+            )
+        }
+        guard container.contains(.freeTrialEndsOn) else {
+            throw SdkValidationError(
+                field: "free_trial_ends_on",
+                code: "required",
+                message: "Validation failed for 'free_trial_ends_on': value is required"
+            )
+        }
+        guard container.contains(.nextBillingDate) else {
+            throw SdkValidationError(
+                field: "next_billing_date",
+                code: "required",
+                message: "Validation failed for 'next_billing_date': value is required"
+            )
+        }
+        guard container.contains(.onFreeTrial) else {
+            throw SdkValidationError(
+                field: "on_free_trial",
+                code: "required",
+                message: "Validation failed for 'on_free_trial': value is required"
+            )
+        }
+        guard container.contains(.plan) else {
+            throw SdkValidationError(
+                field: "plan",
+                code: "required",
+                message: "Validation failed for 'plan': value is required"
+            )
+        }
+        guard container.contains(.unitCount) else {
+            throw SdkValidationError(
+                field: "unit_count",
+                code: "required",
+                message: "Validation failed for 'unit_count': value is required"
+            )
+        }
+        account = try container.sdkDecodeRequired(.account)
+        billingCycle = try container.sdkDecodeRequired(.billingCycle)
+        freeTrialEndsOn = try container.sdkDecodeIfPresent(.freeTrialEndsOn)
+        nextBillingDate = try container.sdkDecodeIfPresent(.nextBillingDate)
+        onFreeTrial = try container.sdkDecodeRequired(.onFreeTrial)
+        plan = try container.sdkDecodeRequired(.plan)
+        unitCount = try container.sdkDecodeRequired(.unitCount)
+    }
+}
+
+public extension WebhooksMarketplacePurchase {
+    init(
+        account: WebhooksMarketplacePurchaseAccount,
+        billingCycle: String,
+        freeTrialEndsOn: String?,
+        nextBillingDate: String?,
+        onFreeTrial: Bool,
+        plan: WebhooksMarketplacePurchasePlan,
+        unitCount: Int
+    ) {
         (self.account, self.billingCycle) = (account, billingCycle)
         (self.freeTrialEndsOn, self.nextBillingDate) = (freeTrialEndsOn, nextBillingDate)
         (self.onFreeTrial, self.plan) = (onFreeTrial, plan)
@@ -397,37 +487,59 @@ public struct WebhooksMarketplacePurchaseAccount: Codable {
         case type
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhooksMarketplacePurchaseAccount {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.login) else {
-            throw SdkValidationError(field: "login", code: "required", message: "Validation failed for 'login': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.organizationBillingEmail) else {
-            throw SdkValidationError(field: "organization_billing_email", code: "required", message: "Validation failed for 'organization_billing_email': value is required")
-        }
-        guard container.contains(.type) else {
-            throw SdkValidationError(field: "type", code: "required", message: "Validation failed for 'type': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.login = try container.sdkDecodeRequired(.login)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.organizationBillingEmail = try container.sdkDecodeIfPresent(.organizationBillingEmail)
-        self.type = try container.sdkDecodeRequired(.type)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhooksMarketplacePurchaseAccount {
-    public init(id: Int, login: String, nodeId: String, organizationBillingEmail: String?, type: String) {
+public extension WebhooksMarketplacePurchaseAccount {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.login) else {
+            throw SdkValidationError(
+                field: "login",
+                code: "required",
+                message: "Validation failed for 'login': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.organizationBillingEmail) else {
+            throw SdkValidationError(
+                field: "organization_billing_email",
+                code: "required",
+                message: "Validation failed for 'organization_billing_email': value is required"
+            )
+        }
+        guard container.contains(.type) else {
+            throw SdkValidationError(
+                field: "type",
+                code: "required",
+                message: "Validation failed for 'type': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        login = try container.sdkDecodeRequired(.login)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        organizationBillingEmail = try container.sdkDecodeIfPresent(.organizationBillingEmail)
+        type = try container.sdkDecodeRequired(.type)
+    }
+}
+
+public extension WebhooksMarketplacePurchaseAccount {
+    init(id: Int, login: String, nodeId: String, organizationBillingEmail: String?, type: String) {
         (self.id, self.login) = (id, login)
         (self.nodeId, self.organizationBillingEmail) = (nodeId, organizationBillingEmail)
         self.type = type
@@ -467,26 +579,38 @@ public struct WebhooksMarketplacePurchasePlan: Codable {
         case yearlyPriceInCents = "yearly_price_in_cents"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhooksMarketplacePurchasePlan {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.bullets = try container.sdkDecodeRequired(.bullets)
-        self.description = try container.sdkDecodeRequired(.description)
-        self.hasFreeTrial = try container.sdkDecodeRequired(.hasFreeTrial)
-        self.id = try container.sdkDecodeRequired(.id)
-        self.monthlyPriceInCents = try container.sdkDecodeRequired(.monthlyPriceInCents)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.priceModel = try container.sdkDecodeRequired(.priceModel)
-        self.unitName = try container.sdkDecodeIfPresent(.unitName)
-        self.yearlyPriceInCents = try container.sdkDecodeRequired(.yearlyPriceInCents)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhooksMarketplacePurchasePlan {
-    public init(bullets: [String?], description: String, hasFreeTrial: Bool, id: Int, monthlyPriceInCents: Int, name: String, priceModel: WebhooksMarketplacePurchasePlanPriceModel, unitName: String?, yearlyPriceInCents: Int) {
+public extension WebhooksMarketplacePurchasePlan {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        bullets = try container.sdkDecodeRequired(.bullets)
+        description = try container.sdkDecodeRequired(.description)
+        hasFreeTrial = try container.sdkDecodeRequired(.hasFreeTrial)
+        id = try container.sdkDecodeRequired(.id)
+        monthlyPriceInCents = try container.sdkDecodeRequired(.monthlyPriceInCents)
+        name = try container.sdkDecodeRequired(.name)
+        priceModel = try container.sdkDecodeRequired(.priceModel)
+        unitName = try container.sdkDecodeIfPresent(.unitName)
+        yearlyPriceInCents = try container.sdkDecodeRequired(.yearlyPriceInCents)
+    }
+}
+
+public extension WebhooksMarketplacePurchasePlan {
+    init(
+        bullets: [String?],
+        description: String,
+        hasFreeTrial: Bool,
+        id: Int,
+        monthlyPriceInCents: Int,
+        name: String,
+        priceModel: WebhooksMarketplacePurchasePlanPriceModel,
+        unitName: String?,
+        yearlyPriceInCents: Int
+    ) {
         (self.bullets, self.description) = (bullets, description)
         (self.hasFreeTrial, self.id) = (hasFreeTrial, id)
         (self.monthlyPriceInCents, self.name) = (monthlyPriceInCents, name)

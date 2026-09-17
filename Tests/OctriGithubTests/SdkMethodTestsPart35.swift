@@ -111,7 +111,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReactionsCreateForPullRequestReviewCommentReactionsCreateForPXbde21e2dceReachesMockAndDecodesResponse() async throws {
+    func testReactionsCreateForPullRequestReviewCommentReactionsCreateForPXbde21e2dceReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -197,7 +198,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReactionsDeleteForPullRequestCommentReactionsDeleteForPullRequestCommentReachesMockAndDecodesResponse() async throws {
+    func testReactionsDeleteForPullRequestCommentReactionsDeleteForPullRequestCommentReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -297,7 +299,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReactionsListForPullRequestReviewCommentReactionsListForPullRX489d0545ddReachesMockAndDecodesResponse() async throws {
+    func testReactionsListForPullRequestReviewCommentReactionsListForPullRX489d0545ddReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -345,7 +348,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testReposAcceptInvitationForAuthenticatedUserReposAcceptInvitatioX3bec86422bReachesMockAndDecodesResponse() async throws {
+    func testReposAcceptInvitationForAuthenticatedUserReposAcceptInvitatioX3bec86422bReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -479,7 +483,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testReposCheckAutomatedSecurityFixesReposCheckAutomatedSecurityFixesReachesMockAndDecodesResponse() async throws {
+    func testReposCheckAutomatedSecurityFixesReposCheckAutomatedSecurityFixesReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

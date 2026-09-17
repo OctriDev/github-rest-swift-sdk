@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Updates an environment variable that you can reference in a GitHub Actions workflow. Authenticated users must have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Updates an environment variable that you can reference in a GitHub Actions workflow. Authenticated users must
+    /// have collaborator access to a repository to create, update, or read variables. OAuth app tokens and personal
+    /// access tokens (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,9 +21,33 @@ extension ActionsMethods {
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - name2: The name of the variable.
     /// - value: The value of the variable.
-    public static func actionsUpdateEnvironmentVariable(config: ClientConfig, owner: String, repo: String, name: String, environmentName: String, name2: String?, value: String?) async throws -> SdkEmptyResponse {
+    static func actionsUpdateEnvironmentVariable(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        name: String,
+        environmentName: String,
+        name2: String?,
+        value: String?
+    ) async throws -> SdkEmptyResponse {
         let requestBody = ActionsUpdateEnvironmentVariableRequestBody(name2: name2, value: value)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/variables/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, body: requestBody, decoder: .empty, operationId: "actionsUpdateEnvironmentVariable")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/variables/",
+                sdkEncodePathSegment(sdkWireString(name)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "actionsUpdateEnvironmentVariable"
+        )).data
     }
 }

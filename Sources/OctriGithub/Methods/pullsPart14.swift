@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Merges a pull request into the base branch. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. For more information, see "[Rate limits for the API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)" and "[Best practices for using the REST API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
+public extension PullsMethods {
+    /// Merges a pull request into the base branch. This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+    /// Creating content too quickly using this endpoint may result in secondary rate limiting. For more information,
+    /// see "[Rate limits for the
+    /// API](https://docs.github.com/rest/using-the-rest-api/rate-limits-for-the-rest-api#about-secondary-rate-limits)"
+    /// and "[Best practices for using the REST
+    /// API](https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api)."
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,9 +24,38 @@ extension PullsMethods {
     /// - commitMessage: Extra detail to append to automatic commit message.
     /// - sha: SHA that pull request head must match to allow merge.
     /// - mergeMethod: The merge method to use.
-    public static func pullsMerge(config: ClientConfig, owner: String, repo: String, pullNumber: Int, commitTitle: String?, commitMessage: String?, sha: String?, mergeMethod: PullsMergeRequestBodyMergeMethod?) async throws -> PullRequestMergeResult {
-        let requestBody = PullsMergeRequestBody(commitTitle: commitTitle, commitMessage: commitMessage, sha: sha, mergeMethod: mergeMethod)
+    static func pullsMerge(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        commitTitle: String?,
+        commitMessage: String?,
+        sha: String?,
+        mergeMethod: PullsMergeRequestBodyMergeMethod?
+    ) async throws -> PullRequestMergeResult {
+        let requestBody = PullsMergeRequestBody(
+            commitTitle: commitTitle,
+            commitMessage: commitMessage,
+            sha: sha,
+            mergeMethod: mergeMethod
+        )
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/merge"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsMerge")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/merge",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsMerge"
+        )).data
     }
 }

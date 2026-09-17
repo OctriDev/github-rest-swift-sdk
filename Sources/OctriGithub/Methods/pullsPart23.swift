@@ -6,10 +6,24 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
-    /// Dismisses a specified review on a pull request. Provide `owner`, `repo`, `pull_number`, `review_id`, and a dismissal `message`; if you send `event`, its value must be `DISMISS`. To dismiss a review on a protected branch, you must be a repository administrator or be included among the people or teams permitted to dismiss reviews.
+public extension PullsMethods {
+    /// Dismisses a specified review on a pull request. Provide `owner`, `repo`, `pull_number`, `review_id`, and a
+    /// dismissal `message`; if you send `event`, its value must be `DISMISS`. To dismiss a review on a protected
+    /// branch, you must be a repository administrator or be included among the people or teams permitted to dismiss
+    /// reviews.
     ///
-    /// Dismisses a specified review on a pull request. > [!NOTE] > To dismiss a pull request review on a [protected branch](https://docs.github.com/rest/branches/branch-protection), you must be a repository administrator or be included in the list of people or teams who can dismiss pull request reviews. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Dismisses a specified review on a pull request. > [!NOTE] > To dismiss a pull request review on a [protected
+    /// branch](https://docs.github.com/rest/branches/branch-protection), you must be a repository administrator or be
+    /// included in the list of people or teams who can dismiss pull request reviews. This endpoint supports the
+    /// following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -19,9 +33,34 @@ extension PullsMethods {
     /// - pullNumber: The number that identifies the pull request.
     /// - reviewId: The unique identifier of the review.
     /// - message: The message for the pull request review dismissal
-    public static func pullsDismissReview(config: ClientConfig, owner: String, repo: String, pullNumber: Int, reviewId: Int, message: String, event: PullsDismissReviewRequestBodyEvent?) async throws -> PullRequestReview {
+    static func pullsDismissReview(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullNumber: Int,
+        reviewId: Int,
+        message: String,
+        event: PullsDismissReviewRequestBodyEvent?
+    ) async throws -> PullRequestReview {
         let requestBody = PullsDismissReviewRequestBody(message: message, event: event)
 
-        return try (await sdkRequest("PUT", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/pulls/", sdkEncodePathSegment(sdkWireString(pullNumber)), "/reviews/", sdkEncodePathSegment(sdkWireString(reviewId)), "/dismissals"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullsDismissReview")).data
+        return try await (sdkRequest(
+            "PUT",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/pulls/",
+                sdkEncodePathSegment(sdkWireString(pullNumber)),
+                "/reviews/",
+                sdkEncodePathSegment(sdkWireString(reviewId)),
+                "/dismissals",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullsDismissReview"
+        )).data
     }
 }

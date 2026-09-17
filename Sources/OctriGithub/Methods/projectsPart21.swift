@@ -6,7 +6,7 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ProjectsMethods {
+public extension ProjectsMethods {
     /// List items for a user project view
     ///
     /// List items in a user project with the saved view's filter applied.
@@ -34,12 +34,36 @@ extension ProjectsMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func projectsListViewItemsForUser(config: ClientConfig, projectNumber: Int, username: String, viewNumber: Int, fields: ProjectsListViewItemsForUserParameter?, before: String?, after: String?, perPage: Int?) async throws -> [ProjectsV2ItemWithContent] {
-        return try (await sdkRequest("GET", ["/users/", sdkEncodePathSegment(sdkWireString(username)), "/projectsV2/", sdkEncodePathSegment(sdkWireString(projectNumber)), "/views/", sdkEncodePathSegment(sdkWireString(viewNumber)), "/items"].joined(), config: config, query: [
-            SdkQueryParameter("fields", value: fields),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("per_page", value: perPage),
-        ], decoder: .json, operationId: "projectsListViewItemsForUser")).data
+    static func projectsListViewItemsForUser(
+        config: ClientConfig,
+        projectNumber: Int,
+        username: String,
+        viewNumber: Int,
+        fields: ProjectsListViewItemsForUserParameter?,
+        before: String?,
+        after: String?,
+        perPage: Int?
+    ) async throws -> [ProjectsV2ItemWithContent] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/users/",
+                sdkEncodePathSegment(sdkWireString(username)),
+                "/projectsV2/",
+                sdkEncodePathSegment(sdkWireString(projectNumber)),
+                "/views/",
+                sdkEncodePathSegment(sdkWireString(viewNumber)),
+                "/items",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("fields", value: fields),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("per_page", value: perPage),
+            ],
+            decoder: .json,
+            operationId: "projectsListViewItemsForUser"
+        )).data
     }
 }

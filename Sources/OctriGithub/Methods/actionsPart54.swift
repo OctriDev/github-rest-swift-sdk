@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Deletes one or more GitHub Actions caches for a repository, using a complete cache key. By default, all caches that match the provided key are deleted, but you can optionally provide a Git ref to restrict deletions to caches that match both the provided key and the Git ref. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Deletes one or more GitHub Actions caches for a repository, using a complete cache key. By default, all caches
+    /// that match the provided key are deleted, but you can optionally provide a Git ref to restrict deletions to
+    /// caches that match both the provided key and the Git ref. OAuth tokens and personal access tokens (classic) need
+    /// the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,14 +21,34 @@ extension ActionsMethods {
     /// - ref: The full Git reference for narrowing down the cache. The `ref` for a
     ///   branch should be formatted as `refs/heads/<branch name>`. To reference a
     ///   pull request use `refs/pull/<number>/merge`.
-    public static func actionsDeleteActionsCacheByKey(config: ClientConfig, owner: String, repo: String, key: String, ref: String?) async throws -> ActionsCacheList {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/caches"].joined(), config: config, query: [
-            SdkQueryParameter("key", value: key),
-            SdkQueryParameter("ref", value: ref),
-        ], decoder: .json, operationId: "actionsDeleteActionsCacheByKey")).data
+    static func actionsDeleteActionsCacheByKey(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        key: String,
+        ref: String?
+    ) async throws -> ActionsCacheList {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/caches",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("key", value: key),
+                SdkQueryParameter("ref", value: ref),
+            ],
+            decoder: .json,
+            operationId: "actionsDeleteActionsCacheByKey"
+        )).data
     }
 
-    /// Deletes a GitHub Actions cache for a repository, using a cache ID. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Deletes a GitHub Actions cache for a repository, using a cache ID. OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -33,7 +56,25 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - cacheId: The unique identifier of the GitHub Actions cache.
-    public static func actionsDeleteActionsCacheById(config: ClientConfig, owner: String, repo: String, cacheId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/caches/", sdkEncodePathSegment(sdkWireString(cacheId))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteActionsCacheById")).data
+    static func actionsDeleteActionsCacheById(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        cacheId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/caches/",
+                sdkEncodePathSegment(sdkWireString(cacheId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDeleteActionsCacheById"
+        )).data
     }
 }

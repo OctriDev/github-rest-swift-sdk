@@ -6,10 +6,16 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
+public extension ReposMethods {
     /// Create a repository using a template
     ///
-    /// Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. If the repository is not public, the authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/repos/repos#get-a-repository) endpoint and check that the `is_template` key is `true`. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private repository.
+    /// Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route
+    /// parameters to specify the repository to use as the template. If the repository is not public, the authenticated
+    /// user must own or be a member of an organization that owns the repository. To check if a repository is available
+    /// to use as a template, get the repository's information using the [Get a
+    /// repository](https://docs.github.com/rest/repos/repos#get-a-repository) endpoint and check that the `is_template`
+    /// key is `true`. OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to
+    /// create a public repository, and `repo` scope to create a private repository.
     ///
     /// - Parameters:
     /// - templateOwner: The account owner of the template repository. The name is
@@ -26,9 +32,37 @@ extension ReposMethods {
     ///   branch. Default: `false`.
     /// - `private`: Either `true` to create a new private repository or `false` to
     ///   create a new public one.
-    public static func reposCreateUsingTemplate(config: ClientConfig, templateOwner: String, templateRepo: String, name: String, owner: String?, description: String?, includeAllBranches: Bool?, private: Bool?) async throws -> FullRepository {
-        let requestBody = ReposCreateUsingTemplateRequestBody(name: name, owner: owner, description: description, includeAllBranches: includeAllBranches, private: `private`)
+    static func reposCreateUsingTemplate(
+        config: ClientConfig,
+        templateOwner: String,
+        templateRepo: String,
+        name: String,
+        owner: String?,
+        description: String?,
+        includeAllBranches: Bool?,
+        private: Bool?
+    ) async throws -> FullRepository {
+        let requestBody = ReposCreateUsingTemplateRequestBody(
+            name: name,
+            owner: owner,
+            description: description,
+            includeAllBranches: includeAllBranches,
+            private: `private`
+        )
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(templateOwner)), "/", sdkEncodePathSegment(sdkWireString(templateRepo)), "/generate"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposCreateUsingTemplate")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(templateOwner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(templateRepo)),
+                "/generate",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposCreateUsingTemplate"
+        )).data
     }
 }

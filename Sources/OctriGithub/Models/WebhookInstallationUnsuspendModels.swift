@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookInstallationUnsuspend domain models
+/// WebhookInstallationUnsuspend domain models
 /// Typed representation of the `WebhookInstallationUnsuspend` API schema.
 public struct WebhookInstallationUnsuspend: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -38,34 +38,57 @@ public struct WebhookInstallationUnsuspend: Codable {
         case requester
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookInstallationUnsuspend {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.installation) else {
-            throw SdkValidationError(field: "installation", code: "required", message: "Validation failed for 'installation': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.installation = try container.sdkDecodeRequired(.installation)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
-        self.repositories = try container.sdkDecodeIfPresent(.repositories)
-        self.repository = try container.sdkDecodeIfPresent(.repository)
-        self.requester = try container.sdkDecodeIfPresent(.requester)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookInstallationUnsuspend {
-    public init(action: WebhookInstallationUnsuspendAction, installation: Installation, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, organization: OrganizationSimpleWebhooks? = nil, repositories: WebhooksRepositories? = nil, repository: RepositoryWebhooks? = nil, requester: JSONValue? = nil) {
+public extension WebhookInstallationUnsuspend {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.installation) else {
+            throw SdkValidationError(
+                field: "installation",
+                code: "required",
+                message: "Validation failed for 'installation': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        installation = try container.sdkDecodeRequired(.installation)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        organization = try container.sdkDecodeIfPresent(.organization)
+        repositories = try container.sdkDecodeIfPresent(.repositories)
+        repository = try container.sdkDecodeIfPresent(.repository)
+        requester = try container.sdkDecodeIfPresent(.requester)
+    }
+}
+
+public extension WebhookInstallationUnsuspend {
+    init(
+        action: WebhookInstallationUnsuspendAction,
+        installation: Installation,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        organization: OrganizationSimpleWebhooks? = nil,
+        repositories: WebhooksRepositories? = nil,
+        repository: RepositoryWebhooks? = nil,
+        requester: JSONValue? = nil
+    ) {
         (self.action, self.installation) = (action, installation)
         (self.sender, self.enterprise) = (sender, enterprise)
         (self.organization, self.repositories) = (organization, repositories)
@@ -77,12 +100,15 @@ extension WebhookInstallationUnsuspend {
 public struct WebhookInstallationUnsuspendAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let unsuspend = WebhookInstallationUnsuspendAction(rawValue: "unsuspend")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

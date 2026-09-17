@@ -6,7 +6,8 @@ import Foundation
 import XCTest
 
 extension SdkMethodTests {
-    func testCodespacesCreateOrUpdateRepoSecretCodespacesCreateOrUpdateRepoSecretReachesMockAndDecodesResponse() async throws {
+    func testCodespacesCreateOrUpdateRepoSecretCodespacesCreateOrUpdateRepoSecretReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -29,7 +30,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesCreateOrUpdateSecretForAuthenticatedUserCodespacesCXdee6fed529ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesCreateOrUpdateSecretForAuthenticatedUserCodespacesCXdee6fed529ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -51,12 +53,17 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesCreateWithPrForAuthenticatedUserCodespacesCreateWitXde3b9b7b7aReachesMockAndDecodesResponse() async throws {
+    func testCodespacesCreateWithPrForAuthenticatedUserCodespacesCreateWitXde3b9b7b7aReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try CodespacesMethods.CodespacesCreateWithPrForAuthenticatedUserOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""), pullNumber: decoded("1"))
+        var options = try CodespacesMethods.CodespacesCreateWithPrForAuthenticatedUserOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\""),
+            pullNumber: decoded("1")
+        )
         options.location = try decoded("null")
         options.geo = try decoded("null")
         options.clientIp = try decoded("null")
@@ -81,12 +88,16 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesCreateWithRepoForAuthenticatedUserCodespacesCreateWXdde387fc12ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesCreateWithRepoForAuthenticatedUserCodespacesCreateWXdde387fc12ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try CodespacesMethods.CodespacesCreateWithRepoForAuthenticatedUserOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
+        var options = try CodespacesMethods.CodespacesCreateWithRepoForAuthenticatedUserOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\"")
+        )
         options.ref = try decoded("\"main\"")
         options.location = try decoded("null")
         options.geo = try decoded("null")
@@ -112,7 +123,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesDeleteCodespacesAccessUsersCodespacesDeleteCodespacX1a5cb1b670ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesDeleteCodespacesAccessUsersCodespacesDeleteCodespacX1a5cb1b670ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -124,7 +136,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesDeleteForAuthenticatedUserCodespacesDeleteForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesDeleteForAuthenticatedUserCodespacesDeleteForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -143,7 +156,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesDeleteFromOrganizationCodespacesDeleteFromOrganizationReachesMockAndDecodesResponse() async throws {
+    func testCodespacesDeleteFromOrganizationCodespacesDeleteFromOrganizationReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -189,7 +203,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesDeleteSecretForAuthenticatedUserCodespacesDeleteSecX7ccb97ecceReachesMockAndDecodesResponse() async throws {
+    func testCodespacesDeleteSecretForAuthenticatedUserCodespacesDeleteSecX7ccb97ecceReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -200,7 +215,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testCodespacesExportForAuthenticatedUserCodespacesExportForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesExportForAuthenticatedUserCodespacesExportForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -219,7 +235,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesGetCodespacesForUserInOrgCodespacesGetCodespacesForUserInOrgReachesMockAndDecodesResponse() async throws {
+    func testCodespacesGetCodespacesForUserInOrgCodespacesGetCodespacesForUserInOrgReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -241,7 +258,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesGetExportDetailsForAuthenticatedUserCodespacesGetExX17fc18b83eReachesMockAndDecodesResponse() async throws {
+    func testCodespacesGetExportDetailsForAuthenticatedUserCodespacesGetExX17fc18b83eReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -261,7 +279,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesGetForAuthenticatedUserCodespacesGetForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesGetForAuthenticatedUserCodespacesGetForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -319,7 +338,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesGetPublicKeyForAuthenticatedUserCodespacesGetPublicX2db05f9b5fReachesMockAndDecodesResponse() async throws {
+    func testCodespacesGetPublicKeyForAuthenticatedUserCodespacesGetPublicX2db05f9b5fReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -377,7 +397,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesGetSecretForAuthenticatedUserCodespacesGetSecretForX58ae54fb54ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesGetSecretForAuthenticatedUserCodespacesGetSecretForX58ae54fb54ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -396,7 +417,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesListDevcontainersInRepositoryForAuthenticatedUserCoX9c57a6b345ReachesMockAndDecodesResponse() async throws {
+    func testCodespacesListDevcontainersInRepositoryForAuthenticatedUserCoX9c57a6b345ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -418,7 +440,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesListForAuthenticatedUserCodespacesListForAuthenticatedUserReachesMockAndDecodesResponse() async throws {
+    func testCodespacesListForAuthenticatedUserCodespacesListForAuthenticatedUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -460,7 +483,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testCodespacesListInRepositoryForAuthenticatedUserCodespacesListIXb34f8bd84eReachesMockAndDecodesResponse() async throws {
+    func testCodespacesListInRepositoryForAuthenticatedUserCodespacesListIXb34f8bd84eReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

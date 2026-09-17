@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AppsMethods {
-    /// Returns repository and organization accounts associated with the specified plan, including free plans. For per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication) with their client ID and client secret to access this endpoint.
+public extension AppsMethods {
+    /// Returns repository and organization accounts associated with the specified plan, including free plans. For
+    /// per-seat pricing, you see the list of accounts that have purchased the plan, including the number of seats
+    /// purchased. When someone submits a plan change that won't be processed until the end of their billing cycle, you
+    /// will also see the upcoming pending change. GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
+    /// to access this endpoint. OAuth apps must use [basic authentication](https://docs.github.com/rest/authentication/authenticating-to-the-rest-api#using-basic-authentication)
+    /// with their client ID and client secret to access this endpoint.
     ///
     /// - Parameters:
     /// - planId: The unique identifier of the plan.
@@ -22,20 +27,41 @@ extension AppsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func appsListAccountsForPlanStubbed(config: ClientConfig, planId: Int, sort: AppsListAccountsForPlanParameter?, direction: AppsListAccountsForPlanStubbedParameter?, perPage: Int?, page: Int?) async throws -> [MarketplacePurchase] {
-        return try (await sdkRequest("GET", ["/marketplace_listing/stubbed/plans/", sdkEncodePathSegment(sdkWireString(planId)), "/accounts"].joined(), config: config, query: [
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "appsListAccountsForPlanStubbed")).data
+    static func appsListAccountsForPlanStubbed(
+        config: ClientConfig,
+        planId: Int,
+        sort: AppsListAccountsForPlanParameter?,
+        direction: AppsListAccountsForPlanStubbedParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [MarketplacePurchase] {
+        try await (sdkRequest(
+            "GET",
+            ["/marketplace_listing/stubbed/plans/", sdkEncodePathSegment(sdkWireString(planId)), "/accounts"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "appsListAccountsForPlanStubbed"
+        )).data
     }
 
-    /// Enables an authenticated GitHub App to find the organization's installation information. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
+    /// Enables an authenticated GitHub App to find the organization's installation information. You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app)
+    /// to access this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func appsGetOrgInstallation(config: ClientConfig, org: String) async throws -> Installation {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/installation"].joined(), config: config, decoder: .json, operationId: "appsGetOrgInstallation")).data
+    static func appsGetOrgInstallation(config: ClientConfig, org: String) async throws -> Installation {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/installation"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "appsGetOrgInstallation"
+        )).data
     }
 }

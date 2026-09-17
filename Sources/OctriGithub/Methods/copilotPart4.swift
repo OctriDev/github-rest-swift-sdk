@@ -6,21 +6,42 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotMethods {
-    /// Sets the policy for Copilot cloud agent usage across an enterprise. Enterprise owners can configure whether Copilot cloud agent is enabled for all organizations, disabled for all organizations, configured by individual organization admins, or enabled for selected organizations only. Only enterprise owners can set the coding agent policy for their enterprise. OAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:enterprise` scopes to use this endpoint.
+public extension CopilotMethods {
+    /// Sets the policy for Copilot cloud agent usage across an enterprise. Enterprise owners can configure whether
+    /// Copilot cloud agent is enabled for all organizations, disabled for all organizations, configured by individual
+    /// organization admins, or enabled for selected organizations only. Only enterprise owners can set the coding agent
+    /// policy for their enterprise. OAuth app tokens and personal access tokens (classic) need either the
+    /// `manage_billing:copilot` or `admin:enterprise` scopes to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
     /// - policyState: The policy state for Copilot cloud agent in the enterprise.
     ///   Can be one of `enabled_for_all_orgs`, `disabled_for_all_orgs`,
     ///   `enabled_for_selected_orgs`, or `configured_by_org_admins`.
-    public static func copilotSetEnterpriseCodingAgentPolicy(config: ClientConfig, enterprise: String, policyState: CopilotSetEnterpriseCodingAgentPolicyRequestBodyPolicyState) async throws -> SdkEmptyResponse {
+    static func copilotSetEnterpriseCodingAgentPolicy(
+        config: ClientConfig,
+        enterprise: String,
+        policyState: CopilotSetEnterpriseCodingAgentPolicyRequestBodyPolicyState
+    ) async throws -> SdkEmptyResponse {
         let requestBody = CopilotSetEnterpriseCodingAgentPolicyRequestBody(policyState: policyState)
 
-        return try (await sdkRequest("PUT", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/copilot/policies/coding_agent"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "copilotSetEnterpriseCodingAgentPolicy")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/copilot/policies/coding_agent"]
+                .joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "copilotSetEnterpriseCodingAgentPolicy"
+        )).data
     }
 
-    /// Enables Copilot cloud agent for the specified organizations within the enterprise. The enterprise's coding agent policy must be set to `enabled_for_selected_orgs` before using this endpoint. Organizations can be specified by login or matched via custom properties. Only organizations that have Copilot enabled and belong to the enterprise will be affected. Only enterprise owners can add organizations to the coding agent policy. OAuth app tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:enterprise` scopes to use this endpoint.
+    /// Enables Copilot cloud agent for the specified organizations within the enterprise. The enterprise's coding agent
+    /// policy must be set to `enabled_for_selected_orgs` before using this endpoint. Organizations can be specified by
+    /// login or matched via custom properties. Only organizations that have Copilot enabled and belong to the
+    /// enterprise will be affected. Only enterprise owners can add organizations to the coding agent policy. OAuth app
+    /// tokens and personal access tokens (classic) need either the `manage_billing:copilot` or `admin:enterprise`
+    /// scopes to use this endpoint.
     ///
     /// - Parameters:
     /// - enterprise: The slug version of the enterprise name.
@@ -31,9 +52,28 @@ extension CopilotMethods {
     ///   be included. This is a one-time operation, setting the property on an
     ///   organization in the future will not automatically update its coding agent
     ///   policy.
-    public static func copilotAddOrganizationsToEnterpriseCodingAgentPolicy(config: ClientConfig, enterprise: String, organizations: [String]?, customProperties: CopilotAddOrganizationsToEnterpriseCodingAgentPolicyCustomPropertiesList?) async throws -> SdkEmptyResponse {
-        let requestBody = CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody(organizations: organizations, customProperties: customProperties)
+    static func copilotAddOrganizationsToEnterpriseCodingAgentPolicy(
+        config: ClientConfig,
+        enterprise: String,
+        organizations: [String]?,
+        customProperties: CopilotAddOrganizationsToEnterpriseCodingAgentPolicyCustomPropertiesList?
+    ) async throws -> SdkEmptyResponse {
+        let requestBody = CopilotAddOrganizationsToEnterpriseCodingAgentPolicyRequestBody(
+            organizations: organizations,
+            customProperties: customProperties
+        )
 
-        return try (await sdkRequest("POST", ["/enterprises/", sdkEncodePathSegment(sdkWireString(enterprise)), "/copilot/policies/coding_agent/organizations"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "copilotAddOrganizationsToEnterpriseCodingAgentPolicy")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(enterprise)),
+                "/copilot/policies/coding_agent/organizations",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "copilotAddOrganizationsToEnterpriseCodingAgentPolicy"
+        )).data
     }
 }

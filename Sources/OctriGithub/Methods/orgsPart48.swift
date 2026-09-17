@@ -6,17 +6,37 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Gets an organization role that is available to this organization. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An organization member (or a member of a team) assigned a custom organization role that includes the **View organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)." OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension OrgsMethods {
+    /// Gets an organization role that is available to this organization. For more information on organization roles,
+    /// see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
+    /// To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - An
+    /// organization member (or a member of a team) assigned a custom organization role that includes the **View
+    /// organization roles** (`read_organization_custom_org_role`) permission. For more information, see "[Permissions
+    /// for organization access](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/permissions-of-custom-organization-roles#permissions-for-organization-access)."
+    /// OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - roleId: The unique identifier of the role.
-    public static func orgsGetOrgRole(config: ClientConfig, org: String, roleId: Int) async throws -> OrganizationRole {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/organization-roles/", sdkEncodePathSegment(sdkWireString(roleId))].joined(), config: config, decoder: .json, operationId: "orgsGetOrgRole")).data
+    static func orgsGetOrgRole(config: ClientConfig, org: String, roleId: Int) async throws -> OrganizationRole {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/organization-roles/",
+                sdkEncodePathSegment(sdkWireString(roleId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "orgsGetOrgRole"
+        )).data
     }
 
-    /// Lists the teams that are assigned to an organization role. For more information on organization roles, see "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)." To use this endpoint, you must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Lists the teams that are assigned to an organization role. For more information on organization roles, see
+    /// "[Using organization roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/using-organization-roles)."
+    /// To use this endpoint, you must be an administrator for the organization. OAuth app tokens and personal access
+    /// tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -29,10 +49,29 @@ extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsListOrgRoleTeams(config: ClientConfig, org: String, roleId: Int, perPage: Int?, page: Int?) async throws -> [TeamRoleAssignment] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/organization-roles/", sdkEncodePathSegment(sdkWireString(roleId)), "/teams"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "orgsListOrgRoleTeams")).data
+    static func orgsListOrgRoleTeams(
+        config: ClientConfig,
+        org: String,
+        roleId: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [TeamRoleAssignment] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/organization-roles/",
+                sdkEncodePathSegment(sdkWireString(roleId)),
+                "/teams",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "orgsListOrgRoleTeams"
+        )).data
     }
 }

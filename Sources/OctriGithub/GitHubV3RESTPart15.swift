@@ -3,71 +3,185 @@
 
 import Foundation
 
-extension IssuesNamespace {
-/// Retrieves a label from a repository by its name. Supply the repository owner, repository name, and label `name` to identify the label to retrieve. The response includes the label's metadata, color, archive state, and related URLs.
+public extension IssuesNamespace {
+    /// Retrieves a label from a repository by its name. Supply the repository owner, repository name, and label `name`
+    /// to identify the label to retrieve. The response includes the label's metadata, color, archive state, and related
+    /// URLs.
     ///
     /// Gets a label using the given name.
-    public func getLabel(owner: String, repo: String, name: String) async throws -> Label {
-        return try await IssuesMethods.issuesGetLabel(config: config, owner: owner, repo: repo, name: name)
+    func getLabel(owner: String, repo: String, name: String) async throws -> Label {
+        try await IssuesMethods.issuesGetLabel(config: config, owner: owner, repo: repo, name: name)
     }
 
-/// Updates an existing label in a repository using its current name. Supply one or more fields in the request body to change the label's name, color, description, or archive state. The `description` field must contain no more than 100 characters.
+    /// Updates an existing label in a repository using its current name. Supply one or more fields in the request body
+    /// to change the label's name, color, description, or archive state. The `description` field must contain no more
+    /// than 100 characters.
     ///
     /// Updates a label using the given label name.
-    public func updateLabel(owner: String, repo: String, name: String, newName: String?, color: String?, description: String?, archived: Bool?) async throws -> Label {
-        return try await IssuesMethods.issuesUpdateLabel(config: config, owner: owner, repo: repo, name: name, newName: newName, color: color, description: description, archived: archived)
+    func updateLabel(
+        owner: String,
+        repo: String,
+        name: String,
+        newName: String?,
+        color: String?,
+        description: String?,
+        archived: Bool?
+    ) async throws -> Label {
+        try await IssuesMethods.issuesUpdateLabel(
+            config: config,
+            owner: owner,
+            repo: repo,
+            name: name,
+            newName: newName,
+            color: color,
+            description: description,
+            archived: archived
+        )
     }
 
-/// Deletes a label from a repository by its name. Supply the repository owner, repository name, and label `name` to identify the label to remove. Deleting the label removes it from the repository's available labels.
+    /// Deletes a label from a repository by its name. Supply the repository owner, repository name, and label `name` to
+    /// identify the label to remove. Deleting the label removes it from the repository's available labels.
     ///
     /// Deletes a label using the given label name.
-    public func deleteLabel(owner: String, repo: String, name: String) async throws -> SdkEmptyResponse {
-        return try await IssuesMethods.issuesDeleteLabel(config: config, owner: owner, repo: repo, name: name)
+    func deleteLabel(owner: String, repo: String, name: String) async throws -> SdkEmptyResponse {
+        try await IssuesMethods.issuesDeleteLabel(config: config, owner: owner, repo: repo, name: name)
     }
 
-/// Lists the milestones for a repository. Filter by milestone `state`, choose the sort field and `direction`, and use pagination parameters to control the result set. Use `page` and `per_page` to paginate the results.
+    /// Lists the milestones for a repository. Filter by milestone `state`, choose the sort field and `direction`, and
+    /// use pagination parameters to control the result set. Use `page` and `per_page` to paginate the results.
     ///
     /// Lists milestones for a repository.
-    public func listMilestones(owner: String, repo: String, state: IssuesListMilestonesParameter?, sort: IssuesListMilestonesParameterX5ec18b58?, direction: IssuesListMilestonesParameterX0a6da649?, perPage: Int?, page: Int?) async throws -> [Milestone] {
-        return try await IssuesMethods.issuesListMilestones(config: config, owner: owner, repo: repo, state: state, sort: sort, direction: direction, perPage: perPage, page: page)
+    func listMilestones(
+        owner: String,
+        repo: String,
+        state: IssuesListMilestonesParameter?,
+        sort: IssuesListMilestonesParameterX5ec18b58?,
+        direction: IssuesListMilestonesParameterX0a6da649?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Milestone] {
+        try await IssuesMethods.issuesListMilestones(
+            config: config,
+            owner: owner,
+            repo: repo,
+            state: state,
+            sort: sort,
+            direction: direction,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Creates a new milestone in a repository. Supply a `title` and optionally set its `state`, `description`, and ISO 8601 `due_on` timestamp. A 201 response returns the created milestone with its identifier, issue counts, state, and timestamps.
+    /// Creates a new milestone in a repository. Supply a `title` and optionally set its `state`, `description`, and ISO
+    /// 8601 `due_on` timestamp. A 201 response returns the created milestone with its identifier, issue counts, state,
+    /// and timestamps.
     ///
     /// Creates a milestone.
-    public func createMilestone(owner: String, repo: String, title: String, state: IssuesCreateMilestoneRequestBodyState?, description: String?, dueOn: Date?) async throws -> Milestone {
-        return try await IssuesMethods.issuesCreateMilestone(config: config, owner: owner, repo: repo, title: title, state: state, description: description, dueOn: dueOn)
+    func createMilestone(
+        owner: String,
+        repo: String,
+        title: String,
+        state: IssuesCreateMilestoneRequestBodyState?,
+        description: String?,
+        dueOn: Date?
+    ) async throws -> Milestone {
+        try await IssuesMethods.issuesCreateMilestone(
+            config: config,
+            owner: owner,
+            repo: repo,
+            title: title,
+            state: state,
+            description: description,
+            dueOn: dueOn
+        )
     }
 
-/// Gets a milestone using the given milestone number.
-    public func getMilestone(owner: String, repo: String, milestoneNumber: Int) async throws -> Milestone {
-        return try await IssuesMethods.issuesGetMilestone(config: config, owner: owner, repo: repo, milestoneNumber: milestoneNumber)
+    /// Gets a milestone using the given milestone number.
+    func getMilestone(owner: String, repo: String, milestoneNumber: Int) async throws -> Milestone {
+        try await IssuesMethods.issuesGetMilestone(
+            config: config,
+            owner: owner,
+            repo: repo,
+            milestoneNumber: milestoneNumber
+        )
     }
 
-/// Updates an existing milestone in a repository. Supply only the milestone properties you want to change, including `title`, `state`, `description`, or `due_on`; `state` defaults to open when omitted. The authenticated user must have permission to update milestones in the repository.
-    public func updateMilestone(owner: String, repo: String, milestoneNumber: Int, title: String?, state: IssuesUpdateMilestoneRequestBodyState?, description: String?, dueOn: Date?) async throws -> Milestone {
-        return try await IssuesMethods.issuesUpdateMilestone(config: config, owner: owner, repo: repo, milestoneNumber: milestoneNumber, title: title, state: state, description: description, dueOn: dueOn)
+    /// Updates an existing milestone in a repository. Supply only the milestone properties you want to change,
+    /// including `title`, `state`, `description`, or `due_on`; `state` defaults to open when omitted. The authenticated
+    /// user must have permission to update milestones in the repository.
+    func updateMilestone(
+        owner: String,
+        repo: String,
+        milestoneNumber: Int,
+        title: String?,
+        state: IssuesUpdateMilestoneRequestBodyState?,
+        description: String?,
+        dueOn: Date?
+    ) async throws -> Milestone {
+        try await IssuesMethods.issuesUpdateMilestone(
+            config: config,
+            owner: owner,
+            repo: repo,
+            milestoneNumber: milestoneNumber,
+            title: title,
+            state: state,
+            description: description,
+            dueOn: dueOn
+        )
     }
 
-/// Deletes a milestone using the given milestone number.
-    public func deleteMilestone(owner: String, repo: String, milestoneNumber: Int) async throws -> SdkEmptyResponse {
-        return try await IssuesMethods.issuesDeleteMilestone(config: config, owner: owner, repo: repo, milestoneNumber: milestoneNumber)
+    /// Deletes a milestone using the given milestone number.
+    func deleteMilestone(owner: String, repo: String, milestoneNumber: Int) async throws -> SdkEmptyResponse {
+        try await IssuesMethods.issuesDeleteMilestone(
+            config: config,
+            owner: owner,
+            repo: repo,
+            milestoneNumber: milestoneNumber
+        )
     }
 }
 
-extension IssuesNamespace {
-/// Lists the labels associated with issues in a repository milestone. Use `page` and `per_page` to paginate the results. The response contains label metadata such as names, descriptions, colors, and archive information.
+public extension IssuesNamespace {
+    /// Lists the labels associated with issues in a repository milestone. Use `page` and `per_page` to paginate the
+    /// results. The response contains label metadata such as names, descriptions, colors, and archive information.
     ///
     /// Lists labels for issues in a milestone.
-    public func listLabelsForMilestone(owner: String, repo: String, milestoneNumber: Int, perPage: Int?, page: Int?) async throws -> [Label] {
-        return try await IssuesMethods.issuesListLabelsForMilestone(config: config, owner: owner, repo: repo, milestoneNumber: milestoneNumber, perPage: perPage, page: page)
+    func listLabelsForMilestone(
+        owner: String,
+        repo: String,
+        milestoneNumber: Int,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [Label] {
+        try await IssuesMethods.issuesListLabelsForMilestone(
+            config: config,
+            owner: owner,
+            repo: repo,
+            milestoneNumber: milestoneNumber,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List user account issues assigned to the authenticated user
+    /// List user account issues assigned to the authenticated user
     ///
-    /// List issues across owned and member repositories assigned to the authenticated user. > [!NOTE] > GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
-    public func listForAuthenticatedUser(options: IssuesMethods.IssuesListForAuthenticatedUserOptions) async throws -> [Issue] {
-        return try await IssuesMethods.issuesListForAuthenticatedUser(config: config, options: options)
+    /// List issues across owned and member repositories assigned to the authenticated user. > [!NOTE] > GitHub's REST
+    /// API considers every pull request an issue, but not every issue is a pull request. For this reason, "Issues"
+    /// endpoints may return both issues and pull requests in the response. You can identify pull requests by the
+    /// `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue
+    /// id_. To find out the pull request id, use the "[List pull
+    /// requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint. This endpoint supports the
+    /// following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the
+    /// default if you do not pass any specific media type. - **`application/vnd.github.text+json`**: Returns a text
+    /// only representation of the markdown body. Response will include `body_text`. -
+    /// **`application/vnd.github.html+json`**: Returns HTML rendered from the body's markdown. Response will include
+    /// `body_html`. - **`application/vnd.github.full+json`**: Returns raw, text, and HTML representations. Response
+    /// will include `body`, `body_text`, and `body_html`.
+    func listForAuthenticatedUser(options: IssuesMethods
+        .IssuesListForAuthenticatedUserOptions) async throws -> [Issue] {
+        try await IssuesMethods.issuesListForAuthenticatedUser(config: config, options: options)
     }
 }
 
@@ -77,23 +191,35 @@ public class LicensesNamespace {
         self.config = config
     }
 
-/// Lists the most commonly used licenses available on GitHub. Use `featured` to limit results to featured licenses, and use `page` and `per_page` to paginate the results.
+    /// Lists the most commonly used licenses available on GitHub. Use `featured` to limit results to featured licenses,
+    /// and use `page` and `per_page` to paginate the results.
     ///
     /// Lists the most commonly used licenses on GitHub. For more information, see "[Licensing a repository ](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)."
     public func getAllCommonlyUsed(featured: Bool?, perPage: Int?, page: Int?) async throws -> [LicenseSimple] {
-        return try await LicensesMethods.licensesGetAllCommonlyUsed(config: config, featured: featured, perPage: perPage, page: page)
+        try await LicensesMethods.licensesGetAllCommonlyUsed(
+            config: config,
+            featured: featured,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Retrieves detailed information about a specific license. Supply the license identifier in `license` to obtain its name, SPDX identifier, terms, permissions, conditions, limitations, and license text.
+    /// Retrieves detailed information about a specific license. Supply the license identifier in `license` to obtain
+    /// its name, SPDX identifier, terms, permissions, conditions, limitations, and license text.
     ///
     /// Gets information about a specific license. For more information, see "[Licensing a repository ](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)."
     public func get(license: String) async throws -> License {
-        return try await LicensesMethods.licensesGet(config: config, license: license)
+        try await LicensesMethods.licensesGet(config: config, license: license)
     }
 
-/// This method returns the contents of the repository's license file, if one is detected. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw contents of the license. - **`application/vnd.github.html+json`**: Returns the license contents in HTML. Markup languages are rendered to HTML using GitHub's open-source [Markup library](https://github.com/github/markup).
+    /// This method returns the contents of the repository's license file, if one is detected. This endpoint supports
+    /// the following custom media types. For more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw contents of the license. -
+    /// **`application/vnd.github.html+json`**: Returns the license contents in HTML. Markup languages are rendered to
+    /// HTML using GitHub's open-source [Markup library](https://github.com/github/markup).
     public func getForRepo(owner: String, repo: String, ref: CodeScanningRef?) async throws -> LicenseContent {
-        return try await LicensesMethods.licensesGetForRepo(config: config, owner: owner, repo: repo, ref: ref)
+        try await LicensesMethods.licensesGetForRepo(config: config, owner: owner, repo: repo, ref: ref)
     }
 }
 
@@ -103,23 +229,32 @@ public class MarkdownNamespace {
         self.config = config
     }
 
-/// Depending on what is rendered in the Markdown, you may need to provide additional token scopes for labels, such as `issues:read` or `pull_requests:read`.
+    /// Depending on what is rendered in the Markdown, you may need to provide additional token scopes for labels, such
+    /// as `issues:read` or `pull_requests:read`.
     public func render(text: String, mode: MarkdownRenderRequestBodyMode?, context: String?) async throws -> String {
-        return try await MarkdownMethods.markdownRender(config: config, text: text, mode: mode, context: context)
+        try await MarkdownMethods.markdownRender(config: config, text: text, mode: mode, context: context)
     }
 
-/// Renders a Markdown document as plain HTML without GitHub Flavored Markdown support. Send the Markdown as plain text with a `Content-Type` of `text/plain` or `text/x-markdown`, and keep the content at or below 400 KB.
+    /// Renders a Markdown document as plain HTML without GitHub Flavored Markdown support. Send the Markdown as plain
+    /// text with a `Content-Type` of `text/plain` or `text/x-markdown`, and keep the content at or below 400 KB.
     ///
-    /// You must send Markdown as plain text (using a `Content-Type` header of `text/plain` or `text/x-markdown`) to this endpoint, rather than using JSON format. In raw mode, [GitHub Flavored Markdown](https://github.github.com/gfm/) is not supported and Markdown will be rendered in plain format like a README.md file. Markdown content must be 400 KB or less.
+    /// You must send Markdown as plain text (using a `Content-Type` header of `text/plain` or `text/x-markdown`) to
+    /// this endpoint, rather than using JSON format. In raw mode, [GitHub Flavored
+    /// Markdown](https://github.github.com/gfm/) is not supported and Markdown will be rendered in plain format like a
+    /// README.md file. Markdown content must be 400 KB or less.
     public func renderRaw(body: String?) async throws -> String {
-        return try await MarkdownMethods.markdownRenderRaw(config: config, body: body)
+        try await MarkdownMethods.markdownRenderRaw(config: config, body: body)
     }
 
-/// Renders a Markdown document as plain HTML without GitHub Flavored Markdown support. Send the Markdown as plain text with a `Content-Type` of `text/plain` or `text/x-markdown`, and keep the content at or below 400 KB.
+    /// Renders a Markdown document as plain HTML without GitHub Flavored Markdown support. Send the Markdown as plain
+    /// text with a `Content-Type` of `text/plain` or `text/x-markdown`, and keep the content at or below 400 KB.
     ///
-    /// You must send Markdown as plain text (using a `Content-Type` header of `text/plain` or `text/x-markdown`) to this endpoint, rather than using JSON format. In raw mode, [GitHub Flavored Markdown](https://github.github.com/gfm/) is not supported and Markdown will be rendered in plain format like a README.md file. Markdown content must be 400 KB or less.
+    /// You must send Markdown as plain text (using a `Content-Type` header of `text/plain` or `text/x-markdown`) to
+    /// this endpoint, rather than using JSON format. In raw mode, [GitHub Flavored
+    /// Markdown](https://github.github.com/gfm/) is not supported and Markdown will be rendered in plain format like a
+    /// README.md file. Markdown content must be 400 KB or less.
     public func renderRawText(body: String?) async throws -> String {
-        return try await MarkdownMethods.markdownRenderRawText(config: config, body: body)
+        try await MarkdownMethods.markdownRenderRawText(config: config, body: body)
     }
 }
 
@@ -129,91 +264,226 @@ public class OrgsNamespace {
         self.config = config
     }
 
-/// Lists all organizations, in the order that they were created. > [!NOTE] > Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL for the next page of organizations.
+    /// Lists all organizations, in the order that they were created. > [!NOTE] > Pagination is powered exclusively by
+    /// the `since` parameter. Use the [Link
+    /// header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers) to get the URL
+    /// for the next page of organizations.
     public func list(since: Int?, perPage: Int?) async throws -> [OrganizationSimple] {
-        return try await OrgsMethods.orgsList(config: config, since: since, perPage: perPage)
+        try await OrgsMethods.orgsList(config: config, since: since, perPage: perPage)
     }
 
-/// Gets information about an organization. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, outside collaborators, guest collaborators, repository collaborators, or everyone with access to any repository within the organization to enable [two-factor authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/). To see the full details about an organization, the authenticated user must be an organization owner. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to see the full details about an organization. To see information about an organization's GitHub plan, GitHub Apps need the `Organization plan` permission.
+    /// Gets information about an organization. When the value of `two_factor_requirement_enabled` is `true`, the
+    /// organization requires all members, billing managers, outside collaborators, guest collaborators, repository
+    /// collaborators, or everyone with access to any repository within the organization to enable [two-factor
+    /// authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/). To
+    /// see the full details about an organization, the authenticated user must be an organization owner. OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to see the full details about an
+    /// organization. To see information about an organization's GitHub plan, GitHub Apps need the `Organization plan`
+    /// permission.
     public func get(org: String) async throws -> OrganizationFull {
-        return try await OrgsMethods.orgsGet(config: config, org: org)
+        try await OrgsMethods.orgsGet(config: config, org: org)
     }
 
-/// Updates an organization's profile and member privileges. Supply only the organization settings you want to change, such as `billing_email`, `default_repository_permission`, or repository-creation controls. The authenticated user must be an organization owner, and the `members_allowed_repository_creation_type` setting is closing down in favor of more granular permissions.
+    /// Updates an organization's profile and member privileges. Supply only the organization settings you want to
+    /// change, such as `billing_email`, `default_repository_permission`, or repository-creation controls. The
+    /// authenticated user must be an organization owner, and the `members_allowed_repository_creation_type` setting is
+    /// closing down in favor of more granular permissions.
     ///
-    /// > [!WARNING] > **Closing down notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes). > [!WARNING] > **Closing down notice:** Code security product enablement for new repositories through the organization API is closing down. Please use [code security configurations](https://docs.github.com/rest/code-security/configurations#set-a-code-security-configuration-as-a-default-for-an-organization) to set defaults instead. For more information on setting a default security configuration, see the [changelog](https://github.blog/changelog/2024-07-09-sunsetting-security-settings-defaults-parameters-in-the-organizations-rest-api/). Updates the organization's profile and member privileges. The authenticated user must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` or `repo` scope to use this endpoint.
+    /// > [!WARNING] > **Closing down notice:** GitHub will replace and discontinue
+    /// `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are
+    /// `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and
+    /// `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub
+    /// Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog
+    /// post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes). > [!WARNING] > **Closing
+    /// down notice:** Code security product enablement for new repositories through the organization API is closing
+    /// down. Please use [code security configurations](https://docs.github.com/rest/code-security/configurations#set-a-code-security-configuration-as-a-default-for-an-organization)
+    /// to set defaults instead. For more information on setting a default security configuration, see the [changelog](https://github.blog/changelog/2024-07-09-sunsetting-security-settings-defaults-parameters-in-the-organizations-rest-api/).
+    /// Updates the organization's profile and member privileges. The authenticated user must be an organization owner
+    /// to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `admin:org` or `repo` scope
+    /// to use this endpoint.
     public func update(options: OrgsMethods.OrgsUpdateOptions) async throws -> OrganizationFull {
-        return try await OrgsMethods.orgsUpdate(config: config, options: options)
+        try await OrgsMethods.orgsUpdate(config: config, options: options)
     }
 
-/// Deletes an organization and all its repositories. The organization login will be unavailable for 90 days after deletion. Please review the Terms of Service regarding account deletion before using this endpoint: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+    /// Deletes an organization and all its repositories. The organization login will be unavailable for 90 days after
+    /// deletion. Please review the Terms of Service regarding account deletion before using this endpoint:
+    /// https://docs.github.com/site-policy/github-terms/github-terms-of-service
     public func delete(org: String) async throws -> [String: JSONValue] {
-        return try await OrgsMethods.orgsDelete(config: config, org: org)
+        try await OrgsMethods.orgsDelete(config: config, org: org)
     }
 
-/// Create or update deployment records for an artifact associated with an organization. This endpoint allows you to record information about a specific artifact, such as its name, digest, environments, cluster, and deployment. The deployment name has to be uniqe within a cluster (i.e a combination of logical, physical environment and cluster) as it identifies unique deployment. Multiple requests for the same combination of logical, physical environment, cluster and deployment name will only create one record, successive request will update the existing record. This allows for a stable tracking of a deployment where the actual deployed artifact can change over time.
-    public func createArtifactDeploymentRecord(options: OrgsMethods.OrgsCreateArtifactDeploymentRecordOptions) async throws -> OrgsCreateArtifactDeploymentRecordResponse {
-        return try await OrgsMethods.orgsCreateArtifactDeploymentRecord(config: config, options: options)
+    /// Create or update deployment records for an artifact associated with an organization. This endpoint allows you to
+    /// record information about a specific artifact, such as its name, digest, environments, cluster, and deployment.
+    /// The deployment name has to be uniqe within a cluster (i.e a combination of logical, physical environment and
+    /// cluster) as it identifies unique deployment. Multiple requests for the same combination of logical, physical
+    /// environment, cluster and deployment name will only create one record, successive request will update the
+    /// existing record. This allows for a stable tracking of a deployment where the actual deployed artifact can change
+    /// over time.
+    public func createArtifactDeploymentRecord(options: OrgsMethods
+        .OrgsCreateArtifactDeploymentRecordOptions) async throws -> OrgsCreateArtifactDeploymentRecordResponse {
+        try await OrgsMethods.orgsCreateArtifactDeploymentRecord(config: config, options: options)
     }
 
-/// Set deployment records for a given cluster. If proposed records in the 'deployments' field have identical 'cluster', 'logical_environment', 'physical_environment', and 'deployment_name' values as existing records, the existing records will be updated. If no existing records match, new records will be created. Note: Artifacts are uniquely identified by the combination of their repository and digest fields. If two entries in the deployments array resolve to the same repository and have identical digest fields but differing name and version fields, the endpoint will use the artifact name and version from the record processed first, since a single artifact (identified by repository and digest) can only have one name and version.
-    public func setClusterDeploymentRecords(org: String, cluster: String, logicalEnvironment: String, deployments: [OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItem], physicalEnvironment: String?, partialSuccess: Bool?, returnRecords: Bool?) async throws -> OrgsSetClusterDeploymentRecordsResponse {
-        return try await OrgsMethods.orgsSetClusterDeploymentRecords(config: config, org: org, cluster: cluster, logicalEnvironment: logicalEnvironment, deployments: deployments, physicalEnvironment: physicalEnvironment, partialSuccess: partialSuccess, returnRecords: returnRecords)
+    /// Set deployment records for a given cluster. If proposed records in the 'deployments' field have identical
+    /// 'cluster', 'logical_environment', 'physical_environment', and 'deployment_name' values as existing records, the
+    /// existing records will be updated. If no existing records match, new records will be created. Note: Artifacts are
+    /// uniquely identified by the combination of their repository and digest fields. If two entries in the deployments
+    /// array resolve to the same repository and have identical digest fields but differing name and version fields, the
+    /// endpoint will use the artifact name and version from the record processed first, since a single artifact
+    /// (identified by repository and digest) can only have one name and version.
+    public func setClusterDeploymentRecords(
+        org: String,
+        cluster: String,
+        logicalEnvironment: String,
+        deployments: [OrgsSetClusterDeploymentRecordsRequestBodyDeploymentsItem],
+        physicalEnvironment: String?,
+        partialSuccess: Bool?,
+        returnRecords: Bool?
+    ) async throws -> OrgsSetClusterDeploymentRecordsResponse {
+        try await OrgsMethods.orgsSetClusterDeploymentRecords(
+            config: config,
+            org: org,
+            cluster: cluster,
+            logicalEnvironment: logicalEnvironment,
+            deployments: deployments,
+            physicalEnvironment: physicalEnvironment,
+            partialSuccess: partialSuccess,
+            returnRecords: returnRecords
+        )
     }
 
-/// Create a background job to set deployment records for a given cluster. Performs validation and permission checks synchronously, returning rejected deployments immediately, then enqueues a background job for the actual deployment updates. Use the companion GET endpoint to poll for job status.
-    public func createClusterDeploymentRecordsJob(org: String, cluster: String, logicalEnvironment: String, deployments: OrgsCreateClusterDeploymentRecordsJobDeploymentsList, physicalEnvironment: String?) async throws -> OrgsCreateClusterDeploymentRecordsJobResponse {
-        return try await OrgsMethods.orgsCreateClusterDeploymentRecordsJob(config: config, org: org, cluster: cluster, logicalEnvironment: logicalEnvironment, deployments: deployments, physicalEnvironment: physicalEnvironment)
+    /// Create a background job to set deployment records for a given cluster. Performs validation and permission checks
+    /// synchronously, returning rejected deployments immediately, then enqueues a background job for the actual
+    /// deployment updates. Use the companion GET endpoint to poll for job status.
+    public func createClusterDeploymentRecordsJob(
+        org: String,
+        cluster: String,
+        logicalEnvironment: String,
+        deployments: OrgsCreateClusterDeploymentRecordsJobDeploymentsList,
+        physicalEnvironment: String?
+    ) async throws -> OrgsCreateClusterDeploymentRecordsJobResponse {
+        try await OrgsMethods.orgsCreateClusterDeploymentRecordsJob(
+            config: config,
+            org: org,
+            cluster: cluster,
+            logicalEnvironment: logicalEnvironment,
+            deployments: deployments,
+            physicalEnvironment: physicalEnvironment
+        )
     }
 
-/// Get the status and results of a previously created cluster deployment records job.
-    public func getClusterDeploymentRecordsJob(org: String, cluster: String, jobId: Int) async throws -> OrgsGetClusterDeploymentRecordsJobResponse {
-        return try await OrgsMethods.orgsGetClusterDeploymentRecordsJob(config: config, org: org, cluster: cluster, jobId: jobId)
+    /// Get the status and results of a previously created cluster deployment records job.
+    public func getClusterDeploymentRecordsJob(
+        org: String,
+        cluster: String,
+        jobId: Int
+    ) async throws -> OrgsGetClusterDeploymentRecordsJobResponse {
+        try await OrgsMethods.orgsGetClusterDeploymentRecordsJob(
+            config: config,
+            org: org,
+            cluster: cluster,
+            jobId: jobId
+        )
     }
 }
 
-extension OrgsNamespace {
-/// Create metadata storage records for artifacts associated with an organization. This endpoint will create a new artifact storage record on behalf of any artifact matching the provided digest and associated with a repository owned by the organization.
-    public func createArtifactStorageRecord(options: OrgsMethods.OrgsCreateArtifactStorageRecordOptions) async throws -> OrgsCreateArtifactStorageRecordResponse {
-        return try await OrgsMethods.orgsCreateArtifactStorageRecord(config: config, options: options)
+public extension OrgsNamespace {
+    /// Create metadata storage records for artifacts associated with an organization. This endpoint will create a new
+    /// artifact storage record on behalf of any artifact matching the provided digest and associated with a repository
+    /// owned by the organization.
+    func createArtifactStorageRecord(options: OrgsMethods
+        .OrgsCreateArtifactStorageRecordOptions) async throws -> OrgsCreateArtifactStorageRecordResponse {
+        try await OrgsMethods.orgsCreateArtifactStorageRecord(config: config, options: options)
     }
 
-/// List deployment records for an artifact metadata associated with an organization.
-    public func listArtifactDeploymentRecords(org: String, subjectDigest: String) async throws -> OrgsListArtifactDeploymentRecordsResponse {
-        return try await OrgsMethods.orgsListArtifactDeploymentRecords(config: config, org: org, subjectDigest: subjectDigest)
+    /// List deployment records for an artifact metadata associated with an organization.
+    func listArtifactDeploymentRecords(
+        org: String,
+        subjectDigest: String
+    ) async throws -> OrgsListArtifactDeploymentRecordsResponse {
+        try await OrgsMethods.orgsListArtifactDeploymentRecords(config: config, org: org, subjectDigest: subjectDigest)
     }
 
-/// List artifact storage records with a given subject digest for repositories owned by an organization. Results are filtered by the authenticated user's permissions; records for repositories the user cannot read are omitted. Fine-grained access tokens require the `artifact-metadata:read` permission.
-    public func listArtifactStorageRecords(org: String, subjectDigest: String) async throws -> OrgsListArtifactStorageRecordsResponse {
-        return try await OrgsMethods.orgsListArtifactStorageRecords(config: config, org: org, subjectDigest: subjectDigest)
+    /// List artifact storage records with a given subject digest for repositories owned by an organization. Results are
+    /// filtered by the authenticated user's permissions; records for repositories the user cannot read are omitted.
+    /// Fine-grained access tokens require the `artifact-metadata:read` permission.
+    func listArtifactStorageRecords(
+        org: String,
+        subjectDigest: String
+    ) async throws -> OrgsListArtifactStorageRecordsResponse {
+        try await OrgsMethods.orgsListArtifactStorageRecords(config: config, org: org, subjectDigest: subjectDigest)
     }
 
-/// List a collection of artifact attestations associated with any entry in a list of subject digests owned by an organization. The collection of attestations returned by this endpoint is filtered according to the authenticated user's permissions; if the authenticated user cannot read a repository, the attestations associated with that repository will not be included in the response. In addition, when using a fine-grained access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
-    public func listAttestationsBulk(org: String, subjectDigests: [String], perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> OrgsListAttestationsBulkResponse {
-        return try await OrgsMethods.orgsListAttestationsBulk(config: config, org: org, subjectDigests: subjectDigests, perPage: perPage, before: before, after: after, predicateType: predicateType)
+    /// List a collection of artifact attestations associated with any entry in a list of subject digests owned by an
+    /// organization. The collection of attestations returned by this endpoint is filtered according to the
+    /// authenticated user's permissions; if the authenticated user cannot read a repository, the attestations
+    /// associated with that repository will not be included in the response. In addition, when using a fine-grained
+    /// access token the `attestations:read` permission is required. **Please note:** in order to offer meaningful
+    /// security benefits, an attestation's signature and timestamps **must** be cryptographically verified, and the
+    /// identity of the attestation signer **must** be validated. Attestations can be verified using the [GitHub CLI
+    /// `attestation verify` command](https://cli.github.com/manual/gh_attestation_verify). For more information, see
+    /// [our guide on how to use artifact attestations to establish a build's provenance](https://docs.github.com/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+    func listAttestationsBulk(
+        org: String,
+        subjectDigests: [String],
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        predicateType: String?
+    ) async throws -> OrgsListAttestationsBulkResponse {
+        try await OrgsMethods.orgsListAttestationsBulk(
+            config: config,
+            org: org,
+            subjectDigests: subjectDigests,
+            perPage: perPage,
+            before: before,
+            after: after,
+            predicateType: predicateType
+        )
     }
 
-/// Deletes artifact attestations in bulk for an organization. Submit either `subject_digests` or `attestation_ids`, but not both, with between 1 and 1024 values in the selected array. A 404 response indicates that the organization or requested attestations were not found.
+    /// Deletes artifact attestations in bulk for an organization. Submit either `subject_digests` or `attestation_ids`,
+    /// but not both, with between 1 and 1024 values in the selected array. A 404 response indicates that the
+    /// organization or requested attestations were not found.
     ///
     /// Delete artifact attestations in bulk by either subject digests or unique ID.
-    public func deleteAttestationsBulk(org: String, body: [String: JSONValue]) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsDeleteAttestationsBulk(config: config, org: org, body: body)
+    func deleteAttestationsBulk(org: String, body: [String: JSONValue]) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsDeleteAttestationsBulk(config: config, org: org, body: body)
     }
 
-/// Deletes an artifact attestation identified by its subject digest from an organization. Supply `subject_digest` together with the case-insensitive organization name in `org` to identify the attestation to remove.
+    /// Deletes an artifact attestation identified by its subject digest from an organization. Supply `subject_digest`
+    /// together with the case-insensitive organization name in `org` to identify the attestation to remove.
     ///
     /// Delete an artifact attestation by subject digest.
-    public func deleteAttestationsBySubjectDigest(org: String, subjectDigest: String) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsDeleteAttestationsBySubjectDigest(config: config, org: org, subjectDigest: subjectDigest)
+    func deleteAttestationsBySubjectDigest(org: String, subjectDigest: String) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsDeleteAttestationsBySubjectDigest(
+            config: config,
+            org: org,
+            subjectDigest: subjectDigest
+        )
     }
 
-/// List repositories owned by the provided organization that have created at least one attested artifact Results will be sorted in ascending order by repository ID
-    public func listAttestationRepositories(org: String, perPage: Int?, before: String?, after: String?, predicateType: String?) async throws -> [OrgsListAttestationRepositoriesResponseItem] {
-        return try await OrgsMethods.orgsListAttestationRepositories(config: config, org: org, perPage: perPage, before: before, after: after, predicateType: predicateType)
+    /// List repositories owned by the provided organization that have created at least one attested artifact Results
+    /// will be sorted in ascending order by repository ID
+    func listAttestationRepositories(
+        org: String,
+        perPage: Int?,
+        before: String?,
+        after: String?,
+        predicateType: String?
+    ) async throws -> [OrgsListAttestationRepositoriesResponseItem] {
+        try await OrgsMethods.orgsListAttestationRepositories(
+            config: config,
+            org: org,
+            perPage: perPage,
+            before: before,
+            after: after,
+            predicateType: predicateType
+        )
     }
 
-/// Delete an artifact attestation by unique ID that is associated with a repository owned by an org.
-    public func deleteAttestationsById(org: String, attestationId: Int) async throws -> SdkEmptyResponse {
-        return try await OrgsMethods.orgsDeleteAttestationsById(config: config, org: org, attestationId: attestationId)
+    /// Delete an artifact attestation by unique ID that is associated with a repository owned by an org.
+    func deleteAttestationsById(org: String, attestationId: Int) async throws -> SdkEmptyResponse {
+        try await OrgsMethods.orgsDeleteAttestationsById(config: config, org: org, attestationId: attestationId)
     }
 }

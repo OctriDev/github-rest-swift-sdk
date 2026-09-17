@@ -6,16 +6,20 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-public struct AppsListAccountsForPlanParameterXfe431365: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AppsListAccountsForPlanParameterXfe431365: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = AppsListAccountsForPlanParameterXfe431365(rawValue: "asc")
     public static let desc = AppsListAccountsForPlanParameterXfe431365(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -24,16 +28,20 @@ public struct AppsListAccountsForPlanParameterXfe431365: RawRepresentable, Hasha
     }
 }
 
-public struct AppsListAccountsForPlanStubbedParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct AppsListAccountsForPlanStubbedParameter: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let asc = AppsListAccountsForPlanStubbedParameter(rawValue: "asc")
     public static let desc = AppsListAccountsForPlanStubbedParameter(rawValue: "desc")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -45,7 +53,10 @@ public struct AppsListAccountsForPlanStubbedParameter: RawRepresentable, Hashabl
 public struct BillingGetAllBudgetsOrgParameter: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enterprise = BillingGetAllBudgetsOrgParameter(rawValue: "enterprise")
     public static let organization = BillingGetAllBudgetsOrgParameter(rawValue: "organization")
     public static let repository = BillingGetAllBudgetsOrgParameter(rawValue: "repository")
@@ -55,7 +66,7 @@ public struct BillingGetAllBudgetsOrgParameter: RawRepresentable, Hashable, Coda
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -69,18 +80,23 @@ public struct BillingGetAllBudgetsOrgParameter: RawRepresentable, Hashable, Coda
 /// a universal budget to all users in the organization. - `user`: Apply the budget to a single user in the
 /// organization. `user` and `multi_user_customer` scopes are only supported when `budget_product_sku` is
 /// `ai_credits` or `premium_requests`.
-public struct BillingCreateOrganizationBudgetRequestBodyBudgetScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingCreateOrganizationBudgetRequestBodyBudgetScope: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let organization = BillingCreateOrganizationBudgetRequestBodyBudgetScope(rawValue: "organization")
     public static let repository = BillingCreateOrganizationBudgetRequestBodyBudgetScope(rawValue: "repository")
-    public static let multiUserCustomer = BillingCreateOrganizationBudgetRequestBodyBudgetScope(rawValue: "multi_user_customer")
+    public static let multiUserCustomer =
+        BillingCreateOrganizationBudgetRequestBodyBudgetScope(rawValue: "multi_user_customer")
     public static let user = BillingCreateOrganizationBudgetRequestBodyBudgetScope(rawValue: "user")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -89,15 +105,20 @@ public struct BillingCreateOrganizationBudgetRequestBodyBudgetScope: RawRepresen
     }
 }
 
-public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant0: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let bundlePricing = BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant0(rawValue: "BundlePricing")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let bundlePricing =
+        BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant0(rawValue: "BundlePricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -106,15 +127,20 @@ public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant0: RawR
     }
 }
 
-public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant1: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public static let productPricing = BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant1(rawValue: "ProductPricing")
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
+    public static let productPricing =
+        BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant1(rawValue: "ProductPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -123,15 +149,19 @@ public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant1: RawR
     }
 }
 
-public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant2: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant2: RawRepresentable, Hashable, Codable,
+    Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let skuPricing = BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant2(rawValue: "SkuPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -144,10 +174,14 @@ public struct BillingCreateOrganizationBudgetRequestBodyBudgetTypeVariant2: RawR
 /// `repository`: Apply the budget to a specific repository in the organization. - `multi_user_customer`: Apply
 /// a universal budget to all users in the organization. - `user`: Apply the budget to a single user in the
 /// organization.
-public struct BillingUpdateBudgetOrgRequestBodyBudgetScope: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingUpdateBudgetOrgRequestBodyBudgetScope: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let enterprise = BillingUpdateBudgetOrgRequestBodyBudgetScope(rawValue: "enterprise")
     public static let organization = BillingUpdateBudgetOrgRequestBodyBudgetScope(rawValue: "organization")
     public static let repository = BillingUpdateBudgetOrgRequestBodyBudgetScope(rawValue: "repository")
@@ -157,7 +191,7 @@ public struct BillingUpdateBudgetOrgRequestBodyBudgetScope: RawRepresentable, Ha
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -166,15 +200,19 @@ public struct BillingUpdateBudgetOrgRequestBodyBudgetScope: RawRepresentable, Ha
     }
 }
 
-public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant0: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let bundlePricing = BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant0(rawValue: "BundlePricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -183,15 +221,19 @@ public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant0: RawRepresenta
     }
 }
 
-public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant1: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let productPricing = BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant1(rawValue: "ProductPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -200,15 +242,19 @@ public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant1: RawRepresenta
     }
 }
 
-public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant2: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant2: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let skuPricing = BillingUpdateBudgetOrgRequestBodyBudgetTypeVariant2(rawValue: "SkuPricing")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

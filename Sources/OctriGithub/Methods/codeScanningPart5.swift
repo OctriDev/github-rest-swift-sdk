@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodeScanningMethods {
-    public struct CodeScanningListAlertsForRepoOptions: Codable {
+public extension CodeScanningMethods {
+    struct CodeScanningListAlertsForRepoOptions: Codable {
         public var owner: String
         public var repo: String
         public var toolName: CodeScanningAnalysisToolName?
@@ -30,7 +30,11 @@ extension CodeScanningMethods {
         }
     }
 
-    /// Lists code scanning alerts. The response includes a `most_recent_instance` object. This provides details of the most recent instance of this alert for the default branch (or for the specified Git reference if you used `ref` in the request). OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only public repositories.
+    /// Lists code scanning alerts. The response includes a `most_recent_instance` object. This provides details of the
+    /// most recent instance of this alert for the default branch (or for the specified Git reference if you used `ref`
+    /// in the request). OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use
+    /// this endpoint with private or public repositories, or the `public_repo` scope to use this endpoint with only
+    /// public repositories.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -77,21 +81,37 @@ extension CodeScanningMethods {
     /// - assignees: Filter alerts by assignees. Provide a comma-separated list of
     ///   user handles (e.g., `octocat` or `octocat,hubot`). Use `*` to list alerts
     ///   with at least one assignee or `none` to list alerts with no assignees.
-    public static func codeScanningListAlertsForRepo(config: ClientConfig, options: CodeScanningListAlertsForRepoOptions) async throws -> [CodeScanningAlertItems] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(options.owner)), "/", sdkEncodePathSegment(sdkWireString(options.repo)), "/code-scanning/alerts"].joined(), config: config, query: [
-            SdkQueryParameter("tool_name", value: options.toolName),
-            SdkQueryParameter("tool_guid", value: options.toolGuid),
-            SdkQueryParameter("page", value: options.page),
-            SdkQueryParameter("per_page", value: options.perPage),
-            SdkQueryParameter("ref", value: options.ref),
-            SdkQueryParameter("pr", value: options.pr),
-            SdkQueryParameter("direction", value: options.direction),
-            SdkQueryParameter("before", value: options.before),
-            SdkQueryParameter("after", value: options.after),
-            SdkQueryParameter("sort", value: options.sort),
-            SdkQueryParameter("state", value: options.state),
-            SdkQueryParameter("severity", value: options.severity),
-            SdkQueryParameter("assignees", value: options.assignees),
-        ], decoder: .json, operationId: "codeScanningListAlertsForRepo")).data
+    static func codeScanningListAlertsForRepo(
+        config: ClientConfig,
+        options: CodeScanningListAlertsForRepoOptions
+    ) async throws -> [CodeScanningAlertItems] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(options.owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(options.repo)),
+                "/code-scanning/alerts",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("tool_name", value: options.toolName),
+                SdkQueryParameter("tool_guid", value: options.toolGuid),
+                SdkQueryParameter("page", value: options.page),
+                SdkQueryParameter("per_page", value: options.perPage),
+                SdkQueryParameter("ref", value: options.ref),
+                SdkQueryParameter("pr", value: options.pr),
+                SdkQueryParameter("direction", value: options.direction),
+                SdkQueryParameter("before", value: options.before),
+                SdkQueryParameter("after", value: options.after),
+                SdkQueryParameter("sort", value: options.sort),
+                SdkQueryParameter("state", value: options.state),
+                SdkQueryParameter("severity", value: options.severity),
+                SdkQueryParameter("assignees", value: options.assignees),
+            ],
+            decoder: .json,
+            operationId: "codeScanningListAlertsForRepo"
+        )).data
     }
 }

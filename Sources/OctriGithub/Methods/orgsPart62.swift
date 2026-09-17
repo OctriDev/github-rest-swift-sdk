@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Create new or update existing custom property values for repositories in a batch that belong to an organization. Each target repository will have its custom property values updated to match the values provided in the request. A maximum of 30 repositories can be updated in a single request. Using a value of `null` for a custom property will remove or 'unset' the property value from the repository. To use this endpoint, the authenticated user must be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained permission of `custom_properties_org_values_editor` in the organization.
+public extension OrgsMethods {
+    /// Create new or update existing custom property values for repositories in a batch that belong to an organization.
+    /// Each target repository will have its custom property values updated to match the values provided in the request.
+    /// A maximum of 30 repositories can be updated in a single request. Using a value of `null` for a custom property
+    /// will remove or 'unset' the property value from the repository. To use this endpoint, the authenticated user must
+    /// be one of: - An administrator for the organization. - A user, or a user on a team, with the fine-grained
+    /// permission of `custom_properties_org_values_editor` in the organization.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -15,12 +20,27 @@ extension OrgsMethods {
     ///   will be applied to.
     /// - properties: List of custom property names and associated values to apply
     ///   to the repositories.
-    public static func orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(config: ClientConfig, org: String, repositoryNames: [String], properties: [CustomPropertyValue]) async throws -> SdkEmptyResponse {
+    static func orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues(
+        config: ClientConfig,
+        org: String,
+        repositoryNames: [String],
+        properties: [CustomPropertyValue]
+    ) async throws -> SdkEmptyResponse {
         try validateItems("repository_names", repositoryNames, min: 1, max: 30)
 
-        let requestBody = OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody(repositoryNames: repositoryNames, properties: properties)
+        let requestBody = OrgsCustomPropertiesForReposCreateOrUpdateOrganizationValuesRequestBody(
+            repositoryNames: repositoryNames,
+            properties: properties
+        )
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/properties/values"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues")).data
+        return try await (sdkRequest(
+            "PATCH",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/properties/values"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "orgsCustomPropertiesForReposCreateOrUpdateOrganizationValues"
+        )).data
     }
 
     /// Members of an organization can choose to have their membership publicized or not.
@@ -35,10 +55,22 @@ extension OrgsMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func orgsListPublicMembers(config: ClientConfig, org: String, perPage: Int?, page: Int?) async throws -> [SimpleUser] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/public_members"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "orgsListPublicMembers")).data
+    static func orgsListPublicMembers(
+        config: ClientConfig,
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [SimpleUser] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/public_members"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "orgsListPublicMembers"
+        )).data
     }
 }

@@ -3,47 +3,63 @@
 
 import Foundation
 
-// IssuesNullable domain models
-extension NullableIssuePullRequest {
-    public init(from decoder: Decoder) throws {
+/// IssuesNullable domain models
+public extension NullableIssuePullRequest {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         guard container.contains(.diffUrl) else {
-            throw SdkValidationError(field: "diff_url", code: "required", message: "Validation failed for 'diff_url': value is required")
+            throw SdkValidationError(
+                field: "diff_url",
+                code: "required",
+                message: "Validation failed for 'diff_url': value is required"
+            )
         }
         guard container.contains(.htmlUrl) else {
-            throw SdkValidationError(field: "html_url", code: "required", message: "Validation failed for 'html_url': value is required")
+            throw SdkValidationError(
+                field: "html_url",
+                code: "required",
+                message: "Validation failed for 'html_url': value is required"
+            )
         }
         guard container.contains(.patchUrl) else {
-            throw SdkValidationError(field: "patch_url", code: "required", message: "Validation failed for 'patch_url': value is required")
+            throw SdkValidationError(
+                field: "patch_url",
+                code: "required",
+                message: "Validation failed for 'patch_url': value is required"
+            )
         }
         guard container.contains(.url) else {
-            throw SdkValidationError(field: "url", code: "required", message: "Validation failed for 'url': value is required")
+            throw SdkValidationError(
+                field: "url",
+                code: "required",
+                message: "Validation failed for 'url': value is required"
+            )
         }
-        self.diffUrl = try container.sdkDecodeIfPresent(.diffUrl)
-        self.htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
-        self.patchUrl = try container.sdkDecodeIfPresent(.patchUrl)
-        self.url = try container.sdkDecodeIfPresent(.url)
-        self.mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
-        if let value = self.diffUrl {
+        diffUrl = try container.sdkDecodeIfPresent(.diffUrl)
+        htmlUrl = try container.sdkDecodeIfPresent(.htmlUrl)
+        patchUrl = try container.sdkDecodeIfPresent(.patchUrl)
+        url = try container.sdkDecodeIfPresent(.url)
+        mergedAt = try container.sdkDecodeIfPresent(.mergedAt)
+        if let value = diffUrl {
             try sdkValidateUri("diff_url", value)
         }
-        if let value = self.htmlUrl {
+        if let value = htmlUrl {
             try sdkValidateUri("html_url", value)
         }
-        if let value = self.patchUrl {
+        if let value = patchUrl {
             try sdkValidateUri("patch_url", value)
         }
-        if let value = self.url {
+        if let value = url {
             try sdkValidateUri("url", value)
         }
-        if let value = self.mergedAt {
+        if let value = mergedAt {
             try sdkValidateDateTime("merged_at", sdkWireString(value))
         }
     }
 }
 
-extension NullableIssuePullRequest {
-    public init(diffUrl: String?, htmlUrl: String?, patchUrl: String?, url: String?, mergedAt: Date? = nil) throws {
+public extension NullableIssuePullRequest {
+    init(diffUrl: String?, htmlUrl: String?, patchUrl: String?, url: String?, mergedAt: Date? = nil) throws {
         (self.diffUrl, self.htmlUrl) = (diffUrl, htmlUrl)
         (self.patchUrl, self.url) = (patchUrl, url)
         self.mergedAt = mergedAt
@@ -81,20 +97,20 @@ public struct NullableIssueEventIntent: Codable {
     }
 
     init() {
-        (self.rationale, self.confidence) = (nil, nil)
+        (rationale, confidence) = (nil, nil)
     }
 }
 
-extension NullableIssueEventIntent {
-    public init(from decoder: Decoder) throws {
+public extension NullableIssueEventIntent {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.rationale = try container.sdkDecodeIfPresent(.rationale)
-        self.confidence = try container.sdkDecodeIfPresent(.confidence)
+        rationale = try container.sdkDecodeIfPresent(.rationale)
+        confidence = try container.sdkDecodeIfPresent(.confidence)
     }
 }
 
-extension NullableIssueEventIntent {
-    public init(rationale: String? = nil, confidence: NullableIssueEventIntentConfidence? = nil) {
+public extension NullableIssueEventIntent {
+    init(rationale: String? = nil, confidence: NullableIssueEventIntentConfidence? = nil) {
         self.init()
         (self.rationale, self.confidence) = (rationale, confidence)
     }
@@ -125,38 +141,67 @@ public struct NullableIssueReference: Codable {
         case stateReason = "state_reason"
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension NullableIssueReference {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.number) else {
-            throw SdkValidationError(field: "number", code: "required", message: "Validation failed for 'number': value is required")
-        }
-        guard container.contains(.title) else {
-            throw SdkValidationError(field: "title", code: "required", message: "Validation failed for 'title': value is required")
-        }
-        guard container.contains(.state) else {
-            throw SdkValidationError(field: "state", code: "required", message: "Validation failed for 'state': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.issueType) else {
-            throw SdkValidationError(field: "issue_type", code: "required", message: "Validation failed for 'issue_type': value is required")
-        }
-        self.number = try container.sdkDecodeRequired(.number)
-        self.title = try container.sdkDecodeRequired(.title)
-        self.state = try container.sdkDecodeRequired(.state)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.issueType = try container.sdkDecodeIfPresent(.issueType)
-        self.stateReason = try container.sdkDecodeIfPresent(.stateReason)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension NullableIssueReference {
-    public init(number: Int, title: String, state: String, repository: SimpleRepository, issueType: NullableIssueReferenceIssueType?, stateReason: String? = nil) {
+public extension NullableIssueReference {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.number) else {
+            throw SdkValidationError(
+                field: "number",
+                code: "required",
+                message: "Validation failed for 'number': value is required"
+            )
+        }
+        guard container.contains(.title) else {
+            throw SdkValidationError(
+                field: "title",
+                code: "required",
+                message: "Validation failed for 'title': value is required"
+            )
+        }
+        guard container.contains(.state) else {
+            throw SdkValidationError(
+                field: "state",
+                code: "required",
+                message: "Validation failed for 'state': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.issueType) else {
+            throw SdkValidationError(
+                field: "issue_type",
+                code: "required",
+                message: "Validation failed for 'issue_type': value is required"
+            )
+        }
+        number = try container.sdkDecodeRequired(.number)
+        title = try container.sdkDecodeRequired(.title)
+        state = try container.sdkDecodeRequired(.state)
+        repository = try container.sdkDecodeRequired(.repository)
+        issueType = try container.sdkDecodeIfPresent(.issueType)
+        stateReason = try container.sdkDecodeIfPresent(.stateReason)
+    }
+}
+
+public extension NullableIssueReference {
+    init(
+        number: Int,
+        title: String,
+        state: String,
+        repository: SimpleRepository,
+        issueType: NullableIssueReferenceIssueType?,
+        stateReason: String? = nil
+    ) {
         (self.number, self.title) = (number, title)
         (self.state, self.repository) = (state, repository)
         (self.issueType, self.stateReason) = (issueType, stateReason)
@@ -181,30 +226,44 @@ public struct NullableIssueReferenceIssueType: Codable {
         case color
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension NullableIssueReferenceIssueType {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.id) else {
-            throw SdkValidationError(field: "id", code: "required", message: "Validation failed for 'id': value is required")
-        }
-        guard container.contains(.nodeId) else {
-            throw SdkValidationError(field: "node_id", code: "required", message: "Validation failed for 'node_id': value is required")
-        }
-        guard container.contains(.name) else {
-            throw SdkValidationError(field: "name", code: "required", message: "Validation failed for 'name': value is required")
-        }
-        self.id = try container.sdkDecodeRequired(.id)
-        self.nodeId = try container.sdkDecodeRequired(.nodeId)
-        self.name = try container.sdkDecodeRequired(.name)
-        self.color = try container.sdkDecodeIfPresent(.color)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension NullableIssueReferenceIssueType {
-    public init(id: Int, nodeId: String, name: String, color: String? = nil) {
+public extension NullableIssueReferenceIssueType {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.id) else {
+            throw SdkValidationError(
+                field: "id",
+                code: "required",
+                message: "Validation failed for 'id': value is required"
+            )
+        }
+        guard container.contains(.nodeId) else {
+            throw SdkValidationError(
+                field: "node_id",
+                code: "required",
+                message: "Validation failed for 'node_id': value is required"
+            )
+        }
+        guard container.contains(.name) else {
+            throw SdkValidationError(
+                field: "name",
+                code: "required",
+                message: "Validation failed for 'name': value is required"
+            )
+        }
+        id = try container.sdkDecodeRequired(.id)
+        nodeId = try container.sdkDecodeRequired(.nodeId)
+        name = try container.sdkDecodeRequired(.name)
+        color = try container.sdkDecodeIfPresent(.color)
+    }
+}
+
+public extension NullableIssueReferenceIssueType {
+    init(id: Int, nodeId: String, name: String, color: String? = nil) {
         (self.id, self.nodeId) = (id, nodeId)
         (self.name, self.color) = (name, color)
     }
@@ -214,14 +273,17 @@ extension NullableIssueReferenceIssueType {
 public struct NullableIssueEventIntentConfidence: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let low = NullableIssueEventIntentConfidence(rawValue: "LOW")
     public static let medium = NullableIssueEventIntentConfidence(rawValue: "MEDIUM")
     public static let high = NullableIssueEventIntentConfidence(rawValue: "HIGH")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -234,7 +296,10 @@ public struct NullableIssueEventIntentConfidence: RawRepresentable, Hashable, Co
 public struct NullableIssueStateReason: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let completed = NullableIssueStateReason(rawValue: "completed")
     public static let reopened = NullableIssueStateReason(rawValue: "reopened")
     public static let notPlanned = NullableIssueStateReason(rawValue: "not_planned")
@@ -242,7 +307,7 @@ public struct NullableIssueStateReason: RawRepresentable, Hashable, Codable, Sen
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

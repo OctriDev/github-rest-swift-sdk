@@ -7,9 +7,8 @@ import Foundation
     import FoundationNetworking
 #endif
 
-// Canonical users operation model declarations
+/// Canonical users operation model declarations
 extension UsersGetAuthenticatedResponse: Codable {
-
     private enum CodingKeys: String, CodingKey {
         case discriminator = "user_view_type"
     }
@@ -17,20 +16,28 @@ extension UsersGetAuthenticatedResponse: Codable {
     public init(from decoder: Decoder) throws {
         let tagged = try decoder.container(keyedBy: CodingKeys.self)
         let discriminator = try tagged.decode(String.self, forKey: .discriminator)
-        if let value = try Self.decodeGroup1(discriminator, from: decoder) { self = value; return }
-        throw DecodingError.dataCorruptedError(forKey: .discriminator, in: tagged, debugDescription: "Unknown discriminator for UsersGetAuthenticatedResponse")
+        if let value = try Self.decodeGroup1(discriminator, from: decoder) {
+            self = value; return
+        }
+        throw DecodingError.dataCorruptedError(
+            forKey: .discriminator,
+            in: tagged,
+            debugDescription: "Unknown discriminator for UsersGetAuthenticatedResponse"
+        )
     }
 
     private static func decodeGroup1(_ discriminator: String, from decoder: Decoder) throws -> Self? {
         switch discriminator {
-        case "private": return .privateUser(try PrivateUser(from: decoder))
-        case "public": return .publicUser(try PublicUser(from: decoder))
-        default: return nil
+        case "private": try .privateUser(PrivateUser(from: decoder))
+        case "public": try .publicUser(PublicUser(from: decoder))
+        default: nil
         }
     }
 
     public func encode(to encoder: Encoder) throws {
-        if try encodeGroup1(to: encoder) { return }
+        if try encodeGroup1(to: encoder) {
+            return
+        }
     }
 
     private func encodeGroup1(to encoder: Encoder) throws -> Bool {
@@ -40,17 +47,16 @@ extension UsersGetAuthenticatedResponse: Codable {
         case let .publicUser(value): try container.encode(value); return true
         }
     }
-
 }
 
 public struct UsersListAttestationsBulkResponseAttestationsSubjectDigestsVaX0a9d3ec4de: Codable {
-
-    private init(sdkCopy value: Self) { self = value }
+    private init(sdkCopy value: Self) {
+        self = value
+    }
 }
 
-extension UsersListAttestationsBulkResponseAttestationsSubjectDigestsVaX0a9d3ec4de {
-    public init() {
-    }
+public extension UsersListAttestationsBulkResponseAttestationsSubjectDigestsVaX0a9d3ec4de {
+    init() {}
 }
 
 public struct UsersAddEmailForAuthenticatedUserRequestBodyVariant0: Codable {
@@ -64,23 +70,29 @@ public struct UsersAddEmailForAuthenticatedUserRequestBodyVariant0: Codable {
         case emails
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension UsersAddEmailForAuthenticatedUserRequestBodyVariant0 {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.emails) else {
-            throw SdkValidationError(field: "emails", code: "required", message: "Validation failed for 'emails': value is required")
-        }
-        self.emails = try container.sdkDecodeRequired(.emails)
-            try validateItems("emails", self.emails, min: 1, max: nil)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension UsersAddEmailForAuthenticatedUserRequestBodyVariant0 {
-    public init(emails: [String]) throws {
+public extension UsersAddEmailForAuthenticatedUserRequestBodyVariant0 {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.emails) else {
+            throw SdkValidationError(
+                field: "emails",
+                code: "required",
+                message: "Validation failed for 'emails': value is required"
+            )
+        }
+        emails = try container.sdkDecodeRequired(.emails)
+        try validateItems("emails", emails, min: 1, max: nil)
+    }
+}
+
+public extension UsersAddEmailForAuthenticatedUserRequestBodyVariant0 {
+    init(emails: [String]) throws {
         self.emails = emails
-            try validateItems("emails", self.emails, min: 1, max: nil)
+        try validateItems("emails", self.emails, min: 1, max: nil)
     }
 }

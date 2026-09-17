@@ -6,10 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension PullsMethods {
+public extension PullsMethods {
     /// Create a pull request stack
     ///
-    /// Creates a stack from an ordered list of pull request numbers. Provide the pull request numbers from the bottom of the stack to the top. Each pull request's base ref must match the previous pull request's head ref.
+    /// Creates a stack from an ordered list of pull request numbers. Provide the pull request numbers from the bottom
+    /// of the stack to the top. Each pull request's base ref must match the previous pull request's head ref.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,12 +19,30 @@ extension PullsMethods {
     ///   not case sensitive.
     /// - pullRequests: An ordered list of pull request numbers forming the stack
     ///   from bottom to top.
-    public static func pullRequestStacksCreate(config: ClientConfig, owner: String, repo: String, pullRequests: [Int]) async throws -> PullRequestStacksCreateResponse {
+    static func pullRequestStacksCreate(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        pullRequests: [Int]
+    ) async throws -> PullRequestStacksCreateResponse {
         try validateItems("pull_requests", pullRequests, min: 2, max: 100)
 
         let requestBody = PullRequestStacksCreateRequestBody(pullRequests: pullRequests)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stacks"].joined(), config: config, body: requestBody, decoder: .json, operationId: "pullRequestStacksCreate")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stacks",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "pullRequestStacksCreate"
+        )).data
     }
 
     /// Get a pull request stack
@@ -36,7 +55,25 @@ extension PullsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - stackNumber: The number that identifies the pull request stack.
-    public static func pullRequestStacksGet(config: ClientConfig, owner: String, repo: String, stackNumber: Int) async throws -> PullRequestStacksGetResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/stacks/", sdkEncodePathSegment(sdkWireString(stackNumber))].joined(), config: config, decoder: .json, operationId: "pullRequestStacksGet")).data
+    static func pullRequestStacksGet(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        stackNumber: Int
+    ) async throws -> PullRequestStacksGetResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/stacks/",
+                sdkEncodePathSegment(sdkWireString(stackNumber)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "pullRequestStacksGet"
+        )).data
     }
 }

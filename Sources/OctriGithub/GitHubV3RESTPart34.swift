@@ -9,34 +9,99 @@ public class HostedComputeNamespace {
         self.config = config
     }
 
-/// Lists all hosted compute network configurations configured in an organization. OAuth app tokens and personal access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
-    public func listNetworkConfigurationsForOrg(org: String, perPage: Int?, page: Int?) async throws -> HostedComputeListNetworkConfigurationsForOrgResponse {
-        return try await HostedComputeMethods.hostedComputeListNetworkConfigurationsForOrg(config: config, org: org, perPage: perPage, page: page)
+    /// Lists all hosted compute network configurations configured in an organization. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
+    public func listNetworkConfigurationsForOrg(
+        org: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> HostedComputeListNetworkConfigurationsForOrgResponse {
+        try await HostedComputeMethods.hostedComputeListNetworkConfigurationsForOrg(
+            config: config,
+            org: org,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Creates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens (classic) need the `write:network_configurations` scope to use this endpoint.
-    public func createNetworkConfigurationForOrg(org: String, name: String, networkSettingsIds: [String], computeService: HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService?, failoverNetworkSettingsIds: [String]?, failoverNetworkEnabled: Bool?) async throws -> NetworkConfiguration {
-        return try await HostedComputeMethods.hostedComputeCreateNetworkConfigurationForOrg(config: config, org: org, name: name, networkSettingsIds: networkSettingsIds, computeService: computeService, failoverNetworkSettingsIds: failoverNetworkSettingsIds, failoverNetworkEnabled: failoverNetworkEnabled)
+    /// Creates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:network_configurations` scope to use this endpoint.
+    public func createNetworkConfigurationForOrg(
+        org: String,
+        name: String,
+        networkSettingsIds: [String],
+        computeService: HostedComputeCreateNetworkConfigurationForOrgRequestBodyComputeService?,
+        failoverNetworkSettingsIds: [String]?,
+        failoverNetworkEnabled: Bool?
+    ) async throws -> NetworkConfiguration {
+        try await HostedComputeMethods.hostedComputeCreateNetworkConfigurationForOrg(
+            config: config,
+            org: org,
+            name: name,
+            networkSettingsIds: networkSettingsIds,
+            computeService: computeService,
+            failoverNetworkSettingsIds: failoverNetworkSettingsIds,
+            failoverNetworkEnabled: failoverNetworkEnabled
+        )
     }
 
-/// Gets a hosted compute network configuration configured in an organization. OAuth app tokens and personal access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
-    public func getNetworkConfigurationForOrg(org: String, networkConfigurationId: String) async throws -> NetworkConfiguration {
-        return try await HostedComputeMethods.hostedComputeGetNetworkConfigurationForOrg(config: config, org: org, networkConfigurationId: networkConfigurationId)
+    /// Gets a hosted compute network configuration configured in an organization. OAuth app tokens and personal access
+    /// tokens (classic) need the `read:network_configurations` scope to use this endpoint.
+    public func getNetworkConfigurationForOrg(
+        org: String,
+        networkConfigurationId: String
+    ) async throws -> NetworkConfiguration {
+        try await HostedComputeMethods.hostedComputeGetNetworkConfigurationForOrg(
+            config: config,
+            org: org,
+            networkConfigurationId: networkConfigurationId
+        )
     }
 
-/// Updates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens (classic) need the `write:network_configurations` scope to use this endpoint.
-    public func updateNetworkConfigurationForOrg(org: String, networkConfigurationId: String, name: String?, computeService: HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService?, networkSettingsIds: [String]?, failoverNetworkSettingsIds: [String]?, failoverNetworkEnabled: Bool?) async throws -> NetworkConfiguration {
-        return try await HostedComputeMethods.hostedComputeUpdateNetworkConfigurationForOrg(config: config, org: org, networkConfigurationId: networkConfigurationId, name: name, computeService: computeService, networkSettingsIds: networkSettingsIds, failoverNetworkSettingsIds: failoverNetworkSettingsIds, failoverNetworkEnabled: failoverNetworkEnabled)
+    /// Updates a hosted compute network configuration for an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:network_configurations` scope to use this endpoint.
+    public func updateNetworkConfigurationForOrg(
+        org: String,
+        networkConfigurationId: String,
+        name: String?,
+        computeService: HostedComputeUpdateNetworkConfigurationForOrgRequestBodyComputeService?,
+        networkSettingsIds: [String]?,
+        failoverNetworkSettingsIds: [String]?,
+        failoverNetworkEnabled: Bool?
+    ) async throws -> NetworkConfiguration {
+        try await HostedComputeMethods.hostedComputeUpdateNetworkConfigurationForOrg(
+            config: config,
+            org: org,
+            networkConfigurationId: networkConfigurationId,
+            name: name,
+            computeService: computeService,
+            networkSettingsIds: networkSettingsIds,
+            failoverNetworkSettingsIds: failoverNetworkSettingsIds,
+            failoverNetworkEnabled: failoverNetworkEnabled
+        )
     }
 
-/// Deletes a hosted compute network configuration from an organization. OAuth app tokens and personal access tokens (classic) need the `write:network_configurations` scope to use this endpoint.
-    public func deleteNetworkConfigurationFromOrg(org: String, networkConfigurationId: String) async throws -> SdkEmptyResponse {
-        return try await HostedComputeMethods.hostedComputeDeleteNetworkConfigurationFromOrg(config: config, org: org, networkConfigurationId: networkConfigurationId)
+    /// Deletes a hosted compute network configuration from an organization. OAuth app tokens and personal access tokens
+    /// (classic) need the `write:network_configurations` scope to use this endpoint.
+    public func deleteNetworkConfigurationFromOrg(
+        org: String,
+        networkConfigurationId: String
+    ) async throws -> SdkEmptyResponse {
+        try await HostedComputeMethods.hostedComputeDeleteNetworkConfigurationFromOrg(
+            config: config,
+            org: org,
+            networkConfigurationId: networkConfigurationId
+        )
     }
 
-/// Gets a hosted compute network settings resource configured for an organization. OAuth app tokens and personal access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
+    /// Gets a hosted compute network settings resource configured for an organization. OAuth app tokens and personal
+    /// access tokens (classic) need the `read:network_configurations` scope to use this endpoint.
     public func getNetworkSettingsForOrg(org: String, networkSettingsId: String) async throws -> NetworkSettings {
-        return try await HostedComputeMethods.hostedComputeGetNetworkSettingsForOrg(config: config, org: org, networkSettingsId: networkSettingsId)
+        try await HostedComputeMethods.hostedComputeGetNetworkSettingsForOrg(
+            config: config,
+            org: org,
+            networkSettingsId: networkSettingsId
+        )
     }
 }
 
@@ -46,163 +111,408 @@ public class TeamsNamespace {
         self.config = config
     }
 
-/// Lists all teams in an organization that are visible to the authenticated user.
+    /// Lists all teams in an organization that are visible to the authenticated user.
     public func list(org: String, perPage: Int?, page: Int?, teamType: TeamsListParameter?) async throws -> [Team] {
-        return try await TeamsMethods.teamsList(config: config, org: org, perPage: perPage, page: page, teamType: teamType)
+        try await TeamsMethods.teamsList(config: config, org: org, perPage: perPage, page: page, teamType: teamType)
     }
 
-/// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://docs.github.com/articles/setting-team-creation-permissions-in-your-organization)." When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/about-teams)".
+    /// To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members
+    /// can create teams. Organization owners can limit team creation to organization owners. For more information, see
+    /// "[Setting team creation
+    /// permissions](https://docs.github.com/articles/setting-team-creation-permissions-in-your-organization)." When you
+    /// create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional
+    /// array of `maintainers`. For more information, see "[About
+    /// teams](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/about-teams)".
     public func create(options: TeamsMethods.TeamsCreateOptions) async throws -> TeamFull {
-        return try await TeamsMethods.teamsCreate(config: config, options: options)
+        try await TeamsMethods.teamsCreate(config: config, options: options)
     }
 
-/// Gets a team using the team's `slug`. To create the `slug`, GitHub replaces special characters in the `name` string, changes all words to lowercase, and replaces spaces with a `-` separator. For example, `"My TEam Näme"` would become `my-team-name`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}`.
+    /// Gets a team using the team's `slug`. To create the `slug`, GitHub replaces special characters in the `name`
+    /// string, changes all words to lowercase, and replaces spaces with a `-` separator. For example, `"My TEam Näme"`
+    /// would become `my-team-name`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route
+    /// `GET /organizations/{org_id}/team/{team_id}`.
     public func getByName(org: String, teamSlug: String) async throws -> TeamFull {
-        return try await TeamsMethods.teamsGetByName(config: config, org: org, teamSlug: teamSlug)
+        try await TeamsMethods.teamsGetByName(config: config, org: org, teamSlug: teamSlug)
     }
 
-/// To edit a team, the authenticated user must either be an organization owner or a team maintainer. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/{org_id}/team/{team_id}`.
+    /// To edit a team, the authenticated user must either be an organization owner or a team maintainer. > [!NOTE] >
+    /// You can also specify a team by `org_id` and `team_id` using the route `PATCH
+    /// /organizations/{org_id}/team/{team_id}`.
     public func updateInOrg(options: TeamsMethods.TeamsUpdateInOrgOptions) async throws -> TeamFull {
-        return try await TeamsMethods.teamsUpdateInOrg(config: config, options: options)
+        try await TeamsMethods.teamsUpdateInOrg(config: config, options: options)
     }
 
-/// To delete a team, the authenticated user must be an organization owner or team maintainer. If you are an organization owner, deleting a parent team will delete all of its child teams as well. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}`.
+    /// To delete a team, the authenticated user must be an organization owner or team maintainer. If you are an
+    /// organization owner, deleting a parent team will delete all of its child teams as well. > [!NOTE] > You can also
+    /// specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}`.
     public func deleteInOrg(org: String, teamSlug: String) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsDeleteInOrg(config: config, org: org, teamSlug: teamSlug)
+        try await TeamsMethods.teamsDeleteInOrg(config: config, org: org, teamSlug: teamSlug)
     }
 
-/// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`.
-    public func listPendingInvitationsInOrg(org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
-        return try await TeamsMethods.teamsListPendingInvitationsInOrg(config: config, org: org, teamSlug: teamSlug, perPage: perPage, page: page)
+    /// The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the
+    /// following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee
+    /// is not a GitHub member, the `login` field in the return hash will be `null`. > [!NOTE] > You can also specify a
+    /// team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/invitations`.
+    public func listPendingInvitationsInOrg(
+        org: String,
+        teamSlug: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [OrganizationInvitation] {
+        try await TeamsMethods.teamsListPendingInvitationsInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Team members will include the members of child teams. Each member includes their `role` on the team (`member` or `maintainer`) and an `inherited` flag indicating whether the membership is inherited from a child team (`true`) or is a direct membership (`false`). These fields let you read a member's role and direct/inherited status without additional requests. To list members in a team, the team must be visible to the authenticated user. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/members`.
-    public func listMembersInOrg(org: String, teamSlug: String, role: TeamsListMembersInOrgParameter?, perPage: Int?, page: Int?) async throws -> [TeamMember] {
-        return try await TeamsMethods.teamsListMembersInOrg(config: config, org: org, teamSlug: teamSlug, role: role, perPage: perPage, page: page)
+    /// Team members will include the members of child teams. Each member includes their `role` on the team (`member` or
+    /// `maintainer`) and an `inherited` flag indicating whether the membership is inherited from a child team (`true`)
+    /// or is a direct membership (`false`). These fields let you read a member's role and direct/inherited status
+    /// without additional requests. To list members in a team, the team must be visible to the authenticated user. >
+    /// [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET
+    /// /organizations/{org_id}/team/{team_id}/members`.
+    public func listMembersInOrg(
+        org: String,
+        teamSlug: String,
+        role: TeamsListMembersInOrgParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [TeamMember] {
+        try await TeamsMethods.teamsListMembersInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            role: role,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Team members will include the members of child teams. To get a user's membership with a team, the team must be visible to the authenticated user. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/memberships/{username}`. > [!NOTE] > The response contains the `state` of the membership and the member's `role`. The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
-    public func getMembershipForUserInOrg(org: String, teamSlug: String, username: String) async throws -> TeamMembership {
-        return try await TeamsMethods.teamsGetMembershipForUserInOrg(config: config, org: org, teamSlug: teamSlug, username: username)
+    /// Team members will include the members of child teams. To get a user's membership with a team, the team must be
+    /// visible to the authenticated user. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the
+    /// route `GET /organizations/{org_id}/team/{team_id}/memberships/{username}`. > [!NOTE] > The response contains the
+    /// `state` of the membership and the member's `role`. The `role` for organization owners is set to `maintainer`.
+    /// For more information about `maintainer` roles, see [Create a
+    /// team](https://docs.github.com/rest/teams/teams#create-a-team).
+    public func getMembershipForUserInOrg(
+        org: String,
+        teamSlug: String,
+        username: String
+    ) async throws -> TeamMembership {
+        try await TeamsMethods.teamsGetMembershipForUserInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            username: username
+        )
     }
 }
 
-extension TeamsNamespace {
-/// Adds an organization member to a team. An authenticated organization owner or team maintainer can add organization members to a team. Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. > [!NOTE] > When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)." An organization owner can add someone who is not part of the team's organization to a team. When an organization owner adds someone to a team who is not an organization member, this endpoint will send an invitation to the person via email. This newly-created membership will be in the "pending" state until the person accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team. If the user is already a member of the team, this endpoint will update the role of the team member's role. To update the membership of a team member, the authenticated user must be an organization owner or a team maintainer. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/memberships/{username}`.
-    public func addOrUpdateMembershipForUserInOrg(org: String, teamSlug: String, username: String, role: TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole?) async throws -> TeamMembership {
-        return try await TeamsMethods.teamsAddOrUpdateMembershipForUserInOrg(config: config, org: org, teamSlug: teamSlug, username: username, role: role)
+public extension TeamsNamespace {
+    /// Adds an organization member to a team. An authenticated organization owner or team maintainer can add
+    /// organization members to a team. Team synchronization is available for organizations using GitHub Enterprise
+    /// Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. > [!NOTE] > When you have team synchronization set up for a team with your organization's
+    /// identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's
+    /// membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership
+    /// through your identity provider, which automatically adds and removes team members in an organization. For more
+    /// information, see "[Synchronizing teams between your identity provider and
+    /// GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)." An
+    /// organization owner can add someone who is not part of the team's organization to a team. When an organization
+    /// owner adds someone to a team who is not an organization member, this endpoint will send an invitation to the
+    /// person via email. This newly-created membership will be in the "pending" state until the person accepts the
+    /// invitation, at which point the membership will transition to the "active" state and the user will be added as a
+    /// member of the team. If the user is already a member of the team, this endpoint will update the role of the team
+    /// member's role. To update the membership of a team member, the authenticated user must be an organization owner
+    /// or a team maintainer. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `PUT
+    /// /organizations/{org_id}/team/{team_id}/memberships/{username}`.
+    func addOrUpdateMembershipForUserInOrg(
+        org: String,
+        teamSlug: String,
+        username: String,
+        role: TeamsAddOrUpdateMembershipForUserInOrgRequestBodyRole?
+    ) async throws -> TeamMembership {
+        try await TeamsMethods.teamsAddOrUpdateMembershipForUserInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            username: username,
+            role: role
+        )
     }
 
-/// To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team. Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. > [!NOTE] > When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)." > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/memberships/{username}`.
-    public func removeMembershipForUserInOrg(org: String, teamSlug: String, username: String) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsRemoveMembershipForUserInOrg(config: config, org: org, teamSlug: teamSlug, username: username)
+    /// To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the
+    /// team or be an owner of the organization that the team is associated with. Removing team membership does not
+    /// delete the user, it just removes their membership from the team. Team synchronization is available for
+    /// organizations using GitHub Enterprise Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. > [!NOTE] > When you have team synchronization set up for a team with your organization's
+    /// identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's
+    /// membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership
+    /// through your identity provider, which automatically adds and removes team members in an organization. For more
+    /// information, see "[Synchronizing teams between your identity provider and
+    /// GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)." >
+    /// [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE
+    /// /organizations/{org_id}/team/{team_id}/memberships/{username}`.
+    func removeMembershipForUserInOrg(
+        org: String,
+        teamSlug: String,
+        username: String
+    ) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsRemoveMembershipForUserInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            username: username
+        )
     }
 
-/// Lists a team's repositories visible to the authenticated user. OAuth app tokens and personal access tokens (classic) need the `read:org` or `repo` scope to use this endpoint. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`.
-    public func listReposInOrg(org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
-        return try await TeamsMethods.teamsListReposInOrg(config: config, org: org, teamSlug: teamSlug, perPage: perPage, page: page)
+    /// Lists a team's repositories visible to the authenticated user. OAuth app tokens and personal access tokens
+    /// (classic) need the `read:org` or `repo` scope to use this endpoint. > [!NOTE] > You can also specify a team by
+    /// `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos`.
+    func listReposInOrg(org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [MinimalRepository] {
+        try await TeamsMethods.teamsListReposInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Checks whether a team has `admin`, `push`, `maintain`, `triage`, or `pull` permission for a repository. Repositories inherited through a parent team will also be checked. You can also get information about the specified repository, including what permissions the team grants on it, by passing the following custom [media type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types/) via the `application/vnd.github.v3.repository+json` accept header. If a team doesn't have permission for the repository, you will receive a `404 Not Found` response status. If the repository is private, you must have at least `read` permission for that repository, and your token must have the `repo` or `admin:org` scope. Otherwise, you will receive a `404 Not Found` response status. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
-    public func checkPermissionsForRepoInOrg(org: String, teamSlug: String, owner: String, repo: String) async throws -> TeamRepository {
-        return try await TeamsMethods.teamsCheckPermissionsForRepoInOrg(config: config, org: org, teamSlug: teamSlug, owner: owner, repo: repo)
+    /// Checks whether a team has `admin`, `push`, `maintain`, `triage`, or `pull` permission for a repository.
+    /// Repositories inherited through a parent team will also be checked. You can also get information about the
+    /// specified repository, including what permissions the team grants on it, by passing the following custom [media
+    /// type](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types/) via the
+    /// `application/vnd.github.v3.repository+json` accept header. If a team doesn't have permission for the repository,
+    /// you will receive a `404 Not Found` response status. If the repository is private, you must have at least `read`
+    /// permission for that repository, and your token must have the `repo` or `admin:org` scope. Otherwise, you will
+    /// receive a `404 Not Found` response status. > [!NOTE] > You can also specify a team by `org_id` and `team_id`
+    /// using the route `GET /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
+    func checkPermissionsForRepoInOrg(
+        org: String,
+        teamSlug: String,
+        owner: String,
+        repo: String
+    ) async throws -> TeamRepository {
+        try await TeamsMethods.teamsCheckPermissionsForRepoInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            owner: owner,
+            repo: repo
+        )
     }
 
-/// To add a repository to a team or update the team's permission on a repository, the authenticated user must have admin access to the repository, and must be able to see the team. The repository must be owned by the organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)." > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`. For more information about the permission levels, see "[Repository permission levels for an organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
-    public func addOrUpdateRepoPermissionsInOrg(org: String, teamSlug: String, owner: String, repo: String, permission: String?) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsAddOrUpdateRepoPermissionsInOrg(config: config, org: org, teamSlug: teamSlug, owner: owner, repo: repo, permission: permission)
+    /// To add a repository to a team or update the team's permission on a repository, the authenticated user must have
+    /// admin access to the repository, and must be able to see the team. The repository must be owned by the
+    /// organization, or a direct fork of a repository owned by the organization. You will get a `422 Unprocessable
+    /// Entity` status if you attempt to add a repository to a team that is not owned by the organization. Note that, if
+    /// you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this
+    /// endpoint. For more information, see "[HTTP
+    /// method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)." > [!NOTE] > You can
+    /// also specify a team by `org_id` and `team_id` using the route `PUT
+    /// /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`. For more information about the permission levels,
+    /// see "[Repository permission levels for an organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+    func addOrUpdateRepoPermissionsInOrg(
+        org: String,
+        teamSlug: String,
+        owner: String,
+        repo: String,
+        permission: String?
+    ) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsAddOrUpdateRepoPermissionsInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            owner: owner,
+            repo: repo,
+            permission: permission
+        )
     }
 
-/// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from the team. To remove a repository from a team as an organization member, the authenticated user must have admin access to the repository and must be able to see the team. This does not delete the repository, it just removes it from the team. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
-    public func removeRepoInOrg(org: String, teamSlug: String, owner: String, repo: String) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsRemoveRepoInOrg(config: config, org: org, teamSlug: teamSlug, owner: owner, repo: repo)
+    /// If the authenticated user is an organization owner or a team maintainer, they can remove any repositories from
+    /// the team. To remove a repository from a team as an organization member, the authenticated user must have admin
+    /// access to the repository and must be able to see the team. This does not delete the repository, it just removes
+    /// it from the team. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `DELETE
+    /// /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
+    func removeRepoInOrg(org: String, teamSlug: String, owner: String, repo: String) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsRemoveRepoInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            owner: owner,
+            repo: repo
+        )
     }
 
-/// Lists the child teams of the team specified by `{team_slug}`. > [!NOTE] > You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`.
-    public func listChildInOrg(org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [Team] {
-        return try await TeamsMethods.teamsListChildInOrg(config: config, org: org, teamSlug: teamSlug, perPage: perPage, page: page)
+    /// Lists the child teams of the team specified by `{team_slug}`. > [!NOTE] > You can also specify a team by
+    /// `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/teams`.
+    func listChildInOrg(org: String, teamSlug: String, perPage: Int?, page: Int?) async throws -> [Team] {
+        try await TeamsMethods.teamsListChildInOrg(
+            config: config,
+            org: org,
+            teamSlug: teamSlug,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Get a team (Legacy)
+    /// Get a team (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the [Get a team by
+    /// name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func getLegacy(teamId: Int) async throws -> TeamFull {
-        return try await TeamsMethods.teamsGetLegacy(config: config, teamId: teamId)
+    func getLegacy(teamId: Int) async throws -> TeamFull {
+        try await TeamsMethods.teamsGetLegacy(config: config, teamId: teamId)
     }
 }
 
-extension TeamsNamespace {
-/// Update a team (Legacy)
+public extension TeamsNamespace {
+    /// Update a team (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint. To edit a team, the authenticated user must either be an organization owner or a team maintainer. > [!NOTE] > With nested teams, the `privacy` for parent teams cannot be `secret`.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [Update a
+    /// team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint. To edit a team, the authenticated user
+    /// must either be an organization owner or a team maintainer. > [!NOTE] > With nested teams, the `privacy` for
+    /// parent teams cannot be `secret`.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func updateLegacy(options: TeamsMethods.TeamsUpdateLegacyOptions) async throws -> TeamFull {
-        return try await TeamsMethods.teamsUpdateLegacy(config: config, options: options)
+    func updateLegacy(options: TeamsMethods.TeamsUpdateLegacyOptions) async throws -> TeamFull {
+        try await TeamsMethods.teamsUpdateLegacy(config: config, options: options)
     }
 
-/// Delete a team (Legacy)
+    /// Delete a team (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/teams/teams#delete-a-team) endpoint. To delete a team, the authenticated user must be an organization owner or team maintainer. If you are an organization owner, deleting a parent team will delete all of its child teams as well.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [Delete a
+    /// team](https://docs.github.com/rest/teams/teams#delete-a-team) endpoint. To delete a team, the authenticated user
+    /// must be an organization owner or team maintainer. If you are an organization owner, deleting a parent team will
+    /// delete all of its child teams as well.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func deleteLegacy(teamId: Int) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsDeleteLegacy(config: config, teamId: teamId)
+    func deleteLegacy(teamId: Int) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsDeleteLegacy(config: config, teamId: teamId)
     }
 
-/// List pending team invitations (Legacy)
+    /// List pending team invitations (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/teams/members#list-pending-team-invitations) endpoint. The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [`List pending team
+    /// invitations`](https://docs.github.com/rest/teams/members#list-pending-team-invitations) endpoint. The return
+    /// hash contains a `role` field which refers to the Organization Invitation role and will be one of the following
+    /// values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a
+    /// GitHub member, the `login` field in the return hash will be `null`.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func listPendingInvitationsLegacy(teamId: Int, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
-        return try await TeamsMethods.teamsListPendingInvitationsLegacy(config: config, teamId: teamId, perPage: perPage, page: page)
+    func listPendingInvitationsLegacy(teamId: Int, perPage: Int?, page: Int?) async throws -> [OrganizationInvitation] {
+        try await TeamsMethods.teamsListPendingInvitationsLegacy(
+            config: config,
+            teamId: teamId,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// List team members (Legacy)
+    /// List team members (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint. Team members will include the members of child teams. Each member includes their `role` on the team (`member` or `maintainer`) and an `inherited` flag indicating whether the membership is inherited from a child team (`true`) or is a direct membership (`false`).
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [`List team
+    /// members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint. Team members will include the
+    /// members of child teams. Each member includes their `role` on the team (`member` or `maintainer`) and an
+    /// `inherited` flag indicating whether the membership is inherited from a child team (`true`) or is a direct
+    /// membership (`false`).
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func listMembersLegacy(teamId: Int, role: TeamsListMembersLegacyParameter?, perPage: Int?, page: Int?) async throws -> [TeamMember] {
-        return try await TeamsMethods.teamsListMembersLegacy(config: config, teamId: teamId, role: role, perPage: perPage, page: page)
+    func listMembersLegacy(
+        teamId: Int,
+        role: TeamsListMembersLegacyParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> [TeamMember] {
+        try await TeamsMethods.teamsListMembersLegacy(
+            config: config,
+            teamId: teamId,
+            role: role,
+            perPage: perPage,
+            page: page
+        )
     }
 
-/// Get team member (Legacy)
+    /// Get team member (Legacy)
     ///
-    /// The "Get team member" endpoint (described below) is closing down. We recommend using the [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships. To list members in a team, the team must be visible to the authenticated user.
+    /// The "Get team member" endpoint (described below) is closing down. We recommend using the [Get team membership
+    /// for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint instead. It
+    /// allows you to get both active and pending memberships. To list members in a team, the team must be visible to
+    /// the authenticated user.
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func getMemberLegacy(teamId: Int, username: String) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsGetMemberLegacy(config: config, teamId: teamId, username: username)
+    func getMemberLegacy(teamId: Int, username: String) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsGetMemberLegacy(config: config, teamId: teamId, username: username)
     }
 
-/// Add team member (Legacy)
+    /// Add team member (Legacy)
     ///
-    /// The "Add team member" endpoint (described below) is closing down. We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams. Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. To add someone to a team, the authenticated user must be an organization owner or a team maintainer in the team they're changing. The person being added to the team must be a member of the team's organization. > [!NOTE] > When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)." Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
+    /// The "Add team member" endpoint (described below) is closing down. We recommend using the [Add or update team
+    /// membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user)
+    /// endpoint instead. It allows you to invite new organization members to your teams. Team synchronization is
+    /// available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. To add someone to a team, the authenticated user must be an organization owner or a team
+    /// maintainer in the team they're changing. The person being added to the team must be a member of the team's
+    /// organization. > [!NOTE] > When you have team synchronization set up for a team with your organization's identity
+    /// provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership.
+    /// If you have access to manage group membership in your IdP, you can manage GitHub team membership through your
+    /// identity provider, which automatically adds and removes team members in an organization. For more information,
+    /// see "[Synchronizing teams between your identity provider and
+    /// GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)." Note
+    /// that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see
+    /// "[HTTP method](https://docs.github.com/rest/guides/getting-started-with-the-rest-api#http-method)."
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func addMemberLegacy(teamId: Int, username: String) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsAddMemberLegacy(config: config, teamId: teamId, username: username)
+    func addMemberLegacy(teamId: Int, username: String) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsAddMemberLegacy(config: config, teamId: teamId, username: username)
     }
 
-/// Remove team member (Legacy)
+    /// Remove team member (Legacy)
     ///
-    /// The "Remove team member" endpoint (described below) is closing down. We recommend using the [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships. Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. To remove a team member, the authenticated user must have 'admin' permissions to the team or be an owner of the org that the team is associated with. Removing a team member does not delete the user, it just removes them from the team. > [!NOTE] > When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+    /// The "Remove team member" endpoint (described below) is closing down. We recommend using the [Remove team
+    /// membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint
+    /// instead. It allows you to remove both active and pending memberships. Team synchronization is available for
+    /// organizations using GitHub Enterprise Cloud. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. To remove a team member, the authenticated user must have 'admin' permissions to the team or be
+    /// an owner of the org that the team is associated with. Removing a team member does not delete the user, it just
+    /// removes them from the team. > [!NOTE] > When you have team synchronization set up for a team with your
+    /// organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes
+    /// to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub team
+    /// membership through your identity provider, which automatically adds and removes team members in an organization.
+    /// For more information, see "[Synchronizing teams between your identity provider and
+    /// GitHub](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func removeMemberLegacy(teamId: Int, username: String) async throws -> SdkEmptyResponse {
-        return try await TeamsMethods.teamsRemoveMemberLegacy(config: config, teamId: teamId, username: username)
+    func removeMemberLegacy(teamId: Int, username: String) async throws -> SdkEmptyResponse {
+        try await TeamsMethods.teamsRemoveMemberLegacy(config: config, teamId: teamId, username: username)
     }
 
-/// Get team membership for a user (Legacy)
+    /// Get team membership for a user (Legacy)
     ///
-    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint. Team members will include the members of child teams. To get a user's membership with a team, the team must be visible to the authenticated user. **Note:** The response contains the `state` of the membership and the member's `role`. The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
+    /// > [!WARNING] > **Endpoint closing down notice:** This endpoint route is closing down and will be removed from
+    /// the Teams API. We recommend migrating your existing code to use the new [Get team membership for a
+    /// user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint. Team members will
+    /// include the members of child teams. To get a user's membership with a team, the team must be visible to the
+    /// authenticated user. **Note:** The response contains the `state` of the membership and the member's `role`. The
+    /// `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see
+    /// [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
     ///
     /// - Warning: This operation is deprecated and may be removed in a future release.
-    public func getMembershipForUserLegacy(teamId: Int, username: String) async throws -> TeamMembership {
-        return try await TeamsMethods.teamsGetMembershipForUserLegacy(config: config, teamId: teamId, username: username)
+    func getMembershipForUserLegacy(teamId: Int, username: String) async throws -> TeamMembership {
+        try await TeamsMethods.teamsGetMembershipForUserLegacy(config: config, teamId: teamId, username: username)
     }
 }

@@ -6,10 +6,19 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SearchMethods {
+public extension SearchMethods {
     /// Search repositories
     ///
-    /// Find repositories via various criteria. This method returns up to 100 results [per page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for repositories, you can get text match metadata for the **name** and **description** fields when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to search for popular Tetris repositories written in assembly code, your query might look like this: `q=tetris+language:assembly&sort=stars&order=desc` This query searches for repositories with the word `tetris` in the name, the description, or the README. The results are limited to repositories where the primary language is assembly. The results are sorted by stars in descending order, so that the most popular repositories appear first in the search results.
+    /// Find repositories via various criteria. This method returns up to 100 results [per
+    /// page](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api). When searching for repositories,
+    /// you can get text match metadata for the **name** and **description** fields when you pass the `text-match` media
+    /// type. For more details about how to receive highlighted search results, see [Text match
+    /// metadata](https://docs.github.com/rest/search/search#text-match-metadata). For example, if you want to search
+    /// for popular Tetris repositories written in assembly code, your query might look like this:
+    /// `q=tetris+language:assembly&sort=stars&order=desc` This query searches for repositories with the word `tetris`
+    /// in the name, the description, or the README. The results are limited to repositories where the primary language
+    /// is assembly. The results are sorted by stars in descending order, so that the most popular repositories appear
+    /// first in the search results.
     ///
     /// - Parameters:
     /// - q: The query contains one or more search keywords and qualifiers.
@@ -35,8 +44,15 @@ extension SearchMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func searchRepos(config: ClientConfig, q: String, sort: SearchReposParameter?, order: SearchCommitsParameter?, perPage: Int?, page: Int?) async throws -> SearchReposResponse {
-        return try (await sdkRequest("GET", "/search/repositories", config: config, query: [
+    static func searchRepos(
+        config: ClientConfig,
+        q: String,
+        sort: SearchReposParameter?,
+        order: SearchCommitsParameter?,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> SearchReposResponse {
+        try await (sdkRequest("GET", "/search/repositories", config: config, query: [
             SdkQueryParameter("q", value: q),
             SdkQueryParameter("sort", value: sort),
             SdkQueryParameter("order", value: order),

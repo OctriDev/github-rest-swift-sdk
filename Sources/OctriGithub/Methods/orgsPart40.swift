@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Updates an issue field for an organization. You can find out more about issue fields in [Managing issue fields in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization). To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension OrgsMethods {
+    /// Updates an issue field for an organization. You can find out more about issue fields in [Managing issue fields
+    /// in an organization](https://docs.github.com/issues/tracking-your-work-with-issues/using-issues/managing-issue-fields-in-an-organization).
+    /// To use this endpoint, the authenticated user must be an administrator for the organization. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -24,9 +27,34 @@ extension OrgsMethods {
     ///   individual options. To retain or update an existing option, include it in
     ///   the array with its `id`. Options sent without an `id` are treated as new
     ///   options and may cause existing options to be deleted and recreated.
-    public static func orgsUpdateIssueField(config: ClientConfig, org: String, issueFieldId: Int, name: String?, description: SdkOptional<String>?, visibility: OrganizationUpdateIssueFieldVisibility?, options: [OrganizationUpdateIssueFieldOptionsItem]?) async throws -> IssueField {
-        let requestBody = OrgsUpdateIssueFieldRequestBody(name: name, description: description, visibility: visibility, options: options)
+    static func orgsUpdateIssueField(
+        config: ClientConfig,
+        org: String,
+        issueFieldId: Int,
+        name: String?,
+        description: SdkOptional<String>?,
+        visibility: OrganizationUpdateIssueFieldVisibility?,
+        options: [OrganizationUpdateIssueFieldOptionsItem]?
+    ) async throws -> IssueField {
+        let requestBody = OrgsUpdateIssueFieldRequestBody(
+            name: name,
+            description: description,
+            visibility: visibility,
+            options: options
+        )
 
-        return try (await sdkRequest("PATCH", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/issue-fields/", sdkEncodePathSegment(sdkWireString(issueFieldId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "orgsUpdateIssueField")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/issue-fields/",
+                sdkEncodePathSegment(sdkWireString(issueFieldId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "orgsUpdateIssueField"
+        )).data
     }
 }

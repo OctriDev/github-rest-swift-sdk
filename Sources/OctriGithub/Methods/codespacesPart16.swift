@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
-    /// Checks whether the permissions defined by a given devcontainer configuration have been accepted by the authenticated user. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this endpoint.
+public extension CodespacesMethods {
+    /// Checks whether the permissions defined by a given devcontainer configuration have been accepted by the
+    /// authenticated user. OAuth app tokens and personal access tokens (classic) need the `codespace` scope to use this
+    /// endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -22,10 +24,29 @@ extension CodespacesMethods {
     ///   the Git documentation.
     /// - devcontainerPath: Path to the devcontainer.json configuration to use for
     ///   the permission check.
-    public static func codespacesCheckPermissionsForDevcontainer(config: ClientConfig, owner: String, repo: String, ref: String, devcontainerPath: String) async throws -> CodespacesPermissionsCheckForDevcontainer {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/codespaces/permissions_check"].joined(), config: config, query: [
-            SdkQueryParameter("ref", value: ref),
-            SdkQueryParameter("devcontainer_path", value: devcontainerPath),
-        ], decoder: .json, operationId: "codespacesCheckPermissionsForDevcontainer")).data
+    static func codespacesCheckPermissionsForDevcontainer(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String,
+        devcontainerPath: String
+    ) async throws -> CodespacesPermissionsCheckForDevcontainer {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/codespaces/permissions_check",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("ref", value: ref),
+                SdkQueryParameter("devcontainer_path", value: devcontainerPath),
+            ],
+            decoder: .json,
+            operationId: "codespacesCheckPermissionsForDevcontainer"
+        )).data
     }
 }

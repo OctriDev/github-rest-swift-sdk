@@ -6,14 +6,29 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook. You must be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot list, view, or edit webhooks that were created by OAuth apps.
+public extension OrgsMethods {
+    /// This will trigger a [ping event](https://docs.github.com/webhooks/#ping-event) to be sent to the hook. You must
+    /// be an organization owner to use this endpoint. OAuth app tokens and personal access tokens (classic) need
+    /// `admin:org_hook` scope. OAuth apps cannot list, view, or edit webhooks that they did not create and users cannot
+    /// list, view, or edit webhooks that were created by OAuth apps.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - hookId: The unique identifier of the hook. You can find this value in the
     ///   `X-GitHub-Hook-ID` header of a webhook delivery.
-    public static func orgsPingWebhook(config: ClientConfig, org: String, hookId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("POST", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/hooks/", sdkEncodePathSegment(sdkWireString(hookId)), "/pings"].joined(), config: config, decoder: .empty, operationId: "orgsPingWebhook")).data
+    static func orgsPingWebhook(config: ClientConfig, org: String, hookId: Int) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "POST",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/hooks/",
+                sdkEncodePathSegment(sdkWireString(hookId)),
+                "/pings",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsPingWebhook"
+        )).data
     }
 }

@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookPersonalAccessTokenRequestCancelled domain models
+/// WebhookPersonalAccessTokenRequestCancelled domain models
 /// Typed representation of the `WebhookPersonalAccessTokenRequestCancelled` API schema.
 public struct WebhookPersonalAccessTokenRequestCancelled: Codable {
     /// Required enumerated value serialized in the `action` wire field.
@@ -32,38 +32,67 @@ public struct WebhookPersonalAccessTokenRequestCancelled: Codable {
         case enterprise
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookPersonalAccessTokenRequestCancelled {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.action) else {
-            throw SdkValidationError(field: "action", code: "required", message: "Validation failed for 'action': value is required")
-        }
-        guard container.contains(.personalAccessTokenRequest) else {
-            throw SdkValidationError(field: "personal_access_token_request", code: "required", message: "Validation failed for 'personal_access_token_request': value is required")
-        }
-        guard container.contains(.organization) else {
-            throw SdkValidationError(field: "organization", code: "required", message: "Validation failed for 'organization': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        guard container.contains(.installation) else {
-            throw SdkValidationError(field: "installation", code: "required", message: "Validation failed for 'installation': value is required")
-        }
-        self.action = try container.sdkDecodeRequired(.action)
-        self.personalAccessTokenRequest = try container.sdkDecodeRequired(.personalAccessTokenRequest)
-        self.organization = try container.sdkDecodeRequired(.organization)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.installation = try container.sdkDecodeRequired(.installation)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookPersonalAccessTokenRequestCancelled {
-    public init(action: WebhookPersonalAccessTokenRequestCancelledAction, personalAccessTokenRequest: PersonalAccessTokenRequest, organization: OrganizationSimpleWebhooks, sender: SimpleUser, installation: SimpleInstallation, enterprise: EnterpriseWebhooks? = nil) {
+public extension WebhookPersonalAccessTokenRequestCancelled {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.action) else {
+            throw SdkValidationError(
+                field: "action",
+                code: "required",
+                message: "Validation failed for 'action': value is required"
+            )
+        }
+        guard container.contains(.personalAccessTokenRequest) else {
+            throw SdkValidationError(
+                field: "personal_access_token_request",
+                code: "required",
+                message: "Validation failed for 'personal_access_token_request': value is required"
+            )
+        }
+        guard container.contains(.organization) else {
+            throw SdkValidationError(
+                field: "organization",
+                code: "required",
+                message: "Validation failed for 'organization': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        guard container.contains(.installation) else {
+            throw SdkValidationError(
+                field: "installation",
+                code: "required",
+                message: "Validation failed for 'installation': value is required"
+            )
+        }
+        action = try container.sdkDecodeRequired(.action)
+        personalAccessTokenRequest = try container.sdkDecodeRequired(.personalAccessTokenRequest)
+        organization = try container.sdkDecodeRequired(.organization)
+        sender = try container.sdkDecodeRequired(.sender)
+        installation = try container.sdkDecodeRequired(.installation)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+    }
+}
+
+public extension WebhookPersonalAccessTokenRequestCancelled {
+    init(
+        action: WebhookPersonalAccessTokenRequestCancelledAction,
+        personalAccessTokenRequest: PersonalAccessTokenRequest,
+        organization: OrganizationSimpleWebhooks,
+        sender: SimpleUser,
+        installation: SimpleInstallation,
+        enterprise: EnterpriseWebhooks? = nil
+    ) {
         (self.action, self.personalAccessTokenRequest) = (action, personalAccessTokenRequest)
         (self.organization, self.sender) = (organization, sender)
         (self.installation, self.enterprise) = (installation, enterprise)
@@ -71,15 +100,19 @@ extension WebhookPersonalAccessTokenRequestCancelled {
 }
 
 /// Required enumerated value serialized in the `action` wire field.
-public struct WebhookPersonalAccessTokenRequestCancelledAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct WebhookPersonalAccessTokenRequestCancelledAction: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let cancelled = WebhookPersonalAccessTokenRequestCancelledAction(rawValue: "cancelled")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

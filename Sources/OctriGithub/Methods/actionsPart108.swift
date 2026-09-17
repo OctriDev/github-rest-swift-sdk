@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Deletes a secret in an environment using the secret name. Authenticated users must have collaborator access to a repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Deletes a secret in an environment using the secret name. Authenticated users must have collaborator access to a
+    /// repository to create, update, or read secrets. OAuth tokens and personal access tokens (classic) need the `repo`
+    /// scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -17,7 +19,28 @@ extension ActionsMethods {
     /// - environmentName: The name of the environment. The name must be URL
     ///   encoded. For example, any slashes in the name must be replaced with `%2F`.
     /// - secretName: The name of the secret.
-    public static func actionsDeleteEnvironmentSecret(config: ClientConfig, owner: String, repo: String, environmentName: String, secretName: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/environments/", sdkEncodePathSegment(sdkWireString(environmentName)), "/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .empty, operationId: "actionsDeleteEnvironmentSecret")).data
+    static func actionsDeleteEnvironmentSecret(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        environmentName: String,
+        secretName: String
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/environments/",
+                sdkEncodePathSegment(sdkWireString(environmentName)),
+                "/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDeleteEnvironmentSecret"
+        )).data
     }
 }

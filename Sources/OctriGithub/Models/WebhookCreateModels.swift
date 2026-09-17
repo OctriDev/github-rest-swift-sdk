@@ -3,7 +3,7 @@
 
 import Foundation
 
-// WebhookCreate domain models
+/// WebhookCreate domain models
 /// Typed representation of the `WebhookCreate` API schema.
 public struct WebhookCreate: Codable {
     /// The repository's current description.
@@ -45,48 +45,89 @@ public struct WebhookCreate: Codable {
         case organization
     }
 
-    private init(sdkCopy value: Self) { self = value }
-}
-
-extension WebhookCreate {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        guard container.contains(.description) else {
-            throw SdkValidationError(field: "description", code: "required", message: "Validation failed for 'description': value is required")
-        }
-        guard container.contains(.primaryBranch) else {
-            throw SdkValidationError(field: "master_branch", code: "required", message: "Validation failed for 'master_branch': value is required")
-        }
-        guard container.contains(.pusherType) else {
-            throw SdkValidationError(field: "pusher_type", code: "required", message: "Validation failed for 'pusher_type': value is required")
-        }
-        guard container.contains(.ref) else {
-            throw SdkValidationError(field: "ref", code: "required", message: "Validation failed for 'ref': value is required")
-        }
-        guard container.contains(.refType) else {
-            throw SdkValidationError(field: "ref_type", code: "required", message: "Validation failed for 'ref_type': value is required")
-        }
-        guard container.contains(.repository) else {
-            throw SdkValidationError(field: "repository", code: "required", message: "Validation failed for 'repository': value is required")
-        }
-        guard container.contains(.sender) else {
-            throw SdkValidationError(field: "sender", code: "required", message: "Validation failed for 'sender': value is required")
-        }
-        self.description = try container.sdkDecodeIfPresent(.description)
-        self.primaryBranch = try container.sdkDecodeRequired(.primaryBranch)
-        self.pusherType = try container.sdkDecodeRequired(.pusherType)
-        self.ref = try container.sdkDecodeRequired(.ref)
-        self.refType = try container.sdkDecodeRequired(.refType)
-        self.repository = try container.sdkDecodeRequired(.repository)
-        self.sender = try container.sdkDecodeRequired(.sender)
-        self.enterprise = try container.sdkDecodeIfPresent(.enterprise)
-        self.installation = try container.sdkDecodeIfPresent(.installation)
-        self.organization = try container.sdkDecodeIfPresent(.organization)
+    private init(sdkCopy value: Self) {
+        self = value
     }
 }
 
-extension WebhookCreate {
-    public init(description: String?, primaryBranch: String, pusherType: WebhooksDeployPusherType, ref: WebhooksRef0, refType: WebhookCreateRefType, repository: RepositoryWebhooks, sender: SimpleUser, enterprise: EnterpriseWebhooks? = nil, installation: SimpleInstallation? = nil, organization: OrganizationSimpleWebhooks? = nil) {
+public extension WebhookCreate {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard container.contains(.description) else {
+            throw SdkValidationError(
+                field: "description",
+                code: "required",
+                message: "Validation failed for 'description': value is required"
+            )
+        }
+        guard container.contains(.primaryBranch) else {
+            throw SdkValidationError(
+                field: "master_branch",
+                code: "required",
+                message: "Validation failed for 'master_branch': value is required"
+            )
+        }
+        guard container.contains(.pusherType) else {
+            throw SdkValidationError(
+                field: "pusher_type",
+                code: "required",
+                message: "Validation failed for 'pusher_type': value is required"
+            )
+        }
+        guard container.contains(.ref) else {
+            throw SdkValidationError(
+                field: "ref",
+                code: "required",
+                message: "Validation failed for 'ref': value is required"
+            )
+        }
+        guard container.contains(.refType) else {
+            throw SdkValidationError(
+                field: "ref_type",
+                code: "required",
+                message: "Validation failed for 'ref_type': value is required"
+            )
+        }
+        guard container.contains(.repository) else {
+            throw SdkValidationError(
+                field: "repository",
+                code: "required",
+                message: "Validation failed for 'repository': value is required"
+            )
+        }
+        guard container.contains(.sender) else {
+            throw SdkValidationError(
+                field: "sender",
+                code: "required",
+                message: "Validation failed for 'sender': value is required"
+            )
+        }
+        description = try container.sdkDecodeIfPresent(.description)
+        primaryBranch = try container.sdkDecodeRequired(.primaryBranch)
+        pusherType = try container.sdkDecodeRequired(.pusherType)
+        ref = try container.sdkDecodeRequired(.ref)
+        refType = try container.sdkDecodeRequired(.refType)
+        repository = try container.sdkDecodeRequired(.repository)
+        sender = try container.sdkDecodeRequired(.sender)
+        enterprise = try container.sdkDecodeIfPresent(.enterprise)
+        installation = try container.sdkDecodeIfPresent(.installation)
+        organization = try container.sdkDecodeIfPresent(.organization)
+    }
+}
+
+public extension WebhookCreate {
+    init(
+        description: String?,
+        primaryBranch: String,
+        pusherType: WebhooksDeployPusherType,
+        ref: WebhooksRef0,
+        refType: WebhookCreateRefType,
+        repository: RepositoryWebhooks,
+        sender: SimpleUser,
+        enterprise: EnterpriseWebhooks? = nil,
+        installation: SimpleInstallation? = nil,
+        organization: OrganizationSimpleWebhooks? = nil
+    ) {
         (self.description, self.primaryBranch) = (description, primaryBranch)
         (self.pusherType, self.ref) = (pusherType, ref)
         (self.refType, self.repository) = (refType, repository)
@@ -99,13 +140,16 @@ extension WebhookCreate {
 public struct WebhookCreateRefType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let tag = WebhookCreateRefType(rawValue: "tag")
     public static let branch = WebhookCreateRefType(rawValue: "branch")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension DependabotMethods {
-    public struct DependabotListAlertsForOrgOptions: Codable {
+public extension DependabotMethods {
+    struct DependabotListAlertsForOrgOptions: Codable {
         public var org: String
         public var classification: String?
         public var state: String?
@@ -33,7 +33,10 @@ extension DependabotMethods {
         }
     }
 
-    /// Lists Dependabot alerts for an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+    /// Lists Dependabot alerts for an organization. The authenticated user must be an owner or security manager for the
+    /// organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the
+    /// `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token
+    /// can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -102,26 +105,36 @@ extension DependabotMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func dependabotListAlertsForOrg(config: ClientConfig, options: DependabotListAlertsForOrgOptions) async throws -> [DependabotAlertWithRepository] {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/dependabot/alerts"].joined(), config: config, query: [
-            SdkQueryParameter("classification", value: options.classification),
-            SdkQueryParameter("state", value: options.state),
-            SdkQueryParameter("severity", value: options.severity),
-            SdkQueryParameter("ecosystem", value: options.ecosystem),
-            SdkQueryParameter("package", value: options.package),
-            SdkQueryParameter("epss_percentage", value: options.epssPercentage),
-            SdkQueryParameter("artifact_registry_url", value: options.artifactRegistryUrl),
-            SdkQueryParameter("artifact_registry", value: options.artifactRegistry),
-            SdkQueryParameter("has", value: options.has),
-            SdkQueryParameter("assignee", value: options.assignee),
-            SdkQueryParameter("runtime_risk", value: options.runtimeRisk),
-            SdkQueryParameter("scope", value: options.scope),
-            SdkQueryParameter("relationship", value: options.relationship),
-            SdkQueryParameter("sort", value: options.sort),
-            SdkQueryParameter("direction", value: options.direction),
-            SdkQueryParameter("before", value: options.before),
-            SdkQueryParameter("after", value: options.after),
-            SdkQueryParameter("per_page", value: options.perPage),
-        ], decoder: .json, operationId: "dependabotListAlertsForOrg")).data
+    static func dependabotListAlertsForOrg(
+        config: ClientConfig,
+        options: DependabotListAlertsForOrgOptions
+    ) async throws -> [DependabotAlertWithRepository] {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(options.org)), "/dependabot/alerts"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("classification", value: options.classification),
+                SdkQueryParameter("state", value: options.state),
+                SdkQueryParameter("severity", value: options.severity),
+                SdkQueryParameter("ecosystem", value: options.ecosystem),
+                SdkQueryParameter("package", value: options.package),
+                SdkQueryParameter("epss_percentage", value: options.epssPercentage),
+                SdkQueryParameter("artifact_registry_url", value: options.artifactRegistryUrl),
+                SdkQueryParameter("artifact_registry", value: options.artifactRegistry),
+                SdkQueryParameter("has", value: options.has),
+                SdkQueryParameter("assignee", value: options.assignee),
+                SdkQueryParameter("runtime_risk", value: options.runtimeRisk),
+                SdkQueryParameter("scope", value: options.scope),
+                SdkQueryParameter("relationship", value: options.relationship),
+                SdkQueryParameter("sort", value: options.sort),
+                SdkQueryParameter("direction", value: options.direction),
+                SdkQueryParameter("before", value: options.before),
+                SdkQueryParameter("after", value: options.after),
+                SdkQueryParameter("per_page", value: options.perPage),
+            ],
+            decoder: .json,
+            operationId: "dependabotListAlertsForOrg"
+        )).data
     }
 }

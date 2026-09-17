@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Deletes a specific commit comment from a repository. Use `owner`, `repo`, and `comment_id` to identify the repository and comment to remove. The deletion permanently removes the comment and does not return a response body.
+public extension ReposMethods {
+    /// Deletes a specific commit comment from a repository. Use `owner`, `repo`, and `comment_id` to identify the
+    /// repository and comment to remove. The deletion permanently removes the comment and does not return a response
+    /// body.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,7 +17,25 @@ extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
-    public static func reposDeleteCommitComment(config: ClientConfig, owner: String, repo: String, commentId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, decoder: .empty, operationId: "reposDeleteCommitComment")).data
+    static func reposDeleteCommitComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reposDeleteCommitComment"
+        )).data
     }
 }

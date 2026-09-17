@@ -6,8 +6,10 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecurityAdvisoriesMethods {
-    /// Lists repository security advisories for an organization. The authenticated user must be an owner or security manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `repository_advisories:write` scope to use this endpoint.
+public extension SecurityAdvisoriesMethods {
+    /// Lists repository security advisories for an organization. The authenticated user must be an owner or security
+    /// manager for the organization to use this endpoint. OAuth app tokens and personal access tokens (classic) need
+    /// the `repo` or `repository_advisories:write` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -31,18 +33,34 @@ extension SecurityAdvisoriesMethods {
     ///   -rest-api)."
     /// - state: Filter by the state of the repository advisories. Only advisories
     ///   of this state will be returned.
-    public static func securityAdvisoriesListOrgRepositoryAdvisories(config: ClientConfig, org: String, direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?, sort: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter?, before: String?, after: String?, perPage: Int?, state: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc?) async throws -> [RepositoryAdvisory] {
-        if let perPage = perPage {
+    static func securityAdvisoriesListOrgRepositoryAdvisories(
+        config: ClientConfig,
+        org: String,
+        direction: SecurityAdvisoriesListGlobalAdvisoriesParameter?,
+        sort: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameter?,
+        before: String?,
+        after: String?,
+        perPage: Int?,
+        state: SecurityAdvisoriesListOrgRepositoryAdvisoriesParameterX737430cc?
+    ) async throws -> [RepositoryAdvisory] {
+        if let perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 100)
         }
 
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/security-advisories"].joined(), config: config, query: [
-            SdkQueryParameter("direction", value: direction),
-            SdkQueryParameter("sort", value: sort),
-            SdkQueryParameter("before", value: before),
-            SdkQueryParameter("after", value: after),
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("state", value: state),
-        ], decoder: .json, operationId: "securityAdvisoriesListOrgRepositoryAdvisories")).data
+        return try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/security-advisories"].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("direction", value: direction),
+                SdkQueryParameter("sort", value: sort),
+                SdkQueryParameter("before", value: before),
+                SdkQueryParameter("after", value: after),
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("state", value: state),
+            ],
+            decoder: .json,
+            operationId: "securityAdvisoriesListOrgRepositoryAdvisories"
+        )).data
     }
 }

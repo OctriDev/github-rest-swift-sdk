@@ -6,21 +6,45 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CodespacesMethods {
-    /// Gets a public key for an organization, which is required in order to encrypt secrets. You need to encrypt the value of a secret before you can create or update secrets. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension CodespacesMethods {
+    /// Gets a public key for an organization, which is required in order to encrypt secrets. You need to encrypt the
+    /// value of a secret before you can create or update secrets. OAuth app tokens and personal access tokens (classic)
+    /// need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func codespacesGetOrgPublicKey(config: ClientConfig, org: String) async throws -> CodespacesPublicKey {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets/public-key"].joined(), config: config, decoder: .json, operationId: "codespacesGetOrgPublicKey")).data
+    static func codespacesGetOrgPublicKey(config: ClientConfig, org: String) async throws -> CodespacesPublicKey {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets/public-key"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesGetOrgPublicKey"
+        )).data
     }
 
-    /// Gets an organization development environment secret without revealing its encrypted value. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// Gets an organization development environment secret without revealing its encrypted value. OAuth app tokens and
+    /// personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - secretName: The name of the secret.
-    public static func codespacesGetOrgSecret(config: ClientConfig, org: String, secretName: String) async throws -> CodespacesOrgSecret {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/codespaces/secrets/", sdkEncodePathSegment(sdkWireString(secretName))].joined(), config: config, decoder: .json, operationId: "codespacesGetOrgSecret")).data
+    static func codespacesGetOrgSecret(
+        config: ClientConfig,
+        org: String,
+        secretName: String
+    ) async throws -> CodespacesOrgSecret {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/codespaces/secrets/",
+                sdkEncodePathSegment(sdkWireString(secretName)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "codespacesGetOrgSecret"
+        )).data
     }
 }

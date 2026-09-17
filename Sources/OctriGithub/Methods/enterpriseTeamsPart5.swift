@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension EnterpriseTeamsMethods {
-    public struct EnterpriseTeamsUpdateOptions: Codable {
+public extension EnterpriseTeamsMethods {
+    struct EnterpriseTeamsUpdateOptions: Codable {
         public var enterprise: String
         public var teamSlug: String
         public var name: SdkOptional<String>?
@@ -48,9 +48,24 @@ extension EnterpriseTeamsMethods {
     ///   options are: * `notifications_enabled` - team members receive notifications
     ///   when the team is @mentioned. * `notifications_disabled` - no one receives
     ///   notifications.
-    public static func enterpriseTeamsUpdate(config: ClientConfig, options: EnterpriseTeamsUpdateOptions) async throws -> EnterpriseTeam {
+    static func enterpriseTeamsUpdate(
+        config: ClientConfig,
+        options: EnterpriseTeamsUpdateOptions
+    ) async throws -> EnterpriseTeam {
         let requestBody = EnterpriseTeamsUpdateRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/enterprises/", sdkEncodePathSegment(sdkWireString(options.enterprise)), "/teams/", sdkEncodePathSegment(sdkWireString(options.teamSlug))].joined(), config: config, body: requestBody, decoder: .json, operationId: "enterpriseTeamsUpdate")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/enterprises/",
+                sdkEncodePathSegment(sdkWireString(options.enterprise)),
+                "/teams/",
+                sdkEncodePathSegment(sdkWireString(options.teamSlug)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "enterpriseTeamsUpdate"
+        )).data
     }
 }

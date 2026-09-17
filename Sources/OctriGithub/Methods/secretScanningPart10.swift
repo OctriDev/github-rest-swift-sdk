@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension SecretScanningMethods {
-    /// Lists all locations for a given secret scanning alert for an eligible repository. The authenticated user must be an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint. If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
+public extension SecretScanningMethods {
+    /// Lists all locations for a given secret scanning alert for an eligible repository. The authenticated user must be
+    /// an administrator for the repository or for the organization that owns the repository to use this endpoint. OAuth
+    /// app tokens and personal access tokens (classic) need the `repo` or `security_events` scope to use this endpoint.
+    /// If this endpoint is only used with public repositories, the token can use the `public_repo` scope instead.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -26,10 +29,32 @@ extension SecretScanningMethods {
     ///   see "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func secretScanningListLocationsForAlert(config: ClientConfig, owner: String, repo: String, alertNumber: AlertNumber, page: Int?, perPage: Int?) async throws -> [SecretScanningLocation] {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/secret-scanning/alerts/", sdkEncodePathSegment(sdkWireString(alertNumber)), "/locations"].joined(), config: config, query: [
-            SdkQueryParameter("page", value: page),
-            SdkQueryParameter("per_page", value: perPage),
-        ], decoder: .json, operationId: "secretScanningListLocationsForAlert")).data
+    static func secretScanningListLocationsForAlert(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        alertNumber: AlertNumber,
+        page: Int?,
+        perPage: Int?
+    ) async throws -> [SecretScanningLocation] {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/secret-scanning/alerts/",
+                sdkEncodePathSegment(sdkWireString(alertNumber)),
+                "/locations",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("page", value: page),
+                SdkQueryParameter("per_page", value: perPage),
+            ],
+            decoder: .json,
+            operationId: "secretScanningListLocationsForAlert"
+        )).data
     }
 }

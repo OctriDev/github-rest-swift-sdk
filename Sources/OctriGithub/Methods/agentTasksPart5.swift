@@ -6,8 +6,13 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension AgentTasksMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for the authenticated user **Fine-grained access tokens for "List tasks"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+public extension AgentTasksMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a list of tasks for the
+    /// authenticated user **Fine-grained access tokens for "List tasks"** This endpoint works with the following
+    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
+    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
+    /// GitHub App installation access tokens are not supported for this endpoint.
     ///
     /// - Parameters:
     /// - perPage: The number of results per page (max 100).
@@ -21,20 +26,29 @@ extension AgentTasksMethods {
     ///   tasks. When `false` or omitted, returns only non-archived tasks. Defaults to
     ///   `false`.
     /// - since: Only show tasks updated at or after this time (ISO 8601 timestamp)
-    public static func agentTasksListTasks(config: ClientConfig, perPage: Int?, page: Int?, sort: AgentTasksListTasksParameter?, direction: AgentTasksListTasksParameterX8d1144b0?, state: String?, isArchived: Bool?, since: Date?) async throws -> AgentTasksListTasksResponse {
-        if let perPage = perPage {
+    static func agentTasksListTasks(
+        config: ClientConfig,
+        perPage: Int?,
+        page: Int?,
+        sort: AgentTasksListTasksParameter?,
+        direction: AgentTasksListTasksParameterX8d1144b0?,
+        state: String?,
+        isArchived: Bool?,
+        since: Date?
+    ) async throws -> AgentTasksListTasksResponse {
+        if let perPage {
             try validateRange("per_page", Double(perPage), min: 1, max: 100)
         }
 
-        if let page = page {
+        if let page {
             try validateRange("page", Double(page), min: 1)
         }
 
-        if let since = since {
+        if let since {
             try sdkValidateDateTime("since", since)
         }
 
-        return try (await sdkRequest("GET", "/agents/tasks", config: config, query: [
+        return try await (sdkRequest("GET", "/agents/tasks", config: config, query: [
             SdkQueryParameter("per_page", value: perPage),
             SdkQueryParameter("page", value: page),
             SdkQueryParameter("sort", value: sort),
@@ -45,11 +59,25 @@ extension AgentTasksMethods {
         ], decoder: .json, operationId: "agentTasksListTasks")).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID with its associated sessions **Fine-grained access tokens for "Get a task by ID"** This endpoint works with the following fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app) * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read) GitHub App installation access tokens are not supported for this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Returns a task by ID with its
+    /// associated sessions **Fine-grained access tokens for "Get a task by ID"** This endpoint works with the following
+    /// fine-grained token types: * [GitHub App user access tokens](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
+    /// * [Fine-grained personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+    /// The fine-grained token must have the following permission set: * "Agent tasks" repository permissions (read)
+    /// GitHub App installation access tokens are not supported for this endpoint.
     ///
     /// - Parameters:
     /// - taskId: The unique identifier of the task.
-    public static func agentTasksGetTaskById(config: ClientConfig, taskId: String) async throws -> AgentTasksGetTaskByIdResponse {
-        return try (await sdkRequest("GET", ["/agents/tasks/", sdkEncodePathSegment(sdkWireString(taskId))].joined(), config: config, decoder: .json, operationId: "agentTasksGetTaskById")).data
+    static func agentTasksGetTaskById(
+        config: ClientConfig,
+        taskId: String
+    ) async throws -> AgentTasksGetTaskByIdResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/agents/tasks/", sdkEncodePathSegment(sdkWireString(taskId))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "agentTasksGetTaskById"
+        )).data
     }
 }

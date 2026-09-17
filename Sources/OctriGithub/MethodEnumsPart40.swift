@@ -11,16 +11,20 @@ import Foundation
 /// unchanged lines that appear in white and are shown for context. For a multi-line comment, side represents
 /// whether the last line of the comment range is a deletion or addition. For more information, see "Diff view
 /// options" in the GitHub Help documentation.
-public struct PullsCreateReviewCommentRequestBodySide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullsCreateReviewCommentRequestBodySide: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let left = PullsCreateReviewCommentRequestBodySide(rawValue: "LEFT")
     public static let right = PullsCreateReviewCommentRequestBodySide(rawValue: "RIGHT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -33,17 +37,21 @@ public struct PullsCreateReviewCommentRequestBodySide: RawRepresentable, Hashabl
 /// side of the diff that the comment applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line
 /// comments, see "Commenting on a pull request" in the GitHub Help documentation. See `side` in this table for
 /// additional context.
-public struct PullsCreateReviewCommentRequestBodyStartSide: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullsCreateReviewCommentRequestBodyStartSide: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let left = PullsCreateReviewCommentRequestBodyStartSide(rawValue: "LEFT")
     public static let right = PullsCreateReviewCommentRequestBodyStartSide(rawValue: "RIGHT")
     public static let side = PullsCreateReviewCommentRequestBodyStartSide(rawValue: "side")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -53,16 +61,20 @@ public struct PullsCreateReviewCommentRequestBodyStartSide: RawRepresentable, Ha
 }
 
 /// The level at which the comment is targeted.
-public struct PullsCreateReviewCommentRequestBodySubjectType: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct PullsCreateReviewCommentRequestBodySubjectType: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let line = PullsCreateReviewCommentRequestBodySubjectType(rawValue: "line")
     public static let file = PullsCreateReviewCommentRequestBodySubjectType(rawValue: "file")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,14 +89,17 @@ public struct PullsCreateReviewCommentRequestBodySubjectType: RawRepresentable, 
 public struct PullsMergeAsyncRequestBodyMergeAction: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `default` = PullsMergeAsyncRequestBodyMergeAction(rawValue: "default")
     public static let directMerge = PullsMergeAsyncRequestBodyMergeAction(rawValue: "direct_merge")
     public static let mergeQueue = PullsMergeAsyncRequestBodyMergeAction(rawValue: "merge_queue")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -97,14 +112,17 @@ public struct PullsMergeAsyncRequestBodyMergeAction: RawRepresentable, Hashable,
 public struct PullsMergeAsyncRequestBodyMergeMethod: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let merge = PullsMergeAsyncRequestBodyMergeMethod(rawValue: "merge")
     public static let squash = PullsMergeAsyncRequestBodyMergeMethod(rawValue: "squash")
     public static let rebase = PullsMergeAsyncRequestBodyMergeMethod(rawValue: "rebase")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -117,14 +135,17 @@ public struct PullsMergeAsyncRequestBodyMergeMethod: RawRepresentable, Hashable,
 public struct PullsMergeRequestBodyMergeMethod: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let merge = PullsMergeRequestBodyMergeMethod(rawValue: "merge")
     public static let squash = PullsMergeRequestBodyMergeMethod(rawValue: "squash")
     public static let rebase = PullsMergeRequestBodyMergeMethod(rawValue: "rebase")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -139,14 +160,17 @@ public struct PullsMergeRequestBodyMergeMethod: RawRepresentable, Hashable, Coda
 public struct PullsCreateReviewRequestBodyEvent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let approve = PullsCreateReviewRequestBodyEvent(rawValue: "APPROVE")
     public static let requestChanges = PullsCreateReviewRequestBodyEvent(rawValue: "REQUEST_CHANGES")
     public static let comment = PullsCreateReviewRequestBodyEvent(rawValue: "COMMENT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -158,12 +182,15 @@ public struct PullsCreateReviewRequestBodyEvent: RawRepresentable, Hashable, Cod
 public struct PullsDismissReviewRequestBodyEvent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let dismiss = PullsDismissReviewRequestBodyEvent(rawValue: "DISMISS")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -179,14 +206,17 @@ public struct PullsDismissReviewRequestBodyEvent: RawRepresentable, Hashable, Co
 public struct PullsSubmitReviewRequestBodyEvent: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let approve = PullsSubmitReviewRequestBodyEvent(rawValue: "APPROVE")
     public static let requestChanges = PullsSubmitReviewRequestBodyEvent(rawValue: "REQUEST_CHANGES")
     public static let comment = PullsSubmitReviewRequestBodyEvent(rawValue: "COMMENT")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -198,17 +228,21 @@ public struct PullsSubmitReviewRequestBodyEvent: RawRepresentable, Hashable, Cod
 /// Specifies whether this release should be set as the latest release for the repository. Drafts and
 /// prereleases cannot be set as latest. Defaults to `true` for newly published releases. `legacy` specifies
 /// that the latest release should be determined based on the release creation date and higher semantic version.
-public struct ReposCreateReleaseRequestBodyMakeLatest: RawRepresentable, Hashable, Codable, Sendable, SdkWireConvertible {
+public struct ReposCreateReleaseRequestBodyMakeLatest: RawRepresentable, Hashable, Codable, Sendable,
+    SdkWireConvertible {
     public let rawValue: String
 
-    public init(rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+
     public static let `true` = ReposCreateReleaseRequestBodyMakeLatest(rawValue: "true")
     public static let `false` = ReposCreateReleaseRequestBodyMakeLatest(rawValue: "false")
     public static let legacy = ReposCreateReleaseRequestBodyMakeLatest(rawValue: "legacy")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        self.init(rawValue: try container.decode(String.self))
+        try self.init(rawValue: container.decode(String.self))
     }
 
     public func encode(to encoder: Encoder) throws {

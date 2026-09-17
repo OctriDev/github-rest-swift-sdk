@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Users with pull access in a repository can access a combined view of commit statuses for a given ref. The ref can be a SHA, a branch name, or a tag name. Additionally, a combined `state` is returned. The `state` is one of: * **failure** if any of the contexts report as `error` or `failure` * **pending** if there are no statuses or a context is `pending` * **success** if the latest status for all contexts is `success`
+public extension ReposMethods {
+    /// Users with pull access in a repository can access a combined view of commit statuses for a given ref. The ref
+    /// can be a SHA, a branch name, or a tag name. Additionally, a combined `state` is returned. The `state` is one of:
+    /// * **failure** if any of the contexts report as `error` or `failure` * **pending** if there are no statuses or a
+    /// context is `pending` * **success** if the latest status for all contexts is `success`
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,10 +30,32 @@ extension ReposMethods {
     ///   "[Using pagination in the REST
     ///   API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the
     ///   -rest-api)."
-    public static func reposGetCombinedStatusForRef(config: ClientConfig, owner: String, repo: String, ref: String, perPage: Int?, page: Int?) async throws -> CombinedCommitStatus {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/commits/", sdkEncodePathSegment(sdkWireString(ref)), "/status"].joined(), config: config, query: [
-            SdkQueryParameter("per_page", value: perPage),
-            SdkQueryParameter("page", value: page),
-        ], decoder: .json, operationId: "reposGetCombinedStatusForRef")).data
+    static func reposGetCombinedStatusForRef(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        ref: String,
+        perPage: Int?,
+        page: Int?
+    ) async throws -> CombinedCommitStatus {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/commits/",
+                sdkEncodePathSegment(sdkWireString(ref)),
+                "/status",
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("per_page", value: perPage),
+                SdkQueryParameter("page", value: page),
+            ],
+            decoder: .json,
+            operationId: "reposGetCombinedStatusForRef"
+        )).data
     }
 }

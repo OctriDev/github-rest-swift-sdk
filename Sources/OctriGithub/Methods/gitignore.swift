@@ -7,14 +7,32 @@ import Foundation
     import FoundationNetworking
 #endif
 public enum GitignoreMethods {
-    /// List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/repos/repos#create-a-repository-for-the-authenticated-user).
+    /// List all templates available to pass as an option when [creating a
+    /// repository](https://docs.github.com/rest/repos/repos#create-a-repository-for-the-authenticated-user).
     public static func gitignoreGetAllTemplates(config: ClientConfig) async throws -> [String] {
-        return try (await sdkRequest("GET", "/gitignore/templates", config: config, decoder: .json, operationId: "gitignoreGetAllTemplates")).data
+        try await (sdkRequest(
+            "GET",
+            "/gitignore/templates",
+            config: config,
+            decoder: .json,
+            operationId: "gitignoreGetAllTemplates"
+        )).data
     }
-    /// Retrieves the content of a gitignore template by name. Supply `name` to identify the template you want to retrieve. The response provides the template name and its source content.
+
+    /// Retrieves the content of a gitignore template by name. Supply `name` to identify the template you want to
+    /// retrieve. The response provides the template name and its source content.
     ///
-    /// Get the content of a gitignore template. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github.raw+json`**: Returns the raw .gitignore contents.
+    /// Get the content of a gitignore template. This endpoint supports the following custom media types. For more
+    /// information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github.raw+json`**: Returns the raw .gitignore contents.
     public static func gitignoreGetTemplate(config: ClientConfig, name: String) async throws -> GitignoreTemplate {
-        return try (await sdkRequest("GET", ["/gitignore/templates/", sdkEncodePathSegment(sdkWireString(name))].joined(), config: config, decoder: .json, operationId: "gitignoreGetTemplate")).data
+        try await (sdkRequest(
+            "GET",
+            ["/gitignore/templates/", sdkEncodePathSegment(sdkWireString(name))].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "gitignoreGetTemplate"
+        )).data
     }
 }

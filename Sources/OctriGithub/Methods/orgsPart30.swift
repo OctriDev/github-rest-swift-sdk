@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Get overall statistics of API requests within the organization made by a specific actor. Actors can be GitHub App installations, OAuth apps or other tokens on behalf of a user. Under normal conditions, you can expect API data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it may take longer to show up.
+public extension OrgsMethods {
+    /// Get overall statistics of API requests within the organization made by a specific actor. Actors can be GitHub
+    /// App installations, OAuth apps or other tokens on behalf of a user. Under normal conditions, you can expect API
+    /// data to appear within 4–6 hours after making a request. During incidents or periods of unusually high volume, it
+    /// may take longer to show up.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -20,10 +23,31 @@ extension OrgsMethods {
     ///   time 30 days ago. This is a timestamp in [ISO
     ///   8601](https://en.wikipedia.org/wiki/ISO_8601) format:
     ///   `YYYY-MM-DDTHH:MM:SSZ`.
-    public static func apiInsightsGetSummaryStatsByActor(config: ClientConfig, org: String, actorType: ApiInsightsGetRouteStatsByActorParameter, actorId: Int, minTimestamp: String, maxTimestamp: String?) async throws -> ApiInsightsSummaryStats {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/insights/api/summary-stats/", sdkEncodePathSegment(sdkWireString(actorType)), "/", sdkEncodePathSegment(sdkWireString(actorId))].joined(), config: config, query: [
-            SdkQueryParameter("min_timestamp", value: minTimestamp),
-            SdkQueryParameter("max_timestamp", value: maxTimestamp),
-        ], decoder: .json, operationId: "apiInsightsGetSummaryStatsByActor")).data
+    static func apiInsightsGetSummaryStatsByActor(
+        config: ClientConfig,
+        org: String,
+        actorType: ApiInsightsGetRouteStatsByActorParameter,
+        actorId: Int,
+        minTimestamp: String,
+        maxTimestamp: String?
+    ) async throws -> ApiInsightsSummaryStats {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/insights/api/summary-stats/",
+                sdkEncodePathSegment(sdkWireString(actorType)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(actorId)),
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("min_timestamp", value: minTimestamp),
+                SdkQueryParameter("max_timestamp", value: maxTimestamp),
+            ],
+            decoder: .json,
+            operationId: "apiInsightsGetSummaryStatsByActor"
+        )).data
     }
 }

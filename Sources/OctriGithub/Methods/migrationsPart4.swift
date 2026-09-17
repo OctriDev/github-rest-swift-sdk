@@ -6,28 +6,64 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension MigrationsMethods {
-    /// Fetches the status of a migration. The `state` of a migration can be one of the following values: * `pending`, which means the migration hasn't started yet. * `exporting`, which means the migration is in progress. * `exported`, which means the migration finished successfully. * `failed`, which means the migration failed.
+public extension MigrationsMethods {
+    /// Fetches the status of a migration. The `state` of a migration can be one of the following values: * `pending`,
+    /// which means the migration hasn't started yet. * `exporting`, which means the migration is in progress. *
+    /// `exported`, which means the migration finished successfully. * `failed`, which means the migration failed.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - migrationId: The unique identifier of the migration.
     /// - exclude: Exclude attributes from the API response to improve performance
-    public static func migrationsGetStatusForOrg(config: ClientConfig, org: String, migrationId: Int, exclude: [MigrationsGetStatusForOrgParameterItem]?) async throws -> Migration {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations/", sdkEncodePathSegment(sdkWireString(migrationId))].joined(), config: config, query: [
-            SdkQueryParameter("exclude", values: exclude, style: "form", explode: true),
-        ], decoder: .json, operationId: "migrationsGetStatusForOrg")).data
+    static func migrationsGetStatusForOrg(
+        config: ClientConfig,
+        org: String,
+        migrationId: Int,
+        exclude: [MigrationsGetStatusForOrgParameterItem]?
+    ) async throws -> Migration {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/migrations/",
+                sdkEncodePathSegment(sdkWireString(migrationId)),
+            ].joined(),
+            config: config,
+            query: [
+                SdkQueryParameter("exclude", values: exclude, style: "form", explode: true),
+            ],
+            decoder: .json,
+            operationId: "migrationsGetStatusForOrg"
+        )).data
     }
 
-    /// Retrieves the URL for an organization migration archive. Provide `org` and `migration_id` to identify the migration whose archive you want to download. The response redirects you to the archive location.
+    /// Retrieves the URL for an organization migration archive. Provide `org` and `migration_id` to identify the
+    /// migration whose archive you want to download. The response redirects you to the archive location.
     ///
     /// Fetches the URL to a migration archive.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - migrationId: The unique identifier of the migration.
-    public static func migrationsDownloadArchiveForOrg(config: ClientConfig, org: String, migrationId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations/", sdkEncodePathSegment(sdkWireString(migrationId)), "/archive"].joined(), config: config, decoder: .empty, operationId: "migrationsDownloadArchiveForOrg")).data
+    static func migrationsDownloadArchiveForOrg(
+        config: ClientConfig,
+        org: String,
+        migrationId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/migrations/",
+                sdkEncodePathSegment(sdkWireString(migrationId)),
+                "/archive",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "migrationsDownloadArchiveForOrg"
+        )).data
     }
 
     /// Deletes a previous migration archive. Migration archives are automatically deleted after seven days.
@@ -35,7 +71,23 @@ extension MigrationsMethods {
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - migrationId: The unique identifier of the migration.
-    public static func migrationsDeleteArchiveForOrg(config: ClientConfig, org: String, migrationId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/migrations/", sdkEncodePathSegment(sdkWireString(migrationId)), "/archive"].joined(), config: config, decoder: .empty, operationId: "migrationsDeleteArchiveForOrg")).data
+    static func migrationsDeleteArchiveForOrg(
+        config: ClientConfig,
+        org: String,
+        migrationId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/migrations/",
+                sdkEncodePathSegment(sdkWireString(migrationId)),
+                "/archive",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "migrationsDeleteArchiveForOrg"
+        )).data
     }
 }

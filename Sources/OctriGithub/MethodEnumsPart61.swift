@@ -17,23 +17,23 @@ struct CodeScanningUploadSarifRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.commitSha, forKey: SdkCodingKey("commit_sha"))
-        try keyedContainer.encode(self.ref, forKey: SdkCodingKey("ref"))
-        try keyedContainer.encode(self.sarif, forKey: SdkCodingKey("sarif"))
-        try keyedContainer.encodeIfPresent(self.checkoutUri, forKey: SdkCodingKey("checkout_uri"))
-        try keyedContainer.encodeIfPresent(self.startedAt, forKey: SdkCodingKey("started_at"))
-        try keyedContainer.encodeIfPresent(self.toolName, forKey: SdkCodingKey("tool_name"))
-        try keyedContainer.encodeIfPresent(self.validate, forKey: SdkCodingKey("validate"))
+        try keyedContainer.encode(commitSha, forKey: SdkCodingKey("commit_sha"))
+        try keyedContainer.encode(ref, forKey: SdkCodingKey("ref"))
+        try keyedContainer.encode(sarif, forKey: SdkCodingKey("sarif"))
+        try keyedContainer.encodeIfPresent(checkoutUri, forKey: SdkCodingKey("checkout_uri"))
+        try keyedContainer.encodeIfPresent(startedAt, forKey: SdkCodingKey("started_at"))
+        try keyedContainer.encodeIfPresent(toolName, forKey: SdkCodingKey("tool_name"))
+        try keyedContainer.encodeIfPresent(validate, forKey: SdkCodingKey("validate"))
     }
 
     init(options: CodeScanningMethods.CodeScanningUploadSarifOptions) {
-        self.commitSha = options.commitSha
-        self.ref = options.ref
-        self.sarif = options.sarif
-        self.checkoutUri = options.checkoutUri
-        self.startedAt = options.startedAt
-        self.toolName = options.toolName
-        self.validate = options.validate
+        commitSha = options.commitSha
+        ref = options.ref
+        sarif = options.sarif
+        checkoutUri = options.checkoutUri
+        startedAt = options.startedAt
+        toolName = options.toolName
+        validate = options.validate
     }
 }
 
@@ -43,8 +43,8 @@ struct CodespacesSetCodespacesAccessRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(self.selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
+        try keyedContainer.encode(visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
     }
 }
 
@@ -53,7 +53,7 @@ struct CodespacesSetCodespacesAccessUsersRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
+        try keyedContainer.encode(selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
     }
 }
 
@@ -62,7 +62,7 @@ struct CodespacesDeleteCodespacesAccessUsersRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
+        try keyedContainer.encode(selectedUsernames, forKey: SdkCodingKey("selected_usernames"))
     }
 }
 
@@ -74,10 +74,10 @@ struct CodespacesCreateOrUpdateOrgSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.visibility, forKey: SdkCodingKey("visibility"))
-        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(self.keyId, forKey: SdkCodingKey("key_id"))
-        try keyedContainer.encodeIfPresent(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(visibility, forKey: SdkCodingKey("visibility"))
+        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -86,7 +86,7 @@ struct CodespacesSetSelectedReposForOrgSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -105,31 +105,34 @@ struct CodespacesCreateWithRepoForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.ref, forKey: SdkCodingKey("ref"))
-        try keyedContainer.encodeIfPresent(self.location, forKey: SdkCodingKey("location"))
-        try keyedContainer.encodeIfPresent(self.geo, forKey: SdkCodingKey("geo"))
-        try keyedContainer.encodeIfPresent(self.clientIp, forKey: SdkCodingKey("client_ip"))
-        try keyedContainer.encodeIfPresent(self.machine, forKey: SdkCodingKey("machine"))
-        try keyedContainer.encodeIfPresent(self.devcontainerPath, forKey: SdkCodingKey("devcontainer_path"))
-        try keyedContainer.encodeIfPresent(self.multiRepoPermissionsOptOut, forKey: SdkCodingKey("multi_repo_permissions_opt_out"))
-        try keyedContainer.encodeIfPresent(self.workingDirectory, forKey: SdkCodingKey("working_directory"))
-        try keyedContainer.encodeIfPresent(self.idleTimeoutMinutes, forKey: SdkCodingKey("idle_timeout_minutes"))
-        try keyedContainer.encodeIfPresent(self.displayName, forKey: SdkCodingKey("display_name"))
-        try keyedContainer.encodeIfPresent(self.retentionPeriodMinutes, forKey: SdkCodingKey("retention_period_minutes"))
+        try keyedContainer.encodeIfPresent(ref, forKey: SdkCodingKey("ref"))
+        try keyedContainer.encodeIfPresent(location, forKey: SdkCodingKey("location"))
+        try keyedContainer.encodeIfPresent(geo, forKey: SdkCodingKey("geo"))
+        try keyedContainer.encodeIfPresent(clientIp, forKey: SdkCodingKey("client_ip"))
+        try keyedContainer.encodeIfPresent(machine, forKey: SdkCodingKey("machine"))
+        try keyedContainer.encodeIfPresent(devcontainerPath, forKey: SdkCodingKey("devcontainer_path"))
+        try keyedContainer.encodeIfPresent(
+            multiRepoPermissionsOptOut,
+            forKey: SdkCodingKey("multi_repo_permissions_opt_out")
+        )
+        try keyedContainer.encodeIfPresent(workingDirectory, forKey: SdkCodingKey("working_directory"))
+        try keyedContainer.encodeIfPresent(idleTimeoutMinutes, forKey: SdkCodingKey("idle_timeout_minutes"))
+        try keyedContainer.encodeIfPresent(displayName, forKey: SdkCodingKey("display_name"))
+        try keyedContainer.encodeIfPresent(retentionPeriodMinutes, forKey: SdkCodingKey("retention_period_minutes"))
     }
 
     init(options: CodespacesMethods.CodespacesCreateWithRepoForAuthenticatedUserOptions) {
-        self.ref = options.ref
-        self.location = options.location
-        self.geo = options.geo
-        self.clientIp = options.clientIp
-        self.machine = options.machine
-        self.devcontainerPath = options.devcontainerPath
-        self.multiRepoPermissionsOptOut = options.multiRepoPermissionsOptOut
-        self.workingDirectory = options.workingDirectory
-        self.idleTimeoutMinutes = options.idleTimeoutMinutes
-        self.displayName = options.displayName
-        self.retentionPeriodMinutes = options.retentionPeriodMinutes
+        ref = options.ref
+        location = options.location
+        geo = options.geo
+        clientIp = options.clientIp
+        machine = options.machine
+        devcontainerPath = options.devcontainerPath
+        multiRepoPermissionsOptOut = options.multiRepoPermissionsOptOut
+        workingDirectory = options.workingDirectory
+        idleTimeoutMinutes = options.idleTimeoutMinutes
+        displayName = options.displayName
+        retentionPeriodMinutes = options.retentionPeriodMinutes
     }
 }
 
@@ -139,8 +142,8 @@ struct CodespacesCreateOrUpdateRepoSecretRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(self.keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(keyId, forKey: SdkCodingKey("key_id"))
     }
 }
 
@@ -158,29 +161,32 @@ struct CodespacesCreateWithPrForAuthenticatedUserRequestBody: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encodeIfPresent(self.location, forKey: SdkCodingKey("location"))
-        try keyedContainer.encodeIfPresent(self.geo, forKey: SdkCodingKey("geo"))
-        try keyedContainer.encodeIfPresent(self.clientIp, forKey: SdkCodingKey("client_ip"))
-        try keyedContainer.encodeIfPresent(self.machine, forKey: SdkCodingKey("machine"))
-        try keyedContainer.encodeIfPresent(self.devcontainerPath, forKey: SdkCodingKey("devcontainer_path"))
-        try keyedContainer.encodeIfPresent(self.multiRepoPermissionsOptOut, forKey: SdkCodingKey("multi_repo_permissions_opt_out"))
-        try keyedContainer.encodeIfPresent(self.workingDirectory, forKey: SdkCodingKey("working_directory"))
-        try keyedContainer.encodeIfPresent(self.idleTimeoutMinutes, forKey: SdkCodingKey("idle_timeout_minutes"))
-        try keyedContainer.encodeIfPresent(self.displayName, forKey: SdkCodingKey("display_name"))
-        try keyedContainer.encodeIfPresent(self.retentionPeriodMinutes, forKey: SdkCodingKey("retention_period_minutes"))
+        try keyedContainer.encodeIfPresent(location, forKey: SdkCodingKey("location"))
+        try keyedContainer.encodeIfPresent(geo, forKey: SdkCodingKey("geo"))
+        try keyedContainer.encodeIfPresent(clientIp, forKey: SdkCodingKey("client_ip"))
+        try keyedContainer.encodeIfPresent(machine, forKey: SdkCodingKey("machine"))
+        try keyedContainer.encodeIfPresent(devcontainerPath, forKey: SdkCodingKey("devcontainer_path"))
+        try keyedContainer.encodeIfPresent(
+            multiRepoPermissionsOptOut,
+            forKey: SdkCodingKey("multi_repo_permissions_opt_out")
+        )
+        try keyedContainer.encodeIfPresent(workingDirectory, forKey: SdkCodingKey("working_directory"))
+        try keyedContainer.encodeIfPresent(idleTimeoutMinutes, forKey: SdkCodingKey("idle_timeout_minutes"))
+        try keyedContainer.encodeIfPresent(displayName, forKey: SdkCodingKey("display_name"))
+        try keyedContainer.encodeIfPresent(retentionPeriodMinutes, forKey: SdkCodingKey("retention_period_minutes"))
     }
 
     init(options: CodespacesMethods.CodespacesCreateWithPrForAuthenticatedUserOptions) {
-        self.location = options.location
-        self.geo = options.geo
-        self.clientIp = options.clientIp
-        self.machine = options.machine
-        self.devcontainerPath = options.devcontainerPath
-        self.multiRepoPermissionsOptOut = options.multiRepoPermissionsOptOut
-        self.workingDirectory = options.workingDirectory
-        self.idleTimeoutMinutes = options.idleTimeoutMinutes
-        self.displayName = options.displayName
-        self.retentionPeriodMinutes = options.retentionPeriodMinutes
+        location = options.location
+        geo = options.geo
+        clientIp = options.clientIp
+        machine = options.machine
+        devcontainerPath = options.devcontainerPath
+        multiRepoPermissionsOptOut = options.multiRepoPermissionsOptOut
+        workingDirectory = options.workingDirectory
+        idleTimeoutMinutes = options.idleTimeoutMinutes
+        displayName = options.displayName
+        retentionPeriodMinutes = options.retentionPeriodMinutes
     }
 }
 
@@ -191,9 +197,9 @@ struct CodespacesCreateOrUpdateSecretForAuthenticatedUserRequestBody: Encodable 
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.keyId, forKey: SdkCodingKey("key_id"))
-        try keyedContainer.encodeIfPresent(self.encryptedValue, forKey: SdkCodingKey("encrypted_value"))
-        try keyedContainer.encodeIfPresent(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(keyId, forKey: SdkCodingKey("key_id"))
+        try keyedContainer.encodeIfPresent(encryptedValue, forKey: SdkCodingKey("encrypted_value"))
+        try keyedContainer.encodeIfPresent(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }
 
@@ -202,6 +208,6 @@ struct CodespacesSetRepositoriesForSecretForAuthenticatedUserRequestBody: Encoda
 
     func encode(to encoder: Encoder) throws {
         var keyedContainer = encoder.container(keyedBy: SdkCodingKey.self)
-        try keyedContainer.encode(self.selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
+        try keyedContainer.encode(selectedRepositoryIds, forKey: SdkCodingKey("selected_repository_ids"))
     }
 }

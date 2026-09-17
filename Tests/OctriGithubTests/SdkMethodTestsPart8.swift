@@ -18,7 +18,8 @@ extension SdkMethodTests {
         XCTAssertTrue(true)
     }
 
-    func testActivityDeleteThreadSubscriptionActivityDeleteThreadSubscriptionReachesMockAndDecodesResponse() async throws {
+    func testActivityDeleteThreadSubscriptionActivityDeleteThreadSubscriptionReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -66,7 +67,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityGetStargazerCountForRepoActivityGetStargazerCountForRepoReachesMockAndDecodesResponse() async throws {
+    func testActivityGetStargazerCountForRepoActivityGetStargazerCountForRepoReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -86,7 +88,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityGetStargazerHistoryForRepoActivityGetStargazerHistoryForRepoReachesMockAndDecodesResponse() async throws {
+    func testActivityGetStargazerHistoryForRepoActivityGetStargazerHistoryForRepoReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -127,7 +130,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityGetThreadSubscriptionForAuthenticatedUserActivityGetTXd20f60f231ReachesMockAndDecodesResponse() async throws {
+    func testActivityGetThreadSubscriptionForAuthenticatedUserActivityGetTXd20f60f231ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -146,7 +150,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListEventsForAuthenticatedUserActivityListEventsForAuX659253862bReachesMockAndDecodesResponse() async throws {
+    func testActivityListEventsForAuthenticatedUserActivityListEventsForAuX659253862bReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -167,7 +172,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListNotificationsForAuthenticatedUserActivityListNotiX831bc9d8ceReachesMockAndDecodesResponse() async throws {
+    func testActivityListNotificationsForAuthenticatedUserActivityListNotiX831bc9d8ceReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -191,7 +197,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListOrgEventsForAuthenticatedUserActivityListOrgEventXee27165d9aReachesMockAndDecodesResponse() async throws {
+    func testActivityListOrgEventsForAuthenticatedUserActivityListOrgEventXee27165d9aReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -233,7 +240,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListPublicEventsForRepoNetworkActivityListPublicEventX2ddba86091ReachesMockAndDecodesResponse() async throws {
+    func testActivityListPublicEventsForRepoNetworkActivityListPublicEventX2ddba86091ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -297,7 +305,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListReceivedEventsForUserActivityListReceivedEventsForUserReachesMockAndDecodesResponse() async throws {
+    func testActivityListReceivedEventsForUserActivityListReceivedEventsForUserReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -318,7 +327,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListReceivedPublicEventsForUserActivityListReceivedPuX42bf15f5d8ReachesMockAndDecodesResponse() async throws {
+    func testActivityListReceivedPublicEventsForUserActivityListReceivedPuX42bf15f5d8ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -361,12 +371,16 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListRepoNotificationsForAuthenticatedUserActivityListXaa7d5ebb12ReachesMockAndDecodesResponse() async throws {
+    func testActivityListRepoNotificationsForAuthenticatedUserActivityListXaa7d5ebb12ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
         _ = client
-        var options = try ActivityMethods.ActivityListRepoNotificationsForAuthenticatedUserOptions(owner: decoded("\"owner\""), repo: decoded("\"repo\""))
+        var options = try ActivityMethods.ActivityListRepoNotificationsForAuthenticatedUserOptions(
+            owner: decoded("\"owner\""),
+            repo: decoded("\"repo\"")
+        )
         options.all = try decoded("false")
         options.participating = try decoded("false")
         options.since = try decoded("\"2024-01-01T00:00:00Z\"")
@@ -387,7 +401,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListReposStarredByAuthenticatedUserActivityListReposSX835e356f21ReachesMockAndDecodesResponse() async throws {
+    func testActivityListReposStarredByAuthenticatedUserActivityListReposSX835e356f21ReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }
@@ -475,7 +490,8 @@ extension SdkMethodTests {
         )
     }
 
-    func testActivityListWatchedReposForAuthenticatedUserActivityListWatchX0471b841adReachesMockAndDecodesResponse() async throws {
+    func testActivityListWatchedReposForAuthenticatedUserActivityListWatchX0471b841adReachesMockAndDecodesResponse(
+    ) async throws {
         guard let client = configuredClient() else {
             return
         }

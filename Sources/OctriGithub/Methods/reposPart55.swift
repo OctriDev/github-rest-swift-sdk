@@ -6,8 +6,17 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Gets a specified commit comment. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+public extension ReposMethods {
+    /// Gets a specified commit comment. This endpoint supports the following custom media types. For more information,
+    /// see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +24,38 @@ extension ReposMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
-    public static func reposGetCommitComment(config: ClientConfig, owner: String, repo: String, commentId: Int) async throws -> CommitComment {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, decoder: .json, operationId: "reposGetCommitComment")).data
+    static func reposGetCommitComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int
+    ) async throws -> CommitComment {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "reposGetCommitComment"
+        )).data
     }
 
-    /// Updates the contents of a specified commit comment. This endpoint supports the following custom media types. For more information, see "[Media types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." - **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include `body`. This is the default if you do not pass any specific media type. - **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body. Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered from the body's markdown. Response will include `body_html`. - **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will include `body`, `body_text`, and `body_html`.
+    /// Updates the contents of a specified commit comment. This endpoint supports the following custom media types. For
+    /// more information, see "[Media
+    /// types](https://docs.github.com/rest/using-the-rest-api/getting-started-with-the-rest-api#media-types)." -
+    /// **`application/vnd.github-commitcomment.raw+json`**: Returns the raw markdown body. Response will include
+    /// `body`. This is the default if you do not pass any specific media type. -
+    /// **`application/vnd.github-commitcomment.text+json`**: Returns a text only representation of the markdown body.
+    /// Response will include `body_text`. - **`application/vnd.github-commitcomment.html+json`**: Returns HTML rendered
+    /// from the body's markdown. Response will include `body_html`. -
+    /// **`application/vnd.github-commitcomment.full+json`**: Returns raw, text, and HTML representations. Response will
+    /// include `body`, `body_text`, and `body_html`.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -28,9 +64,29 @@ extension ReposMethods {
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
     /// - body: The contents of the comment
-    public static func reposUpdateCommitComment(config: ClientConfig, owner: String, repo: String, commentId: Int, body: String) async throws -> CommitComment {
+    static func reposUpdateCommitComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int,
+        body: String
+    ) async throws -> CommitComment {
         let requestBody = ReposUpdateCommitCommentRequestBody(body: body)
 
-        return try (await sdkRequest("PATCH", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposUpdateCommitComment")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposUpdateCommitComment"
+        )).data
     }
 }

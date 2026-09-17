@@ -6,8 +6,11 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ActionsMethods {
-    /// Gets a redirect URL to download an archive of log files for a workflow run. This link expires after 1 minute. Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+public extension ActionsMethods {
+    /// Gets a redirect URL to download an archive of log files for a workflow run. This link expires after 1 minute.
+    /// Look for `Location:` in the response header to find the URL for the download. Anyone with read access to the
+    /// repository can use this endpoint. If the repository is private, OAuth tokens and personal access tokens
+    /// (classic) need the `repo` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -15,11 +18,31 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    public static func actionsDownloadWorkflowRunLogs(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("GET", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/logs"].joined(), config: config, decoder: .empty, operationId: "actionsDownloadWorkflowRunLogs")).data
+    static func actionsDownloadWorkflowRunLogs(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "GET",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/logs",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDownloadWorkflowRunLogs"
+        )).data
     }
 
-    /// Deletes all logs for a workflow run. OAuth tokens and personal access tokens (classic) need the `repo` scope to use this endpoint.
+    /// Deletes all logs for a workflow run. OAuth tokens and personal access tokens (classic) need the `repo` scope to
+    /// use this endpoint.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -27,7 +50,26 @@ extension ActionsMethods {
     /// - repo: The name of the repository without the `.git` extension. The name is
     ///   not case sensitive.
     /// - runId: The unique identifier of the workflow run.
-    public static func actionsDeleteWorkflowRunLogs(config: ClientConfig, owner: String, repo: String, runId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/actions/runs/", sdkEncodePathSegment(sdkWireString(runId)), "/logs"].joined(), config: config, decoder: .empty, operationId: "actionsDeleteWorkflowRunLogs")).data
+    static func actionsDeleteWorkflowRunLogs(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        runId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/actions/runs/",
+                sdkEncodePathSegment(sdkWireString(runId)),
+                "/logs",
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "actionsDeleteWorkflowRunLogs"
+        )).data
     }
 }

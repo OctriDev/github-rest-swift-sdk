@@ -6,24 +6,52 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension CopilotMethods {
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets information about which repositories in an organization have been enabled or disabled for the Copilot cloud agent. Organization owners can configure whether Copilot cloud agent is enabled for all repositories, selected repositories, or no repositories owned by organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+public extension CopilotMethods {
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Gets information about which
+    /// repositories in an organization have been enabled or disabled for the Copilot cloud agent. Organization owners
+    /// can configure whether Copilot cloud agent is enabled for all repositories, selected repositories, or no
+    /// repositories owned by organization. OAuth app tokens and personal access tokens (classic) need the `admin:org`
+    /// scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
-    public static func copilotGetCopilotCodingAgentPermissionsOrganization(config: ClientConfig, org: String) async throws -> CopilotGetCopilotCodingAgentPermissionsOrganizationResponse {
-        return try (await sdkRequest("GET", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions"].joined(), config: config, decoder: .json, operationId: "copilotGetCopilotCodingAgentPermissionsOrganization")).data
+    static func copilotGetCopilotCodingAgentPermissionsOrganization(
+        config: ClientConfig,
+        org: String
+    ) async throws -> CopilotGetCopilotCodingAgentPermissionsOrganizationResponse {
+        try await (sdkRequest(
+            "GET",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions"].joined(),
+            config: config,
+            decoder: .json,
+            operationId: "copilotGetCopilotCodingAgentPermissionsOrganization"
+        )).data
     }
 
-    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Sets the policy for which repositories in an organization can use Copilot cloud agent. Organization owners can configure whether Copilot cloud agent is enabled for all repositories, selected repositories, or no repositories owned by the organization. OAuth app tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
+    /// > [!NOTE] > This endpoint is in public preview and is subject to change. Sets the policy for which repositories
+    /// in an organization can use Copilot cloud agent. Organization owners can configure whether Copilot cloud agent is
+    /// enabled for all repositories, selected repositories, or no repositories owned by the organization. OAuth app
+    /// tokens and personal access tokens (classic) need the `admin:org` scope to use this endpoint.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - enabledRepositories: The policy for which repositories can use Copilot
     ///   cloud agent. Can be one of `all`, `selected`, or `none`.
-    public static func copilotSetCopilotCodingAgentPermissionsOrganization(config: ClientConfig, org: String, enabledRepositories: CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41) async throws -> SdkEmptyResponse {
-        let requestBody = CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody(enabledRepositories: enabledRepositories)
+    static func copilotSetCopilotCodingAgentPermissionsOrganization(
+        config: ClientConfig,
+        org: String,
+        enabledRepositories: CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBodXd3a141df41
+    ) async throws -> SdkEmptyResponse {
+        let requestBody =
+            CopilotSetCopilotCodingAgentPermissionsOrganizationRequestBody(enabledRepositories: enabledRepositories)
 
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions"].joined(), config: config, body: requestBody, decoder: .empty, operationId: "copilotSetCopilotCodingAgentPermissionsOrganization")).data
+        return try await (sdkRequest(
+            "PUT",
+            ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/copilot/coding-agent/permissions"].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .empty,
+            operationId: "copilotSetCopilotCodingAgentPermissionsOrganization"
+        )).data
     }
 }

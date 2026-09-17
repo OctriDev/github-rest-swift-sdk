@@ -6,8 +6,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReactionsMethods {
-    /// Create a reaction to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment). A response with an HTTP `200` status means that you already added the reaction type to this commit comment.
+public extension ReactionsMethods {
+    /// Create a reaction to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment). A
+    /// response with an HTTP `200` status means that you already added the reaction type to this commit comment.
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,13 +19,36 @@ extension ReactionsMethods {
     /// - content: The [reaction
     ///   type](https://docs.github.com/rest/reactions/reactions#about-reactions) to
     ///   add to the commit comment.
-    public static func reactionsCreateForCommitComment(config: ClientConfig, owner: String, repo: String, commentId: Int, content: ReactionsCreateForCommitCommentRequestBodyContent) async throws -> Reaction {
+    static func reactionsCreateForCommitComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int,
+        content: ReactionsCreateForCommitCommentRequestBodyContent
+    ) async throws -> Reaction {
         let requestBody = ReactionsCreateForCommitCommentRequestBody(content: content)
 
-        return try (await sdkRequest("POST", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reactionsCreateForCommitComment")).data
+        return try await (sdkRequest(
+            "POST",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+                "/reactions",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reactionsCreateForCommitComment"
+        )).data
     }
 
-    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE /repositories/:repository_id/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to a [commit comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment).
+    /// > [!NOTE] > You can also specify a repository by `repository_id` using the route `DELETE
+    /// /repositories/:repository_id/comments/:comment_id/reactions/:reaction_id`. Delete a reaction to a [commit
+    /// comment](https://docs.github.com/rest/commits/comments#get-a-commit-comment).
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -33,7 +57,28 @@ extension ReactionsMethods {
     ///   not case sensitive.
     /// - commentId: The unique identifier of the comment.
     /// - reactionId: The unique identifier of the reaction.
-    public static func reactionsDeleteForCommitComment(config: ClientConfig, owner: String, repo: String, commentId: Int, reactionId: Int) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/comments/", sdkEncodePathSegment(sdkWireString(commentId)), "/reactions/", sdkEncodePathSegment(sdkWireString(reactionId))].joined(), config: config, decoder: .empty, operationId: "reactionsDeleteForCommitComment")).data
+    static func reactionsDeleteForCommitComment(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        commentId: Int,
+        reactionId: Int
+    ) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/comments/",
+                sdkEncodePathSegment(sdkWireString(commentId)),
+                "/reactions/",
+                sdkEncodePathSegment(sdkWireString(reactionId)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "reactionsDeleteForCommitComment"
+        )).data
     }
 }

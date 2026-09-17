@@ -6,14 +6,26 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension OrgsMethods {
-    /// Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot block the given user a 422 is returned.
+public extension OrgsMethods {
+    /// Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot
+    /// block the given user a 422 is returned.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsBlockUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("PUT", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsBlockUser")).data
+    static func orgsBlockUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "PUT",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/blocks/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsBlockUser"
+        )).data
     }
 
     /// Unblocks the given user on behalf of the specified organization.
@@ -21,7 +33,18 @@ extension OrgsMethods {
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
     /// - username: The handle for the GitHub user account.
-    public static func orgsUnblockUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
-        return try (await sdkRequest("DELETE", ["/orgs/", sdkEncodePathSegment(sdkWireString(org)), "/blocks/", sdkEncodePathSegment(sdkWireString(username))].joined(), config: config, decoder: .empty, operationId: "orgsUnblockUser")).data
+    static func orgsUnblockUser(config: ClientConfig, org: String, username: String) async throws -> SdkEmptyResponse {
+        try await (sdkRequest(
+            "DELETE",
+            [
+                "/orgs/",
+                sdkEncodePathSegment(sdkWireString(org)),
+                "/blocks/",
+                sdkEncodePathSegment(sdkWireString(username)),
+            ].joined(),
+            config: config,
+            decoder: .empty,
+            operationId: "orgsUnblockUser"
+        )).data
     }
 }

@@ -6,8 +6,14 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension ReposMethods {
-    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation. Removes the ability of a user to push to this branch. | Type | Description | | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- | | `array` | Usernames of the people who should no longer have push access. **Note**: The list of users, apps, and teams in total is limited to 100 items. |
+public extension ReposMethods {
+    /// Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and
+    /// in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
+    /// Server. For more information, see [GitHub's
+    /// products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help
+    /// documentation. Removes the ability of a user to push to this branch. | Type | Description | | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------
+    /// | | `array` | Usernames of the people who should no longer have push access. **Note**: The list of users, apps,
+    /// and teams in total is limited to 100 items. |
     ///
     /// - Parameters:
     /// - owner: The account owner of the repository. The name is not case
@@ -18,9 +24,30 @@ extension ReposMethods {
     ///   wildcard characters in branch names, use [the GraphQL
     ///   API](https://docs.github.com/graphql).
     /// - users: The username for users
-    public static func reposRemoveUserAccessRestrictions(config: ClientConfig, owner: String, repo: String, branch: String, users: [String]) async throws -> [SimpleUser] {
+    static func reposRemoveUserAccessRestrictions(
+        config: ClientConfig,
+        owner: String,
+        repo: String,
+        branch: String,
+        users: [String]
+    ) async throws -> [SimpleUser] {
         let requestBody = ReposRemoveUserAccessRestrictionsRequestBody(users: users)
 
-        return try (await sdkRequest("DELETE", ["/repos/", sdkEncodePathSegment(sdkWireString(owner)), "/", sdkEncodePathSegment(sdkWireString(repo)), "/branches/", sdkEncodePathSegment(sdkWireString(branch)), "/protection/restrictions/users"].joined(), config: config, body: requestBody, decoder: .json, operationId: "reposRemoveUserAccessRestrictions")).data
+        return try await (sdkRequest(
+            "DELETE",
+            [
+                "/repos/",
+                sdkEncodePathSegment(sdkWireString(owner)),
+                "/",
+                sdkEncodePathSegment(sdkWireString(repo)),
+                "/branches/",
+                sdkEncodePathSegment(sdkWireString(branch)),
+                "/protection/restrictions/users",
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "reposRemoveUserAccessRestrictions"
+        )).data
     }
 }

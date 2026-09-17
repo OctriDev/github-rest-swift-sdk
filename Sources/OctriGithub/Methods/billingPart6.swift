@@ -6,8 +6,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-extension BillingMethods {
-    public struct BillingUpdateBudgetOrgOptions: Codable {
+public extension BillingMethods {
+    struct BillingUpdateBudgetOrgOptions: Codable {
         public var org: String
         public var budgetId: String
         public var budgetAmount: Int?
@@ -26,9 +26,12 @@ extension BillingMethods {
         }
     }
 
-    /// Updates an existing budget for an organization. Supply the budget fields you want to change, including `budget_amount`, `budget_scope`, or `prevent_further_usage`, while preserving scope-specific constraints. The authenticated user must be an organization administrator or billing manager.
+    /// Updates an existing budget for an organization. Supply the budget fields you want to change, including
+    /// `budget_amount`, `budget_scope`, or `prevent_further_usage`, while preserving scope-specific constraints. The
+    /// authenticated user must be an organization administrator or billing manager.
     ///
-    /// Updates an existing budget for an organization. The authenticated user must be an organization admin or billing manager.
+    /// Updates an existing budget for an organization. The authenticated user must be an organization admin or billing
+    /// manager.
     ///
     /// - Parameters:
     /// - org: The organization name. The name is not case sensitive.
@@ -58,9 +61,24 @@ extension BillingMethods {
     ///   dates in the future are accepted. If not set, the budget will not expire.
     ///   Setting to `null` or `0` will remove the expiration date from a budget if
     ///   set. Only supported for budgets with `budget_scope` of `user`
-    public static func billingUpdateBudgetOrg(config: ClientConfig, options: BillingUpdateBudgetOrgOptions) async throws -> UpdateBudget {
+    static func billingUpdateBudgetOrg(
+        config: ClientConfig,
+        options: BillingUpdateBudgetOrgOptions
+    ) async throws -> UpdateBudget {
         let requestBody = BillingUpdateBudgetOrgRequestBody(options: options)
 
-        return try (await sdkRequest("PATCH", ["/organizations/", sdkEncodePathSegment(sdkWireString(options.org)), "/settings/billing/budgets/", sdkEncodePathSegment(sdkWireString(options.budgetId))].joined(), config: config, body: requestBody, decoder: .json, operationId: "billingUpdateBudgetOrg")).data
+        return try await (sdkRequest(
+            "PATCH",
+            [
+                "/organizations/",
+                sdkEncodePathSegment(sdkWireString(options.org)),
+                "/settings/billing/budgets/",
+                sdkEncodePathSegment(sdkWireString(options.budgetId)),
+            ].joined(),
+            config: config,
+            body: requestBody,
+            decoder: .json,
+            operationId: "billingUpdateBudgetOrg"
+        )).data
     }
 }
